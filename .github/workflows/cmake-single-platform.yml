@@ -26,6 +26,9 @@ jobs:
 
     - name: Set Flags
       run: export USE_CUDA=0
+
+    - name: Install Protobuf
+      run: sudo apt install protobuf-compiler
       
     - name: Install Python dependencies
       uses: py-actions/py-dependency-install@v4
