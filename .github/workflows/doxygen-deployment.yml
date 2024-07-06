@@ -1,5 +1,8 @@
 name: Doxygen GitHub Pages Deploy Action
 
+permissions:
+  contents: write
+  
 on:
   push:
     branches:
@@ -13,5 +16,5 @@ jobs:
       - uses: DenverCoder1/doxygen-github-pages-action@v1.3.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          folder: docs/html
-          config_file: docs/doxygen.config
+          folder: doc/html
+          config_file: doc/doxygen.config
