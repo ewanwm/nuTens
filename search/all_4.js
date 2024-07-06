@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nutens_5',['nuTens',['../index.html',1,'']]]
+  ['imag_5',['imag',['../classTensor.html#a2b0e1fa60ec56c24b352be6406664045',1,'Tensor']]]
 ];

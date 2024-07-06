@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['device_0',['device',['../classTensor.html#a54b317bee953ffa8463122635afcd369',1,'Tensor']]]
+  ['backward_0',['backward',['../classTensor.html#aa2e961897f7a4e1fc82b9149e86aeec2',1,'Tensor']]]
 ];

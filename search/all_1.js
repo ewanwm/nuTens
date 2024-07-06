@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gettensorlibrary_1',['getTensorLibrary',['../classTensor.html#a4769ffbca778565253f564b1a8970dfd',1,'Tensor']]]
+  ['cumsum_1',['cumsum',['../classTensor.html#a6166f6d8b00db004ffd1d5944571d10d',1,'Tensor']]]
 ];
