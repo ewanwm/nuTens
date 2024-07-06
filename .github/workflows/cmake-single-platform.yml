@@ -23,9 +23,11 @@ jobs:
     steps:
     # this Action should follow steps to set up Python build environment
     - uses: actions/checkout@v4
-    
-    - name: Install Python dependencies
+
+    - name: Set Flags
       run: export USE_CUDA=0
+      
+    - name: Install Python dependencies
       uses: py-actions/py-dependency-install@v4
       with:
         path: "PyTorch_requirements.txt"
