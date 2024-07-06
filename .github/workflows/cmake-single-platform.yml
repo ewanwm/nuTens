@@ -24,8 +24,8 @@ jobs:
     # this Action should follow steps to set up Python build environment
     - name: Install Python dependencies
       uses: py-actions/py-dependency-install@v4
-      with:
-        path: "PyTorch_requirements.txt"
+      #with:
+      #  path: "PyTorch_requirements.txt"
         
     - uses: actions/checkout@v4
 
