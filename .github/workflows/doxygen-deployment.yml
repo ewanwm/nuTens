@@ -20,3 +20,4 @@ jobs:
           config_file: doc/doxygen.config
 
       - run: ls
+      - run: ls doc/html
