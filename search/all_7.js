@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['tensor_11',['Tensor',['../classTensor.html',1,'']]],
-  ['tensors_12',['Tensors',['../index.html',1,'']]],
-  ['tostring_13',['toString',['../classTensor.html#ad2c052b4150fd71d91a2185873f75bb6',1,'Tensor']]]
+  ['scale_9',['scale',['../classTensor.html#a86184f9af507fb55285034dbe0eee07f',1,'Tensor::scale(float s, const Tensor &amp;t)'],['../classTensor.html#ab5e70b4d6ab98a345747d7354c926864',1,'Tensor::scale(std::complex&lt; float &gt; s, const Tensor &amp;t)']]],
+  ['scale_5f_10',['scale_',['../classTensor.html#a263f536bf8f4782837b602352ceb3cf6',1,'Tensor::scale_(float s)'],['../classTensor.html#a0e5339a30f70f6951abfcf26fd462ce1',1,'Tensor::scale_(std::complex&lt; float &gt; s)']]],
+  ['setvalue_11',['setValue',['../classTensor.html#a1fe34f8072b6b29ab72777f45010ae97',1,'Tensor']]]
 ];

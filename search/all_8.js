@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['zeros_14',['zeros',['../classTensor.html#a6007e789c8e4f519867fbbfa91ba8b14',1,'Tensor::zeros(int length, NTdtypes::scalarType type, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)'],['../classTensor.html#aa9b084ce7c42cd5ef8bb34d6b54ed917',1,'Tensor::zeros(const std::vector&lt; long int &gt; &amp;shape, NTdtypes::scalarType type, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)']]]
+  ['tensor_12',['Tensor',['../classTensor.html',1,'']]],
+  ['tensors_13',['Tensors',['../md_nuTens_tensors_README.html',1,'']]],
+  ['tostring_14',['toString',['../classTensor.html#ad2c052b4150fd71d91a2185873f75bb6',1,'Tensor']]]
 ];
