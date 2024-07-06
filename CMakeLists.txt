@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
 project(nuTens)
+enable_testing()
 
 find_package(Torch REQUIRED)
 find_package(Protobuf REQUIRED)
