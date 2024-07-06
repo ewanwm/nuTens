@@ -37,7 +37,7 @@ int main(){
     std::cout << "########################################" << std::endl;
     std::cout << "Complex float: " << std::endl;
     Tensor tensorComplex;
-    tensorComplex.zeros({3, 3}, NTdtypes::kComplexFloat);
+    tensorComplex.zeros({3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
     tensorComplex.setValue({0,0}, std::complex<float>(0.0j));
     tensorComplex.setValue({0,1}, std::complex<float>(1.0j));
     tensorComplex.setValue({0,2}, std::complex<float>(2.0j));
@@ -81,4 +81,46 @@ int main(){
         return 1;
     }
 
+    // ######### test some of the basic autograd functionality ###########
+    
+    // first just a simple test of scaling by a constant factor
+    Tensor ones_scaleTest;
+    ones_scaleTest.ones({2,2}, NTdtypes::kFloat).requiresGrad(true);
+    Tensor threes = Tensor::scale(3.0, ones_scaleTest).sum();
+    threes.backward();
+    Tensor grad = ones_scaleTest.grad();
+    std::cout << "Gradient of 2x2 ones multiplied by 3: " << std::endl;
+    std::cout << grad << std::endl << std::endl;
+
+    if(
+           (grad.getValue<float>({0,0}) != 3.0) 
+        || (grad.getValue<float>({0,1}) != 3.0) 
+        || (grad.getValue<float>({1,0}) != 3.0) 
+        || (grad.getValue<float>({1,1}) != 3.0) 
+    )
+    {
+        std::cerr << std::endl;
+        std::cerr << "ERROR: unexpected gradient when scaling by constant!!!!" << std::endl;
+        std::cerr << std::endl;
+        return 1;
+    }
+
+
+    Tensor complexGradTest;
+    complexGradTest.zeros({2, 2}, NTdtypes::kComplexFloat);
+    complexGradTest.setValue({0,0}, std::complex<float>(0.0 + 0.0j));
+    complexGradTest.setValue({0,1}, std::complex<float>(0.0 + 1.0j));
+    complexGradTest.setValue({1,0}, std::complex<float>(1.0 + 0.0j));
+    complexGradTest.setValue({1,1}, std::complex<float>(1.0 + 1.0j));
+    complexGradTest.requiresGrad(true);
+
+    Tensor complexGradSquared = Tensor::matmul(complexGradTest, complexGradTest).sum();
+    std::cout << "sum(complexTest **2): " << std::endl;
+    std::cout << complexGradSquared.real().getValue<float>() << " + " << complexGradSquared.imag().getValue<float>() << "i" << std::endl;
+    complexGradSquared.backward();
+    std::cout << "complex test gradient: " << std::endl;
+    std::cout << "  Real: " << std::endl;
+    std::cout << complexGradTest.grad().real() << std::endl;
+    std::cout << "  Imag: " << std::endl;
+    std::cout << complexGradTest.grad().imag() << std::endl << std::endl;
 }
