@@ -39,11 +39,11 @@ class Tensor{
         /// @brief Initialise this tensor with ones
         /// @arg length The length of the intitalised tensor
         /// @arg type The data type of the initialised tensor
-        Tensor& ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+        Tensor &ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
         /// @brief Initialise this tensor with ones
         /// @arg shape The desired shape of the intitalised tensor
         /// @arg type The data type of the initialised tensor
-        Tensor& ones(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+        Tensor &ones(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
 
         /// @brief Initialise this tensor with zeros
         /// @arg length The length of the intitalised tensor
@@ -59,9 +59,11 @@ class Tensor{
         /// @name Setters
         /// @{
         /// @brief Set the underlying data type of this tensor
-        Tensor& dType(NTdtypes::scalarType type);
+        Tensor &dType(NTdtypes::scalarType type);
         /// @brief Set the device that this tensor lives on
-        Tensor& device(NTdtypes::deviceType device);
+        Tensor &device(NTdtypes::deviceType device);
+        /// @brief Set whether the tensor requires a gradient
+        Tensor &requiresGrad(bool reqGrad);
         /// @}
 
         /// @name Matrix Arithmetic
@@ -111,8 +113,28 @@ class Tensor{
         /// @brief Get the imaginary part of a complex tensor
         Tensor imag() const;
         
+        /// @brief Get the result of summing this tensor over some dimension
+        /// @param dim The dimension to sum over
+        Tensor cumsum(int dim) const; 
+        
+        /// @brief Get the result of summing this tensor over all dimensions
+        Tensor sum() const;
+
+        /// @name Gradients
+        /// @{
+            
+        /// @brief Compute gradients of this tensor with respect to leaves
+        /// Those can then be accessed using gradient()
+        void backward() const;
+
+        /// @brief Return a tensor containing the accumulated gradients calculated for this tensor after calling backward()
+        Tensor grad() const;
+
+        /// @}
+
+
         /// @brief Overwrite the << operator to print this tensor out to the command line
-        friend std::ostream &operator<< (std::ostream& stream, const Tensor& tensor) {
+        friend std::ostream &operator<< (std::ostream &stream, const Tensor &tensor) {
             return stream << tensor.toString();
         };
 
@@ -141,6 +163,11 @@ class Tensor{
             }
 
             return _tensor.index(indicesVec).item<T>();
+        }
+
+        template <typename T>
+        inline T getValue(){
+            return _tensor.item<T>();
         }
 #endif
         

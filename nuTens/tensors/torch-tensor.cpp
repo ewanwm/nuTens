@@ -55,13 +55,18 @@ Tensor &Tensor::zeros(const std::vector<long int> &shape, NTdtypes::scalarType t
 
 
 
-Tensor& Tensor::dType(NTdtypes::scalarType type){
+Tensor &Tensor::dType(NTdtypes::scalarType type){
     _tensor = _tensor.to(scalarTypeMap[type]);
     return *this;
 }
 
-Tensor& Tensor::device(NTdtypes::deviceType device){
+Tensor &Tensor::device(NTdtypes::deviceType device){
     _tensor = _tensor.to(deviceTypeMap[device]);
+    return *this;
+}
+
+Tensor &Tensor::requiresGrad(bool reqGrad){
+    _tensor = _tensor.set_requires_grad(reqGrad);
     return *this;
 }
 
@@ -103,8 +108,28 @@ Tensor Tensor::matmul(const Tensor &t1, const Tensor &t2){
     return ret;
 }
 
+Tensor Tensor::scale(float s, const Tensor &t){
+    Tensor ret;
+    ret._tensor = torch::multiply(t._tensor, s);
+    return ret;
+}
+
+Tensor Tensor::scale(std::complex<float> s, const Tensor &t){
+    Tensor ret;
+    ret._tensor = torch::multiply(t._tensor, c10::complex<float>(s.real(), s.imag()));
+    return ret;
+}
+
 void Tensor::matmul_(const Tensor &t2){
     _tensor = torch::matmul(_tensor, t2._tensor);
+}
+
+void scale_(float s){
+
+}
+
+void scale_(std::complex<float> s){
+
 }
 
 Tensor Tensor::real()const {
@@ -142,6 +167,29 @@ Tensor Tensor::operator- (const Tensor &rhs) const {
 Tensor Tensor::operator- () const {
     Tensor ret;
     ret._tensor = -_tensor;
+    return ret;
+}
+
+
+Tensor Tensor::cumsum(int dim) const {
+    Tensor ret;
+    ret._tensor = _tensor.cumsum(dim);
+    return ret;
+}
+
+Tensor Tensor::sum() const {
+    Tensor ret;
+    ret._tensor = _tensor.sum();
+    return ret;
+}
+
+void Tensor::backward() const {
+    _tensor.backward();
+}
+
+Tensor Tensor::grad() const {
+    Tensor ret;
+    ret._tensor = _tensor.grad();
     return ret;
 }
 
