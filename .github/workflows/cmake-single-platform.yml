@@ -24,7 +24,7 @@ jobs:
     - name: Install Python dependencies
       uses: py-actions/py-dependency-install@v4
       with:
-        path: "PyTorch_requirements.txt"
+        path: "/PyTorch_requirements.txt"
         
     - uses: actions/checkout@v4
 
