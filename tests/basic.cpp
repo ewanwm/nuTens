@@ -27,6 +27,7 @@ int main(){
     tensorFloat.setValue({2,2}, 8.0);
     std::cout << "real: " << std::endl << tensorFloat.real() << std::endl;
     std::cout << "Middle value: " << tensorFloat.getValue<float>({1,1}) << std::endl;
+    std::cout << "tensorFloat({'...', 1}) = " << tensorFloat.getValue({1, "..."}) << std::endl;
     
     Tensor realSquared = Tensor::matmul(tensorFloat, tensorFloat);
     std::cout << "Squared: " << std::endl;
@@ -52,6 +53,17 @@ int main(){
 
     std::cout << "real: " << std::endl << tensorComplex.real() << std::endl;
     std::cout << "imag: " << std::endl << tensorComplex.imag() << std::endl << std::endl;
+
+    std::cout << "Complex conjugate: " << std::endl;
+    std::cout << "real: " << std::endl << tensorComplex.conj().real() << std::endl;
+    std::cout << "imag: " << std::endl << tensorComplex.conj().imag() << std::endl << std::endl;
+
+    if( tensorComplex.imag() != -tensorComplex.conj().imag()){
+        std::cerr << std::endl;
+        std::cerr << "ERROR: Im(complex.conj()) != - Im(complex) " << std::endl;
+        std::cerr << std::endl;
+        return 1;
+    }
     
     Tensor imagSquared = Tensor::matmul(tensorComplex, tensorComplex);
     std::cout << "Squared: " << std::endl;
@@ -86,7 +98,7 @@ int main(){
     // first just a simple test of scaling by a constant factor
     Tensor ones_scaleTest;
     ones_scaleTest.ones({2,2}, NTdtypes::kFloat).requiresGrad(true);
-    Tensor threes = Tensor::scale(3.0, ones_scaleTest).sum();
+    Tensor threes = Tensor::scale(ones_scaleTest, 3.0).sum();
     threes.backward();
     Tensor grad = ones_scaleTest.grad();
     std::cout << "Gradient of 2x2 ones multiplied by 3: " << std::endl;
