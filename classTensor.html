@@ -88,6 +88,14 @@ Public Member Functions</h2></td></tr>
 <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#aa3af94c5c579e2327a42794b3f07675a">conj</a> () const</td></tr>
 <tr class="memdesc:aa3af94c5c579e2327a42794b3f07675a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the complex conjugate of this tensor. If the underlying tensor is not complex, this will just return the tensor. <br /></td></tr>
 <tr class="separator:aa3af94c5c579e2327a42794b3f07675a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae035d65f223bf87e1a2edc374ff6ffaa"><td class="memItemLeft" align="right" valign="top"><a id="ae035d65f223bf87e1a2edc374ff6ffaa"></a>
+<a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ae035d65f223bf87e1a2edc374ff6ffaa">abs</a> () const</td></tr>
+<tr class="memdesc:ae035d65f223bf87e1a2edc374ff6ffaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get elementwise absolute magnitude of a complex tensor. <br /></td></tr>
+<tr class="separator:ae035d65f223bf87e1a2edc374ff6ffaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1cd13610d9c692f8730b8ccd21a56d8"><td class="memItemLeft" align="right" valign="top"><a id="aa1cd13610d9c692f8730b8ccd21a56d8"></a>
+<a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#aa1cd13610d9c692f8730b8ccd21a56d8">angle</a> () const</td></tr>
+<tr class="memdesc:aa1cd13610d9c692f8730b8ccd21a56d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get elementwise phases of a complex tensor. <br /></td></tr>
+<tr class="separator:aa1cd13610d9c692f8730b8ccd21a56d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6166f6d8b00db004ffd1d5944571d10d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a6166f6d8b00db004ffd1d5944571d10d">cumsum</a> (int dim) const</td></tr>
 <tr class="memdesc:a6166f6d8b00db004ffd1d5944571d10d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the result of summing this tensor over some dimension.  <a href="classTensor.html#a6166f6d8b00db004ffd1d5944571d10d">More...</a><br /></td></tr>
 <tr class="separator:a6166f6d8b00db004ffd1d5944571d10d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -198,6 +206,9 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
 <tr class="memitem:ac31c9898d2351baf397d0037b12d61d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ac31c9898d2351baf397d0037b12d61d5">mul_</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t2)</td></tr>
 <tr class="memdesc:ac31c9898d2351baf397d0037b12d61d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">inline element-wise multiplication  <a href="classTensor.html#ac31c9898d2351baf397d0037b12d61d5">More...</a><br /></td></tr>
 <tr class="separator:ac31c9898d2351baf397d0037b12d61d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae469bc2f2418929f7af7fba6afed2566"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ae469bc2f2418929f7af7fba6afed2566">div_</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t2)</td></tr>
+<tr class="memdesc:ae469bc2f2418929f7af7fba6afed2566"><td class="mdescLeft">&#160;</td><td class="mdescRight">inline element-wise division  <a href="classTensor.html#ae469bc2f2418929f7af7fba6afed2566">More...</a><br /></td></tr>
+<tr class="separator:ae469bc2f2418929f7af7fba6afed2566"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a263f536bf8f4782837b602352ceb3cf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a263f536bf8f4782837b602352ceb3cf6">scale_</a> (float s)</td></tr>
 <tr class="memdesc:a263f536bf8f4782837b602352ceb3cf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inline matrix scaling.  <a href="classTensor.html#a263f536bf8f4782837b602352ceb3cf6">More...</a><br /></td></tr>
 <tr class="separator:a263f536bf8f4782837b602352ceb3cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -210,18 +221,34 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
 <tr class="memitem:ad78162c18d67f3a38fea1b8354ad1e73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ad78162c18d67f3a38fea1b8354ad1e73">pow_</a> (std::complex&lt; float &gt; s)</td></tr>
 <tr class="memdesc:ad78162c18d67f3a38fea1b8354ad1e73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inline raise to scalar power.  <a href="classTensor.html#ad78162c18d67f3a38fea1b8354ad1e73">More...</a><br /></td></tr>
 <tr class="separator:ad78162c18d67f3a38fea1b8354ad1e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabeab5c61ad96e1f34eb29f1e9250af2"><td class="memItemLeft" align="right" valign="top"><a id="aabeab5c61ad96e1f34eb29f1e9250af2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#aabeab5c61ad96e1f34eb29f1e9250af2">exp_</a> ()</td></tr>
+<tr class="memdesc:aabeab5c61ad96e1f34eb29f1e9250af2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inline element-wise exponential. <br /></td></tr>
+<tr class="separator:aabeab5c61ad96e1f34eb29f1e9250af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a655d0f86ced47ad4fb86f7f00b00b4a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a655d0f86ced47ad4fb86f7f00b00b4a7">transpose_</a> (int dim1, int dim2)</td></tr>
+<tr class="memdesc:a655d0f86ced47ad4fb86f7f00b00b4a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inline transpose.  <a href="classTensor.html#a655d0f86ced47ad4fb86f7f00b00b4a7">More...</a><br /></td></tr>
+<tr class="separator:a655d0f86ced47ad4fb86f7f00b00b4a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01c2c358ff81e82a1e02ea64a5439d3f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a01c2c358ff81e82a1e02ea64a5439d3f">matmul</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t1, const <a class="el" href="classTensor.html">Tensor</a> &amp;t2)</td></tr>
 <tr class="memdesc:a01c2c358ff81e82a1e02ea64a5439d3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two matrices together.  <a href="classTensor.html#a01c2c358ff81e82a1e02ea64a5439d3f">More...</a><br /></td></tr>
 <tr class="separator:a01c2c358ff81e82a1e02ea64a5439d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ab168a11abbfe55e06d337f633e6d8a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a5ab168a11abbfe55e06d337f633e6d8a">mul</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t1, const <a class="el" href="classTensor.html">Tensor</a> &amp;t2)</td></tr>
 <tr class="memdesc:a5ab168a11abbfe55e06d337f633e6d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element-wise multiplication of two tensors.  <a href="classTensor.html#a5ab168a11abbfe55e06d337f633e6d8a">More...</a><br /></td></tr>
 <tr class="separator:a5ab168a11abbfe55e06d337f633e6d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d26352659ff0e6cb548f14d6f1b65fe"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a5d26352659ff0e6cb548f14d6f1b65fe">div</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t1, const <a class="el" href="classTensor.html">Tensor</a> &amp;t2)</td></tr>
+<tr class="memdesc:a5d26352659ff0e6cb548f14d6f1b65fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element-wise division of two tensors.  <a href="classTensor.html#a5d26352659ff0e6cb548f14d6f1b65fe">More...</a><br /></td></tr>
+<tr class="separator:a5d26352659ff0e6cb548f14d6f1b65fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab03252adfc59f62acfc2e58bf7d0dbef"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ab03252adfc59f62acfc2e58bf7d0dbef">pow</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, float s)</td></tr>
 <tr class="memdesc:ab03252adfc59f62acfc2e58bf7d0dbef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raise a matrix to a scalar power.  <a href="classTensor.html#ab03252adfc59f62acfc2e58bf7d0dbef">More...</a><br /></td></tr>
 <tr class="separator:ab03252adfc59f62acfc2e58bf7d0dbef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae406770e6de832b836b23f56595162c0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ae406770e6de832b836b23f56595162c0">pow</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, std::complex&lt; float &gt; s)</td></tr>
 <tr class="memdesc:ae406770e6de832b836b23f56595162c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raise a matrix to a scalar power.  <a href="classTensor.html#ae406770e6de832b836b23f56595162c0">More...</a><br /></td></tr>
 <tr class="separator:ae406770e6de832b836b23f56595162c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a096b0bd4983de42c9ce9805f2241d8ce"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a096b0bd4983de42c9ce9805f2241d8ce">exp</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t)</td></tr>
+<tr class="memdesc:a096b0bd4983de42c9ce9805f2241d8ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element-wise exponential.  <a href="classTensor.html#a096b0bd4983de42c9ce9805f2241d8ce">More...</a><br /></td></tr>
+<tr class="separator:a096b0bd4983de42c9ce9805f2241d8ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed7229b22ec2cf4c064cf152b3f75707"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#aed7229b22ec2cf4c064cf152b3f75707">transpose</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, int dim1, int dim2)</td></tr>
+<tr class="memdesc:aed7229b22ec2cf4c064cf152b3f75707"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the transpose of a tensor.  <a href="classTensor.html#aed7229b22ec2cf4c064cf152b3f75707">More...</a><br /></td></tr>
+<tr class="separator:aed7229b22ec2cf4c064cf152b3f75707"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a561d6274cb58972ebd98eb0d7a1de1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a0a561d6274cb58972ebd98eb0d7a1de1">scale</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, float s)</td></tr>
 <tr class="memdesc:a0a561d6274cb58972ebd98eb0d7a1de1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale a matrix by some scalar.  <a href="classTensor.html#a0a561d6274cb58972ebd98eb0d7a1de1">More...</a><br /></td></tr>
 <tr class="separator:a0a561d6274cb58972ebd98eb0d7a1de1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -263,6 +290,102 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a5d26352659ff0e6cb548f14d6f1b65fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d26352659ff0e6cb548f14d6f1b65fe">&#9670;&nbsp;</a></span>div()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::div </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Element-wise division of two tensors. </p>
+<ul>
+<li>t1 Numerator </li>
+<li>t2 Denominator </li>
+</ul>
+
+</div>
+</div>
+<a id="ae469bc2f2418929f7af7fba6afed2566"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae469bc2f2418929f7af7fba6afed2566">&#9670;&nbsp;</a></span>div_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Tensor::div_ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t2</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>inline element-wise division </p>
+<ul>
+<li>t2 Denominator </li>
+</ul>
+
+</div>
+</div>
+<a id="a096b0bd4983de42c9ce9805f2241d8ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a096b0bd4983de42c9ce9805f2241d8ce">&#9670;&nbsp;</a></span>exp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::exp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Element-wise exponential. </p>
+<ul>
+<li>t The tensor </li>
+</ul>
 
 </div>
 </div>
@@ -778,6 +901,89 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
 <ul>
 <li>indices The indices of the value to set </li>
 <li>value The value to set it to </li>
+</ul>
+
+</div>
+</div>
+<a id="aed7229b22ec2cf4c064cf152b3f75707"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed7229b22ec2cf4c064cf152b3f75707">&#9670;&nbsp;</a></span>transpose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::transpose </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dim1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dim2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the transpose of a tensor. </p>
+<ul>
+<li>t The tensor </li>
+<li>dim1 The first dimension to swap </li>
+<li>dim2 The second dimension to swap </li>
+</ul>
+
+</div>
+</div>
+<a id="a655d0f86ced47ad4fb86f7f00b00b4a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a655d0f86ced47ad4fb86f7f00b00b4a7">&#9670;&nbsp;</a></span>transpose_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Tensor::transpose_ </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dim1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dim2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inline transpose. </p>
+<ul>
+<li>dim1 The first dimension to swap </li>
+<li>dim2 The second dimension to swap </li>
 </ul>
 
 </div>

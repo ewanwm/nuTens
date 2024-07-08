@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['scale_19',['scale',['../classTensor.html#a0a561d6274cb58972ebd98eb0d7a1de1',1,'Tensor::scale(const Tensor &amp;t, float s)'],['../classTensor.html#a305b24bb99a2148fadeb9841cf18e8a2',1,'Tensor::scale(const Tensor &amp;t, std::complex&lt; float &gt; s)']]],
-  ['scale_5f_20',['scale_',['../classTensor.html#a263f536bf8f4782837b602352ceb3cf6',1,'Tensor::scale_(float s)'],['../classTensor.html#a0e5339a30f70f6951abfcf26fd462ce1',1,'Tensor::scale_(std::complex&lt; float &gt; s)']]],
-  ['setvalue_21',['setValue',['../classTensor.html#a1fe34f8072b6b29ab72777f45010ae97',1,'Tensor']]],
-  ['sum_22',['sum',['../classTensor.html#a369f0f04a516d32b5e2bb246487282f5',1,'Tensor']]]
+  ['pow_21',['pow',['../classTensor.html#ab03252adfc59f62acfc2e58bf7d0dbef',1,'Tensor::pow(const Tensor &amp;t, float s)'],['../classTensor.html#ae406770e6de832b836b23f56595162c0',1,'Tensor::pow(const Tensor &amp;t, std::complex&lt; float &gt; s)']]],
+  ['pow_5f_22',['pow_',['../classTensor.html#ab5a7ad5dafa8dfaee1a6480a730445a7',1,'Tensor::pow_(float s)'],['../classTensor.html#ad78162c18d67f3a38fea1b8354ad1e73',1,'Tensor::pow_(std::complex&lt; float &gt; s)']]]
 ];

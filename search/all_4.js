@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['imag_7',['imag',['../classTensor.html#a2b0e1fa60ec56c24b352be6406664045',1,'Tensor']]]
+  ['exp_8',['exp',['../classTensor.html#a096b0bd4983de42c9ce9805f2241d8ce',1,'Tensor']]],
+  ['exp_5f_9',['exp_',['../classTensor.html#aabeab5c61ad96e1f34eb29f1e9250af2',1,'Tensor']]]
 ];

@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['ones_13',['ones',['../classTensor.html#a6df303cfa5b246020b4cf0922e447b9c',1,'Tensor::ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)'],['../classTensor.html#a7422f6e7a5fa8a92d8b79a2b32199042',1,'Tensor::ones(const std::vector&lt; long int &gt; &amp;shape, NTdtypes::scalarType type, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)']]],
-  ['operator_3c_3c_14',['operator&lt;&lt;',['../classTensor.html#aba45fcc2e40fca2d710dae0f542fe625',1,'Tensor']]]
+  ['matmul_14',['matmul',['../classTensor.html#a01c2c358ff81e82a1e02ea64a5439d3f',1,'Tensor']]],
+  ['matmul_5f_15',['matmul_',['../classTensor.html#a6cea5a358e4c302e02849b096af51fbc',1,'Tensor']]],
+  ['mul_16',['mul',['../classTensor.html#a5ab168a11abbfe55e06d337f633e6d8a',1,'Tensor']]],
+  ['mul_5f_17',['mul_',['../classTensor.html#ac31c9898d2351baf397d0037b12d61d5',1,'Tensor']]]
 ];

@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['matmul_36',['matmul',['../classTensor.html#a01c2c358ff81e82a1e02ea64a5439d3f',1,'Tensor']]],
-  ['matmul_5f_37',['matmul_',['../classTensor.html#a6cea5a358e4c302e02849b096af51fbc',1,'Tensor']]],
-  ['mul_38',['mul',['../classTensor.html#a5ab168a11abbfe55e06d337f633e6d8a',1,'Tensor']]],
-  ['mul_5f_39',['mul_',['../classTensor.html#ac31c9898d2351baf397d0037b12d61d5',1,'Tensor']]]
+  ['gettensorlibrary_48',['getTensorLibrary',['../classTensor.html#a4769ffbca778565253f564b1a8970dfd',1,'Tensor']]],
+  ['getvalue_49',['getValue',['../classTensor.html#a5c2ecb284750782e1ec5d474dbf50a8b',1,'Tensor']]],
+  ['grad_50',['grad',['../classTensor.html#a895f50b8abeff5f234488397c7db09ab',1,'Tensor']]]
 ];

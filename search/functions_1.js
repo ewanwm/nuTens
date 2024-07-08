@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['conj_29',['conj',['../classTensor.html#aa3af94c5c579e2327a42794b3f07675a',1,'Tensor']]],
-  ['cumsum_30',['cumsum',['../classTensor.html#a6166f6d8b00db004ffd1d5944571d10d',1,'Tensor']]]
+  ['backward_40',['backward',['../classTensor.html#aa2e961897f7a4e1fc82b9149e86aeec2',1,'Tensor']]]
 ];

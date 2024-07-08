@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['backward_0',['backward',['../classTensor.html#aa2e961897f7a4e1fc82b9149e86aeec2',1,'Tensor']]]
+  ['abs_0',['abs',['../classTensor.html#ae035d65f223bf87e1a2edc374ff6ffaa',1,'Tensor']]],
+  ['angle_1',['angle',['../classTensor.html#aa1cd13610d9c692f8730b8ccd21a56d8',1,'Tensor']]]
 ];
