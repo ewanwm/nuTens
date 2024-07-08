@@ -172,6 +172,12 @@ Tensor Tensor::exp(const Tensor &t){
     return ret;
 }
 
+Tensor Tensor::transpose(const Tensor &t, int dim1, int dim2){
+    Tensor ret;
+    ret._tensor = torch::transpose(t._tensor, dim1, dim2);
+    return ret;
+}
+
 Tensor Tensor::scale(const Tensor &t, float s){
     Tensor ret;
     ret._tensor = torch::multiply(t._tensor, s);
@@ -218,6 +224,10 @@ void Tensor::exp_(){
     _tensor = torch::exp(_tensor);
 }
 
+void Tensor::transpose_(int dim1, int dim2){
+    _tensor = torch::transpose(_tensor, dim1, dim2);
+}
+
 Tensor Tensor::real()const {
     Tensor ret;
     ret._tensor = at::real(_tensor);
@@ -236,6 +246,18 @@ Tensor Tensor::conj() const {
     // torch::conj() returns a view of the original tensor
     // I *think* that means that the tensor returned here will be pointing to the same memory as the original one
     // might need to be careful with this  
+    return ret;
+}
+
+Tensor Tensor::abs() const {
+    Tensor ret;
+    ret._tensor = torch::abs(_tensor);
+    return ret;
+}
+
+Tensor Tensor::angle() const {
+    Tensor ret;
+    ret._tensor = torch::angle(_tensor);
     return ret;
 }
 

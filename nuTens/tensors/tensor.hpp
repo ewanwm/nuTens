@@ -101,6 +101,12 @@ class Tensor{
         /// @arg t The tensor
         static Tensor exp(const Tensor &t);
 
+        /// @brief Get the transpose of a tensor
+        /// @arg t The tensor
+        /// @arg dim1 The first dimension to swap
+        /// @arg dim2 The second dimension to swap
+        static Tensor transpose(const Tensor &t, int dim1, int dim2);
+
         /// @brief Scale a matrix by some scalar
         /// @arg s The scalar
         /// @arg t The tensor
@@ -143,6 +149,11 @@ class Tensor{
 
         /// @brief Inline element-wise exponential
         void exp_();
+        
+        /// @brief Inline transpose
+        /// @arg dim1 The first dimension to swap
+        /// @arg dim2 The second dimension to swap
+        void transpose_(int dim1, int dim2);
 
         /// @}
 
@@ -162,6 +173,10 @@ class Tensor{
         Tensor imag() const;
         /// @brief Get the complex conjugate of this tensor. If the underlying tensor is not complex, this will just return the tensor.
         Tensor conj() const;
+        /// @brief Get elementwise absolute magnitude of a complex tensor 
+        Tensor abs() const;
+        /// @brief Get elementwise phases of a complex tensor
+        Tensor angle() const;
         
         /// @brief Get the result of summing this tensor over some dimension
         /// @param dim The dimension to sum over
