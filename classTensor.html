@@ -84,6 +84,10 @@ Public Member Functions</h2></td></tr>
 <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a2b0e1fa60ec56c24b352be6406664045">imag</a> () const</td></tr>
 <tr class="memdesc:a2b0e1fa60ec56c24b352be6406664045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the imaginary part of a complex tensor. <br /></td></tr>
 <tr class="separator:a2b0e1fa60ec56c24b352be6406664045"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3af94c5c579e2327a42794b3f07675a"><td class="memItemLeft" align="right" valign="top"><a id="aa3af94c5c579e2327a42794b3f07675a"></a>
+<a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#aa3af94c5c579e2327a42794b3f07675a">conj</a> () const</td></tr>
+<tr class="memdesc:aa3af94c5c579e2327a42794b3f07675a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the complex conjugate of this tensor. If the underlying tensor is not complex, this will just return the tensor. <br /></td></tr>
+<tr class="separator:aa3af94c5c579e2327a42794b3f07675a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6166f6d8b00db004ffd1d5944571d10d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a6166f6d8b00db004ffd1d5944571d10d">cumsum</a> (int dim) const</td></tr>
 <tr class="memdesc:a6166f6d8b00db004ffd1d5944571d10d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the result of summing this tensor over some dimension.  <a href="classTensor.html#a6166f6d8b00db004ffd1d5944571d10d">More...</a><br /></td></tr>
 <tr class="separator:a6166f6d8b00db004ffd1d5944571d10d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -98,6 +102,9 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memitem:a1fe34f8072b6b29ab72777f45010ae97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a1fe34f8072b6b29ab72777f45010ae97">setValue</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;indices, const <a class="el" href="classTensor.html">Tensor</a> &amp;value)</td></tr>
 <tr class="memdesc:a1fe34f8072b6b29ab72777f45010ae97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value at a particular index of the tensor.  <a href="classTensor.html#a1fe34f8072b6b29ab72777f45010ae97">More...</a><br /></td></tr>
 <tr class="separator:a1fe34f8072b6b29ab72777f45010ae97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a579c6d43a94be57989b6db528b175b14"><td class="memItemLeft" align="right" valign="top"><a id="a579c6d43a94be57989b6db528b175b14"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setValue</b> (const std::vector&lt; std::variant&lt; int, std::string &gt;&gt; &amp;indices, const <a class="el" href="classTensor.html">Tensor</a> &amp;value)</td></tr>
+<tr class="separator:a579c6d43a94be57989b6db528b175b14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d09969c75b6159f619d90ca17c57bd6"><td class="memItemLeft" align="right" valign="top"><a id="a4d09969c75b6159f619d90ca17c57bd6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setValue</b> (const std::vector&lt; int &gt; &amp;indices, const <a class="el" href="classTensor.html">Tensor</a> &amp;value)</td></tr>
 <tr class="separator:a4d09969c75b6159f619d90ca17c57bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -107,6 +114,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setValue</b> (const s
 <tr class="memitem:ac52ac83beb78bb1bf450b6d8f5a80447"><td class="memItemLeft" align="right" valign="top"><a id="ac52ac83beb78bb1bf450b6d8f5a80447"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setValue</b> (const std::vector&lt; int &gt; &amp;indices, std::complex&lt; float &gt; value)</td></tr>
 <tr class="separator:ac52ac83beb78bb1bf450b6d8f5a80447"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c2ecb284750782e1ec5d474dbf50a8b"><td class="memItemLeft" align="right" valign="top"><a id="a5c2ecb284750782e1ec5d474dbf50a8b"></a>
+<a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a5c2ecb284750782e1ec5d474dbf50a8b">getValue</a> (const std::vector&lt; std::variant&lt; int, std::string &gt;&gt; &amp;indices)</td></tr>
+<tr class="memdesc:a5c2ecb284750782e1ec5d474dbf50a8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the <br /></td></tr>
+<tr class="separator:a5c2ecb284750782e1ec5d474dbf50a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Initialisers</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Use these methods to initialise the tensor </p>
 </div></td></tr>
@@ -184,28 +195,46 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
 <tr class="memitem:a6cea5a358e4c302e02849b096af51fbc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a6cea5a358e4c302e02849b096af51fbc">matmul_</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t2)</td></tr>
 <tr class="memdesc:a6cea5a358e4c302e02849b096af51fbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inline matrix multiplication.  <a href="classTensor.html#a6cea5a358e4c302e02849b096af51fbc">More...</a><br /></td></tr>
 <tr class="separator:a6cea5a358e4c302e02849b096af51fbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac31c9898d2351baf397d0037b12d61d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ac31c9898d2351baf397d0037b12d61d5">mul_</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t2)</td></tr>
+<tr class="memdesc:ac31c9898d2351baf397d0037b12d61d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">inline element-wise multiplication  <a href="classTensor.html#ac31c9898d2351baf397d0037b12d61d5">More...</a><br /></td></tr>
+<tr class="separator:ac31c9898d2351baf397d0037b12d61d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a263f536bf8f4782837b602352ceb3cf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a263f536bf8f4782837b602352ceb3cf6">scale_</a> (float s)</td></tr>
 <tr class="memdesc:a263f536bf8f4782837b602352ceb3cf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inline matrix scaling.  <a href="classTensor.html#a263f536bf8f4782837b602352ceb3cf6">More...</a><br /></td></tr>
 <tr class="separator:a263f536bf8f4782837b602352ceb3cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e5339a30f70f6951abfcf26fd462ce1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a0e5339a30f70f6951abfcf26fd462ce1">scale_</a> (std::complex&lt; float &gt; s)</td></tr>
 <tr class="memdesc:a0e5339a30f70f6951abfcf26fd462ce1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inline complex matrix scaling.  <a href="classTensor.html#a0e5339a30f70f6951abfcf26fd462ce1">More...</a><br /></td></tr>
 <tr class="separator:a0e5339a30f70f6951abfcf26fd462ce1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5a7ad5dafa8dfaee1a6480a730445a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ab5a7ad5dafa8dfaee1a6480a730445a7">pow_</a> (float s)</td></tr>
+<tr class="memdesc:ab5a7ad5dafa8dfaee1a6480a730445a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inline raise to scalar power.  <a href="classTensor.html#ab5a7ad5dafa8dfaee1a6480a730445a7">More...</a><br /></td></tr>
+<tr class="separator:ab5a7ad5dafa8dfaee1a6480a730445a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad78162c18d67f3a38fea1b8354ad1e73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ad78162c18d67f3a38fea1b8354ad1e73">pow_</a> (std::complex&lt; float &gt; s)</td></tr>
+<tr class="memdesc:ad78162c18d67f3a38fea1b8354ad1e73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inline raise to scalar power.  <a href="classTensor.html#ad78162c18d67f3a38fea1b8354ad1e73">More...</a><br /></td></tr>
+<tr class="separator:ad78162c18d67f3a38fea1b8354ad1e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01c2c358ff81e82a1e02ea64a5439d3f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a01c2c358ff81e82a1e02ea64a5439d3f">matmul</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t1, const <a class="el" href="classTensor.html">Tensor</a> &amp;t2)</td></tr>
 <tr class="memdesc:a01c2c358ff81e82a1e02ea64a5439d3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two matrices together.  <a href="classTensor.html#a01c2c358ff81e82a1e02ea64a5439d3f">More...</a><br /></td></tr>
 <tr class="separator:a01c2c358ff81e82a1e02ea64a5439d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7ed98a023e3b3d3cb1a6ed741c0ca96"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#af7ed98a023e3b3d3cb1a6ed741c0ca96">scale</a> (float s, const <a class="el" href="classTensor.html">Tensor</a> &amp;t)</td></tr>
-<tr class="memdesc:af7ed98a023e3b3d3cb1a6ed741c0ca96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale a matrix by some scalar.  <a href="classTensor.html#af7ed98a023e3b3d3cb1a6ed741c0ca96">More...</a><br /></td></tr>
-<tr class="separator:af7ed98a023e3b3d3cb1a6ed741c0ca96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2701fdcfa1100a231ebcfe6fb7130984"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a2701fdcfa1100a231ebcfe6fb7130984">scale</a> (std::complex&lt; float &gt; s, const <a class="el" href="classTensor.html">Tensor</a> &amp;t)</td></tr>
-<tr class="memdesc:a2701fdcfa1100a231ebcfe6fb7130984"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale a matrix by some complex scalar.  <a href="classTensor.html#a2701fdcfa1100a231ebcfe6fb7130984">More...</a><br /></td></tr>
-<tr class="separator:a2701fdcfa1100a231ebcfe6fb7130984"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ab168a11abbfe55e06d337f633e6d8a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a5ab168a11abbfe55e06d337f633e6d8a">mul</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t1, const <a class="el" href="classTensor.html">Tensor</a> &amp;t2)</td></tr>
+<tr class="memdesc:a5ab168a11abbfe55e06d337f633e6d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element-wise multiplication of two tensors.  <a href="classTensor.html#a5ab168a11abbfe55e06d337f633e6d8a">More...</a><br /></td></tr>
+<tr class="separator:a5ab168a11abbfe55e06d337f633e6d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab03252adfc59f62acfc2e58bf7d0dbef"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ab03252adfc59f62acfc2e58bf7d0dbef">pow</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, float s)</td></tr>
+<tr class="memdesc:ab03252adfc59f62acfc2e58bf7d0dbef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raise a matrix to a scalar power.  <a href="classTensor.html#ab03252adfc59f62acfc2e58bf7d0dbef">More...</a><br /></td></tr>
+<tr class="separator:ab03252adfc59f62acfc2e58bf7d0dbef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae406770e6de832b836b23f56595162c0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ae406770e6de832b836b23f56595162c0">pow</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, std::complex&lt; float &gt; s)</td></tr>
+<tr class="memdesc:ae406770e6de832b836b23f56595162c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raise a matrix to a scalar power.  <a href="classTensor.html#ae406770e6de832b836b23f56595162c0">More...</a><br /></td></tr>
+<tr class="separator:ae406770e6de832b836b23f56595162c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a561d6274cb58972ebd98eb0d7a1de1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a0a561d6274cb58972ebd98eb0d7a1de1">scale</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, float s)</td></tr>
+<tr class="memdesc:a0a561d6274cb58972ebd98eb0d7a1de1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale a matrix by some scalar.  <a href="classTensor.html#a0a561d6274cb58972ebd98eb0d7a1de1">More...</a><br /></td></tr>
+<tr class="separator:a0a561d6274cb58972ebd98eb0d7a1de1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a305b24bb99a2148fadeb9841cf18e8a2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a305b24bb99a2148fadeb9841cf18e8a2">scale</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, std::complex&lt; float &gt; s)</td></tr>
+<tr class="memdesc:a305b24bb99a2148fadeb9841cf18e8a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale a matrix by some complex scalar.  <a href="classTensor.html#a305b24bb99a2148fadeb9841cf18e8a2">More...</a><br /></td></tr>
+<tr class="separator:a305b24bb99a2148fadeb9841cf18e8a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Basic tensor class. </p>
 <p><a class="el" href="classTensor.html" title="Basic tensor class.">Tensor</a> defines a basic interface for creating and manipulating tensors. To create tensors you should use the Initialisers. These can be used on their own or chained together with the Setters to create the desired tensor.</p>
 <p>For example </p><div class="fragment"><div class="line"><a class="code" href="classTensor.html">Tensor</a> t;</div>
 <div class="line">t.<a class="code" href="classTensor.html#a6df303cfa5b246020b4cf0922e447b9c">ones</a>({3,3}).dType(NTdtypes::kFloat).<a class="code" href="classTensor.html#a54b317bee953ffa8463122635afcd369">device</a>(NTdtypes::kGPU);</div>
-<div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdoc">Basic tensor class.</div><div class="ttdef"><b>Definition:</b> tensor.hpp:12</div></div>
+<div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdoc">Basic tensor class.</div><div class="ttdef"><b>Definition:</b> tensor.hpp:15</div></div>
 <div class="ttc" id="aclassTensor_html_a54b317bee953ffa8463122635afcd369"><div class="ttname"><a href="classTensor.html#a54b317bee953ffa8463122635afcd369">Tensor::device</a></div><div class="ttdeci">Tensor &amp; device(NTdtypes::deviceType device)</div><div class="ttdoc">Set the device that this tensor lives on.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:63</div></div>
 <div class="ttc" id="aclassTensor_html_a6df303cfa5b246020b4cf0922e447b9c"><div class="ttname"><a href="classTensor.html#a6df303cfa5b246020b4cf0922e447b9c">Tensor::ones</a></div><div class="ttdeci">Tensor &amp; ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)</div><div class="ttdoc">Initialise this tensor with ones.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:25</div></div>
 </div><!-- fragment --><p> will get you a 3x3 tensor of floats that lives on the GPU. This is equivalent to </p><div class="fragment"><div class="line"><a class="code" href="classTensor.html">Tensor</a> t;</div>
@@ -302,6 +331,71 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
 
 </div>
 </div>
+<a id="a5ab168a11abbfe55e06d337f633e6d8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ab168a11abbfe55e06d337f633e6d8a">&#9670;&nbsp;</a></span>mul()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::mul </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Element-wise multiplication of two tensors. </p>
+<ul>
+<li>t1 Left hand tensor </li>
+<li>t2 Right hand tensor </li>
+</ul>
+
+</div>
+</div>
+<a id="ac31c9898d2351baf397d0037b12d61d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac31c9898d2351baf397d0037b12d61d5">&#9670;&nbsp;</a></span>mul_()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Tensor::mul_ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t2</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>inline element-wise multiplication </p>
+<ul>
+<li>t2 Right hand tensor </li>
+</ul>
+
+</div>
+</div>
 <a id="a7422f6e7a5fa8a92d8b79a2b32199042"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7422f6e7a5fa8a92d8b79a2b32199042">&#9670;&nbsp;</a></span>ones() <span class="overload">[1/2]</span></h2>
 
@@ -394,8 +488,138 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
 
 </div>
 </div>
-<a id="af7ed98a023e3b3d3cb1a6ed741c0ca96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7ed98a023e3b3d3cb1a6ed741c0ca96">&#9670;&nbsp;</a></span>scale() <span class="overload">[1/2]</span></h2>
+<a id="ab03252adfc59f62acfc2e58bf7d0dbef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab03252adfc59f62acfc2e58bf7d0dbef">&#9670;&nbsp;</a></span>pow() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::pow </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Raise a matrix to a scalar power. </p>
+<ul>
+<li>t The tensor </li>
+<li>s The scalar </li>
+</ul>
+
+</div>
+</div>
+<a id="ae406770e6de832b836b23f56595162c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae406770e6de832b836b23f56595162c0">&#9670;&nbsp;</a></span>pow() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::pow </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::complex&lt; float &gt;&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Raise a matrix to a scalar power. </p>
+<ul>
+<li>t The tensor </li>
+<li>s The scalar </li>
+</ul>
+
+</div>
+</div>
+<a id="ab5a7ad5dafa8dfaee1a6480a730445a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5a7ad5dafa8dfaee1a6480a730445a7">&#9670;&nbsp;</a></span>pow_() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Tensor::pow_ </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inline raise to scalar power. </p>
+<ul>
+<li>s The scalar </li>
+</ul>
+
+</div>
+</div>
+<a id="ad78162c18d67f3a38fea1b8354ad1e73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad78162c18d67f3a38fea1b8354ad1e73">&#9670;&nbsp;</a></span>pow_() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Tensor::pow_ </td>
+          <td>(</td>
+          <td class="paramtype">std::complex&lt; float &gt;&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inline raise to scalar power. </p>
+<ul>
+<li>s The scalar </li>
+</ul>
+
+</div>
+</div>
+<a id="a0a561d6274cb58972ebd98eb0d7a1de1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a561d6274cb58972ebd98eb0d7a1de1">&#9670;&nbsp;</a></span>scale() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -406,14 +630,14 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
         <tr>
           <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::scale </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>s</em>, </td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
-          <td class="paramname"><em>t</em>&#160;</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -436,8 +660,8 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
 
 </div>
 </div>
-<a id="a2701fdcfa1100a231ebcfe6fb7130984"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2701fdcfa1100a231ebcfe6fb7130984">&#9670;&nbsp;</a></span>scale() <span class="overload">[2/2]</span></h2>
+<a id="a305b24bb99a2148fadeb9841cf18e8a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a305b24bb99a2148fadeb9841cf18e8a2">&#9670;&nbsp;</a></span>scale() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -448,14 +672,14 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
         <tr>
           <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::scale </td>
           <td>(</td>
-          <td class="paramtype">std::complex&lt; float &gt;&#160;</td>
-          <td class="paramname"><em>s</em>, </td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
-          <td class="paramname"><em>t</em>&#160;</td>
+          <td class="paramtype">std::complex&lt; float &gt;&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
