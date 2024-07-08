@@ -148,6 +148,12 @@ Tensor Tensor::mul(const Tensor &t1, const Tensor &t2){
     return ret;
 }
 
+Tensor Tensor::div(const Tensor &t1, const Tensor &t2){
+    Tensor ret;
+    ret._tensor = torch::div(t1._tensor, t2._tensor);
+    return ret;
+}
+
 Tensor Tensor::pow(const Tensor &t, float s){
     Tensor ret;
     ret._tensor = torch::pow(t._tensor, s);
@@ -157,6 +163,12 @@ Tensor Tensor::pow(const Tensor &t, float s){
 Tensor Tensor::pow(const Tensor &t, std::complex<float> s){
     Tensor ret;
     ret._tensor = torch::pow(t._tensor, c10::complex<float>(s.real(), s.imag()));
+    return ret;
+}
+
+Tensor Tensor::exp(const Tensor &t){
+    Tensor ret;
+    ret._tensor = torch::exp(t._tensor);
     return ret;
 }
 
@@ -181,6 +193,10 @@ void Tensor::mul_(const Tensor &t2){
     _tensor = torch::mul(_tensor, t2._tensor);
 }
 
+void Tensor::div_(const Tensor &t2){
+    _tensor = torch::div(_tensor, t2._tensor);
+}
+
 void Tensor::scale_(float s){
     _tensor = torch::multiply(_tensor, s);
 }
@@ -196,6 +212,10 @@ void Tensor::pow_(float s){
 
 void Tensor::pow_(std::complex<float> s){
     _tensor = torch::pow(_tensor, c10::complex<float>(s.real(), s.imag()));
+}
+
+void Tensor::exp_(){
+    _tensor = torch::exp(_tensor);
 }
 
 Tensor Tensor::real()const {

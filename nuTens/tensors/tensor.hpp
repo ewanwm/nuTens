@@ -83,6 +83,11 @@ class Tensor{
         /// @arg t2 Right hand tensor
         static Tensor mul(const Tensor &t1, const Tensor &t2);
         
+        /// @brief Element-wise division of two tensors
+        /// @arg t1 Numerator
+        /// @arg t2 Denominator
+        static Tensor div(const Tensor &t1, const Tensor &t2);
+        
         /// @brief Raise a matrix to a scalar power
         /// @arg t The tensor
         /// @arg s The scalar
@@ -91,6 +96,10 @@ class Tensor{
         /// @arg t The tensor
         /// @arg s The scalar
         static Tensor pow(const Tensor &t, std::complex<float> s);
+
+        /// @brief Element-wise exponential
+        /// @arg t The tensor
+        static Tensor exp(const Tensor &t);
 
         /// @brief Scale a matrix by some scalar
         /// @arg s The scalar
@@ -114,6 +123,10 @@ class Tensor{
         /// @arg t2 Right hand tensor
         void mul_(const Tensor &t2);
 
+        /// @brief inline element-wise division
+        /// @arg t2 Denominator
+        void div_(const Tensor &t2);
+
         /// @brief Inline matrix scaling
         /// @arg s The scalar
         void scale_(float s);
@@ -127,6 +140,9 @@ class Tensor{
         /// @brief Inline raise to scalar power
         /// @arg s The scalar
         void pow_(std::complex<float> s);
+
+        /// @brief Inline element-wise exponential
+        void exp_();
 
         /// @}
 
