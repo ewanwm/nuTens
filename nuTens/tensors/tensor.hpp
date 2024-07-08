@@ -4,6 +4,9 @@
 #include <map>
 #include <any>
 #include <iostream>
+#include <vector>
+#include <variant>
+#include <complex>
 
 #if USE_PYTORCH
     #include <torch/torch.h>
@@ -75,26 +78,55 @@ class Tensor{
         /// @arg t2 Right hand tensor
         static Tensor matmul(const Tensor &t1, const Tensor &t2);
         
+        /// @brief Element-wise multiplication of two tensors
+        /// @arg t1 Left hand tensor
+        /// @arg t2 Right hand tensor
+        static Tensor mul(const Tensor &t1, const Tensor &t2);
+        
+        /// @brief Raise a matrix to a scalar power
+        /// @arg t The tensor
+        /// @arg s The scalar
+        static Tensor pow(const Tensor &t, float s);
+        /// @brief Raise a matrix to a scalar power
+        /// @arg t The tensor
+        /// @arg s The scalar
+        static Tensor pow(const Tensor &t, std::complex<float> s);
+
         /// @brief Scale a matrix by some scalar
         /// @arg s The scalar
         /// @arg t The tensor
-        static Tensor scale(float s, const Tensor &t);
+        static Tensor scale(const Tensor &t, float s);
         /// @brief Scale a matrix by some complex scalar
         /// @arg s The scalar
         /// @arg t The tensor
-        static Tensor scale(std::complex<float> s, const Tensor &t);
+        static Tensor scale(const Tensor &t, std::complex<float> s);
+
+
+        // ############################################
+        // ################ Inlines ###################
+        // ############################################
 
         /// @brief Inline matrix multiplication
         /// @arg t2 Right hand matrix to multiply with this one
         void matmul_(const Tensor &t2);
-
         
+        /// @brief inline element-wise multiplication
+        /// @arg t2 Right hand tensor
+        void mul_(const Tensor &t2);
+
         /// @brief Inline matrix scaling
         /// @arg s The scalar
         void scale_(float s);
         /// @brief Inline complex matrix scaling
         /// @arg s The scalar
         void scale_(std::complex<float> s);
+
+        /// @brief Inline raise to scalar power
+        /// @arg s The scalar
+        void pow_(float s);
+        /// @brief Inline raise to scalar power
+        /// @arg s The scalar
+        void pow_(std::complex<float> s);
 
         /// @}
 
@@ -112,6 +144,8 @@ class Tensor{
         Tensor real() const;
         /// @brief Get the imaginary part of a complex tensor
         Tensor imag() const;
+        /// @brief Get the complex conjugate of this tensor. If the underlying tensor is not complex, this will just return the tensor.
+        Tensor conj() const;
         
         /// @brief Get the result of summing this tensor over some dimension
         /// @param dim The dimension to sum over
@@ -145,15 +179,17 @@ class Tensor{
         /// @arg indices The indices of the value to set
         /// @arg value The value to set it to
         void setValue(const Tensor &indices, const Tensor &value);
+        void setValue(const std::vector<std::variant<int, std::string>> &indices, const Tensor &value);
         void setValue(const std::vector<int> &indices, const Tensor &value);
         void setValue(const std::vector<int> &indices, float value);
         void setValue(const std::vector<int> &indices, std::complex<float> value);
 
-
+        /// @brief get the 
+        Tensor getValue(const std::vector<std::variant<int, std::string>> &indices);
 
         // Defining this here as it has to be in a header due to using template :(
 #if USE_PYTORCH
-        /// Get the value at a particular index of the tensor
+        /// @brief Get the value at a particular index of the tensor
         /// @arg indices The indices of the value to set
         template <typename T>
         inline T getValue(const std::vector<int> &indices){
@@ -165,6 +201,7 @@ class Tensor{
             return _tensor.index(indicesVec).item<T>();
         }
 
+        /// Get the value of a size 0 tensor (scalar)
         template <typename T>
         inline T getValue(){
             return _tensor.item<T>();

@@ -71,8 +71,42 @@ Tensor &Tensor::requiresGrad(bool reqGrad){
 }
 
 
+Tensor Tensor::getValue(const std::vector<std::variant<int, std::string>> &indices){
+    std::vector<at::indexing::TensorIndex> indicesVec;
+    for(size_t i = 0; i < indices.size(); i++){
+        if (const int* index = std::get_if<int>(&indices[i]))
+            indicesVec.push_back(at::indexing::TensorIndex(*index));
+        else if (const std::string *index = std::get_if<std::string>(&indices[i]))
+            indicesVec.push_back(at::indexing::TensorIndex((*index).c_str()));
+        else{
+            assert(false && "ERROR: Unsupported index type");
+            throw;
+        }
+    }
+
+    Tensor ret;
+    ret._tensor = _tensor.index(indicesVec);
+    return ret;
+}
+
 void Tensor::setValue(const Tensor &indices, const Tensor &value){
     _tensor.index_put_({indices._tensor}, value._tensor);
+}
+
+void Tensor::setValue(const std::vector<std::variant<int, std::string>> &indices, const Tensor &value){
+    std::vector<at::indexing::TensorIndex> indicesVec;
+    for(size_t i = 0; i < indices.size(); i++){
+        if (const int* index = std::get_if<int>(&indices[i]))
+            indicesVec.push_back(at::indexing::TensorIndex(*index));
+        else if (const std::string *index = std::get_if<std::string>(&indices[i]))
+            indicesVec.push_back(at::indexing::TensorIndex((*index).c_str()));
+        else{
+            assert(false && "ERROR: Unsupported index type");
+            throw;
+        }
+    }
+
+    _tensor.index_put_(indicesVec, value._tensor);
 }
 
 void Tensor::setValue(const std::vector<int> &indices, const Tensor &value){
@@ -108,28 +142,60 @@ Tensor Tensor::matmul(const Tensor &t1, const Tensor &t2){
     return ret;
 }
 
-Tensor Tensor::scale(float s, const Tensor &t){
+Tensor Tensor::mul(const Tensor &t1, const Tensor &t2){
+    Tensor ret;
+    ret._tensor = torch::mul(t1._tensor, t2._tensor);
+    return ret;
+}
+
+Tensor Tensor::pow(const Tensor &t, float s){
+    Tensor ret;
+    ret._tensor = torch::pow(t._tensor, s);
+    return ret;
+}
+
+Tensor Tensor::pow(const Tensor &t, std::complex<float> s){
+    Tensor ret;
+    ret._tensor = torch::pow(t._tensor, c10::complex<float>(s.real(), s.imag()));
+    return ret;
+}
+
+Tensor Tensor::scale(const Tensor &t, float s){
     Tensor ret;
     ret._tensor = torch::multiply(t._tensor, s);
     return ret;
 }
 
-Tensor Tensor::scale(std::complex<float> s, const Tensor &t){
+Tensor Tensor::scale(const Tensor &t, std::complex<float> s){
     Tensor ret;
     ret._tensor = torch::multiply(t._tensor, c10::complex<float>(s.real(), s.imag()));
     return ret;
 }
 
+
 void Tensor::matmul_(const Tensor &t2){
     _tensor = torch::matmul(_tensor, t2._tensor);
 }
 
-void scale_(float s){
-
+void Tensor::mul_(const Tensor &t2){
+    _tensor = torch::mul(_tensor, t2._tensor);
 }
 
-void scale_(std::complex<float> s){
+void Tensor::scale_(float s){
+    _tensor = torch::multiply(_tensor, s);
+}
 
+void Tensor::scale_(std::complex<float> s){
+    _tensor = torch::multiply(_tensor, c10::complex<float>(s.real(), s.imag()));
+}
+
+
+void Tensor::pow_(float s){
+    _tensor = torch::pow(_tensor, s);
+}
+
+void Tensor::pow_(std::complex<float> s){
+    _tensor = torch::pow(_tensor, c10::complex<float>(s.real(), s.imag()));
 }
 
 Tensor Tensor::real()const {
@@ -141,6 +207,15 @@ Tensor Tensor::real()const {
 Tensor Tensor::imag() const {
     Tensor ret;
     ret._tensor = at::imag(_tensor);
+    return ret;
+}
+
+Tensor Tensor::conj() const {
+    Tensor ret;
+    ret._tensor = torch::conj(_tensor);
+    // torch::conj() returns a view of the original tensor
+    // I *think* that means that the tensor returned here will be pointing to the same memory as the original one
+    // might need to be careful with this  
     return ret;
 }
 
