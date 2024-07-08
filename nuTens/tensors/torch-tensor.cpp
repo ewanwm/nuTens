@@ -148,6 +148,12 @@ Tensor Tensor::mul(const Tensor &t1, const Tensor &t2){
     return ret;
 }
 
+Tensor Tensor::div(const Tensor &t1, const Tensor &t2){
+    Tensor ret;
+    ret._tensor = torch::div(t1._tensor, t2._tensor);
+    return ret;
+}
+
 Tensor Tensor::pow(const Tensor &t, float s){
     Tensor ret;
     ret._tensor = torch::pow(t._tensor, s);
@@ -157,6 +163,18 @@ Tensor Tensor::pow(const Tensor &t, float s){
 Tensor Tensor::pow(const Tensor &t, std::complex<float> s){
     Tensor ret;
     ret._tensor = torch::pow(t._tensor, c10::complex<float>(s.real(), s.imag()));
+    return ret;
+}
+
+Tensor Tensor::exp(const Tensor &t){
+    Tensor ret;
+    ret._tensor = torch::exp(t._tensor);
+    return ret;
+}
+
+Tensor Tensor::transpose(const Tensor &t, int dim1, int dim2){
+    Tensor ret;
+    ret._tensor = torch::transpose(t._tensor, dim1, dim2);
     return ret;
 }
 
@@ -181,6 +199,10 @@ void Tensor::mul_(const Tensor &t2){
     _tensor = torch::mul(_tensor, t2._tensor);
 }
 
+void Tensor::div_(const Tensor &t2){
+    _tensor = torch::div(_tensor, t2._tensor);
+}
+
 void Tensor::scale_(float s){
     _tensor = torch::multiply(_tensor, s);
 }
@@ -196,6 +218,14 @@ void Tensor::pow_(float s){
 
 void Tensor::pow_(std::complex<float> s){
     _tensor = torch::pow(_tensor, c10::complex<float>(s.real(), s.imag()));
+}
+
+void Tensor::exp_(){
+    _tensor = torch::exp(_tensor);
+}
+
+void Tensor::transpose_(int dim1, int dim2){
+    _tensor = torch::transpose(_tensor, dim1, dim2);
 }
 
 Tensor Tensor::real()const {
@@ -216,6 +246,18 @@ Tensor Tensor::conj() const {
     // torch::conj() returns a view of the original tensor
     // I *think* that means that the tensor returned here will be pointing to the same memory as the original one
     // might need to be careful with this  
+    return ret;
+}
+
+Tensor Tensor::abs() const {
+    Tensor ret;
+    ret._tensor = torch::abs(_tensor);
+    return ret;
+}
+
+Tensor Tensor::angle() const {
+    Tensor ret;
+    ret._tensor = torch::angle(_tensor);
     return ret;
 }
 
