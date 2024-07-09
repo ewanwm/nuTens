@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vacuumpropagator_34',['VacuumPropagator',['../classVacuumPropagator.html',1,'']]]
+  ['vacuumpropagator_43',['VacuumPropagator',['../classVacuumPropagator.html',1,'']]]
 ];

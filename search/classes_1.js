@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vacuumpropagator_37',['VacuumPropagator',['../classVacuumPropagator.html',1,'']]]
+  ['constdensitymattersolver_46',['ConstDensityMatterSolver',['../classConstDensityMatterSolver.html',1,'']]]
 ];

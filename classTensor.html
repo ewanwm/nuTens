@@ -189,6 +189,10 @@ Static Public Member Functions</h2></td></tr>
 static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a4769ffbca778565253f564b1a8970dfd">getTensorLibrary</a> ()</td></tr>
 <tr class="memdesc:a4769ffbca778565253f564b1a8970dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of the backend library used to deal with tensors. <br /></td></tr>
 <tr class="separator:a4769ffbca778565253f564b1a8970dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Linear Algebra</div></td></tr>
+<tr class="memitem:a67c0ad8f189c70d4a6d5dd90a6ca1a13"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a67c0ad8f189c70d4a6d5dd90a6ca1a13">eig</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, <a class="el" href="classTensor.html">Tensor</a> &amp;eVals, <a class="el" href="classTensor.html">Tensor</a> &amp;eVecs)</td></tr>
+<tr class="memdesc:a67c0ad8f189c70d4a6d5dd90a6ca1a13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get eigenvalues and vectors of a tensor.  <a href="classTensor.html#a67c0ad8f189c70d4a6d5dd90a6ca1a13">More...</a><br /></td></tr>
+<tr class="separator:a67c0ad8f189c70d4a6d5dd90a6ca1a13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -231,6 +235,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a01c2c358ff81e82a1e02ea64a5439d3f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a01c2c358ff81e82a1e02ea64a5439d3f">matmul</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t1, const <a class="el" href="classTensor.html">Tensor</a> &amp;t2)</td></tr>
 <tr class="memdesc:a01c2c358ff81e82a1e02ea64a5439d3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply two matrices together.  <a href="classTensor.html#a01c2c358ff81e82a1e02ea64a5439d3f">More...</a><br /></td></tr>
 <tr class="separator:a01c2c358ff81e82a1e02ea64a5439d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a0878a0e015a69b5644c930b14e371f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a1a0878a0e015a69b5644c930b14e371f">outer</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t1, const <a class="el" href="classTensor.html">Tensor</a> &amp;t2)</td></tr>
+<tr class="memdesc:a1a0878a0e015a69b5644c930b14e371f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outer product of two 1D tensors.  <a href="classTensor.html#a1a0878a0e015a69b5644c930b14e371f">More...</a><br /></td></tr>
+<tr class="separator:a1a0878a0e015a69b5644c930b14e371f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ab168a11abbfe55e06d337f633e6d8a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a5ab168a11abbfe55e06d337f633e6d8a">mul</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t1, const <a class="el" href="classTensor.html">Tensor</a> &amp;t2)</td></tr>
 <tr class="memdesc:a5ab168a11abbfe55e06d337f633e6d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element-wise multiplication of two tensors.  <a href="classTensor.html#a5ab168a11abbfe55e06d337f633e6d8a">More...</a><br /></td></tr>
 <tr class="separator:a5ab168a11abbfe55e06d337f633e6d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -354,6 +361,60 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>inline element-wise division </p>
 <ul>
 <li>t2 Denominator </li>
+</ul>
+
+</div>
+</div>
+<a id="a67c0ad8f189c70d4a6d5dd90a6ca1a13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67c0ad8f189c70d4a6d5dd90a6ca1a13">&#9670;&nbsp;</a></span>eig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Tensor::eig </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>eVals</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>eVecs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get eigenvalues and vectors of a tensor. </p>
+<ul>
+<li>t The tensor <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">eVals</td><td>The eigenvalues </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">eVecs</td><td>The eigenvectors </td></tr>
+  </table>
+  </dd>
+</dl>
+</li>
 </ul>
 
 </div>
@@ -607,6 +668,48 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <ul>
 <li>length The length of the intitalised tensor </li>
 <li>type The data type of the initialised tensor </li>
+</ul>
+
+</div>
+</div>
+<a id="a1a0878a0e015a69b5644c930b14e371f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a0878a0e015a69b5644c930b14e371f">&#9670;&nbsp;</a></span>outer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::outer </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Outer product of two 1D tensors. </p>
+<ul>
+<li>t1 Left hand tensor </li>
+<li>t2 Right hand tensor </li>
 </ul>
 
 </div>
