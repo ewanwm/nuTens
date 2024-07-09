@@ -10,7 +10,6 @@ int main(){
     
     float m1 = 2.0, m2 = 1.0;
     float energy = 100.0;
-    float baseline = 0.5;
     float density = 2.6;
 
     // 'standard' 2 flavour mass effect calculation values from Barger et. al
@@ -31,7 +30,7 @@ int main(){
 
     std::cout << "value tensors created" << std::endl;
 
-    ConstDensityMatterSolver solver(2, baseline, density);
+    ConstDensityMatterSolver solver(2, density);
     
     std::cout << "solver created" << std::endl;
 

@@ -4,6 +4,9 @@
 
 class BaseMatterSolver {
 
+    /// @class BaseMatterSolver
+    /// @brief Abstract base class for matter effect solvers
+
     public:
 
         /// @name Setters
