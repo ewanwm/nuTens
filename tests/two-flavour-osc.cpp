@@ -39,8 +39,8 @@ int main(){
         Tensor PMNS;
         PMNS.ones({1, 2, 2}, NTdtypes::kComplexFloat).requiresGrad(false);
         PMNS.setValue({0, 0,0}, std::cos(theta));
-        PMNS.setValue({0, 0,1}, std::sin(theta));
-        PMNS.setValue({0, 1,0}, -std::sin(theta));
+        PMNS.setValue({0, 0,1}, -std::sin(theta));
+        PMNS.setValue({0, 1,0}, std::sin(theta));
         PMNS.setValue({0, 1,1}, std::cos(theta));
         PMNS.requiresGrad(true);
 
