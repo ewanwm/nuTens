@@ -142,6 +142,12 @@ Tensor Tensor::matmul(const Tensor &t1, const Tensor &t2){
     return ret;
 }
 
+Tensor Tensor::outer(const Tensor &t1, const Tensor &t2){
+    Tensor ret;
+    ret._tensor = torch::outer(t1._tensor, t2._tensor);
+    return ret;
+}
+
 Tensor Tensor::mul(const Tensor &t1, const Tensor &t2){
     Tensor ret;
     ret._tensor = torch::mul(t1._tensor, t2._tensor);
@@ -227,6 +233,15 @@ void Tensor::exp_(){
 void Tensor::transpose_(int dim1, int dim2){
     _tensor = torch::transpose(_tensor, dim1, dim2);
 }
+
+
+void Tensor::eig(const Tensor &t, Tensor &eVals, Tensor &eVecs){
+
+    auto ret = torch::linalg_eig(t._tensor);
+    eVals._tensor = std::get<1>(ret);
+    eVecs._tensor = std::get<0>(ret);
+}
+
 
 Tensor Tensor::real()const {
     Tensor ret;

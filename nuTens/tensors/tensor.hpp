@@ -77,6 +77,11 @@ class Tensor{
         /// @arg t1 Left hand tensor
         /// @arg t2 Right hand tensor
         static Tensor matmul(const Tensor &t1, const Tensor &t2);
+
+        /// @brief Outer product of two 1D tensors
+        /// @arg t1 Left hand tensor
+        /// @arg t2 Right hand tensor
+        static Tensor outer(const Tensor &t1, const Tensor &t2);
         
         /// @brief Element-wise multiplication of two tensors
         /// @arg t1 Left hand tensor
@@ -154,6 +159,18 @@ class Tensor{
         /// @arg dim1 The first dimension to swap
         /// @arg dim2 The second dimension to swap
         void transpose_(int dim1, int dim2);
+
+        /// @}
+
+        
+        /// @name Linear Algebra
+        /// @{
+            
+        /// @brief Get eigenvalues and vectors of a tensor
+        /// @arg t The tensor
+        /// @param[out] eVals The eigenvalues
+        /// @param[out] eVecs The eigenvectors
+        static void eig(const Tensor &t, Tensor &eVals, Tensor &eVecs);
 
         /// @}
 
