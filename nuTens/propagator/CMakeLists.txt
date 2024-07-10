@@ -2,7 +2,7 @@
 
 add_library(
     propagator STATIC 
-    vacuum-propagator.hpp vacuum-propagator.cpp 
+    propagator.hpp propagator.cpp 
     const-density-solver.hpp const-density-solver.cpp
 )
 

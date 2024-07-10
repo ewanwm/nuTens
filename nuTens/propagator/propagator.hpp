@@ -3,25 +3,23 @@
 #include <nuTens/tensors/tensor.hpp>
 #include <vector>
 
-class VacuumPropagator{
+class Propagator{
 
     public:
 
-        VacuumPropagator(int nGenerations, float baseline)
+        Propagator(int nGenerations, float baseline)
             :
             baseline(baseline),
             nGenerations(nGenerations)
             {};
 
-        Tensor calculateProbs();
+        Tensor calculateProbs(const Tensor &energies) const;
 
         /// @name Setters
-        /// @{
-        void setEnergies(Tensor newEnergies){ energies = newEnergies; }
-        
-        void setMasses(Tensor newMasses){ masses = newMasses; }
+        /// @{        
+        void setMasses(Tensor &newMasses){ masses = newMasses; }
 
-        inline void setPMNS(Tensor newPMNS){ PMNSmatrix = newPMNS; }
+        inline void setPMNS(Tensor &newPMNS){ PMNSmatrix = newPMNS; }
 
         inline void setPMNS(const std::vector<int> &indices, float value){ PMNSmatrix.setValue(indices, value); }
 
