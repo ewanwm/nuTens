@@ -12,6 +12,13 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -110,9 +117,9 @@ static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a cla
 <div class="textblock"><p>Solver class for constant density material. </p>
 <p>This class is used to obtain effective mass eigenstates and an effective PMNS matrix due to matter effects for neutrinos passing through a block of material of constant density.</p>
 <p>The method used here is to first construct the effective Hamiltonian </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\begin{equation} \frac{1}{2E} Diag(m^2_i) - \sqrt(2)G N_e \mathbf{U}_{ei} \otimes \mathbf{U}_{ie}^\dagger \end{equation}" src="form_0.png"/>
+\begin{equation} \frac{1}{2E} Diag(m^2_i) - \sqrt(2)G N_e \mathbf{U}_{ei} \otimes \mathbf{U}_{ie}^\dagger \end{equation}
 </p>
-<p> where <img class="formulaInl" alt="$ \mathbf{U} $" src="form_1.png"/> is the supplied PMNS matrix and <img class="formulaInl" alt="$ Diag(m^2_i) $" src="form_2.png"/> is a diagonal matrix with the specified mass eigenvalues on the diagonal. We then calculate the eigenvalues <img class="formulaInl" alt="$ m_i^\prime $" src="form_3.png"/> and eigenvectors, summarised in the matrix <img class="formulaInl" alt="$ V_{ij} $" src="form_4.png"/>. These can then be passed to a propagator class to get the oscillation probabilities in the presence of such matter effects.</p>
+<p> where \( \mathbf{U} \) is the supplied PMNS matrix and \( Diag(m^2_i) \) is a diagonal matrix with the specified mass eigenvalues on the diagonal. We then calculate the eigenvalues \( m_i^\prime \) and eigenvectors, summarised in the matrix \( V_{ij} \). These can then be passed to a propagator class to get the oscillation probabilities in the presence of such matter effects.</p>
 <p>See <b>[Barger]</b> for more details. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8a7d9238e40bb5d6f6984626cefb2595"></a>
