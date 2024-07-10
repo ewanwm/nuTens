@@ -29,7 +29,6 @@ class Propagator{
     private:
         Tensor PMNSmatrix;
         Tensor masses;
-        Tensor energies;
         int nGenerations;
         float baseline;
 };

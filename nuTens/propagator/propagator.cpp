@@ -1,7 +1,7 @@
-#include <nuTens/propagator/vacuum-propagator.hpp>
+#include <nuTens/propagator/propagator.hpp>
 
 
-Tensor Propagator::calculateProbs(const Tensor &energies){
+Tensor Propagator::calculateProbs(const Tensor &energies) const {
     Tensor weightMatrix;
     weightMatrix.ones({1,nGenerations, nGenerations}, NTdtypes::kComplexFloat).requiresGrad(false);
     

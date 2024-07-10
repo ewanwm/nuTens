@@ -25,7 +25,6 @@ int main(){
 
     Propagator propagator(2, baseline);
     propagator.setMasses(masses);
-    propagator.setEnergies(energies);
 
     
     float theta = -M_PI;
