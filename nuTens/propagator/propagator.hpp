@@ -1,7 +1,9 @@
 #pragma once
 
 #include <nuTens/tensors/tensor.hpp>
+#include <nuTens/propagator/base-matter-solver.hpp>
 #include <vector>
+#include <memory>
 
 class Propagator{
 
@@ -9,26 +11,34 @@ class Propagator{
 
         Propagator(int nGenerations, float baseline)
             :
-            baseline(baseline),
-            nGenerations(nGenerations)
+            _baseline(baseline),
+            _nGenerations(nGenerations)
             {};
 
         Tensor calculateProbs(const Tensor &energies) const;
 
         /// @name Setters
         /// @{        
-        void setMasses(Tensor &newMasses){ masses = newMasses; }
+        void setMasses(Tensor &newMasses){ _masses = newMasses; }
 
-        inline void setPMNS(Tensor &newPMNS){ PMNSmatrix = newPMNS; }
+        inline void setMatterSolver(std::unique_ptr<BaseMatterSolver> &newSolver){ _matterSolver = std::move(newSolver); }
 
-        inline void setPMNS(const std::vector<int> &indices, float value){ PMNSmatrix.setValue(indices, value); }
+        inline void setPMNS(Tensor &newPMNS){ _PMNSmatrix = newPMNS; }
 
-        inline void setPMNS(const std::vector<int> &indices, std::complex<float> value){ PMNSmatrix.setValue(indices, value); }
+        inline void setPMNS(const std::vector<int> &indices, float value){ _PMNSmatrix.setValue(indices, value); }
+
+        inline void setPMNS(const std::vector<int> &indices, std::complex<float> value){ _PMNSmatrix.setValue(indices, value); }
         /// @}
 
+    private: 
+        // For calculating with alternate masses and PMNS, e.g. if using effective values from massSolver
+        Tensor _calculateProbs(const Tensor &energies, const Tensor &masses, const Tensor &PMNS) const;
+
     private:
-        Tensor PMNSmatrix;
-        Tensor masses;
-        int nGenerations;
-        float baseline;
+        Tensor _PMNSmatrix;
+        Tensor _masses;
+        int _nGenerations;
+        float _baseline;
+
+        std::unique_ptr<BaseMatterSolver> _matterSolver;
 };
