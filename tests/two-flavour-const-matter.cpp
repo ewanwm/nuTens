@@ -8,7 +8,7 @@ float relativeDiff(float f1, float f2){
 
 int main(){
     
-    float m1 = 2.0, m2 = 1.0;
+    float m1 = 1.0, m2 = 2.0;
     float energy = 100.0;
     float density = 2.6;
 
@@ -34,10 +34,10 @@ int main(){
     
     std::cout << "solver created" << std::endl;
 
-    // test that VacuumPropagator gives expected oscillation probabilites for a range of thetas
-    for( int i = 0; i < 20; i++){
+    // test that Propagator gives expected oscillation probabilites for a range of thetas
+    for( int i = 0; i <= 20; i++){
 
-        float theta = ((float)i / 19.0) * 0.49 * M_PI;
+        float theta = ( -1.0 + 2.0 * (float)i / 20.0) * 0.49 * M_PI;
 
         // the modified angle due to matter effects from Barger et. al.
         float alpha = std::atan2(std::sin(2.0 * theta), (std::cos(2.0 * theta) - lv / lm)) / 2.0;
@@ -58,7 +58,7 @@ int main(){
 
         Tensor eigenVals, eigenVecs;
 
-        solver.calculateEigenvalues(energies, eigenVals, eigenVecs);
+        solver.calculateEigenvalues(energies, eigenVecs, eigenVals);
         
         std::cout << "######## theta = " << theta << " ########" << std::endl;
         
