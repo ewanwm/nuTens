@@ -39,17 +39,31 @@ class Propagator{
 
         /// @brief Set a matter solver to use to deal with matter effects
         /// @param newSolver A derivative of BaseMatterSolver
-        inline void setMatterSolver(std::unique_ptr<BaseMatterSolver> &newSolver){ _matterSolver = std::move(newSolver); }
+        inline void setMatterSolver(std::unique_ptr<BaseMatterSolver> &newSolver){ 
+            _matterSolver = std::move(newSolver); 
+            _matterSolver->setMasses(_masses);
+            _matterSolver->setPMNS(_PMNSmatrix);
+        }
 
         /// \todo Should add a check to tensors supplied to the setters to see how many dimensions they have, and if missing a batch dimension, add one.
 
         /// @brief Set the masses corresponding to the vacuum hamiltonian eigenstates
         /// @param newMasses The new masses to use. This tensor is expected to have a batch dimension + 1 more dimensions of size nGenerations. The batch dimension can (and probably should) be 1 and it will be broadcast to match the batch dimension of the energies supplied to calculateProbs(). So dimension should be {1, nGenerations}. 
-        void setMasses(Tensor &newMasses){ _masses = newMasses; }
+        void setMasses(Tensor &newMasses){ 
+            _masses = newMasses; 
+            if ( _matterSolver != nullptr )
+                _matterSolver->setMasses(newMasses);
+        }
 
         /// @brief Set a whole new PMNS matrix
         /// @param newPMNS The new matrix to use
-        inline void setPMNS(Tensor &newPMNS){ _PMNSmatrix = newPMNS; }
+        inline void setPMNS(Tensor &newPMNS){ 
+            _PMNSmatrix = newPMNS; 
+            if ( _matterSolver != nullptr )
+                _matterSolver->setPMNS(newPMNS);
+        }
+
+        /// \todo add setPMNS(const std::vector<int> &indices, float value) methods to BaseMatterSolver? maybe have these setters in a base class of both Propagator and BaseMatterSolver ??
 
         /// @brief Set a single element of the PMNS matrix
         /// @param indices The index of the value to set
