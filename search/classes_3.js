@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vacuumpropagator_48',['VacuumPropagator',['../classVacuumPropagator.html',1,'']]]
+  ['tensor_54',['Tensor',['../classTensor.html',1,'']]]
 ];

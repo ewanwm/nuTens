@@ -120,19 +120,27 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memitem:a579c6d43a94be57989b6db528b175b14"><td class="memItemLeft" align="right" valign="top"><a id="a579c6d43a94be57989b6db528b175b14"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setValue</b> (const std::vector&lt; std::variant&lt; int, std::string &gt;&gt; &amp;indices, const <a class="el" href="classTensor.html">Tensor</a> &amp;value)</td></tr>
 <tr class="separator:a579c6d43a94be57989b6db528b175b14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d09969c75b6159f619d90ca17c57bd6"><td class="memItemLeft" align="right" valign="top"><a id="a4d09969c75b6159f619d90ca17c57bd6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setValue</b> (const std::vector&lt; int &gt; &amp;indices, const <a class="el" href="classTensor.html">Tensor</a> &amp;value)</td></tr>
-<tr class="separator:a4d09969c75b6159f619d90ca17c57bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10b9edf81234b731fd1b8f7f40538061"><td class="memItemLeft" align="right" valign="top"><a id="a10b9edf81234b731fd1b8f7f40538061"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setValue</b> (const std::vector&lt; int &gt; &amp;indices, float value)</td></tr>
 <tr class="separator:a10b9edf81234b731fd1b8f7f40538061"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac52ac83beb78bb1bf450b6d8f5a80447"><td class="memItemLeft" align="right" valign="top"><a id="ac52ac83beb78bb1bf450b6d8f5a80447"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setValue</b> (const std::vector&lt; int &gt; &amp;indices, std::complex&lt; float &gt; value)</td></tr>
 <tr class="separator:ac52ac83beb78bb1bf450b6d8f5a80447"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c2ecb284750782e1ec5d474dbf50a8b"><td class="memItemLeft" align="right" valign="top"><a id="a5c2ecb284750782e1ec5d474dbf50a8b"></a>
-<a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a5c2ecb284750782e1ec5d474dbf50a8b">getValue</a> (const std::vector&lt; std::variant&lt; int, std::string &gt;&gt; &amp;indices)</td></tr>
-<tr class="memdesc:a5c2ecb284750782e1ec5d474dbf50a8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the <br /></td></tr>
-<tr class="separator:a5c2ecb284750782e1ec5d474dbf50a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09aececd96cf2472beba69b8645f4b8a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a09aececd96cf2472beba69b8645f4b8a">getValue</a> (const std::vector&lt; std::variant&lt; int, std::string &gt;&gt; &amp;indices) const</td></tr>
+<tr class="memdesc:a09aececd96cf2472beba69b8645f4b8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value at a certain entry in the tensor.  <a href="classTensor.html#a09aececd96cf2472beba69b8645f4b8a">More...</a><br /></td></tr>
+<tr class="separator:a09aececd96cf2472beba69b8645f4b8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbb1cf75cc2d97ac21ee63f4c7482eee"><td class="memItemLeft" align="right" valign="top"><a id="afbb1cf75cc2d97ac21ee63f4c7482eee"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#afbb1cf75cc2d97ac21ee63f4c7482eee">getNdim</a> () const</td></tr>
+<tr class="memdesc:afbb1cf75cc2d97ac21ee63f4c7482eee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of dimensions in the tensor. <br /></td></tr>
+<tr class="separator:afbb1cf75cc2d97ac21ee63f4c7482eee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a784131f37c10b8a801a053d1044aec81"><td class="memItemLeft" align="right" valign="top"><a id="a784131f37c10b8a801a053d1044aec81"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a784131f37c10b8a801a053d1044aec81">getBatchDim</a> () const</td></tr>
+<tr class="memdesc:a784131f37c10b8a801a053d1044aec81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the batch dimension size of the tensor. <br /></td></tr>
+<tr class="separator:a784131f37c10b8a801a053d1044aec81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacded5eb407c8e510f09dd3be3c83025"><td class="memItemLeft" align="right" valign="top"><a id="aacded5eb407c8e510f09dd3be3c83025"></a>
+std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#aacded5eb407c8e510f09dd3be3c83025">getShape</a> () const</td></tr>
+<tr class="memdesc:aacded5eb407c8e510f09dd3be3c83025"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the shape of the tensor. <br /></td></tr>
+<tr class="separator:aacded5eb407c8e510f09dd3be3c83025"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Initialisers</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Use these methods to initialise the tensor </p>
 </div></td></tr>
@@ -454,6 +462,33 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <ul>
 <li>t The tensor </li>
 </ul>
+
+</div>
+</div>
+<a id="a09aececd96cf2472beba69b8645f4b8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09aececd96cf2472beba69b8645f4b8a">&#9670;&nbsp;</a></span>getValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::getValue </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::variant&lt; int, std::string &gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>indices</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the value at a certain entry in the tensor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">indices</td><td>The index of the entry to get <br  />
+ </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
