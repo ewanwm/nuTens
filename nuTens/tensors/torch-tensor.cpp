@@ -71,7 +71,7 @@ Tensor &Tensor::requiresGrad(bool reqGrad){
 }
 
 
-Tensor Tensor::getValue(const std::vector<std::variant<int, std::string>> &indices){
+Tensor Tensor::getValue(const std::vector<std::variant<int, std::string>> &indices) const {
     std::vector<at::indexing::TensorIndex> indicesVec;
     for(size_t i = 0; i < indices.size(); i++){
         if (const int* index = std::get_if<int>(&indices[i]))
@@ -109,15 +109,6 @@ void Tensor::setValue(const std::vector<std::variant<int, std::string>> &indices
     _tensor.index_put_(indicesVec, value._tensor);
 }
 
-void Tensor::setValue(const std::vector<int> &indices, const Tensor &value){
-    std::vector<at::indexing::TensorIndex> indicesVec;
-    for(size_t i = 0; i < indices.size(); i++){
-        indicesVec.push_back(at::indexing::TensorIndex(indices[i]));
-    }
-    
-    _tensor.index_put_(indicesVec, value._tensor);
-}
-
 void Tensor::setValue(const std::vector<int> &indices, float value){
     std::vector<at::indexing::TensorIndex> indicesVec;
     for(size_t i = 0; i < indices.size(); i++){
@@ -134,6 +125,22 @@ void Tensor::setValue(const std::vector<int> &indices, std::complex<float> value
     }
 
     _tensor.index_put_(indicesVec, c10::complex<float>(value.real(), value.imag()));
+}
+
+size_t Tensor::getNdim() const {
+    return _tensor._dimI();
+}
+
+int Tensor::getBatchDim() const {
+    return _tensor.sizes()[0];
+}
+
+std::vector<int> Tensor::getShape() const{
+    std::vector<int> ret(getNdim());
+    for ( size_t i = 0; i < getNdim(); i++){
+        ret[i] = _tensor.sizes()[i];
+    }
+    return ret;
 }
 
 Tensor Tensor::matmul(const Tensor &t1, const Tensor &t2){

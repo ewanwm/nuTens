@@ -228,12 +228,21 @@ class Tensor{
         /// @arg value The value to set it to
         void setValue(const Tensor &indices, const Tensor &value);
         void setValue(const std::vector<std::variant<int, std::string>> &indices, const Tensor &value);
-        void setValue(const std::vector<int> &indices, const Tensor &value);
         void setValue(const std::vector<int> &indices, float value);
         void setValue(const std::vector<int> &indices, std::complex<float> value);
 
-        /// @brief get the 
-        Tensor getValue(const std::vector<std::variant<int, std::string>> &indices);
+        /// @brief Get the value at a certain entry in the tensor
+        /// @param indices The index of the entry to get 
+        Tensor getValue(const std::vector<std::variant<int, std::string>> &indices) const;
+
+        /// @brief Get the number of dimensions in the tensor
+        size_t getNdim() const;
+
+        /// @brief Get the batch dimension size of the tensor 
+        int getBatchDim() const;
+
+        /// @brief Get the shape of the tensor
+        std::vector<int> getShape() const;
 
         // Defining this here as it has to be in a header due to using template :(
 #if USE_PYTORCH
