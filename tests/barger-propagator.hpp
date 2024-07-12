@@ -1,3 +1,5 @@
+#pragma once
+
 #include <nuTens/propagator/constants.hpp>
 #include <math.h>
 #include <iostream>
@@ -30,7 +32,7 @@ namespace Testing{
 
         
         // characteristic length in vacuum   
-        inline float lv( float energy ) { return 4.0 * M_PI * energy / (_m2*_m2 - _m1*_m1); }
+        inline float lv( float energy ) { return 4.0 * M_PI * energy / (_m1*_m1 - _m2*_m2); }
         
         // characteristic length in matter
         inline float lm() { return 2.0 * M_PI / (Constants::Groot2 * _density); }
@@ -46,9 +48,9 @@ namespace Testing{
         // calculate the modified delta M^2
         inline float calculateEffectiveDm2( float energy ){
             if (_density > 0.0)
-                return (_m2*_m2 - _m1*_m1) * std::sqrt( 1.0 - 2.0 * (lv(energy) / lm()) * std::cos(2.0 * _theta) + (lv(energy) / lm()) * (lv(energy) / lm()));
+                return (_m1*_m1 - _m2*_m2) * std::sqrt( 1.0 - 2.0 * (lv(energy) / lm()) * std::cos(2.0 * _theta) + (lv(energy) / lm()) * (lv(energy) / lm()));
             else
-                return (_m2*_m2 - _m1*_m1);
+                return (_m1*_m1 - _m2*_m2);
         }
 
         
@@ -67,9 +69,9 @@ namespace Testing{
             else if (alpha == 1 && beta == 1)
                 return std::cos(gamma);
             else if (alpha == 0 && beta == 1) 
-                return -std::sin(gamma);
-            else if (alpha == 1 && beta == 0)
                 return std::sin(gamma);
+            else if (alpha == 1 && beta == 0)
+                return -std::sin(gamma);
 
             else{
                 std::cerr << "ERROR: how did you get here????" << std::endl;

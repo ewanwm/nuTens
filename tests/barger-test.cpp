@@ -90,7 +90,7 @@ int main(){
     //                         = 0.03627048316
     //    prob_(alpha == beta) =      1 - 0.03627048316 = 0.96372951684
 
-    bargerProp.setParams(/*m1=*/1.5, /*m2=*/1.7, /*theta=*/0.24*M_PI, /*baseline=*/6.0, /*density=*/7.0);
+    bargerProp.setParams(/*m1=*/1.7, /*m2=*/1.5, /*theta=*/0.24*M_PI, /*baseline=*/6.0, /*density=*/7.0);
     
     TEST_EXPECTED(bargerProp.lv(5.0), 98.1747704247, "vacuum osc length", 0.00001)
     
