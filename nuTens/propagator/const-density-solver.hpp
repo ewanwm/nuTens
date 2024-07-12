@@ -1,6 +1,7 @@
 #pragma once
 
 #include <nuTens/propagator/base-matter-solver.hpp>
+#include <nuTens/propagator/constants.hpp>
 
 class ConstDensityMatterSolver: public BaseMatterSolver{
 
@@ -44,7 +45,7 @@ class ConstDensityMatterSolver: public BaseMatterSolver{
             PMNS = newPMNS; 
 
             // construct the outer product of the electron neutrino row of the PMNS matrix used to construct the hamiltonian
-            electronOuter = Tensor::scale(Tensor::outer(PMNS.getValue({0, 0,"..."}), PMNS.getValue({0, 0,"..."}).conj()), Groot2 * density);
+            electronOuter = Tensor::scale(Tensor::outer(PMNS.getValue({0, 0,"..."}), PMNS.getValue({0, 0,"..."}).conj()), Constants::Groot2 * density);
         };
 
 
