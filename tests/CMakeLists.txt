@@ -10,6 +10,13 @@ target_include_directories(basic PUBLIC "${CMAKE_SOURCE_DIR}")
 add_test(NAME basic-test COMMAND basic)
 
 
+add_executable(barger barger-test.cpp)
+target_link_libraries(barger PUBLIC test-utils)
+target_include_directories(barger PUBLIC "${CMAKE_SOURCE_DIR}")
+
+add_test(NAME barger-test COMMAND basic)
+
+
 add_executable(two-flavour-osc two-flavour-osc.cpp)
 target_link_libraries(two-flavour-osc PUBLIC propagator test-utils)
 
