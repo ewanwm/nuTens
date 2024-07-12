@@ -1,10 +1,7 @@
 #include <nuTens/propagator/const-density-solver.hpp>
+#include <tests/test-utils.hpp>
 
-// Get absolute relative difference between two floats:
-//   | (f1 - f2) / f1 |
-float relativeDiff(float f1, float f2){
-    return std::abs((f1 - f2) / f1);
-}
+using namespace Testing;
 
 int main(){
     
@@ -90,12 +87,6 @@ int main(){
             return 1;
         }
 
-        if( relativeDiff(dM2, (calcV1 - calcV2) * 2.0 * energy) > 0.00005 ){
-            std::cerr << std::endl;
-            std::cerr << "ERROR: calculated effective delta M^2 value for 2 flavours does not match with Barger value for theta = " << theta << std::endl;
-            std::cerr << std::endl;
-            
-            return 1;
-        }
+        TEST_EXPECTED(dM2, (calcV1 - calcV2) * 2.0 * energy, "effective dM^2 for theta == " << theta, 0.00001)
     }
 }
