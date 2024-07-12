@@ -74,4 +74,7 @@ ax.axis('off')
 
 # Save the updated logo with the adjustments
 plt.savefig('nuTens-logo.png', dpi=300, bbox_inches='tight', transparent=True)
-plt.show()
+
+#print("figure size = ", plt.gcf().get_size_inches())
+
+plt.savefig('nuTens-logo-small.png', dpi=50, bbox_inches='tight', transparent=True)
