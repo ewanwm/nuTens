@@ -14,7 +14,7 @@ int main(){
 
     // 'standard' 2 flavour mass effect calculation values from Barger et. al
     float lv = 4.0 * M_PI * energy / (m1*m1 - m2*m2);
-    float lm = 2.0 * M_PI / (BaseMatterSolver::Groot2 * density);
+    float lm = 2.0 * M_PI / (Constants::Groot2 * density);
 
     // set the tensors we will use to calculate matter eigenvalues
     Tensor masses;

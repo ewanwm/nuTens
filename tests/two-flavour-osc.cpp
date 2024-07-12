@@ -1,10 +1,7 @@
-#include <nuTens/propagator/propagator.cpp>
+#include <nuTens/propagator/propagator.hpp>
+#include <tests/test-utils.hpp>
 
-// Get absolute relative difference between two floats:
-//   | (f1 - f2) / f1 |
-float relativeDiff(float f1, float f2){
-    return std::abs((f1 - f2) / f1);
-}
+using namespace Testing;
 
 int main(){
 
