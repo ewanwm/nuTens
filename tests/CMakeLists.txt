@@ -17,10 +17,10 @@ target_include_directories(barger PUBLIC "${CMAKE_SOURCE_DIR}")
 add_test(NAME barger-test COMMAND basic)
 
 
-add_executable(two-flavour-osc two-flavour-osc.cpp)
-target_link_libraries(two-flavour-osc PUBLIC propagator test-utils)
+add_executable(two-flavour-vacuum two-flavour-vacuum.cpp)
+target_link_libraries(two-flavour-vacuum PUBLIC propagator test-utils)
 
-add_test(NAME two-flavour-osc-test COMMAND two-flavour-osc)
+add_test(NAME two-flavour-vacuum-test COMMAND two-flavour-vacuum)
 
 
 add_executable(two-flavour-const-matter two-flavour-const-matter.cpp)
