@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>nuTens: nuTens/propagator/base-matter-solver.hpp Source File</title>
+<title>nuTens: nuTens/propagator/constants.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -73,28 +73,19 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">base-matter-solver.hpp</div>  </div>
+<div class="title">constants.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once </span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;nuTens/tensors/tensor.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="classBaseMatterSolver.html">    5</a></span>&#160;<span class="keyword">class </span><a class="code" href="classBaseMatterSolver.html">BaseMatterSolver</a> {</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="namespaceConstants.html">    6</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceConstants.html">Constants</a>{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="namespaceConstants.html#aaaad0ba76c30636db01f2e34dc3121d7">    8</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">float</span> <a class="code" href="namespaceConstants.html#aaaad0ba76c30636db01f2e34dc3121d7">Groot2</a> = 1.52588e-4; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> setPMNS(<span class="keyword">const</span> <a class="code" href="classTensor.html">Tensor</a> &amp;newPMNS) = 0;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> setMasses(<span class="keyword">const</span> <a class="code" href="classTensor.html">Tensor</a> &amp;newMasses) = 0;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> calculateEigenvalues(<span class="keyword">const</span> <a class="code" href="classTensor.html">Tensor</a> &amp;energies, <a class="code" href="classTensor.html">Tensor</a> &amp;eigenvectors, <a class="code" href="classTensor.html">Tensor</a> &amp;eigenvalues) = 0;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div>
-<div class="ttc" id="aclassBaseMatterSolver_html"><div class="ttname"><a href="classBaseMatterSolver.html">BaseMatterSolver</a></div><div class="ttdoc">Abstract base class for matter effect solvers.</div><div class="ttdef"><b>Definition:</b> base-matter-solver.hpp:5</div></div>
-<div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdoc">Basic tensor class.</div><div class="ttdef"><b>Definition:</b> tensor.hpp:15</div></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div>
+<div class="ttc" id="anamespaceConstants_html"><div class="ttname"><a href="namespaceConstants.html">Constants</a></div><div class="ttdoc">Define constants to be used across the project.</div><div class="ttdef"><b>Definition:</b> constants.hpp:6</div></div>
+<div class="ttc" id="anamespaceConstants_html_aaaad0ba76c30636db01f2e34dc3121d7"><div class="ttname"><a href="namespaceConstants.html#aaaad0ba76c30636db01f2e34dc3121d7">Constants::Groot2</a></div><div class="ttdeci">static constexpr float Groot2</div><div class="ttdoc">sqrt(2) G_fermi used in calculating matter hamiltonian</div><div class="ttdef"><b>Definition:</b> constants.hpp:8</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
