@@ -14,7 +14,7 @@ add_executable(barger barger-test.cpp)
 target_link_libraries(barger PUBLIC test-utils)
 target_include_directories(barger PUBLIC "${CMAKE_SOURCE_DIR}")
 
-add_test(NAME barger-test COMMAND basic)
+add_test(NAME barger-test COMMAND barger)
 
 
 add_executable(two-flavour-vacuum two-flavour-vacuum.cpp)
