@@ -26,13 +26,11 @@ int main(){
 
     // will use this for baseline for comparisons
     TwoFlavourBarger bargerProp;
-
-    float theta = -M_PI;
-
+    
     // test that Propagator gives expected oscillation probabilites for a range of thetas
     for( int i = 0; i < 20; i++){
 
-        theta += ( 2* M_PI / 20);
+        float theta = ( -1.0 + 2.0 * (float)i / 20.0) * 0.49 * M_PI;
 
         bargerProp.setParams(m1, m2, theta, baseline);
 
