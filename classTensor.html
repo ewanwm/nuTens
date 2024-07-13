@@ -210,6 +210,13 @@ static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="
 <tr class="memitem:a67c0ad8f189c70d4a6d5dd90a6ca1a13"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a67c0ad8f189c70d4a6d5dd90a6ca1a13">eig</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, <a class="el" href="classTensor.html">Tensor</a> &amp;eVals, <a class="el" href="classTensor.html">Tensor</a> &amp;eVecs)</td></tr>
 <tr class="memdesc:a67c0ad8f189c70d4a6d5dd90a6ca1a13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get eigenvalues and vectors of a tensor.  <a href="classTensor.html#a67c0ad8f189c70d4a6d5dd90a6ca1a13">More...</a><br /></td></tr>
 <tr class="separator:a67c0ad8f189c70d4a6d5dd90a6ca1a13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Trigonometric</div></td></tr>
+<tr class="memitem:a6f39833138b5394fd88090598640ce55"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a6f39833138b5394fd88090598640ce55">sin</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t)</td></tr>
+<tr class="memdesc:a6f39833138b5394fd88090598640ce55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get element-wise sin of a tensor.  <a href="classTensor.html#a6f39833138b5394fd88090598640ce55">More...</a><br /></td></tr>
+<tr class="separator:a6f39833138b5394fd88090598640ce55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab82395a38450799135de29625569277"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#aab82395a38450799135de29625569277">cos</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t)</td></tr>
+<tr class="memdesc:aab82395a38450799135de29625569277"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get element-wise cosine of a tensor.  <a href="classTensor.html#aab82395a38450799135de29625569277">More...</a><br /></td></tr>
+<tr class="separator:aab82395a38450799135de29625569277"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -286,11 +293,45 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>For example </p><div class="fragment"><div class="line"><a class="code" href="classTensor.html">Tensor</a> t;</div>
 <div class="line">t.<a class="code" href="classTensor.html#a6df303cfa5b246020b4cf0922e447b9c">ones</a>({3,3}).dType(NTdtypes::kFloat).<a class="code" href="classTensor.html#a54b317bee953ffa8463122635afcd369">device</a>(NTdtypes::kGPU);</div>
 <div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdoc">Basic tensor class.</div><div class="ttdef"><b>Definition:</b> tensor.hpp:15</div></div>
-<div class="ttc" id="aclassTensor_html_a54b317bee953ffa8463122635afcd369"><div class="ttname"><a href="classTensor.html#a54b317bee953ffa8463122635afcd369">Tensor::device</a></div><div class="ttdeci">Tensor &amp; device(NTdtypes::deviceType device)</div><div class="ttdoc">Set the device that this tensor lives on.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:63</div></div>
-<div class="ttc" id="aclassTensor_html_a6df303cfa5b246020b4cf0922e447b9c"><div class="ttname"><a href="classTensor.html#a6df303cfa5b246020b4cf0922e447b9c">Tensor::ones</a></div><div class="ttdeci">Tensor &amp; ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)</div><div class="ttdoc">Initialise this tensor with ones.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:25</div></div>
+<div class="ttc" id="aclassTensor_html_a54b317bee953ffa8463122635afcd369"><div class="ttname"><a href="classTensor.html#a54b317bee953ffa8463122635afcd369">Tensor::device</a></div><div class="ttdeci">Tensor &amp; device(NTdtypes::deviceType device)</div><div class="ttdoc">Set the device that this tensor lives on.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:62</div></div>
+<div class="ttc" id="aclassTensor_html_a6df303cfa5b246020b4cf0922e447b9c"><div class="ttname"><a href="classTensor.html#a6df303cfa5b246020b4cf0922e447b9c">Tensor::ones</a></div><div class="ttdeci">Tensor &amp; ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)</div><div class="ttdoc">Initialise this tensor with ones.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:24</div></div>
 </div><!-- fragment --><p> will get you a 3x3 tensor of floats that lives on the GPU. This is equivalent to </p><div class="fragment"><div class="line"><a class="code" href="classTensor.html">Tensor</a> t;</div>
 <div class="line">t.<a class="code" href="classTensor.html#a6df303cfa5b246020b4cf0922e447b9c">ones</a>({3,3}, NTdtypes::kFloat, NTdtypes::kGPU);</div>
 </div><!-- fragment --> </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aab82395a38450799135de29625569277"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab82395a38450799135de29625569277">&#9670;&nbsp;</a></span>cos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::cos </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get element-wise cosine of a tensor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>The tensor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a6166f6d8b00db004ffd1d5944571d10d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6166f6d8b00db004ffd1d5944571d10d">&#9670;&nbsp;</a></span>cumsum()</h2>
 
@@ -1049,6 +1090,40 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <li>indices The indices of the value to set </li>
 <li>value The value to set it to </li>
 </ul>
+
+</div>
+</div>
+<a id="a6f39833138b5394fd88090598640ce55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f39833138b5394fd88090598640ce55">&#9670;&nbsp;</a></span>sin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::sin </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get element-wise sin of a tensor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>The tensor </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
