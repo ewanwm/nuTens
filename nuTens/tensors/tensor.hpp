@@ -214,6 +214,19 @@ class Tensor{
 
         /// @}
 
+        
+        /// @name Trigonometric
+        /// @{
+        
+        /// @brief Get element-wise sin of a tensor
+        /// @param t The tensor
+        static Tensor sin(const Tensor &t);
+        
+        /// @brief Get element-wise cosine of a tensor
+        /// @param t The tensor
+        static Tensor cos(const Tensor &t);
+
+        /// @}
 
         /// @brief Overwrite the << operator to print this tensor out to the command line
         friend std::ostream &operator<< (std::ostream &stream, const Tensor &tensor) {
