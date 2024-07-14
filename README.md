@@ -10,7 +10,36 @@ A lightweight library for calculating neutrino oscillation probabilities using t
 [![Code - Doxygen](https://img.shields.io/badge/Code-Doxygen-2ea44f)](https://ewanwm.github.io/nuTens/index.html)
 
 
-### Feature Wishlist
+## Installation
+### Requirements
+
+- CMake - Should work with most modern versions. If you wish to use precompiled headers to speed up build times you will need CMake > 3.16.
+- Compiler with support for c++17 standard - Tested with gcc
+- [PyTorch](https://pytorch.org/) - The recommended way to install is using PyTorch_requirements.txt:
+```
+  pip install -r PyTorch_requirements.txt
+```
+(or see [PyTorch installation instructions](https://pytorch.org/get-started/locally/) for instructions on how to build yourself)
+
+### Installation
+Assuming PyTorch was built using pip, nuTens can be built using
+```
+mkdir build
+cd build
+cmake -DCMAKE_PREFIX_PATH=`python3 -c 'import torch;print(torch.utils.cmake_prefix_path)'`
+make <-j Njobs>
+```
+
+(installation with a non-pip install of PyTorch have not been tested but should be possible)
+
+### Verifying Installation
+Once nuTens has been built, you can verify your installation by running
+```
+make test
+```
+
+
+## Feature Wishlist
 - [x] Support PyTorch in tensor library
 - [x] Vacuum oscillation calculations
 - [x] Constant matter density propagation
