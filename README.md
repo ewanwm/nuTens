@@ -1,10 +1,7 @@
+<a name="nutens"></a>
+# <img src="doc/nuTens-logo.png" alt="nuTens" class="right" align="top" width="400"/>
 
-
-# nuTens 
-
-A lightweight library for calculating neutrino oscillation probabilities using tensors typically used in machine learning.
-
-<img src="doc/nuTens-logo.png" alt="nuTens" class="right" align="top" width="400"/>
+nuTens is a software library which uses [tensors](https://en.wikipedia.org/wiki/Tensor_(machine_learning)) to efficiently calculate neutrino oscillation probabilities. 
 
 [![CI badge](https://github.com/ewanwm/nuTens/actions/workflows/CI-build-and-test.yml/badge.svg)](https://github.com/ewanwm/nuTens/actions/workflows/CI-build-and-test.yml)
 [![Code - Doxygen](https://img.shields.io/badge/Code-Doxygen-2ea44f)](https://ewanwm.github.io/nuTens/index.html)
@@ -22,7 +19,7 @@ A lightweight library for calculating neutrino oscillation probabilities using t
 (or see [PyTorch installation instructions](https://pytorch.org/get-started/locally/) for instructions on how to build yourself)
 
 ### Installation
-Assuming PyTorch was built using pip, nuTens can be built using
+Assuming PyTorch was built using pip, [nuTens](#nutens) can be built using
 ```
 mkdir build
 cd build
@@ -33,7 +30,7 @@ make <-j Njobs>
 (installation with a non-pip install of PyTorch have not been tested but should be possible)
 
 ### Verifying Installation
-Once nuTens has been built, you can verify your installation by running
+Once [nuTens](#nutens) has been built, you can verify your installation by running
 ```
 make test
 ```
