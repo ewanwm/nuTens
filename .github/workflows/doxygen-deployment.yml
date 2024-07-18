@@ -13,6 +13,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - run: sudo apt-get update
+      
       - run: sudo apt-get install -y texlive  
       
       - run: sudo apt-get install -y libjs-mathjax
