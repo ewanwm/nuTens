@@ -13,9 +13,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: sudo apt install -y texlive  
+      - run: apt-get install -y texlive  
       
-      - run: sudo apt-get install -y libjs-mathjax
+      - run: apt-get install -y libjs-mathjax
       
       - uses: DenverCoder1/doxygen-github-pages-action@v1.3.0
         with:
