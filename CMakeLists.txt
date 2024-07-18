@@ -3,6 +3,13 @@ set(CMAKE_CXX_STANDARD 17)
 project(nuTens)
 enable_testing()
 
+## check build times
+## have this optional as it's not supported on all CMake platforms
+OPTION(BUILD_TIMING "output time to build each target" OFF)
+IF(BUILD_TIMING)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
+ENDIF()
+
 find_package(Torch REQUIRED)
 find_package(Protobuf REQUIRED)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
