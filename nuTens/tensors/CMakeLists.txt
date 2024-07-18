@@ -1,15 +1,16 @@
 
 
-add_library(tensor STATIC tensor.hpp torch-tensor.cpp)
+IF(TORCH_FOUND)
+    add_library(tensor STATIC tensor.hpp torch-tensor.cpp)
+    target_compile_definitions(tensor PUBLIC USE_PYTORCH)
+ENDIF()
 
 IF(USE_PCH)
     target_link_libraries(tensor PUBLIC nuTens-pch)
 
 ELSE()
     IF(TORCH_FOUND)
-        message( "Found tensor library: PyTorch")
-        
-        target_compile_definitions(tensor PUBLIC USE_PYTORCH)
+
         target_link_libraries(tensor PUBLIC "${TORCH_LIBRARIES}")
 
     ELSE()
