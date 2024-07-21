@@ -9,6 +9,10 @@ add_library(
     const-density-solver.hpp const-density-solver.cpp
 )
 
+IF(USE_PCH)
+    target_precompile_headers(propagator REUSE_FROM tensor)
+ENDIF()
+
 target_link_libraries(propagator PUBLIC tensor constants)
 
 target_include_directories(propagator PUBLIC "${CMAKE_SOURCE_DIR}")

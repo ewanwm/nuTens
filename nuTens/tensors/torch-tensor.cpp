@@ -1,6 +1,5 @@
 
 #include <nuTens/tensors/tensor.hpp>
-#include <torch/torch.h>
 
 
 // map between the data types used in nuTens and those used by pytorch
@@ -312,7 +311,7 @@ Tensor Tensor::operator- () const {
 
 Tensor Tensor::cumsum(int dim) const {
     Tensor ret;
-    ret._tensor = _tensor.cumsum(dim);
+    ret._tensor = torch::cumsum(_tensor, dim);
     return ret;
 }
 
@@ -329,6 +328,19 @@ void Tensor::backward() const {
 Tensor Tensor::grad() const {
     Tensor ret;
     ret._tensor = _tensor.grad();
+    return ret;
+}
+
+
+Tensor Tensor::sin(const Tensor &t) {
+    Tensor ret;
+    ret._tensor = torch::sin(t._tensor);
+    return ret;
+}
+
+Tensor Tensor::cos(const Tensor &t) {
+    Tensor ret;
+    ret._tensor = torch::cos(t._tensor);
     return ret;
 }
 
