@@ -35,29 +35,31 @@ class Tensor{
     */
 
     public:
-        /// @name Initialisers
-        /// Use these methods to initialise the tensor
+
+        /// @name Constructors
+        ///
         /// @{
 
-        /// @brief Initialise this tensor with ones
+        /// @brief Create a tensor with ones
         /// @arg length The length of the intitalised tensor
         /// @arg type The data type of the initialised tensor
-        Tensor &ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
-        /// @brief Initialise this tensor with ones
+        static Tensor ones(int length, NTdtypes::scalarType type = NTdtypes::kFloat, NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+        /// @brief Create a tensor with ones
         /// @arg shape The desired shape of the intitalised tensor
         /// @arg type The data type of the initialised tensor
-        Tensor &ones(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+        static Tensor ones(const std::vector<long int> &shape, NTdtypes::scalarType type = NTdtypes::kFloat, NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
 
-        /// @brief Initialise this tensor with zeros
+        /// @brief Create a tensor with zeros
         /// @arg length The length of the intitalised tensor
         /// @arg type The data type of the initialised tensor
-        Tensor &zeros(int length, NTdtypes::scalarType type, NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
-        /// @brief Initialise this tensor with zeros
+        static Tensor zeros(int length, NTdtypes::scalarType type = NTdtypes::kFloat, NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+        /// @brief Create a tensor with zeros
         /// @arg shape The desired shape of the intitalised tensor
         /// @arg type The data type of the initialised tensor
-        Tensor &zeros(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+        static Tensor zeros(const std::vector<long int> &shape, NTdtypes::scalarType type = NTdtypes::kFloat, NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
 
         /// @}
+
 
         /// @name Setters
         /// @{
