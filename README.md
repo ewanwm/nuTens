@@ -5,7 +5,7 @@ nuTens is a software library which uses [tensors](https://en.wikipedia.org/wiki/
 
 [![CI badge](https://github.com/ewanwm/nuTens/actions/workflows/CI-build-and-test.yml/badge.svg)](https://github.com/ewanwm/nuTens/actions/workflows/CI-build-and-test.yml)
 [![Code - Doxygen](https://img.shields.io/badge/Code-Doxygen-2ea44f)](https://ewanwm.github.io/nuTens/index.html)
-
+[![test - coverage](https://codecov.io/github/ewanwm/nuTens/graph/badge.svg?token=PJ8C8CX37O)](https://codecov.io/github/ewanwm/nuTens)
 
 ## Installation
 ### Requirements
@@ -43,7 +43,7 @@ make test
 - [x] Basic test suite
 - [x] Basic CI
 - [x] Doxygen documentation with automatic deployment
-- [ ] Add test coverage checks into CI
+- [x] Add test coverage checks into CI
 - [ ] Integrate linting ( [cpp-linter](https://github.com/cpp-linter)? )
 - [ ] Add instrumentation library for benchmarking and profiling
 - [ ] Add suite of benchmarking tests
