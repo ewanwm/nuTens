@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['pow_33',['pow',['../classTensor.html#ab03252adfc59f62acfc2e58bf7d0dbef',1,'Tensor::pow(const Tensor &amp;t, float s)'],['../classTensor.html#ae406770e6de832b836b23f56595162c0',1,'Tensor::pow(const Tensor &amp;t, std::complex&lt; float &gt; s)']]],
-  ['pow_5f_34',['pow_',['../classTensor.html#ab5a7ad5dafa8dfaee1a6480a730445a7',1,'Tensor::pow_(float s)'],['../classTensor.html#ad78162c18d67f3a38fea1b8354ad1e73',1,'Tensor::pow_(std::complex&lt; float &gt; s)']]],
-  ['propagator_35',['Propagator',['../classPropagator.html',1,'Propagator'],['../classPropagator.html#af935ff4cd179591258d1ce28a95e521e',1,'Propagator::Propagator()']]]
+  ['nt_5fdebug_31',['NT_DEBUG',['../logging_8hpp.html#aec1d61b1f4f277d9b55d4e4fab44d27a',1,'logging.hpp']]],
+  ['nt_5ferror_32',['NT_ERROR',['../logging_8hpp.html#a1c9124874e06a916a55c387e986d142f',1,'logging.hpp']]],
+  ['nt_5finfo_33',['NT_INFO',['../logging_8hpp.html#acb7ff302064822f73d527afacbc07371',1,'logging.hpp']]],
+  ['nt_5ftrace_34',['NT_TRACE',['../logging_8hpp.html#ac260be1f1e6681af0b14888ee59e8686',1,'logging.hpp']]],
+  ['nt_5fwarn_35',['NT_WARN',['../logging_8hpp.html#a376d667d22aa28635df30822d56904f7',1,'logging.hpp']]]
 ];

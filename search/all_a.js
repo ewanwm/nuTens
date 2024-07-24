@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['real_36',['real',['../classTensor.html#a0dba8476df4f61a625a7d836fd4c4646',1,'Tensor']]],
-  ['requiresgrad_37',['requiresGrad',['../classTensor.html#acda45d6bb19fe1566f2d75c97e99c7a8',1,'Tensor']]]
+  ['ones_36',['ones',['../classTensor.html#a6df303cfa5b246020b4cf0922e447b9c',1,'Tensor::ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)'],['../classTensor.html#a7422f6e7a5fa8a92d8b79a2b32199042',1,'Tensor::ones(const std::vector&lt; long int &gt; &amp;shape, NTdtypes::scalarType type, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)']]],
+  ['operator_3c_3c_37',['operator&lt;&lt;',['../classTensor.html#aba45fcc2e40fca2d710dae0f542fe625',1,'Tensor']]],
+  ['outer_38',['outer',['../classTensor.html#a1a0878a0e015a69b5644c930b14e371f',1,'Tensor']]]
 ];
