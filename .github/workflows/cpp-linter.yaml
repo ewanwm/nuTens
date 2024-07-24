@@ -18,7 +18,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          style: file
+          ##style: file
           format-review: true
           tidy-review: true
           files-changed-only: false
