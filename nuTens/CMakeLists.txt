@@ -2,6 +2,7 @@
 
 ## set up logging
 add_library(logging logging.hpp)
+target_link_libraries(logging spdlog::spdlog)
 set_target_properties(logging PROPERTIES LINKER_LANGUAGE CXX)
 
 set( LOG_LEVEL "INFO" CACHE STRING "the level of detail to log to the console" )
@@ -19,7 +20,41 @@ else()
 endif()
 
 ## set the log level that will be used inside the logging.hpp file
-target_compile_definitions(logging PUBLIC NT_LOG_LEVEL="NT_LOG_LEVEL_${LOG_LEVEL_UPPER}")
+target_compile_definitions(logging PUBLIC NT_LOG_LEVEL=NT_LOG_LEVEL_${LOG_LEVEL_UPPER})
+
+
+
+
+## if user wants to use pch then we use the pch
+## people, especially if developing, might want to use this as including tensor related things
+## can be excruciatingly sloow when building
+OPTION(USE_PCH "USE_PCH" OFF)
+IF(USE_PCH)
+    message("Using precompiled header")
+    
+    add_library(nuTens-pch nuTens-pch.hpp)
+    
+    SET(PCH_LIBS "${PCH_LIBS};logging")
+
+    ## the headers included in the PCH will (at some point) depend on which tensor library is being used
+    IF(TORCH_FOUND)
+        message( "Including PyTorch includes in the PCH")
+        message( "TORCH_LIBRARIES = ")
+        message( "${TORCH_LIBRARIES}")
+
+        target_compile_definitions(nuTens-pch PUBLIC USE_PYTORCH)
+        SET(PCH_LIBS "${PCH_LIBS};${TORCH_LIBRARIES}")
+    ENDIF()
+
+    target_link_libraries(nuTens-pch PUBLIC "${PCH_LIBS}")
+    target_precompile_headers(nuTens-pch PUBLIC nuTens-pch.hpp)
+    set_target_properties(nuTens-pch PROPERTIES LINKER_LANGUAGE CXX)
+
+ENDIF() ## end USE_PCH block
+
+
+
+
 
 add_subdirectory(tensors)
 add_subdirectory(propagator)

@@ -67,11 +67,13 @@
 static std::once_flag once;
 
 /// @brief Set up the logger at runtime, should only be invoked once the very first time any of the logging macros below are called
-void setup_logging() {
-    std::call_once(once, [](){ 
-        std::cout << ":::::::: INFO: Setting default spdlog logging level to " << spdlog::level::to_string_view(runtimeLogLevel).data() << " ::::::::" << std::endl;
-        spdlog::set_level(runtimeLogLevel); 
-    });
+inline void setup_logging() {
+    std::call_once(
+        once, [](){ 
+            std::cout << ":::::::: INFO: Setting default spdlog logging level to " << spdlog::level::to_string_view(runtimeLogLevel).data() << " ::::::::" << std::endl;
+            spdlog::set_level(runtimeLogLevel); 
+        }
+    );
 }
 
 /// @brief Trace message that will only be displayed if NT_LOG_LEVEL == NT_LOG_LEVEL_TRACE
