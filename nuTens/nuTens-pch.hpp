@@ -8,6 +8,8 @@
 #include <variant>
 #include <complex>
 
+#include <nuTens/logging.hpp>
+
 #if USE_PYTORCH
     #include <torch/torch.h>
 #endif
