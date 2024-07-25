@@ -1,18 +1,21 @@
 #pragma once
 
-namespace NTdtypes{
+namespace NTdtypes
+{
 
-    enum scalarType{
-        kInt,
-        kFloat,
-        kDouble,
-        kComplexFloat,
-        kComplexDouble,
-    };
+enum scalarType
+{
+    kInt,
+    kFloat,
+    kDouble,
+    kComplexFloat,
+    kComplexDouble,
+};
 
-    enum deviceType{
-        kCPU,
-        kGPU
-    };
-    
-}
+enum deviceType
+{
+    kCPU,
+    kGPU
+};
+
+} // namespace NTdtypes
