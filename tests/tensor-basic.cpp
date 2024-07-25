@@ -1,4 +1,3 @@
-#include <complex.h>
 
 #include <nuTens/tensors/dtypes.hpp>
 #include <nuTens/tensors/tensor.hpp>
