@@ -211,8 +211,7 @@ Public Member Functions</h2></td></tr>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Should add a check to tensors supplied to the setters to see how many dimensions they have, and if missing a batch dimension, add one. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">newMasses</td><td>The new masses to use. This tensor is expected to have a batch dimension + 1 more dimensions of size nGenerations. The batch dimension can (and probably should) be 1 and it will be broadcast to match the batch dimension of the energies supplied to <a class="el" href="classPropagator.html#a198abad0231f55413b1a337a1b01b7bf" title="Calculate the oscillation probabilities.">calculateProbs()</a>. So dimension should be {1, nGenerations}. <br  />
- </td></tr>
+    <tr><td class="paramname">newMasses</td><td>The new masses to use. This tensor is expected to have a batch dimension + 1 more dimensions of size nGenerations. The batch dimension can (and probably should) be 1 and it will be broadcast to match the batch dimension of the energies supplied to <a class="el" href="classPropagator.html#a198abad0231f55413b1a337a1b01b7bf" title="Calculate the oscillation probabilities.">calculateProbs()</a>. So dimension should be {1, nGenerations}. </td></tr>
   </table>
   </dd>
 </dl>

@@ -292,9 +292,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p><a class="el" href="classTensor.html" title="Basic tensor class.">Tensor</a> defines a basic interface for creating and manipulating tensors. To create tensors you should use the Initialisers. These can be used on their own or chained together with the Setters to create the desired tensor.</p>
 <p>For example </p><div class="fragment"><div class="line"><a class="code" href="classTensor.html">Tensor</a> t;</div>
 <div class="line">t.<a class="code" href="classTensor.html#a6df303cfa5b246020b4cf0922e447b9c">ones</a>({3,3}).dType(NTdtypes::kFloat).<a class="code" href="classTensor.html#a54b317bee953ffa8463122635afcd369">device</a>(NTdtypes::kGPU);</div>
-<div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdoc">Basic tensor class.</div><div class="ttdef"><b>Definition:</b> tensor.hpp:15</div></div>
-<div class="ttc" id="aclassTensor_html_a54b317bee953ffa8463122635afcd369"><div class="ttname"><a href="classTensor.html#a54b317bee953ffa8463122635afcd369">Tensor::device</a></div><div class="ttdeci">Tensor &amp; device(NTdtypes::deviceType device)</div><div class="ttdoc">Set the device that this tensor lives on.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:62</div></div>
-<div class="ttc" id="aclassTensor_html_a6df303cfa5b246020b4cf0922e447b9c"><div class="ttname"><a href="classTensor.html#a6df303cfa5b246020b4cf0922e447b9c">Tensor::ones</a></div><div class="ttdeci">Tensor &amp; ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)</div><div class="ttdoc">Initialise this tensor with ones.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:24</div></div>
+<div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdoc">Basic tensor class.</div><div class="ttdef"><b>Definition:</b> tensor.hpp:16</div></div>
+<div class="ttc" id="aclassTensor_html_a54b317bee953ffa8463122635afcd369"><div class="ttname"><a href="classTensor.html#a54b317bee953ffa8463122635afcd369">Tensor::device</a></div><div class="ttdeci">Tensor &amp; device(NTdtypes::deviceType device)</div><div class="ttdoc">Set the device that this tensor lives on.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:56</div></div>
+<div class="ttc" id="aclassTensor_html_a6df303cfa5b246020b4cf0922e447b9c"><div class="ttname"><a href="classTensor.html#a6df303cfa5b246020b4cf0922e447b9c">Tensor::ones</a></div><div class="ttdeci">Tensor &amp; ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)</div><div class="ttdoc">Initialise this tensor with ones.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:19</div></div>
 </div><!-- fragment --><p> will get you a 3x3 tensor of floats that lives on the GPU. This is equivalent to </p><div class="fragment"><div class="line"><a class="code" href="classTensor.html">Tensor</a> t;</div>
 <div class="line">t.<a class="code" href="classTensor.html#a6df303cfa5b246020b4cf0922e447b9c">ones</a>({3,3}, NTdtypes::kFloat, NTdtypes::kGPU);</div>
 </div><!-- fragment --> </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -527,8 +527,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Get the value at a certain entry in the tensor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">indices</td><td>The index of the entry to get <br  />
- </td></tr>
+    <tr><td class="paramname">indices</td><td>The index of the entry to get </td></tr>
   </table>
   </dd>
 </dl>
