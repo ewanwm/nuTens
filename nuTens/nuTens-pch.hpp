@@ -1,15 +1,15 @@
 #pragma once
 
-#include <iostream>
-#include <vector>
 #include <math.h>
-#include <map>
-#include <any>
-#include <variant>
-#include <complex>
 
+#include <any>
+#include <complex>
+#include <iostream>
+#include <map>
 #include <nuTens/logging.hpp>
+#include <variant>
+#include <vector>
 
 #if USE_PYTORCH
-    #include <torch/torch.h>
+#include <torch/torch.h>
 #endif
