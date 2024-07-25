@@ -36,7 +36,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: "Microsoft"
-          ignore: '.github|_deps'
+          ignore: '.github|_deps|CMakeFiles'
           format-review: true
           tidy-review: true
           files-changed-only: false
