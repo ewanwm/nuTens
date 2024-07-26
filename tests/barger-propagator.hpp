@@ -1,6 +1,6 @@
 #pragma once
 
-#include <math.h>
+#include <cmath>
 
 #include <iostream>
 #include <nuTens/propagator/constants.hpp>
@@ -35,13 +35,13 @@ class TwoFlavourBarger
     };
 
     // characteristic length in vacuum
-    inline float lv(float energy)
+    inline const float lv(float energy)
     {
         return 4.0 * M_PI * energy / (_m1 * _m1 - _m2 * _m2);
     }
 
     // characteristic length in matter
-    inline float lm()
+    inline const float lm()
     {
         return 2.0 * M_PI / (Constants::Groot2 * _density);
     }
@@ -49,20 +49,36 @@ class TwoFlavourBarger
     // calculate the modified rotation angle
     inline float calculateEffectiveAngle(float energy)
     {
+        float ret;
+
         if (_density > 0.0)
-            return std::atan2(std::sin(2.0 * _theta), (std::cos(2.0 * _theta) - lv(energy) / lm())) / 2.0;
+        {
+            ret = std::atan2(std::sin(2.0 * _theta), (std::cos(2.0 * _theta) - lv(energy) / lm())) / 2.0;
+        }
         else
-            return _theta;
+        {
+            ret = _theta;
+        }
+
+        return ret;
     }
 
     // calculate the modified delta M^2
     inline float calculateEffectiveDm2(float energy)
     {
+        float ret;
+
         if (_density > 0.0)
-            return (_m1 * _m1 - _m2 * _m2) * std::sqrt(1.0 - 2.0 * (lv(energy) / lm()) * std::cos(2.0 * _theta) +
-                                                       (lv(energy) / lm()) * (lv(energy) / lm()));
+        {
+            ret = (_m1 * _m1 - _m2 * _m2) * std::sqrt(1.0 - 2.0 * (lv(energy) / lm()) * std::cos(2.0 * _theta) +
+                                                      (lv(energy) / lm()) * (lv(energy) / lm()));
+        }
         else
-            return (_m1 * _m1 - _m2 * _m2);
+        {
+            ret = (_m1 * _m1 - _m2 * _m2);
+        }
+
+        return ret;
     }
 
     // get the good old 2 flavour PMNS matrix entries
@@ -76,18 +92,30 @@ class TwoFlavourBarger
             std::cerr << "       you supplied alpha = " << alpha << ", "
                       << "beta = " << beta << std::endl;
             std::cerr << "       " << __FILE__ << ": " << __LINE__ << std::endl;
+
+            throw;
         }
+
+        float ret;
 
         float gamma = calculateEffectiveAngle(energy);
 
         if (alpha == 0 && beta == 0)
-            return std::cos(gamma);
+        {
+            ret = std::cos(gamma);
+        }
         else if (alpha == 1 && beta == 1)
-            return std::cos(gamma);
+        {
+            ret = std::cos(gamma);
+        }
         else if (alpha == 0 && beta == 1)
-            return std::sin(gamma);
+        {
+            ret = std::sin(gamma);
+        }
         else if (alpha == 1 && beta == 0)
-            return -std::sin(gamma);
+        {
+            ret = -std::sin(gamma);
+        }
 
         else
         {
@@ -95,6 +123,8 @@ class TwoFlavourBarger
             std::cerr << __FILE__ << ":" << __LINE__ << std::endl;
             throw;
         }
+
+        return ret;
     }
 
     // get the good old 2 flavour vacuum oscillation probability
@@ -111,6 +141,8 @@ class TwoFlavourBarger
             throw;
         }
 
+        float ret;
+
         // get the effective oscillation parameters
         // if in vacuum (_density <= 0.0) these should just return the "raw" values
         float gamma = calculateEffectiveAngle(energy);
@@ -124,9 +156,15 @@ class TwoFlavourBarger
         float onAxis = 1.0 - offAxis;
 
         if (alpha == beta)
-            return onAxis;
+        {
+            ret = onAxis;
+        }
         else
-            return offAxis;
+        {
+            ret = offAxis;
+        }
+
+        return ret;
     }
 
   private:

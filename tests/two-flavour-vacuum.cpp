@@ -6,7 +6,8 @@ using namespace Testing;
 
 int main()
 {
-    float m1 = 0.1, m2 = 0.5;
+    float m1 = 0.1;
+    float m2 = 0.5;
     float energy = 1.0;
     float baseline = 0.5;
 

@@ -39,17 +39,17 @@ int main()
     std::cout << "Complex float: " << std::endl;
     Tensor tensorComplex;
     tensorComplex.zeros({3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
-    tensorComplex.setValue({0, 0}, std::complex<float>(0.0j));
-    tensorComplex.setValue({0, 1}, std::complex<float>(1.0j));
-    tensorComplex.setValue({0, 2}, std::complex<float>(2.0j));
+    tensorComplex.setValue({0, 0}, std::complex<float>(0.0J));
+    tensorComplex.setValue({0, 1}, std::complex<float>(1.0J));
+    tensorComplex.setValue({0, 2}, std::complex<float>(2.0J));
 
-    tensorComplex.setValue({1, 0}, std::complex<float>(3.0j));
-    tensorComplex.setValue({1, 1}, std::complex<float>(4.0j));
-    tensorComplex.setValue({1, 2}, std::complex<float>(5.0j));
+    tensorComplex.setValue({1, 0}, std::complex<float>(3.0J));
+    tensorComplex.setValue({1, 1}, std::complex<float>(4.0J));
+    tensorComplex.setValue({1, 2}, std::complex<float>(5.0J));
 
-    tensorComplex.setValue({2, 0}, std::complex<float>(6.0j));
-    tensorComplex.setValue({2, 1}, std::complex<float>(7.0j));
-    tensorComplex.setValue({2, 2}, std::complex<float>(8.0j));
+    tensorComplex.setValue({2, 0}, std::complex<float>(6.0J));
+    tensorComplex.setValue({2, 1}, std::complex<float>(7.0J));
+    tensorComplex.setValue({2, 2}, std::complex<float>(8.0J));
 
     std::cout << "real: " << std::endl << tensorComplex.real() << std::endl;
     std::cout << "imag: " << std::endl << tensorComplex.imag() << std::endl << std::endl;
@@ -119,10 +119,10 @@ int main()
 
     Tensor complexGradTest;
     complexGradTest.zeros({2, 2}, NTdtypes::kComplexFloat);
-    complexGradTest.setValue({0, 0}, std::complex<float>(0.0 + 0.0j));
-    complexGradTest.setValue({0, 1}, std::complex<float>(0.0 + 1.0j));
-    complexGradTest.setValue({1, 0}, std::complex<float>(1.0 + 0.0j));
-    complexGradTest.setValue({1, 1}, std::complex<float>(1.0 + 1.0j));
+    complexGradTest.setValue({0, 0}, std::complex<float>(0.0 + 0.0J));
+    complexGradTest.setValue({0, 1}, std::complex<float>(0.0 + 1.0J));
+    complexGradTest.setValue({1, 0}, std::complex<float>(1.0 + 0.0J));
+    complexGradTest.setValue({1, 1}, std::complex<float>(1.0 + 1.0J));
     complexGradTest.requiresGrad(true);
 
     Tensor complexGradSquared = Tensor::matmul(complexGradTest, complexGradTest).sum();

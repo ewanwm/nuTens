@@ -6,7 +6,8 @@ using namespace Testing;
 
 int main()
 {
-    float m1 = 1.0, m2 = 2.0;
+    float m1 = 1.0;
+    float m2 = 2.0;
     float energy = 100.0;
     float density = 2.6;
 
@@ -50,7 +51,8 @@ int main()
         tensorSolver.setPMNS(PMNS);
         tensorSolver.setMasses(masses);
 
-        Tensor eigenVals, eigenVecs;
+        Tensor eigenVals;
+        Tensor eigenVecs;
         tensorSolver.calculateEigenvalues(energies, eigenVecs, eigenVals);
 
         std::cout << "######## theta = " << theta << " ########" << std::endl;
@@ -59,8 +61,8 @@ int main()
         // expect
         std::cout << "tensorSolver eigenvals: " << std::endl;
         std::cout << eigenVals << std::endl;
-        float calcV1 = eigenVals.getValue<float>({0, 0});
-        float calcV2 = eigenVals.getValue<float>({0, 1});
+        auto calcV1 = eigenVals.getValue<float>({0, 0});
+        auto calcV2 = eigenVals.getValue<float>({0, 1});
         float effDm2 = (calcV1 - calcV2) * 2.0 * energy;
 
         TEST_EXPECTED(effDm2, bargerProp.calculateEffectiveDm2(energy), "effective dM^2 for theta == " << theta,

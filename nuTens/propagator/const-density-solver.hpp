@@ -62,7 +62,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
         diagMassMatrix.requiresGrad(false);
         for (int i = 0; i < nGenerations; i++)
         {
-            float m_i = masses.getValue<float>({0, i});
+            auto m_i = masses.getValue<float>({0, i});
             diagMassMatrix.setValue({0, i, i}, m_i * m_i / 2.0);
         };
         diagMassMatrix.requiresGrad(true);

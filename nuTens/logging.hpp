@@ -45,22 +45,22 @@
 // value at runtime see
 // https://github.com/gabime/spdlog/wiki/1.-QuickStart#:~:text=Notice%20that%20spdlog%3A%3Aset_level%20is%20also%20necessary%20to%20print%20out%20debug%20or%20trace%20messages.
 #if NT_LOG_LEVEL == NT_LOG_LEVEL_TRACE
-static spdlog::level::level_enum runtimeLogLevel = spdlog::level::trace;
+const static spdlog::level::level_enum runtimeLogLevel = spdlog::level::trace;
 
 #elif NT_LOG_LEVEL == NT_LOG_LEVEL_DEBUG
-static spdlog::level::level_enum runtimeLogLevel = spdlog::level::debug;
+const static spdlog::level::level_enum runtimeLogLevel = spdlog::level::debug;
 
 #elif NT_LOG_LEVEL == NT_LOG_LEVEL_INFO
-static spdlog::level::level_enum runtimeLogLevel = spdlog::level::info;
+const static spdlog::level::level_enum runtimeLogLevel = spdlog::level::info;
 
 #elif NT_LOG_LEVEL == NT_LOG_LEVEL_WARNING
-static spdlog::level::level_enum runtimeLogLevel = spdlog::level::warning;
+const static spdlog::level::level_enum runtimeLogLevel = spdlog::level::warning;
 
 #elif NT_LOG_LEVEL == NT_LOG_LEVEL_ERROR
-static spdlog::level::level_enum runtimeLogLevel = spdlog::level::error;
+const static spdlog::level::level_enum runtimeLogLevel = spdlog::level::error;
 
 #elif NT_LOG_LEVEL == NT_LOG_LEVEL_SILENT
-static spdlog::level::level_enum runtimeLogLevel = spdlog::level::off;
+const static spdlog::level::level_enum runtimeLogLevel = spdlog::level::off;
 
 #endif
 
