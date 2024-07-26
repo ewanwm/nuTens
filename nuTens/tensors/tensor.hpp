@@ -302,7 +302,7 @@ class Tensor
         return _tensor;
     }
 
-  protected:
+  private:
     torch::Tensor _tensor;
 #endif
 };

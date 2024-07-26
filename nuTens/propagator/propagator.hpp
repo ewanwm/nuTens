@@ -42,7 +42,7 @@ class Propagator
     {
         _matterSolver = std::move(newSolver);
         _matterSolver->setMasses(_masses);
-        _matterSolver->setPMNS(_PMNSmatrix);
+        _matterSolver->setPMNS(_pmnsMatrix);
     }
 
     /// \todo Should add a check to tensors supplied to the setters to see how
@@ -67,7 +67,7 @@ class Propagator
     /// @param newPMNS The new matrix to use
     inline void setPMNS(Tensor &newPMNS)
     {
-        _PMNSmatrix = newPMNS;
+        _pmnsMatrix = newPMNS;
         if (_matterSolver != nullptr)
         {
             _matterSolver->setPMNS(newPMNS);
@@ -83,7 +83,7 @@ class Propagator
     /// @param value The new value
     inline void setPMNS(const std::vector<int> &indices, float value)
     {
-        _PMNSmatrix.setValue(indices, value);
+        _pmnsMatrix.setValue(indices, value);
     }
 
     /// @brief Set a single element of the PMNS matrix
@@ -91,7 +91,7 @@ class Propagator
     /// @param value The new value
     inline void setPMNS(const std::vector<int> &indices, std::complex<float> value)
     {
-        _PMNSmatrix.setValue(indices, value);
+        _pmnsMatrix.setValue(indices, value);
     }
 
     /// @}
@@ -102,7 +102,7 @@ class Propagator
     [[nodiscard]] Tensor _calculateProbs(const Tensor &energies, const Tensor &masses, const Tensor &PMNS) const;
 
   private:
-    Tensor _PMNSmatrix;
+    Tensor _pmnsMatrix;
     Tensor _masses;
     int _nGenerations;
     float _baseline;

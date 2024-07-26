@@ -20,27 +20,27 @@ constexpr size_t NT_LOG_LEVEL_SILENT = 5;
 
 // define the log level in spdlogger
 #if NT_LOG_LEVEL == NT_LOG_LEVEL_TRACE
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE // NOLINT
 
 #elif NT_LOG_LEVEL == NT_LOG_LEVEL_DEBUG
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG // NOLINT
 
 #elif NT_LOG_LEVEL == NT_LOG_LEVEL_INFO
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_INFO
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_INFO // NOLINT
 
 #elif NT_LOG_LEVEL == NT_LOG_LEVEL_WARNING
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_WARNING
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_WARNING // NOLINT
 
 #elif NT_LOG_LEVEL == NT_LOG_LEVEL_ERROR
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_ERROR
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_ERROR // NOLINT
 
 #elif NT_LOG_LEVEL == NT_LOG_LEVEL_SILENT
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_OFF
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_OFF // NOLINT
 
 #endif
 
 // #include "spdlog.h" has to happen *AFTER* we set SPDLOG_ACTIVE_LEVEL
-#include "spdlog/spdlog.h"
+#include "spdlog/spdlog.h" // NOLINT
 
 // Now define the runtime log level which we will use to set the default log
 // level This is needed since for trace or debug, we need to alter the default
@@ -78,6 +78,9 @@ inline void setup_logging()
         spdlog::set_level(runtimeLogLevel);
     });
 }
+
+// stop the linter being upset at me for using logging macros here, maybe it's right but I like them
+// NOLINTBEGIN(cppcoreguidelines-macro-usage)
 
 /// @brief Trace message that will only be displayed if NT_LOG_LEVEL ==
 /// NT_LOG_LEVEL_TRACE
@@ -118,3 +121,5 @@ inline void setup_logging()
 #define NT_ERROR(...)                                                                                                  \
     setup_logging();                                                                                                   \
     SPDLOG_ERROR(__VA_ARGS__)
+
+// NOLINTEND(cppcoreguidelines-macro-usage)

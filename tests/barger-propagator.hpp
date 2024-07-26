@@ -82,7 +82,7 @@ class TwoFlavourBarger
     }
 
     // get the good old 2 flavour PMNS matrix entries
-    inline float getPMNSelement(float energy, int alpha, int beta)
+    inline float getPMNSelement(float energy, int alpha, int beta) const
     {
         if ((alpha > 1 || alpha < 0) || (beta > 1 || beta < 0))
         {
@@ -100,14 +100,12 @@ class TwoFlavourBarger
 
         float gamma = calculateEffectiveAngle(energy);
 
-        if (alpha == 0 && beta == 0)
+        // on diagonal elements
+        if (alpha == 0 && beta == 0 || alpha == 1 && beta == 1)
         {
             ret = std::cos(gamma);
         }
-        else if (alpha == 1 && beta == 1)
-        {
-            ret = std::cos(gamma);
-        }
+        // off diagonal elements
         else if (alpha == 0 && beta == 1)
         {
             ret = std::sin(gamma);
@@ -117,6 +115,7 @@ class TwoFlavourBarger
             ret = -std::sin(gamma);
         }
 
+        // should be caught at start of function but just in case...
         else
         {
             std::cerr << "ERROR: how did you get here????" << std::endl;
@@ -128,7 +127,7 @@ class TwoFlavourBarger
     }
 
     // get the good old 2 flavour vacuum oscillation probability
-    inline float calculateProb(float energy, int alpha, int beta)
+    inline float calculateProb(float energy, int alpha, int beta) const
     {
         if ((alpha > 1 || alpha < 0) || (beta > 1 || beta < 0))
         {

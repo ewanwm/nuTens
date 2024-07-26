@@ -12,14 +12,14 @@ Tensor Propagator::calculateProbs(const Tensor &energies) const
         Tensor eigenVecs;
         _matterSolver->calculateEigenvalues(energies, eigenVecs, eigenVals);
         Tensor effectiveMassesSq = Tensor::mul(eigenVals, Tensor::scale(energies, 2.0));
-        Tensor effectivePMNS = Tensor::matmul(_PMNSmatrix, eigenVecs);
+        Tensor effectivePMNS = Tensor::matmul(_pmnsMatrix, eigenVecs);
 
         ret = _calculateProbs(energies, effectiveMassesSq, effectivePMNS);
     }
 
     else
     {
-        ret = _calculateProbs(energies, Tensor::mul(_masses, _masses), _PMNSmatrix);
+        ret = _calculateProbs(energies, Tensor::mul(_masses, _masses), _pmnsMatrix);
     }
 
     return ret;
