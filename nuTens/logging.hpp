@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stddef.h>
+
 /*! \file logging.hpp
     \brief Define the logging utilities for nuTens
 

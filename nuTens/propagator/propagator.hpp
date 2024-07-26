@@ -58,7 +58,9 @@ class Propagator
     {
         _masses = newMasses;
         if (_matterSolver != nullptr)
+        {
             _matterSolver->setMasses(newMasses);
+        }
     }
 
     /// @brief Set a whole new PMNS matrix
@@ -67,7 +69,9 @@ class Propagator
     {
         _PMNSmatrix = newPMNS;
         if (_matterSolver != nullptr)
+        {
             _matterSolver->setPMNS(newPMNS);
+        }
     }
 
     /// \todo add setPMNS(const std::vector<int> &indices, float value) methods

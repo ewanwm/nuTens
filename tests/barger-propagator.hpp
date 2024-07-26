@@ -64,7 +64,7 @@ class TwoFlavourBarger
     }
 
     // calculate the modified delta M^2
-    inline float calculateEffectiveDm2(float energy)
+    inline float calculateEffectiveDm2(float energy) const
     {
         float ret = NAN;
 

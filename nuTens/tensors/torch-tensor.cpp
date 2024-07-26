@@ -124,6 +124,7 @@ void Tensor::setValue(const std::vector<Tensor::indexType> &indices, const Tenso
 void Tensor::setValue(const std::vector<int> &indices, float value)
 {
     std::vector<at::indexing::TensorIndex> indicesVec;
+    indicesVec.reserve(indices.size());
     for (const int &i : indices)
     {
         indicesVec.push_back(at::indexing::TensorIndex(i));
@@ -135,6 +136,7 @@ void Tensor::setValue(const std::vector<int> &indices, float value)
 void Tensor::setValue(const std::vector<int> &indices, std::complex<float> value)
 {
     std::vector<at::indexing::TensorIndex> indicesVec;
+    indicesVec.reserve(indices.size());
     for (const int &i : indices)
     {
         indicesVec.push_back(at::indexing::TensorIndex(i));
