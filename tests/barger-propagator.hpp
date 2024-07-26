@@ -35,19 +35,19 @@ class TwoFlavourBarger
     };
 
     // characteristic length in vacuum
-    inline float lv(float energy) const
+    [[nodiscard]] inline float lv(float energy) const
     {
         return 4.0 * M_PI * energy / (_m1 * _m1 - _m2 * _m2);
     }
 
     // characteristic length in matter
-    inline float lm() const
+    [[nodiscard]] inline float lm() const
     {
         return 2.0 * M_PI / (Constants::Groot2 * _density);
     }
 
     // calculate the modified rotation angle
-    inline float calculateEffectiveAngle(float energy)
+    [[nodiscard]] inline float calculateEffectiveAngle(float energy) const
     {
         float ret = NAN;
 
@@ -64,7 +64,7 @@ class TwoFlavourBarger
     }
 
     // calculate the modified delta M^2
-    inline float calculateEffectiveDm2(float energy) const
+    [[nodiscard]] inline float calculateEffectiveDm2(float energy) const
     {
         float ret = NAN;
 

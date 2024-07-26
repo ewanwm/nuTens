@@ -31,8 +31,8 @@ Tensor Propagator::_calculateProbs(const Tensor &energies, const Tensor &massesS
     weightMatrix.ones({energies.getBatchDim(), _nGenerations, _nGenerations}, NTdtypes::kComplexFloat)
         .requiresGrad(false);
 
-    Tensor weightVector =
-        Tensor::exp(Tensor::div(Tensor::scale(massesSq, -1.0J * _baseline), Tensor::scale(energies, 2.0)));
+    Tensor weightVector = Tensor::exp(
+        Tensor::div(Tensor::scale(massesSq, std::complex<float>(-1.0J) * _baseline), Tensor::scale(energies, 2.0)));
 
     for (int i = 0; i < _nGenerations; i++)
     {

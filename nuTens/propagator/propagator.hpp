@@ -31,7 +31,7 @@ class Propagator
 
     /// @brief Calculate the oscillation probabilities
     /// @param energies The energies of the neutrinos
-    Tensor calculateProbs(const Tensor &energies) const;
+    [[nodiscard]] Tensor calculateProbs(const Tensor &energies) const;
 
     /// @name Setters
     /// @{
@@ -99,7 +99,7 @@ class Propagator
   private:
     // For calculating with alternate masses and PMNS, e.g. if using effective
     // values from massSolver
-    Tensor _calculateProbs(const Tensor &energies, const Tensor &masses, const Tensor &PMNS) const;
+    [[nodiscard]] Tensor _calculateProbs(const Tensor &energies, const Tensor &masses, const Tensor &PMNS) const;
 
   private:
     Tensor _PMNSmatrix;
