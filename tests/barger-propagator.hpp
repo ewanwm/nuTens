@@ -35,13 +35,13 @@ class TwoFlavourBarger
     };
 
     // characteristic length in vacuum
-    inline const float lv(float energy)
+    inline float lv(float energy) const
     {
         return 4.0 * M_PI * energy / (_m1 * _m1 - _m2 * _m2);
     }
 
     // characteristic length in matter
-    inline const float lm()
+    inline float lm() const
     {
         return 2.0 * M_PI / (Constants::Groot2 * _density);
     }
@@ -49,7 +49,7 @@ class TwoFlavourBarger
     // calculate the modified rotation angle
     inline float calculateEffectiveAngle(float energy)
     {
-        float ret;
+        float ret = NAN;
 
         if (_density > 0.0)
         {
@@ -66,7 +66,7 @@ class TwoFlavourBarger
     // calculate the modified delta M^2
     inline float calculateEffectiveDm2(float energy)
     {
-        float ret;
+        float ret = NAN;
 
         if (_density > 0.0)
         {
@@ -96,7 +96,7 @@ class TwoFlavourBarger
             throw;
         }
 
-        float ret;
+        float ret = NAN;
 
         float gamma = calculateEffectiveAngle(energy);
 
@@ -141,7 +141,7 @@ class TwoFlavourBarger
             throw;
         }
 
-        float ret;
+        float ret = NAN;
 
         // get the effective oscillation parameters
         // if in vacuum (_density <= 0.0) these should just return the "raw" values

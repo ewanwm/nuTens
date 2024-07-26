@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cmath>
+#include <math.h>
 
 #include <iostream>
 
@@ -27,11 +27,11 @@ float relativeDiff(float f1, float f2)
 // will print out some useful information then fail the test
 #define TEST_EXPECTED(value, expectation, varName, threshold)                                                          \
     {                                                                                                                  \
-        if (Testing::relativeDiff(value, expectation) > threshold)                                                     \
+        if (Testing::relativeDiff((value), (expectation)) > (threshold))                                               \
         {                                                                                                              \
-            std::cerr << "bad " << varName << std::endl;                                                               \
-            std::cerr << "Got: " << value;                                                                             \
-            std::cerr << "; Expected: " << expectation;                                                                \
+            std::cerr << "bad " << (varName) << std::endl;                                                             \
+            std::cerr << "Got: " << (value);                                                                           \
+            std::cerr << "; Expected: " << (expectation);                                                              \
             std::cerr << std::endl;                                                                                    \
             std::cerr << __FILE__ << ":" << __LINE__ << std::endl;                                                     \
             return 1;                                                                                                  \

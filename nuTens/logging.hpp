@@ -9,12 +9,12 @@
    logging library we use. This way only this file would need to change.
 */
 
-#define NT_LOG_LEVEL_TRACE 0
-#define NT_LOG_LEVEL_DEBUG 1
-#define NT_LOG_LEVEL_INFO 2
-#define NT_LOG_LEVEL_WARNING 3
-#define NT_LOG_LEVEL_ERROR 4
-#define NT_LOG_LEVEL_SILENT 5
+constexpr size_t NT_LOG_LEVEL_TRACE = 0;
+constexpr size_t NT_LOG_LEVEL_DEBUG = 1;
+constexpr size_t NT_LOG_LEVEL_INFO = 2;
+constexpr size_t NT_LOG_LEVEL_WARNING = 3;
+constexpr size_t NT_LOG_LEVEL_ERROR = 4;
+constexpr size_t NT_LOG_LEVEL_SILENT = 5;
 
 // define the log level in spdlogger
 #if NT_LOG_LEVEL == NT_LOG_LEVEL_TRACE

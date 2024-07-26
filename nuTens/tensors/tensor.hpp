@@ -276,9 +276,9 @@ class Tensor
     template <typename T> inline T getValue(const std::vector<int> &indices)
     {
         std::vector<at::indexing::TensorIndex> indicesVec;
-        for (size_t i = 0; i < indices.size(); i++)
+        for (const int &i : indices)
         {
-            indicesVec.push_back(at::indexing::TensorIndex(indices[i]));
+            indicesVec.push_back(at::indexing::TensorIndex(i));
         }
 
         return _tensor.index(indicesVec).item<T>();
