@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <iostream>
 
 /*! \file logging.hpp
     \brief Define the logging utilities for nuTens
@@ -40,7 +41,7 @@ constexpr size_t NT_LOG_LEVEL_SILENT = 5;
 #endif
 
 // #include "spdlog.h" has to happen *AFTER* we set SPDLOG_ACTIVE_LEVEL
-#include "spdlog/spdlog.h" // NOLINT
+#include <spdlog/spdlog.h>
 
 // Now define the runtime log level which we will use to set the default log
 // level This is needed since for trace or debug, we need to alter the default
