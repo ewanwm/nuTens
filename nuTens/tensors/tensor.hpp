@@ -37,7 +37,7 @@ class Tensor
      */
 
   public:
-    typedef std::variant<int, std::string> indexType;
+    using indexType = std::variant<int, std::string>;
 
     /// @name Initialisers
     /// Use these methods to initialise the tensor

@@ -69,7 +69,10 @@ const static spdlog::level::level_enum runtimeLogLevel = spdlog::level::off;
 
 namespace ntlogging
 {
-static std::once_flag logLevelOnceFlag;
+static std::once_flag
+    logLevelOnceFlag; // NOLINT: Linter gets angry that this is globally accessible and non-const. Needs to be non-const
+                      // so it can be flipped by the call to std::call_once. Could wrap it up so that it's not global
+                      // but that feels like a bit much for what we're doing here
 
 /// @brief Set up the logger at runtime, should only be invoked once the very
 /// first time any of the logging macros below are called
