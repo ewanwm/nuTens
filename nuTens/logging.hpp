@@ -67,60 +67,63 @@ const static spdlog::level::level_enum runtimeLogLevel = spdlog::level::off;
 
 #endif
 
-static std::once_flag once;
+namespace ntlogging
+{
+static std::once_flag logLevelOnceFlag;
 
 /// @brief Set up the logger at runtime, should only be invoked once the very
 /// first time any of the logging macros below are called
 inline void setup_logging()
 {
-    std::call_once(once, []() {
+    std::call_once(logLevelOnceFlag, []() {
         std::cout << ":::::::: INFO: Setting default spdlog logging level to "
                   << spdlog::level::to_string_view(runtimeLogLevel).data() << " ::::::::" << std::endl;
         spdlog::set_level(runtimeLogLevel);
     });
 }
-
-// stop the linter being upset at me for using logging macros here, maybe it's right but I like them
-// NOLINTBEGIN(*-cppcoreguidelines-macro-usage)
+} // namespace ntlogging
 
 /// @brief Trace message that will only be displayed if NT_LOG_LEVEL ==
 /// NT_LOG_LEVEL_TRACE
 /// @param[in] ... The message to print. This can consist of just a simple
 /// string, or a format string and subsequent variables to format.
+// NOLINTNEXTLINE
 #define NT_TRACE(...)                                                                                                  \
-    setup_logging();                                                                                                   \
+    ntlogging::setup_logging();                                                                                        \
     SPDLOG_TRACE(__VA_ARGS__)
 
 /// @brief Debug message that will only be displayed if NT_LOG_LEVEL <=
 /// NT_LOG_LEVEL_DEBUG
 /// @param[in] ... The message to print. This can consist of just a simple
 /// string, or a format string and subsequent variables to format.
+// NOLINTNEXTLINE
 #define NT_DEBUG(...)                                                                                                  \
-    setup_logging();                                                                                                   \
+    ntlogging::setup_logging();                                                                                        \
     SPDLOG_DEBUG(__VA_ARGS__)
 
 /// @brief Information message that will only be displayed if NT_LOG_LEVEL <=
 /// NT_LOG_LEVEL_INFO
 /// @param[in] ... The message to print. This can consist of just a simple
 /// string, or a format string and subsequent variables to format.
+// NOLINTNEXTLINE
 #define NT_INFO(...)                                                                                                   \
-    setup_logging();                                                                                                   \
+    ntlogging::setup_logging();                                                                                        \
     SPDLOG_INFO(__VA_ARGS__)
 
 /// @brief Warning message that will only be displayed if NT_LOG_LEVEL <=
 /// NT_LOG_LEVEL_WARNING
 /// @param[in] ... The message to print. This can consist of just a simple
 /// string, or a format string and subsequent variables to format.
+// NOLINTNEXTLINE
 #define NT_WARN(...)                                                                                                   \
-    setup_logging();                                                                                                   \
+    ntlogging::setup_logging();                                                                                        \
     SPDLOG_WARN(__VA_ARGS__)
 
 /// @brief Error message that will only be displayed if NT_LOG_LEVEL <=
 /// NT_LOG_LEVEL_ERROR
 /// @param[in] ... The message to print. This can consist of just a simple
 /// string, or a format string and subsequent variables to format.
+// NOLINTNEXTLINE
 #define NT_ERROR(...)                                                                                                  \
-    setup_logging();                                                                                                   \
+    ntlogging::setup_logging();                                                                                        \
     SPDLOG_ERROR(__VA_ARGS__)
-
-// NOLINTEND(*-cppcoreguidelines-macro-usage)
