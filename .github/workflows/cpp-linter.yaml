@@ -28,6 +28,12 @@ jobs:
         # Configure CMake so we can get a compile_commands.json so that clang-tidy won't be angry about missing headers any more
         run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_PREFIX_PATH=`python3 -c 'import torch;print(torch.utils.cmake_prefix_path)'` -B ${{github.workspace}} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
+      ## horrible little hack to put spdlog include files somewhere that clang-tidy can find them
+      ## it doesn't seem to like headers included by cpm
+      - name: Move spdlog
+        run: |
+          cp -r _deps/spdlog-src/include/spdlog .
+          cp spdlog/spdlog* .
         
       - uses: cpp-linter/cpp-linter-action@main
         id: linter
