@@ -2,14 +2,15 @@
 #include <nuTens/tensors/tensor.hpp>
 
 // map between the data types used in nuTens and those used by pytorch
-std::map<NTdtypes::scalarType, c10::ScalarType> scalarTypeMap = {{NTdtypes::kFloat, torch::kFloat},
-                                                                 {NTdtypes::kDouble, torch::kDouble},
-                                                                 {NTdtypes::kComplexFloat, torch::kComplexFloat},
-                                                                 {NTdtypes::kComplexDouble, torch::kComplexDouble}};
+const static std::map<NTdtypes::scalarType, c10::ScalarType> scalarTypeMap = {
+    {NTdtypes::kFloat, torch::kFloat},
+    {NTdtypes::kDouble, torch::kDouble},
+    {NTdtypes::kComplexFloat, torch::kComplexFloat},
+    {NTdtypes::kComplexDouble, torch::kComplexDouble}};
 
 // map between the device types used in nuTens and those used by pytorch
-std::map<NTdtypes::deviceType, c10::DeviceType> deviceTypeMap = {{NTdtypes::kCPU, torch::kCPU},
-                                                                 {NTdtypes::kGPU, torch::kCUDA}};
+const static std::map<NTdtypes::deviceType, c10::DeviceType> deviceTypeMap = {{NTdtypes::kCPU, torch::kCPU},
+                                                                              {NTdtypes::kGPU, torch::kCUDA}};
 
 std::string Tensor::getTensorLibrary()
 {
@@ -18,9 +19,10 @@ std::string Tensor::getTensorLibrary()
 
 Tensor &Tensor::ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType device, bool requiresGrad)
 {
-    _tensor = torch::ones(
-        length,
-        torch::TensorOptions().dtype(scalarTypeMap[type]).device(deviceTypeMap[device]).requires_grad(requiresGrad));
+    _tensor = torch::ones(length, torch::TensorOptions()
+                                      .dtype(scalarTypeMap.at(type))
+                                      .device(deviceTypeMap.at(device))
+                                      .requires_grad(requiresGrad));
 
     return *this;
 }
@@ -28,34 +30,35 @@ Tensor &Tensor::ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType
 Tensor &Tensor::ones(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
                      bool requiresGrad)
 {
-    _tensor = torch::ones(
-        c10::IntArrayRef(shape),
-        torch::TensorOptions().dtype(scalarTypeMap[type]).device(deviceTypeMap[device]).requires_grad(requiresGrad));
+    _tensor = torch::ones(c10::IntArrayRef(shape), torch::TensorOptions()
+                                                       .dtype(scalarTypeMap.at(type))
+                                                       .device(deviceTypeMap.at(device))
+                                                       .requires_grad(requiresGrad));
     return *this;
 }
 
 Tensor &Tensor::zeros(int length, NTdtypes::scalarType type, NTdtypes::deviceType device, bool requiresGrad)
 {
-    _tensor = torch::zeros(length, scalarTypeMap[type]);
+    _tensor = torch::zeros(length, scalarTypeMap.at(type));
     return *this;
 }
 
 Tensor &Tensor::zeros(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
                       bool requiresGrad)
 {
-    _tensor = torch::zeros(c10::IntArrayRef(shape), scalarTypeMap[type]);
+    _tensor = torch::zeros(c10::IntArrayRef(shape), scalarTypeMap.at(type));
     return *this;
 }
 
 Tensor &Tensor::dType(NTdtypes::scalarType type)
 {
-    _tensor = _tensor.to(scalarTypeMap[type]);
+    _tensor = _tensor.to(scalarTypeMap.at(type));
     return *this;
 }
 
 Tensor &Tensor::device(NTdtypes::deviceType device)
 {
-    _tensor = _tensor.to(deviceTypeMap[device]);
+    _tensor = _tensor.to(deviceTypeMap.at(device));
     return *this;
 }
 
@@ -65,15 +68,19 @@ Tensor &Tensor::requiresGrad(bool reqGrad)
     return *this;
 }
 
-Tensor Tensor::getValue(const std::vector<std::variant<int, std::string>> &indices) const
+Tensor Tensor::getValue(const std::vector<Tensor::indexType> &indices) const
 {
     std::vector<at::indexing::TensorIndex> indicesVec;
-    for (size_t i = 0; i < indices.size(); i++)
+    for (const Tensor::indexType &i : indices)
     {
-        if (const int *index = std::get_if<int>(&indices[i]))
+        if (const int *index = std::get_if<int>(&i))
+        {
             indicesVec.push_back(at::indexing::TensorIndex(*index));
-        else if (const std::string *index = std::get_if<std::string>(&indices[i]))
+        }
+        else if (const std::string *index = std::get_if<std::string>(&i))
+        {
             indicesVec.push_back(at::indexing::TensorIndex((*index).c_str()));
+        }
         else
         {
             assert(false && "ERROR: Unsupported index type");
@@ -91,15 +98,19 @@ void Tensor::setValue(const Tensor &indices, const Tensor &value)
     _tensor.index_put_({indices._tensor}, value._tensor);
 }
 
-void Tensor::setValue(const std::vector<std::variant<int, std::string>> &indices, const Tensor &value)
+void Tensor::setValue(const std::vector<Tensor::indexType> &indices, const Tensor &value)
 {
     std::vector<at::indexing::TensorIndex> indicesVec;
-    for (size_t i = 0; i < indices.size(); i++)
+    for (const Tensor::indexType &i : indices)
     {
-        if (const int *index = std::get_if<int>(&indices[i]))
+        if (const int *index = std::get_if<int>(&i))
+        {
             indicesVec.push_back(at::indexing::TensorIndex(*index));
-        else if (const std::string *index = std::get_if<std::string>(&indices[i]))
+        }
+        else if (const std::string *index = std::get_if<std::string>(&i))
+        {
             indicesVec.push_back(at::indexing::TensorIndex((*index).c_str()));
+        }
         else
         {
             assert(false && "ERROR: Unsupported index type");
@@ -113,9 +124,10 @@ void Tensor::setValue(const std::vector<std::variant<int, std::string>> &indices
 void Tensor::setValue(const std::vector<int> &indices, float value)
 {
     std::vector<at::indexing::TensorIndex> indicesVec;
-    for (size_t i = 0; i < indices.size(); i++)
+    indicesVec.reserve(indices.size());
+    for (const int &i : indices)
     {
-        indicesVec.push_back(at::indexing::TensorIndex(indices[i]));
+        indicesVec.push_back(at::indexing::TensorIndex(i));
     }
 
     _tensor.index_put_(indicesVec, value);
@@ -124,9 +136,10 @@ void Tensor::setValue(const std::vector<int> &indices, float value)
 void Tensor::setValue(const std::vector<int> &indices, std::complex<float> value)
 {
     std::vector<at::indexing::TensorIndex> indicesVec;
-    for (size_t i = 0; i < indices.size(); i++)
+    indicesVec.reserve(indices.size());
+    for (const int &i : indices)
     {
-        indicesVec.push_back(at::indexing::TensorIndex(indices[i]));
+        indicesVec.push_back(at::indexing::TensorIndex(i));
     }
 
     _tensor.index_put_(indicesVec, c10::complex<float>(value.real(), value.imag()));

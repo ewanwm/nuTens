@@ -37,6 +37,8 @@ class Tensor
      */
 
   public:
+    using indexType = std::variant<int, std::string>;
+
     /// @name Initialisers
     /// Use these methods to initialise the tensor
     /// @{
@@ -192,23 +194,23 @@ class Tensor
     /// @}
 
     /// @brief Get the real part of a complex tensor
-    Tensor real() const;
+    [[nodiscard]] Tensor real() const;
     /// @brief Get the imaginary part of a complex tensor
-    Tensor imag() const;
+    [[nodiscard]] Tensor imag() const;
     /// @brief Get the complex conjugate of this tensor. If the underlying tensor
     /// is not complex, this will just return the tensor.
-    Tensor conj() const;
+    [[nodiscard]] Tensor conj() const;
     /// @brief Get elementwise absolute magnitude of a complex tensor
-    Tensor abs() const;
+    [[nodiscard]] Tensor abs() const;
     /// @brief Get elementwise phases of a complex tensor
-    Tensor angle() const;
+    [[nodiscard]] Tensor angle() const;
 
     /// @brief Get the result of summing this tensor over some dimension
     /// @param dim The dimension to sum over
-    Tensor cumsum(int dim) const;
+    [[nodiscard]] Tensor cumsum(int dim) const;
 
     /// @brief Get the result of summing this tensor over all dimensions
-    Tensor sum() const;
+    [[nodiscard]] Tensor sum() const;
 
     /// @name Gradients
     /// @{
@@ -219,7 +221,7 @@ class Tensor
 
     /// @brief Return a tensor containing the accumulated gradients calculated
     /// for this tensor after calling backward()
-    Tensor grad() const;
+    [[nodiscard]] Tensor grad() const;
 
     /// @}
 
@@ -244,7 +246,7 @@ class Tensor
     };
 
     /// Print this object to a summary string
-    std::string toString() const;
+    [[nodiscard]] std::string toString() const;
 
     /// @brief Set the value at a particular index of the tensor
     /// @arg indices The indices of the value to set
@@ -256,16 +258,16 @@ class Tensor
 
     /// @brief Get the value at a certain entry in the tensor
     /// @param indices The index of the entry to get
-    Tensor getValue(const std::vector<std::variant<int, std::string>> &indices) const;
+    [[nodiscard]] Tensor getValue(const std::vector<std::variant<int, std::string>> &indices) const;
 
     /// @brief Get the number of dimensions in the tensor
-    size_t getNdim() const;
+    [[nodiscard]] size_t getNdim() const;
 
     /// @brief Get the batch dimension size of the tensor
-    int getBatchDim() const;
+    [[nodiscard]] int getBatchDim() const;
 
     /// @brief Get the shape of the tensor
-    std::vector<int> getShape() const;
+    [[nodiscard]] std::vector<int> getShape() const;
 
     // Defining this here as it has to be in a header due to using template :(
 #if USE_PYTORCH
@@ -274,9 +276,10 @@ class Tensor
     template <typename T> inline T getValue(const std::vector<int> &indices)
     {
         std::vector<at::indexing::TensorIndex> indicesVec;
-        for (size_t i = 0; i < indices.size(); i++)
+        indicesVec.reserve(indices.size());
+        for (const int &i : indices)
         {
-            indicesVec.push_back(at::indexing::TensorIndex(indices[i]));
+            indicesVec.push_back(at::indexing::TensorIndex(i));
         }
 
         return _tensor.index(indicesVec).item<T>();
@@ -294,12 +297,12 @@ class Tensor
 
 #if USE_PYTORCH
   public:
-    inline const torch::Tensor &getTensor() const
+    [[nodiscard]] inline const torch::Tensor &getTensor() const
     {
         return _tensor;
     }
 
-  protected:
+  private:
     torch::Tensor _tensor;
 #endif
 };

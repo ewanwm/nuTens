@@ -6,7 +6,8 @@ using namespace Testing;
 
 int main()
 {
-    float m1 = 1.0, m2 = 2.0;
+    float m1 = 1.0;
+    float m2 = 2.0;
     float energy = 100.0;
     float density = 2.6;
 
@@ -28,7 +29,7 @@ int main()
 
     std::cout << "tensorSolver created" << std::endl;
 
-    TwoFlavourBarger bargerProp;
+    TwoFlavourBarger bargerProp{};
 
     // test that Propagator gives expected oscillation probabilites for a range
     // of thetas
@@ -50,7 +51,8 @@ int main()
         tensorSolver.setPMNS(PMNS);
         tensorSolver.setMasses(masses);
 
-        Tensor eigenVals, eigenVecs;
+        Tensor eigenVals;
+        Tensor eigenVecs;
         tensorSolver.calculateEigenvalues(energies, eigenVecs, eigenVals);
 
         std::cout << "######## theta = " << theta << " ########" << std::endl;
@@ -59,12 +61,12 @@ int main()
         // expect
         std::cout << "tensorSolver eigenvals: " << std::endl;
         std::cout << eigenVals << std::endl;
-        float calcV1 = eigenVals.getValue<float>({0, 0});
-        float calcV2 = eigenVals.getValue<float>({0, 1});
+        auto calcV1 = eigenVals.getValue<float>({0, 0});
+        auto calcV2 = eigenVals.getValue<float>({0, 1});
         float effDm2 = (calcV1 - calcV2) * 2.0 * energy;
 
-        TEST_EXPECTED(effDm2, bargerProp.calculateEffectiveDm2(energy), "effective dM^2 for theta == " << theta,
-                      0.00001)
+        TEST_EXPECTED(effDm2, bargerProp.calculateEffectiveDm2(energy),
+                      "effective dM^2 for theta == " + std::to_string(theta), 0.00001)
 
         // now check the actual PMNS matrix entries
         Tensor PMNSeff = Tensor::matmul(PMNS, eigenVecs);
@@ -72,16 +74,16 @@ int main()
         std::cout << PMNSeff << std::endl << std::endl;
 
         TEST_EXPECTED(PMNSeff.getValue<float>({0, 0, 0}), bargerProp.getPMNSelement(energy, 0, 0),
-                      "PMNS[0,0] for theta == " << theta, 0.00001)
+                      "PMNS[0,0] for theta == " + std::to_string(theta), 0.00001)
 
         TEST_EXPECTED(PMNSeff.getValue<float>({0, 1, 1}), bargerProp.getPMNSelement(energy, 1, 1),
-                      "PMNS[1,1] for theta == " << theta, 0.00001)
+                      "PMNS[1,1] for theta == " + std::to_string(theta), 0.00001)
 
         TEST_EXPECTED(PMNSeff.getValue<float>({0, 0, 1}), bargerProp.getPMNSelement(energy, 0, 1),
-                      "PMNS[0,1] for theta == " << theta, 0.00001)
+                      "PMNS[0,1] for theta == " + std::to_string(theta), 0.00001)
 
         TEST_EXPECTED(PMNSeff.getValue<float>({0, 1, 0}), bargerProp.getPMNSelement(energy, 1, 0),
-                      "PMNS[1,0] for theta == " << theta, 0.00001)
+                      "PMNS[1,0] for theta == " + std::to_string(theta), 0.00001)
 
         std::cout << "###############################" << std::endl << std::endl;
     }

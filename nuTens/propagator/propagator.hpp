@@ -31,7 +31,7 @@ class Propagator
 
     /// @brief Calculate the oscillation probabilities
     /// @param energies The energies of the neutrinos
-    Tensor calculateProbs(const Tensor &energies) const;
+    [[nodiscard]] Tensor calculateProbs(const Tensor &energies) const;
 
     /// @name Setters
     /// @{
@@ -42,7 +42,7 @@ class Propagator
     {
         _matterSolver = std::move(newSolver);
         _matterSolver->setMasses(_masses);
-        _matterSolver->setPMNS(_PMNSmatrix);
+        _matterSolver->setPMNS(_pmnsMatrix);
     }
 
     /// \todo Should add a check to tensors supplied to the setters to see how
@@ -58,16 +58,20 @@ class Propagator
     {
         _masses = newMasses;
         if (_matterSolver != nullptr)
+        {
             _matterSolver->setMasses(newMasses);
+        }
     }
 
     /// @brief Set a whole new PMNS matrix
     /// @param newPMNS The new matrix to use
     inline void setPMNS(Tensor &newPMNS)
     {
-        _PMNSmatrix = newPMNS;
+        _pmnsMatrix = newPMNS;
         if (_matterSolver != nullptr)
+        {
             _matterSolver->setPMNS(newPMNS);
+        }
     }
 
     /// \todo add setPMNS(const std::vector<int> &indices, float value) methods
@@ -79,7 +83,7 @@ class Propagator
     /// @param value The new value
     inline void setPMNS(const std::vector<int> &indices, float value)
     {
-        _PMNSmatrix.setValue(indices, value);
+        _pmnsMatrix.setValue(indices, value);
     }
 
     /// @brief Set a single element of the PMNS matrix
@@ -87,7 +91,7 @@ class Propagator
     /// @param value The new value
     inline void setPMNS(const std::vector<int> &indices, std::complex<float> value)
     {
-        _PMNSmatrix.setValue(indices, value);
+        _pmnsMatrix.setValue(indices, value);
     }
 
     /// @}
@@ -95,10 +99,10 @@ class Propagator
   private:
     // For calculating with alternate masses and PMNS, e.g. if using effective
     // values from massSolver
-    Tensor _calculateProbs(const Tensor &energies, const Tensor &masses, const Tensor &PMNS) const;
+    [[nodiscard]] Tensor _calculateProbs(const Tensor &energies, const Tensor &masses, const Tensor &PMNS) const;
 
   private:
-    Tensor _PMNSmatrix;
+    Tensor _pmnsMatrix;
     Tensor _masses;
     int _nGenerations;
     float _baseline;

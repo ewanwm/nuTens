@@ -10,7 +10,7 @@ int main()
 {
     float baseline = 500.0;
 
-    TwoFlavourBarger bargerProp;
+    TwoFlavourBarger bargerProp{};
 
     // ##########################################################
     // ## Test vacuum propagations for some fixed param values ##

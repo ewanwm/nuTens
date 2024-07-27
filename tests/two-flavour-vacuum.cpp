@@ -6,7 +6,8 @@ using namespace Testing;
 
 int main()
 {
-    float m1 = 0.1, m2 = 0.5;
+    float m1 = 0.1;
+    float m2 = 0.5;
     float energy = 1.0;
     float baseline = 0.5;
 
@@ -25,7 +26,7 @@ int main()
     tensorPropagator.setMasses(masses);
 
     // will use this for baseline for comparisons
-    TwoFlavourBarger bargerProp;
+    TwoFlavourBarger bargerProp{};
 
     // test that Propagator gives expected oscillation probabilites for a range
     // of thetas
