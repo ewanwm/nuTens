@@ -90,14 +90,14 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classPropagator.html#af935ff4cd179591258d1ce28a95e521e">   30</a></span>&#160;    <a class="code" href="classPropagator.html#af935ff4cd179591258d1ce28a95e521e">Propagator</a>(<span class="keywordtype">int</span> nGenerations, <span class="keywordtype">float</span> baseline) : _baseline(baseline), _nGenerations(nGenerations){};</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="classTensor.html">Tensor</a> <a class="code" href="classPropagator.html#a198abad0231f55413b1a337a1b01b7bf">calculateProbs</a>(<span class="keyword">const</span> <a class="code" href="classTensor.html">Tensor</a> &amp;energies) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    [[nodiscard]] <a class="code" href="classTensor.html">Tensor</a> <a class="code" href="classPropagator.html#a198abad0231f55413b1a337a1b01b7bf">calculateProbs</a>(<span class="keyword">const</span> <a class="code" href="classTensor.html">Tensor</a> &amp;energies) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classPropagator.html#a1b68caf6d592f7df8cb23caaa6538673">   41</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classPropagator.html#a1b68caf6d592f7df8cb23caaa6538673">setMatterSolver</a>(std::unique_ptr&lt;BaseMatterSolver&gt; &amp;newSolver)</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    {</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        _matterSolver = std::move(newSolver);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        _matterSolver-&gt;setMasses(_masses);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        _matterSolver-&gt;setPMNS(_PMNSmatrix);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        _matterSolver-&gt;setPMNS(_pmnsMatrix);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
@@ -105,51 +105,55 @@ $(function() {
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        _masses = newMasses;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">if</span> (_matterSolver != <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            _matterSolver-&gt;setMasses(newMasses);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="classPropagator.html#a6e5049282d330df4ee4fb620f48cf100">   66</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classPropagator.html#a6e5049282d330df4ee4fb620f48cf100">setPMNS</a>(<a class="code" href="classTensor.html">Tensor</a> &amp;newPMNS)</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        _PMNSmatrix = newPMNS;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">if</span> (_matterSolver != <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            _matterSolver-&gt;setPMNS(newPMNS);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            _matterSolver-&gt;setMasses(newMasses);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classPropagator.html#a6e5049282d330df4ee4fb620f48cf100">   68</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classPropagator.html#a6e5049282d330df4ee4fb620f48cf100">setPMNS</a>(<a class="code" href="classTensor.html">Tensor</a> &amp;newPMNS)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        _pmnsMatrix = newPMNS;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">if</span> (_matterSolver != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            _matterSolver-&gt;setPMNS(newPMNS);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="classPropagator.html#a4e14aadddb0950a471a3ccf6d7b48542">   80</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classPropagator.html#a4e14aadddb0950a471a3ccf6d7b48542">setPMNS</a>(<span class="keyword">const</span> std::vector&lt;int&gt; &amp;indices, <span class="keywordtype">float</span> value)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        _PMNSmatrix.<a class="code" href="classTensor.html#a1fe34f8072b6b29ab72777f45010ae97">setValue</a>(indices, value);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classPropagator.html#a80e17853b6ca83a5efca374cf81ccd36">   88</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classPropagator.html#a80e17853b6ca83a5efca374cf81ccd36">setPMNS</a>(<span class="keyword">const</span> std::vector&lt;int&gt; &amp;indices, std::complex&lt;float&gt; value)</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        _PMNSmatrix.<a class="code" href="classTensor.html#a1fe34f8072b6b29ab72777f45010ae97">setValue</a>(indices, value);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="comment">// For calculating with alternate masses and PMNS, e.g. if using effective</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="comment">// values from massSolver</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="classTensor.html">Tensor</a> _calculateProbs(<span class="keyword">const</span> <a class="code" href="classTensor.html">Tensor</a> &amp;energies, <span class="keyword">const</span> <a class="code" href="classTensor.html">Tensor</a> &amp;masses, <span class="keyword">const</span> <a class="code" href="classTensor.html">Tensor</a> &amp;PMNS) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="classTensor.html">Tensor</a> _PMNSmatrix;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="classTensor.html">Tensor</a> _masses;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">int</span> _nGenerations;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">float</span> _baseline;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    std::unique_ptr&lt;BaseMatterSolver&gt; _matterSolver;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;};</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="classPropagator.html#a4e14aadddb0950a471a3ccf6d7b48542">   84</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classPropagator.html#a4e14aadddb0950a471a3ccf6d7b48542">setPMNS</a>(<span class="keyword">const</span> std::vector&lt;int&gt; &amp;indices, <span class="keywordtype">float</span> value)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        _pmnsMatrix.<a class="code" href="classTensor.html#a1fe34f8072b6b29ab72777f45010ae97">setValue</a>(indices, value);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="classPropagator.html#a80e17853b6ca83a5efca374cf81ccd36">   92</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classPropagator.html#a80e17853b6ca83a5efca374cf81ccd36">setPMNS</a>(<span class="keyword">const</span> std::vector&lt;int&gt; &amp;indices, std::complex&lt;float&gt; value)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        _pmnsMatrix.<a class="code" href="classTensor.html#a1fe34f8072b6b29ab72777f45010ae97">setValue</a>(indices, value);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="comment">// For calculating with alternate masses and PMNS, e.g. if using effective</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="comment">// values from massSolver</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    [[nodiscard]] <a class="code" href="classTensor.html">Tensor</a> _calculateProbs(<span class="keyword">const</span> <a class="code" href="classTensor.html">Tensor</a> &amp;energies, <span class="keyword">const</span> <a class="code" href="classTensor.html">Tensor</a> &amp;masses, <span class="keyword">const</span> <a class="code" href="classTensor.html">Tensor</a> &amp;PMNS) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="classTensor.html">Tensor</a> _pmnsMatrix;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="classTensor.html">Tensor</a> _masses;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">int</span> _nGenerations;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">float</span> _baseline;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    std::unique_ptr&lt;BaseMatterSolver&gt; _matterSolver;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;};</div>
 <div class="ttc" id="aclassPropagator_html"><div class="ttname"><a href="classPropagator.html">Propagator</a></div><div class="ttdoc">Neutrino oscillation probability calculator.</div><div class="ttdef"><b>Definition:</b> propagator.hpp:9</div></div>
 <div class="ttc" id="aclassPropagator_html_a198abad0231f55413b1a337a1b01b7bf"><div class="ttname"><a href="classPropagator.html#a198abad0231f55413b1a337a1b01b7bf">Propagator::calculateProbs</a></div><div class="ttdeci">Tensor calculateProbs(const Tensor &amp;energies) const</div><div class="ttdoc">Calculate the oscillation probabilities.</div><div class="ttdef"><b>Definition:</b> propagator.cpp:3</div></div>
 <div class="ttc" id="aclassPropagator_html_a1b68caf6d592f7df8cb23caaa6538673"><div class="ttname"><a href="classPropagator.html#a1b68caf6d592f7df8cb23caaa6538673">Propagator::setMatterSolver</a></div><div class="ttdeci">void setMatterSolver(std::unique_ptr&lt; BaseMatterSolver &gt; &amp;newSolver)</div><div class="ttdoc">Set a matter solver to use to deal with matter effects.</div><div class="ttdef"><b>Definition:</b> propagator.hpp:41</div></div>
-<div class="ttc" id="aclassPropagator_html_a4e14aadddb0950a471a3ccf6d7b48542"><div class="ttname"><a href="classPropagator.html#a4e14aadddb0950a471a3ccf6d7b48542">Propagator::setPMNS</a></div><div class="ttdeci">void setPMNS(const std::vector&lt; int &gt; &amp;indices, float value)</div><div class="ttdoc">Set a single element of the PMNS matrix.</div><div class="ttdef"><b>Definition:</b> propagator.hpp:80</div></div>
-<div class="ttc" id="aclassPropagator_html_a6e5049282d330df4ee4fb620f48cf100"><div class="ttname"><a href="classPropagator.html#a6e5049282d330df4ee4fb620f48cf100">Propagator::setPMNS</a></div><div class="ttdeci">void setPMNS(Tensor &amp;newPMNS)</div><div class="ttdoc">Set a whole new PMNS matrix.</div><div class="ttdef"><b>Definition:</b> propagator.hpp:66</div></div>
+<div class="ttc" id="aclassPropagator_html_a4e14aadddb0950a471a3ccf6d7b48542"><div class="ttname"><a href="classPropagator.html#a4e14aadddb0950a471a3ccf6d7b48542">Propagator::setPMNS</a></div><div class="ttdeci">void setPMNS(const std::vector&lt; int &gt; &amp;indices, float value)</div><div class="ttdoc">Set a single element of the PMNS matrix.</div><div class="ttdef"><b>Definition:</b> propagator.hpp:84</div></div>
+<div class="ttc" id="aclassPropagator_html_a6e5049282d330df4ee4fb620f48cf100"><div class="ttname"><a href="classPropagator.html#a6e5049282d330df4ee4fb620f48cf100">Propagator::setPMNS</a></div><div class="ttdeci">void setPMNS(Tensor &amp;newPMNS)</div><div class="ttdoc">Set a whole new PMNS matrix.</div><div class="ttdef"><b>Definition:</b> propagator.hpp:68</div></div>
 <div class="ttc" id="aclassPropagator_html_a7dbf99562e01684d1fb2fc6d8d82d092"><div class="ttname"><a href="classPropagator.html#a7dbf99562e01684d1fb2fc6d8d82d092">Propagator::setMasses</a></div><div class="ttdeci">void setMasses(Tensor &amp;newMasses)</div><div class="ttdoc">Set the masses corresponding to the vacuum hamiltonian eigenstates.</div><div class="ttdef"><b>Definition:</b> propagator.hpp:57</div></div>
-<div class="ttc" id="aclassPropagator_html_a80e17853b6ca83a5efca374cf81ccd36"><div class="ttname"><a href="classPropagator.html#a80e17853b6ca83a5efca374cf81ccd36">Propagator::setPMNS</a></div><div class="ttdeci">void setPMNS(const std::vector&lt; int &gt; &amp;indices, std::complex&lt; float &gt; value)</div><div class="ttdoc">Set a single element of the PMNS matrix.</div><div class="ttdef"><b>Definition:</b> propagator.hpp:88</div></div>
+<div class="ttc" id="aclassPropagator_html_a80e17853b6ca83a5efca374cf81ccd36"><div class="ttname"><a href="classPropagator.html#a80e17853b6ca83a5efca374cf81ccd36">Propagator::setPMNS</a></div><div class="ttdeci">void setPMNS(const std::vector&lt; int &gt; &amp;indices, std::complex&lt; float &gt; value)</div><div class="ttdoc">Set a single element of the PMNS matrix.</div><div class="ttdef"><b>Definition:</b> propagator.hpp:92</div></div>
 <div class="ttc" id="aclassPropagator_html_af935ff4cd179591258d1ce28a95e521e"><div class="ttname"><a href="classPropagator.html#af935ff4cd179591258d1ce28a95e521e">Propagator::Propagator</a></div><div class="ttdeci">Propagator(int nGenerations, float baseline)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> propagator.hpp:30</div></div>
 <div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdoc">Basic tensor class.</div><div class="ttdef"><b>Definition:</b> tensor.hpp:16</div></div>
-<div class="ttc" id="aclassTensor_html_a1fe34f8072b6b29ab72777f45010ae97"><div class="ttname"><a href="classTensor.html#a1fe34f8072b6b29ab72777f45010ae97">Tensor::setValue</a></div><div class="ttdeci">void setValue(const Tensor &amp;indices, const Tensor &amp;value)</div><div class="ttdoc">Set the value at a particular index of the tensor.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:89</div></div>
+<div class="ttc" id="aclassTensor_html_a1fe34f8072b6b29ab72777f45010ae97"><div class="ttname"><a href="classTensor.html#a1fe34f8072b6b29ab72777f45010ae97">Tensor::setValue</a></div><div class="ttdeci">void setValue(const Tensor &amp;indices, const Tensor &amp;value)</div><div class="ttdoc">Set the value at a particular index of the tensor.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:96</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

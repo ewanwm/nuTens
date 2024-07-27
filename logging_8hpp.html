@@ -85,30 +85,14 @@ $(function() {
 
 <p>Define the logging utilities for nuTens.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;spdlog/spdlog.h&quot;</code><br />
+<div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;spdlog/spdlog.h&gt;</code><br />
 </div>
 <p><a href="logging_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a09fea373745dcebb15067677705ab280"><td class="memItemLeft" align="right" valign="top"><a id="a09fea373745dcebb15067677705ab280"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NT_LOG_LEVEL_TRACE</b>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:a09fea373745dcebb15067677705ab280"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9747205b7e8f5e5a487bf56e55caa54"><td class="memItemLeft" align="right" valign="top"><a id="ae9747205b7e8f5e5a487bf56e55caa54"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NT_LOG_LEVEL_DEBUG</b>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:ae9747205b7e8f5e5a487bf56e55caa54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae63ea0048502b9a9a4e5ffe3547d37fa"><td class="memItemLeft" align="right" valign="top"><a id="ae63ea0048502b9a9a4e5ffe3547d37fa"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NT_LOG_LEVEL_INFO</b>&#160;&#160;&#160;2</td></tr>
-<tr class="separator:ae63ea0048502b9a9a4e5ffe3547d37fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7695c4078d1e5b9a52ad75dcdd2ab3a"><td class="memItemLeft" align="right" valign="top"><a id="ac7695c4078d1e5b9a52ad75dcdd2ab3a"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NT_LOG_LEVEL_WARNING</b>&#160;&#160;&#160;3</td></tr>
-<tr class="separator:ac7695c4078d1e5b9a52ad75dcdd2ab3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca890110875f7f8f6c594e9e7e81c1cb"><td class="memItemLeft" align="right" valign="top"><a id="aca890110875f7f8f6c594e9e7e81c1cb"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NT_LOG_LEVEL_ERROR</b>&#160;&#160;&#160;4</td></tr>
-<tr class="separator:aca890110875f7f8f6c594e9e7e81c1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4fa2b54b226ff1c6d11d149247bc28d"><td class="memItemLeft" align="right" valign="top"><a id="ab4fa2b54b226ff1c6d11d149247bc28d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NT_LOG_LEVEL_SILENT</b>&#160;&#160;&#160;5</td></tr>
-<tr class="separator:ab4fa2b54b226ff1c6d11d149247bc28d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4fda6f71f35120e2ff48157fca961b5"><td class="memItemLeft" align="right" valign="top"><a id="ae4fda6f71f35120e2ff48157fca961b5"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>SPDLOG_ACTIVE_LEVEL</b>&#160;&#160;&#160;SPDLOG_LEVEL_TRACE</td></tr>
 <tr class="separator:ae4fda6f71f35120e2ff48157fca961b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,19 +114,37 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aacdea490a1863a848d69c860e32bab4c"><td class="memItemLeft" align="right" valign="top"><a id="aacdea490a1863a848d69c860e32bab4c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8hpp.html#aacdea490a1863a848d69c860e32bab4c">setup_logging</a> ()</td></tr>
-<tr class="memdesc:aacdea490a1863a848d69c860e32bab4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up the logger at runtime, should only be invoked once the very first time any of the logging macros below are called. <br /></td></tr>
-<tr class="separator:aacdea490a1863a848d69c860e32bab4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e555baca1df77c6d0b28b4fc3df19fd"><td class="memItemLeft" align="right" valign="top"><a id="a8e555baca1df77c6d0b28b4fc3df19fd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="logging_8hpp.html#a8e555baca1df77c6d0b28b4fc3df19fd">ntlogging::setup_logging</a> ()</td></tr>
+<tr class="memdesc:a8e555baca1df77c6d0b28b4fc3df19fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up the logger at runtime, should only be invoked once the very first time any of the logging macros below are called. <br /></td></tr>
+<tr class="separator:a8e555baca1df77c6d0b28b4fc3df19fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a6fb2a777370fe8c09c48587b6928711d"><td class="memItemLeft" align="right" valign="top"><a id="a6fb2a777370fe8c09c48587b6928711d"></a>
-static spdlog::level::level_enum&#160;</td><td class="memItemRight" valign="bottom"><b>runtimeLogLevel</b> = spdlog::level::trace</td></tr>
-<tr class="separator:a6fb2a777370fe8c09c48587b6928711d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afac1ec0710b156aa5930e08101c0c65b"><td class="memItemLeft" align="right" valign="top"><a id="afac1ec0710b156aa5930e08101c0c65b"></a>
-static std::once_flag&#160;</td><td class="memItemRight" valign="bottom"><b>once</b></td></tr>
-<tr class="separator:afac1ec0710b156aa5930e08101c0c65b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ef6a5f9a1195d50df7f25bbcdd55d64"><td class="memItemLeft" align="right" valign="top"><a id="a7ef6a5f9a1195d50df7f25bbcdd55d64"></a>
+constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><b>NT_LOG_LEVEL_TRACE</b> = 0</td></tr>
+<tr class="separator:a7ef6a5f9a1195d50df7f25bbcdd55d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7dbd948e5210b05a0cdb50cf75fbf80"><td class="memItemLeft" align="right" valign="top"><a id="ab7dbd948e5210b05a0cdb50cf75fbf80"></a>
+constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><b>NT_LOG_LEVEL_DEBUG</b> = 1</td></tr>
+<tr class="separator:ab7dbd948e5210b05a0cdb50cf75fbf80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a411567ebd7a9e93ae808721aa2ace1f1"><td class="memItemLeft" align="right" valign="top"><a id="a411567ebd7a9e93ae808721aa2ace1f1"></a>
+constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><b>NT_LOG_LEVEL_INFO</b> = 2</td></tr>
+<tr class="separator:a411567ebd7a9e93ae808721aa2ace1f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fca4fe70ef3d27e497b40467ead9651"><td class="memItemLeft" align="right" valign="top"><a id="a5fca4fe70ef3d27e497b40467ead9651"></a>
+constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><b>NT_LOG_LEVEL_WARNING</b> = 3</td></tr>
+<tr class="separator:a5fca4fe70ef3d27e497b40467ead9651"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d55ca52c9ce514aa92601fcc3d7381e"><td class="memItemLeft" align="right" valign="top"><a id="a7d55ca52c9ce514aa92601fcc3d7381e"></a>
+constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><b>NT_LOG_LEVEL_ERROR</b> = 4</td></tr>
+<tr class="separator:a7d55ca52c9ce514aa92601fcc3d7381e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaba7e36daf28e4268aca58d8f4db07f"><td class="memItemLeft" align="right" valign="top"><a id="adaba7e36daf28e4268aca58d8f4db07f"></a>
+constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><b>NT_LOG_LEVEL_SILENT</b> = 5</td></tr>
+<tr class="separator:adaba7e36daf28e4268aca58d8f4db07f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2c409c2be5c3ae6132ded33a291bcbe"><td class="memItemLeft" align="right" valign="top"><a id="ae2c409c2be5c3ae6132ded33a291bcbe"></a>
+static const spdlog::level::level_enum&#160;</td><td class="memItemRight" valign="bottom"><b>runtimeLogLevel</b> = spdlog::level::trace</td></tr>
+<tr class="separator:ae2c409c2be5c3ae6132ded33a291bcbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafc44862e3f3857ca8276601f1d0c67d"><td class="memItemLeft" align="right" valign="top"><a id="aafc44862e3f3857ca8276601f1d0c67d"></a>
+static std::once_flag&#160;</td><td class="memItemRight" valign="bottom"><b>ntlogging::logLevelOnceFlag</b></td></tr>
+<tr class="separator:aafc44862e3f3857ca8276601f1d0c67d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Define the logging utilities for nuTens. </p>
@@ -163,9 +165,9 @@ static std::once_flag&#160;</td><td class="memItemRight" valign="bottom"><b>once
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="logging_8hpp.html#aacdea490a1863a848d69c860e32bab4c">setup_logging</a>();                                                                                                   \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="logging_8hpp.html#a8e555baca1df77c6d0b28b4fc3df19fd">ntlogging::setup_logging</a>();                                                                                        \</div>
 <div class="line">    SPDLOG_DEBUG(__VA_ARGS__)</div>
-<div class="ttc" id="alogging_8hpp_html_aacdea490a1863a848d69c860e32bab4c"><div class="ttname"><a href="logging_8hpp.html#aacdea490a1863a848d69c860e32bab4c">setup_logging</a></div><div class="ttdeci">void setup_logging()</div><div class="ttdoc">Set up the logger at runtime, should only be invoked once the very first time any of the logging macr...</div><div class="ttdef"><b>Definition:</b> logging.hpp:71</div></div>
+<div class="ttc" id="alogging_8hpp_html_a8e555baca1df77c6d0b28b4fc3df19fd"><div class="ttname"><a href="logging_8hpp.html#a8e555baca1df77c6d0b28b4fc3df19fd">ntlogging::setup_logging</a></div><div class="ttdeci">void setup_logging()</div><div class="ttdoc">Set up the logger at runtime, should only be invoked once the very first time any of the logging macr...</div><div class="ttdef"><b>Definition:</b> logging.hpp:79</div></div>
 </div><!-- fragment -->
 <p>Debug message that will only be displayed if NT_LOG_LEVEL &lt;= NT_LOG_LEVEL_DEBUG. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -192,7 +194,7 @@ static std::once_flag&#160;</td><td class="memItemRight" valign="bottom"><b>once
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="logging_8hpp.html#aacdea490a1863a848d69c860e32bab4c">setup_logging</a>();                                                                                                   \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="logging_8hpp.html#a8e555baca1df77c6d0b28b4fc3df19fd">ntlogging::setup_logging</a>();                                                                                        \</div>
 <div class="line">    SPDLOG_ERROR(__VA_ARGS__)</div>
 </div><!-- fragment -->
 <p>Error message that will only be displayed if NT_LOG_LEVEL &lt;= NT_LOG_LEVEL_ERROR. </p>
@@ -220,7 +222,7 @@ static std::once_flag&#160;</td><td class="memItemRight" valign="bottom"><b>once
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="logging_8hpp.html#aacdea490a1863a848d69c860e32bab4c">setup_logging</a>();                                                                                                   \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="logging_8hpp.html#a8e555baca1df77c6d0b28b4fc3df19fd">ntlogging::setup_logging</a>();                                                                                        \</div>
 <div class="line">    SPDLOG_INFO(__VA_ARGS__)</div>
 </div><!-- fragment -->
 <p>Information message that will only be displayed if NT_LOG_LEVEL &lt;= NT_LOG_LEVEL_INFO. </p>
@@ -248,7 +250,7 @@ static std::once_flag&#160;</td><td class="memItemRight" valign="bottom"><b>once
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="logging_8hpp.html#aacdea490a1863a848d69c860e32bab4c">setup_logging</a>();                                                                                                   \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="logging_8hpp.html#a8e555baca1df77c6d0b28b4fc3df19fd">ntlogging::setup_logging</a>();                                                                                        \</div>
 <div class="line">    SPDLOG_TRACE(__VA_ARGS__)</div>
 </div><!-- fragment -->
 <p>Trace message that will only be displayed if NT_LOG_LEVEL == NT_LOG_LEVEL_TRACE. </p>
@@ -276,7 +278,7 @@ static std::once_flag&#160;</td><td class="memItemRight" valign="bottom"><b>once
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="logging_8hpp.html#aacdea490a1863a848d69c860e32bab4c">setup_logging</a>();                                                                                                   \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="logging_8hpp.html#a8e555baca1df77c6d0b28b4fc3df19fd">ntlogging::setup_logging</a>();                                                                                        \</div>
 <div class="line">    SPDLOG_WARN(__VA_ARGS__)</div>
 </div><!-- fragment -->
 <p>Warning message that will only be displayed if NT_LOG_LEVEL &lt;= NT_LOG_LEVEL_WARNING. </p>
