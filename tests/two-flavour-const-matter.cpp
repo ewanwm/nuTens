@@ -29,7 +29,7 @@ int main()
 
     std::cout << "tensorSolver created" << std::endl;
 
-    TwoFlavourBarger bargerProp;
+    TwoFlavourBarger bargerProp{};
 
     // test that Propagator gives expected oscillation probabilites for a range
     // of thetas

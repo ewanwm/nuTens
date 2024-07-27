@@ -82,7 +82,7 @@ class TwoFlavourBarger
     }
 
     // get the good old 2 flavour PMNS matrix entries
-    inline float getPMNSelement(float energy, int alpha, int beta) const
+    [[nodiscard]] inline float getPMNSelement(float energy, int alpha, int beta) const
     {
         if ((alpha > 1 || alpha < 0) || (beta > 1 || beta < 0))
         {
@@ -127,7 +127,7 @@ class TwoFlavourBarger
     }
 
     // get the good old 2 flavour vacuum oscillation probability
-    inline float calculateProb(float energy, int alpha, int beta) const
+    [[nodiscard]] inline float calculateProb(float energy, int alpha, int beta) const
     {
         if ((alpha > 1 || alpha < 0) || (beta > 1 || beta < 0))
         {

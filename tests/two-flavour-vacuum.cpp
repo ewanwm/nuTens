@@ -26,7 +26,7 @@ int main()
     tensorPropagator.setMasses(masses);
 
     // will use this for baseline for comparisons
-    TwoFlavourBarger bargerProp;
+    TwoFlavourBarger bargerProp{};
 
     // test that Propagator gives expected oscillation probabilites for a range
     // of thetas

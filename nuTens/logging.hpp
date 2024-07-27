@@ -81,7 +81,7 @@ inline void setup_logging()
 }
 
 // stop the linter being upset at me for using logging macros here, maybe it's right but I like them
-// NOLINTBEGIN(cppcoreguidelines-macro-usage)
+// NOLINTBEGIN(*-cppcoreguidelines-macro-usage)
 
 /// @brief Trace message that will only be displayed if NT_LOG_LEVEL ==
 /// NT_LOG_LEVEL_TRACE
@@ -123,4 +123,4 @@ inline void setup_logging()
     setup_logging();                                                                                                   \
     SPDLOG_ERROR(__VA_ARGS__)
 
-// NOLINTEND(cppcoreguidelines-macro-usage)
+// NOLINTEND(*-cppcoreguidelines-macro-usage)
