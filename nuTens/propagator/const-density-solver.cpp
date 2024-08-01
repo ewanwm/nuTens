@@ -2,6 +2,7 @@
 
 void ConstDensityMatterSolver::calculateEigenvalues(const Tensor &energies, Tensor &eigenvectors, Tensor &eigenvalues)
 {
+    NT_PROFILE();
     Tensor hamiltonian;
     hamiltonian.zeros({energies.getBatchDim(), nGenerations, nGenerations}, NTdtypes::kComplexFloat);
 

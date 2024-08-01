@@ -44,6 +44,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// @param newPMNS The new matrix to set
     inline void setPMNS(const Tensor &newPMNS)
     {
+        NT_PROFILE();
         PMNS = newPMNS;
 
         // construct the outer product of the electron neutrino row of the PMNS
@@ -56,6 +57,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// @param newMasses The new masses
     inline void setMasses(const Tensor &newMasses)
     {
+        NT_PROFILE();
         masses = newMasses;
 
         // construct the diagonal mass^2 matrix used in the hamiltonian

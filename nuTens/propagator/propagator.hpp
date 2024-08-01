@@ -40,6 +40,7 @@ class Propagator
     /// @param newSolver A derivative of BaseMatterSolver
     inline void setMatterSolver(std::unique_ptr<BaseMatterSolver> &newSolver)
     {
+        NT_PROFILE();
         _matterSolver = std::move(newSolver);
         _matterSolver->setMasses(_masses);
         _matterSolver->setPMNS(_pmnsMatrix);
@@ -67,6 +68,7 @@ class Propagator
     /// @param newPMNS The new matrix to use
     inline void setPMNS(Tensor &newPMNS)
     {
+        NT_PROFILE();
         _pmnsMatrix = newPMNS;
         if (_matterSolver != nullptr)
         {
@@ -83,6 +85,7 @@ class Propagator
     /// @param value The new value
     inline void setPMNS(const std::vector<int> &indices, float value)
     {
+        NT_PROFILE();
         _pmnsMatrix.setValue(indices, value);
     }
 
@@ -91,6 +94,7 @@ class Propagator
     /// @param value The new value
     inline void setPMNS(const std::vector<int> &indices, std::complex<float> value)
     {
+        NT_PROFILE();
         _pmnsMatrix.setValue(indices, value);
     }
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <nuTens/instrumentation.hpp>
 #include <nuTens/tensors/tensor.hpp>
 
 class BaseMatterSolver
