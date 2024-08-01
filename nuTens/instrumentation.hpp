@@ -45,9 +45,8 @@ class ProfileWriter
 
   public:
     /// @brief Constructor
-    ProfileWriter()  
-    {
-    }
+    ProfileWriter()
+    = default;
 
     /// @brief Set up the session
     /// @param[in] name The name of the timer
@@ -142,10 +141,11 @@ class InstrumentationTimer
     /// @brief Destroy the timer object and stop the timer by calling stop()
     ~InstrumentationTimer()
     {
-        if (!_stopped) {
+        if (!_stopped)
+        {
             stop();
     }
-}
+        }
     /// @brief Stop the timer and write out the profile result using the ProfileWriter
     void stop()
     {
