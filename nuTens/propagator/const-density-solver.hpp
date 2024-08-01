@@ -42,7 +42,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
 
     /// @brief Set a new PMNS matrix for this solver
     /// @param newPMNS The new matrix to set
-    inline void setPMNS(const Tensor &newPMNS)
+    inline void setPMNS(const Tensor &newPMNS) override
     {
         NT_PROFILE();
         PMNS = newPMNS;
@@ -55,7 +55,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
 
     /// @brief Set new mass eigenvalues for this solver
     /// @param newMasses The new masses
-    inline void setMasses(const Tensor &newMasses)
+    inline void setMasses(const Tensor &newMasses) override
     {
         NT_PROFILE();
         masses = newMasses;

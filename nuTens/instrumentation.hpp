@@ -5,7 +5,7 @@
 #include <fstream>
 #include <string>
 #include <thread>
-
+#include <utility>
 /*! \file instrumentation.hpp
     \brief Define utilities for instrumentation of the code
 
@@ -45,7 +45,7 @@ class ProfileWriter
 
   public:
     /// @brief Constructor
-    ProfileWriter() : _name(""), _profileCount(0)
+    ProfileWriter()  
     {
     }
 
@@ -81,10 +81,10 @@ class ProfileWriter
         std::replace(name.begin(), name.end(), '"', '\'');
 
         _outputStream << "{";
-        _outputStream << "\"cat\":\"function\",";
+        _outputStream << R"("cat":"function",)";
         _outputStream << "\"dur\":" << (result.end - result.start) << ',';
-        _outputStream << "\"name\":\"" << name << "\",";
-        _outputStream << "\"ph\":\"X\",";
+        _outputStream << R"("name":")" << name << "\",";
+        _outputStream << R"("ph":"X",)";
         _outputStream << "\"pid\":0,";
         _outputStream << "\"tid\":" << result.threadID << ",";
         _outputStream << "\"ts\":" << result.start;
@@ -96,7 +96,7 @@ class ProfileWriter
     /// @brief Write the file header
     void writeHeader()
     {
-        _outputStream << "{\"otherData\": {},\"traceEvents\":[";
+        _outputStream << R"({"otherData": {},"traceEvents":[)";
         _outputStream.flush();
     }
 
@@ -118,7 +118,7 @@ class ProfileWriter
   private:
     std::string _name;
     std::ofstream _outputStream;
-    uint _profileCount;
+    uint _profileCount{0};
 };
 
 class InstrumentationTimer
@@ -134,7 +134,7 @@ class InstrumentationTimer
     /// @brief Construct an InstrumentationTimer object and start the clock
     /// @param[in] name The name of the profile. Typically use __FUNCSIG__ so it's clear which part of the code is being
     /// profiled.
-    InstrumentationTimer(const std::string &name) : _name(name), _stopped(false)
+    InstrumentationTimer(std::string name) : _name(std::move(name)), _stopped(false)
     {
         _startTimepoint = std::chrono::high_resolution_clock::now();
     }
@@ -142,10 +142,10 @@ class InstrumentationTimer
     /// @brief Destroy the timer object and stop the timer by calling stop()
     ~InstrumentationTimer()
     {
-        if (!_stopped)
+        if (!_stopped) {
             stop();
     }
-
+}
     /// @brief Stop the timer and write out the profile result using the ProfileWriter
     void stop()
     {
