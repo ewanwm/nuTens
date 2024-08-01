@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['propagator_62',['Propagator',['../classPropagator.html',1,'']]]
+  ['instrumentationtimer_67',['InstrumentationTimer',['../classInstrumentationTimer.html',1,'']]]
 ];
