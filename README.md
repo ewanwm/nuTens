@@ -47,7 +47,7 @@ make test
 - [x] Doxygen documentation with automatic deployment
 - [x] Add test coverage checks into CI
 - [x] Integrate linting ( [cpp-linter](https://github.com/cpp-linter)? )
-- [ ] Add instrumentation library for benchmarking and profiling
+- [x] Add instrumentation library for benchmarking and profiling
 - [ ] Add suite of benchmarking tests
 - [ ] Integrate benchmarks into CI ( maybe use [hyperfine](https://github.com/sharkdp/hyperfine) and [bencher](https://bencher.dev/) for this? )
 - [ ] Add proper unit tests
