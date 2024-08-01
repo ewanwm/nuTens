@@ -175,7 +175,7 @@ class InstrumentationTimer
 #ifdef USE_PROFILING
 // NOLINTNEXTLINE
 #define NT_PROFILE_BEGINSESSION(sessionName)                                                                           \
-    ProfileWriter::get().beginSession(sessionName, std::string(sessionName) + "-results.json")
+    ProfileWriter::get().beginSession(sessionName, std::string(sessionName) + "-profile.json")
 #else
 #define NT_PROFILE_BEGINSESSION(sessionName)
 #endif
