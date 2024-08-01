@@ -6,6 +6,10 @@ using namespace Testing;
 
 int main()
 {
+    NT_PROFILE_BEGINSESSION("two-flavour-const-matter-test");
+
+    NT_PROFILE();
+
     float m1 = 1.0;
     float m2 = 2.0;
     float energy = 100.0;
@@ -87,4 +91,6 @@ int main()
 
         std::cout << "###############################" << std::endl << std::endl;
     }
+
+    NT_PROFILE_ENDSESSION();
 }

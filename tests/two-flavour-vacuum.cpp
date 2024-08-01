@@ -6,6 +6,11 @@ using namespace Testing;
 
 int main()
 {
+
+    NT_PROFILE_BEGINSESSION("two-flavour-vacuum-test");
+
+    NT_PROFILE();
+
     float m1 = 0.1;
     float m2 = 0.5;
     float energy = 1.0;
@@ -61,4 +66,6 @@ int main()
         TEST_EXPECTED(probabilities.getValue<float>({0, 1, 0}), bargerProp.calculateProb(energy, 1, 0),
                       "probability for alpha == 1, beta == 0", 0.00001)
     }
+
+    NT_PROFILE_ENDSESSION();
 }

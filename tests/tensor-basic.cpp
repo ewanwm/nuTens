@@ -9,6 +9,10 @@
 
 int main()
 {
+    NT_PROFILE_BEGINSESSION("tensor-basic-test");
+
+    NT_PROFILE();
+
     std::cout << "Tensor library: " << Tensor::getTensorLibrary() << std::endl;
 
     std::cout << "########################################" << std::endl;
@@ -135,4 +139,6 @@ int main()
     std::cout << complexGradTest.grad().real() << std::endl;
     std::cout << "  Imag: " << std::endl;
     std::cout << complexGradTest.grad().imag() << std::endl << std::endl;
+
+    NT_PROFILE_ENDSESSION();
 }

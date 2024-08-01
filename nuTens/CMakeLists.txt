@@ -1,14 +1,15 @@
 
-
-## set up logging
+########################
+#### set up logging ####
+########################
 add_library(logging logging.hpp)
 target_link_libraries(logging spdlog::spdlog)
 set_target_properties(logging PROPERTIES LINKER_LANGUAGE CXX)
 
-set( LOG_LEVEL "INFO" CACHE STRING "the level of detail to log to the console" )
+set( NT_LOG_LEVEL "INFO" CACHE STRING "the level of detail to log to the console" )
 
-## Convert LOG_LEVEL to all upper case so that we aren't case sensitive to user input
-string( TOUPPER "${LOG_LEVEL}" LOG_LEVEL_UPPER )
+## Convert NT_LOG_LEVEL to all upper case so that we aren't case sensitive to user input
+string( TOUPPER "${NT_LOG_LEVEL}" LOG_LEVEL_UPPER )
 
 ## Check the specified log level is valid
 set(VALID_LOG_OPTIONS SILENT ERROR WARNING INFO DEBUG TRACE)
@@ -24,17 +25,28 @@ target_compile_definitions(logging PUBLIC NT_LOG_LEVEL=NT_LOG_LEVEL_${LOG_LEVEL_
 
 
 
+################################
+#### set up instrumentation ####
+################################
+add_library(instrumentation instrumentation.hpp)
+set_target_properties(instrumentation PROPERTIES LINKER_LANGUAGE CXX)
+
+option( NT_PROFILING "enable profiling of the code" OFF )
+if( NT_PROFILING )
+    target_compile_definitions( instrumentation PUBLIC USE_PROFILING )
+endif()
+
 
 ## if user wants to use pch then we use the pch
 ## people, especially if developing, might want to use this as including tensor related things
 ## can be excruciatingly sloow when building
-OPTION(USE_PCH "USE_PCH" OFF)
-IF(USE_PCH)
+OPTION(NT_USE_PCH "NT_USE_PCH" OFF)
+IF(NT_USE_PCH)
     message("Using precompiled header")
     
     add_library(nuTens-pch nuTens-pch.hpp)
     
-    SET(PCH_LIBS "${PCH_LIBS};logging")
+    SET(PCH_LIBS "${PCH_LIBS};logging;instrumentation")
 
     ## the headers included in the PCH will (at some point) depend on which tensor library is being used
     IF(TORCH_FOUND)
@@ -50,7 +62,7 @@ IF(USE_PCH)
     target_precompile_headers(nuTens-pch PUBLIC nuTens-pch.hpp)
     set_target_properties(nuTens-pch PROPERTIES LINKER_LANGUAGE CXX)
 
-ENDIF() ## end USE_PCH block
+ENDIF() ## end NT_USE_PCH block
 
 
 

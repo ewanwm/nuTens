@@ -2,6 +2,8 @@
 
 Tensor Propagator::calculateProbs(const Tensor &energies) const
 {
+    NT_PROFILE();
+
     Tensor ret;
 
     // if a matter solver was specified, use effective values for masses and PMNS
@@ -27,6 +29,8 @@ Tensor Propagator::calculateProbs(const Tensor &energies) const
 
 Tensor Propagator::_calculateProbs(const Tensor &energies, const Tensor &massesSq, const Tensor &PMNS) const
 {
+    NT_PROFILE();
+
     Tensor weightMatrix;
     weightMatrix.ones({energies.getBatchDim(), _nGenerations, _nGenerations}, NTdtypes::kComplexFloat)
         .requiresGrad(false);

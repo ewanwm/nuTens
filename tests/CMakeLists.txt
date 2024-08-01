@@ -13,7 +13,7 @@ foreach(TESTNAME
         target_precompile_headers("${TESTNAME}" REUSE_FROM tensor)
     ENDIF()
 
-    target_link_libraries("${TESTNAME}" PUBLIC test-utils tensor propagator)
+    target_link_libraries("${TESTNAME}" PUBLIC test-utils tensor propagator instrumentation)
     target_include_directories("${TESTNAME}" PUBLIC "${CMAKE_SOURCE_DIR}")
     add_test(NAME "${TESTNAME}-test" COMMAND "${TESTNAME}")
 

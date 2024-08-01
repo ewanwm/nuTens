@@ -4,6 +4,7 @@
 #include <complex>
 #include <iostream>
 #include <map>
+#include <nuTens/instrumentation.hpp>
 #include <nuTens/tensors/dtypes.hpp>
 #include <variant>
 #include <vector>
@@ -275,6 +276,8 @@ class Tensor
     /// @arg indices The indices of the value to set
     template <typename T> inline T getValue(const std::vector<int> &indices)
     {
+        NT_PROFILE();
+
         std::vector<at::indexing::TensorIndex> indicesVec;
         indicesVec.reserve(indices.size());
         for (const int &i : indices)
@@ -288,6 +291,9 @@ class Tensor
     /// Get the value of a size 0 tensor (scalar)
     template <typename T> inline T getValue()
     {
+
+        NT_PROFILE();
+
         return _tensor.item<T>();
     }
 #endif
@@ -299,6 +305,9 @@ class Tensor
   public:
     [[nodiscard]] inline const torch::Tensor &getTensor() const
     {
+
+        NT_PROFILE();
+
         return _tensor;
     }
 
