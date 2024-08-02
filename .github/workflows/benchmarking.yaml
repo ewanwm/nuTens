@@ -33,15 +33,16 @@ jobs:
           
       - name: Configure CMake
         # Configure CMake with benchmarking option on
-        run: cmake -DNT_PROFILE=ON -DCMAKE_PREFIX_PATH=`python3 -c 'import torch;print(torch.utils.cmake_prefix_path)'` -B ${{github.workspace}} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        run: cmake -DNT_PROFILE=ON -DCMAKE_PREFIX_PATH=`python3 -c 'import torch;print(torch.utils.cmake_prefix_path)'` -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
       - name: Build
         # Build your program with the given configuration
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+        run: cmake --build ${{github.workspace}}/build
         
       - name: Track PR Benchmarks with Bencher
         working-directory: ${{github.workspace}}/build
         run: |
+          ls
           bencher run \
           --project nutens \
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
@@ -52,4 +53,4 @@ jobs:
           --adapter cpp_google \
           --err \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
-          "./benchmarks/benchmarks --benchmark_format=json --benchmark_repetitions=16 --benchmark_min_warmup_time=60"
+          "./benchmarks/benchmarks --benchmark_format=json --benchmark_repetitions=16 --benchmark_min_warmup_time=60" \
