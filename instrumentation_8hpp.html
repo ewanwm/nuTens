@@ -75,7 +75,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">instrumentation.hpp File Reference</div>  </div>
 </div><!--header-->
@@ -95,14 +96,60 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structProfileResult.html">ProfileResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hold the results of a profiled function to be written out.  <a href="structProfileResult.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProfileWriter.html">ProfileWriter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Singleton class to collect timing information for functions and write out to a file that can be inspected later with visual profiling tool.  <a href="classProfileWriter.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInstrumentationTimer.html">InstrumentationTimer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class to perform timing.  <a href="classInstrumentationTimer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a229beb03ffdb1cb6ca0d47977464eee8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instrumentation_8hpp.html#a229beb03ffdb1cb6ca0d47977464eee8">NT_PROFILE_BEGINSESSION</a>(sessionName)</td></tr>
+<tr class="memdesc:a229beb03ffdb1cb6ca0d47977464eee8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begin a profiling session Will open up the results json file and set things up. If USE_PROFILING not defined will be empty so that it can be stripped from non-debug builds.  <a href="instrumentation_8hpp.html#a229beb03ffdb1cb6ca0d47977464eee8">More...</a><br /></td></tr>
+<tr class="separator:a229beb03ffdb1cb6ca0d47977464eee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fc918987a115d03ef7a0e5210840770"><td class="memItemLeft" align="right" valign="top"><a id="a5fc918987a115d03ef7a0e5210840770"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instrumentation_8hpp.html#a5fc918987a115d03ef7a0e5210840770">NT_PROFILE</a>()</td></tr>
+<tr class="memdesc:a5fc918987a115d03ef7a0e5210840770"><td class="mdescLeft">&#160;</td><td class="mdescRight">Profile the current scope Shold always be used at the very start of the scope. <br /></td></tr>
+<tr class="separator:a5fc918987a115d03ef7a0e5210840770"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68c8e445d5c31c96aef824032f5adeda"><td class="memItemLeft" align="right" valign="top"><a id="a68c8e445d5c31c96aef824032f5adeda"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="instrumentation_8hpp.html#a68c8e445d5c31c96aef824032f5adeda">NT_PROFILE_ENDSESSION</a>()</td></tr>
+<tr class="memdesc:a68c8e445d5c31c96aef824032f5adeda"><td class="mdescLeft">&#160;</td><td class="mdescRight">End the profiling session Should be used at the very end of an application, after all functions containing a <a class="el" href="instrumentation_8hpp.html#a5fc918987a115d03ef7a0e5210840770" title="Profile the current scope Shold always be used at the very start of the scope.">NT_PROFILE()</a> have been called. <br /></td></tr>
+<tr class="separator:a68c8e445d5c31c96aef824032f5adeda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Define utilities for instrumentation of the code. </p>
 <p>This is the home of anything that gets placed inside other classes or functions in order to instrument the code. e.g. for profiling or debugging. Everything should ideally be macro-fied so it can be included only for certain builds, or specified by build time options. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a229beb03ffdb1cb6ca0d47977464eee8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a229beb03ffdb1cb6ca0d47977464eee8">&#9670;&nbsp;</a></span>NT_PROFILE_BEGINSESSION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NT_PROFILE_BEGINSESSION</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">sessionName</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Begin a profiling session Will open up the results json file and set things up. If USE_PROFILING not defined will be empty so that it can be stripped from non-debug builds. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">sessionName</td><td>The name of the session </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1

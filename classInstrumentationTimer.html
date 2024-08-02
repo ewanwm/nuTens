@@ -70,18 +70,73 @@ $(function() {
 
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="classInstrumentationTimer-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">InstrumentationTimer Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Class to perform the actual timing.  
+<p>Class to perform timing.  
  <a href="classInstrumentationTimer.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="instrumentation_8hpp_source.html">instrumentation.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a0c61e8b5e02e4cdffedf88f4371f348a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInstrumentationTimer.html#a0c61e8b5e02e4cdffedf88f4371f348a">InstrumentationTimer</a> (std::string name)</td></tr>
+<tr class="memdesc:a0c61e8b5e02e4cdffedf88f4371f348a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an <a class="el" href="classInstrumentationTimer.html" title="Class to perform timing.">InstrumentationTimer</a> object and start the clock.  <a href="classInstrumentationTimer.html#a0c61e8b5e02e4cdffedf88f4371f348a">More...</a><br /></td></tr>
+<tr class="separator:a0c61e8b5e02e4cdffedf88f4371f348a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16d4d0333bd9bdbdfe0341ff07f26a3b"><td class="memItemLeft" align="right" valign="top"><a id="a16d4d0333bd9bdbdfe0341ff07f26a3b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInstrumentationTimer.html#a16d4d0333bd9bdbdfe0341ff07f26a3b">~InstrumentationTimer</a> ()</td></tr>
+<tr class="memdesc:a16d4d0333bd9bdbdfe0341ff07f26a3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the timer object and stop the timer by calling <a class="el" href="classInstrumentationTimer.html#a4ba9b94c61ccb153ae6b3f7cc6c25f37" title="Stop the timer and write out the profile result using the ProfileWriter.">stop()</a> <br /></td></tr>
+<tr class="separator:a16d4d0333bd9bdbdfe0341ff07f26a3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4393f1ac11d34e5e240d1d9bd69eee7"><td class="memItemLeft" align="right" valign="top"><a id="aa4393f1ac11d34e5e240d1d9bd69eee7"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>InstrumentationTimer</b> (const <a class="el" href="classInstrumentationTimer.html">InstrumentationTimer</a> &amp;)=delete</td></tr>
+<tr class="separator:aa4393f1ac11d34e5e240d1d9bd69eee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ba9b94c61ccb153ae6b3f7cc6c25f37"><td class="memItemLeft" align="right" valign="top"><a id="a4ba9b94c61ccb153ae6b3f7cc6c25f37"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInstrumentationTimer.html#a4ba9b94c61ccb153ae6b3f7cc6c25f37">stop</a> ()</td></tr>
+<tr class="memdesc:a4ba9b94c61ccb153ae6b3f7cc6c25f37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the timer and write out the profile result using the <a class="el" href="classProfileWriter.html" title="Singleton class to collect timing information for functions and write out to a file that can be inspe...">ProfileWriter</a>. <br /></td></tr>
+<tr class="separator:a4ba9b94c61ccb153ae6b3f7cc6c25f37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class to perform the actual timing. </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+<div class="textblock"><p>Class to perform timing. </p>
+<p>Gets created at the start of the scope to time then will be deleted when the scope ends. When deleted, will write out timing information to the output stream defined by <a class="el" href="classProfileWriter.html" title="Singleton class to collect timing information for functions and write out to a file that can be inspe...">ProfileWriter</a>. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a0c61e8b5e02e4cdffedf88f4371f348a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c61e8b5e02e4cdffedf88f4371f348a">&#9670;&nbsp;</a></span>InstrumentationTimer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">InstrumentationTimer::InstrumentationTimer </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct an <a class="el" href="classInstrumentationTimer.html" title="Class to perform timing.">InstrumentationTimer</a> object and start the clock. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>The name of the profile. Typically use <b>PRETTY_FUNCTION</b> so it's clear which part of the code is being profiled. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>nuTens/<a class="el" href="instrumentation_8hpp_source.html">instrumentation.hpp</a></li>
 </ul>
 </div><!-- contents -->

@@ -70,10 +70,197 @@ $(function() {
 
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="classProfileWriter-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ProfileWriter Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Singleton class to collect timing information for functions and write out to a file that can be inspected later with visual profiling tool.  
+ <a href="classProfileWriter.html#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a971563f597f269f303c4d32bbe53262c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProfileWriter.html#a971563f597f269f303c4d32bbe53262c">ProfileWriter</a> ()=default</td></tr>
+<tr class="memdesc:a971563f597f269f303c4d32bbe53262c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="classProfileWriter.html#a971563f597f269f303c4d32bbe53262c">More...</a><br /></td></tr>
+<tr class="separator:a971563f597f269f303c4d32bbe53262c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fd6529c398d6a7fefa8e061f07735b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProfileWriter.html#a8fd6529c398d6a7fefa8e061f07735b9">beginSession</a> (const std::string &amp;name, const std::string &amp;filePath=&quot;results.json&quot;)</td></tr>
+<tr class="memdesc:a8fd6529c398d6a7fefa8e061f07735b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up the session.  <a href="classProfileWriter.html#a8fd6529c398d6a7fefa8e061f07735b9">More...</a><br /></td></tr>
+<tr class="separator:a8fd6529c398d6a7fefa8e061f07735b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab811b23454e0a6e98842c450641093aa"><td class="memItemLeft" align="right" valign="top"><a id="ab811b23454e0a6e98842c450641093aa"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProfileWriter.html#ab811b23454e0a6e98842c450641093aa">endSession</a> ()</td></tr>
+<tr class="memdesc:ab811b23454e0a6e98842c450641093aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close the session and clean up. <br /></td></tr>
+<tr class="separator:ab811b23454e0a6e98842c450641093aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8072683d694cc9d21c53f6a26d800138"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProfileWriter.html#a8072683d694cc9d21c53f6a26d800138">writeProfile</a> (const <a class="el" href="structProfileResult.html">ProfileResult</a> &amp;result)</td></tr>
+<tr class="memdesc:a8072683d694cc9d21c53f6a26d800138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write out the results of a profiled function.  <a href="classProfileWriter.html#a8072683d694cc9d21c53f6a26d800138">More...</a><br /></td></tr>
+<tr class="separator:a8072683d694cc9d21c53f6a26d800138"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43fce90027739c725b133d6a846e8610"><td class="memItemLeft" align="right" valign="top"><a id="a43fce90027739c725b133d6a846e8610"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProfileWriter.html#a43fce90027739c725b133d6a846e8610">writeHeader</a> ()</td></tr>
+<tr class="memdesc:a43fce90027739c725b133d6a846e8610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the file header. <br /></td></tr>
+<tr class="separator:a43fce90027739c725b133d6a846e8610"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b0febc2d5efc8b01a6beda2a5ad2fcc"><td class="memItemLeft" align="right" valign="top"><a id="a9b0febc2d5efc8b01a6beda2a5ad2fcc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProfileWriter.html#a9b0febc2d5efc8b01a6beda2a5ad2fcc">writeFooter</a> ()</td></tr>
+<tr class="memdesc:a9b0febc2d5efc8b01a6beda2a5ad2fcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the file footer. <br /></td></tr>
+<tr class="separator:a9b0febc2d5efc8b01a6beda2a5ad2fcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a9f52f04515241eb219bbabf988134278"><td class="memItemLeft" align="right" valign="top"><a id="a9f52f04515241eb219bbabf988134278"></a>
+static <a class="el" href="classProfileWriter.html">ProfileWriter</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProfileWriter.html#a9f52f04515241eb219bbabf988134278">get</a> ()</td></tr>
+<tr class="memdesc:a9f52f04515241eb219bbabf988134278"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a reference to the <a class="el" href="classProfileWriter.html" title="Singleton class to collect timing information for functions and write out to a file that can be inspe...">ProfileWriter</a>, if it has not yet been instantiated, this will do so. <br /></td></tr>
+<tr class="separator:a9f52f04515241eb219bbabf988134278"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Singleton class to collect timing information for functions and write out to a file that can be inspected later with visual profiling tool. </p>
+<p>Writes out profiling information in a json format readable by chrome tracing (<a href="https://www.chromium.org/developers/how-tos/trace-event-profiling-tool/">https://www.chromium.org/developers/how-tos/trace-event-profiling-tool/</a>) Use the macros provided to instrument the source code like:</p>
+<div class="fragment"><div class="line">\\ header.hpp</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">class </span>ClassName</div>
+<div class="line">{</div>
+<div class="line">  returnType func(args);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">\\ implementation.cpp</div>
+<div class="line"> </div>
+<div class="line">ClassName::func(args)</div>
+<div class="line">{</div>
+<div class="line">  <a class="code" href="instrumentation_8hpp.html#a5fc918987a115d03ef7a0e5210840770">NT_PROFILE</a>();</div>
+<div class="line"> </div>
+<div class="line">  \\ implementation code</div>
+<div class="line"> </div>
+<div class="line">}</div>
+<div class="ttc" id="ainstrumentation_8hpp_html_a5fc918987a115d03ef7a0e5210840770"><div class="ttname"><a href="instrumentation_8hpp.html#a5fc918987a115d03ef7a0e5210840770">NT_PROFILE</a></div><div class="ttdeci">#define NT_PROFILE()</div><div class="ttdoc">Profile the current scope Shold always be used at the very start of the scope.</div><div class="ttdef"><b>Definition:</b> instrumentation.hpp:239</div></div>
+</div><!-- fragment --><p>In order to instantiate the <a class="el" href="classProfileWriter.html" title="Singleton class to collect timing information for functions and write out to a file that can be inspe...">ProfileWriter</a> in an application you will then need to use <a class="el" href="instrumentation_8hpp.html#a229beb03ffdb1cb6ca0d47977464eee8" title="Begin a profiling session Will open up the results json file and set things up. If USE_PROFILING not ...">NT_PROFILE_BEGINSESSION()</a> and <a class="el" href="instrumentation_8hpp.html#a68c8e445d5c31c96aef824032f5adeda" title="End the profiling session Should be used at the very end of an application, after all functions conta...">NT_PROFILE_ENDSESSION()</a> like:</p>
+<div class="fragment"><div class="line">\\ application.cpp</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> main()</div>
+<div class="line">{</div>
+<div class="line">  <a class="code" href="instrumentation_8hpp.html#a229beb03ffdb1cb6ca0d47977464eee8">NT_PROFILE_BEGINSESSION</a>(sessionName);</div>
+<div class="line"> </div>
+<div class="line">  \\ ... code ...</div>
+<div class="line">  ClassName instance;</div>
+<div class="line"> </div>
+<div class="line">  instance.func(args);</div>
+<div class="line"> </div>
+<div class="line">  \\ ... code ...</div>
+<div class="line"> </div>
+<div class="line">  NT_PROFILE_ENDSSION();</div>
+<div class="line">}</div>
+<div class="ttc" id="ainstrumentation_8hpp_html_a229beb03ffdb1cb6ca0d47977464eee8"><div class="ttname"><a href="instrumentation_8hpp.html#a229beb03ffdb1cb6ca0d47977464eee8">NT_PROFILE_BEGINSESSION</a></div><div class="ttdeci">#define NT_PROFILE_BEGINSESSION(sessionName)</div><div class="ttdoc">Begin a profiling session Will open up the results json file and set things up. If USE_PROFILING not ...</div><div class="ttdef"><b>Definition:</b> instrumentation.hpp:230</div></div>
+</div><!-- fragment --><p>This will save a json file called &lt;sessionName&gt;-profile.json. Then you can open up your favourite chromium based browser and go to chrome://tracing. You can then just drag and drop the profiling json file and should see a lovely display of the collected profile information. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a971563f597f269f303c4d32bbe53262c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a971563f597f269f303c4d32bbe53262c">&#9670;&nbsp;</a></span>ProfileWriter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ProfileWriter::ProfileWriter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>currently only suppor the format used by chrome tracing. Would be nice to support other formats too. Should just be a case of adding additional option for writeProfile and header and footer </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8fd6529c398d6a7fefa8e061f07735b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fd6529c398d6a7fefa8e061f07735b9">&#9670;&nbsp;</a></span>beginSession()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ProfileWriter::beginSession </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filePath</em> = <code>&quot;results.json&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set up the session. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>The name of the timer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filePath</td><td>The destination of the output file </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8072683d694cc9d21c53f6a26d800138"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8072683d694cc9d21c53f6a26d800138">&#9670;&nbsp;</a></span>writeProfile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ProfileWriter::writeProfile </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structProfileResult.html">ProfileResult</a> &amp;&#160;</td>
+          <td class="paramname"><em>result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Write out the results of a profiled function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">result</td><td>The result to write </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>nuTens/<a class="el" href="instrumentation_8hpp_source.html">instrumentation.hpp</a></li>
 </ul>

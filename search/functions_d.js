@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['zeros_120',['zeros',['../classTensor.html#a6007e789c8e4f519867fbbfa91ba8b14',1,'Tensor::zeros(int length, NTdtypes::scalarType type, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)'],['../classTensor.html#aa9b084ce7c42cd5ef8bb34d6b54ed917',1,'Tensor::zeros(const std::vector&lt; long int &gt; &amp;shape, NTdtypes::scalarType type, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)']]]
+  ['writefooter_148',['writeFooter',['../classProfileWriter.html#a9b0febc2d5efc8b01a6beda2a5ad2fcc',1,'ProfileWriter']]],
+  ['writeheader_149',['writeHeader',['../classProfileWriter.html#a43fce90027739c725b133d6a846e8610',1,'ProfileWriter']]],
+  ['writeprofile_150',['writeProfile',['../classProfileWriter.html#a8072683d694cc9d21c53f6a26d800138',1,'ProfileWriter']]]
 ];

@@ -1,11 +1,11 @@
 var indexSectionsWithContent =
 {
-  0: "abcdegilmnoprstz",
+  0: "abcdegilmnoprstwz~",
   1: "bcipt",
-  2: "c",
-  3: "il",
-  4: "abcdegimoprstz",
-  5: "gn",
+  2: "bcdilpt",
+  3: "abcdegimoprstwz~",
+  4: "g",
+  5: "ds",
   6: "o",
   7: "n",
   8: "bt"
@@ -15,10 +15,10 @@ var indexSectionNames =
 {
   0: "all",
   1: "classes",
-  2: "namespaces",
-  3: "files",
-  4: "functions",
-  5: "variables",
+  2: "files",
+  3: "functions",
+  4: "variables",
+  5: "enums",
   6: "related",
   7: "defines",
   8: "pages"
@@ -28,10 +28,10 @@ var indexSectionLabels =
 {
   0: "All",
   1: "Classes",
-  2: "Namespaces",
-  3: "Files",
-  4: "Functions",
-  5: "Variables",
+  2: "Files",
+  3: "Functions",
+  4: "Variables",
+  5: "Enumerations",
   6: "Friends",
   7: "Macros",
   8: "Pages"
