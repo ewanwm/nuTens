@@ -3,6 +3,8 @@
 #include <nuTens/instrumentation.hpp>
 #include <nuTens/tensors/tensor.hpp>
 
+/// @file base-matter-solver.hpp
+
 class BaseMatterSolver
 {
     /// @class BaseMatterSolver

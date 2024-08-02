@@ -13,6 +13,11 @@
 #include <torch/torch.h>
 #endif
 
+/*!
+ * @file tensor.hpp
+ * @brief Defines the interface of a Tensor object
+ */
+
 class Tensor
 {
     /*!

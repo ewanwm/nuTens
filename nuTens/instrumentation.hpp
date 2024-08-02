@@ -6,16 +6,19 @@
 #include <string>
 #include <thread>
 #include <utility>
-/*! \file instrumentation.hpp
-    \brief Define utilities for instrumentation of the code
 
-    This is the home of anything that gets placed inside other classes or functions in order to instrument the code.
-   e.g. for profiling or debugging. Everything should ideally be macro-fied so it can be included only for certain
-   builds, or specified by build time options.
-*/
+/*!
+ * @file instrumentation.hpp
+ * @brief Define utilities for instrumentation of the code
+ *
+ * This is the home of anything that gets placed inside other classes or functions in order to instrument the code.
+ * e.g. for profiling or debugging. Everything should ideally be macro-fied so it can be included only for certain
+ * builds, or specified by build time options.
+ */
 
 struct ProfileResult
 {
+    /// @struct ProfileResult
     /// @brief Hold the results of a profiled function to be written out.
 
     std::string name;
@@ -26,21 +29,64 @@ struct ProfileResult
 
 class ProfileWriter
 {
-    /*! @class ProfileWriter
+    /*!
+     * @class ProfileWriter
      * @brief Singleton class to collect timing information for functions and write out to a file that can be inspected
      * later with visual profiling tool
      *
      * Writes out profiling information in a json format readable by chrome tracing
      * (https://www.chromium.org/developers/how-tos/trace-event-profiling-tool/) Use the macros provided to instrument
-     * the code like: \code{.cpp}
+     * the source code like:
      *
-     * \code{.cpp}
+     * @code{.cpp}
+     * \\ header.hpp
      *
-     * Then open up your favourite chromium based browser and go to chrome://tracing. You can then just drag and drop
-     * the profiling json file and should see a lovely display of the collected profile information.
+     * class ClassName
+     * {
+     *   returnType func(args);
+     * }
+     *
+     *
+     * \\ implementation.cpp
+     *
+     * ClassName::func(args)
+     * {
+     *   NT_PROFILE();
+     *
+     *   \\ implementation code
+     *
+     * }
+     * @endcode
+     *
+     * In order to instantiate the ProfileWriter in an application you will then need to use NT_PROFILE_BEGINSESSION()
+     * and NT_PROFILE_ENDSESSION() like:
+     *
+     * @code{.cpp}
+     *
+     * \\ application.cpp
+     *
+     * void main()
+     * {
+     *   NT_PROFILE_BEGINSESSION(sessionName);
+     *
+     *   \\ ... code ...
+     *   ClassName instance;
+     *
+     *   instance.func(args);
+     *
+     *   \\ ... code ...
+     *
+     *   NT_PROFILE_ENDSSION();
+     * }
+     *
+     * @endcode
+     *
+     * This will save a json file called <sessionName>-profile.json.
+     * Then you can open up your favourite chromium based browser and go to chrome://tracing. You can then just drag and
+     * drop the profiling json file and should see a lovely display of the collected profile information.
      */
 
-    /// \todo currently only suppor the format used by chrome tracing. Would be nice to support other formats too.
+    /// @todo currently only suppor the format used by chrome tracing. Would be nice to support other formats too.
     /// Should just be a case of adding additional option for writeProfile and header and footer
 
   public:
@@ -120,18 +166,21 @@ class ProfileWriter
 };
 
 class InstrumentationTimer
-/*!
- * @class InstrumentationTimer
- * @brief Class to perform the actual timing
- *
- *
- *
- */
 {
+    /*!
+     * @class InstrumentationTimer
+     * @brief Class to perform timing
+     *
+     * Gets created at the start of the scope to time then will be deleted when the scope ends.
+     * When deleted, will write out timing information to the output stream defined by ProfileWriter.
+     *
+     *
+     */
+
   public:
     /// @brief Construct an InstrumentationTimer object and start the clock
-    /// @param[in] name The name of the profile. Typically use __FUNCSIG__ so it's clear which part of the code is being
-    /// profiled.
+    /// @param[in] name The name of the profile. Typically use __PRETTY_FUNCTION__ so it's clear which part of the code
+    /// is being profiled.
     InstrumentationTimer(std::string name) : _name(std::move(name)), _stopped(false)
     {
         _startTimepoint = std::chrono::high_resolution_clock::now();
@@ -182,6 +231,7 @@ class InstrumentationTimer
 #endif
 
 /// @brief Profile the current scope
+/// Shold always be used at the very start of the scope.
 #ifdef USE_PROFILING
 // NOLINTNEXTLINE
 #define NT_PROFILE() InstrumentationTimer timer##__LINE__(std::string(__PRETTY_FUNCTION__))
@@ -190,6 +240,7 @@ class InstrumentationTimer
 #endif
 
 /// @brief End the profiling session
+/// Should be used at the very end of an application, after all functions containing a NT_PROFILE() have been called
 #ifdef USE_PROFILING
 // NOLINTNEXTLINE
 #define NT_PROFILE_ENDSESSION() ProfileWriter::get().endSession()

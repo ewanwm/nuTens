@@ -1,5 +1,8 @@
+
 <a name="nutens"></a>
-# <img src="doc/nuTens-logo.png" alt="nuTens" class="right" align="top" width="400"/>
+# nuTens  
+<img src="nuTens-logo.png" alt="nuTens"  align="right" width="400"/>
+
 
 nuTens is a software library which uses [tensors](https://en.wikipedia.org/wiki/Tensor_(machine_learning)) to efficiently calculate neutrino oscillation probabilities. 
 

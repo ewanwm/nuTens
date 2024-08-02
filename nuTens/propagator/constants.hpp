@@ -1,8 +1,8 @@
 #pragma once
 
-/// @file constant.hpp
+/// @file constants.hpp
+/// @brief Defines constants to be used across the project
 
-//! Define constants to be used across the project
 namespace Constants
 {
 
