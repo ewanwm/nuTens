@@ -7,7 +7,9 @@
 Tensor buildPMNS(const Tensor &theta12, const Tensor &theta13, const Tensor &theta23, const Tensor &deltaCP)
 {
     // set up the three matrices to build the PMNS matrix
-    Tensor M1, M2, M3;
+    Tensor M1;
+    Tensor M2;
+    Tensor M3;
     M1.zeros({1, 3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
     M2.zeros({1, 3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
     M3.zeros({1, 3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
@@ -70,7 +72,10 @@ static void BM_vacuumOscillations(benchmark::State &state)
     masses.setValue({0, 1}, 0.2);
     masses.setValue({0, 2}, 0.3);
 
-    Tensor theta23, theta13, theta12, deltaCP;
+    Tensor theta23;
+    Tensor theta13;
+    Tensor theta12;
+    Tensor deltaCP;
     theta23.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.23);
     theta13.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.13);
     theta12.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.12);
