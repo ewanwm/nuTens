@@ -93,7 +93,49 @@ static void BM_vacuumOscillations(benchmark::State &state)
     }
 }
 
+static void BM_constMatterOscillations(benchmark::State &state)
+{
+
+    // set up the inputs
+    Tensor energies;
+    energies.zeros({state.range(0), 1}, NTdtypes::kFloat).requiresGrad(false);
+
+    Tensor masses;
+    masses.ones({1, 3}, NTdtypes::kFloat).requiresGrad(false);
+    masses.setValue({0, 0}, 0.1);
+    masses.setValue({0, 1}, 0.2);
+    masses.setValue({0, 2}, 0.3);
+
+    Tensor theta23, theta13, theta12, deltaCP;
+    theta23.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.23);
+    theta13.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.13);
+    theta12.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.12);
+    deltaCP.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.5);
+
+    Tensor PMNS = buildPMNS(theta12, theta13, theta23, deltaCP);
+
+    // set up the propagator
+    Propagator matterProp(3, 100.0);
+    std::unique_ptr<BaseMatterSolver> matterSolver = std::make_unique<ConstDensityMatterSolver>(3, 2.6);
+    matterProp.setPMNS(PMNS);
+    matterProp.setMasses(masses);
+    matterProp.setMatterSolver(matterSolver);
+
+    // seed the random number generator for the energies
+    std::srand(123);
+
+    for (auto _ : state)
+    {
+        // This code gets timed
+        batchedOscProbs(matterProp, energies, state.range(0), state.range(1));
+    }
+}
+
 // Register the function as a benchmark
 BENCHMARK(BM_vacuumOscillations)->Name("Vacuum Osc")->Args({1 << 10, 1 << 10});
+
+// Register the function as a benchmark
+BENCHMARK(BM_constMatterOscillations)->Name("Const Density Osc")->Args({1 << 10, 1 << 10});
+
 // Run the benchmark
 BENCHMARK_MAIN();
