@@ -106,7 +106,10 @@ static void BM_constMatterOscillations(benchmark::State &state)
     masses.setValue({0, 1}, 0.2);
     masses.setValue({0, 2}, 0.3);
 
-    Tensor theta23, theta13, theta12, deltaCP;
+    Tensor theta23;
+    Tensor theta13;
+    Tensor theta12;
+    Tensor deltaCP;
     theta23.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.23);
     theta13.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.13);
     theta12.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.12);
