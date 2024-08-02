@@ -52,4 +52,4 @@ jobs:
           --adapter cpp_google \
           --err \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
-          "./benchmarks/benchmarks --benchmark_format=json --benchmark_repetitions=16 --benchmark_min_warmup_time=30"
+          "./benchmarks/benchmarks --benchmark_format=json --benchmark_repetitions=16 --benchmark_min_warmup_time=60"
