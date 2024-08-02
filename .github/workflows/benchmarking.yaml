@@ -42,6 +42,7 @@ jobs:
       - name: Track PR Benchmarks with Bencher
         working-directory: ${{github.workspace}}/build
         run: |
+          ls
           bencher run \
           --project nutens \
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
@@ -52,4 +53,4 @@ jobs:
           --adapter cpp_google \
           --err \
           --github-actions '${{ secrets.GITHUB_TOKEN }}' \
-          "./benchmarks/benchmarks --benchmark_format=json --benchmark_repetitions=16 --benchmark_min_warmup_time=60"
+          "./benchmarks/benchmarks --benchmark_format=json --benchmark_repetitions=16 --benchmark_min_warmup_time=60" \
