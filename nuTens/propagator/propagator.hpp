@@ -5,6 +5,8 @@
 #include <nuTens/tensors/tensor.hpp>
 #include <vector>
 
+/// @file propagator.hpp
+
 class Propagator
 {
     /*!

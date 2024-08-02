@@ -3,6 +3,8 @@
 #include <nuTens/propagator/base-matter-solver.hpp>
 #include <nuTens/propagator/constants.hpp>
 
+/// @file const-density-solver.hpp
+
 class ConstDensityMatterSolver : public BaseMatterSolver
 {
     /*!

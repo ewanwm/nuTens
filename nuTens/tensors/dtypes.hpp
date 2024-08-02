@@ -1,8 +1,14 @@
 #pragma once
 
+/*!
+ * @file dtypes.hpp
+ * @brief Defines various datatypes used in the project
+ */
+
 namespace NTdtypes
 {
 
+/// Types of scalar values
 enum scalarType
 {
     kInt,
@@ -12,6 +18,7 @@ enum scalarType
     kComplexDouble,
 };
 
+/// Devices that a Tensor can live on
 enum deviceType
 {
     kCPU,
