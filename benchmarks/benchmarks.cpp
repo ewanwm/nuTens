@@ -140,10 +140,10 @@ static void BM_constMatterOscillations(benchmark::State &state)
 }
 
 // Register the function as a benchmark
-BENCHMARK(BM_vacuumOscillations)->Name("Vacuum Osc")->Args({1 << 10, 1 << 10});
+BENCHMARK(BM_vacuumOscillations)->Args({1 << 10, 1 << 10});
 
 // Register the function as a benchmark
-BENCHMARK(BM_constMatterOscillations)->Name("Const Density Osc")->Args({1 << 10, 1 << 10});
+BENCHMARK(BM_constMatterOscillations)->Args({1 << 10, 1 << 10});
 
 // Run the benchmark
 BENCHMARK_MAIN();
