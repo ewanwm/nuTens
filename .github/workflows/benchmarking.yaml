@@ -52,7 +52,7 @@ jobs:
           ls _deps
           echo 
           echo :::: benchmark link file:
-          cat benchmarks/CMakeFiles/link.txt
+          cat benchmarks/CMakeFiles/benchmarks.dir/link.txt
           
       - name: Build
         working-directory: ${{github.workspace}}/build
