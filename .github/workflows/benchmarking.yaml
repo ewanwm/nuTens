@@ -13,8 +13,8 @@ on:
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  CC: gcc-11.3.0
-  CXX: g++-11.3.0
+  CC: gcc-11.2.0
+  CXX: g++-11.2.0
   
 jobs:
   benchmark_pr_branch:        
