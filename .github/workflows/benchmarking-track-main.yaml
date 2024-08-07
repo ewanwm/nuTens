@@ -50,6 +50,6 @@ jobs:
           --token '${{ secrets.BENCHER_API_TOKEN }}' \
           --branch main \
           --testbed ubuntu-latest \
-          --adapter json \
+          --adapter cpp_google \
           --err \
-          bencher mock
+          "./benchmarks/benchmarks --benchmark_format=json --benchmark_repetitions=16 --benchmark_min_warmup_time=60" \
