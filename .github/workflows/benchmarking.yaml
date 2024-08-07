@@ -18,7 +18,7 @@ jobs:
   benchmark_pr_branch:        
     name: Continuous Benchmarking PRs with Bencher
     # DO NOT REMOVE: For handling Fork PRs see Pull Requests from Forks
-    # if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     
     permissions:
       pull-requests: write
@@ -27,12 +27,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: bencherdev/bencher@main
-      
-      - name: Set up GCC
-        uses: egor-tensin/setup-gcc@v1
-        with:
-          version: 9
-          platform: x64
       
       - name: Set Flags
         run: export USE_CUDA=0
