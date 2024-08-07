@@ -44,6 +44,7 @@ jobs:
         run: make
         
       - name: Track base branch benchmarks with Bencher
+        working-directory: ${{github.workspace}}/build
         run: |
           bencher run \
           --project nutens \
