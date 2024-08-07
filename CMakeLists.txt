@@ -19,6 +19,11 @@ enable_testing()
 #### add dependencies ####
 ##########################
 
+find_package(Torch REQUIRED)
+find_package(Protobuf REQUIRED)
+message("Torch cxx flags: ${TORCH_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-Wabi-tag ${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
+
 include(cmake/CPM.cmake)
 
 CPMAddPackage("gh:gabime/spdlog@1.8.2")
@@ -43,10 +48,6 @@ OPTION(NT_BUILD_TIMING "output time to build each target" OFF)
 IF(NT_BUILD_TIMING)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
 ENDIF()
-
-find_package(Torch REQUIRED)
-find_package(Protobuf REQUIRED)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
 
 
 ######################################
