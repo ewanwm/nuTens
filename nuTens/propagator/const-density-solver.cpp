@@ -15,8 +15,5 @@ void ConstDensityMatterSolver::calculateEigenvalues(const Tensor &energies, Tens
         }
     }
 
-    eigenvectors.zeros({1, nGenerations, nGenerations}, NTdtypes::kComplexFloat).requiresGrad(false);
-    eigenvalues.zeros({1, nGenerations, nGenerations}, NTdtypes::kComplexFloat).requiresGrad(false);
-
     Tensor::eig(hamiltonian, eigenvectors, eigenvalues);
 }
