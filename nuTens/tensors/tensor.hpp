@@ -25,51 +25,39 @@ class Tensor
      * @brief Basic tensor class
      *
      * Tensor defines a basic interface for creating and manipulating tensors.
-     * To create tensors you should use the Initialisers. These can be used on
+     * To create tensors you should use the Constructors. These can be used on
      * their own or chained together with the Setters to create the desired
      * tensor.
      *
      * For example
      * \code{.cpp}
-     *   Tensor t;
-     *   t.ones({3,3}).dType(NTdtypes::kFloat).device(NTdtypes::kGPU);
+     *   Tensor = ones({3,3}).dType(NTdtypes::kFloat).device(NTdtypes::kGPU);
      * \endcode
      * will get you a 3x3 tensor of floats that lives on the GPU.
      * This is equivalent to
      * \code{.cpp}
-     *   Tensor t;
-     *   t.ones({3,3}, NTdtypes::kFloat, NTdtypes::kGPU);
+     *   Tensor = ones({3,3}, NTdtypes::kFloat, NTdtypes::kGPU);
      * \endcode
      */
 
   public:
     using indexType = std::variant<int, std::string>;
 
-    /// @name Initialisers
-    /// Use these methods to initialise the tensor
+    /// @name Constructors
+    /// Use these methods to construct tensors
     /// @{
 
-    /// @brief Initialise this tensor with ones
-    /// @arg length The length of the intitalised tensor
-    /// @arg type The data type of the initialised tensor
-    Tensor &ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType device = NTdtypes::kCPU,
-                 bool requiresGrad = true);
-    /// @brief Initialise this tensor with ones
+    /// @brief Construct a tensor with ones
     /// @arg shape The desired shape of the intitalised tensor
-    /// @arg type The data type of the initialised tensor
-    Tensor &ones(const std::vector<long int> &shape, NTdtypes::scalarType type,
-                 NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+    /// @arg type The data type of the tensor
+    static Tensor ones(const std::vector<long int> &shape, NTdtypes::scalarType type = NTdtypes::kFloat,
+                       NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
 
-    /// @brief Initialise this tensor with zeros
-    /// @arg length The length of the intitalised tensor
-    /// @arg type The data type of the initialised tensor
-    Tensor &zeros(int length, NTdtypes::scalarType type, NTdtypes::deviceType device = NTdtypes::kCPU,
-                  bool requiresGrad = true);
-    /// @brief Initialise this tensor with zeros
+    /// @brief Construct a tensor with zeros
     /// @arg shape The desired shape of the intitalised tensor
-    /// @arg type The data type of the initialised tensor
-    Tensor &zeros(const std::vector<long int> &shape, NTdtypes::scalarType type,
-                  NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+    /// @arg type The data type of the tensor
+    static Tensor zeros(const std::vector<long int> &shape, NTdtypes::scalarType type = NTdtypes::kFloat,
+                        NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
 
     /// @}
 

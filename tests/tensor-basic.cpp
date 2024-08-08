@@ -17,8 +17,7 @@ int main()
 
     std::cout << "########################################" << std::endl;
     std::cout << "Float: " << std::endl;
-    Tensor tensorFloat;
-    tensorFloat.zeros({3, 3}, NTdtypes::kDouble).dType(NTdtypes::kFloat).device(NTdtypes::kCPU);
+    Tensor tensorFloat = Tensor::zeros({3, 3}, NTdtypes::kDouble).dType(NTdtypes::kFloat).device(NTdtypes::kCPU);
     tensorFloat.setValue({0, 0}, 0.0);
     tensorFloat.setValue({0, 1}, 1.0);
     tensorFloat.setValue({0, 2}, 2.0);
@@ -41,8 +40,7 @@ int main()
 
     std::cout << "########################################" << std::endl;
     std::cout << "Complex float: " << std::endl;
-    Tensor tensorComplex;
-    tensorComplex.zeros({3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor tensorComplex = Tensor::zeros({3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
     tensorComplex.setValue({0, 0}, std::complex<float>(0.0J));
     tensorComplex.setValue({0, 1}, std::complex<float>(1.0J));
     tensorComplex.setValue({0, 2}, std::complex<float>(2.0J));
@@ -85,8 +83,7 @@ int main()
         return 1;
     }
 
-    Tensor ones;
-    ones.ones({3, 3}, NTdtypes::kFloat);
+    Tensor ones = Tensor::ones({3, 3}, NTdtypes::kFloat);
     Tensor twos = ones + ones;
 
     std::cout << "ones + ones: " << std::endl;
@@ -104,8 +101,7 @@ int main()
     // ######### test some of the basic autograd functionality ###########
 
     // first just a simple test of scaling by a constant factor
-    Tensor ones_scaleTest;
-    ones_scaleTest.ones({2, 2}, NTdtypes::kFloat).requiresGrad(true);
+    Tensor ones_scaleTest = Tensor::ones({2, 2}).dType(NTdtypes::kFloat).requiresGrad(true);
     Tensor threes = Tensor::scale(ones_scaleTest, 3.0).sum();
     threes.backward();
     Tensor grad = ones_scaleTest.grad();
@@ -121,8 +117,7 @@ int main()
         return 1;
     }
 
-    Tensor complexGradTest;
-    complexGradTest.zeros({2, 2}, NTdtypes::kComplexFloat);
+    Tensor complexGradTest = Tensor::zeros({2, 2}, NTdtypes::kComplexFloat);
     complexGradTest.setValue({0, 0}, std::complex<float>(0.0 + 0.0J));
     complexGradTest.setValue({0, 1}, std::complex<float>(0.0 + 1.0J));
     complexGradTest.setValue({1, 0}, std::complex<float>(1.0 + 0.0J));

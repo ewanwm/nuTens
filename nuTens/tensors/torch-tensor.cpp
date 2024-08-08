@@ -17,45 +17,27 @@ std::string Tensor::getTensorLibrary()
     return "PyTorch";
 }
 
-Tensor &Tensor::ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType device, bool requiresGrad)
+Tensor Tensor::ones(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
+                    bool requiresGrad)
 {
     NT_PROFILE();
 
-    _tensor = torch::ones(length, torch::TensorOptions()
-                                      .dtype(scalarTypeMap.at(type))
-                                      .device(deviceTypeMap.at(device))
-                                      .requires_grad(requiresGrad));
-
+    Tensor ret;
+    ret._tensor = torch::ones(c10::IntArrayRef(shape), torch::TensorOptions()
+                                                           .dtype(scalarTypeMap.at(type))
+                                                           .device(deviceTypeMap.at(device))
+                                                           .requires_grad(requiresGrad));
     return ret;
 }
 
-Tensor &Tensor::ones(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
+Tensor Tensor::zeros(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
                      bool requiresGrad)
 {
     NT_PROFILE();
 
-    _tensor = torch::ones(c10::IntArrayRef(shape), torch::TensorOptions()
-                                                       .dtype(scalarTypeMap.at(type))
-                                                       .device(deviceTypeMap.at(device))
-                                                       .requires_grad(requiresGrad));
-    return *this;
-}
-
-Tensor &Tensor::zeros(int length, NTdtypes::scalarType type, NTdtypes::deviceType device, bool requiresGrad)
-{
-    NT_PROFILE();
-
-    _tensor = torch::zeros(length, scalarTypeMap.at(type));
-    return *this;
-}
-
-Tensor &Tensor::zeros(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
-                      bool requiresGrad)
-{
-    NT_PROFILE();
-
-    _tensor = torch::zeros(c10::IntArrayRef(shape), scalarTypeMap.at(type));
-    return *this;
+    Tensor ret;
+    ret._tensor = torch::zeros(c10::IntArrayRef(shape), scalarTypeMap.at(type));
+    return ret;
 }
 
 Tensor &Tensor::dType(NTdtypes::scalarType type)

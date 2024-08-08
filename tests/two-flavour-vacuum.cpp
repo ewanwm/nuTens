@@ -16,14 +16,12 @@ int main()
     float energy = 1.0;
     float baseline = 0.5;
 
-    Tensor masses;
-    masses.ones({1, 2}, NTdtypes::kFloat).requiresGrad(false);
+    Tensor masses = Tensor::ones({1, 2}, NTdtypes::kFloat).requiresGrad(false);
     masses.setValue({0, 0}, m1);
     masses.setValue({0, 1}, m2);
     masses.requiresGrad(true);
 
-    Tensor energies;
-    energies.ones({1, 1}, NTdtypes::kFloat).requiresGrad(false);
+    Tensor energies = Tensor::ones({1, 1}, NTdtypes::kFloat).requiresGrad(false);
     energies.setValue({0, 0}, energy);
     energies.requiresGrad(true);
 
@@ -42,8 +40,7 @@ int main()
         bargerProp.setParams(m1, m2, theta, baseline);
 
         // construct the PMNS matrix for current theta value
-        Tensor PMNS;
-        PMNS.ones({1, 2, 2}, NTdtypes::kComplexFloat).requiresGrad(false);
+        Tensor PMNS = Tensor::ones({1, 2, 2}, NTdtypes::kComplexFloat).requiresGrad(false);
         PMNS.setValue({0, 0, 0}, std::cos(theta));
         PMNS.setValue({0, 0, 1}, -std::sin(theta));
         PMNS.setValue({0, 1, 0}, std::sin(theta));

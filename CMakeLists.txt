@@ -22,7 +22,7 @@ enable_testing()
 find_package(Torch REQUIRED)
 find_package(Protobuf REQUIRED)
 message("Torch cxx flags: ${TORCH_CXX_FLAGS}")
-set(CMAKE_CXX_FLAGS "-Wabi-tag ${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
 
 include(cmake/CPM.cmake)
 
