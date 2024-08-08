@@ -7,12 +7,9 @@
 Tensor buildPMNS(const Tensor &theta12, const Tensor &theta13, const Tensor &theta23, const Tensor &deltaCP)
 {
     // set up the three matrices to build the PMNS matrix
-    Tensor M1;
-    Tensor M2;
-    Tensor M3;
-    M1.zeros({1, 3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
-    M2.zeros({1, 3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
-    M3.zeros({1, 3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor M1 = Tensor::zeros({1, 3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor M2 = Tensor::zeros({1, 3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor M3 = Tensor::zeros({1, 3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
 
     M1.setValue({0, 0, 0}, 1.0);
     M1.setValue({0, 1, 1}, Tensor::cos(theta23));
@@ -42,16 +39,13 @@ Tensor buildPMNS(const Tensor &theta12, const Tensor &theta13, const Tensor &the
     return PMNS;
 }
 
-static void batchedOscProbs(const Propagator &prop, Tensor &energies, int batchSize, int nBatches)
+static void batchedOscProbs(const Propagator &prop, int batchSize, int nBatches)
 {
     for (int _ = 0; _ < nBatches; _++)
     {
-        // set random energy values
-        for (int i = 0; i < batchSize; i++)
-        {
-            // set to random energy between 0 and 10000.0 MeV
-            energies.setValue({i, 0}, ((float)std::rand() / (float)RAND_MAX) * 10000.0);
-        }
+
+        Tensor energies =
+            Tensor::scale(Tensor::rand({batchSize, 1}).dType(NTdtypes::kFloat).requiresGrad(false), 10000.0);
 
         // calculate the osc probabilities
         // static_cast<void> to discard the return value that we're not supposed to discard :)
@@ -63,23 +57,15 @@ static void BM_vacuumOscillations(benchmark::State &state)
 {
 
     // set up the inputs
-    Tensor energies;
-    energies.zeros({state.range(0), 1}, NTdtypes::kFloat).requiresGrad(false);
-
-    Tensor masses;
-    masses.ones({1, 3}, NTdtypes::kFloat).requiresGrad(false);
+    Tensor masses = Tensor::ones({1, 3}, NTdtypes::kFloat).requiresGrad(false);
     masses.setValue({0, 0}, 0.1);
     masses.setValue({0, 1}, 0.2);
     masses.setValue({0, 2}, 0.3);
 
-    Tensor theta23;
-    Tensor theta13;
-    Tensor theta12;
-    Tensor deltaCP;
-    theta23.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.23);
-    theta13.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.13);
-    theta12.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.12);
-    deltaCP.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.5);
+    Tensor theta23 = Tensor({0.23}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor theta13 = Tensor({0.13}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor theta12 = Tensor({0.12}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor deltaCP = Tensor({0.5}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
 
     Tensor PMNS = buildPMNS(theta12, theta13, theta23, deltaCP);
 
@@ -94,7 +80,7 @@ static void BM_vacuumOscillations(benchmark::State &state)
     for (auto _ : state)
     {
         // This code gets timed
-        batchedOscProbs(vacuumProp, energies, state.range(0), state.range(1));
+        batchedOscProbs(vacuumProp, state.range(0), state.range(1));
     }
 }
 
@@ -102,23 +88,15 @@ static void BM_constMatterOscillations(benchmark::State &state)
 {
 
     // set up the inputs
-    Tensor energies;
-    energies.zeros({state.range(0), 1}, NTdtypes::kFloat).requiresGrad(false);
-
-    Tensor masses;
-    masses.ones({1, 3}, NTdtypes::kFloat).requiresGrad(false);
+    Tensor masses = Tensor::ones({1, 3}, NTdtypes::kFloat).requiresGrad(false);
     masses.setValue({0, 0}, 0.1);
     masses.setValue({0, 1}, 0.2);
     masses.setValue({0, 2}, 0.3);
 
-    Tensor theta23;
-    Tensor theta13;
-    Tensor theta12;
-    Tensor deltaCP;
-    theta23.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.23);
-    theta13.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.13);
-    theta12.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.12);
-    deltaCP.ones({1}, NTdtypes::kComplexFloat).requiresGrad(false).setValue({0}, 0.5);
+    Tensor theta23 = Tensor({0.23}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor theta13 = Tensor({0.13}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor theta12 = Tensor({0.12}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor deltaCP = Tensor({0.5}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
 
     Tensor PMNS = buildPMNS(theta12, theta13, theta23, deltaCP);
 
@@ -135,7 +113,7 @@ static void BM_constMatterOscillations(benchmark::State &state)
     for (auto _ : state)
     {
         // This code gets timed
-        batchedOscProbs(matterProp, energies, state.range(0), state.range(1));
+        batchedOscProbs(matterProp, state.range(0), state.range(1));
     }
 }
 
