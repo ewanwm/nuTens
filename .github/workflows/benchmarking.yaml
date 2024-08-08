@@ -1,0 +1,78 @@
+name: Continuous Benchmarking
+
+on:
+  push:
+    branches: [ "main" ]
+    
+  pull_request:
+    branches: [ "main" ]
+    types: [opened, reopened, edited, synchronize]
+    
+  workflow_dispatch:
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+  
+jobs:
+  benchmark_pr_branch:        
+    name: Continuous Benchmarking PRs with Bencher
+    # DO NOT REMOVE: For handling Fork PRs see Pull Requests from Forks
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    
+    permissions:
+      pull-requests: write
+      
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bencherdev/bencher@main
+      
+      - name: Set Flags
+        run: export USE_CUDA=0
+  
+      - name: Install Protobuf
+        run: sudo apt install protobuf-compiler
+        
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v4
+        with:
+          path: "PyTorch_requirements.txt"
+          
+      - name: Make Build Directory
+        run: mkdir build
+          
+      - name: Configure CMake
+        working-directory: ${{github.workspace}}/build
+        # Configure CMake with benchmarking option on
+        run: |
+          cmake --debug-output -DNT_USE_PCH=ON -DNT_ENABLE_BENCHMARKING=ON -DCMAKE_PREFIX_PATH=`python3 -c 'import torch;print(torch.utils.cmake_prefix_path)'` -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} .. 
+          echo :::: Build directory post-CMake:
+          ls
+          echo 
+          echo :::: _deps directory:
+          ls _deps
+          echo 
+          echo :::: benchmark link file:
+          cat benchmarks/CMakeFiles/benchmarks.dir/link.txt
+          
+      - name: Build
+        working-directory: ${{github.workspace}}/build
+        # Build your program with the given configuration
+        run: make --trace #cmake --build ${{github.workspace}}/build
+        
+      - name: Track PR Benchmarks with Bencher
+        working-directory: ${{github.workspace}}/build
+        run: |
+          ls
+          bencher run \
+          --project nutens \
+          --token '${{ secrets.BENCHER_API_TOKEN }}' \
+          --branch '${{ github.head_ref }}' \
+          --branch-start-point '${{ github.base_ref }}' \
+          --branch-start-point-hash '${{ github.event.pull_request.base.sha }}' \
+          --testbed ubuntu-latest \
+          --adapter cpp_google \
+          --err \
+          --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+          "./benchmarks/benchmarks --benchmark_format=json --benchmark_repetitions=16 --benchmark_min_warmup_time=60" \

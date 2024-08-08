@@ -1,13 +1,18 @@
 #include <nuTens/propagator/const-density-solver.hpp>
 
-void ConstDensityMatterSolver::calculateEigenvalues(const Tensor &energies, Tensor &eigenvectors, Tensor &eigenvalues){
-
+void ConstDensityMatterSolver::calculateEigenvalues(const Tensor &energies, Tensor &eigenvectors, Tensor &eigenvalues)
+{
+    NT_PROFILE();
     Tensor hamiltonian;
     hamiltonian.zeros({energies.getBatchDim(), nGenerations, nGenerations}, NTdtypes::kComplexFloat);
 
-    for ( int i = 0; i < nGenerations; i++){
-        for ( int j = 0; j < nGenerations; j++){
-            hamiltonian.setValue({"...", i, j}, Tensor::div(diagMassMatrix.getValue({0, i, j}), energies.getValue({"...", 0})) - electronOuter.getValue({i, j}));
+    for (int i = 0; i < nGenerations; i++)
+    {
+        for (int j = 0; j < nGenerations; j++)
+        {
+            hamiltonian.setValue({"...", i, j},
+                                 Tensor::div(diagMassMatrix.getValue({0, i, j}), energies.getValue({"...", 0})) -
+                                     electronOuter.getValue({i, j}));
         }
     }
 
@@ -15,5 +20,4 @@ void ConstDensityMatterSolver::calculateEigenvalues(const Tensor &energies, Tens
     eigenvalues.zeros({1, nGenerations, nGenerations}, NTdtypes::kComplexFloat).requiresGrad(false);
 
     Tensor::eig(hamiltonian, eigenvectors, eigenvalues);
-
 }

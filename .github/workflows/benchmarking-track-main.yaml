@@ -1,0 +1,56 @@
+name: Main Branch Benchmarking
+
+on:
+  push:
+    branches: main
+
+  workflow_dispatch:
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+  
+jobs:
+  benchmark_base_branch:
+    name: Continuous Benchmarking with Bencher
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bencherdev/bencher@main
+      
+      - name: Set Flags
+        run: export USE_CUDA=0
+  
+      - name: Install Protobuf
+        run: sudo apt install protobuf-compiler
+        
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v4
+        with:
+          path: "PyTorch_requirements.txt"
+          
+      - name: Make Build Directory
+        run: mkdir build
+          
+      - name: Configure CMake
+        working-directory: ${{github.workspace}}/build
+        # Configure CMake with benchmarking option on
+        run: |
+          cmake --debug-output -DNT_USE_PCH=ON -DNT_ENABLE_BENCHMARKING=ON -DCMAKE_PREFIX_PATH=`python3 -c 'import torch;print(torch.utils.cmake_prefix_path)'` -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} .. 
+          
+      - name: Build
+        working-directory: ${{github.workspace}}/build
+        # Build your program with the given configuration
+        run: make
+        
+      - name: Track base branch benchmarks with Bencher
+        working-directory: ${{github.workspace}}/build
+        run: |
+          bencher run \
+          --project nutens \
+          --token '${{ secrets.BENCHER_API_TOKEN }}' \
+          --branch main \
+          --testbed ubuntu-latest \
+          --adapter cpp_google \
+          --err \
+          "./benchmarks/benchmarks --benchmark_format=json --benchmark_repetitions=16 --benchmark_min_warmup_time=60" \

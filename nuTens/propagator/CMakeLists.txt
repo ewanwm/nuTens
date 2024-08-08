@@ -13,7 +13,7 @@ IF(USE_PCH)
     target_precompile_headers(propagator REUSE_FROM tensor)
 ENDIF()
 
-target_link_libraries(propagator PUBLIC tensor constants)
+target_link_libraries(propagator PUBLIC tensor constants instrumentation)
 
 target_include_directories(propagator PUBLIC "${CMAKE_SOURCE_DIR}")
 set_target_properties(propagator PROPERTIES LINKER_LANGUAGE CXX)

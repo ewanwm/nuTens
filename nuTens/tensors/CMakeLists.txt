@@ -18,5 +18,6 @@ ELSE()
     ENDIF()
 ENDIF()
 
+target_link_libraries(tensor PUBLIC instrumentation)
 target_include_directories(tensor PUBLIC "${CMAKE_SOURCE_DIR}")
 set_target_properties(tensor PROPERTIES LINKER_LANGUAGE CXX)
