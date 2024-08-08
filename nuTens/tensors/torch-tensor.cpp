@@ -17,6 +17,51 @@ std::string Tensor::getTensorLibrary()
     return "PyTorch";
 }
 
+Tensor::Tensor(std::vector<float> values, NTdtypes::scalarType type, NTdtypes::deviceType device, bool requiresGrad)
+{
+    NT_PROFILE();
+
+    _tensor = torch::tensor(values, torch::TensorOptions()
+                                        .dtype(scalarTypeMap.at(type))
+                                        .device(deviceTypeMap.at(device))
+                                        .requires_grad(requiresGrad));
+}
+
+Tensor Tensor::eye(int n, NTdtypes::scalarType type, NTdtypes::deviceType device, bool requiresGrad)
+{
+    NT_PROFILE();
+
+    Tensor ret;
+    ret._tensor = torch::eye(n, torch::TensorOptions()
+                                    .dtype(scalarTypeMap.at(type))
+                                    .device(deviceTypeMap.at(device))
+                                    .requires_grad(requiresGrad));
+    return ret;
+}
+
+Tensor Tensor::rand(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
+                    bool requiresGrad)
+{
+    NT_PROFILE();
+
+    Tensor ret;
+    ret._tensor = torch::rand(c10::IntArrayRef(shape), torch::TensorOptions()
+                                                           .dtype(scalarTypeMap.at(type))
+                                                           .device(deviceTypeMap.at(device))
+                                                           .requires_grad(requiresGrad));
+    return ret;
+}
+
+Tensor Tensor::diag(const Tensor &diag)
+{
+    assert(diag.getNdim() == 1);
+    NT_PROFILE();
+
+    Tensor ret;
+    ret._tensor = torch::diag(diag._tensor);
+    return ret;
+}
+
 Tensor Tensor::ones(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
                     bool requiresGrad)
 {

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <any>
+#include <cassert>
 #include <complex>
 #include <iostream>
 #include <map>
@@ -46,6 +47,30 @@ class Tensor
     /// @name Constructors
     /// Use these methods to construct tensors
     /// @{
+
+    /// @brief Default constructor with no initialisation
+    Tensor(){};
+
+    /// @brief Construct a 1-d array with specified values
+    /// @arg values The values to include in the tensor
+    Tensor(std::vector<float> values, NTdtypes::scalarType type = NTdtypes::kFloat,
+           NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+
+    /// @brief Construct an identity tensor (has to be a 2d square tensor)
+    /// @arg n The size of one of the sides of the tensor
+    /// @arg type The data type of the tensor
+    static Tensor eye(int n, NTdtypes::scalarType type = NTdtypes::kFloat, NTdtypes::deviceType device = NTdtypes::kCPU,
+                      bool requiresGrad = true);
+
+    /// @brief Construct a tensor with entries randomly initialised in the range [0, 1]
+    /// @arg shape The desired shape of the intitalised tensor
+    /// @arg type The data type of the tensor
+    static Tensor rand(const std::vector<long int> &shape, NTdtypes::scalarType type = NTdtypes::kFloat,
+                       NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+
+    /// @brief Construct a tensor diag values along the diagonal, and zero elsewhere
+    /// @arg diag A 1-d tensor which represents the desired diagonal values
+    static Tensor diag(const Tensor &diag);
 
     /// @brief Construct a tensor with ones
     /// @arg shape The desired shape of the intitalised tensor
