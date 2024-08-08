@@ -17,45 +17,72 @@ std::string Tensor::getTensorLibrary()
     return "PyTorch";
 }
 
-Tensor &Tensor::ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType device, bool requiresGrad)
+Tensor::Tensor(std::vector<float> values, NTdtypes::scalarType type, NTdtypes::deviceType device, bool requiresGrad)
 {
     NT_PROFILE();
 
-    _tensor = torch::ones(length, torch::TensorOptions()
-                                      .dtype(scalarTypeMap.at(type))
-                                      .device(deviceTypeMap.at(device))
-                                      .requires_grad(requiresGrad));
-
-    return *this;
+    _tensor = torch::tensor(values, torch::TensorOptions()
+                                        .dtype(scalarTypeMap.at(type))
+                                        .device(deviceTypeMap.at(device))
+                                        .requires_grad(requiresGrad));
 }
 
-Tensor &Tensor::ones(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
+Tensor Tensor::eye(int n, NTdtypes::scalarType type, NTdtypes::deviceType device, bool requiresGrad)
+{
+    NT_PROFILE();
+
+    Tensor ret;
+    ret._tensor = torch::eye(n, torch::TensorOptions()
+                                    .dtype(scalarTypeMap.at(type))
+                                    .device(deviceTypeMap.at(device))
+                                    .requires_grad(requiresGrad));
+    return ret;
+}
+
+Tensor Tensor::rand(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
+                    bool requiresGrad)
+{
+    NT_PROFILE();
+
+    Tensor ret;
+    ret._tensor = torch::rand(c10::IntArrayRef(shape), torch::TensorOptions()
+                                                           .dtype(scalarTypeMap.at(type))
+                                                           .device(deviceTypeMap.at(device))
+                                                           .requires_grad(requiresGrad));
+    return ret;
+}
+
+Tensor Tensor::diag(const Tensor &diag)
+{
+    assert(diag.getNdim() == 1);
+    NT_PROFILE();
+
+    Tensor ret;
+    ret._tensor = torch::diag(diag._tensor);
+    return ret;
+}
+
+Tensor Tensor::ones(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
+                    bool requiresGrad)
+{
+    NT_PROFILE();
+
+    Tensor ret;
+    ret._tensor = torch::ones(c10::IntArrayRef(shape), torch::TensorOptions()
+                                                           .dtype(scalarTypeMap.at(type))
+                                                           .device(deviceTypeMap.at(device))
+                                                           .requires_grad(requiresGrad));
+    return ret;
+}
+
+Tensor Tensor::zeros(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
                      bool requiresGrad)
 {
     NT_PROFILE();
 
-    _tensor = torch::ones(c10::IntArrayRef(shape), torch::TensorOptions()
-                                                       .dtype(scalarTypeMap.at(type))
-                                                       .device(deviceTypeMap.at(device))
-                                                       .requires_grad(requiresGrad));
-    return *this;
-}
-
-Tensor &Tensor::zeros(int length, NTdtypes::scalarType type, NTdtypes::deviceType device, bool requiresGrad)
-{
-    NT_PROFILE();
-
-    _tensor = torch::zeros(length, scalarTypeMap.at(type));
-    return *this;
-}
-
-Tensor &Tensor::zeros(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
-                      bool requiresGrad)
-{
-    NT_PROFILE();
-
-    _tensor = torch::zeros(c10::IntArrayRef(shape), scalarTypeMap.at(type));
-    return *this;
+    Tensor ret;
+    ret._tensor = torch::zeros(c10::IntArrayRef(shape), scalarTypeMap.at(type));
+    return ret;
 }
 
 Tensor &Tensor::dType(NTdtypes::scalarType type)
@@ -79,6 +106,19 @@ Tensor &Tensor::requiresGrad(bool reqGrad)
     NT_PROFILE();
 
     _tensor = _tensor.set_requires_grad(reqGrad);
+    return *this;
+}
+
+Tensor &Tensor::addBatchDim()
+{
+    NT_PROFILE();
+
+    if (!_hasBatchDim)
+    {
+        _tensor = torch::unsqueeze(_tensor, 0);
+        _hasBatchDim = true;
+    }
+
     return *this;
 }
 

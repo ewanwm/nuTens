@@ -5,7 +5,7 @@ IF(TORCH_FOUND)
     target_compile_definitions(tensor PUBLIC USE_PYTORCH)
 ENDIF()
 
-IF(USE_PCH)
+IF(NT_USE_PCH)
     target_link_libraries(tensor PUBLIC nuTens-pch)
 
 ELSE()

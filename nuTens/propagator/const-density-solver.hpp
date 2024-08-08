@@ -36,7 +36,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// @arg density The electron density of the material to propagate in
     ConstDensityMatterSolver(int nGenerations, float density) : nGenerations(nGenerations), density(density)
     {
-        diagMassMatrix.zeros({1, nGenerations, nGenerations}, NTdtypes::kFloat);
+        diagMassMatrix = Tensor::zeros({1, nGenerations, nGenerations}, NTdtypes::kFloat);
     };
 
     /// @name Setters
@@ -59,17 +59,16 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// @param newMasses The new masses
     inline void setMasses(const Tensor &newMasses) override
     {
+        assert((newMasses.getNdim() == 2) && (newMasses.hasBatchDim()));
         NT_PROFILE();
+
         masses = newMasses;
 
+        Tensor m = masses.getValue({0, "..."});
+        Tensor diag = Tensor::scale(Tensor::mul(m, m), 0.5);
+
         // construct the diagonal mass^2 matrix used in the hamiltonian
-        diagMassMatrix.requiresGrad(false);
-        for (int i = 0; i < nGenerations; i++)
-        {
-            auto m_i = masses.getValue<float>({0, i});
-            diagMassMatrix.setValue({0, i, i}, m_i * m_i / 2.0);
-        };
-        diagMassMatrix.requiresGrad(true);
+        diagMassMatrix = Tensor::diag(diag).requiresGrad(true);
     }
 
     /// @}

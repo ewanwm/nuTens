@@ -10,8 +10,11 @@ Tensor Propagator::calculateProbs(const Tensor &energies) const
     // matrix, otherwise just use the "raw" ones
     if (_matterSolver != nullptr)
     {
-        Tensor eigenVals;
-        Tensor eigenVecs;
+        Tensor eigenVals =
+            Tensor::zeros({1, _nGenerations, _nGenerations}, NTdtypes::kComplexFloat).requiresGrad(false);
+        Tensor eigenVecs =
+            Tensor::zeros({1, _nGenerations, _nGenerations}, NTdtypes::kComplexFloat).requiresGrad(false);
+
         _matterSolver->calculateEigenvalues(energies, eigenVecs, eigenVals);
         Tensor effectiveMassesSq = Tensor::mul(eigenVals, Tensor::scale(energies, 2.0));
         Tensor effectivePMNS = Tensor::matmul(_pmnsMatrix, eigenVecs);
@@ -31,9 +34,8 @@ Tensor Propagator::_calculateProbs(const Tensor &energies, const Tensor &massesS
 {
     NT_PROFILE();
 
-    Tensor weightMatrix;
-    weightMatrix.ones({energies.getBatchDim(), _nGenerations, _nGenerations}, NTdtypes::kComplexFloat)
-        .requiresGrad(false);
+    Tensor weightMatrix = Tensor::ones({energies.getBatchDim(), _nGenerations, _nGenerations}, NTdtypes::kComplexFloat)
+                              .requiresGrad(false);
 
     Tensor weightVector = Tensor::exp(
         Tensor::div(Tensor::scale(massesSq, std::complex<float>(-1.0J) * _baseline), Tensor::scale(energies, 2.0)));

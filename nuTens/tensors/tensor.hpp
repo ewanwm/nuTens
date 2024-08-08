@@ -1,6 +1,7 @@
 #pragma once
 
 #include <any>
+#include <cassert>
 #include <complex>
 #include <iostream>
 #include <map>
@@ -25,51 +26,63 @@ class Tensor
      * @brief Basic tensor class
      *
      * Tensor defines a basic interface for creating and manipulating tensors.
-     * To create tensors you should use the Initialisers. These can be used on
+     * To create tensors you should use the Constructors. These can be used on
      * their own or chained together with the Setters to create the desired
      * tensor.
      *
      * For example
      * \code{.cpp}
-     *   Tensor t;
-     *   t.ones({3,3}).dType(NTdtypes::kFloat).device(NTdtypes::kGPU);
+     *   Tensor = ones({3,3}).dType(NTdtypes::kFloat).device(NTdtypes::kGPU);
      * \endcode
      * will get you a 3x3 tensor of floats that lives on the GPU.
      * This is equivalent to
      * \code{.cpp}
-     *   Tensor t;
-     *   t.ones({3,3}, NTdtypes::kFloat, NTdtypes::kGPU);
+     *   Tensor = ones({3,3}, NTdtypes::kFloat, NTdtypes::kGPU);
      * \endcode
      */
 
   public:
     using indexType = std::variant<int, std::string>;
 
-    /// @name Initialisers
-    /// Use these methods to initialise the tensor
+    /// @name Constructors
+    /// Use these methods to construct tensors
     /// @{
 
-    /// @brief Initialise this tensor with ones
-    /// @arg length The length of the intitalised tensor
-    /// @arg type The data type of the initialised tensor
-    Tensor &ones(int length, NTdtypes::scalarType type, NTdtypes::deviceType device = NTdtypes::kCPU,
-                 bool requiresGrad = true);
-    /// @brief Initialise this tensor with ones
-    /// @arg shape The desired shape of the intitalised tensor
-    /// @arg type The data type of the initialised tensor
-    Tensor &ones(const std::vector<long int> &shape, NTdtypes::scalarType type,
-                 NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+    /// @brief Default constructor with no initialisation
+    Tensor(){};
 
-    /// @brief Initialise this tensor with zeros
-    /// @arg length The length of the intitalised tensor
-    /// @arg type The data type of the initialised tensor
-    Tensor &zeros(int length, NTdtypes::scalarType type, NTdtypes::deviceType device = NTdtypes::kCPU,
-                  bool requiresGrad = true);
-    /// @brief Initialise this tensor with zeros
+    /// @brief Construct a 1-d array with specified values
+    /// @arg values The values to include in the tensor
+    Tensor(std::vector<float> values, NTdtypes::scalarType type = NTdtypes::kFloat,
+           NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+
+    /// @brief Construct an identity tensor (has to be a 2d square tensor)
+    /// @arg n The size of one of the sides of the tensor
+    /// @arg type The data type of the tensor
+    static Tensor eye(int n, NTdtypes::scalarType type = NTdtypes::kFloat, NTdtypes::deviceType device = NTdtypes::kCPU,
+                      bool requiresGrad = true);
+
+    /// @brief Construct a tensor with entries randomly initialised in the range [0, 1]
     /// @arg shape The desired shape of the intitalised tensor
-    /// @arg type The data type of the initialised tensor
-    Tensor &zeros(const std::vector<long int> &shape, NTdtypes::scalarType type,
-                  NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+    /// @arg type The data type of the tensor
+    static Tensor rand(const std::vector<long int> &shape, NTdtypes::scalarType type = NTdtypes::kFloat,
+                       NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+
+    /// @brief Construct a tensor diag values along the diagonal, and zero elsewhere
+    /// @arg diag A 1-d tensor which represents the desired diagonal values
+    static Tensor diag(const Tensor &diag);
+
+    /// @brief Construct a tensor with ones
+    /// @arg shape The desired shape of the intitalised tensor
+    /// @arg type The data type of the tensor
+    static Tensor ones(const std::vector<long int> &shape, NTdtypes::scalarType type = NTdtypes::kFloat,
+                       NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+
+    /// @brief Construct a tensor with zeros
+    /// @arg shape The desired shape of the intitalised tensor
+    /// @arg type The data type of the tensor
+    static Tensor zeros(const std::vector<long int> &shape, NTdtypes::scalarType type = NTdtypes::kFloat,
+                        NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
 
     /// @}
 
@@ -81,7 +94,16 @@ class Tensor
     Tensor &device(NTdtypes::deviceType device);
     /// @brief Set whether the tensor requires a gradient
     Tensor &requiresGrad(bool reqGrad);
+    /// @brief Set whether or not the first dimension should be interpreted as a batch dimension
+    inline Tensor &hasBatchDim(bool hasBatchDim)
+    {
+        _hasBatchDim = hasBatchDim;
+        return *this;
+    };
     /// @}
+
+    /// @brief If the tensor does not already have a batch dimension (as set by hasBatchDim()) this will add one
+    Tensor &addBatchDim();
 
     /// @name Matrix Arithmetic
     /// Generally there are static functions with the pattern <function>(Mat1,
@@ -275,8 +297,19 @@ class Tensor
     /// @brief Get the shape of the tensor
     [[nodiscard]] std::vector<int> getShape() const;
 
+    /// Get the name of the backend library used to deal with tensors
+    static std::string getTensorLibrary();
+
+  private:
+    bool _hasBatchDim = false;
+
+    // ###################################################
+    // ########## Tensor library specific stuff ##########
+    // ###################################################
+
     // Defining this here as it has to be in a header due to using template :(
 #if USE_PYTORCH
+  public:
     /// @brief Get the value at a particular index of the tensor
     /// @arg indices The indices of the value to set
     template <typename T> inline T getValue(const std::vector<int> &indices)
@@ -301,13 +334,7 @@ class Tensor
 
         return _tensor.item<T>();
     }
-#endif
 
-    /// Get the name of the backend library used to deal with tensors
-    static std::string getTensorLibrary();
-
-#if USE_PYTORCH
-  public:
     [[nodiscard]] inline const torch::Tensor &getTensor() const
     {
 
