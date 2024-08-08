@@ -45,7 +45,8 @@ static void batchedOscProbs(const Propagator &prop, int batchSize, int nBatches)
     {
 
         Tensor energies =
-            Tensor::scale(Tensor::rand({batchSize, 1}).dType(NTdtypes::kFloat).requiresGrad(false), 10000.0);
+            Tensor::scale(Tensor::rand({batchSize, 1}).dType(NTdtypes::kFloat).requiresGrad(false), 10000.0) +
+            Tensor({100.0});
 
         // calculate the osc probabilities
         // static_cast<void> to discard the return value that we're not supposed to discard :)
