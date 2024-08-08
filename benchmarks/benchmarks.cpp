@@ -57,10 +57,7 @@ static void BM_vacuumOscillations(benchmark::State &state)
 {
 
     // set up the inputs
-    Tensor masses = Tensor::ones({1, 3}, NTdtypes::kFloat).requiresGrad(false);
-    masses.setValue({0, 0}, 0.1);
-    masses.setValue({0, 1}, 0.2);
-    masses.setValue({0, 2}, 0.3);
+    Tensor masses = Tensor({0.1, 0.2, 0.3}, NTdtypes::kFloat).requiresGrad(false).addBatchDim();
 
     Tensor theta23 = Tensor({0.23}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
     Tensor theta13 = Tensor({0.13}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
@@ -88,10 +85,7 @@ static void BM_constMatterOscillations(benchmark::State &state)
 {
 
     // set up the inputs
-    Tensor masses = Tensor::ones({1, 3}, NTdtypes::kFloat).requiresGrad(false);
-    masses.setValue({0, 0}, 0.1);
-    masses.setValue({0, 1}, 0.2);
-    masses.setValue({0, 2}, 0.3);
+    Tensor masses = Tensor({0.1, 0.2, 0.3}, NTdtypes::kFloat).requiresGrad(false).addBatchDim();
 
     Tensor theta23 = Tensor({0.23}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
     Tensor theta13 = Tensor({0.13}).dType(NTdtypes::kComplexFloat).requiresGrad(false);

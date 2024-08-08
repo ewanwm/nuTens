@@ -109,6 +109,19 @@ Tensor &Tensor::requiresGrad(bool reqGrad)
     return *this;
 }
 
+Tensor &Tensor::addBatchDim()
+{
+    NT_PROFILE();
+
+    if (!_hasBatchDim)
+    {
+        _tensor = torch::unsqueeze(_tensor, 0);
+        _hasBatchDim = true;
+    }
+
+    return *this;
+}
+
 Tensor Tensor::getValue(const std::vector<Tensor::indexType> &indices) const
 {
     NT_PROFILE();

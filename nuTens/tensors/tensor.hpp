@@ -94,7 +94,16 @@ class Tensor
     Tensor &device(NTdtypes::deviceType device);
     /// @brief Set whether the tensor requires a gradient
     Tensor &requiresGrad(bool reqGrad);
+    /// @brief Set whether or not the first dimension should be interpreted as a batch dimension
+    inline Tensor &hasBatchDim(bool hasBatchDim)
+    {
+        _hasBatchDim = hasBatchDim;
+        return *this;
+    };
     /// @}
+
+    /// @brief If the tensor does not already have a batch dimension (as set by hasBatchDim()) this will add one
+    Tensor &addBatchDim();
 
     /// @name Matrix Arithmetic
     /// Generally there are static functions with the pattern <function>(Mat1,
@@ -288,8 +297,19 @@ class Tensor
     /// @brief Get the shape of the tensor
     [[nodiscard]] std::vector<int> getShape() const;
 
+    /// Get the name of the backend library used to deal with tensors
+    static std::string getTensorLibrary();
+
+  private:
+    bool _hasBatchDim = false;
+
+    // ###################################################
+    // ########## Tensor library specific stuff ##########
+    // ###################################################
+
     // Defining this here as it has to be in a header due to using template :(
 #if USE_PYTORCH
+  public:
     /// @brief Get the value at a particular index of the tensor
     /// @arg indices The indices of the value to set
     template <typename T> inline T getValue(const std::vector<int> &indices)
@@ -314,13 +334,7 @@ class Tensor
 
         return _tensor.item<T>();
     }
-#endif
 
-    /// Get the name of the backend library used to deal with tensors
-    static std::string getTensorLibrary();
-
-#if USE_PYTORCH
-  public:
     [[nodiscard]] inline const torch::Tensor &getTensor() const
     {
 

@@ -16,10 +16,7 @@ int main()
     float energy = 1.0;
     float baseline = 0.5;
 
-    Tensor masses = Tensor::ones({1, 2}, NTdtypes::kFloat).requiresGrad(false);
-    masses.setValue({0, 0}, m1);
-    masses.setValue({0, 1}, m2);
-    masses.requiresGrad(true);
+    Tensor masses = Tensor({m1, m2}, NTdtypes::kFloat).addBatchDim().requiresGrad(true);
 
     Tensor energies = Tensor::ones({1, 1}, NTdtypes::kFloat).requiresGrad(false);
     energies.setValue({0, 0}, energy);
