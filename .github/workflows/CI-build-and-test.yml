@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
          OS: [ ubuntu-latest, windows-latest ]
-         compiler: [gcc, clang]
+         compiler: [g++, clang++]
 
     name: Build & Test ${{ matrix.os }} ${{ matrix.compiler }}
 
