@@ -68,6 +68,7 @@ jobs:
       run: |
         python3 -c "import torch;print(torch.utils.cmake_prefix_path)" > temp.txt
         set /p torchLoc=<temp.txt 
+        echo "torch location: %torchDir%"
         cmake -DNT_TEST_COVERAGE=ON -DCMAKE_PREFIX_PATH=%torchDir% -B ${{github.workspace}}\build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
          
     - name: Build
