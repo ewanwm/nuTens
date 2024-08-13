@@ -36,9 +36,6 @@ jobs:
     # this Action should follow steps to set up Python build environment
     - uses: actions/checkout@v4
 
-    - name: Set Flags
-      run: export USE_CUDA=0
-
     - name: Install Protoc
       uses: arduino/setup-protoc@v3
       
