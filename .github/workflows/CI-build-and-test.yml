@@ -36,8 +36,13 @@ jobs:
     # this Action should follow steps to set up Python build environment
     - uses: actions/checkout@v4
 
-    - name: Install Protoc
+    - name: Install Protoc Windows
+      if: ${{ startsWith(matrix.OS, 'windows') }}
       uses: arduino/setup-protoc@v3
+
+    - name: Install Protoc Ubuntu
+      if: ${{ startsWith(matrix.OS, 'ubuntu') }}
+      run: sudo apt install protobuf-compiler
       
     - name: Install Python dependencies
       uses: py-actions/py-dependency-install@v4
