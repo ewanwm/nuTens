@@ -18,16 +18,31 @@ jobs:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
     # You can convert this to a matrix build if you need cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: false
+      matrix:
+         OS: [ ubuntu-latest, windows-latest ]
+         compiler: [ {cpp: g++, c: gcc}, {cpp: clang++, c: clang} ]
+
+    name: Build & Test ${{ matrix.os }} ${{ matrix.compiler.c }}
+
+    runs-on: ${{ matrix.os }}
+    
+    env:
+      CC: ${{ matrix.compiler.c }}
+      CXX: ${{ matrix.compiler.cpp }}
+      
     steps:
     # this Action should follow steps to set up Python build environment
     - uses: actions/checkout@v4
 
-    - name: Set Flags
-      run: export USE_CUDA=0
+    - name: Install Protoc Windows
+      if: ${{ startsWith(matrix.OS, 'windows') }}
+      uses: arduino/setup-protoc@v3
 
-    - name: Install Protobuf
+    - name: Install Protoc Ubuntu
+      if: ${{ startsWith(matrix.OS, 'ubuntu') }}
       run: sudo apt install protobuf-compiler
       
     - name: Install Python dependencies
@@ -35,14 +50,30 @@ jobs:
       with:
         path: "PyTorch_requirements.txt"
         
-    - name: Configure CMake
+    - name: Configure CMake ubuntu
+      if: ${{ startsWith(matrix.OS, 'ubuntu') }}
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -DNT_TEST_COVERAGE=ON -DCMAKE_PREFIX_PATH=`python3 -c 'import torch;print(torch.utils.cmake_prefix_path)'` -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: |
+        cmake \
+        -DNT_TEST_COVERAGE=ON \
+        -DCMAKE_PREFIX_PATH=`python3 -c "import torch;print(torch.utils.cmake_prefix_path)"` \
+        -B ${{github.workspace}}/build \
+        -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
+    - name: Configure CMake windows
+      if: ${{ startsWith(matrix.OS, 'windows') }}
+      # on windows to get the pytorch config we have to 
+      # run the same python command as before but now save it 
+      # to a file then read from the file into a variable to pass to cmake
+      run: |
+        $Torch_DIR = python3 -c "import torch;print(torch.utils.cmake_prefix_path)"
+        echo "torch location: $Torch_DIR"
+        cmake -DNT_TEST_COVERAGE=ON -DCMAKE_PREFIX_PATH="$Torch_DIR" -B ${{github.workspace}}\build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+         
     - name: Build
       # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 2
 
     - name: Test
       working-directory: ${{github.workspace}}/build
@@ -51,10 +82,14 @@ jobs:
       run: ctest -C ${{env.BUILD_TYPE}}
 
     - name: Generate Coverage Report
+      # only need to do this for one combination of OS and compiler
+      if: ${{ matrix.OS == 'ubuntu-latest' && matrix.compiler.c == 'gcc' }}
       working-directory: ${{github.workspace}}/build
       run: gcovr --json -o nuTens_coverage.json -r .. -f "../nuTens/*"
       
     - name: Upload coverage reports to Codecov
+      # only need to do this for one combination of OS and compiler
+      if: ${{ matrix.OS == 'ubuntu-latest' && matrix.compiler.c == 'gcc' }}
       uses: codecov/codecov-action@v4.0.1
       with:
         verbose: true
