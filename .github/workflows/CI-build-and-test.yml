@@ -20,6 +20,7 @@ jobs:
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
 
     strategy:
+      fail-fast: false
       matrix:
          OS: [ ubuntu-latest, windows-latest ]
          compiler: [ {cpp: g++, c: gcc}, {cpp: clang++, c: clang} ]
@@ -66,7 +67,7 @@ jobs:
       # run the same python command as before but now save it 
       # to a file then read from the file into a variable to pass to cmake
       run: |
-        python3 -c "import torch;print(torch.utils.cmake_prefix_path)" > $torchLoc
+        $torchLoc = python3 -c "import torch;print(torch.utils.cmake_prefix_path)"
         echo "torch location: $torchLoc"
         cmake -DNT_TEST_COVERAGE=ON -DCMAKE_PREFIX_PATH=$torchLoc -B ${{github.workspace}}\build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
          
