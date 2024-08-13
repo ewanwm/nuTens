@@ -67,7 +67,7 @@ jobs:
       # to a file then read from the file into a variable to pass to cmake
       run: |
         python3 -c "import torch;print(torch.utils.cmake_prefix_path)" > temp.txt
-        set /p torchLoc= <temp.txt 
+        set /p torchLoc=<temp.txt 
         cmake \
         -DNT_TEST_COVERAGE=ON \
         -DCMAKE_PREFIX_PATH=%torchDir% \
