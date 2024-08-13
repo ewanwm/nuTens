@@ -49,11 +49,31 @@ jobs:
       with:
         path: "PyTorch_requirements.txt"
         
-    - name: Configure CMake
+    - name: Configure CMake ubuntu
+      if: ${{ startsWith(matrix.OS, 'windows') }}
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -DNT_TEST_COVERAGE=ON -DCMAKE_PREFIX_PATH=`python3 -c "import torch;print(torch.utils.cmake_prefix_path)"` -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: 
+        cmake \
+        -DNT_TEST_COVERAGE=ON \
+        -DCMAKE_PREFIX_PATH=`python3 -c "import torch;print(torch.utils.cmake_prefix_path)"` \
+        -B ${{github.workspace}}/build \
+        -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
+    - name: Configure CMake windows
+      if: ${{ startsWith(matrix.OS, 'ubuntu') }}
+      # on windows to get the pytorch config we have to 
+      # run the same python command as before but now save it 
+      # to a file then read from the file into a variable to pass to cmake
+    run: |
+      python3 -c "import torch;print(torch.utils.cmake_prefix_path)" > temp.txt
+      set /p torchLoc =< temp.txt 
+      cmake \
+        -DNT_TEST_COVERAGE=ON \
+        -DCMAKE_PREFIX_PATH=%torchDir% \
+        -B ${{github.workspace}}/build \
+        -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+         
     - name: Build
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 2
