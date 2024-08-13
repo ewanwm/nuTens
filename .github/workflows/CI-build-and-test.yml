@@ -23,8 +23,15 @@ jobs:
       fail-fast: false
       matrix:
          OS: [ ubuntu-latest, windows-latest ]
-         compiler: [ {cpp: g++, c: gcc}, {cpp: clang++, c: clang} ]
-
+         compiler: [ {cpp: g++, c: gcc}, {cpp: clang++, c: clang}, {cpp: cl, c: cl} ]
+         exclude:
+           - os: windows-latest
+             compiler: 0 #gcc
+           - os: windows-latest
+             compiler: 1 #clang
+           - os: ubuntu-latest
+             compiler: 2 #cl
+             
     name: Build & Test ${{ matrix.os }} ${{ matrix.compiler.c }}
 
     runs-on: ${{ matrix.os }}
