@@ -20,6 +20,16 @@ jobs:
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+         OS: [ ubuntu-latest, windows-latest ]
+         compiler: [gcc, clang]
+
+    name: Build & Test ${{ matrix.os }} ${{ matrix.compiler }}
+
+    env:
+      CC: ${{ matrix.compiler }}
+    
     steps:
     # this Action should follow steps to set up Python build environment
     - uses: actions/checkout@v4
