@@ -19,12 +19,17 @@ enable_testing()
 #### add dependencies ####
 ##########################
 
+include(cmake/CPM.cmake)
+
+find_package(Protobuf)
+if( !Protobuf_FOUND )
+  message( "didn't find protobuf, will try installing using cpm" )
+  CPMAddPackage("gh:protocolbuffer/protobuf@27.4")
+endif()
+
 find_package(Torch REQUIRED)
-find_package(Protobuf REQUIRED)
 message("Torch cxx flags: ${TORCH_CXX_FLAGS}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
-
-include(cmake/CPM.cmake)
 
 CPMAddPackage("gh:gabime/spdlog@1.8.2")
 
