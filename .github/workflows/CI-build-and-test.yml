@@ -22,15 +22,15 @@ jobs:
     strategy:
       matrix:
          OS: [ ubuntu-latest, windows-latest ]
-         compiler: [g++, clang++]
+         compiler: [ {cpp: g++, c: gcc}, {cpp: clang++, c: clang} ]
 
-    name: Build & Test ${{ matrix.os }} ${{ matrix.compiler }}
+    name: Build & Test ${{ matrix.os }} ${{ matrix.compiler.c }}
 
     runs-on: ${{ matrix.os }}
     
     env:
-      CC: ${{ matrix.compiler }}
-      CXX: ${{ matrix.compiler }}
+      CC: ${{ matrix.compiler.c }}
+      CXX: ${{ matrix.compiler.cpp }}
       
     steps:
     # this Action should follow steps to set up Python build environment
