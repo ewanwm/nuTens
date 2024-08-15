@@ -22,16 +22,26 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-         OS: [ ubuntu-latest, windows-latest ]
-         compiler: [ {cpp: g++, c: gcc}, {cpp: clang++, c: clang} ]
-
-    name: Build & Test ${{ matrix.os }} ${{ matrix.compiler.c }}
+        include:
+          - OS: ubuntu-latest
+            cpp_compiler: g++
+            c_compiler: gcc
+            
+          - OS: ubuntu-latest
+            cpp_compiler: clang++
+            c_compiler: clang
+            
+          - OS: windows-latest
+            cpp_compiler: cl
+            c_compiler: cl
+             
+    name: Build & Test ${{ matrix.os }} ${{ matrix.c_compiler }}
 
     runs-on: ${{ matrix.os }}
     
     env:
-      CC: ${{ matrix.compiler.c }}
-      CXX: ${{ matrix.compiler.cpp }}
+      CC: ${{ matrix.c_compiler }}
+      CXX: ${{ matrix.cpp_compiler }}
       
     steps:
     # this Action should follow steps to set up Python build environment
@@ -83,13 +93,13 @@ jobs:
 
     - name: Generate Coverage Report
       # only need to do this for one combination of OS and compiler
-      if: ${{ matrix.OS == 'ubuntu-latest' && matrix.compiler.c == 'gcc' }}
+      if: ${{ matrix.OS == 'ubuntu-latest' && matrix.c_compiler == 'gcc' }}
       working-directory: ${{github.workspace}}/build
       run: gcovr --json -o nuTens_coverage.json -r .. -f "../nuTens/*"
       
     - name: Upload coverage reports to Codecov
       # only need to do this for one combination of OS and compiler
-      if: ${{ matrix.OS == 'ubuntu-latest' && matrix.compiler.c == 'gcc' }}
+      if: ${{ matrix.OS == 'ubuntu-latest' && matrix.c_compiler == 'gcc' }}
       uses: codecov/codecov-action@v4.0.1
       with:
         verbose: true
