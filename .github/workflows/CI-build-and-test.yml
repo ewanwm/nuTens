@@ -26,11 +26,14 @@ jobs:
          compiler: [ {cpp: g++, c: gcc}, {cpp: clang++, c: clang}, {cpp: cl, c: cl} ]
          exclude:
            - os: windows-latest
-             compiler: 0 #gcc
+             compiler.cpp: g++ 
+             compiler.c: gcc 
            - os: windows-latest
-             compiler: 1 #clang
+             compiler.cpp: clang++ 
+             compiler.c: clang
            - os: ubuntu-latest
-             compiler: 2 #cl
+             compiler.cpp: cl
+             compiler.c: cl
              
     name: Build & Test ${{ matrix.os }} ${{ matrix.compiler.c }}
 
