@@ -22,18 +22,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-         OS: [ ubuntu-latest, windows-latest ]
-         compiler: [ {cpp: g++, c: gcc}, {cpp: clang++, c: clang}, {cpp: cl, c: cl} ]
-         exclude:
-           - os: windows-latest
-             compiler.cpp: g++ 
-             compiler.c: gcc 
-           - os: windows-latest
-             compiler.cpp: clang++ 
-             compiler.c: clang
-           - os: ubuntu-latest
-             compiler.cpp: cl
-             compiler.c: cl
+        include:
+          - OS: ubuntu-latest
+            compiler.cpp: g++
+            compiler.c: gcc
+            
+          - OS: ubuntu-latest
+            compiler.cpp: clang++
+            compiler.c: clang
+            
+          - OS: windows-latest
+            compiler.cpp: cl
+            compiler.c: cl
              
     name: Build & Test ${{ matrix.os }} ${{ matrix.compiler.c }}
 
