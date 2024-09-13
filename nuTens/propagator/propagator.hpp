@@ -40,7 +40,7 @@ class Propagator
 
     /// @brief Set a matter solver to use to deal with matter effects
     /// @param newSolver A derivative of BaseMatterSolver
-    inline void setMatterSolver(std::unique_ptr<BaseMatterSolver> &newSolver)
+    inline void setMatterSolver(std::shared_ptr<BaseMatterSolver> &newSolver)
     {
         NT_PROFILE();
         _matterSolver = std::move(newSolver);
@@ -113,5 +113,5 @@ class Propagator
     int _nGenerations;
     float _baseline;
 
-    std::unique_ptr<BaseMatterSolver> _matterSolver;
+    std::shared_ptr<BaseMatterSolver> _matterSolver;
 };
