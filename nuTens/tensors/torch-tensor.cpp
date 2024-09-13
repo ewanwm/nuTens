@@ -504,6 +504,15 @@ Tensor Tensor::sum() const
     return ret;
 }
 
+Tensor Tensor::sum(const std::vector<long int> &dims) const
+{
+    NT_PROFILE();
+
+    Tensor ret;
+    ret._tensor = torch::sum(_tensor, torch::OptionalArrayRef<long int>(dims));
+    return ret;
+}
+
 void Tensor::backward() const
 {
     NT_PROFILE();

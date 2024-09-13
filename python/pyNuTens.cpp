@@ -2,6 +2,8 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
+#include <vector>
+
 // nuTens stuff
 #include <nuTens/tensors/dtypes.hpp>
 #include <nuTens/tensors/tensor.hpp>
@@ -52,6 +54,39 @@ void initTensor(py::module &m)
         // getters
         .def("get_shape", &Tensor::getShape, "Get the shape of this tensor")
         .def("get_values", &Tensor::getValues, "Get the subset of values in this tensor at a specified location")
+
+        // maffs
+        .def("matmul", &Tensor::getShape, "Matrix multiplication")
+        .def("outer", &Tensor::outer, "Tensor outer product")
+        .def("mul", &Tensor::mul, "Element-wise multiplication")
+        .def("div", &Tensor::div, "Element-wise division")
+        .def("pow", py::overload_cast<const Tensor &, float>(&Tensor::pow), "Raise to scalar power")
+        .def("pow", py::overload_cast<const Tensor &, std::complex<float>>(&Tensor::pow), "Raise to scalar power")
+        .def("exp", &Tensor::exp, "Take exponential")
+        .def("transpose", &Tensor::transpose, "Get the matrix transpose")
+        .def("scale", py::overload_cast<const Tensor &, float>(&Tensor::scale), "Scalar multiplication")
+        .def("scale", py::overload_cast<const Tensor &, std::complex<float>>(&Tensor::scale), "Scalar multiplication")
+        .def("sin", &Tensor::sin, "Element-wise trigonometric sine function")
+        .def("cos", &Tensor::cos, "Element-wise trigonometric cosine function")
+        .def("sum", py::overload_cast<const Tensor &>(&Tensor::sum), "Get the sum of all values in a tensor")
+        .def("sum", py::overload_cast<const Tensor &, const std::vector<long int> &>(&Tensor::sum),
+             "Get the sum of all values in a tensor")
+        .def("cumsum", py::overload_cast<const Tensor &, int>(&Tensor::cumsum),
+             "Get the cumulative sum over some dimension")
+        // .def("eig", &Tensor::eig. "calculate eigenvalues") <- Will need to define some additional fn to return tuple
+        // of values
+
+        // complex number stuff
+        .def("real", &Tensor::real, "Get real part of a complex tensor")
+        .def("imag", &Tensor::imag, "Get imaginary part of a complex tensor")
+        .def("conj", &Tensor::conj, "Get complex conjugate of a complex tensor")
+        .def("angle", &Tensor::angle, "Get element-wise phases of a complex tensor")
+        .def("abs", &Tensor::abs, "Get element-wise magnitudes of a complex tensor")
+
+        // gradient stuff
+        .def("backward", &Tensor::backward, py::call_guard<py::gil_scoped_release>(),
+             "Do the backward propagation from this tensor")
+        .def("grad", &Tensor::grad, "Get the accumulated gradient stored in this tensor after calling backward()")
 
         ;
 }

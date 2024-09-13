@@ -233,12 +233,36 @@ class Tensor
     /// @brief Get elementwise phases of a complex tensor
     [[nodiscard]] Tensor angle() const;
 
-    /// @brief Get the result of summing this tensor over some dimension
+    /// @brief Get the cumulative sum over some dimension
     /// @param dim The dimension to sum over
     [[nodiscard]] Tensor cumsum(int dim) const;
 
     /// @brief Get the result of summing this tensor over all dimensions
     [[nodiscard]] Tensor sum() const;
+
+    /// @brief Get the result of summing this tensor over all dimensions
+    /// @param dims The dimensions to sum over
+    [[nodiscard]] Tensor sum(const std::vector<long int> &dims) const;
+
+    /// @brief Get the cumulative sum over some dimension
+    /// @param dim The dimension to sum over
+    static inline Tensor cumsum(const Tensor &t, int dim)
+    {
+        return t.cumsum(dim);
+    }
+
+    /// @brief Get the result of summing this tensor over all dimensions
+    static inline Tensor sum(const Tensor &t)
+    {
+        return t.sum();
+    }
+
+    /// @brief Get the result of summing this tensor over all dimensions
+    /// @param dims The dimensions to sum over
+    static inline Tensor sum(const Tensor &t, const std::vector<long int> &dims)
+    {
+        return t.sum(dims);
+    }
 
     /// @name Gradients
     /// @{
