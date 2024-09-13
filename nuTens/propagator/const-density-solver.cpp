@@ -10,8 +10,8 @@ void ConstDensityMatterSolver::calculateEigenvalues(const Tensor &energies, Tens
         for (int j = 0; j < nGenerations; j++)
         {
             hamiltonian.setValue({"...", i, j},
-                                 Tensor::div(diagMassMatrix.getValue({i, j}), energies.getValue({"...", 0})) -
-                                     electronOuter.getValue({i, j}));
+                                 Tensor::div(diagMassMatrix.getValues({i, j}), energies.getValues({"...", 0})) -
+                                     electronOuter.getValues({i, j}));
         }
     }
 

@@ -286,12 +286,12 @@ class Tensor
 
     /// @brief Get the value at a certain entry in the tensor
     /// @param indices The index of the entry to get
-    [[nodiscard]] Tensor getValue(const std::vector<std::variant<int, std::string>> &indices) const;
+    [[nodiscard]] Tensor getValues(const std::vector<std::variant<int, std::string>> &indices) const;
 
     /// @brief Get the number of dimensions in the tensor
     [[nodiscard]] size_t getNdim() const;
 
-    /// @brief Get the batch dimension size of the tensor
+    /// @brief Get the size of the batch dimension of the tensor
     [[nodiscard]] int getBatchDim() const;
 
     /// @brief Get the shape of the tensor

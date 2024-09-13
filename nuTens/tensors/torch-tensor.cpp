@@ -122,7 +122,7 @@ Tensor &Tensor::addBatchDim()
     return *this;
 }
 
-Tensor Tensor::getValue(const std::vector<Tensor::indexType> &indices) const
+Tensor Tensor::getValues(const std::vector<Tensor::indexType> &indices) const
 {
     NT_PROFILE();
 

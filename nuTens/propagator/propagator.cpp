@@ -44,7 +44,7 @@ Tensor Propagator::_calculateProbs(const Tensor &energies, const Tensor &massesS
     {
         for (int j = 0; j < _nGenerations; j++)
         {
-            weightMatrix.setValue({"...", i, j}, weightVector.getValue({"...", j}));
+            weightMatrix.setValue({"...", i, j}, weightVector.getValues({"...", j}));
         }
     }
     weightMatrix.requiresGrad(true);
