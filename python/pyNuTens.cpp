@@ -1,5 +1,6 @@
 // pybind11 stuff
 #include <pybind11/complex.h>
+#include <pybind11/operators.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
@@ -47,7 +48,12 @@ void initTensor(py::module &m)
         .def("add_batch_dim", &Tensor::addBatchDim, py::return_value_policy::reference,
              "Add a batch dimension to the start of this tensor if it doesn't have one already")
 
-        // getters
+        // setters
+        .def("set_value", py::overload_cast<const Tensor &, const Tensor &>(&Tensor::setValue),
+             "Set a value at a specific index of this tensor")
+        .def("set_value",
+             py::overload_cast<const std::vector<std::variant<int, std::string>> &, const Tensor &>(&Tensor::setValue),
+             "Set a value at a specific index of this tensor")
         .def("set_value", py::overload_cast<const std::vector<int> &, float>(&Tensor::setValue),
              "Set a value at a specific index of this tensor")
         .def("set_value", py::overload_cast<const std::vector<int> &, std::complex<float>>(&Tensor::setValue),
@@ -69,7 +75,10 @@ void initTensor(py::module &m)
              "Do the backward propagation from this tensor")
         .def("grad", &Tensor::grad, "Get the accumulated gradient stored in this tensor after calling backward()")
 
-        ; // end of Tensor non-static functions
+        // operator overloads
+        .def(-py::self);
+
+    ; // end of Tensor non-static functions
 
     // Tensor creation functions
     m_tensor.def("eye", &Tensor::eye, "Create a tensor initialised with an identity matrix");
@@ -79,7 +88,7 @@ void initTensor(py::module &m)
     m_tensor.def("zeros", &Tensor::zeros, "Create a tensor initialised with zeros");
 
     // maffs
-    m_tensor.def("matmul", &Tensor::getShape, "Matrix multiplication");
+    m_tensor.def("matmul", &Tensor::matmul, "Matrix multiplication");
     m_tensor.def("outer", &Tensor::outer, "Tensor outer product");
     m_tensor.def("mul", &Tensor::mul, "Element-wise multiplication");
     m_tensor.def("div", &Tensor::div, "Element-wise division");
