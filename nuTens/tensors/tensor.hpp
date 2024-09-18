@@ -379,7 +379,7 @@ class Tensor
     {
         NT_PROFILE();
 
-        _tensor = std::move(tensor);
+        _tensor = tensor;
         _dType = NTdtypes::invScalarTypeMap.at(tensor.scalar_type());
         _device = NTdtypes::invDeviceTypeMap.at(tensor.device().type());
     }
