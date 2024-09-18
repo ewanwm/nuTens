@@ -5,8 +5,10 @@ from pyNuTens.tensor import Tensor
 import matplotlib.pyplot as plt
 import typing
 
+N_ENERGIES = 10000
 
 def build_PMNS(theta12: Tensor, theta13: Tensor, theta23: Tensor, deltaCP: Tensor):
+    """ Construct a PMNS matrix in the usual parameterisation """
     # set up the three matrices to build the PMNS matrix
     M1 = nt.tensor.zeros([1, 3, 3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
     M2 = nt.tensor.zeros([1, 3, 3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
@@ -40,28 +42,31 @@ def build_PMNS(theta12: Tensor, theta13: Tensor, theta23: Tensor, deltaCP: Tenso
     return PMNS
 
 
-energies = nt.tensor.ones([100, 1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
+## First we build up a tensor to contain the test energies
+energies = nt.tensor.ones([N_ENERGIES, 1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
 
-for i in range(100):
-    energies.set_value([i,0], 100.0 + i*1000.0)
+for i in range(N_ENERGIES):
+    energies.set_value([i,0], 1.0 + i*0.2)
 
 energies.requires_grad(True)
 
-theta23 = Tensor([0.23], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
-theta13 = Tensor([0.13], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
-theta12 = Tensor([0.12], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
-deltaCP = Tensor([0.5], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
+## define tensors with oscillation parameters
+theta23 = Tensor([0.82], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
+theta13 = Tensor([0.15], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
+theta12 = Tensor([0.58], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
+deltaCP = Tensor([1.5], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
 
+## make the matrix
 PMNS = build_PMNS(theta12, theta13, theta23, deltaCP)
 
-
+## set the mass tensor
 masses = nt.tensor.zeros([1,3], nt.dtype.scalar_type.float, nt.dtype.device_type.cpu, True)
 
-masses.set_value([0,0], 0.1)
-masses.set_value([0,1], 0.2)
-masses.set_value([0,2], 0.3)
+masses.set_value([0,0], 0.0)
+masses.set_value([0,1], 0.00868)
+masses.set_value([0,2], 0.0501)
 
-
+## print info about the parameters
 print("PMNS: ")
 print(PMNS.to_string())
 
@@ -69,18 +74,61 @@ print("\nMasses: ")
 print(masses.to_string())
 print()
 
-propagator = nt.propagator.Propagator(3, 100.0)
+## set up the propagator object
+propagator = nt.propagator.Propagator(3, 295000.0)
 matter_solver = nt.propagator.ConstDensitySolver(3, 2.79)
 
 propagator.set_PMNS(PMNS)
 propagator.set_masses(masses)
 #propagator.set_matter_solver(matter_solver)
 
+## run!
 probabilities = propagator.calculate_probabilities(energies)
 
-print("probabilities: ")
-print(probabilities.to_string())
-
-prob_sum = tensor.sum(probabilities, [0])
+## print out some test values
+prob_sum = tensor.scale(tensor.sum(probabilities, [0]), 1.0 / float(N_ENERGIES))
 print("energy integrated probabilities: ")
 print(prob_sum.to_string())
+
+## check that the autograd functionality works
+mu_survival_prob = prob_sum.get_values([1,1])
+print("mu survival prob:")
+print(mu_survival_prob.to_string())
+
+mu_survival_prob.backward()
+print("theta_13 grad: ")
+print(theta13.grad().to_string())
+
+
+## make plots of the oscillation probabilities
+energy_list = []
+e_survival_prob_list = []
+mu_survival_prob_list = []
+tau_survival_prob_list = []
+
+mu_to_e_prob_list = []
+
+for i in range(N_ENERGIES):
+    energy_list.append(energies.get_value([i, 0]))
+    e_survival_prob_list.append(probabilities.get_value([i, 0, 0]))
+    mu_survival_prob_list.append(probabilities.get_value([i, 1, 1]))
+    tau_survival_prob_list.append(probabilities.get_value([i, 2, 2]))
+
+    mu_to_e_prob_list.append(probabilities.get_value([i, 1, 0]))
+
+plt.plot(energy_list, e_survival_prob_list, label = "electron")
+plt.plot(energy_list, mu_survival_prob_list, label = "muon")
+plt.plot(energy_list, tau_survival_prob_list, label = "tau")
+plt.xlabel("Energy [MeV]")
+plt.ylabel("Survival probability")
+plt.legend()
+plt.show()
+plt.savefig("survival_probs.png")
+
+plt.clf()
+plt.plot(energy_list, mu_to_e_prob_list, label = "numu -> nue")
+plt.xlabel("Energy [MeV]")
+plt.ylabel("Oscillation probability")
+plt.legend()
+plt.show()
+plt.savefig("oscillation_probs.png")
