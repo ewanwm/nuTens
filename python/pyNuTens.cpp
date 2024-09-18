@@ -62,6 +62,7 @@ void initTensor(py::module &m)
         // getters
         .def("get_shape", &Tensor::getShape, "Get the shape of this tensor")
         .def("get_values", &Tensor::getValues, "Get the subset of values in this tensor at a specified location")
+        .def("get_value", &Tensor::getVariantValue, "Get the data stored at a particular index of the tensor")
 
         // complex number stuff
         .def("real", &Tensor::real, "Get real part of a complex tensor")

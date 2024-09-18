@@ -92,6 +92,8 @@ ENDIF()
 IF(NT_ENABLE_PYTHON)
     set_property( TARGET tensor PROPERTY POSITION_INDEPENDENT_CODE ON )
     set_property( TARGET propagator PROPERTY POSITION_INDEPENDENT_CODE ON )
+    set_property( TARGET spdlog PROPERTY POSITION_INDEPENDENT_CODE ON )
+    set_property( TARGET logging PROPERTY POSITION_INDEPENDENT_CODE ON )
     add_subdirectory(python)
 ENDIF()
 

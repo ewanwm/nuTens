@@ -42,7 +42,12 @@ class Tensor
      */
 
   public:
+    /// Holds the possible "index" types, this allows us to pass integers OR strings as index values which allows us to
+    /// do some basic slicing of tensors similar to python
     using indexType = std::variant<int, std::string>;
+
+    /// Container that holds all allowed types that can be returned by a tensor
+    using variantType = std::variant<int, float, double, std::complex<float>, std::complex<double>>;
 
     /// @name Constructors
     /// Use these methods to construct tensors
@@ -304,13 +309,19 @@ class Tensor
     /// @arg indices The indices of the value to set
     /// @arg value The value to set it to
     void setValue(const Tensor &indices, const Tensor &value);
-    void setValue(const std::vector<std::variant<int, std::string>> &indices, const Tensor &value);
+    void setValue(const std::vector<indexType> &indices, const Tensor &value);
     void setValue(const std::vector<int> &indices, float value);
     void setValue(const std::vector<int> &indices, std::complex<float> value);
 
     /// @brief Get the value at a certain entry in the tensor
     /// @param indices The index of the entry to get
-    [[nodiscard]] Tensor getValues(const std::vector<std::variant<int, std::string>> &indices) const;
+    [[nodiscard]] Tensor getValues(const std::vector<indexType> &indices) const;
+
+    /// @brief Get the value at a certain entry in the tensor as an std::variant
+    /// @details This mainly exists so we can get the values of a tensor in python as pybind11 DOES NOT like templated
+    /// functions If using the c++ interface it is probably easier, faster and safer to use the templated getValue()
+    /// function.
+    [[nodiscard]] variantType getVariantValue(const std::vector<int> &indices) const;
 
     /// @brief Get the number of dimensions in the tensor
     [[nodiscard]] size_t getNdim() const;
@@ -326,6 +337,8 @@ class Tensor
 
   private:
     bool _hasBatchDim = false;
+    NTdtypes::scalarType _dType;
+    NTdtypes::deviceType _device;
 
     // ###################################################
     // ########## Tensor library specific stuff ##########
@@ -336,7 +349,43 @@ class Tensor
   public:
     /// @brief Get the value at a particular index of the tensor
     /// @arg indices The indices of the value to set
-    template <typename T> inline T getValue(const std::vector<int> &indices)
+    template <typename T> inline T getValue(const std::vector<int> &indices) const
+    {
+        NT_PROFILE();
+
+        return _tensor.index(convertIndices(indices)).item<T>();
+    }
+
+    /// Get the value of a size 0 tensor (scalar)
+    template <typename T> inline T getValue() const
+    {
+        NT_PROFILE();
+
+        return _tensor.item<T>();
+    }
+
+    // return the underlying tensor with type determined by the backend library
+    [[nodiscard]] inline const torch::Tensor &getTensor() const
+    {
+        NT_PROFILE();
+
+        return _tensor;
+    }
+
+  private:
+    /// Set the underlying tensor, setting the relevant information like _dtype and _device
+    inline void setTensor(torch::Tensor tensor)
+    {
+        NT_PROFILE();
+
+        _tensor = tensor;
+        _dType = NTdtypes::invScalarTypeMap.at(tensor.scalar_type());
+        _device = NTdtypes::invDeviceTypeMap.at(tensor.device().type());
+    }
+
+    /// Utility function to convert from a vector of ints to a vector of a10 tensor indices, which is needed for
+    /// accessing values of a tensor.
+    inline std::vector<at::indexing::TensorIndex> convertIndices(const std::vector<int> &indices) const
     {
         NT_PROFILE();
 
@@ -347,24 +396,34 @@ class Tensor
             indicesVec.push_back(at::indexing::TensorIndex(i));
         }
 
-        return _tensor.index(indicesVec).item<T>();
+        return indicesVec;
     }
 
-    /// Get the value of a size 0 tensor (scalar)
-    template <typename T> inline T getValue()
+    /// Utility function to convert from a vector of ints to a vector of a10 tensor indices, which is needed for
+    /// accessing values of a tensor.
+    inline std::vector<at::indexing::TensorIndex> convertIndices(const std::vector<Tensor::indexType> &indices) const
     {
-
         NT_PROFILE();
 
-        return _tensor.item<T>();
-    }
+        std::vector<at::indexing::TensorIndex> indicesVec;
+        for (const Tensor::indexType &i : indices)
+        {
+            if (const int *index = std::get_if<int>(&i))
+            {
+                indicesVec.push_back(at::indexing::TensorIndex(*index));
+            }
+            else if (const std::string *index = std::get_if<std::string>(&i))
+            {
+                indicesVec.push_back(at::indexing::TensorIndex((*index).c_str()));
+            }
+            else
+            {
+                assert(false && "ERROR: Unsupported index type");
+                throw;
+            }
+        }
 
-    [[nodiscard]] inline const torch::Tensor &getTensor() const
-    {
-
-        NT_PROFILE();
-
-        return _tensor;
+        return indicesVec;
     }
 
   private:
