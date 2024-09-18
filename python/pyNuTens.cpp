@@ -14,9 +14,9 @@
 
 namespace py = pybind11;
 
-void initTensor(py::module &);
-void initPropagator(py::module &);
-void initDtypes(py::module &);
+void initTensor(py::module & /*m*/);
+void initPropagator(py::module & /*m*/);
+void initDtypes(py::module & /*m*/);
 
 // initialise the top level module "pyNuTens"
 PYBIND11_MODULE(pyNuTens, m)

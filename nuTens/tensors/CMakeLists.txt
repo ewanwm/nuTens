@@ -9,6 +9,8 @@ IF(NT_USE_PCH)
     target_link_libraries(tensor PUBLIC nuTens-pch)
 
 ELSE()
+    target_link_libraries(tensor PUBLIC logging)
+    
     IF(TORCH_FOUND)
 
         target_link_libraries(tensor PUBLIC "${TORCH_LIBRARIES}")

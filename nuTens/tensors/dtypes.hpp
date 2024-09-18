@@ -1,5 +1,9 @@
 #pragma once
 
+#if USE_PYTORCH
+#include <torch/torch.h>
+#endif
+
 /*!
  * @file dtypes.hpp
  * @brief Defines various datatypes used in the project

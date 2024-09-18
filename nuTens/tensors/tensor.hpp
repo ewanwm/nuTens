@@ -6,6 +6,7 @@
 #include <iostream>
 #include <map>
 #include <nuTens/instrumentation.hpp>
+#include <nuTens/logging.hpp>
 #include <nuTens/tensors/dtypes.hpp>
 #include <variant>
 #include <vector>
@@ -378,14 +379,14 @@ class Tensor
     {
         NT_PROFILE();
 
-        _tensor = tensor;
+        _tensor = std::move(tensor);
         _dType = NTdtypes::invScalarTypeMap.at(tensor.scalar_type());
         _device = NTdtypes::invDeviceTypeMap.at(tensor.device().type());
     }
 
     /// Utility function to convert from a vector of ints to a vector of a10 tensor indices, which is needed for
     /// accessing values of a tensor.
-    inline std::vector<at::indexing::TensorIndex> convertIndices(const std::vector<int> &indices) const
+    [[nodiscard]] inline std::vector<at::indexing::TensorIndex> convertIndices(const std::vector<int> &indices) const
     {
         NT_PROFILE();
 
@@ -401,7 +402,8 @@ class Tensor
 
     /// Utility function to convert from a vector of ints to a vector of a10 tensor indices, which is needed for
     /// accessing values of a tensor.
-    inline std::vector<at::indexing::TensorIndex> convertIndices(const std::vector<Tensor::indexType> &indices) const
+    [[nodiscard]] inline std::vector<at::indexing::TensorIndex> convertIndices(
+        const std::vector<Tensor::indexType> &indices) const
     {
         NT_PROFILE();
 
