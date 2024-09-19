@@ -86,9 +86,12 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a5ba0344a1e45d164fcfb8f05f8bbbc9f"><td class="memItemLeft" align="right" valign="top"><a id="a5ba0344a1e45d164fcfb8f05f8bbbc9f"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>indexType</b> = std::variant&lt; int, std::string &gt;</td></tr>
+<tr class="memitem:a5ba0344a1e45d164fcfb8f05f8bbbc9f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a5ba0344a1e45d164fcfb8f05f8bbbc9f">indexType</a> = std::variant&lt; int, std::string &gt;</td></tr>
 <tr class="separator:a5ba0344a1e45d164fcfb8f05f8bbbc9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f72d6aaa45a817b005637c06fe678fd"><td class="memItemLeft" align="right" valign="top"><a id="a0f72d6aaa45a817b005637c06fe678fd"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a0f72d6aaa45a817b005637c06fe678fd">variantType</a> = std::variant&lt; int, float, double, std::complex&lt; float &gt;, std::complex&lt; double &gt; &gt;</td></tr>
+<tr class="memdesc:a0f72d6aaa45a817b005637c06fe678fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container that holds all allowed types that can be returned by a tensor. <br /></td></tr>
+<tr class="separator:a0f72d6aaa45a817b005637c06fe678fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -117,12 +120,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa1cd13610d9c692f8730b8ccd21a56d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get elementwise phases of a complex tensor. <br /></td></tr>
 <tr class="separator:aa1cd13610d9c692f8730b8ccd21a56d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6166f6d8b00db004ffd1d5944571d10d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a6166f6d8b00db004ffd1d5944571d10d">cumsum</a> (int dim) const</td></tr>
-<tr class="memdesc:a6166f6d8b00db004ffd1d5944571d10d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the result of summing this tensor over some dimension.  <a href="classTensor.html#a6166f6d8b00db004ffd1d5944571d10d">More...</a><br /></td></tr>
+<tr class="memdesc:a6166f6d8b00db004ffd1d5944571d10d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the cumulative sum over some dimension.  <a href="classTensor.html#a6166f6d8b00db004ffd1d5944571d10d">More...</a><br /></td></tr>
 <tr class="separator:a6166f6d8b00db004ffd1d5944571d10d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a369f0f04a516d32b5e2bb246487282f5"><td class="memItemLeft" align="right" valign="top"><a id="a369f0f04a516d32b5e2bb246487282f5"></a>
 <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a369f0f04a516d32b5e2bb246487282f5">sum</a> () const</td></tr>
 <tr class="memdesc:a369f0f04a516d32b5e2bb246487282f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the result of summing this tensor over all dimensions. <br /></td></tr>
 <tr class="separator:a369f0f04a516d32b5e2bb246487282f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4d6c1b374c58d872ae12f1d29778833"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ac4d6c1b374c58d872ae12f1d29778833">sum</a> (const std::vector&lt; long int &gt; &amp;dims) const</td></tr>
+<tr class="memdesc:ac4d6c1b374c58d872ae12f1d29778833"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the result of summing this tensor over all dimensions.  <a href="classTensor.html#ac4d6c1b374c58d872ae12f1d29778833">More...</a><br /></td></tr>
+<tr class="separator:ac4d6c1b374c58d872ae12f1d29778833"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2c052b4150fd71d91a2185873f75bb6"><td class="memItemLeft" align="right" valign="top"><a id="ad2c052b4150fd71d91a2185873f75bb6"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ad2c052b4150fd71d91a2185873f75bb6">toString</a> () const</td></tr>
 <tr class="memdesc:ad2c052b4150fd71d91a2185873f75bb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print this object to a summary string. <br /></td></tr>
@@ -130,25 +136,28 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memitem:a1fe34f8072b6b29ab72777f45010ae97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a1fe34f8072b6b29ab72777f45010ae97">setValue</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;indices, const <a class="el" href="classTensor.html">Tensor</a> &amp;value)</td></tr>
 <tr class="memdesc:a1fe34f8072b6b29ab72777f45010ae97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the value at a particular index of the tensor.  <a href="classTensor.html#a1fe34f8072b6b29ab72777f45010ae97">More...</a><br /></td></tr>
 <tr class="separator:a1fe34f8072b6b29ab72777f45010ae97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a579c6d43a94be57989b6db528b175b14"><td class="memItemLeft" align="right" valign="top"><a id="a579c6d43a94be57989b6db528b175b14"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setValue</b> (const std::vector&lt; std::variant&lt; int, std::string &gt;&gt; &amp;indices, const <a class="el" href="classTensor.html">Tensor</a> &amp;value)</td></tr>
-<tr class="separator:a579c6d43a94be57989b6db528b175b14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acac0f4206dd661f077b477213d501e6e"><td class="memItemLeft" align="right" valign="top"><a id="acac0f4206dd661f077b477213d501e6e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setValue</b> (const std::vector&lt; <a class="el" href="classTensor.html#a5ba0344a1e45d164fcfb8f05f8bbbc9f">indexType</a> &gt; &amp;indices, const <a class="el" href="classTensor.html">Tensor</a> &amp;value)</td></tr>
+<tr class="separator:acac0f4206dd661f077b477213d501e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10b9edf81234b731fd1b8f7f40538061"><td class="memItemLeft" align="right" valign="top"><a id="a10b9edf81234b731fd1b8f7f40538061"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setValue</b> (const std::vector&lt; int &gt; &amp;indices, float value)</td></tr>
 <tr class="separator:a10b9edf81234b731fd1b8f7f40538061"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac52ac83beb78bb1bf450b6d8f5a80447"><td class="memItemLeft" align="right" valign="top"><a id="ac52ac83beb78bb1bf450b6d8f5a80447"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setValue</b> (const std::vector&lt; int &gt; &amp;indices, std::complex&lt; float &gt; value)</td></tr>
 <tr class="separator:ac52ac83beb78bb1bf450b6d8f5a80447"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09aececd96cf2472beba69b8645f4b8a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a09aececd96cf2472beba69b8645f4b8a">getValue</a> (const std::vector&lt; std::variant&lt; int, std::string &gt;&gt; &amp;indices) const</td></tr>
-<tr class="memdesc:a09aececd96cf2472beba69b8645f4b8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value at a certain entry in the tensor.  <a href="classTensor.html#a09aececd96cf2472beba69b8645f4b8a">More...</a><br /></td></tr>
-<tr class="separator:a09aececd96cf2472beba69b8645f4b8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd77ec799413df091b28a32a9ca9fcf5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#afd77ec799413df091b28a32a9ca9fcf5">getValues</a> (const std::vector&lt; <a class="el" href="classTensor.html#a5ba0344a1e45d164fcfb8f05f8bbbc9f">indexType</a> &gt; &amp;indices) const</td></tr>
+<tr class="memdesc:afd77ec799413df091b28a32a9ca9fcf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value at a certain entry in the tensor.  <a href="classTensor.html#afd77ec799413df091b28a32a9ca9fcf5">More...</a><br /></td></tr>
+<tr class="separator:afd77ec799413df091b28a32a9ca9fcf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b16fca56a508a204d9f090a90fade3e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTensor.html#a0f72d6aaa45a817b005637c06fe678fd">variantType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a7b16fca56a508a204d9f090a90fade3e">getVariantValue</a> (const std::vector&lt; int &gt; &amp;indices) const</td></tr>
+<tr class="memdesc:a7b16fca56a508a204d9f090a90fade3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the value at a certain entry in the tensor as an std::variant.  <a href="classTensor.html#a7b16fca56a508a204d9f090a90fade3e">More...</a><br /></td></tr>
+<tr class="separator:a7b16fca56a508a204d9f090a90fade3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbb1cf75cc2d97ac21ee63f4c7482eee"><td class="memItemLeft" align="right" valign="top"><a id="afbb1cf75cc2d97ac21ee63f4c7482eee"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#afbb1cf75cc2d97ac21ee63f4c7482eee">getNdim</a> () const</td></tr>
 <tr class="memdesc:afbb1cf75cc2d97ac21ee63f4c7482eee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of dimensions in the tensor. <br /></td></tr>
 <tr class="separator:afbb1cf75cc2d97ac21ee63f4c7482eee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a784131f37c10b8a801a053d1044aec81"><td class="memItemLeft" align="right" valign="top"><a id="a784131f37c10b8a801a053d1044aec81"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a784131f37c10b8a801a053d1044aec81">getBatchDim</a> () const</td></tr>
-<tr class="memdesc:a784131f37c10b8a801a053d1044aec81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the batch dimension size of the tensor. <br /></td></tr>
+<tr class="memdesc:a784131f37c10b8a801a053d1044aec81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the batch dimension of the tensor. <br /></td></tr>
 <tr class="separator:a784131f37c10b8a801a053d1044aec81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aacded5eb407c8e510f09dd3be3c83025"><td class="memItemLeft" align="right" valign="top"><a id="aacded5eb407c8e510f09dd3be3c83025"></a>
 std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#aacded5eb407c8e510f09dd3be3c83025">getShape</a> () const</td></tr>
@@ -202,6 +211,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ad864bcf0411cb31b5a650c644ded250b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ad864bcf0411cb31b5a650c644ded250b">cumsum</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, int dim)</td></tr>
+<tr class="memdesc:ad864bcf0411cb31b5a650c644ded250b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the cumulative sum over some dimension.  <a href="classTensor.html#ad864bcf0411cb31b5a650c644ded250b">More...</a><br /></td></tr>
+<tr class="separator:ad864bcf0411cb31b5a650c644ded250b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad02adf561c2fae66772cb967634daafe"><td class="memItemLeft" align="right" valign="top"><a id="ad02adf561c2fae66772cb967634daafe"></a>
+static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#ad02adf561c2fae66772cb967634daafe">sum</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t)</td></tr>
+<tr class="memdesc:ad02adf561c2fae66772cb967634daafe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the result of summing this tensor over all dimensions. <br /></td></tr>
+<tr class="separator:ad02adf561c2fae66772cb967634daafe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afde1c4ea4ceb9adb72ae47cc388bb379"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#afde1c4ea4ceb9adb72ae47cc388bb379">sum</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, const std::vector&lt; long int &gt; &amp;dims)</td></tr>
+<tr class="memdesc:afde1c4ea4ceb9adb72ae47cc388bb379"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the result of summing this tensor over all dimensions.  <a href="classTensor.html#afde1c4ea4ceb9adb72ae47cc388bb379">More...</a><br /></td></tr>
+<tr class="separator:afde1c4ea4ceb9adb72ae47cc388bb379"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4769ffbca778565253f564b1a8970dfd"><td class="memItemLeft" align="right" valign="top"><a id="a4769ffbca778565253f564b1a8970dfd"></a>
 static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a4769ffbca778565253f564b1a8970dfd">getTensorLibrary</a> ()</td></tr>
 <tr class="memdesc:a4769ffbca778565253f564b1a8970dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of the backend library used to deal with tensors. <br /></td></tr>
@@ -317,11 +336,27 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="textblock"><p>Basic tensor class. </p>
 <p><a class="el" href="classTensor.html" title="Basic tensor class.">Tensor</a> defines a basic interface for creating and manipulating tensors. To create tensors you should use the Constructors. These can be used on their own or chained together with the Setters to create the desired tensor.</p>
 <p>For example </p><div class="fragment"><div class="line"><a class="code" href="classTensor.html">Tensor</a> = <a class="code" href="classTensor.html#a675e696e3605bf5b0719eb88fdcfd772">ones</a>({3,3}).dType(NTdtypes::kFloat).<a class="code" href="classTensor.html#a54b317bee953ffa8463122635afcd369">device</a>(NTdtypes::kGPU);</div>
-<div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdoc">Basic tensor class.</div><div class="ttdef"><b>Definition:</b> tensor.hpp:23</div></div>
-<div class="ttc" id="aclassTensor_html_a54b317bee953ffa8463122635afcd369"><div class="ttname"><a href="classTensor.html#a54b317bee953ffa8463122635afcd369">Tensor::device</a></div><div class="ttdeci">Tensor &amp; device(NTdtypes::deviceType device)</div><div class="ttdoc">Set the device that this tensor lives on.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:96</div></div>
-<div class="ttc" id="aclassTensor_html_a675e696e3605bf5b0719eb88fdcfd772"><div class="ttname"><a href="classTensor.html#a675e696e3605bf5b0719eb88fdcfd772">Tensor::ones</a></div><div class="ttdeci">static Tensor ones(const std::vector&lt; long int &gt; &amp;shape, NTdtypes::scalarType type=NTdtypes::kFloat, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)</div><div class="ttdoc">Construct a tensor with ones.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:65</div></div>
+<div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdoc">Basic tensor class.</div><div class="ttdef"><b>Definition:</b> tensor.hpp:24</div></div>
+<div class="ttc" id="aclassTensor_html_a54b317bee953ffa8463122635afcd369"><div class="ttname"><a href="classTensor.html#a54b317bee953ffa8463122635afcd369">Tensor::device</a></div><div class="ttdeci">Tensor &amp; device(NTdtypes::deviceType device)</div><div class="ttdoc">Set the device that this tensor lives on.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:99</div></div>
+<div class="ttc" id="aclassTensor_html_a675e696e3605bf5b0719eb88fdcfd772"><div class="ttname"><a href="classTensor.html#a675e696e3605bf5b0719eb88fdcfd772">Tensor::ones</a></div><div class="ttdeci">static Tensor ones(const std::vector&lt; long int &gt; &amp;shape, NTdtypes::scalarType type=NTdtypes::kFloat, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)</div><div class="ttdoc">Construct a tensor with ones.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:63</div></div>
 </div><!-- fragment --><p> will get you a 3x3 tensor of floats that lives on the GPU. This is equivalent to </p><div class="fragment"><div class="line"><a class="code" href="classTensor.html">Tensor</a> = <a class="code" href="classTensor.html#a675e696e3605bf5b0719eb88fdcfd772">ones</a>({3,3}, NTdtypes::kFloat, NTdtypes::kGPU);</div>
-</div><!-- fragment --> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+</div><!-- fragment --> </div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a5ba0344a1e45d164fcfb8f05f8bbbc9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ba0344a1e45d164fcfb8f05f8bbbc9f">&#9670;&nbsp;</a></span>indexType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classTensor.html#a5ba0344a1e45d164fcfb8f05f8bbbc9f">Tensor::indexType</a> =  std::variant&lt;int, std::string&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Holds the possible "index" types, this allows us to pass integers OR strings as index values which allows us to do some basic slicing of tensors similar to python </p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aee758b7d74c25c41f624461f72ccdf58"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aee758b7d74c25c41f624461f72ccdf58">&#9670;&nbsp;</a></span>Tensor()</h2>
 
@@ -402,8 +437,52 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
+<a id="ad864bcf0411cb31b5a650c644ded250b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad864bcf0411cb31b5a650c644ded250b">&#9670;&nbsp;</a></span>cumsum() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classTensor.html">Tensor</a> Tensor::cumsum </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dim</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the cumulative sum over some dimension. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dim</td><td>The dimension to sum over </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a6166f6d8b00db004ffd1d5944571d10d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6166f6d8b00db004ffd1d5944571d10d">&#9670;&nbsp;</a></span>cumsum()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6166f6d8b00db004ffd1d5944571d10d">&#9670;&nbsp;</a></span>cumsum() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -418,7 +497,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
       </table>
 </div><div class="memdoc">
 
-<p>Get the result of summing this tensor over some dimension. </p>
+<p>Get the cumulative sum over some dimension. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dim</td><td>The dimension to sum over </td></tr>
@@ -663,16 +742,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a09aececd96cf2472beba69b8645f4b8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09aececd96cf2472beba69b8645f4b8a">&#9670;&nbsp;</a></span>getValue()</h2>
+<a id="afd77ec799413df091b28a32a9ca9fcf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd77ec799413df091b28a32a9ca9fcf5">&#9670;&nbsp;</a></span>getValues()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::getValue </td>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::getValues </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; std::variant&lt; int, std::string &gt;&gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="classTensor.html#a5ba0344a1e45d164fcfb8f05f8bbbc9f">indexType</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>indices</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -686,6 +765,27 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a7b16fca56a508a204d9f090a90fade3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b16fca56a508a204d9f090a90fade3e">&#9670;&nbsp;</a></span>getVariantValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html#a0f72d6aaa45a817b005637c06fe678fd">Tensor::variantType</a> Tensor::getVariantValue </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>indices</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the value at a certain entry in the tensor as an std::variant. </p>
+<p>This mainly exists so we can get the values of a tensor in python as pybind11 DOES NOT like templated functions If using the c++ interface it is probably easier, faster and safer to use the templated getValue() function. </p>
 
 </div>
 </div>
@@ -1291,6 +1391,76 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">t</td><td>The tensor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac4d6c1b374c58d872ae12f1d29778833"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4d6c1b374c58d872ae12f1d29778833">&#9670;&nbsp;</a></span>sum() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::sum </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; long int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>dims</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the result of summing this tensor over all dimensions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dims</td><td>The dimensions to sum over </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afde1c4ea4ceb9adb72ae47cc388bb379"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afde1c4ea4ceb9adb72ae47cc388bb379">&#9670;&nbsp;</a></span>sum() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classTensor.html">Tensor</a> Tensor::sum </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; long int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>dims</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the result of summing this tensor over all dimensions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dims</td><td>The dimensions to sum over </td></tr>
   </table>
   </dd>
 </dl>

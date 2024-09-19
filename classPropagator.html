@@ -90,9 +90,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a198abad0231f55413b1a337a1b01b7bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the oscillation probabilities.  <a href="classPropagator.html#a198abad0231f55413b1a337a1b01b7bf">More...</a><br /></td></tr>
 <tr class="separator:a198abad0231f55413b1a337a1b01b7bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Setters</div></td></tr>
-<tr class="memitem:a1b68caf6d592f7df8cb23caaa6538673"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPropagator.html#a1b68caf6d592f7df8cb23caaa6538673">setMatterSolver</a> (std::unique_ptr&lt; <a class="el" href="classBaseMatterSolver.html">BaseMatterSolver</a> &gt; &amp;newSolver)</td></tr>
-<tr class="memdesc:a1b68caf6d592f7df8cb23caaa6538673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a matter solver to use to deal with matter effects.  <a href="classPropagator.html#a1b68caf6d592f7df8cb23caaa6538673">More...</a><br /></td></tr>
-<tr class="separator:a1b68caf6d592f7df8cb23caaa6538673"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54d978f6a699c15b9b99bc858265bcbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPropagator.html#a54d978f6a699c15b9b99bc858265bcbd">setMatterSolver</a> (std::shared_ptr&lt; <a class="el" href="classBaseMatterSolver.html">BaseMatterSolver</a> &gt; &amp;newSolver)</td></tr>
+<tr class="memdesc:a54d978f6a699c15b9b99bc858265bcbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a matter solver to use to deal with matter effects.  <a href="classPropagator.html#a54d978f6a699c15b9b99bc858265bcbd">More...</a><br /></td></tr>
+<tr class="separator:a54d978f6a699c15b9b99bc858265bcbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7dbf99562e01684d1fb2fc6d8d82d092"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPropagator.html#a7dbf99562e01684d1fb2fc6d8d82d092">setMasses</a> (<a class="el" href="classTensor.html">Tensor</a> &amp;newMasses)</td></tr>
 <tr class="memdesc:a7dbf99562e01684d1fb2fc6d8d82d092"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the masses corresponding to the vacuum hamiltonian eigenstates.  <a href="classPropagator.html#a7dbf99562e01684d1fb2fc6d8d82d092">More...</a><br /></td></tr>
 <tr class="separator:a7dbf99562e01684d1fb2fc6d8d82d092"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -108,7 +108,7 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Neutrino oscillation probability calculator. </p>
-<p>This class is used to propagate neutrinos over some baseline and calculate the probability that they will oscillate to another flavour. A <a class="el" href="classPropagator.html" title="Neutrino oscillation probability calculator.">Propagator</a> can be configured using the Setters by assigning parameters (neutrino masses and PMNS matrix elements). You can assign a matter solver (a derivative of <a class="el" href="classBaseMatterSolver.html" title="Abstract base class for matter effect solvers.">BaseMatterSolver</a>) to deal with matter effects using <a class="el" href="classPropagator.html#a1b68caf6d592f7df8cb23caaa6538673" title="Set a matter solver to use to deal with matter effects.">setMatterSolver()</a>. <a class="el" href="classPropagator.html#a198abad0231f55413b1a337a1b01b7bf" title="Calculate the oscillation probabilities.">calculateProbs()</a> can then be used to calculate energy dependent oscillation probabilities.</p>
+<p>This class is used to propagate neutrinos over some baseline and calculate the probability that they will oscillate to another flavour. A <a class="el" href="classPropagator.html" title="Neutrino oscillation probability calculator.">Propagator</a> can be configured using the Setters by assigning parameters (neutrino masses and PMNS matrix elements). You can assign a matter solver (a derivative of <a class="el" href="classBaseMatterSolver.html" title="Abstract base class for matter effect solvers.">BaseMatterSolver</a>) to deal with matter effects using <a class="el" href="classPropagator.html#a54d978f6a699c15b9b99bc858265bcbd" title="Set a matter solver to use to deal with matter effects.">setMatterSolver()</a>. <a class="el" href="classPropagator.html#a198abad0231f55413b1a337a1b01b7bf" title="Calculate the oscillation probabilities.">calculateProbs()</a> can then be used to calculate energy dependent oscillation probabilities.</p>
 <p>(The specifics of this interface may change in the future) </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af935ff4cd179591258d1ce28a95e521e"></a>
@@ -218,8 +218,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1b68caf6d592f7df8cb23caaa6538673"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b68caf6d592f7df8cb23caaa6538673">&#9670;&nbsp;</a></span>setMatterSolver()</h2>
+<a id="a54d978f6a699c15b9b99bc858265bcbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54d978f6a699c15b9b99bc858265bcbd">&#9670;&nbsp;</a></span>setMatterSolver()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -230,7 +230,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void Propagator::setMatterSolver </td>
           <td>(</td>
-          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classBaseMatterSolver.html">BaseMatterSolver</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classBaseMatterSolver.html">BaseMatterSolver</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>newSolver</em></td><td>)</td>
           <td></td>
         </tr>
