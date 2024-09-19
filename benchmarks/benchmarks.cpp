@@ -93,6 +93,8 @@ static void BM_vacuumOscillations(benchmark::State &state)
     // seed the random number generator for the energies
     std::srand(randSeed);
 
+    // linter gets angry about this as _ is never used :)))
+    // NOLINTNEXTLINE
     for (auto _ : state)
     {
         // This code gets timed
