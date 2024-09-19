@@ -31,7 +31,7 @@ int main()
     tensorFloat.setValue({2, 2}, 8.0);
     std::cout << "real: " << std::endl << tensorFloat.real() << std::endl;
     std::cout << "Middle value: " << tensorFloat.getValue<float>({1, 1}) << std::endl;
-    std::cout << "tensorFloat({'...', 1}) = " << tensorFloat.getValue({1, "..."}) << std::endl;
+    std::cout << "tensorFloat({'...', 1}) = " << tensorFloat.getValues({1, "..."}) << std::endl;
 
     Tensor realSquared = Tensor::matmul(tensorFloat, tensorFloat);
     std::cout << "Squared: " << std::endl;

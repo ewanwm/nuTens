@@ -77,9 +77,9 @@ nuTens uses [Googles benchmark library](https://github.com/google/benchmark) to 
 - [x] Add suite of benchmarking tests
 - [x] Integrate benchmarks into CI ( maybe use [hyperfine](https://github.com/sharkdp/hyperfine) and [bencher](https://bencher.dev/) for this? )
 - [ ] Add proper unit tests
-- [ ] Expand CI to include more platforms
+- [x] Expand CI to include more platforms
 - [ ] Add support for modules (see [PyTorch doc](https://pytorch.org/cppdocs/api/classtorch_1_1nn_1_1_module.html))
 - [ ] Propagation in variable matter density
 - [ ] Add support for Tensorflow backend
-- [ ] Add python interface 
+- [x] Add python interface 
 

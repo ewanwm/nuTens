@@ -3,6 +3,16 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(nuTens)
 
+# Changes default install path to be a subdirectory of the build dir.
+# Can set build dir at configure time with -DCMAKE_INSTALL_PREFIX=/install/path
+if(CMAKE_INSTALL_PREFIX STREQUAL "" OR CMAKE_INSTALL_PREFIX STREQUAL
+  "/usr/local")
+  set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}")
+elseif(NOT DEFINED CMAKE_INSTALL_PREFIX)
+  set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}")
+endif()
+
+
 # Need to add some special compile flags to check the code test coverage 
 OPTION(NT_TEST_COVERAGE "produce code coverage reports when running tests" OFF)
 IF(NT_TEST_COVERAGE)
@@ -46,6 +56,19 @@ ELSE()
     message("Won't benchmark")
 ENDIF()
 
+# If user wants to enable python interface we need to include pybind
+OPTION(NT_ENABLE_PYTHON "enable python interface" OFF)
+IF(NT_ENABLE_PYTHON)
+    message("Enabling python")
+    CPMAddPackage(
+        GITHUB_REPOSITORY "pybind/pybind11"
+        VERSION 2.13.5 
+    )
+
+ELSE()
+    message("Won't enable python interface")
+ENDIF()
+
 
 ## check build times
 ## have this optional as it's not supported on all CMake platforms
@@ -66,6 +89,13 @@ IF(NT_ENABLE_BENCHMARKING)
     add_subdirectory(benchmarks)
 ENDIF()
 
+IF(NT_ENABLE_PYTHON)
+    set_property( TARGET tensor PROPERTY POSITION_INDEPENDENT_CODE ON )
+    set_property( TARGET propagator PROPERTY POSITION_INDEPENDENT_CODE ON )
+    set_property( TARGET spdlog PROPERTY POSITION_INDEPENDENT_CODE ON )
+    set_property( TARGET logging PROPERTY POSITION_INDEPENDENT_CODE ON )
+    add_subdirectory(python)
+ENDIF()
 
 # Print out a handy message to more easily see the config options
 message( STATUS "The following variables have been used to configure the build: " )

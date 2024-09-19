@@ -51,8 +51,9 @@ class ConstDensityMatterSolver : public BaseMatterSolver
 
         // construct the outer product of the electron neutrino row of the PMNS
         // matrix used to construct the hamiltonian
-        electronOuter = Tensor::scale(Tensor::outer(PMNS.getValue({0, 0, "..."}), PMNS.getValue({0, 0, "..."}).conj()),
-                                      Constants::Groot2 * density);
+        electronOuter =
+            Tensor::scale(Tensor::outer(PMNS.getValues({0, 0, "..."}), PMNS.getValues({0, 0, "..."}).conj()),
+                          Constants::Groot2 * density);
     };
 
     /// @brief Set new mass eigenvalues for this solver
@@ -64,7 +65,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
 
         masses = newMasses;
 
-        Tensor m = masses.getValue({0, "..."});
+        Tensor m = masses.getValues({0, "..."});
         Tensor diag = Tensor::scale(Tensor::mul(m, m), 0.5);
 
         // construct the diagonal mass^2 matrix used in the hamiltonian

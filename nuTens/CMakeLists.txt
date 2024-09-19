@@ -5,6 +5,7 @@
 add_library(logging logging.hpp)
 target_link_libraries(logging spdlog::spdlog)
 set_target_properties(logging PROPERTIES LINKER_LANGUAGE CXX)
+target_include_directories(logging PUBLIC "${SPDLOG_INCLUDE_DIRS}")
 
 set( NT_LOG_LEVEL "INFO" CACHE STRING "the level of detail to log to the console" )
 
