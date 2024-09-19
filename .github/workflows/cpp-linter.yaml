@@ -43,10 +43,12 @@ jobs:
         with:
           style: "Microsoft"
           ignore: '.github|_deps|CMakeFiles|spdlog*'
-          format-review: true
           tidy-review: true
-          files-changed-only: true
-          thread-comments: true
+          step-summary: true
+          files-changed-only: false
+          
+          thread-comments: false
+          file-annotations: false
           tidy-checks: 'boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-*,cppcoreguidelines-*,-modernize-use-trailing-return-type,-modernize-use-emplace,-readability-redundant-access-specifiers'
 
       - name: Fail fast?!
