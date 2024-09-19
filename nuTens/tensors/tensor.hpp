@@ -5,9 +5,9 @@
 #include <complex>
 #include <iostream>
 #include <map>
-#include <nuTens/instrumentation.hpp>
-#include <nuTens/logging.hpp>
 #include <nuTens/tensors/dtypes.hpp>
+#include <nuTens/utils/instrumentation.hpp>
+#include <nuTens/utils/logging.hpp>
 #include <variant>
 #include <vector>
 

@@ -9,11 +9,16 @@ add_library(
     const-density-solver.hpp const-density-solver.cpp
 )
 
-IF(USE_PCH)
-    target_precompile_headers(propagator REUSE_FROM tensor)
-ENDIF()
+target_link_libraries(
+    propagator PUBLIC 
+    tensor 
+    constants 
+    utils
+    )
 
-target_link_libraries(propagator PUBLIC tensor constants instrumentation)
+if(NT_USE_PCH)
+    target_precompile_headers(propagator REUSE_FROM nuTens-pch)
+endif()
 
 target_include_directories(propagator PUBLIC "${CMAKE_SOURCE_DIR}")
 set_target_properties(propagator PROPERTIES LINKER_LANGUAGE CXX)

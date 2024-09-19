@@ -1,7 +1,7 @@
 #pragma once
 
-#include <nuTens/instrumentation.hpp>
 #include <nuTens/tensors/tensor.hpp>
+#include <nuTens/utils/instrumentation.hpp>
 
 /// @file base-matter-solver.hpp
 
