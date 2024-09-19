@@ -6,7 +6,8 @@ std::string Tensor::getTensorLibrary()
     return "PyTorch";
 }
 
-Tensor::Tensor(std::vector<float> values, NTdtypes::scalarType type, NTdtypes::deviceType device, bool requiresGrad)
+Tensor::Tensor(const std::vector<float> &values, NTdtypes::scalarType type, NTdtypes::deviceType device,
+               bool requiresGrad)
 {
     NT_PROFILE();
 

@@ -80,7 +80,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// shape should look like {Nbatches, 1, 1}.
     /// @param[out] eigenvectors The returned eigenvectors
     /// @param[out] eigenvalues The corresponding eigenvalues
-    void calculateEigenvalues(const Tensor &energies, Tensor &eigenvectors, Tensor &eigenvalues);
+    override void calculateEigenvalues(const Tensor &energies, Tensor &eigenvectors, Tensor &eigenvalues) override;
 
   private:
     Tensor PMNS;
