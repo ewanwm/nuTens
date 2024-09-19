@@ -55,7 +55,11 @@ class Tensor
     /// @{
 
     /// @brief Default constructor with no initialisation
-    Tensor(){};
+    Tensor()
+    {
+        _dType = NTdtypes::kUninitScalar;
+        _device = NTdtypes::kUninitDevice;
+    };
 
     /// @brief Construct a 1-d array with specified values
     /// @arg values The values to include in the tensor
@@ -375,7 +379,7 @@ class Tensor
 
   private:
     /// Set the underlying tensor, setting the relevant information like _dtype and _device
-    inline void setTensor(torch::Tensor tensor)
+    inline void setTensor(const torch::Tensor &tensor)
     {
         NT_PROFILE();
 
@@ -386,7 +390,7 @@ class Tensor
 
     /// Utility function to convert from a vector of ints to a vector of a10 tensor indices, which is needed for
     /// accessing values of a tensor.
-    [[nodiscard]] inline std::vector<at::indexing::TensorIndex> convertIndices(const std::vector<int> &indices) const
+    [[nodiscard]] static inline std::vector<at::indexing::TensorIndex> convertIndices(const std::vector<int> &indices)
     {
         NT_PROFILE();
 
@@ -402,8 +406,8 @@ class Tensor
 
     /// Utility function to convert from a vector of ints to a vector of a10 tensor indices, which is needed for
     /// accessing values of a tensor.
-    [[nodiscard]] inline std::vector<at::indexing::TensorIndex> convertIndices(
-        const std::vector<Tensor::indexType> &indices) const
+    [[nodiscard]] static inline std::vector<at::indexing::TensorIndex> convertIndices(
+        const std::vector<Tensor::indexType> &indices)
     {
         NT_PROFILE();
 

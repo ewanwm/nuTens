@@ -97,7 +97,7 @@ static void BM_constMatterOscillations(benchmark::State &state)
 
     // set up the propagator
     Propagator matterProp(3, 100.0);
-    std::unique_ptr<BaseMatterSolver> matterSolver = std::make_unique<ConstDensityMatterSolver>(3, 2.6);
+    std::shared_ptr<BaseMatterSolver> matterSolver = std::make_shared<ConstDensityMatterSolver>(3, 2.6);
     matterProp.setPMNS(PMNS);
     matterProp.setMasses(masses);
     matterProp.setMatterSolver(matterSolver);

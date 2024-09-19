@@ -20,13 +20,15 @@ enum scalarType
     kDouble,
     kComplexFloat,
     kComplexDouble,
+    kUninitScalar,
 };
 
 /// Devices that a Tensor can live on
 enum deviceType
 {
     kCPU,
-    kGPU
+    kGPU,
+    kUninitDevice,
 };
 
 #if USE_PYTORCH

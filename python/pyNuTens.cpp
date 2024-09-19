@@ -19,9 +19,9 @@ void initPropagator(py::module & /*m*/);
 void initDtypes(py::module & /*m*/);
 
 // initialise the top level module "pyNuTens"
+// NOLINTNEXTLINE
 PYBIND11_MODULE(pyNuTens, m)
 {
-
     initTensor(m);
     initPropagator(m);
     initDtypes(m);
