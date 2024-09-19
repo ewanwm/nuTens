@@ -6,20 +6,20 @@
 
 // The random seed to use for the RNG
 // want this to be fixed for reproducibility
-int randSeed = 123;
+const int randSeed = 123;
 
 // set the PMNS parameters to use
 // Will very likely change the benchmark so that energies are fixed
 // and these get randomised but for now just set them here
-float m1 = 0.1;
-float m2 = 0.2;
-float m3 = 0.3;
+const float m1 = 0.1;
+const float m2 = 0.2;
+const float m3 = 0.3;
 
-float th12 = 0.12;
-float th23 = 0.23;
-float th13 = 0.13;
+const float th12 = 0.12;
+const float th23 = 0.23;
+const float th13 = 0.13;
 
-float dcp = 0.5;
+const float dcp = 0.5;
 
 Tensor buildPMNS(const Tensor &theta12, const Tensor &theta13, const Tensor &theta23, const Tensor &deltaCP)
 {
@@ -104,12 +104,12 @@ static void BM_constMatterOscillations(benchmark::State &state)
 {
 
     // set up the inputs
-    Tensor masses = Tensor({0.1, 0.2, 0.3}, NTdtypes::kFloat).requiresGrad(false).addBatchDim();
+    Tensor masses = Tensor({m1, m2, m3}, NTdtypes::kFloat).requiresGrad(false).addBatchDim();
 
-    Tensor theta23 = Tensor({0.23}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
-    Tensor theta13 = Tensor({0.13}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
-    Tensor theta12 = Tensor({0.12}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
-    Tensor deltaCP = Tensor({0.5}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor theta23 = Tensor({th23}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor theta13 = Tensor({th13}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor theta12 = Tensor({th12}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor deltaCP = Tensor({dcp}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
 
     Tensor PMNS = buildPMNS(theta12, theta13, theta23, deltaCP);
 
@@ -124,7 +124,7 @@ static void BM_constMatterOscillations(benchmark::State &state)
     std::srand(randSeed);
 
     // linter gets angry about this as _ is never used :)))
-    // NOLINT
+    // NOLINTNEXTLINE
     for (auto _ : state)
     {
         // This code gets timed
