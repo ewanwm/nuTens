@@ -164,10 +164,18 @@ class Tensor
     /// @arg s The scalar
     /// @arg t The tensor
     static Tensor scale(const Tensor &t, float s);
+    /// @brief Scale a matrix by some scalar
+    /// @arg s The scalar
+    /// @arg t The tensor
+    static Tensor scale(const Tensor &t, double s);
     /// @brief Scale a matrix by some complex scalar
     /// @arg s The scalar
     /// @arg t The tensor
     static Tensor scale(const Tensor &t, std::complex<float> s);
+    /// @brief Scale a matrix by some complex scalar
+    /// @arg s The scalar
+    /// @arg t The tensor
+    static Tensor scale(const Tensor &t, std::complex<double> s);
 
     // ############################################
     // ################ Inlines ###################

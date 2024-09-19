@@ -20,8 +20,9 @@ Tensor buildPMNS(const Tensor &theta12, const Tensor &theta13, const Tensor &the
 
     M2.setValue({0, 1, 1}, 1.0);
     M2.setValue({0, 0, 0}, Tensor::cos(theta13));
-    M2.setValue({0, 0, 2}, Tensor::mul(Tensor::sin(theta13), Tensor::exp(Tensor::scale(deltaCP, -1.0J))));
-    M2.setValue({0, 2, 0}, -Tensor::mul(Tensor::sin(theta13), Tensor::exp(Tensor::scale(deltaCP, 1.0J))));
+    std::complex<float> i(0.0, 1.0);
+    M2.setValue({0, 0, 2}, Tensor::mul(Tensor::sin(theta13), Tensor::exp(Tensor::scale(deltaCP, -i))));
+    M2.setValue({0, 2, 0}, -Tensor::mul(Tensor::sin(theta13), Tensor::exp(Tensor::scale(deltaCP, i))));
     M2.setValue({0, 2, 2}, Tensor::cos(theta13));
     M2.requiresGrad(true);
 
@@ -121,4 +122,5 @@ BENCHMARK(BM_vacuumOscillations)->Name("Vacuum Oscillations")->Args({1 << 10, 1 
 BENCHMARK(BM_constMatterOscillations)->Name("Const Density Oscillations")->Args({1 << 10, 1 << 10});
 
 // Run the benchmark
+// NOLINTNEXTLINE
 BENCHMARK_MAIN();
