@@ -4,6 +4,23 @@
 #include <nuTens/propagator/propagator.hpp>
 #include <nuTens/tensors/tensor.hpp>
 
+// The random seed to use for the RNG
+// want this to be fixed for reproducibility
+const int randSeed = 123;
+
+// set the PMNS parameters to use
+// Will very likely change the benchmark so that energies are fixed
+// and these get randomised but for now just set them here
+const float m1 = 0.1;
+const float m2 = 0.2;
+const float m3 = 0.3;
+
+const float th12 = 0.12;
+const float th23 = 0.23;
+const float th13 = 0.13;
+
+const float dcp = 0.5;
+
 Tensor buildPMNS(const Tensor &theta12, const Tensor &theta13, const Tensor &theta23, const Tensor &deltaCP)
 {
     // set up the three matrices to build the PMNS matrix
@@ -20,8 +37,9 @@ Tensor buildPMNS(const Tensor &theta12, const Tensor &theta13, const Tensor &the
 
     M2.setValue({0, 1, 1}, 1.0);
     M2.setValue({0, 0, 0}, Tensor::cos(theta13));
-    M2.setValue({0, 0, 2}, Tensor::mul(Tensor::sin(theta13), Tensor::exp(Tensor::scale(deltaCP, -1.0J))));
-    M2.setValue({0, 2, 0}, -Tensor::mul(Tensor::sin(theta13), Tensor::exp(Tensor::scale(deltaCP, 1.0J))));
+    std::complex<float> i(0.0, 1.0);
+    M2.setValue({0, 0, 2}, Tensor::mul(Tensor::sin(theta13), Tensor::exp(Tensor::scale(deltaCP, -i))));
+    M2.setValue({0, 2, 0}, -Tensor::mul(Tensor::sin(theta13), Tensor::exp(Tensor::scale(deltaCP, i))));
     M2.setValue({0, 2, 2}, Tensor::cos(theta13));
     M2.requiresGrad(true);
 
@@ -39,7 +57,7 @@ Tensor buildPMNS(const Tensor &theta12, const Tensor &theta13, const Tensor &the
     return PMNS;
 }
 
-static void batchedOscProbs(const Propagator &prop, int batchSize, int nBatches)
+static void batchedOscProbs(const Propagator &prop, long batchSize, long nBatches)
 {
     for (int _ = 0; _ < nBatches; _++)
     {
@@ -58,12 +76,12 @@ static void BM_vacuumOscillations(benchmark::State &state)
 {
 
     // set up the inputs
-    Tensor masses = Tensor({0.1, 0.2, 0.3}, NTdtypes::kFloat).requiresGrad(false).addBatchDim();
+    Tensor masses = Tensor({m1, m2, m3}, NTdtypes::kFloat).requiresGrad(false).addBatchDim();
 
-    Tensor theta23 = Tensor({0.23}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
-    Tensor theta13 = Tensor({0.13}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
-    Tensor theta12 = Tensor({0.12}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
-    Tensor deltaCP = Tensor({0.5}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor theta23 = Tensor({th23}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor theta13 = Tensor({th13}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor theta12 = Tensor({th12}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor deltaCP = Tensor({dcp}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
 
     Tensor PMNS = buildPMNS(theta12, theta13, theta23, deltaCP);
 
@@ -73,8 +91,10 @@ static void BM_vacuumOscillations(benchmark::State &state)
     vacuumProp.setMasses(masses);
 
     // seed the random number generator for the energies
-    std::srand(123);
+    std::srand(randSeed);
 
+    // linter gets angry about this as _ is never used :)))
+    // NOLINTNEXTLINE
     for (auto _ : state)
     {
         // This code gets timed
@@ -86,12 +106,12 @@ static void BM_constMatterOscillations(benchmark::State &state)
 {
 
     // set up the inputs
-    Tensor masses = Tensor({0.1, 0.2, 0.3}, NTdtypes::kFloat).requiresGrad(false).addBatchDim();
+    Tensor masses = Tensor({m1, m2, m3}, NTdtypes::kFloat).requiresGrad(false).addBatchDim();
 
-    Tensor theta23 = Tensor({0.23}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
-    Tensor theta13 = Tensor({0.13}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
-    Tensor theta12 = Tensor({0.12}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
-    Tensor deltaCP = Tensor({0.5}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor theta23 = Tensor({th23}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor theta13 = Tensor({th13}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor theta12 = Tensor({th12}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor deltaCP = Tensor({dcp}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
 
     Tensor PMNS = buildPMNS(theta12, theta13, theta23, deltaCP);
 
@@ -103,8 +123,10 @@ static void BM_constMatterOscillations(benchmark::State &state)
     matterProp.setMatterSolver(matterSolver);
 
     // seed the random number generator for the energies
-    std::srand(123);
+    std::srand(randSeed);
 
+    // linter gets angry about this as _ is never used :)))
+    // NOLINTNEXTLINE
     for (auto _ : state)
     {
         // This code gets timed
@@ -113,10 +135,13 @@ static void BM_constMatterOscillations(benchmark::State &state)
 }
 
 // Register the function as a benchmark
+// NOLINTNEXTLINE
 BENCHMARK(BM_vacuumOscillations)->Name("Vacuum Oscillations")->Args({1 << 10, 1 << 10});
 
 // Register the function as a benchmark
+// NOLINTNEXTLINE
 BENCHMARK(BM_constMatterOscillations)->Name("Const Density Oscillations")->Args({1 << 10, 1 << 10});
 
 // Run the benchmark
+// NOLINTNEXTLINE
 BENCHMARK_MAIN();

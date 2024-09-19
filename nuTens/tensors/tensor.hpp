@@ -63,7 +63,7 @@ class Tensor
 
     /// @brief Construct a 1-d array with specified values
     /// @arg values The values to include in the tensor
-    Tensor(std::vector<float> values, NTdtypes::scalarType type = NTdtypes::kFloat,
+    Tensor(const std::vector<float> &values, NTdtypes::scalarType type = NTdtypes::kFloat,
            NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
 
     /// @brief Construct an identity tensor (has to be a 2d square tensor)
@@ -164,10 +164,18 @@ class Tensor
     /// @arg s The scalar
     /// @arg t The tensor
     static Tensor scale(const Tensor &t, float s);
+    /// @brief Scale a matrix by some scalar
+    /// @arg s The scalar
+    /// @arg t The tensor
+    static Tensor scale(const Tensor &t, double s);
     /// @brief Scale a matrix by some complex scalar
     /// @arg s The scalar
     /// @arg t The tensor
     static Tensor scale(const Tensor &t, std::complex<float> s);
+    /// @brief Scale a matrix by some complex scalar
+    /// @arg s The scalar
+    /// @arg t The tensor
+    static Tensor scale(const Tensor &t, std::complex<double> s);
 
     // ############################################
     // ################ Inlines ###################

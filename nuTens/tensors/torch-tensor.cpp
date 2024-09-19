@@ -6,7 +6,8 @@ std::string Tensor::getTensorLibrary()
     return "PyTorch";
 }
 
-Tensor::Tensor(std::vector<float> values, NTdtypes::scalarType type, NTdtypes::deviceType device, bool requiresGrad)
+Tensor::Tensor(const std::vector<float> &values, NTdtypes::scalarType type, NTdtypes::deviceType device,
+               bool requiresGrad)
 {
     NT_PROFILE();
 
@@ -298,12 +299,30 @@ Tensor Tensor::scale(const Tensor &t, float s)
     return ret;
 }
 
+Tensor Tensor::scale(const Tensor &t, double s)
+{
+    NT_PROFILE();
+
+    Tensor ret;
+    ret.setTensor(torch::multiply(t._tensor, s));
+    return ret;
+}
+
 Tensor Tensor::scale(const Tensor &t, std::complex<float> s)
 {
     NT_PROFILE();
 
     Tensor ret;
     ret.setTensor(torch::multiply(t._tensor, c10::complex<float>(s.real(), s.imag())));
+    return ret;
+}
+
+Tensor Tensor::scale(const Tensor &t, std::complex<double> s)
+{
+    NT_PROFILE();
+
+    Tensor ret;
+    ret.setTensor(torch::multiply(t._tensor, c10::complex<double>(s.real(), s.imag())));
     return ret;
 }
 
