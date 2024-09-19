@@ -45,7 +45,7 @@ jobs:
           ignore: '.github|_deps|CMakeFiles|spdlog*'
           tidy-review: true
           step-summary: true
-          files-changed-only: false
+          files-changed-only: true
           
           thread-comments: false
           file-annotations: false
