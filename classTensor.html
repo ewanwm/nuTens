@@ -251,9 +251,9 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a4420e3cacf3811f54a0363db56d9379d">Tensor</a> ()</td></tr>
 <tr class="memdesc:a4420e3cacf3811f54a0363db56d9379d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor with no initialisation. <br /></td></tr>
 <tr class="separator:a4420e3cacf3811f54a0363db56d9379d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee758b7d74c25c41f624461f72ccdf58"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#aee758b7d74c25c41f624461f72ccdf58">Tensor</a> (std::vector&lt; float &gt; values, <a class="el" href="dtypes_8hpp.html#ac26cfa6a5e56dcfa630b3ab5b46f8374">NTdtypes::scalarType</a> type=NTdtypes::kFloat, <a class="el" href="dtypes_8hpp.html#aebfb73f9f03d11a7c05aba7c57ab9f4a">NTdtypes::deviceType</a> <a class="el" href="classTensor.html#a54b317bee953ffa8463122635afcd369">device</a>=NTdtypes::kCPU, bool <a class="el" href="classTensor.html#acda45d6bb19fe1566f2d75c97e99c7a8">requiresGrad</a>=true)</td></tr>
-<tr class="memdesc:aee758b7d74c25c41f624461f72ccdf58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a 1-d array with specified values.  <a href="classTensor.html#aee758b7d74c25c41f624461f72ccdf58">More...</a><br /></td></tr>
-<tr class="separator:aee758b7d74c25c41f624461f72ccdf58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ece699e4d2ce94561a5fdbbdefef8e9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a9ece699e4d2ce94561a5fdbbdefef8e9">Tensor</a> (const std::vector&lt; float &gt; &amp;values, <a class="el" href="dtypes_8hpp.html#ac26cfa6a5e56dcfa630b3ab5b46f8374">NTdtypes::scalarType</a> type=NTdtypes::kFloat, <a class="el" href="dtypes_8hpp.html#aebfb73f9f03d11a7c05aba7c57ab9f4a">NTdtypes::deviceType</a> <a class="el" href="classTensor.html#a54b317bee953ffa8463122635afcd369">device</a>=NTdtypes::kCPU, bool <a class="el" href="classTensor.html#acda45d6bb19fe1566f2d75c97e99c7a8">requiresGrad</a>=true)</td></tr>
+<tr class="memdesc:a9ece699e4d2ce94561a5fdbbdefef8e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a 1-d array with specified values.  <a href="classTensor.html#a9ece699e4d2ce94561a5fdbbdefef8e9">More...</a><br /></td></tr>
+<tr class="separator:a9ece699e4d2ce94561a5fdbbdefef8e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47e5e7872e51e19bac684fb49c0c3008"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a47e5e7872e51e19bac684fb49c0c3008">eye</a> (int n, <a class="el" href="dtypes_8hpp.html#ac26cfa6a5e56dcfa630b3ab5b46f8374">NTdtypes::scalarType</a> type=NTdtypes::kFloat, <a class="el" href="dtypes_8hpp.html#aebfb73f9f03d11a7c05aba7c57ab9f4a">NTdtypes::deviceType</a> <a class="el" href="classTensor.html#a54b317bee953ffa8463122635afcd369">device</a>=NTdtypes::kCPU, bool <a class="el" href="classTensor.html#acda45d6bb19fe1566f2d75c97e99c7a8">requiresGrad</a>=true)</td></tr>
 <tr class="memdesc:a47e5e7872e51e19bac684fb49c0c3008"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an identity tensor (has to be a 2d square tensor)  <a href="classTensor.html#a47e5e7872e51e19bac684fb49c0c3008">More...</a><br /></td></tr>
 <tr class="separator:a47e5e7872e51e19bac684fb49c0c3008"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -328,17 +328,23 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a0a561d6274cb58972ebd98eb0d7a1de1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a0a561d6274cb58972ebd98eb0d7a1de1">scale</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, float s)</td></tr>
 <tr class="memdesc:a0a561d6274cb58972ebd98eb0d7a1de1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale a matrix by some scalar.  <a href="classTensor.html#a0a561d6274cb58972ebd98eb0d7a1de1">More...</a><br /></td></tr>
 <tr class="separator:a0a561d6274cb58972ebd98eb0d7a1de1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a356cedb0969e79609c7994927d801b0b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a356cedb0969e79609c7994927d801b0b">scale</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, double s)</td></tr>
+<tr class="memdesc:a356cedb0969e79609c7994927d801b0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale a matrix by some scalar.  <a href="classTensor.html#a356cedb0969e79609c7994927d801b0b">More...</a><br /></td></tr>
+<tr class="separator:a356cedb0969e79609c7994927d801b0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a305b24bb99a2148fadeb9841cf18e8a2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a305b24bb99a2148fadeb9841cf18e8a2">scale</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, std::complex&lt; float &gt; s)</td></tr>
 <tr class="memdesc:a305b24bb99a2148fadeb9841cf18e8a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale a matrix by some complex scalar.  <a href="classTensor.html#a305b24bb99a2148fadeb9841cf18e8a2">More...</a><br /></td></tr>
 <tr class="separator:a305b24bb99a2148fadeb9841cf18e8a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dd10ed8b416efc8934904a75b1a148d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTensor.html#a7dd10ed8b416efc8934904a75b1a148d">scale</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;t, std::complex&lt; double &gt; s)</td></tr>
+<tr class="memdesc:a7dd10ed8b416efc8934904a75b1a148d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale a matrix by some complex scalar.  <a href="classTensor.html#a7dd10ed8b416efc8934904a75b1a148d">More...</a><br /></td></tr>
+<tr class="separator:a7dd10ed8b416efc8934904a75b1a148d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Basic tensor class. </p>
 <p><a class="el" href="classTensor.html" title="Basic tensor class.">Tensor</a> defines a basic interface for creating and manipulating tensors. To create tensors you should use the Constructors. These can be used on their own or chained together with the Setters to create the desired tensor.</p>
 <p>For example </p><div class="fragment"><div class="line"><a class="code" href="classTensor.html">Tensor</a> = <a class="code" href="classTensor.html#a675e696e3605bf5b0719eb88fdcfd772">ones</a>({3,3}).dType(NTdtypes::kFloat).<a class="code" href="classTensor.html#a54b317bee953ffa8463122635afcd369">device</a>(NTdtypes::kGPU);</div>
 <div class="ttc" id="aclassTensor_html"><div class="ttname"><a href="classTensor.html">Tensor</a></div><div class="ttdoc">Basic tensor class.</div><div class="ttdef"><b>Definition:</b> tensor.hpp:24</div></div>
-<div class="ttc" id="aclassTensor_html_a54b317bee953ffa8463122635afcd369"><div class="ttname"><a href="classTensor.html#a54b317bee953ffa8463122635afcd369">Tensor::device</a></div><div class="ttdeci">Tensor &amp; device(NTdtypes::deviceType device)</div><div class="ttdoc">Set the device that this tensor lives on.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:99</div></div>
-<div class="ttc" id="aclassTensor_html_a675e696e3605bf5b0719eb88fdcfd772"><div class="ttname"><a href="classTensor.html#a675e696e3605bf5b0719eb88fdcfd772">Tensor::ones</a></div><div class="ttdeci">static Tensor ones(const std::vector&lt; long int &gt; &amp;shape, NTdtypes::scalarType type=NTdtypes::kFloat, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)</div><div class="ttdoc">Construct a tensor with ones.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:63</div></div>
+<div class="ttc" id="aclassTensor_html_a54b317bee953ffa8463122635afcd369"><div class="ttname"><a href="classTensor.html#a54b317bee953ffa8463122635afcd369">Tensor::device</a></div><div class="ttdeci">Tensor &amp; device(NTdtypes::deviceType device)</div><div class="ttdoc">Set the device that this tensor lives on.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:100</div></div>
+<div class="ttc" id="aclassTensor_html_a675e696e3605bf5b0719eb88fdcfd772"><div class="ttname"><a href="classTensor.html#a675e696e3605bf5b0719eb88fdcfd772">Tensor::ones</a></div><div class="ttdeci">static Tensor ones(const std::vector&lt; long int &gt; &amp;shape, NTdtypes::scalarType type=NTdtypes::kFloat, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)</div><div class="ttdoc">Construct a tensor with ones.</div><div class="ttdef"><b>Definition:</b> torch-tensor.cpp:64</div></div>
 </div><!-- fragment --><p> will get you a 3x3 tensor of floats that lives on the GPU. This is equivalent to </p><div class="fragment"><div class="line"><a class="code" href="classTensor.html">Tensor</a> = <a class="code" href="classTensor.html#a675e696e3605bf5b0719eb88fdcfd772">ones</a>({3,3}, NTdtypes::kFloat, NTdtypes::kGPU);</div>
 </div><!-- fragment --> </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a5ba0344a1e45d164fcfb8f05f8bbbc9f"></a>
@@ -357,8 +363,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aee758b7d74c25c41f624461f72ccdf58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee758b7d74c25c41f624461f72ccdf58">&#9670;&nbsp;</a></span>Tensor()</h2>
+<a id="a9ece699e4d2ce94561a5fdbbdefef8e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ece699e4d2ce94561a5fdbbdefef8e9">&#9670;&nbsp;</a></span>Tensor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -366,7 +372,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">Tensor::Tensor </td>
           <td>(</td>
-          <td class="paramtype">std::vector&lt; float &gt;&#160;</td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;&#160;</td>
           <td class="paramname"><em>values</em>, </td>
         </tr>
         <tr>
@@ -1199,8 +1205,50 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
+<a id="a356cedb0969e79609c7994927d801b0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a356cedb0969e79609c7994927d801b0b">&#9670;&nbsp;</a></span>scale() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::scale </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Scale a matrix by some scalar. </p>
+<ul>
+<li>s The scalar </li>
+<li>t The tensor </li>
+</ul>
+
+</div>
+</div>
 <a id="a0a561d6274cb58972ebd98eb0d7a1de1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a561d6274cb58972ebd98eb0d7a1de1">&#9670;&nbsp;</a></span>scale() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a561d6274cb58972ebd98eb0d7a1de1">&#9670;&nbsp;</a></span>scale() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1241,8 +1289,50 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
+<a id="a7dd10ed8b416efc8934904a75b1a148d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dd10ed8b416efc8934904a75b1a148d">&#9670;&nbsp;</a></span>scale() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Tensor::scale </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::complex&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Scale a matrix by some complex scalar. </p>
+<ul>
+<li>s The scalar </li>
+<li>t The tensor </li>
+</ul>
+
+</div>
+</div>
 <a id="a305b24bb99a2148fadeb9841cf18e8a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a305b24bb99a2148fadeb9841cf18e8a2">&#9670;&nbsp;</a></span>scale() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a305b24bb99a2148fadeb9841cf18e8a2">&#9670;&nbsp;</a></span>scale() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

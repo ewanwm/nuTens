@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['tensor_77',['Tensor',['../classTensor.html',1,'Tensor'],['../classTensor.html#a4420e3cacf3811f54a0363db56d9379d',1,'Tensor::Tensor()'],['../classTensor.html#aee758b7d74c25c41f624461f72ccdf58',1,'Tensor::Tensor(std::vector&lt; float &gt; values, NTdtypes::scalarType type=NTdtypes::kFloat, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)']]],
+  ['tensor_77',['Tensor',['../classTensor.html',1,'Tensor'],['../classTensor.html#a4420e3cacf3811f54a0363db56d9379d',1,'Tensor::Tensor()'],['../classTensor.html#a9ece699e4d2ce94561a5fdbbdefef8e9',1,'Tensor::Tensor(const std::vector&lt; float &gt; &amp;values, NTdtypes::scalarType type=NTdtypes::kFloat, NTdtypes::deviceType device=NTdtypes::kCPU, bool requiresGrad=true)']]],
   ['tensor_2ehpp_78',['tensor.hpp',['../tensor_8hpp.html',1,'']]],
   ['tensors_79',['Tensors',['../md_nuTens_tensors_README.html',1,'']]],
   ['todo_20list_80',['Todo List',['../todo.html',1,'']]],
