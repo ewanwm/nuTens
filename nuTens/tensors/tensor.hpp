@@ -63,7 +63,7 @@ class Tensor
 
     /// @brief Construct a 1-d array with specified values
     /// @arg values The values to include in the tensor
-    Tensor(std::vector<float> values, NTdtypes::scalarType type = NTdtypes::kFloat,
+    Tensor(const std::vector<float> &values, NTdtypes::scalarType type = NTdtypes::kFloat,
            NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
 
     /// @brief Construct an identity tensor (has to be a 2d square tensor)
