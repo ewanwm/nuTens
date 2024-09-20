@@ -12,4 +12,4 @@ authors = [
 ]
 
 [tool.scikit-build]
-cmake.args = ["-DNT_ENABLE_PYTHON=ON"]
+cmake.args = ["-DNT_ENABLE_PYTHON=ON -DUSE_CUDA=OFF"]
