@@ -40,6 +40,19 @@ Once [nuTens](#nutens) has been built, you can verify your installation by runni
 make test
 ```
 
+## Python
+nuTens provides a python interface which can be installed using pip by running
+```
+pip install .
+```
+in the root directory of nuTens
+
+Additionally, the nuTens python module can be installed as a shared library `.so` object by specifying the CMake option
+```
+cmake -DNT_ENABLE_PYTHON=ON <other options> <source dir>
+```
+and doing `make && make install`
+
 ## Benchmarking
 nuTens uses [Googles benchmark library](https://github.com/google/benchmark) to perform benchmarking and tracks the results uing [Bencher](https://bencher.dev). Each benchmark consists of calculating neutrino oscillations for 1024 batches of 1024 neutrino energies using the standard PMNS formalism in vacuum and in constant density matter:
 
