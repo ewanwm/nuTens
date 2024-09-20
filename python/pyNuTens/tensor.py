@@ -1,2 +1,2 @@
-from ._binding import tensor
-from ._binding.tensor import *
+from .pyNuTens import tensor
+from .pyNuTens.tensor import *

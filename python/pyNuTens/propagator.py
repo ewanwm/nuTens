@@ -1,2 +1,2 @@
-from ._binding import propagator
-from ._binding.propagator import *
+from .pyNuTens import propagator
+from .pyNuTens.propagator import *
