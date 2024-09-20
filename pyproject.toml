@@ -5,6 +5,11 @@ build-backend = "scikit_build_core.build"
 [project]
 name = "pyNuTens"
 version = "0.0.1"
+description="Library to calculate neutrino oscillation probabilities using tensors"
+readme = "README.md"
+authors = [
+  { name = "Ewan Miller", email = "emiller@ifae.es" },
+]
 
 [tool.scikit-build]
 cmake.args = ["-DNT_ENABLE_PYTHON=ON"]

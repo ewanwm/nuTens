@@ -18,13 +18,20 @@ void initTensor(py::module & /*m*/);
 void initPropagator(py::module & /*m*/);
 void initDtypes(py::module & /*m*/);
 
-// initialise the top level module "pyNuTens"
+// initialise the top level module "_binding"
 // NOLINTNEXTLINE
-PYBIND11_MODULE(pyNuTens, m)
+PYBIND11_MODULE(_binding, m)
 {
+    m.doc() = "Library to calculate neutrino oscillations";
     initTensor(m);
     initPropagator(m);
     initDtypes(m);
+
+#ifdef VERSION_INFO
+    m.attr("__version__") = Py_STRINGIFY(VERSION_INFO);
+#else
+    m.attr("__version__") = "dev";
+#endif
 }
 
 void initTensor(py::module &m)
