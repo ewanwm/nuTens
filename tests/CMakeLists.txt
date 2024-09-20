@@ -9,11 +9,11 @@ foreach(TESTNAME
 
     add_executable("${TESTNAME}" "${TESTNAME}.cpp")
     
-    IF(USE_PCH)
-        target_precompile_headers("${TESTNAME}" REUSE_FROM tensor)
+    IF(NT_USE_PCH)
+        target_precompile_headers("${TESTNAME}" REUSE_FROM nuTens-pch)
     ENDIF()
 
-    target_link_libraries("${TESTNAME}" PUBLIC test-utils tensor propagator instrumentation m)
+    target_link_libraries("${TESTNAME}" PUBLIC nuTens test-utils m)
     target_include_directories("${TESTNAME}" PUBLIC "${CMAKE_SOURCE_DIR}")
     add_test(NAME "${TESTNAME}-test" COMMAND "${TESTNAME}")
 

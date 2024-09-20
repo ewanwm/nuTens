@@ -12,70 +12,49 @@ elseif(NOT DEFINED CMAKE_INSTALL_PREFIX)
   set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}")
 endif()
 
+# user options
+option(NT_ENABLE_BENCHMARKING "enable benchmarking using google benchmark" OFF)
+option(NT_ENABLE_PYTHON "enable python interface" OFF)
+option(NT_COMPILE_TESTS "whether or not to compile unit and integration tests" ON)
+option(NT_TEST_COVERAGE "produce code coverage reports when running tests" OFF)
+option(NT_BUILD_TIMING "output time to build each target" OFF)
+option(NT_USE_PCH "NT_USE_PCH" OFF)
+
+## to build the python library we require to build with the pic flag
+if(NT_ENABLE_PYTHON)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+endif()
 
 # Need to add some special compile flags to check the code test coverage 
-OPTION(NT_TEST_COVERAGE "produce code coverage reports when running tests" OFF)
-IF(NT_TEST_COVERAGE)
+if(NT_TEST_COVERAGE)
     message("Adding flags to check test coverage")
     add_compile_options("--coverage")
     add_link_options("--coverage")
-ELSE()
+else()
     message("Won't check test coverage")
-ENDIF()
+endif()
 
-enable_testing()
+# enable ctest
+if(NT_COMPILE_TESTS)
+    message("Compiling tests")
+    enable_testing()
+else()
+    message("Won't compile tests")
+endif()
 
 ##########################
 #### add dependencies ####
 ##########################
 
 include(cmake/CPM.cmake)
-
-find_package(Protobuf)
-if( !Protobuf_FOUND )
-  message( "didn't find protobuf, will try installing using cpm" )
-  CPMAddPackage("gh:protocolbuffer/protobuf@27.4")
-endif()
-
-find_package(Torch REQUIRED)
-message("Torch cxx flags: ${TORCH_CXX_FLAGS}")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
-
-CPMAddPackage("gh:gabime/spdlog@1.8.2")
-
-# If user wants to enable benchmarking we need to set up google benchmark dependency
-OPTION(NT_ENABLE_BENCHMARKING "enable benchmarking using google benchmark" OFF)
-IF(NT_ENABLE_BENCHMARKING)
-    message("Enabling benchmarking")
-    CPMAddPackage(
-        GITHUB_REPOSITORY "google/benchmark"
-        VERSION 1.8.5 
-        OPTIONS "BENCHMARK_DOWNLOAD_DEPENDENCIES ON"
-    )
-ELSE()
-    message("Won't benchmark")
-ENDIF()
-
-# If user wants to enable python interface we need to include pybind
-OPTION(NT_ENABLE_PYTHON "enable python interface" OFF)
-IF(NT_ENABLE_PYTHON)
-    message("Enabling python")
-    CPMAddPackage(
-        GITHUB_REPOSITORY "pybind/pybind11"
-        VERSION 2.13.5 
-    )
-
-ELSE()
-    message("Won't enable python interface")
-ENDIF()
+include(cmake/nuTens-dependencies.cmake)
 
 
 ## check build times
 ## have this optional as it's not supported on all CMake platforms
-OPTION(NT_BUILD_TIMING "output time to build each target" OFF)
-IF(NT_BUILD_TIMING)
+if(NT_BUILD_TIMING)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
-ENDIF()
+endif()
 
 
 ######################################
@@ -85,17 +64,13 @@ ENDIF()
 add_subdirectory(nuTens)
 add_subdirectory(tests)
 
-IF(NT_ENABLE_BENCHMARKING)
-    add_subdirectory(benchmarks)
-ENDIF()
-
-IF(NT_ENABLE_PYTHON)
-    set_property( TARGET tensor PROPERTY POSITION_INDEPENDENT_CODE ON )
-    set_property( TARGET propagator PROPERTY POSITION_INDEPENDENT_CODE ON )
-    set_property( TARGET spdlog PROPERTY POSITION_INDEPENDENT_CODE ON )
-    set_property( TARGET logging PROPERTY POSITION_INDEPENDENT_CODE ON )
+if(NT_ENABLE_PYTHON)
     add_subdirectory(python)
-ENDIF()
+endif()
+
+if(NT_ENABLE_BENCHMARKING)
+    add_subdirectory(benchmarks)
+endif()
 
 # Print out a handy message to more easily see the config options
 message( STATUS "The following variables have been used to configure the build: " )
