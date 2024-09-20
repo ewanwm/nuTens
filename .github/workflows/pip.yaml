@@ -26,6 +26,11 @@ jobs:
         
     - name: Install Protoc Ubuntu
       run: sudo apt install protobuf-compiler
+      
+    - name: Install Python dependencies
+      uses: py-actions/py-dependency-install@v4
+      with:
+        path: "PyTorch_requirements.txt"
 
     - name: Build and install
       run: pip install --verbose .
