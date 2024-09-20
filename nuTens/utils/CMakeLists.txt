@@ -77,5 +77,5 @@ if(NT_USE_PCH)
 endif() ## end NT_USE_PCH block
 
 add_library(utils INTERFACE)
-target_link_libraries(utils INTERFACE logging instrumentation tensor-backend nuTens-pch)
+target_link_libraries(utils INTERFACE logging instrumentation tensor-backend)
 target_include_directories(utils INTERFACE "${CMAKE_SOURCE_DIR}")
