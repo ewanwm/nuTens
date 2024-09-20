@@ -208,7 +208,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the masses corresponding to the vacuum hamiltonian eigenstates. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Should add a check to tensors supplied to the setters to see how many dimensions they have, and if missing a batch dimension, add one. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Should add a check to tensors supplied to the setters to see how many dimensions they have, and if missing a batch dimension, add one. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">newMasses</td><td>The new masses to use. This tensor is expected to have a batch dimension + 1 more dimensions of size nGenerations. The batch dimension can (and probably should) be 1 and it will be broadcast to match the batch dimension of the energies supplied to <a class="el" href="classPropagator.html#a198abad0231f55413b1a337a1b01b7bf" title="Calculate the oscillation probabilities.">calculateProbs()</a>. So dimension should be {1, nGenerations}. </td></tr>
@@ -287,7 +287,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set a single element of the PMNS matrix. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>add <a class="el" href="classPropagator.html#a4e14aadddb0950a471a3ccf6d7b48542" title="Set a single element of the PMNS matrix.">setPMNS(const std::vector&lt;int&gt; &amp;indices, float value)</a> methods to <a class="el" href="classBaseMatterSolver.html" title="Abstract base class for matter effect solvers.">BaseMatterSolver</a>? maybe have these setters in a base class of both <a class="el" href="classPropagator.html" title="Neutrino oscillation probability calculator.">Propagator</a> and <a class="el" href="classBaseMatterSolver.html" title="Abstract base class for matter effect solvers.">BaseMatterSolver</a> ?? </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>add <a class="el" href="classPropagator.html#a4e14aadddb0950a471a3ccf6d7b48542" title="Set a single element of the PMNS matrix.">setPMNS(const std::vector&lt;int&gt; &amp;indices, float value)</a> methods to <a class="el" href="classBaseMatterSolver.html" title="Abstract base class for matter effect solvers.">BaseMatterSolver</a>? maybe have these setters in a base class of both <a class="el" href="classPropagator.html" title="Neutrino oscillation probability calculator.">Propagator</a> and <a class="el" href="classBaseMatterSolver.html" title="Abstract base class for matter effect solvers.">BaseMatterSolver</a> ?? </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">indices</td><td>The index of the value to set </td></tr>
