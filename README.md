@@ -7,6 +7,7 @@
 nuTens is a software library which uses [tensors](https://en.wikipedia.org/wiki/Tensor_(machine_learning)) to efficiently calculate neutrino oscillation probabilities. 
 
 [![CI badge](https://github.com/ewanwm/nuTens/actions/workflows/CI-build-and-test.yml/badge.svg)](https://github.com/ewanwm/nuTens/actions/workflows/CI-build-and-test.yml)
+[![pip](https://github.com/ewanwm/nuTens/actions/workflows/pip.yaml/badge.svg)](https://github.com/ewanwm/nuTens/actions/workflows/pip.yaml)
 [![Code - Doxygen](https://img.shields.io/badge/Code-Doxygen-2ea44f)](https://ewanwm.github.io/nuTens/index.html)
 [![test - coverage](https://codecov.io/github/ewanwm/nuTens/graph/badge.svg?token=PJ8C8CX37O)](https://codecov.io/github/ewanwm/nuTens)
 [![cpp - linter](https://github.com/ewanwm/nuTens/actions/workflows/cpp-linter.yaml/badge.svg)](https://github.com/ewanwm/nuTens/actions/workflows/cpp-linter.yaml)
@@ -39,6 +40,19 @@ Once [nuTens](#nutens) has been built, you can verify your installation by runni
 ```
 make test
 ```
+
+## Python
+nuTens provides a python interface which can be installed using pip by running
+```
+pip install .
+```
+in the root directory of nuTens
+
+Additionally, the nuTens python module can be installed as a shared library `.so` object by specifying the CMake option
+```
+cmake -DNT_ENABLE_PYTHON=ON <other options> <source dir>
+```
+and doing `make && make install`
 
 ## Benchmarking
 nuTens uses [Googles benchmark library](https://github.com/google/benchmark) to perform benchmarking and tracks the results uing [Bencher](https://bencher.dev). Each benchmark consists of calculating neutrino oscillations for 1024 batches of 1024 neutrino energies using the standard PMNS formalism in vacuum and in constant density matter:
