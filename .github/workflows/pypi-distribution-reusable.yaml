@@ -57,7 +57,6 @@ jobs:
       with:
         python-versions: 'cp39-cp39 cp310-cp310 cp311-cp311'
         build-requirements: 'scikit-build-core pybind11 pytorch-cpu torchvision-cpu pytorch'
-        pre-build-command: 'sudo apt install cuda'
       
     - name: Store the distribution packages
       uses: actions/upload-artifact@v4
