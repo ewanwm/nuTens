@@ -8,6 +8,7 @@ jobs:
   pypi_distribution:
     
     permissions:
+      contents: write
       id-token: write  # IMPORTANT: mandatory for trusted publishing
 
     secrets: inherit
