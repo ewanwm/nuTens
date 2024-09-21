@@ -9,6 +9,8 @@ jobs:
     
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
+
+    secrets: inherit
       
     strategy: 
       fail-fast: false
