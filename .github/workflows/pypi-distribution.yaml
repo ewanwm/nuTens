@@ -17,11 +17,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - build_type: cpu
-            platform: ubuntu-latest
-            
-          #- build_type: cuda
+          #- build_type: cpu
           #  platform: ubuntu-latest
+            
+          - build_type: cuda
+            platform: ubuntu-latest
 
     ## ./ At start of reusable workflow indicates to use the one in current repo i.e. the from the current branch
     uses: ./.github/workflows/pypi-distribution-reusable.yaml
