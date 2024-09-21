@@ -6,6 +6,10 @@ on:
     
 jobs:
   pypi_distribution:
+    
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+      
     strategy: 
       fail-fast: false
       matrix:
