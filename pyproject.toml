@@ -3,7 +3,7 @@ requires = ["scikit-build-core", "pybind11", "torch"]
 build-backend = "scikit_build_core.build"
 
 [project]
-name = "pyNuTens"
+name = "nuTens"
 version = "0.0.1"
 description="Library to calculate neutrino oscillation probabilities using tensors"
 readme = "README.md"
