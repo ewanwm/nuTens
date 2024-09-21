@@ -1,5 +1,5 @@
 [build-system]
-requires = ["scikit-build", "pybind11", "torch"]
+requires = ["scikit-build-core", "pybind11", "torch"]
 build-backend = "scikit_build_core.build"
 
 [project]
