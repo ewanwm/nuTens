@@ -25,7 +25,7 @@ jobs:
         sudo rm -rf "/usr/local/share/boost"
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         
-    - name: cuda-toolkit              
+    - name: cuda-toolkit
       if: ${{ startsWith( inputs.build_type, 'cuda' ) }}
       uses: Jimver/cuda-toolkit@v0.2.17
     
@@ -56,7 +56,7 @@ jobs:
       uses: RalfG/python-wheels-manylinux-build@v0.7.1-manylinux2014_x86_64
       with:
         python-versions: 'cp39-cp39 cp310-cp310 cp311-cp311'
-        build-requirements: 'scikit-build-core pybind11 torch'
+        build-requirements: 'scikit-build-core pybind11 torch cuda-python'
       
     - name: Store the distribution packages
       uses: actions/upload-artifact@v4
