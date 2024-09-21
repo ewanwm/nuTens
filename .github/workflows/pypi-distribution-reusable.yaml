@@ -25,22 +25,22 @@ jobs:
         sudo rm -rf "/usr/local/share/boost"
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         
-    - name: cuda-toolkit
-      if: ${{ startsWith( inputs.build_type, 'cuda' ) }}
-      uses: Jimver/cuda-toolkit@v0.2.17
+    #- name: cuda-toolkit
+    #  if: ${{ startsWith( inputs.build_type, 'cuda' ) }}
+    #  uses: Jimver/cuda-toolkit@v0.2.17
     
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: "3.11"
 
-    - name: Install Protoc 
-      run: sudo apt install protobuf-compiler
+    #- name: Install Protoc 
+    #  run: sudo apt install protobuf-compiler
       
-    - name: Install Python dependencies
-      uses: py-actions/py-dependency-install@v4
-      with:
-        path: "PyTorch_requirements.txt"
+    #- name: Install Python dependencies
+    #  uses: py-actions/py-dependency-install@v4
+    #  with:
+    #    path: "PyTorch_requirements.txt"
 
     #- name: Install pypa/build
     #  run: >-
