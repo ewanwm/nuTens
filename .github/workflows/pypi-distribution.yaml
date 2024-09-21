@@ -18,7 +18,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    
+
+    ## runner will run out of space if we don't clear some up by removing some unused tools
+    - name: Clear space
+      run: >-
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        
     - name: cuda-toolkit              
       if: ${{ startsWith(matrix.build_type, 'cuda') }}
       uses: Jimver/cuda-toolkit@v0.2.17
