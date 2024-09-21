@@ -56,7 +56,8 @@ jobs:
       uses: RalfG/python-wheels-manylinux-build@v0.7.1-manylinux2014_x86_64
       with:
         python-versions: 'cp39-cp39 cp310-cp310 cp311-cp311'
-        build-requirements: 'scikit-build-core pybind11 torch cuda-python'
+        build-requirements: 'scikit-build-core pybind11 pytorch-cpu torchvision-cpu pytorch'
+        pre-build-command: 'sudo apt install cuda'
       
     - name: Store the distribution packages
       uses: actions/upload-artifact@v4
