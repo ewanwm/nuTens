@@ -11,5 +11,8 @@ authors = [
   { name = "Ewan Miller", email = "emiller@ifae.es" },
 ]
 
+[tool.cibuildwheel]
+build-frontend = "build[uv]"
+
 [tool.scikit-build]
 cmake.args = ["-DNT_ENABLE_PYTHON=ON"]
