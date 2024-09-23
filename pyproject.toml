@@ -10,6 +10,7 @@ readme = "README.md"
 authors = [
   { name = "Ewan Miller", email = "emiller@ifae.es" },
 ]
+requires-python = ">=3.9"
 
 [tool.cibuildwheel]
 build-frontend = "build[uv]"
