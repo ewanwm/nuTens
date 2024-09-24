@@ -71,7 +71,9 @@ jobs:
           PATH=$PATH:/usr/local/cuda/bin LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(python -c 'import site; print(site.getsitepackages()[0])')/torch/lib/ 
         CIBW_BEFORE_BUILD: >
           python -m site &&
-          python -c 'import site; print(site.getsitepackages())'
+          python -c 'import site; print(site.getsitepackages())' &&
+          echo $LD_LIBRARY_PATH &&
+          ls $(python -c 'import site; print(site.getsitepackages()[0])')/torch/lib/
         
       
     #- name: Build wheels
