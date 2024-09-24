@@ -69,7 +69,7 @@ jobs:
           export TORCH_CUDA_ARCH_LIST="8.0 8.6 8.9 9.0" &&
           python -c 'import site; print(site.getsitepackages())
         CIBW_ENVIRONMENT: >
-          PATH=$PATH:/usr/local/cuda/bin LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(python -c 'import site; print(site.getsitepackages()[0])') &&
+          PATH=$PATH:/usr/local/cuda/bin LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(python -c 'import site; print(site.getsitepackages()[0])') 
         CIBW_BEFORE_BUILD: python -m site
         
       
