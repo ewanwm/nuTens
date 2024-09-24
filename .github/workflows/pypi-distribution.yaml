@@ -20,7 +20,7 @@ jobs:
 
     - uses: actions/upload-artifact@v4
       with:
-        name: cibw-sdist
+        name: python-package-distributions
         path: dist/*.tar.gz
 
   publish-to-testpypi:
