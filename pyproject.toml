@@ -4,7 +4,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "nuTens"
-version = "0.0.1"
+version = "0.0.2"
 description="Library to calculate neutrino oscillation probabilities using tensors"
 readme = "README.md"
 authors = [
