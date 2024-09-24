@@ -27,7 +27,7 @@ jobs:
     name: Publish Python 🐍 distribution 📦 to TestPyPI
     needs:
     - build
-    runs-on: ${{ inputs.platform }}
+    runs-on: ubuntu-latest
 
     environment:
       name: testPyPi-distribution
@@ -53,7 +53,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
     needs:
     - build
-    runs-on: ${{ inputs.platform }}
+    runs-on: ubuntu-latest
     environment:
       name: PyPi-distribution
       url: https://pypi.org/p/nuTens  # Replace <package-name> with your PyPI project name
