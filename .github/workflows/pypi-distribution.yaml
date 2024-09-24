@@ -5,27 +5,95 @@ on:
   workflow_dispatch:
     
 jobs:
-  pypi_distribution:
-    
+
+  build:
+    name: Make SDist
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Optional, use if you use setuptools_scm
+        submodules: true  # Optional, use if you have submodules
+
+    - name: Build SDist
+      run: pipx run build --sdist
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: cibw-sdist
+        path: dist/*.tar.gz
+
+  publish-to-testpypi:
+    name: Publish Python 🐍 distribution 📦 to TestPyPI
+    needs:
+    - build
+    runs-on: ${{ inputs.platform }}
+
+    environment:
+      name: testPyPi-distribution
+      url: https://test.pypi.org/p/nuTens
+
     permissions:
-      contents: write
       id-token: write  # IMPORTANT: mandatory for trusted publishing
 
-    secrets: inherit
+    steps:
+    - name: Download all the dists
+      uses: actions/download-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+    - name: Publish distribution 📦 to TestPyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        repository-url: https://test.pypi.org/legacy/
+        
+  publish-to-pypi:
+    name: >-
+      Publish Python 🐍 distribution 📦 to PyPI
+    if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
+    needs:
+    - build
+    runs-on: ${{ inputs.platform }}
+    environment:
+      name: PyPi-distribution
+      url: https://pypi.org/p/nuTens  # Replace <package-name> with your PyPI project name
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
       
-    strategy: 
-      fail-fast: false
-      matrix:
-        include:
-          #- build_type: cpu
-          #  platform: ubuntu-latest
+    steps:
+    - name: Download all the dists
+      uses: actions/download-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+    - name: Publish distribution 📦 to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      
+
+    ## one day we will buld wheels and upload them to pypi... but it is not this day
+    ## when that day comes, the below might be useful
+
+    ##pypi_distribution:
+    
+    ##permissions:
+    ##  contents: write
+    ##  id-token: write  # IMPORTANT: mandatory for trusted publishing
+
+    ## secrets: inherit
+      
+    ##strategy: 
+    ##  fail-fast: false
+    ##  matrix:
+    ##    include:
+    ##      - build_type: cpu
+    ##        platform: ubuntu-latest
             
-          - build_type: cuda
-            platform: ubuntu-latest
+    ##      - build_type: cuda
+    ##        platform: ubuntu-latest
 
     ## ./ At start of reusable workflow indicates to use the one in current repo i.e. the from the current branch
-    uses: ./.github/workflows/pypi-distribution-reusable.yaml
-    with:
-      platform: ${{ matrix.platform }}
-      build_type: ${{ matrix.build_type }}
+    ## uses: ./.github/workflows/pypi-distribution-reusable.yaml
+    ## with:
+    ##  platform: ${{ matrix.platform }}
+    ##  build_type: ${{ matrix.build_type }}
       
