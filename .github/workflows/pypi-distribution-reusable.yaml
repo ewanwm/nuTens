@@ -58,7 +58,6 @@ jobs:
           yum clean all &&
           yum -y install cuda-toolkit &&
           ls -al /usr/local &&
-          export PATH=$PATH:/usr/local/cuda/bin &&
           nvcc --version &&
           echo nvcc location: &&
           which nvcc &&
@@ -68,6 +67,8 @@ jobs:
           gcc --version &&
           export BUILD_WITH_CUDA=1 &&
           export TORCH_CUDA_ARCH_LIST="8.0 8.6 8.9 9.0"
+        CIBW_ENVIRONMENT: PATH=$PATH:/usr/local/cuda/bin
+        
       
     #- name: Build wheels
     #  run: python -m cibuildwheel --output-dir dist
