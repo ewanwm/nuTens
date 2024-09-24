@@ -73,7 +73,7 @@ jobs:
           python -m site &&
           python -c 'import site; print(site.getsitepackages())' &&
           echo $LD_LIBRARY_PATH &&
-          ls $(python -c 'import site; print(site.getsitepackages()[0])')/torch/lib/
+          ls $(python -c 'import site; print(site.getsitepackages()[0])')
         
       
     #- name: Build wheels
