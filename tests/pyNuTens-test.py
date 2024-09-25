@@ -1,7 +1,7 @@
 import torch
-import pyNuTens as nt
-from pyNuTens import tensor
-from pyNuTens.tensor import Tensor
+import nuTens as nt
+from nuTens import tensor
+from nuTens.tensor import Tensor
 import matplotlib.pyplot as plt
 import typing
 

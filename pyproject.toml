@@ -1,15 +1,41 @@
-[build-system]
-requires = ["scikit-build-core", "pybind11", "torch"]
-build-backend = "scikit_build_core.build"
 
 [project]
-name = "pyNuTens"
-version = "0.0.1"
+name = "nuTens"
+version = "0.0.3"
 description="Library to calculate neutrino oscillation probabilities using tensors"
 readme = "README.md"
 authors = [
   { name = "Ewan Miller", email = "emiller@ifae.es" },
 ]
+requires-python = ">=3.9"
+license = {file="LICENSE"}
+keywords = ["neutrino", "oscillations", "physics", "particle", "tensor", "experiment", "autograd", "differentiable programming"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Environment :: GPU",
+  "Programming Language :: C++",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Scientific/Engineering :: Physics",
+  "Intended Audience :: Science/Research"
+]
+dependencies = [
+  "torch"
+]
 
-[tool.scikit-build]
-cmake.args = ["-DNT_ENABLE_PYTHON=ON"]
+[project.urls]
+Repository = "https://github.com/ewanwm/nuTens"
+Issues = "https://github.com/ewanwm/nuTens/issues"
+Documentation = "https://ewanwm.github.io/nuTens/"
+
+[build-system]
+requires = ["scikit-build-core>=0.3.3", "pybind11", "torch"]
+build-backend = "scikit_build_core.build"
+
+[tool.cibuildwheel]
+build-frontend = "build[uv]"
+
+[tool.scikit-build.cmake]
+args = ["-DNT_ENABLE_PYTHON=ON"]

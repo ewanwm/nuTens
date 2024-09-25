@@ -1,0 +1,179 @@
+on:
+  workflow_call:
+    inputs:
+      build_type:
+        required: true
+        type: string
+      platform:
+        required: true
+        type: string
+
+jobs:
+  build:
+  
+    name: Build ${{ inputs.platform }} ${{ inputs.build_type }} distribution 📦
+    runs-on: ${{ inputs.platform }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    ## runner will run out of space if we don't clear some up by removing some unused tools
+    - name: Clear space
+      run: >-
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        
+    #- name: cuda-toolkit
+    #  if: ${{ startsWith( inputs.build_type, 'cuda' ) }}
+    #  uses: Jimver/cuda-toolkit@v0.2.17
+    
+    #- name: Set up Python
+    #  uses: actions/setup-python@v5
+    #  with:
+    #    python-version: "3.11"
+
+    #- name: Install Protoc 
+    #  run: sudo apt install protobuf-compiler
+      
+    #- name: Install Python dependencies
+    #  uses: py-actions/py-dependency-install@v4
+    #  with:
+    #    path: "PyTorch_requirements.txt"
+
+    #- name: Install cibuildwheel
+    #  run: python -m pip install cibuildwheel==2.21.1
+      
+    - uses: yezz123/setup-uv@v4
+    
+    - uses: pypa/cibuildwheel@v2.21
+      if: runner.os == 'Linux'
+      env:
+        CIBW_BUILD_VERBOSITY: 1
+        CIBW_ARCHS_LINUX: "x86_64"
+        CIBW_SKIP: "*musl*"
+        CIBW_BEFORE_ALL: >
+          yum-config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-rhel7.repo &&
+          yum clean all &&
+          yum -y install cuda-toolkit &&
+          ls -al /usr/local &&
+          nvcc --version &&
+          echo nvcc location: &&
+          which nvcc &&
+          export CUDACXX="$(which nvcc)" &&
+          echo $CUDACXX &&
+          echo gcc version: &&
+          gcc --version &&
+          export BUILD_WITH_CUDA=1 &&
+          export TORCH_CUDA_ARCH_LIST="8.0 8.6 8.9 9.0" 
+        CIBW_ENVIRONMENT: >
+          PATH=$PATH:/usr/local/cuda/bin LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(python -c 'import sys; print(sys.prefix + "/lib/python" + sys.version[:3] + "/site-packages")')/torch/lib/ 
+        CIBW_BEFORE_BUILD: >
+          python -m site &&
+          python -c 'import sys; print(sys.prefix + "/lib/python" + sys.version[:3] + "/site-packages")' &&
+          echo $LD_LIBRARY_PATH &&
+          ls $(python -c 'import sys; print(sys.prefix + "/lib/python" + sys.version[:3] + "/site-packages")')
+        
+      
+    #- name: Build wheels
+    #  run: python -m cibuildwheel --output-dir dist
+    #  env:
+    #    CIBW_BEFORE_BUILD: pip install scikit-build-core
+        
+    - name: Store the distribution packages
+      uses: actions/upload-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+
+
+  publish-to-testpypi:
+    name: Publish Python 🐍 distribution 📦 to TestPyPI
+    needs:
+    - build
+    runs-on: ${{ inputs.platform }}
+
+    environment:
+      name: testPyPi-distribution
+      url: https://test.pypi.org/p/nuTens
+
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+
+    steps:
+    - name: Download all the dists
+      uses: actions/download-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+    - name: Publish distribution 📦 to TestPyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        repository-url: https://test.pypi.org/legacy/
+        
+  publish-to-pypi:
+    name: >-
+      Publish Python 🐍 distribution 📦 to PyPI
+    if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
+    needs:
+    - build
+    runs-on: ${{ inputs.platform }}
+    environment:
+      name: PyPi-distribution
+      url: https://pypi.org/p/nuTens  # Replace <package-name> with your PyPI project name
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+      
+    steps:
+    - name: Download all the dists
+      uses: actions/download-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+    - name: Publish distribution 📦 to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+
+  github-release:
+    if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
+    name: >-
+      Sign the Python 🐍 distribution 📦 with Sigstore
+      and upload them to GitHub Release
+    needs:
+    - publish-to-pypi
+    runs-on: ${{ inputs.platform }}
+
+    permissions:
+      contents: write  # IMPORTANT: mandatory for making GitHub Releases
+      id-token: write  # IMPORTANT: mandatory for sigstore
+
+    steps:
+    - name: Download all the dists
+      uses: actions/download-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+    - name: Sign the dists with Sigstore
+      uses: sigstore/gh-action-sigstore-python@v2.1.1
+      with:
+        inputs: >-
+          ./dist/*.tar.gz
+          ./dist/*.whl
+    - name: Create GitHub Release
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      run: >-
+        gh release create
+        '${{ github.ref_name }}'
+        --repo '${{ github.repository }}'
+        --notes ""
+    - name: Upload artifact signatures to GitHub Release
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      # Upload to GitHub Release using the `gh` CLI.
+      # `dist/` contains the built packages, and the
+      # sigstore-produced signatures and certificates.
+      run: >-
+        gh release upload
+        '${{ github.ref_name }}' dist/**
+        --repo '${{ github.repository }}'
