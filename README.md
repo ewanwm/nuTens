@@ -42,7 +42,19 @@ make test
 ```
 
 ## Python
-nuTens provides a python interface which can be installed using pip by running
+
+nuTens provides a python interface for it's high level functionality.
+
+### PyPi Distribution
+
+For each nuTens release there is a corresponding python module distributed using [PyPi](https://pypi.org/project/nuTens/) which can automatically be obtained via pip using 
+```
+pip install nuTens
+```
+
+### Manual Installation 
+
+The python interface can be installed manually after cloning the repository using pip by running
 ```
 pip install .
 ```
@@ -53,6 +65,8 @@ Additionally, the nuTens python module can be installed as a shared library `.so
 cmake -DNT_ENABLE_PYTHON=ON <other options> <source dir>
 ```
 and doing `make && make install`
+
+
 
 ## Benchmarking
 nuTens uses [Googles benchmark library](https://github.com/google/benchmark) to perform benchmarking and tracks the results uing [Bencher](https://bencher.dev). Each benchmark consists of calculating neutrino oscillations for 1024 batches of 1024 neutrino energies using the standard PMNS formalism in vacuum and in constant density matter:
