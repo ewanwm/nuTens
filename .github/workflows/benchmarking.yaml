@@ -68,6 +68,7 @@ jobs:
           --branch '${{ github.head_ref }}' \
           --testbed ubuntu-latest \
           --measure Latency \
+          --branch-reset\
           --test percentage \
           --upper-boundary 0.0 \
           nutens
