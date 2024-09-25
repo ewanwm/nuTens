@@ -62,7 +62,8 @@ jobs:
         run: make --trace #cmake --build ${{github.workspace}}/build
 
       - name: Set Up Threshold
-        run: bencher threshold create \
+        run: |
+          bencher threshold create \
           --branch '${{ github.head_ref }}' \
           --testbed ubuntu-latest \
           --measure Latency \
