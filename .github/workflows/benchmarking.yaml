@@ -69,7 +69,7 @@ jobs:
           --measure Latency \
           --test percentage \
           --upper-boundary 0.0 \
-          nuTens
+          nutens
       
       - name: Track PR Benchmarks with Bencher
         working-directory: ${{github.workspace}}/build
