@@ -60,7 +60,16 @@ jobs:
         working-directory: ${{github.workspace}}/build
         # Build your program with the given configuration
         run: make --trace #cmake --build ${{github.workspace}}/build
-        
+
+      - name: Set Up Threshold
+        run: bencher threshold create \
+          --branch '${{ github.head_ref }}' \
+          --testbed ubuntu-latest \
+          --measure Latency \
+          --test percentage \
+          --upper-boundary 0.0 \
+          nuTens
+      
       - name: Track PR Benchmarks with Bencher
         working-directory: ${{github.workspace}}/build
         run: |
