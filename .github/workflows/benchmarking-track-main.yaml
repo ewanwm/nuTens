@@ -13,7 +13,7 @@ env:
 jobs:
   benchmark_base_branch:
     name: Continuous Benchmarking with Bencher
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - uses: bencherdev/bencher@main
