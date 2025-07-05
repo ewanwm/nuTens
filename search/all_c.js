@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['pow_57',['pow',['../classTensor.html#ab03252adfc59f62acfc2e58bf7d0dbef',1,'Tensor::pow(const Tensor &amp;t, float s)'],['../classTensor.html#ae406770e6de832b836b23f56595162c0',1,'Tensor::pow(const Tensor &amp;t, std::complex&lt; float &gt; s)']]],
-  ['pow_5f_58',['pow_',['../classTensor.html#ab5a7ad5dafa8dfaee1a6480a730445a7',1,'Tensor::pow_(float s)'],['../classTensor.html#ad78162c18d67f3a38fea1b8354ad1e73',1,'Tensor::pow_(std::complex&lt; float &gt; s)']]],
-  ['profileresult_59',['ProfileResult',['../structProfileResult.html',1,'']]],
-  ['profilewriter_60',['ProfileWriter',['../classProfileWriter.html',1,'ProfileWriter'],['../classProfileWriter.html#a971563f597f269f303c4d32bbe53262c',1,'ProfileWriter::ProfileWriter()']]],
-  ['propagator_61',['Propagator',['../classPropagator.html',1,'Propagator'],['../classPropagator.html#af935ff4cd179591258d1ce28a95e521e',1,'Propagator::Propagator()']]],
-  ['propagator_2ehpp_62',['propagator.hpp',['../propagator_8hpp.html',1,'']]]
+  ['ones_0',['ones',['../classTensor.html#a675e696e3605bf5b0719eb88fdcfd772',1,'Tensor']]],
+  ['operator_3c_3c_1',['operator&lt;&lt;',['../classTensor.html#adc591646ecdc20f23287289f65e0aae9',1,'Tensor']]],
+  ['outer_2',['outer',['../classTensor.html#a1a0878a0e015a69b5644c930b14e371f',1,'Tensor']]]
 ];

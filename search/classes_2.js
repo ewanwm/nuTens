@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['instrumentationtimer_92',['InstrumentationTimer',['../classInstrumentationTimer.html',1,'']]]
+  ['profileresult_0',['ProfileResult',['../structProfileResult.html',1,'']]],
+  ['propagator_1',['Propagator',['../classPropagator.html',1,'']]]
 ];
