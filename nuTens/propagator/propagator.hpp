@@ -33,7 +33,7 @@ class Propagator
 
     /// @brief Calculate the oscillation probabilities
     /// @param energies The energies of the neutrinos
-    [[nodiscard]] Tensor calculateProbs() const;
+    [[nodiscard]] Tensor calculateProbs();
 
     /// @name Setters
     /// @{
@@ -58,6 +58,10 @@ class Propagator
         NT_PROFILE();
 
         _energies = newEnergies;
+        _weightMatrix = Tensor::ones({_energies.getBatchDim(), _nGenerations, _nGenerations}, NTdtypes::kComplexFloat)
+                        .requiresGrad(false);
+        _weightArgDenom = Tensor::scale(Tensor::scale(_energies, 2.0), std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline));
+
         if (_matterSolver)
         {
             _matterSolver->setEnergies(newEnergies);
@@ -120,12 +124,14 @@ class Propagator
   private:
     // For calculating with alternate masses and PMNS, e.g. if using effective
     // values from massSolver
-    [[nodiscard]] Tensor _calculateProbs(const Tensor &masses, const Tensor &PMNS) const;
+    [[nodiscard]] Tensor _calculateProbs(const Tensor &masses, const Tensor &PMNS);
 
   private:
     Tensor _pmnsMatrix;
     Tensor _masses;
     Tensor _energies;
+    Tensor _weightMatrix;
+    Tensor _weightArgDenom;
     int _nGenerations;
     float _baseline;
 
