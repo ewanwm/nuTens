@@ -1,14 +1,15 @@
 ## define dependencies of nutens which will be included using cpm where possible
 
-## ==== Protobuf ====
-find_package(Protobuf)
-if( !Protobuf_FOUND )
-  message( "didn't find protobuf, will try installing using cpm" )
-  CPMAddPackage("gh:protocolbuffer/protobuf@27.4")
+## ==== Pytorch ====
+find_package(Torch)
+if( NOT Torch_FOUND )
+    message( "didn't find pytorch, will try installing using cpm" )
+
+    CPMAddPackage("gh:pytorch/pytorch@2.7.1")
+    find_package(Torch REQUIRED)
+  #set( Torch_FOUND TRUE)
 endif()
 
-## ==== Pytorch ====
-find_package(Torch REQUIRED)
 message("Torch cxx flags: ${TORCH_CXX_FLAGS}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
 

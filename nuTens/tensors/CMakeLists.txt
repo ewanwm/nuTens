@@ -1,5 +1,5 @@
 
-if(TORCH_FOUND)
+if(Torch_FOUND)
     add_library(tensor STATIC tensor.hpp torch-tensor.cpp)
     target_compile_definitions(tensor PUBLIC USE_PYTORCH)
 endif()
