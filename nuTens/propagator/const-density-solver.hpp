@@ -60,7 +60,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// @param newMasses The new masses
     inline void setMasses(const Tensor &newMasses) override
     {
-        assert((newMasses.getNdim() == 2) && (newMasses.hasBatchDim()));
+        assert((newMasses.getNdim() == 2) && (newMasses.getHasBatchDim()));
         NT_PROFILE();
 
         masses = newMasses;

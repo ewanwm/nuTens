@@ -342,6 +342,9 @@ class Tensor
     /// @brief Get the size of the batch dimension of the tensor
     [[nodiscard]] int getBatchDim() const;
 
+    /// @brief Check if tensor has batch dimension prepended
+    [[nodiscard]] bool getHasBatchDim() const;
+
     /// @brief Get the shape of the tensor
     [[nodiscard]] std::vector<int> getShape() const;
 

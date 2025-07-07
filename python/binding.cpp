@@ -47,6 +47,8 @@ void initTensor(py::module &m)
         .def("device", &Tensor::device, py::return_value_policy::reference, "Set the device that the tensor lives on")
         .def("requires_grad", &Tensor::requiresGrad, py::return_value_policy::reference,
              "Set Whether or not this tensor requires gradient to be calculated")
+        .def("has_batch_dim", &Tensor::getHasBatchDim,
+             "Check Whether or not the first dimension should be interpreted as a batch dim for this tensor")
         .def("has_batch_dim", &Tensor::hasBatchDim, py::return_value_policy::reference,
              "Set Whether or not the first dimension should be interpreted as a batch dim for this tensor")
 
