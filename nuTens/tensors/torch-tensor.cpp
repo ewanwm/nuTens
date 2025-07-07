@@ -196,7 +196,7 @@ size_t Tensor::getNdim() const
 {
     NT_PROFILE();
 
-    return _tensor._dimI();
+    return _tensor.dim();
 }
 
 int Tensor::getBatchDim() const
@@ -204,6 +204,13 @@ int Tensor::getBatchDim() const
     NT_PROFILE();
 
     return _tensor.sizes()[0];
+}
+
+bool Tensor::getHasBatchDim() const
+{
+    NT_PROFILE();
+
+    return _hasBatchDim;
 }
 
 std::vector<int> Tensor::getShape() const
