@@ -53,4 +53,4 @@ jobs:
           --testbed ubuntu-latest \
           --adapter cpp_google \
           --err \
-          "./benchmarks/benchmarks --benchmark_format=json --benchmark_repetitions=16 --benchmark_min_warmup_time=60 --v=4" \
+          "./benchmarks/benchmarks --benchmark_format=json --benchmark_repetitions=16 --benchmark_min_warmup_time=5 --v=4" \
