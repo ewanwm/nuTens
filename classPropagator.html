@@ -93,13 +93,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af935ff4cd179591258d1ce28a95e521e" id="r_af935ff4cd179591258d1ce28a95e521e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPropagator.html#af935ff4cd179591258d1ce28a95e521e">Propagator</a> (int nGenerations, float baseline)</td></tr>
 <tr class="memdesc:af935ff4cd179591258d1ce28a95e521e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <br /></td></tr>
 <tr class="separator:af935ff4cd179591258d1ce28a95e521e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a198abad0231f55413b1a337a1b01b7bf" id="r_a198abad0231f55413b1a337a1b01b7bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPropagator.html#a198abad0231f55413b1a337a1b01b7bf">calculateProbs</a> (const <a class="el" href="classTensor.html">Tensor</a> &amp;energies) const</td></tr>
-<tr class="memdesc:a198abad0231f55413b1a337a1b01b7bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the oscillation probabilities.  <br /></td></tr>
-<tr class="separator:a198abad0231f55413b1a337a1b01b7bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87b59371bafcef272c515cdd5c7accf7" id="r_a87b59371bafcef272c515cdd5c7accf7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTensor.html">Tensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPropagator.html#a87b59371bafcef272c515cdd5c7accf7">calculateProbs</a> ()</td></tr>
+<tr class="memdesc:a87b59371bafcef272c515cdd5c7accf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the oscillation probabilities.  <br /></td></tr>
+<tr class="separator:a87b59371bafcef272c515cdd5c7accf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Setters</div></td></tr>
 <tr class="memitem:a54d978f6a699c15b9b99bc858265bcbd" id="r_a54d978f6a699c15b9b99bc858265bcbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPropagator.html#a54d978f6a699c15b9b99bc858265bcbd">setMatterSolver</a> (std::shared_ptr&lt; <a class="el" href="classBaseMatterSolver.html">BaseMatterSolver</a> &gt; &amp;newSolver)</td></tr>
 <tr class="memdesc:a54d978f6a699c15b9b99bc858265bcbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a matter solver to use to deal with matter effects.  <br /></td></tr>
 <tr class="separator:a54d978f6a699c15b9b99bc858265bcbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f13ac54f65aa80dd9548a6871b7ec87" id="r_a7f13ac54f65aa80dd9548a6871b7ec87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPropagator.html#a7f13ac54f65aa80dd9548a6871b7ec87">setEnergies</a> (<a class="el" href="classTensor.html">Tensor</a> &amp;newEnergies)</td></tr>
+<tr class="memdesc:a7f13ac54f65aa80dd9548a6871b7ec87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the neutrino energies.  <br /></td></tr>
+<tr class="separator:a7f13ac54f65aa80dd9548a6871b7ec87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7dbf99562e01684d1fb2fc6d8d82d092" id="r_a7dbf99562e01684d1fb2fc6d8d82d092"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPropagator.html#a7dbf99562e01684d1fb2fc6d8d82d092">setMasses</a> (<a class="el" href="classTensor.html">Tensor</a> &amp;newMasses)</td></tr>
 <tr class="memdesc:a7dbf99562e01684d1fb2fc6d8d82d092"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the masses corresponding to the vacuum hamiltonian eigenstates.  <br /></td></tr>
 <tr class="separator:a7dbf99562e01684d1fb2fc6d8d82d092"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,7 +118,7 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Neutrino oscillation probability calculator. </p>
-<p>This class is used to propagate neutrinos over some baseline and calculate the probability that they will oscillate to another flavour. A <a class="el" href="classPropagator.html" title="Neutrino oscillation probability calculator.">Propagator</a> can be configured using the Setters by assigning parameters (neutrino masses and PMNS matrix elements). You can assign a matter solver (a derivative of <a class="el" href="classBaseMatterSolver.html" title="Abstract base class for matter effect solvers.">BaseMatterSolver</a>) to deal with matter effects using <a class="el" href="classPropagator.html#a54d978f6a699c15b9b99bc858265bcbd" title="Set a matter solver to use to deal with matter effects.">setMatterSolver()</a>. <a class="el" href="classPropagator.html#a198abad0231f55413b1a337a1b01b7bf" title="Calculate the oscillation probabilities.">calculateProbs()</a> can then be used to calculate energy dependent oscillation probabilities.</p>
+<p>This class is used to propagate neutrinos over some baseline and calculate the probability that they will oscillate to another flavour. A <a class="el" href="classPropagator.html" title="Neutrino oscillation probability calculator.">Propagator</a> can be configured using the Setters by assigning parameters (neutrino masses and PMNS matrix elements). You can assign a matter solver (a derivative of <a class="el" href="classBaseMatterSolver.html" title="Abstract base class for matter effect solvers.">BaseMatterSolver</a>) to deal with matter effects using <a class="el" href="classPropagator.html#a54d978f6a699c15b9b99bc858265bcbd" title="Set a matter solver to use to deal with matter effects.">setMatterSolver()</a>. <a class="el" href="classPropagator.html#a87b59371bafcef272c515cdd5c7accf7" title="Calculate the oscillation probabilities.">calculateProbs()</a> can then be used to calculate energy dependent oscillation probabilities.</p>
 <p>(The specifics of this interface may change in the future) </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af935ff4cd179591258d1ce28a95e521e" name="af935ff4cd179591258d1ce28a95e521e"></a>
@@ -164,8 +167,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a198abad0231f55413b1a337a1b01b7bf" name="a198abad0231f55413b1a337a1b01b7bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a198abad0231f55413b1a337a1b01b7bf">&#9670;&#160;</a></span>calculateProbs()</h2>
+<a id="a87b59371bafcef272c515cdd5c7accf7" name="a87b59371bafcef272c515cdd5c7accf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87b59371bafcef272c515cdd5c7accf7">&#9670;&#160;</a></span>calculateProbs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -173,9 +176,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="classTensor.html">Tensor</a> Propagator::calculateProbs </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
-          <td class="paramname"><em>energies</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -184,6 +186,41 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">energies</td><td>The energies of the neutrinos </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7f13ac54f65aa80dd9548a6871b7ec87" name="a7f13ac54f65aa80dd9548a6871b7ec87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f13ac54f65aa80dd9548a6871b7ec87">&#9670;&#160;</a></span>setEnergies()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Propagator::setEnergies </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classTensor.html">Tensor</a> &amp;&#160;</td>
+          <td class="paramname"><em>newEnergies</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the neutrino energies. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Should add a check to tensors supplied to the setters to see how many dimensions they have, and if missing a batch dimension, add one. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newEnergies</td><td>The neutrino energies </td></tr>
   </table>
   </dd>
 </dl>
@@ -215,10 +252,9 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the masses corresponding to the vacuum hamiltonian eigenstates. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Should add a check to tensors supplied to the setters to see how many dimensions they have, and if missing a batch dimension, add one. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">newMasses</td><td>The new masses to use. This tensor is expected to have a batch dimension + 1 more dimensions of size nGenerations. The batch dimension can (and probably should) be 1 and it will be broadcast to match the batch dimension of the energies supplied to <a class="el" href="classPropagator.html#a198abad0231f55413b1a337a1b01b7bf" title="Calculate the oscillation probabilities.">calculateProbs()</a>. So dimension should be {1, nGenerations}. </td></tr>
+    <tr><td class="paramname">newMasses</td><td>The new masses to use. This tensor is expected to have a batch dimension + 1 more dimensions of size nGenerations. The batch dimension can (and probably should) be 1 and it will be broadcast to match the batch dimension of the energies supplied to <a class="el" href="classPropagator.html#a87b59371bafcef272c515cdd5c7accf7" title="Calculate the oscillation probabilities.">calculateProbs()</a>. So dimension should be {1, nGenerations}. </td></tr>
   </table>
   </dd>
 </dl>
