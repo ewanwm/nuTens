@@ -18,7 +18,7 @@ int main()
     // set the tensors we will use to calculate matter eigenvalues
     Tensor masses = Tensor({m1, m2}, NTdtypes::kFloat).addBatchDim().requiresGrad(true);
 
-    Tensor energies = Tensor::ones({1, 1, 1}, NTdtypes::kFloat).requiresGrad(false);
+    Tensor energies = Tensor::ones({1, 1}, NTdtypes::kFloat).requiresGrad(false).hasBatchDim(true);
     energies.setValue({0, 0}, energy);
     energies.requiresGrad(true);
 
