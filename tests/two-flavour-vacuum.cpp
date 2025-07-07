@@ -46,7 +46,9 @@ int main()
 
         tensorPropagator.setPMNS(PMNS);
 
-        Tensor probabilities = tensorPropagator.calculateProbs(energies);
+        tensorPropagator.setEnergies(energies);
+
+        Tensor probabilities = tensorPropagator.calculateProbs();
 
         TEST_EXPECTED(probabilities.getValue<float>({0, 0, 0}), bargerProp.calculateProb(energy, 0, 0),
                       "probability for alpha == beta == 0", 0.00001)

@@ -1,6 +1,6 @@
 #include <nuTens/propagator/propagator.hpp>
 
-Tensor Propagator::calculateProbs(const Tensor &energies) const
+Tensor Propagator::calculateProbs()
 {
     NT_PROFILE();
 
@@ -15,41 +15,39 @@ Tensor Propagator::calculateProbs(const Tensor &energies) const
         Tensor eigenVecs =
             Tensor::zeros({1, _nGenerations, _nGenerations}, NTdtypes::kComplexFloat).requiresGrad(false);
 
-        _matterSolver->calculateEigenvalues(energies, eigenVecs, eigenVals);
-        Tensor effectiveMassesSq = Tensor::mul(eigenVals, Tensor::scale(energies, 2.0));
+        _matterSolver->calculateEigenvalues(eigenVecs, eigenVals);
+        Tensor effectiveMassesSq = Tensor::mul(eigenVals, Tensor::scale(_energies, 2.0));
         Tensor effectivePMNS = Tensor::matmul(_pmnsMatrix, eigenVecs);
 
-        ret = _calculateProbs(energies, effectiveMassesSq, effectivePMNS);
+        ret = _calculateProbs(effectiveMassesSq, effectivePMNS);
     }
 
     else
     {
-        ret = _calculateProbs(energies, Tensor::mul(_masses, _masses), _pmnsMatrix);
+        ret = _calculateProbs(Tensor::mul(_masses, _masses), _pmnsMatrix);
     }
 
     return ret;
 }
 
-Tensor Propagator::_calculateProbs(const Tensor &energies, const Tensor &massesSq, const Tensor &PMNS) const
+Tensor Propagator::_calculateProbs(const Tensor &massesSq, const Tensor &PMNS)
 {
     NT_PROFILE();
 
-    Tensor weightMatrix = Tensor::ones({energies.getBatchDim(), _nGenerations, _nGenerations}, NTdtypes::kComplexFloat)
-                              .requiresGrad(false);
-
     Tensor weightVector = Tensor::exp(
-        Tensor::div(Tensor::scale(massesSq, std::complex<float>(-1.0J) * _baseline), Tensor::scale(energies, 2.0)));
+        Tensor::div(massesSq, _weightArgDenom));
 
+    _weightMatrix.requiresGrad(false);
     for (int i = 0; i < _nGenerations; i++)
     {
         for (int j = 0; j < _nGenerations; j++)
         {
-            weightMatrix.setValue({"...", i, j}, weightVector.getValues({"...", j}));
+            _weightMatrix.setValue({"...", i, j}, weightVector.getValues({"...", j}));
         }
     }
-    weightMatrix.requiresGrad(true);
+    _weightMatrix.requiresGrad(true);
 
-    Tensor sqrtProbabilities = Tensor::matmul(PMNS.conj(), Tensor::transpose(Tensor::mul(PMNS, weightMatrix), 1, 2));
+    Tensor sqrtProbabilities = Tensor::matmul(PMNS.conj(), Tensor::transpose(Tensor::mul(PMNS, _weightMatrix), 1, 2));
 
-    return Tensor::mul(sqrtProbabilities.abs(), sqrtProbabilities.abs());
+    return Tensor::pow(sqrtProbabilities.abs(), 2);
 }

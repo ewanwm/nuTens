@@ -62,7 +62,7 @@ class PMNSmatrix
 };
 
 static void batchedOscProbs(Propagator &prop, PMNSmatrix &matrix, Tensor &theta23, Tensor &theta13, Tensor &theta12,
-                            Tensor &deltaCP, Tensor &masses, const Tensor &energies, long batchSize, long nBatches)
+                            Tensor &deltaCP, Tensor &masses, long nBatches)
 {
     for (int _ = 0; _ < nBatches; _++)
     {
@@ -86,7 +86,7 @@ static void batchedOscProbs(Propagator &prop, PMNSmatrix &matrix, Tensor &theta2
 
         // calculate the osc probabilities
         // static_cast<void> to discard the return value that we're not supposed to discard :)
-        static_cast<void>(prop.calculateProbs(energies).sum());
+        static_cast<void>(prop.calculateProbs().sum());
     }
 }
 
@@ -94,8 +94,10 @@ static void BM_vacuumOscillations(benchmark::State &state)
 {
     // make some random test energies
     Tensor energies =
-        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(NTdtypes::kFloat).requiresGrad(false), 10000.0) +
+        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(NTdtypes::kFloat).requiresGrad(false), 10000.0).hasBatchDim(true) +
         Tensor({100.0});
+
+    energies = energies.hasBatchDim(true);
 
     // set up the inputs
     Tensor masses = Tensor::zeros({1, 3}, NTdtypes::kFloat).requiresGrad(false);
@@ -110,6 +112,8 @@ static void BM_vacuumOscillations(benchmark::State &state)
     // set up the propagator
     Propagator vacuumProp(3, 295000.0);
 
+    vacuumProp.setEnergies(energies);
+
     // seed the random number generator for the energies
     std::srand(randSeed);
 
@@ -118,8 +122,7 @@ static void BM_vacuumOscillations(benchmark::State &state)
     for (auto _ : state)
     {
         // This code gets timed
-        batchedOscProbs(vacuumProp, PMNS, theta23, theta13, theta12, deltaCP, masses, energies, state.range(0),
-                        state.range(1));
+        batchedOscProbs(vacuumProp, PMNS, theta23, theta13, theta12, deltaCP, masses, state.range(1));
     }
 }
 
@@ -130,8 +133,10 @@ static void BM_constMatterOscillations(benchmark::State &state)
         Tensor::scale(Tensor::rand({state.range(0), 1}).dType(NTdtypes::kFloat).requiresGrad(false), 10000.0) +
         Tensor({100.0});
 
+    energies = energies.hasBatchDim(true);
+
     // set up the inputs
-    Tensor masses = Tensor::zeros({1, 3}, NTdtypes::kFloat).requiresGrad(false);
+    Tensor masses = Tensor::zeros({1, 3}, NTdtypes::kFloat).hasBatchDim(true).requiresGrad(false);
 
     Tensor theta23 = Tensor::zeros({1}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
     Tensor theta13 = Tensor::zeros({1}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
@@ -150,6 +155,8 @@ static void BM_constMatterOscillations(benchmark::State &state)
 
     matterProp.setMatterSolver(matterSolver);
 
+    matterProp.setEnergies(energies);
+
     // seed the random number generator for the energies
     std::srand(randSeed);
 
@@ -158,8 +165,7 @@ static void BM_constMatterOscillations(benchmark::State &state)
     for (auto _ : state)
     {
         // This code gets timed
-        batchedOscProbs(matterProp, PMNS, theta23, theta13, theta12, deltaCP, masses, energies, state.range(0),
-                        state.range(1));
+        batchedOscProbs(matterProp, PMNS, theta23, theta13, theta12, deltaCP, masses, state.range(1));
     }
 }
 
