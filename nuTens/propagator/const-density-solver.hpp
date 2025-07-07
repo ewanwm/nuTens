@@ -34,7 +34,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// @arg nGenerations The number of neutrino generations this propagator
     /// should expect
     /// @arg density The electron density of the material to propagate in
-    ConstDensityMatterSolver(int nGenerations, float density) : nGenerations(nGenerations), density(density)
+    ConstDensityMatterSolver(int nGenerations, float density) : BaseMatterSolver(nGenerations), density(density)
     {
         diagMassMatrix = Tensor::zeros({1, nGenerations, nGenerations}, NTdtypes::kFloat);
     };
@@ -80,13 +80,12 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// shape should look like {Nbatches, 1, 1}.
     /// @param[out] eigenvectors The returned eigenvectors
     /// @param[out] eigenvalues The corresponding eigenvalues
-    void calculateEigenvalues(const Tensor &energies, Tensor &eigenvectors, Tensor &eigenvalues) override;
+    void calculateEigenvalues(Tensor &eigenvectors, Tensor &eigenvalues) override;
 
   private:
     Tensor PMNS;
     Tensor masses;
     Tensor diagMassMatrix;
     Tensor electronOuter;
-    int nGenerations;
     float density;
 };

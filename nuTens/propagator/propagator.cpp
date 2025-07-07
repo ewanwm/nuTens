@@ -1,6 +1,6 @@
 #include <nuTens/propagator/propagator.hpp>
 
-Tensor Propagator::calculateProbs(const Tensor &energies) const
+Tensor Propagator::calculateProbs() const
 {
     NT_PROFILE();
 
@@ -15,30 +15,30 @@ Tensor Propagator::calculateProbs(const Tensor &energies) const
         Tensor eigenVecs =
             Tensor::zeros({1, _nGenerations, _nGenerations}, NTdtypes::kComplexFloat).requiresGrad(false);
 
-        _matterSolver->calculateEigenvalues(energies, eigenVecs, eigenVals);
-        Tensor effectiveMassesSq = Tensor::mul(eigenVals, Tensor::scale(energies, 2.0));
+        _matterSolver->calculateEigenvalues(eigenVecs, eigenVals);
+        Tensor effectiveMassesSq = Tensor::mul(eigenVals, Tensor::scale(_energies, 2.0));
         Tensor effectivePMNS = Tensor::matmul(_pmnsMatrix, eigenVecs);
 
-        ret = _calculateProbs(energies, effectiveMassesSq, effectivePMNS);
+        ret = _calculateProbs(effectiveMassesSq, effectivePMNS);
     }
 
     else
     {
-        ret = _calculateProbs(energies, Tensor::mul(_masses, _masses), _pmnsMatrix);
+        ret = _calculateProbs(Tensor::mul(_masses, _masses), _pmnsMatrix);
     }
 
     return ret;
 }
 
-Tensor Propagator::_calculateProbs(const Tensor &energies, const Tensor &massesSq, const Tensor &PMNS) const
+Tensor Propagator::_calculateProbs(const Tensor &massesSq, const Tensor &PMNS) const
 {
     NT_PROFILE();
 
-    Tensor weightMatrix = Tensor::ones({energies.getBatchDim(), _nGenerations, _nGenerations}, NTdtypes::kComplexFloat)
+    Tensor weightMatrix = Tensor::ones({_energies.getBatchDim(), _nGenerations, _nGenerations}, NTdtypes::kComplexFloat)
                               .requiresGrad(false);
 
     Tensor weightVector = Tensor::exp(
-        Tensor::div(Tensor::scale(massesSq, std::complex<float>(-1.0J) * _baseline), Tensor::scale(energies, 2.0)));
+        Tensor::div(Tensor::scale(massesSq, std::complex<float>(-1.0J) * _baseline), Tensor::scale(_energies, 2.0)));
 
     for (int i = 0; i < _nGenerations; i++)
     {

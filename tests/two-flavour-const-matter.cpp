@@ -51,7 +51,8 @@ int main()
 
         Tensor eigenVals;
         Tensor eigenVecs;
-        tensorSolver.calculateEigenvalues(energies, eigenVecs, eigenVals);
+        tensorSolver.setEnergies(energies);
+        tensorSolver.calculateEigenvalues(eigenVecs, eigenVals);
 
         std::cout << "######## theta = " << theta << " ########" << std::endl;
 

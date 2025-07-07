@@ -33,7 +33,7 @@ class Propagator
 
     /// @brief Calculate the oscillation probabilities
     /// @param energies The energies of the neutrinos
-    [[nodiscard]] Tensor calculateProbs(const Tensor &energies) const;
+    [[nodiscard]] Tensor calculateProbs() const;
 
     /// @name Setters
     /// @{
@@ -51,6 +51,19 @@ class Propagator
     /// \todo Should add a check to tensors supplied to the setters to see how
     /// many dimensions they have, and if missing a batch dimension, add one.
 
+    /// @brief Set the neutrino energies
+    /// @param newEnergies The neutrino energies
+    void setEnergies(Tensor &newEnergies)
+    {
+        NT_PROFILE();
+
+        _energies = newEnergies;
+        if (_matterSolver)
+        {
+            _matterSolver->setEnergies(newEnergies);
+        }
+    }
+    
     /// @brief Set the masses corresponding to the vacuum hamiltonian eigenstates
     /// @param newMasses The new masses to use. This tensor is expected to have a
     /// batch dimension + 1 more dimensions of size nGenerations. The batch
@@ -59,6 +72,8 @@ class Propagator
     /// So dimension should be {1, nGenerations}.
     void setMasses(Tensor &newMasses)
     {
+        NT_PROFILE();
+
         _masses = newMasses;
         if (_matterSolver != nullptr)
         {
@@ -105,11 +120,12 @@ class Propagator
   private:
     // For calculating with alternate masses and PMNS, e.g. if using effective
     // values from massSolver
-    [[nodiscard]] Tensor _calculateProbs(const Tensor &energies, const Tensor &masses, const Tensor &PMNS) const;
+    [[nodiscard]] Tensor _calculateProbs(const Tensor &masses, const Tensor &PMNS) const;
 
   private:
     Tensor _pmnsMatrix;
     Tensor _masses;
+    Tensor _energies;
     int _nGenerations;
     float _baseline;
 
