@@ -1,7 +1,0 @@
-var searchData=
-[
-  ['rand_0',['rand',['../classTensor.html#a22a1001666f7bf987e082ccbc2b74892',1,'Tensor']]],
-  ['real_1',['real',['../classTensor.html#a0dba8476df4f61a625a7d836fd4c4646',1,'Tensor']]],
-  ['requirements_2',['Requirements',['../index.html#autotoc_md2',1,'']]],
-  ['requiresgrad_3',['requiresGrad',['../classTensor.html#acda45d6bb19fe1566f2d75c97e99c7a8',1,'Tensor']]]
-];
