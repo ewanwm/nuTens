@@ -22,6 +22,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      
+      # Checks-out repository
+      - uses: actions/checkout@v4
+        
       - name: Install dependencies
         run: |
           sudo apt-get update
