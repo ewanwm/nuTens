@@ -8,15 +8,16 @@ std::string Tensor::getTensorLibrary()
 
 Tensor::Tensor(const std::vector<float> &values, NTdtypes::scalarType type, NTdtypes::deviceType device,
                bool requiresGrad)
+:
+_dType(type),
+_device(device)
 {
     NT_PROFILE();
 
     _tensor = torch::tensor(values, torch::TensorOptions()
-                                        .dtype(NTdtypes::scalarTypeMap.at(type))
-                                        .device(NTdtypes::deviceTypeMap.at(device))
+                                        .dtype(NTdtypes::scalarTypeMap(type))
+                                        .device(NTdtypes::deviceTypeMap(device))
                                         .requires_grad(requiresGrad));
-    _dType = type;
-    _device = device;
 }
 
 Tensor Tensor::eye(int n, NTdtypes::scalarType type, NTdtypes::deviceType device, bool requiresGrad)
@@ -25,8 +26,8 @@ Tensor Tensor::eye(int n, NTdtypes::scalarType type, NTdtypes::deviceType device
 
     Tensor ret;
     ret.setTensor(torch::eye(n, torch::TensorOptions()
-                                    .dtype(NTdtypes::scalarTypeMap.at(type))
-                                    .device(NTdtypes::deviceTypeMap.at(device))
+                                    .dtype(NTdtypes::scalarTypeMap(type))
+                                    .device(NTdtypes::deviceTypeMap(device))
                                     .requires_grad(requiresGrad)));
     ret._dType = type;
     ret._device = device;
@@ -40,8 +41,8 @@ Tensor Tensor::rand(const std::vector<long int> &shape, NTdtypes::scalarType typ
 
     Tensor ret;
     ret.setTensor(torch::rand(c10::IntArrayRef(shape), torch::TensorOptions()
-                                                           .dtype(NTdtypes::scalarTypeMap.at(type))
-                                                           .device(NTdtypes::deviceTypeMap.at(device))
+                                                           .dtype(NTdtypes::scalarTypeMap(type))
+                                                           .device(NTdtypes::deviceTypeMap(device))
                                                            .requires_grad(requiresGrad)));
 
     ret._dType = type;
@@ -68,8 +69,8 @@ Tensor Tensor::ones(const std::vector<long int> &shape, NTdtypes::scalarType typ
 
     Tensor ret;
     ret.setTensor(torch::ones(c10::IntArrayRef(shape), torch::TensorOptions()
-                                                           .dtype(NTdtypes::scalarTypeMap.at(type))
-                                                           .device(NTdtypes::deviceTypeMap.at(device))
+                                                           .dtype(NTdtypes::scalarTypeMap(type))
+                                                           .device(NTdtypes::deviceTypeMap(device))
                                                            .requires_grad(requiresGrad)));
     ret._dType = type;
     ret._device = device;
@@ -82,7 +83,7 @@ Tensor Tensor::zeros(const std::vector<long int> &shape, NTdtypes::scalarType ty
     NT_PROFILE();
 
     Tensor ret;
-    ret.setTensor(torch::zeros(c10::IntArrayRef(shape), NTdtypes::scalarTypeMap.at(type)));
+    ret.setTensor(torch::zeros(c10::IntArrayRef(shape), NTdtypes::scalarTypeMap(type)));
     ret._dType = type;
     ret._device = device;
     return ret;
@@ -92,7 +93,7 @@ Tensor &Tensor::dType(NTdtypes::scalarType type)
 {
     NT_PROFILE();
 
-    _tensor = _tensor.to(NTdtypes::scalarTypeMap.at(type));
+    _tensor = _tensor.to(NTdtypes::scalarTypeMap(type));
     _dType = type;
     return *this;
 }
@@ -101,7 +102,7 @@ Tensor &Tensor::device(NTdtypes::deviceType device)
 {
     NT_PROFILE();
 
-    _tensor = _tensor.to(NTdtypes::deviceTypeMap.at(device));
+    _tensor = _tensor.to(NTdtypes::deviceTypeMap(device));
     _device = device;
     return *this;
 }

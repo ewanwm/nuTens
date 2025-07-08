@@ -56,10 +56,10 @@ class Tensor
 
     /// @brief Default constructor with no initialisation
     Tensor()
-    {
-        _dType = NTdtypes::kUninitScalar;
-        _device = NTdtypes::kUninitDevice;
-    };
+    :
+    _dType(NTdtypes::kUninitScalar),
+    _device(NTdtypes::kUninitDevice)
+    {};
 
     /// @brief Construct a 1-d array with specified values
     /// @arg values The values to include in the tensor
@@ -351,7 +351,7 @@ class Tensor
     /// Get the name of the backend library used to deal with tensors
     static std::string getTensorLibrary();
 
-  private:
+  protected:
     bool _hasBatchDim = false;
     NTdtypes::scalarType _dType;
     NTdtypes::deviceType _device;
@@ -388,15 +388,15 @@ class Tensor
         return _tensor;
     }
 
-  private:
+  protected:
     /// Set the underlying tensor, setting the relevant information like _dtype and _device
     inline void setTensor(const torch::Tensor &tensor)
     {
         NT_PROFILE();
 
         _tensor = tensor;
-        _dType = NTdtypes::invScalarTypeMap.at(tensor.scalar_type());
-        _device = NTdtypes::invDeviceTypeMap.at(tensor.device().type());
+        _dType = NTdtypes::invScalarTypeMap(tensor.scalar_type());
+        _device = NTdtypes::invDeviceTypeMap(tensor.device().type());
     }
 
     /// Utility function to convert from a vector of ints to a vector of a10 tensor indices, which is needed for
@@ -443,7 +443,180 @@ class Tensor
         return indicesVec;
     }
 
-  private:
+  protected:
     torch::Tensor _tensor;
 #endif
 };
+
+#if USE_PYTORCH
+/// @brief Tensors are designed to be used when you want to frequently
+///        access single elements.
+/// @tparam Tdtype The data type the tensor will hold.
+/// @tparam TnDims The number of dimensions of the tensor
+/// @tparam Tdevice The device the tensor will live on
+///
+/// AccessedTensors are designed to be used for fast direct access to 
+/// the individual values of the underlying tensor. This speed comes at
+/// the cost of some flexibility as you must define the type, number of 
+/// dimensions, and device at compile time. This allows us to use pyTorchs 
+/// tensor accessors to increase the access speed.
+/// You should only use these when you intend to directly manipulate the 
+/// entries of the tensor. e.g. to set parameter values, or energy values
+/// at the start of a computational chain. 
+template<typename Tdtype, int TnDims, NTdtypes::deviceType Tdevice>
+class AccessedTensor: public Tensor {
+
+  private:
+    AccessedTensor(torch::Tensor tensor) 
+    :
+    _packedAccessor(tensor.packed_accessor32<Tdtype, TnDims>()),
+    _accessor(tensor.accessor<Tdtype, TnDims>())
+    {
+        setTensor(tensor);
+    };
+
+  public:
+
+    /// @brief Construct an identity tensor (has to be a 2d square tensor)
+    /// @arg n The size of one of the sides of the tensor
+    /// @arg type The data type of the tensor
+    static AccessedTensor eye(bool requiresGrad = true) {
+
+        NT_PROFILE();
+
+        AccessedTensor<Tdtype, TnDims, Tdevice> ret(
+            torch::eye(TnDims, torch::TensorOptions()
+                .dtype(NTdtypes::scalarTypeMap(NTdtypes::scalarTypeFromRaw<Tdtype>()))
+                .device(NTdtypes::deviceTypeMap(Tdevice))
+                .requires_grad(requiresGrad)
+            )
+        );
+
+        ret._dType = NTdtypes::scalarTypeFromRaw<Tdtype>();
+        ret._device = Tdevice;
+
+        return ret;
+    }
+
+    /// @brief Construct a tensor with entries randomly initialised in the range [0, 1]
+    /// @arg shape The desired shape of the intitalised tensor
+    /// @arg type The data type of the tensor
+    static AccessedTensor rand(const std::vector<long int> &shape, bool requiresGrad = true) {
+
+        NT_PROFILE();
+
+        assert((shape.size() == TnDims) && "dimensions in shape must match templated TnDims");
+
+        AccessedTensor<Tdtype, TnDims, Tdevice> ret(
+            torch::rand(c10::IntArrayRef(shape), torch::TensorOptions()
+                .dtype(NTdtypes::scalarTypeMap(NTdtypes::scalarTypeFromRaw<Tdtype>()))
+                .device(NTdtypes::deviceTypeMap(Tdevice))
+                .requires_grad(requiresGrad)
+            )
+        );
+
+        ret._dType = NTdtypes::scalarTypeFromRaw<Tdtype>();
+        ret._device = Tdevice;
+        
+        return ret;
+    }
+
+    /// @brief Construct a tensor with ones
+    /// @arg shape The desired shape of the intitalised tensor
+    /// @arg type The data type of the tensor
+    static AccessedTensor ones(const std::vector<long int> &shape, bool requiresGrad = true) {
+
+        NT_PROFILE();
+
+        assert((shape.size() == TnDims) && "dimensions in shape must match templated TnDims");
+
+        AccessedTensor<Tdtype, TnDims, Tdevice> ret(
+            torch::ones(c10::IntArrayRef(shape), torch::TensorOptions()
+                .dtype(NTdtypes::scalarTypeMap(NTdtypes::scalarTypeFromRaw<Tdtype>()))
+                .device(NTdtypes::deviceTypeMap(Tdevice))
+                .requires_grad(requiresGrad)
+            )
+        );
+
+        ret._dType = NTdtypes::scalarTypeFromRaw<Tdtype>();
+        ret._device = Tdevice;
+        return ret;
+    
+    }
+
+    /// @brief Construct a tensor with zeros
+    /// @arg shape The desired shape of the intitalised tensor
+    /// @arg type The data type of the tensor
+    static AccessedTensor zeros(const std::vector<long int> &shape, bool requiresGrad = true) {
+        
+        NT_PROFILE();
+
+        assert((shape.size() == TnDims) && "dimensions in shape must match templated TnDims");
+
+        torch::Tensor zeros = torch::zeros(c10::IntArrayRef(shape), torch::TensorOptions()
+            .dtype(NTdtypes::scalarTypeMap(NTdtypes::scalarTypeFromRaw<Tdtype>()))
+            .device(NTdtypes::deviceTypeMap(Tdevice))
+            .requires_grad(requiresGrad)
+        );
+        
+        AccessedTensor<Tdtype, TnDims, Tdevice> ret(
+            zeros
+        );
+
+        ret._dType = NTdtypes::scalarTypeFromRaw<Tdtype>();
+        ret._device = Tdevice;
+        return ret;
+    }
+
+    /// @name Value Setters
+    /// @{
+
+    /// @brief Set a value in a 1D tensor
+    void setValue(Tdtype value, int i) {
+        assert(TnDims == 1 && "wrong number of indices");
+
+        if (Tdevice == NTdtypes::kGPU) {
+            _packedAccessor[i] = value;
+        }
+
+        else if (Tdevice == NTdtypes::kCPU) {
+            _accessor[i] = value;
+        }
+    }
+
+    /// @brief Set a value in a 1D tensor
+    void setValue(Tdtype value, int i, int j) {
+        assert(TnDims == 2 && "wrong number of indices");
+
+        if (Tdevice == NTdtypes::kGPU) {
+            _packedAccessor[i][j] = value;
+        }
+
+        else if (Tdevice == NTdtypes::kCPU) {
+            _accessor[i][j] = value;
+        }
+    }
+
+    /// @brief Set a value in a 3D tensor
+    void setValue(Tdtype value, int i, int j, int k) {
+        assert(TnDims == 3 && "wrong number of indices");
+
+        if (Tdevice == NTdtypes::kGPU) {
+            _packedAccessor[i][j][k] = value;
+        }
+
+        else if (Tdevice == NTdtypes::kCPU) {
+            _accessor[i][j][k] = value;
+        }
+    }
+
+    /// @}
+
+    // only support up to 3D for now, should be enough for us
+
+  private:
+    torch::TensorAccessor<Tdtype, TnDims> _accessor;
+    torch::PackedTensorAccessor32<Tdtype, TnDims> _packedAccessor;
+        
+};
+#endif
