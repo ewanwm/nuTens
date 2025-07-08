@@ -449,6 +449,20 @@ class Tensor
 };
 
 #if USE_PYTORCH
+/// @brief Tensors are designed to be used when you want to frequently
+///        access single elements.
+/// @tparam Tdtype The data type the tensor will hold.
+/// @tparam TnDims The number of dimensions of the tensor
+/// @tparam Tdevice The device the tensor will live on
+///
+/// AccessedTensors are designed to be used for fast direct access to 
+/// the individual values of the underlying tensor. This speed comes at
+/// the cost of some flexibility as you must define the type, number of 
+/// dimensions, and device at compile time. This allows us to use pyTorchs 
+/// tensor accessors to increase the access speed.
+/// You should only use these when you intend to directly manipulate the 
+/// entries of the tensor. e.g. to set parameter values, or energy values
+/// at the start of a computational chain. 
 template<typename Tdtype, int TnDims, NTdtypes::deviceType Tdevice>
 class AccessedTensor: public Tensor {
 
@@ -554,12 +568,15 @@ class AccessedTensor: public Tensor {
         return ret;
     }
 
+    /// @name Value Setters
+    /// @{
 
+    /// @brief Set a value in a 1D tensor
     void setValue(Tdtype value, int i) {
         assert(TnDims == 1 && "wrong number of indices");
 
         if (Tdevice == NTdtypes::kGPU) {
-            //_packedAccessor[i] = value;
+            _packedAccessor[i] = value;
         }
 
         else if (Tdevice == NTdtypes::kCPU) {
@@ -567,6 +584,7 @@ class AccessedTensor: public Tensor {
         }
     }
 
+    /// @brief Set a value in a 1D tensor
     void setValue(Tdtype value, int i, int j) {
         assert(TnDims == 2 && "wrong number of indices");
 
@@ -579,6 +597,7 @@ class AccessedTensor: public Tensor {
         }
     }
 
+    /// @brief Set a value in a 3D tensor
     void setValue(Tdtype value, int i, int j, int k) {
         assert(TnDims == 3 && "wrong number of indices");
 
@@ -591,6 +610,11 @@ class AccessedTensor: public Tensor {
         }
     }
 
+    /// @}
+
+    // only support up to 3D for now, should be enough for us
+
+  private:
     torch::TensorAccessor<Tdtype, TnDims> _accessor;
     torch::PackedTensorAccessor32<Tdtype, TnDims> _packedAccessor;
         
