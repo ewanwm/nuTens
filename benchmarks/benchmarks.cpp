@@ -159,8 +159,6 @@ static void BM_constMatterOscillations(benchmark::State &state)
     PMNSmatrix PMNS;
     PMNS.build(theta12, theta13, theta23, deltaCP);
 
-    std::cout << masses << std::endl;
-
     // set up the propagator
     Propagator matterProp(3, 295000.0);
     matterProp.setPMNS(PMNS.matrix);
