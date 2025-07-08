@@ -46,7 +46,10 @@ jobs:
           path: "PyTorch_requirements.txt"
 
       - name: Build and install
-        run: pip install --verbose ..[docs]
+        run: |
+          pip install --verbose ..[docs]
+          # Need to set the library path so that torch can find itself (:
+          export LD_LIBRARY_PATH=`python3 -c 'import os;import torch;print(os.path.abspath(torch.__file__)[:-11])'`:$LD_LIBRARY_PATH
 
       # first need to create the xmls using doxygen
       - name: Build Doxygen files
