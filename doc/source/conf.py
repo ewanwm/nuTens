@@ -13,7 +13,7 @@ author = 'Ewan Miller'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx_automodapi.automodapi', 'breathe' ]
+extensions = [ 'sphinx.ext.autodoc', 'breathe', "sphinx.ext.graphviz" ]
 
 breathe_projects = {"nuTens": "doxygen/xml"}
 breathe_default_project = "nuTens"
