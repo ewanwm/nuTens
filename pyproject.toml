@@ -23,7 +23,15 @@ classifiers = [
 dependencies = [
   "torch"
 ]
+
 dynamic = ["version"]
+
+[project.optional-dependencies]
+docs = [
+  "sphinx",
+  "breathe",
+  "autodoc",
+]
 
 [project.urls]
 Repository = "https://github.com/ewanwm/nuTens"
