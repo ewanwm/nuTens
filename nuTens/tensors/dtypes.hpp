@@ -35,8 +35,8 @@ enum deviceType
 
 
 /// map between raw c++ types and the data types used in nuTens
-template <typename>
-static constexpr scalarType scalarTypeFromRaw() {throw "Invalid datatype";}
+template <typename T>
+static constexpr scalarType scalarTypeFromRaw();
 
 template<>
 constexpr scalarType scalarTypeFromRaw<float>()                {return kFloat;}

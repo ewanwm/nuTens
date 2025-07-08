@@ -8,6 +8,9 @@ std::string Tensor::getTensorLibrary()
 
 Tensor::Tensor(const std::vector<float> &values, NTdtypes::scalarType type, NTdtypes::deviceType device,
                bool requiresGrad)
+:
+_dType(type),
+_device(device)
 {
     NT_PROFILE();
 
@@ -15,8 +18,6 @@ Tensor::Tensor(const std::vector<float> &values, NTdtypes::scalarType type, NTdt
                                         .dtype(NTdtypes::scalarTypeMap(type))
                                         .device(NTdtypes::deviceTypeMap(device))
                                         .requires_grad(requiresGrad));
-    _dType = type;
-    _device = device;
 }
 
 Tensor Tensor::eye(int n, NTdtypes::scalarType type, NTdtypes::deviceType device, bool requiresGrad)

@@ -8,7 +8,7 @@
 // want this to be fixed for reproducibility
 const int randSeed = 123;
 
-const std::complex<float> i(0.0, 1.0);
+const std::complex<float> imagUnit(0.0, 1.0);
 
 /// get random double between 0.0 and 1.0
 double randomDouble()
@@ -42,8 +42,8 @@ class PMNSmatrix
 
         _m2.setValue({0, 1, 1}, 1.0);
         _m2.setValue({0, 0, 0}, Tensor::cos(theta13));
-        _m2.setValue({0, 0, 2}, Tensor::mul(Tensor::sin(theta13), Tensor::exp(Tensor::scale(deltaCP, -i))));
-        _m2.setValue({0, 2, 0}, -Tensor::mul(Tensor::sin(theta13), Tensor::exp(Tensor::scale(deltaCP, i))));
+        _m2.setValue({0, 0, 2}, Tensor::mul(Tensor::sin(theta13), Tensor::exp(Tensor::scale(deltaCP, -imagUnit))));
+        _m2.setValue({0, 2, 0}, -Tensor::mul(Tensor::sin(theta13), Tensor::exp(Tensor::scale(deltaCP, imagUnit))));
         _m2.setValue({0, 2, 2}, Tensor::cos(theta13));
         _m2.requiresGrad(true);
 

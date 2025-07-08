@@ -56,10 +56,10 @@ class Tensor
 
     /// @brief Default constructor with no initialisation
     Tensor()
-    {
-        _dType = NTdtypes::kUninitScalar;
-        _device = NTdtypes::kUninitDevice;
-    };
+    :
+    _dType(NTdtypes::kUninitScalar),
+    _device(NTdtypes::kUninitDevice)
+    {};
 
     /// @brief Construct a 1-d array with specified values
     /// @arg values The values to include in the tensor
@@ -448,18 +448,17 @@ class Tensor
 #endif
 };
 
-
+#if USE_PYTORCH
 template<typename Tdtype, int TnDims, NTdtypes::deviceType Tdevice>
 class AccessedTensor: public Tensor {
 
   private:
     AccessedTensor(torch::Tensor tensor) 
     :
-    //_packedAccessor(_tensor.packed_accessor32<Tdtype, TnDims>()),
+    _packedAccessor(tensor.packed_accessor32<Tdtype, TnDims>()),
     _accessor(tensor.accessor<Tdtype, TnDims>())
     {
-        _tensor = tensor;
-        _device = Tdevice;   
+        setTensor(tensor);
     };
 
   public:
@@ -572,7 +571,7 @@ class AccessedTensor: public Tensor {
         assert(TnDims == 2 && "wrong number of indices");
 
         if (Tdevice == NTdtypes::kGPU) {
-            //_packedAccessor[i][j] = value;
+            _packedAccessor[i][j] = value;
         }
 
         else if (Tdevice == NTdtypes::kCPU) {
@@ -584,7 +583,7 @@ class AccessedTensor: public Tensor {
         assert(TnDims == 3 && "wrong number of indices");
 
         if (Tdevice == NTdtypes::kGPU) {
-            //_packedAccessor[i][j][k] = value;
+            _packedAccessor[i][j][k] = value;
         }
 
         else if (Tdevice == NTdtypes::kCPU) {
@@ -593,6 +592,7 @@ class AccessedTensor: public Tensor {
     }
 
     torch::TensorAccessor<Tdtype, TnDims> _accessor;
-    //torch::PackedTensorAccessor32<Tdtype, TnDims> _packedAccessor;
+    torch::PackedTensorAccessor32<Tdtype, TnDims> _packedAccessor;
         
 };
+#endif
