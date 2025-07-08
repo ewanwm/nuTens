@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File logging.hpp &mdash; nuTens  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="File nuTens-pch.hpp" href="nuTens-pch_8hpp.html" />
+    <link rel="prev" title="File instrumentation.hpp" href="instrumentation_8hpp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/nuTens-logo-small.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">🚀 Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">🖥️ For Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Profiling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📖 References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../cpp-api.html">c++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../classlist.html">Class list</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../filelist.html">File list</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="README_8md.html">File README.md</a></li>
+<li class="toctree-l3"><a class="reference internal" href="base-matter-solver_8hpp.html">File base-matter-solver.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="const-density-solver_8cpp.html">File const-density-solver.cpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="const-density-solver_8hpp.html">File const-density-solver.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="constants_8hpp.html">File constants.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dtypes_8hpp.html">File dtypes.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="instrumentation_8hpp.html">File instrumentation.hpp</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">File logging.hpp</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#c.SPDLOG_ACTIVE_LEVEL"><code class="docutils literal notranslate"><span class="pre">SPDLOG_ACTIVE_LEVEL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#c.NT_TRACE"><code class="docutils literal notranslate"><span class="pre">NT_TRACE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#c.NT_DEBUG"><code class="docutils literal notranslate"><span class="pre">NT_DEBUG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#c.NT_INFO"><code class="docutils literal notranslate"><span class="pre">NT_INFO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#c.NT_WARN"><code class="docutils literal notranslate"><span class="pre">NT_WARN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#c.NT_ERROR"><code class="docutils literal notranslate"><span class="pre">NT_ERROR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv418NT_LOG_LEVEL_TRACE"><code class="docutils literal notranslate"><span class="pre">NT_LOG_LEVEL_TRACE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv418NT_LOG_LEVEL_DEBUG"><code class="docutils literal notranslate"><span class="pre">NT_LOG_LEVEL_DEBUG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv417NT_LOG_LEVEL_INFO"><code class="docutils literal notranslate"><span class="pre">NT_LOG_LEVEL_INFO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv420NT_LOG_LEVEL_WARNING"><code class="docutils literal notranslate"><span class="pre">NT_LOG_LEVEL_WARNING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv418NT_LOG_LEVEL_ERROR"><code class="docutils literal notranslate"><span class="pre">NT_LOG_LEVEL_ERROR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv419NT_LOG_LEVEL_SILENT"><code class="docutils literal notranslate"><span class="pre">NT_LOG_LEVEL_SILENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv415runtimeLogLevel"><code class="docutils literal notranslate"><span class="pre">runtimeLogLevel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv49ntlogging"><code class="docutils literal notranslate"><span class="pre">ntlogging</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="nuTens-pch_8hpp.html">File nuTens-pch.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="propagator_8cpp.html">File propagator.cpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="propagator_8hpp.html">File propagator.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tensor_8hpp.html">File tensor.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tf-tensor_8cpp.html">File tf-tensor.cpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch-tensor_8cpp.html">File torch-tensor.cpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../namespacelist.html">Namespace list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structlist.html">Struct list</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../python-api.html">Python API 🐍</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ewanwm/nuTens">GitHub 🔗</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nuTens</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../cpp-api.html">c++ API</a></li>
+          <li class="breadcrumb-item"><a href="../filelist.html">File list</a></li>
+      <li class="breadcrumb-item active">File logging.hpp</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/breathe-apidoc/file/logging_8hpp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="file-logging-hpp">
+<h1>File logging.hpp<a class="headerlink" href="#file-logging-hpp" title="Link to this heading"></a></h1>
+<p>Define the logging utilities for nuTens. </p>
+<p>Basically just use spdlog interface. However we define our own log levels and macros and pass them through to the logging library. This is juuust in case we ever want to change the logging library we use. This way only this file would need to change. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.SPDLOG_ACTIVE_LEVEL">
+<span class="target" id="logging_8hpp_1ae4fda6f71f35120e2ff48157fca961b5"></span><span class="sig-name descname"><span class="n"><span class="pre">SPDLOG_ACTIVE_LEVEL</span></span></span><a class="headerlink" href="#c.SPDLOG_ACTIVE_LEVEL" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.NT_TRACE">
+<span class="target" id="logging_8hpp_1ac260be1f1e6681af0b14888ee59e8686"></span><span class="sig-name descname"><span class="n"><span class="pre">NT_TRACE</span></span></span><span class="sig-paren">(</span><span class="p"><span class="pre">...</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.NT_TRACE" title="Link to this definition"></a><br /></dt>
+<dd><p>Trace message that will only be displayed if NT_LOG_LEVEL == NT_LOG_LEVEL_TRACE. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>...</strong> – <strong>[in]</strong> The message to print. This can consist of just a simple string, or a format string and subsequent variables to format. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.NT_DEBUG">
+<span class="target" id="logging_8hpp_1aec1d61b1f4f277d9b55d4e4fab44d27a"></span><span class="sig-name descname"><span class="n"><span class="pre">NT_DEBUG</span></span></span><span class="sig-paren">(</span><span class="p"><span class="pre">...</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.NT_DEBUG" title="Link to this definition"></a><br /></dt>
+<dd><p>Debug message that will only be displayed if NT_LOG_LEVEL &lt;= NT_LOG_LEVEL_DEBUG. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>...</strong> – <strong>[in]</strong> The message to print. This can consist of just a simple string, or a format string and subsequent variables to format. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.NT_INFO">
+<span class="target" id="logging_8hpp_1acb7ff302064822f73d527afacbc07371"></span><span class="sig-name descname"><span class="n"><span class="pre">NT_INFO</span></span></span><span class="sig-paren">(</span><span class="p"><span class="pre">...</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.NT_INFO" title="Link to this definition"></a><br /></dt>
+<dd><p>Information message that will only be displayed if NT_LOG_LEVEL &lt;= NT_LOG_LEVEL_INFO. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>...</strong> – <strong>[in]</strong> The message to print. This can consist of just a simple string, or a format string and subsequent variables to format. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.NT_WARN">
+<span class="target" id="logging_8hpp_1a376d667d22aa28635df30822d56904f7"></span><span class="sig-name descname"><span class="n"><span class="pre">NT_WARN</span></span></span><span class="sig-paren">(</span><span class="p"><span class="pre">...</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.NT_WARN" title="Link to this definition"></a><br /></dt>
+<dd><p>Warning message that will only be displayed if NT_LOG_LEVEL &lt;= NT_LOG_LEVEL_WARNING. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>...</strong> – <strong>[in]</strong> The message to print. This can consist of just a simple string, or a format string and subsequent variables to format. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.NT_ERROR">
+<span class="target" id="logging_8hpp_1a1c9124874e06a916a55c387e986d142f"></span><span class="sig-name descname"><span class="n"><span class="pre">NT_ERROR</span></span></span><span class="sig-paren">(</span><span class="p"><span class="pre">...</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.NT_ERROR" title="Link to this definition"></a><br /></dt>
+<dd><p>Error message that will only be displayed if NT_LOG_LEVEL &lt;= NT_LOG_LEVEL_ERROR. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>...</strong> – <strong>[in]</strong> The message to print. This can consist of just a simple string, or a format string and subsequent variables to format. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-variables">Variables</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv418NT_LOG_LEVEL_TRACE">
+<span id="_CPPv318NT_LOG_LEVEL_TRACE"></span><span id="_CPPv218NT_LOG_LEVEL_TRACE"></span><span id="NT_LOG_LEVEL_TRACE__s"></span><span class="target" id="logging_8hpp_1a7ef6a5f9a1195d50df7f25bbcdd55d64"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NT_LOG_LEVEL_TRACE</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv418NT_LOG_LEVEL_TRACE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv418NT_LOG_LEVEL_DEBUG">
+<span id="_CPPv318NT_LOG_LEVEL_DEBUG"></span><span id="_CPPv218NT_LOG_LEVEL_DEBUG"></span><span id="NT_LOG_LEVEL_DEBUG__s"></span><span class="target" id="logging_8hpp_1ab7dbd948e5210b05a0cdb50cf75fbf80"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NT_LOG_LEVEL_DEBUG</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv418NT_LOG_LEVEL_DEBUG" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv417NT_LOG_LEVEL_INFO">
+<span id="_CPPv317NT_LOG_LEVEL_INFO"></span><span id="_CPPv217NT_LOG_LEVEL_INFO"></span><span id="NT_LOG_LEVEL_INFO__s"></span><span class="target" id="logging_8hpp_1a411567ebd7a9e93ae808721aa2ace1f1"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NT_LOG_LEVEL_INFO</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">2</span></span><a class="headerlink" href="#_CPPv417NT_LOG_LEVEL_INFO" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv420NT_LOG_LEVEL_WARNING">
+<span id="_CPPv320NT_LOG_LEVEL_WARNING"></span><span id="_CPPv220NT_LOG_LEVEL_WARNING"></span><span id="NT_LOG_LEVEL_WARNING__s"></span><span class="target" id="logging_8hpp_1a5fca4fe70ef3d27e497b40467ead9651"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NT_LOG_LEVEL_WARNING</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">3</span></span><a class="headerlink" href="#_CPPv420NT_LOG_LEVEL_WARNING" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv418NT_LOG_LEVEL_ERROR">
+<span id="_CPPv318NT_LOG_LEVEL_ERROR"></span><span id="_CPPv218NT_LOG_LEVEL_ERROR"></span><span id="NT_LOG_LEVEL_ERROR__s"></span><span class="target" id="logging_8hpp_1a7d55ca52c9ce514aa92601fcc3d7381e"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NT_LOG_LEVEL_ERROR</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">4</span></span><a class="headerlink" href="#_CPPv418NT_LOG_LEVEL_ERROR" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv419NT_LOG_LEVEL_SILENT">
+<span id="_CPPv319NT_LOG_LEVEL_SILENT"></span><span id="_CPPv219NT_LOG_LEVEL_SILENT"></span><span id="NT_LOG_LEVEL_SILENT__s"></span><span class="target" id="logging_8hpp_1adaba7e36daf28e4268aca58d8f4db07f"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NT_LOG_LEVEL_SILENT</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">5</span></span><a class="headerlink" href="#_CPPv419NT_LOG_LEVEL_SILENT" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv415runtimeLogLevel">
+<span id="_CPPv315runtimeLogLevel"></span><span id="_CPPv215runtimeLogLevel"></span><span id="runtimeLogLevel__spdlog::level::level_enumC"></span><span class="target" id="logging_8hpp_1ae2c409c2be5c3ae6132ded33a291bcbe"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">spdlog</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">level_enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">runtimeLogLevel</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">spdlog</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">trace</span></span><a class="headerlink" href="#_CPPv415runtimeLogLevel" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv49ntlogging">
+<span id="_CPPv39ntlogging"></span><span id="_CPPv29ntlogging"></span><span id="ntlogging"></span><span class="target" id="namespacentlogging"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ntlogging</span></span></span><a class="headerlink" href="#_CPPv49ntlogging" title="Link to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N9ntlogging13setup_loggingEv">
+<span id="_CPPv3N9ntlogging13setup_loggingEv"></span><span id="_CPPv2N9ntlogging13setup_loggingEv"></span><span id="ntlogging::setup_logging"></span><span class="target" id="logging_8hpp_1a8e555baca1df77c6d0b28b4fc3df19fd"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setup_logging</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9ntlogging13setup_loggingEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Set up the logger at runtime, should only be invoked once the very first time any of the logging macros below are called. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-variables">Variables</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N9ntlogging16logLevelOnceFlagE">
+<span id="_CPPv3N9ntlogging16logLevelOnceFlagE"></span><span id="_CPPv2N9ntlogging16logLevelOnceFlagE"></span><span id="ntlogging::logLevelOnceFlag__std::once_flag"></span><span class="target" id="logging_8hpp_1aafc44862e3f3857ca8276601f1d0c67d"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">once_flag</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">logLevelOnceFlag</span></span></span><a class="headerlink" href="#_CPPv4N9ntlogging16logLevelOnceFlagE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="instrumentation_8hpp.html" class="btn btn-neutral float-left" title="File instrumentation.hpp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nuTens-pch_8hpp.html" class="btn btn-neutral float-right" title="File nuTens-pch.hpp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Ewan Miller.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

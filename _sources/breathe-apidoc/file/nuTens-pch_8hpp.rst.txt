@@ -1,0 +1,4 @@
+File nuTens-pch.hpp
+===================
+
+.. doxygenfile:: nuTens-pch.hpp

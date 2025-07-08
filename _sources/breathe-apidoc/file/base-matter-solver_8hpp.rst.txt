@@ -1,0 +1,4 @@
+File base-matter-solver.hpp
+===========================
+
+.. doxygenfile:: base-matter-solver.hpp

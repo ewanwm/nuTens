@@ -1,0 +1,5 @@
+Class Tensor
+============
+
+.. doxygenclass:: Tensor
+   :members:

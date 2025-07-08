@@ -1,0 +1,4 @@
+File propagator.cpp
+===================
+
+.. doxygenfile:: propagator.cpp

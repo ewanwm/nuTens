@@ -1,0 +1,5 @@
+Struct ProfileResult
+====================
+
+.. doxygenstruct:: ProfileResult
+   :members:

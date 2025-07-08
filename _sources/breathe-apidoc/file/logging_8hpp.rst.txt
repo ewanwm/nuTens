@@ -1,0 +1,4 @@
+File logging.hpp
+================
+
+.. doxygenfile:: logging.hpp

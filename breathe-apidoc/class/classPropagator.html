@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class Propagator &mdash; nuTens  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Class Tensor" href="classTensor.html" />
+    <link rel="prev" title="Class ConstDensityMatterSolver" href="classConstDensityMatterSolver.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/nuTens-logo-small.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">🚀 Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">🖥️ For Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Profiling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📖 References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../cpp-api.html">c++ API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../classlist.html">Class list</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="classBaseMatterSolver.html">Class BaseMatterSolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classConstDensityMatterSolver.html">Class ConstDensityMatterSolver</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Class Propagator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv410Propagator"><code class="docutils literal notranslate"><span class="pre">Propagator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="classTensor.html">Class Tensor</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../filelist.html">File list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../namespacelist.html">Namespace list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structlist.html">Struct list</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../python-api.html">Python API 🐍</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ewanwm/nuTens">GitHub 🔗</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nuTens</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../cpp-api.html">c++ API</a></li>
+          <li class="breadcrumb-item"><a href="../classlist.html">Class list</a></li>
+      <li class="breadcrumb-item active">Class Propagator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/breathe-apidoc/class/classPropagator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-propagator">
+<h1>Class Propagator<a class="headerlink" href="#class-propagator" title="Link to this heading"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv410Propagator">
+<span id="_CPPv310Propagator"></span><span id="_CPPv210Propagator"></span><span id="Propagator"></span><span class="target" id="classPropagator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Propagator</span></span></span><a class="headerlink" href="#_CPPv410Propagator" title="Link to this definition"></a><br /></dt>
+<dd><p>Neutrino oscillation probability calculator. </p>
+<p>This class is used to propagate neutrinos over some baseline and calculate the probability that they will oscillate to another flavour. A <a class="reference internal" href="../file/propagator_8hpp.html#classPropagator"><span class="std std-ref">Propagator</span></a> can be configured using the Setters by assigning parameters (neutrino masses and PMNS matrix elements). You can assign a matter solver (a derivative of <a class="reference internal" href="../file/base-matter-solver_8hpp.html#classBaseMatterSolver"><span class="std std-ref">BaseMatterSolver</span></a>) to deal with matter effects using <a class="reference internal" href="../file/propagator_8hpp.html#classPropagator_1a54d978f6a699c15b9b99bc858265bcbd"><span class="std std-ref">setMatterSolver()</span></a>. <a class="reference internal" href="../file/propagator_8hpp.html#classPropagator_1a87b59371bafcef272c515cdd5c7accf7"><span class="std std-ref">calculateProbs()</span></a> can then be used to calculate energy dependent oscillation probabilities.</p>
+<p>(The specifics of this interface may change in the future) </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-setters">Setters</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Propagator15setMatterSolverERNSt10shared_ptrI16BaseMatterSolverEE">
+<span id="_CPPv3N10Propagator15setMatterSolverERNSt10shared_ptrI16BaseMatterSolverEE"></span><span id="_CPPv2N10Propagator15setMatterSolverERNSt10shared_ptrI16BaseMatterSolverEE"></span><span id="Propagator::setMatterSolver__std::shared_ptr:BaseMatterSolver:R"></span><span class="target" id="classPropagator_1a54d978f6a699c15b9b99bc858265bcbd"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setMatterSolver</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="classBaseMatterSolver.html#_CPPv416BaseMatterSolver" title="BaseMatterSolver"><span class="n"><span class="pre">BaseMatterSolver</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newSolver</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Propagator15setMatterSolverERNSt10shared_ptrI16BaseMatterSolverEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Set a matter solver to use to deal with matter effects. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newSolver</strong> – A derivative of <a class="reference internal" href="../file/base-matter-solver_8hpp.html#classBaseMatterSolver"><span class="std std-ref">BaseMatterSolver</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Propagator11setEnergiesER6Tensor">
+<span id="_CPPv3N10Propagator11setEnergiesER6Tensor"></span><span id="_CPPv2N10Propagator11setEnergiesER6Tensor"></span><span id="Propagator::setEnergies__TensorR"></span><span class="target" id="classPropagator_1a7f13ac54f65aa80dd9548a6871b7ec87"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setEnergies</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newEnergies</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Propagator11setEnergiesER6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Set the neutrino energies. </p>
+<p><dl>
+<dt class="sig sig-object cpp">
+<em><span class="pre">Todo:</span></em></dt>
+<dd><p>Should add a check to tensors supplied to the setters to see how many dimensions they have, and if missing a batch dimension, add one. </p>
+</dd></dl>
+
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newEnergies</strong> – The neutrino energies </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Propagator9setMassesER6Tensor">
+<span id="_CPPv3N10Propagator9setMassesER6Tensor"></span><span id="_CPPv2N10Propagator9setMassesER6Tensor"></span><span id="Propagator::setMasses__TensorR"></span><span class="target" id="classPropagator_1a7dbf99562e01684d1fb2fc6d8d82d092"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setMasses</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newMasses</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Propagator9setMassesER6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Set the masses corresponding to the vacuum hamiltonian eigenstates. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newMasses</strong> – The new masses to use. This tensor is expected to have a batch dimension + 1 more dimensions of size nGenerations. The batch dimension can (and probably should) be 1 and it will be broadcast to match the batch dimension of the energies supplied to <a class="reference internal" href="../file/propagator_8hpp.html#classPropagator_1a87b59371bafcef272c515cdd5c7accf7"><span class="std std-ref">calculateProbs()</span></a>. So dimension should be {1, nGenerations}. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Propagator7setPMNSER6Tensor">
+<span id="_CPPv3N10Propagator7setPMNSER6Tensor"></span><span id="_CPPv2N10Propagator7setPMNSER6Tensor"></span><span id="Propagator::setPMNS__TensorR"></span><span class="target" id="classPropagator_1a6e5049282d330df4ee4fb620f48cf100"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPMNS</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newPMNS</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Propagator7setPMNSER6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Set a whole new PMNS matrix. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newPMNS</strong> – The new matrix to use </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Propagator7setPMNSERKNSt6vectorIiEEf">
+<span id="_CPPv3N10Propagator7setPMNSERKNSt6vectorIiEEf"></span><span id="_CPPv2N10Propagator7setPMNSERKNSt6vectorIiEEf"></span><span id="Propagator::setPMNS__std::vector:i:CR.float"></span><span class="target" id="classPropagator_1a4e14aadddb0950a471a3ccf6d7b48542"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPMNS</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">indices</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Propagator7setPMNSERKNSt6vectorIiEEf" title="Link to this definition"></a><br /></dt>
+<dd><p>Set a single element of the PMNS matrix. </p>
+<p><dl>
+<dt class="sig sig-object cpp">
+<em><span class="pre">Todo:</span></em></dt>
+<dd><p>add <a class="reference internal" href="../file/propagator_8hpp.html#classPropagator_1a4e14aadddb0950a471a3ccf6d7b48542"><span class="std std-ref">setPMNS(const std::vector&lt;int&gt; &amp;indices, float value)</span></a> methods to <a class="reference internal" href="../file/base-matter-solver_8hpp.html#classBaseMatterSolver"><span class="std std-ref">BaseMatterSolver</span></a>? maybe have these setters in a base class of both <a class="reference internal" href="../file/propagator_8hpp.html#classPropagator"><span class="std std-ref">Propagator</span></a> and <a class="reference internal" href="../file/base-matter-solver_8hpp.html#classBaseMatterSolver"><span class="std std-ref">BaseMatterSolver</span></a> ?? </p>
+</dd></dl>
+
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indices</strong> – The index of the value to set </p></li>
+<li><p><strong>value</strong> – The new value </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Propagator7setPMNSERKNSt6vectorIiEENSt7complexIfEE">
+<span id="_CPPv3N10Propagator7setPMNSERKNSt6vectorIiEENSt7complexIfEE"></span><span id="_CPPv2N10Propagator7setPMNSERKNSt6vectorIiEENSt7complexIfEE"></span><span id="Propagator::setPMNS__std::vector:i:CR.std::complex:float:"></span><span class="target" id="classPropagator_1a80e17853b6ca83a5efca374cf81ccd36"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPMNS</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">indices</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Propagator7setPMNSERKNSt6vectorIiEENSt7complexIfEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Set a single element of the PMNS matrix. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indices</strong> – The index of the value to set </p></li>
+<li><p><strong>value</strong> – The new value </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Propagator10PropagatorEif">
+<span id="_CPPv3N10Propagator10PropagatorEif"></span><span id="_CPPv2N10Propagator10PropagatorEif"></span><span id="Propagator::Propagator__i.float"></span><span class="target" id="classPropagator_1af935ff4cd179591258d1ce28a95e521e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Propagator</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nGenerations</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">baseline</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Propagator10PropagatorEif" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nGenerations</strong> – The number of generations the propagator should expect </p></li>
+<li><p><strong>baseline</strong> – The baseline to propagate over </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Propagator14calculateProbsEv">
+<span id="_CPPv3N10Propagator14calculateProbsEv"></span><span id="_CPPv2N10Propagator14calculateProbsEv"></span><span id="Propagator::calculateProbs"></span><span class="target" id="classPropagator_1a87b59371bafcef272c515cdd5c7accf7"></span><a class="reference internal" href="classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">calculateProbs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Propagator14calculateProbsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Calculate the oscillation probabilities. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>energies</strong> – The energies of the neutrinos </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classConstDensityMatterSolver.html" class="btn btn-neutral float-left" title="Class ConstDensityMatterSolver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classTensor.html" class="btn btn-neutral float-right" title="Class Tensor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Ewan Miller.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
