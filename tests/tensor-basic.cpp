@@ -17,19 +17,19 @@ int main()
 
     std::cout << "########################################" << std::endl;
     std::cout << "Float: " << std::endl;
-    Tensor tensorFloat = Tensor::zeros({3, 3}, NTdtypes::kDouble).dType(NTdtypes::kFloat).device(NTdtypes::kCPU);
-    tensorFloat.setValue({0, 0}, 0.0);
-    tensorFloat.setValue({0, 1}, 1.0);
-    tensorFloat.setValue({0, 2}, 2.0);
-
-    tensorFloat.setValue({1, 0}, 3.0);
-    tensorFloat.setValue({1, 1}, 4.0);
-    tensorFloat.setValue({1, 2}, 5.0);
-
-    tensorFloat.setValue({2, 0}, 6.0);
-    tensorFloat.setValue({2, 1}, 7.0);
-    tensorFloat.setValue({2, 2}, 8.0);
-    std::cout << "real: " << std::endl << tensorFloat.real() << std::endl;
+    auto tensorFloat = AccessedTensor<double, 2, NTdtypes::kCPU>::zeros({3, 3}, false);
+    tensorFloat.setValue(0.0, 0, 0);
+    tensorFloat.setValue(1.0, 0, 1);
+    tensorFloat.setValue(2.0, 0, 2);
+    
+    tensorFloat.setValue(3.0, 1, 0);
+    tensorFloat.setValue(4.0, 1, 1);
+    tensorFloat.setValue(5.0, 1, 2);
+    
+    tensorFloat.setValue(6.0, 2, 0);
+    tensorFloat.setValue(7.0, 2, 1);
+    tensorFloat.setValue(8.0, 2, 2);
+    std::cout << "tensor: " << std::endl << tensorFloat << std::endl;
     std::cout << "Middle value: " << tensorFloat.getValue<float>({1, 1}) << std::endl;
     std::cout << "tensorFloat({'...', 1}) = " << tensorFloat.getValues({1, "..."}) << std::endl;
 
