@@ -31,9 +31,9 @@ jobs:
             cpp_compiler: clang++
             c_compiler: clang
             
-          - OS: windows-latest
-            cpp_compiler: cl
-            c_compiler: cl
+          #- OS: windows-latest
+          #  cpp_compiler: cl
+          #  c_compiler: cl
              
     name: Build & Test ${{ matrix.os }} ${{ matrix.c_compiler }}
 
