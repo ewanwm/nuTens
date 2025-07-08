@@ -1,0 +1,64 @@
+name: Doxygen GitHub Pages Deploy Action
+
+# Builds documentation using doxygen, breathe, and sphinx
+# Then deploys them to github pages
+
+defaults:
+  run:
+    shell: bash
+    working-directory: ./doc
+
+# Needed to be able to commit to the gh-pages branch
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive
+          sudo apt-get install -y libjs-mathjax
+          sudo apt-get install -y doxygen
+          sudo apt-get install -y graphviz
+          sudo apt-get install -y protobuf-compiler
+
+      # Need to install nuTens in order for sphinx autodoc to pick it up
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v4
+        with:
+          path: "../PyTorch_requirements.txt"
+
+      - name: Build and install
+        run: pip install --verbose ..[docs]
+
+      # first need to create the xmls using doxygen
+      - name: Build Doxygen files
+        run: doxygen doxygen.config
+
+      # generate the c++ API rst files from the doxygen XMLs
+      - name: breathe-apidoc
+        run: breathe-apidoc -o source/breathe-apidoc/ -m source/doxygen/xml/
+
+      # Now build the sphinx docs
+      - name: Build Sphinx files
+        run: sphinx-build -M html source build
+
+      # Deploys the generated documentation to GitHub Pages
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/html
