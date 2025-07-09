@@ -83,7 +83,8 @@ propagator.set_masses(masses)
 #propagator.set_matter_solver(matter_solver)
 
 ## run!
-probabilities = propagator.calculate_probabilities(energies)
+propagator.set_energies(energies)
+probabilities = propagator.calculate_probabilities()
 
 ## print out some test values
 prob_sum = tensor.scale(tensor.sum(probabilities, [0]), 1.0 / float(N_ENERGIES))
@@ -107,6 +108,8 @@ mu_survival_prob_list = []
 tau_survival_prob_list = []
 
 mu_to_e_prob_list = []
+mu_to_tau_prob_list = []
+mu_total_prob_list = []
 
 for i in range(N_ENERGIES):
     energy_list.append(energies.get_value([i, 0]))
@@ -115,6 +118,13 @@ for i in range(N_ENERGIES):
     tau_survival_prob_list.append(probabilities.get_value([i, 2, 2]))
 
     mu_to_e_prob_list.append(probabilities.get_value([i, 1, 0]))
+    mu_to_tau_prob_list.append(probabilities.get_value([i, 1, 2]))
+
+    mu_total_prob_list.append(
+        probabilities.get_value([i, 1, 0]) +
+        probabilities.get_value([i, 1, 1]) + 
+        probabilities.get_value([i, 1, 2])
+    )
 
 plt.plot(energy_list, e_survival_prob_list, label = "electron")
 plt.plot(energy_list, mu_survival_prob_list, label = "muon")
@@ -127,6 +137,9 @@ plt.savefig("survival_probs.png")
 
 plt.clf()
 plt.plot(energy_list, mu_to_e_prob_list, label = "numu -> nue")
+plt.plot(energy_list, mu_to_tau_prob_list, label = "numu -> nutau")
+plt.plot(energy_list, mu_survival_prob_list, label = "numu -> numu")
+plt.plot(energy_list, mu_total_prob_list, label = "Total")
 plt.xlabel("Energy [MeV]")
 plt.ylabel("Oscillation probability")
 plt.legend()
