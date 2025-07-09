@@ -4,7 +4,7 @@
 <img src="nuTens-logo.png" alt="nuTens"  align="right" width="400"/>
 
 
-nuTens is a software library which uses [tensors](https://en.wikipedia.org/wiki/Tensor_(machine_learning)) to efficiently calculate neutrino oscillation probabilities. 
+nuTens is a software library which uses [tensors](https://en.wikipedia.org/wiki/Tensor_(machine_learning)) to efficiently calculate neutrino oscillation probabilities in a fast, flexible, and differentiable way. 
 
 [![CI badge](https://github.com/ewanwm/nuTens/actions/workflows/CI-cpp.yml/badge.svg)](https://github.com/ewanwm/nuTens/actions/workflows/CI-cpp.yml)
 [![pip](https://github.com/ewanwm/nuTens/actions/workflows/CI-Python.yaml/badge.svg)](https://github.com/ewanwm/nuTens/actions/workflows/CI-Python.yaml)
