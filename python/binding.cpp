@@ -131,6 +131,8 @@ void initPropagator(py::module &m)
         .def("set_matter_solver", &Propagator::setMatterSolver,
              "Set the matter effect solver that the propagator should use")
         .def("set_masses", &Propagator::setMasses, "Set the neutrino mass state eigenvalues")
+        .def("set_energies", py::overload_cast<Tensor &>(&Propagator::setEnergies),
+             "Set the neutrino energies that the propagator should use")
         .def("set_PMNS", py::overload_cast<Tensor &>(&Propagator::setPMNS),
              "Set the PMNS matrix that the propagator should use")
         .def("set_PMNS", py::overload_cast<const std::vector<int> &, float>(&Propagator::setPMNS),
