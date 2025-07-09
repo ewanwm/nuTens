@@ -1,13 +1,19 @@
 
 <a name="nutens"></a>
 # nuTens  
-<img src="nuTens-logo.png" alt="nuTens"  align="right" width="400"/>
+<img src="nuTens-logo.png" alt="nuTens"  align="right" width="700"/>
 
 
 nuTens is a software library which uses [tensors](https://en.wikipedia.org/wiki/Tensor_(machine_learning)) to efficiently calculate neutrino oscillation probabilities in a fast, flexible, and differentiable way. 
 
+[![GitHub Release](https://img.shields.io/github/v/release/ewanwm/nuTens?color=blue)](https://github.com/ewanwm/nuTens/releases)
+[![PyPI - Version](https://img.shields.io/pypi/v/nuTens?color=blue)](https://pypi.org/project/nuTens/)
+[![GitHub License](https://img.shields.io/github/license/ewanwm/nuTens?color=green)](https://github.com/ewanwm/nuTens/blob/main/LICENSE)
+
+
 [![CI badge](https://github.com/ewanwm/nuTens/actions/workflows/CI-cpp.yml/badge.svg)](https://github.com/ewanwm/nuTens/actions/workflows/CI-cpp.yml)
 [![pip](https://github.com/ewanwm/nuTens/actions/workflows/CI-Python.yaml/badge.svg)](https://github.com/ewanwm/nuTens/actions/workflows/CI-Python.yaml)
+
 [![test - coverage](https://codecov.io/github/ewanwm/nuTens/graph/badge.svg?token=PJ8C8CX37O)](https://codecov.io/github/ewanwm/nuTens)
 [![cpp - linter](https://github.com/ewanwm/nuTens/actions/workflows/Lint-cpp.yaml/badge.svg)](https://github.com/ewanwm/nuTens/actions/workflows/Lint-cpp.yaml)
 
