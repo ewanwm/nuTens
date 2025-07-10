@@ -12,6 +12,7 @@
 #include <nuTens/propagator/units.hpp>
 #include <nuTens/tensors/dtypes.hpp>
 #include <nuTens/tensors/tensor.hpp>
+#include <tests/barger-propagator.hpp>
 
 namespace py = pybind11;
 
@@ -19,6 +20,7 @@ void initTensor(py::module & /*m*/);
 void initPropagator(py::module & /*m*/);
 void initDtypes(py::module & /*m*/);
 void initUnits(py::module & /*m*/);
+void initTesting(py::module & /*m*/);
 
 // initialise the top level module "_pyNuTens"
 // NOLINTNEXTLINE
@@ -29,11 +31,12 @@ PYBIND11_MODULE(_pyNuTens, m)
     initPropagator(m);
     initDtypes(m);
     initUnits(m);
+    initTesting(m);
 
 #ifdef VERSION_INFO
-    m.attr("__version__") = Py_STRINGIFY(VERSION_INFO);
+     m.attr("__version__") = Py_STRINGIFY(VERSION_INFO);
 #else
-    m.attr("__version__") = "dev";
+     m.attr("__version__") = "dev";
 #endif
 }
 
@@ -125,7 +128,7 @@ void initTensor(py::module &m)
 
 void initPropagator(py::module &m)
 {
-    auto m_propagator = m.def_submodule("propagator");
+     auto m_propagator = m.def_submodule("propagator");
 
     py::class_<Propagator>(m_propagator, "Propagator")
         .def(py::init<int, float>())
@@ -154,9 +157,9 @@ void initPropagator(py::module &m)
             "calculate the eigenvalues of the Hamiltonian")
         ;
 
-    py::class_<ConstDensityMatterSolver, std::shared_ptr<ConstDensityMatterSolver>, BaseMatterSolver>(
-        m_propagator, "ConstDensitySolver")
-        .def(py::init<int, float>());
+     py::class_<ConstDensityMatterSolver, std::shared_ptr<ConstDensityMatterSolver>, BaseMatterSolver>(
+          m_propagator, "ConstDensitySolver")
+          .def(py::init<int, float>());
 }
 
 void initDtypes(py::module &m)
@@ -169,14 +172,12 @@ void initDtypes(py::module &m)
         .value("double", NTdtypes::scalarType::kDouble)
         .value("complex_float", NTdtypes::scalarType::kComplexFloat)
         .value("complex_double", NTdtypes::scalarType::kComplexDouble)
-
-        ;
+    ;
 
     py::enum_<NTdtypes::deviceType>(m_dtypes, "device_type")
         .value("cpu", NTdtypes::deviceType::kCPU)
         .value("gpu", NTdtypes::deviceType::kGPU)
-
-        ;
+    ;
 }
 
 void initUnits(py::module &m)
@@ -190,5 +191,33 @@ void initUnits(py::module &m)
     m_units.attr("cm") = py::float_(Units::cm);
     m_units.attr("m")  = py::float_(Units::m);
     m_units.attr("km") = py::float_(Units::km);
+    
+}
 
+void initTesting(py::module &m)
+{
+    auto m_testing = m.def_submodule("testing");
+
+    py::class_<Testing::TwoFlavourBarger>(m_testing, "TwoFlavourBarger")
+        .def(py::init<>())
+        .def("set_params", &Testing::TwoFlavourBarger::setParams, 
+            py::arg("m1"), py::arg("m2"), py::arg("theta"), py::arg("baseline"), py::arg("density") = (float)-999.9
+        )
+        .def("calculate_effective_angle", &Testing::TwoFlavourBarger::calculateEffectiveAngle,
+            py::arg("energy"),
+            "Calculates the effective mixing angle, alpha, in matter"
+        )
+        .def("calculate_effective_dm2", &Testing::TwoFlavourBarger::calculateEffectiveDm2,
+            "Calculates the effective delta m^2 in matter",
+            py::arg("energy")
+        )
+        .def("get_PMNS_element", &Testing::TwoFlavourBarger::getPMNSelement,
+            "Calculates the effective i,j-th element of the mizing matrix for a given energy",
+            py::arg("energy"), py::arg("i"), py::arg("j")
+        )
+        .def("calculate_prob", &Testing::TwoFlavourBarger::calculateProb,
+            "Calculate probability of transitioning from state i to state j for a given energy",
+            py::arg("energy"), py::arg("i"), py::arg("j")
+        )
+    ;
 }

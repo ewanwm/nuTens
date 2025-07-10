@@ -63,8 +63,8 @@ PMNS = build_PMNS(theta12, theta13, theta23, deltaCP)
 masses = nt.tensor.zeros([1,3], nt.dtype.scalar_type.float, nt.dtype.device_type.cpu, True)
 
 masses.set_value([0,0], 0.0)
-masses.set_value([0,1], 0.00868)
-masses.set_value([0,2], 0.0501)
+masses.set_value([0,1], 0.00868e-3)
+masses.set_value([0,2], 0.0501e-3)
 
 ## print info about the parameters
 print("PMNS: ")
@@ -75,12 +75,10 @@ print(masses.to_string())
 print()
 
 ## set up the propagator object
-propagator = nt.propagator.Propagator(3, 295000.0)
-matter_solver = nt.propagator.ConstDensitySolver(3, 2.79)
+propagator = nt.propagator.Propagator(3, 23.79e12)#295000.0)
 
 propagator.set_PMNS(PMNS)
 propagator.set_masses(masses)
-#propagator.set_matter_solver(matter_solver)
 
 ## run!
 propagator.set_energies(energies)
