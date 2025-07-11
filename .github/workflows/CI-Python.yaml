@@ -37,5 +37,7 @@ jobs:
     - name: Build and install
       run: pip install --verbose .
 
-    #- name: Test
-    #  run: pytest
+    - name: Test
+      run: |
+         pip install pytest
+         pytest tests/python/*.py
