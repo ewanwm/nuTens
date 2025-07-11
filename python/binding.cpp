@@ -9,6 +9,7 @@
 // nuTens stuff
 #include <nuTens/propagator/const-density-solver.hpp>
 #include <nuTens/propagator/propagator.hpp>
+#include <nuTens/propagator/units.hpp>
 #include <nuTens/tensors/dtypes.hpp>
 #include <nuTens/tensors/tensor.hpp>
 
@@ -17,6 +18,7 @@ namespace py = pybind11;
 void initTensor(py::module & /*m*/);
 void initPropagator(py::module & /*m*/);
 void initDtypes(py::module & /*m*/);
+void initUnits(py::module & /*m*/);
 
 // initialise the top level module "_pyNuTens"
 // NOLINTNEXTLINE
@@ -26,6 +28,7 @@ PYBIND11_MODULE(_pyNuTens, m)
     initTensor(m);
     initPropagator(m);
     initDtypes(m);
+    initUnits(m);
 
 #ifdef VERSION_INFO
     m.attr("__version__") = Py_STRINGIFY(VERSION_INFO);
@@ -46,27 +49,27 @@ void initTensor(py::module &m)
         .def("dtype", &Tensor::dType, py::return_value_policy::reference, "Set the data type of the tensor")
         .def("device", &Tensor::device, py::return_value_policy::reference, "Set the device that the tensor lives on")
         .def("requires_grad", &Tensor::requiresGrad, py::return_value_policy::reference,
-             "Set Whether or not this tensor requires gradient to be calculated")
+            "Set Whether or not this tensor requires gradient to be calculated")
         .def("has_batch_dim", &Tensor::getHasBatchDim,
-             "Check Whether or not the first dimension should be interpreted as a batch dim for this tensor")
+            "Check Whether or not the first dimension should be interpreted as a batch dim for this tensor")
         .def("has_batch_dim", &Tensor::hasBatchDim, py::return_value_policy::reference,
-             "Set Whether or not the first dimension should be interpreted as a batch dim for this tensor")
+            "Set Whether or not the first dimension should be interpreted as a batch dim for this tensor")
 
         // utilities
         .def("to_string", &Tensor::toString, "print out a summary of this tensor to a string")
         .def("add_batch_dim", &Tensor::addBatchDim, py::return_value_policy::reference,
-             "Add a batch dimension to the start of this tensor if it doesn't have one already")
+            "Add a batch dimension to the start of this tensor if it doesn't have one already")
 
         // setters
         .def("set_value", py::overload_cast<const Tensor &, const Tensor &>(&Tensor::setValue),
-             "Set a value at a specific index of this tensor")
+            "Set a value at a specific index of this tensor")
         .def("set_value",
-             py::overload_cast<const std::vector<std::variant<int, std::string>> &, const Tensor &>(&Tensor::setValue),
-             "Set a value at a specific index of this tensor")
+            py::overload_cast<const std::vector<std::variant<int, std::string>> &, const Tensor &>(&Tensor::setValue),
+            "Set a value at a specific index of this tensor")
         .def("set_value", py::overload_cast<const std::vector<int> &, float>(&Tensor::setValue),
-             "Set a value at a specific index of this tensor")
+            "Set a value at a specific index of this tensor")
         .def("set_value", py::overload_cast<const std::vector<int> &, std::complex<float>>(&Tensor::setValue),
-             "Set a value at a specific index of this tensor")
+            "Set a value at a specific index of this tensor")
 
         // getters
         .def("get_shape", &Tensor::getShape, "Get the shape of this tensor")
@@ -82,7 +85,7 @@ void initTensor(py::module &m)
 
         // gradient stuff
         .def("backward", &Tensor::backward, py::call_guard<py::gil_scoped_release>(),
-             "Do the backward propagation from this tensor")
+            "Do the backward propagation from this tensor")
         .def("grad", &Tensor::grad, "Get the accumulated gradient stored in this tensor after calling backward()")
 
         // operator overloads
@@ -108,14 +111,14 @@ void initTensor(py::module &m)
     m_tensor.def("transpose", &Tensor::transpose, "Get the matrix transpose");
     m_tensor.def("scale", py::overload_cast<const Tensor &, float>(&Tensor::scale), "Scalar multiplication");
     m_tensor.def("scale", py::overload_cast<const Tensor &, std::complex<float>>(&Tensor::scale),
-                 "Scalar multiplication");
+                "Scalar multiplication");
     m_tensor.def("sin", &Tensor::sin, "Element-wise trigonometric sine function");
     m_tensor.def("cos", &Tensor::cos, "Element-wise trigonometric cosine function");
     m_tensor.def("sum", py::overload_cast<const Tensor &>(&Tensor::sum), "Get the sum of all values in a tensor");
     m_tensor.def("sum", py::overload_cast<const Tensor &, const std::vector<long int> &>(&Tensor::sum),
-                 "Get the sum of all values in a tensor");
+                "Get the sum of all values in a tensor");
     m_tensor.def("cumsum", py::overload_cast<const Tensor &, int>(&Tensor::cumsum),
-                 "Get the cumulative sum over some dimension");
+                "Get the cumulative sum over some dimension");
     // m_tensor.def("eig", &Tensor::eig. "calculate eigenvalues") <- Will need to define some additional fn to return
     // tuple of values
 }
@@ -127,20 +130,29 @@ void initPropagator(py::module &m)
     py::class_<Propagator>(m_propagator, "Propagator")
         .def(py::init<int, float>())
         .def("calculate_probabilities", &Propagator::calculateProbs,
-             "Calculate the oscillation probabilities for neutrinos of specified energies")
+            "Calculate the oscillation probabilities for neutrinos of specified energies")
         .def("set_matter_solver", &Propagator::setMatterSolver,
-             "Set the matter effect solver that the propagator should use")
+            "Set the matter effect solver that the propagator should use")
         .def("set_masses", &Propagator::setMasses, "Set the neutrino mass state eigenvalues")
         .def("set_energies", py::overload_cast<Tensor &>(&Propagator::setEnergies),
-             "Set the neutrino energies that the propagator should use")
+            "Set the neutrino energies that the propagator should use")
         .def("set_PMNS", py::overload_cast<Tensor &>(&Propagator::setPMNS),
-             "Set the PMNS matrix that the propagator should use")
+            "Set the PMNS matrix that the propagator should use")
         .def("set_PMNS", py::overload_cast<const std::vector<int> &, float>(&Propagator::setPMNS),
-             "Set the PMNS matrix that the propagator should use")
+            "Set the PMNS matrix that the propagator should use")
         .def("set_PMNS", py::overload_cast<const std::vector<int> &, std::complex<float>>(&Propagator::setPMNS),
-             "Set the PMNS matrix that the propagator should use");
+            "Set the PMNS matrix that the propagator should use");
 
-    py::class_<BaseMatterSolver, std::shared_ptr<BaseMatterSolver>>(m_propagator, "BaseSolver");
+    py::class_<BaseMatterSolver, std::shared_ptr<BaseMatterSolver>>(m_propagator, "BaseSolver")
+        .def("set_PMNS", &BaseMatterSolver::setPMNS,
+            "Set the PMNS matrix that the solver should use")
+        .def("set_energies", &BaseMatterSolver::setEnergies,
+            "Set the neutrino energies")
+        .def("set_masses", &BaseMatterSolver::setMasses,
+            "Set the neutrino masses the solver should use")
+        .def("calculate_eigenvalues", &BaseMatterSolver::calculateEigenvalues,
+            "calculate the eigenvalues of the Hamiltonian")
+        ;
 
     py::class_<ConstDensityMatterSolver, std::shared_ptr<ConstDensityMatterSolver>, BaseMatterSolver>(
         m_propagator, "ConstDensitySolver")
@@ -165,4 +177,18 @@ void initDtypes(py::module &m)
         .value("gpu", NTdtypes::deviceType::kGPU)
 
         ;
+}
+
+void initUnits(py::module &m)
+{
+    auto m_units = m.def_submodule("units");
+
+    m_units.attr("eV")  = py::float_(Units::eV);
+    m_units.attr("MeV") = py::float_(Units::MeV);
+    m_units.attr("GeV") = py::float_(Units::GeV);
+
+    m_units.attr("cm") = py::float_(Units::cm);
+    m_units.attr("m")  = py::float_(Units::m);
+    m_units.attr("km") = py::float_(Units::km);
+
 }
