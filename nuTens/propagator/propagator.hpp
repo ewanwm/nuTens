@@ -29,7 +29,7 @@ class Propagator
     /// @param nGenerations The number of generations the propagator should
     /// expect
     /// @param baseline The baseline to propagate over
-    Propagator(int nGenerations, float baseline) : _baseline(baseline), _nGenerations(nGenerations){};
+    inline Propagator(int nGenerations, float baseline) : _baseline(baseline), _nGenerations(nGenerations){};
 
     /// @name Setters
     /// @{
@@ -49,7 +49,7 @@ class Propagator
 
     /// @brief Set the neutrino energies
     /// @param newEnergies The neutrino energies
-    void setEnergies(Tensor &newEnergies)
+    inline void setEnergies(Tensor &newEnergies)
     {
         NT_PROFILE();
 
@@ -70,7 +70,7 @@ class Propagator
     /// dimension can (and probably should) be 1 and it will be broadcast to
     /// match the batch dimension of the energies supplied to calculateProbs().
     /// So dimension should be {1, nGenerations}.
-    void setMasses(Tensor &newMasses)
+    inline void setMasses(Tensor &newMasses)
     {
         NT_PROFILE();
 
