@@ -1,4 +1,3 @@
-import torch
 import nuTens as nt
 from nuTens import tensor
 from nuTens.tensor import Tensor
@@ -76,9 +75,13 @@ print()
 
 ## set up the propagator object
 propagator = nt.propagator.Propagator(3, 295.0 * nt.units.km)
+matter_solver = nt.propagator.ConstDensitySolver(3, 2.79)
 
 propagator.set_PMNS(PMNS)
 propagator.set_masses(masses)
+
+## uncomment for matter oscillations
+#propagator.set_matter_solver(matter_solver)
 
 ## run!
 propagator.set_energies(energies)
@@ -144,5 +147,5 @@ axs[1].set_xlabel("Energy [GeV]")
 axs[0].legend()
 axs[1].legend()
 fig.suptitle("Three flavour oscillation probabilities")
-fig.supxlabel("Oscillation probability")
+fig.supylabel("Oscillation probability")
 fig.savefig("oscillation_probs.png")
