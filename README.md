@@ -66,6 +66,16 @@ cmake -DNT_ENABLE_PYTHON=ON <other options> <source dir>
 ```
 and doing `make && make install`
 
+### Known Issues
+
+When trying to run using the python interface you may get complaints relating to not being able to locate `libtorch.so` or `libtorch_cpu.so` library files. If so running
+
+```
+export LD_LIBRARY_PATH=`python3 -c 'import os;import torch;print(os.path.abspath(torch.__file__)[:-11])'`/lib:$LD_LIBRARY_PATH
+```
+
+should allow these files to be found
+
 
 
 ## Benchmarking
