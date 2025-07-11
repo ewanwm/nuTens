@@ -1,4 +1,5 @@
 #include <iostream>
+#include <nuTens/propagator/units.hpp>
 #include <tests/barger-propagator.hpp>
 #include <tests/test-utils.hpp>
 
@@ -77,34 +78,34 @@ int main()
     // ## Now test matter propagations for some fixed param values ##
     // ##############################################################
 
-    // theta = 0.24pi, m1 = 1.5, m2 = 1.7, E = 5, L = 6, density = 7
-    // lv = 4pi * E / dm^2 = 98.1747704247
-    // lm = 2pi / ( sqrt(2) * G * density ) = 5882.49338759
+    // theta = 0.24, m1 = 0.04eV, m2 = 0.001eV, E = 1GeV, L = 500km, density = 2
+    // lv = 4pi * E / dm^2 = 7.8588934e+12 
+    // lm = 2pi / ( sqrt(2) * G * density ) = 2.0588727e+13 
     // gamma = atan( sin( 2theta ) / (cos( 2theta ) - lv / lm) ) / 2.0
-    //       = atan(21.648602992) / 2 = 0.762318391 rad
+    //       = atan(0.91389598537 ) / 2 = 0.370219805 rad
     // dM2 = dm^2 * sqrt( 1 - 2 * (lv / lm) * cos(2theta) + (lv / lm)^2)
-    //     = 0.63941819056
+    //     = 0.00109453
     //
     // => prob_(alpha != beta) = sin^2(2*gamma) * sin^2((L / E) * dM2/4 )
-    //                         = 0.03627048316
-    //    prob_(alpha == beta) =      1 - 0.03627048316 = 0.96372951684
+    //                         = 0.186410
+    //    prob_(alpha == beta) =      1 - 0.186410  = 0.81359
 
-    bargerProp.setParams(/*m1=*/1.7, /*m2=*/1.5, /*theta=*/0.24 * M_PI,
-                         /*baseline=*/6.0, /*density=*/7.0);
+    bargerProp.setParams(/*m1=*/0.04, /*m2=*/0.001, /*theta=*/0.24,
+                         /*baseline=*/500.0 * Units::km, /*density=*/2.0);
 
-    TEST_EXPECTED(bargerProp.lv(5.0), 98.1747704247, "vacuum osc length", 0.00001)
+    TEST_EXPECTED(bargerProp.lv(1.0 * Units::GeV), 7.8588934e+12  , "vacuum osc length", 0.00001)
 
-    TEST_EXPECTED(bargerProp.lm(), 5882.49338759, "matter osc length", 0.00001)
+    TEST_EXPECTED(bargerProp.lm(), 2.0588727e+13 , "matter osc length", 0.00001)
 
-    TEST_EXPECTED(bargerProp.calculateEffectiveAngle(5.0), 0.762318391, "effective mixing angle", 0.00001)
+    TEST_EXPECTED(bargerProp.calculateEffectiveAngle(1.0 * Units::GeV), 0.370219805, "effective mixing angle", 0.00001)
 
-    TEST_EXPECTED(bargerProp.calculateEffectiveDm2(5.0), 0.63941819056, "effective m^2 diff", 0.00001)
+    TEST_EXPECTED(bargerProp.calculateEffectiveDm2(1.0 * Units::GeV), 0.00109453, "effective m^2 diff", 0.00001)
 
-    TEST_EXPECTED(bargerProp.calculateProb(5.0, 0, 0), 0.96372951684, "probability for alpha == beta == 0", 0.00001)
+    TEST_EXPECTED(bargerProp.calculateProb(1.0 * Units::GeV, 0, 0), 0.81359, "probability for alpha == beta == 0", 0.00001)
 
-    TEST_EXPECTED(bargerProp.calculateProb(5.0, 1, 1), 0.96372951684, "probability for alpha == beta == 1", 0.00001)
+    TEST_EXPECTED(bargerProp.calculateProb(1.0 * Units::GeV, 1, 1), 0.81359, "probability for alpha == beta == 1", 0.00001)
 
-    TEST_EXPECTED(bargerProp.calculateProb(5.0, 0, 1), 0.03627048316, "probability for alpha == 0, beta == 1", 0.00001)
+    TEST_EXPECTED(bargerProp.calculateProb(1.0 * Units::GeV, 0, 1), 0.186410, "probability for alpha == 0, beta == 1", 0.00001)
 
-    TEST_EXPECTED(bargerProp.calculateProb(5.0, 1, 0), 0.03627048316, "probability for alpha == 1, beta == 0", 0.00001)
+    TEST_EXPECTED(bargerProp.calculateProb(1.0 * Units::GeV, 1, 0), 0.186410, "probability for alpha == 1, beta == 0", 0.00001)
 }
