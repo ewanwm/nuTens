@@ -31,6 +31,8 @@ jobs:
       - name: Set Flags
         run: export USE_CUDA=0
   
+      - run: sudo apt update
+      
       - name: Install Protobuf
         run: sudo apt install protobuf-compiler
         
