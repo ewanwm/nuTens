@@ -203,9 +203,16 @@ void initTesting(py::module &m)
         .def("set_params", &Testing::TwoFlavourBarger::setParams, 
             py::arg("m1"), py::arg("m2"), py::arg("theta"), py::arg("baseline"), py::arg("density") = (float)-999.9
         )
+        .def("lv", &Testing::TwoFlavourBarger::lv,
+            "Calculates the vacuum oscillation length",
+            py::arg("energy")
+        )
+        .def("lm", &Testing::TwoFlavourBarger::lm,
+            "Calculates the matter oscillation length"
+        )
         .def("calculate_effective_angle", &Testing::TwoFlavourBarger::calculateEffectiveAngle,
-            py::arg("energy"),
-            "Calculates the effective mixing angle, alpha, in matter"
+            "Calculates the effective mixing angle, alpha, in matter",
+            py::arg("energy")
         )
         .def("calculate_effective_dm2", &Testing::TwoFlavourBarger::calculateEffectiveDm2,
             "Calculates the effective delta m^2 in matter",

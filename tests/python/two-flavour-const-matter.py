@@ -8,11 +8,11 @@ from nuTens.propagator import ConstDensitySolver
 class TestTwoFlavourConstMatter(unittest.TestCase):
 
     def test_compare_barger(self):
-        energy = 80.0
-        m1=0.1
-        m2=0.15
+        energy = 1.0 * nt.units.GeV
+        m1=0.0
+        m2=0.008 * nt.units.eV
         theta=0.88853
-        baseline=295000.0
+        baseline=295.0 * nt.units.km
         density=2.5
 
         barger = TwoFlavourBarger()
@@ -27,7 +27,6 @@ class TestTwoFlavourConstMatter(unittest.TestCase):
               f"p_10 ={barger.calculate_prob(energy, i=1, j=0)}, "
               f"p_11 ={barger.calculate_prob(energy, i=1, j=1)}, "
         )
-
 
         energy_tensor = tensor.ones([1, 1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
         energy_tensor.set_value([0, 0], energy)
@@ -52,9 +51,6 @@ class TestTwoFlavourConstMatter(unittest.TestCase):
 
         tensor_solver.calculate_eigenvalues(evecs, evals)
 
-        print(f"eigenvalues: {evals.to_string()}")
-        print(f"eigenvectors: {evecs.to_string()}")
-
         PMNSeff = tensor.matmul(PMNS, evecs)
 
         print(f"Tensor PMNS: \n{PMNSeff.to_string()}")
@@ -65,7 +61,6 @@ class TestTwoFlavourConstMatter(unittest.TestCase):
             f"{barger.get_PMNS_element(energy, i=1, j=0)}, "
             f"{barger.get_PMNS_element(energy, i=1, j=1)}, "
         )
-
 
         self.assertTrue(abs(PMNSeff.get_value([0, 0, 0]) - barger.get_PMNS_element(energy, i=0, j=0)) < 0.0001, 
                         f"ConstMatterSolver effectivePMNS[0,0] != barger PMNS")
