@@ -7,7 +7,7 @@ set_target_properties(units PROPERTIES LINKER_LANGUAGE CXX)
 
 add_library(
     propagator STATIC 
-    propagator.hpp propagator.cpp 
+    propagator.hpp
     const-density-solver.hpp const-density-solver.cpp
 )
 

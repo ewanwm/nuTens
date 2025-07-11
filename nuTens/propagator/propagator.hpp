@@ -31,10 +31,6 @@ class Propagator
     /// @param baseline The baseline to propagate over
     Propagator(int nGenerations, float baseline) : _baseline(baseline), _nGenerations(nGenerations){};
 
-    /// @brief Calculate the oscillation probabilities
-    /// @param energies The energies of the neutrinos
-    [[nodiscard]] Tensor calculateProbs();
-
     /// @name Setters
     /// @{
 
@@ -121,10 +117,62 @@ class Propagator
 
     /// @}
 
+
+    /// @brief Calculate the oscillation probabilities
+    [[nodiscard]] inline Tensor calculateProbs()
+    {
+        NT_PROFILE();
+
+        Tensor ret;
+
+        // if a matter solver was specified, use effective values for masses and PMNS
+        // matrix, otherwise just use the "raw" ones
+        if (_matterSolver != nullptr)
+        {
+            Tensor eigenVals =
+                Tensor::zeros({1, _nGenerations, _nGenerations}, NTdtypes::kComplexFloat).requiresGrad(false);
+            Tensor eigenVecs =
+                Tensor::zeros({1, _nGenerations, _nGenerations}, NTdtypes::kComplexFloat).requiresGrad(false);
+
+            _matterSolver->calculateEigenvalues(eigenVecs, eigenVals);
+            Tensor effectiveMassesSq = Tensor::mul(eigenVals, Tensor::scale(_energies, 2.0));
+            Tensor effectivePMNS = Tensor::matmul(_pmnsMatrix, eigenVecs);
+
+            ret = _calculateProbs(effectiveMassesSq, effectivePMNS);
+        }
+
+        else
+        {
+            ret = _calculateProbs(Tensor::mul(_masses, _masses), _pmnsMatrix);
+        }
+
+        return ret;
+    }
+
   private:
     // For calculating with alternate masses and PMNS, e.g. if using effective
     // values from massSolver
-    [[nodiscard]] Tensor _calculateProbs(const Tensor &masses, const Tensor &PMNS);
+    [[nodiscard]] inline Tensor _calculateProbs(const Tensor &massesSq, const Tensor &PMNS)
+    {
+        NT_PROFILE();
+
+        Tensor weightVector = Tensor::exp(
+            Tensor::div(massesSq, _weightArgDenom));
+
+        _weightMatrix.requiresGrad(false);
+        for (int i = 0; i < _nGenerations; i++)
+        {
+            for (int j = 0; j < _nGenerations; j++)
+            {
+                _weightMatrix.setValue({"...", i, j}, weightVector.getValues({"...", j}));
+            }
+        }
+        _weightMatrix.requiresGrad(true);
+
+        Tensor sqrtProbabilities = Tensor::matmul(PMNS.conj(), Tensor::transpose(Tensor::mul(PMNS, _weightMatrix), 1, 2));
+
+        return Tensor::pow(sqrtProbabilities.abs(), 2);
+    }
 
   private:
     Tensor _pmnsMatrix;
@@ -136,4 +184,5 @@ class Propagator
     float _baseline;
 
     std::shared_ptr<BaseMatterSolver> _matterSolver;
+
 };
