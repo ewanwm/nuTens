@@ -12,6 +12,7 @@ referencing==0.35.1
 rpds-py==0.10.0
 six==1.16.0
 sympy==1.12.1
+numpy
 
 --find-links https://download.pytorch.org/whl/torch_stable.html
 torch==2.0.1+cpu

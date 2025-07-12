@@ -33,6 +33,9 @@ docs = [
   "autodoc",
   "sphinx-rtd-theme",
 ]
+testing = [
+  "pytest"
+]
 
 [project.urls]
 Repository = "https://github.com/ewanwm/nuTens"

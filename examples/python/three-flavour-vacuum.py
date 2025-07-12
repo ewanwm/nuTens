@@ -1,4 +1,3 @@
-import torch
 import nuTens as nt
 from nuTens import tensor
 from nuTens.tensor import Tensor
@@ -46,7 +45,7 @@ def build_PMNS(theta12: Tensor, theta13: Tensor, theta23: Tensor, deltaCP: Tenso
 energies = nt.tensor.ones([N_ENERGIES, 1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
 
 for i in range(N_ENERGIES):
-    energies.set_value([i,0], 1.0 + i*0.2)
+    energies.set_value([i,0], (1.0e-6 + i*0.2e-3) * nt.units.GeV)
 
 energies.requires_grad(True)
 
@@ -63,8 +62,8 @@ PMNS = build_PMNS(theta12, theta13, theta23, deltaCP)
 masses = nt.tensor.zeros([1,3], nt.dtype.scalar_type.float, nt.dtype.device_type.cpu, True)
 
 masses.set_value([0,0], 0.0)
-masses.set_value([0,1], 0.00868)
-masses.set_value([0,2], 0.0501)
+masses.set_value([0,1], 0.00868 * nt.units.eV)
+masses.set_value([0,2], 0.0501 * nt.units.eV)
 
 ## print info about the parameters
 print("PMNS: ")
@@ -75,11 +74,13 @@ print(masses.to_string())
 print()
 
 ## set up the propagator object
-propagator = nt.propagator.Propagator(3, 295000.0)
+propagator = nt.propagator.Propagator(3, 295.0 * nt.units.km)
 matter_solver = nt.propagator.ConstDensitySolver(3, 2.79)
 
 propagator.set_PMNS(PMNS)
 propagator.set_masses(masses)
+
+## uncomment for matter oscillations
 #propagator.set_matter_solver(matter_solver)
 
 ## run!
@@ -126,22 +127,25 @@ for i in range(N_ENERGIES):
         probabilities.get_value([i, 1, 2])
     )
 
-plt.plot(energy_list, e_survival_prob_list, label = "electron")
-plt.plot(energy_list, mu_survival_prob_list, label = "muon")
-plt.plot(energy_list, tau_survival_prob_list, label = "tau")
-plt.xlabel("Energy [MeV]")
+plt.plot([ e / nt.units.GeV for e in energy_list], e_survival_prob_list, label = "electron")
+plt.plot([ e / nt.units.GeV for e in energy_list], mu_survival_prob_list, label = "muon")
+plt.plot([ e / nt.units.GeV for e in energy_list], tau_survival_prob_list, label = "tau")
+plt.xlabel("Energy [GeV]")
 plt.ylabel("Survival probability")
 plt.legend()
 plt.show()
 plt.savefig("survival_probs.png")
 
 plt.clf()
-plt.plot(energy_list, mu_to_e_prob_list, label = "numu -> nue")
-plt.plot(energy_list, mu_to_tau_prob_list, label = "numu -> nutau")
-plt.plot(energy_list, mu_survival_prob_list, label = "numu -> numu")
-plt.plot(energy_list, mu_total_prob_list, label = "Total")
-plt.xlabel("Energy [MeV]")
-plt.ylabel("Oscillation probability")
-plt.legend()
-plt.show()
-plt.savefig("oscillation_probs.png")
+fig, axs = plt.subplots(2, 1, sharex=True)
+axs[1].plot([ e / nt.units.GeV for e in energy_list], mu_to_e_prob_list, label = "numu -> nue")
+axs[1].set_ylim((0.0, 0.1))
+axs[0].plot([ e / nt.units.GeV for e in energy_list], mu_to_tau_prob_list, label = "numu -> nutau")
+axs[0].plot([ e / nt.units.GeV for e in energy_list], mu_survival_prob_list, label = "numu -> numu")
+axs[0].plot([ e / nt.units.GeV for e in energy_list], mu_total_prob_list, label = "Total")
+axs[1].set_xlabel("Energy [GeV]")
+axs[0].legend()
+axs[1].legend()
+fig.suptitle("Three flavour oscillation probabilities")
+fig.supylabel("Oscillation probability")
+fig.savefig("oscillation_probs.png")
