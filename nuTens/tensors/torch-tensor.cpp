@@ -406,6 +406,15 @@ void Tensor::eig(const Tensor &t, Tensor &eVals, Tensor &eVecs)
     eVecs._tensor = std::get<0>(ret);
 }
 
+void Tensor::eigh(const Tensor &t, Tensor &eVals, Tensor &eVecs)
+{
+    NT_PROFILE();
+
+    auto ret = torch::linalg_eigh(t._tensor);
+    eVals._tensor = std::get<1>(ret);
+    eVecs._tensor = std::get<0>(ret);
+}
+
 Tensor Tensor::real() const
 {
     NT_PROFILE();
