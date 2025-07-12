@@ -1,7 +1,7 @@
 import unittest
 import math as m
 import nuTens as nt
-from nuTens import tensor
+from nuTens.tensor import Tensor, matmul
 from nuTens.testing import TwoFlavourBarger
 from nuTens.propagator import ConstDensitySolver
 
@@ -18,18 +18,18 @@ class TestTwoFlavourConstMatter:
     baseline=295.0 * nt.units.km
     density=2.5    
     energy = 1.0 * nt.units.GeV
-    energy_tensor = tensor.ones([1, 1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
+    energy_tensor = Tensor.ones([1, 1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
     energy_tensor.set_value([0, 0], energy)
 
-    def setup_tensor_inputs(self, mass_diff:float, theta:float) -> typing.Tuple[tensor.Tensor]:
+    def setup_tensor_inputs(self, mass_diff:float, theta:float) -> typing.Tuple[Tensor]:
         
-        pmns = nt.tensor.zeros([1, 2, 2], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
+        pmns = Tensor.zeros([1, 2, 2], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
         pmns.set_value([0, 0, 0], m.cos(theta))
         pmns.set_value([0, 0, 1], m.sin(theta))
         pmns.set_value([0, 1, 0], -m.sin(theta))
         pmns.set_value([0, 1, 1], m.cos(theta))
 
-        masses = tensor.zeros([1,2], nt.dtype.scalar_type.float, nt.dtype.device_type.cpu, True)
+        masses = Tensor.zeros([1,2], nt.dtype.scalar_type.float, nt.dtype.device_type.cpu, True)
         masses.set_value([0,0], 0.0)
         masses.set_value([0,1], mass_diff)
 
@@ -54,7 +54,7 @@ class TestTwoFlavourConstMatter:
         evals = nt.tensor.Tensor()
         tensor_solver.calculate_eigenvalues(evecs, evals)
 
-        tensor_effective_pmns = tensor.matmul(pmns, evecs)
+        tensor_effective_pmns = matmul(pmns, evecs)
 
         print(f"Tensor solver evals: {evals.to_string()}")
 
@@ -105,7 +105,7 @@ class TestTwoFlavourConstMatter:
         evecs = nt.tensor.Tensor()
         evals = nt.tensor.Tensor()
         matter_solver.calculate_eigenvalues(evecs, evals)
-        tensor_effective_pmns = tensor.matmul(pmns, evecs)
+        tensor_effective_pmns = matmul(pmns, evecs)
 
         tensor_osc_probs = propagator.calculate_probabilities()
 

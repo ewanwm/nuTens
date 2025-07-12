@@ -9,9 +9,9 @@ N_ENERGIES = 10000
 def build_PMNS(theta12: Tensor, theta13: Tensor, theta23: Tensor, deltaCP: Tensor):
     """ Construct a PMNS matrix in the usual parameterisation """
     # set up the three matrices to build the PMNS matrix
-    M1 = nt.tensor.zeros([1, 3, 3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
-    M2 = nt.tensor.zeros([1, 3, 3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
-    M3 = nt.tensor.zeros([1, 3, 3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
+    M1 = Tensor.zeros([1, 3, 3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
+    M2 = Tensor.zeros([1, 3, 3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
+    M3 = Tensor.zeros([1, 3, 3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
 
     M1.set_value([0, 0, 0], 1.0)
     M1.set_value([0, 1, 1], tensor.cos(theta23))
@@ -42,7 +42,7 @@ def build_PMNS(theta12: Tensor, theta13: Tensor, theta23: Tensor, deltaCP: Tenso
 
 
 ## First we build up a tensor to contain the test energies
-energies = nt.tensor.ones([N_ENERGIES, 1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
+energies = Tensor.ones([N_ENERGIES, 1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
 
 for i in range(N_ENERGIES):
     energies.set_value([i,0], (1.0e-6 + i*0.2e-3) * nt.units.GeV)
@@ -59,7 +59,7 @@ deltaCP = Tensor([1.5], nt.dtype.scalar_type.complex_float, nt.dtype.device_type
 PMNS = build_PMNS(theta12, theta13, theta23, deltaCP)
 
 ## set the mass tensor
-masses = nt.tensor.zeros([1,3], nt.dtype.scalar_type.float, nt.dtype.device_type.cpu, True)
+masses = Tensor.zeros([1,3], nt.dtype.scalar_type.float, nt.dtype.device_type.cpu, True)
 
 masses.set_value([0,0], 0.0)
 masses.set_value([0,1], 0.00868 * nt.units.eV)
