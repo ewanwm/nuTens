@@ -396,6 +396,18 @@ class Tensor
         return _tensor;
     }
 
+    /// Builds a nuTens tensor from a torch tensor. Only available if using the 
+    /// pytorch backend... obviously
+    static inline Tensor fromTorchTensor(const torch::Tensor &tensor) {
+
+        NT_PROFILE();
+
+        Tensor ret;
+        ret.setTensor(tensor);
+        
+        return ret;
+    }
+
   protected:
     /// Set the underlying tensor, setting the relevant information like _dtype and _device
     inline void setTensor(const torch::Tensor &tensor)
@@ -581,6 +593,9 @@ class AccessedTensor: public Tensor {
 
     /// @brief Set a value in a 1D tensor
     void setValue(Tdtype value, int i) {
+
+        NT_PROFILE();
+
         assert(TnDims == 1 && "wrong number of indices");
 
         if (Tdevice == NTdtypes::kGPU) {
@@ -594,6 +609,9 @@ class AccessedTensor: public Tensor {
 
     /// @brief Set a value in a 1D tensor
     void setValue(Tdtype value, int i, int j) {
+
+        NT_PROFILE();
+
         assert(TnDims == 2 && "wrong number of indices");
 
         if (Tdevice == NTdtypes::kGPU) {
@@ -607,6 +625,9 @@ class AccessedTensor: public Tensor {
 
     /// @brief Set a value in a 3D tensor
     void setValue(Tdtype value, int i, int j, int k) {
+
+        NT_PROFILE();
+
         assert(TnDims == 3 && "wrong number of indices");
 
         if (Tdevice == NTdtypes::kGPU) {

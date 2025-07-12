@@ -5,6 +5,7 @@
 #include <pybind11/stl.h>
 
 #include <vector>
+#include <iostream>
 
 // nuTens stuff
 #include <nuTens/propagator/const-density-solver.hpp>
@@ -13,6 +14,11 @@
 #include <nuTens/tensors/dtypes.hpp>
 #include <nuTens/tensors/tensor.hpp>
 #include <tests/barger-propagator.hpp>
+
+#if USE_PYTORCH
+#include <torch/torch.h>
+#include <torch/extension.h>
+#endif
 
 namespace py = pybind11;
 
@@ -115,6 +121,17 @@ void initTensor(py::module &m)
 
         // operator overloads
         .def(-py::self)
+
+
+#if USE_PYTORCH
+        .def("torch_tensor", &Tensor::getTensor, py::return_value_policy::reference,
+            "Get the pytorch tensor that lives inside this tensor. Only available if using the pytorch backend..."
+        )
+
+        .def_static("from_torch_tensor", Tensor::fromTorchTensor,
+            "construct a nuTens Tensor from a pytorch tensor"
+        )
+#endif
         
         // end of Tensor non-static functions
         
