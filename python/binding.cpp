@@ -27,10 +27,10 @@ void initTesting(py::module & /*m*/);
 PYBIND11_MODULE(_pyNuTens, m)
 {
     m.doc() = "Library to calculate neutrino oscillations";
-    initTensor(m);
-    initPropagator(m);
     initDtypes(m);
     initUnits(m);
+    initTensor(m);
+    initPropagator(m);
     initTesting(m);
 
 #ifdef VERSION_INFO
@@ -92,16 +92,27 @@ void initTensor(py::module &m)
         .def("grad", &Tensor::grad, "Get the accumulated gradient stored in this tensor after calling backward()")
 
         // operator overloads
-        .def(-py::self);
-
-    ; // end of Tensor non-static functions
-
-    // Tensor creation functions
-    m_tensor.def("eye", &Tensor::eye, "Create a tensor initialised with an identity matrix");
-    m_tensor.def("rand", &Tensor::rand, "Create a tensor initialised with random values");
-    m_tensor.def("diag", &Tensor::diag, "Create a tensor with specified values along the diagonal");
-    m_tensor.def("ones", &Tensor::ones, "Create a tensor initialised with ones");
-    m_tensor.def("zeros", &Tensor::zeros, "Create a tensor initialised with zeros");
+        .def(-py::self)
+        
+        // end of Tensor non-static functions
+        
+        // Tensor creation functions
+        .def_static("eye", &Tensor::eye, 
+            "Create a tensor initialised with an identity matrix",
+            py::arg("n"), py::arg("dtype") = NTdtypes::kFloat, py::arg("device") = NTdtypes::kCPU, py::arg("requires_grad") = true)
+        .def_static("rand", &Tensor::rand, 
+            "Create a tensor initialised with random values",
+            py::arg("shape"), py::arg("dtype") = NTdtypes::kFloat, py::arg("device") = NTdtypes::kCPU, py::arg("requires_grad") = true)
+        .def_static("diag", &Tensor::diag, 
+            "Create a tensor with specified values along the diagonal",
+            py::arg("diagonal"))
+        .def_static("ones", &Tensor::ones, 
+            "Create a tensor initialised with ones",
+            py::arg("shape"), py::arg("dtype") = NTdtypes::kFloat, py::arg("device") = NTdtypes::kCPU, py::arg("requires_grad") = true)
+        .def_static("zeros", &Tensor::zeros, 
+            "Create a tensor initialised with zeros",
+            py::arg("shape"), py::arg("dtype") = NTdtypes::kFloat, py::arg("device") = NTdtypes::kCPU, py::arg("requires_grad") = true)
+    ;
 
     // maffs
     m_tensor.def("matmul", &Tensor::matmul, "Matrix multiplication");

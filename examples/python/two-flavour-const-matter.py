@@ -9,7 +9,7 @@ N_ENERGIES = 10000
 def build_PMNS(theta12: Tensor):
     """ Construct a PMNS matrix in the usual parameterisation """
     # set up the three matrices to build the PMNS matrix
-    PMNS = nt.tensor.zeros([1, 2, 2], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
+    PMNS = Tensor.zeros([1, 2, 2], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
 
     PMNS.set_value([0, 0, 0], tensor.cos(theta12))
     PMNS.set_value([0, 0, 1], tensor.sin(theta12))
@@ -19,7 +19,7 @@ def build_PMNS(theta12: Tensor):
     return PMNS
 
 ## First we build up a tensor to contain the test energies
-energies = nt.tensor.ones([N_ENERGIES, 1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
+energies = Tensor.ones([N_ENERGIES, 1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
 
 for i in range(N_ENERGIES):
     energies.set_value([i,0], ( 1.0e-6 + i*0.2e-3 ) * nt.units.GeV)
@@ -33,7 +33,7 @@ theta12 = Tensor([0.15], nt.dtype.scalar_type.complex_float, nt.dtype.device_typ
 PMNS = build_PMNS(theta12)
 
 ## set the mass tensor
-masses = nt.tensor.zeros([1,2], nt.dtype.scalar_type.float, nt.dtype.device_type.cpu, True)
+masses = Tensor.zeros([1,2], nt.dtype.scalar_type.float, nt.dtype.device_type.cpu, True)
 
 masses.set_value([0,0], 0.00868 * nt.units.eV)
 masses.set_value([0,1], 0.0501 * nt.units.eV)
