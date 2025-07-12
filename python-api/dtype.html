@@ -58,7 +58,26 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../python-api.html">Python API 🐍</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="propagator.html">Propagator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tensor.html">Tensor</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">DType</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DType</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.dtype.device_type"><code class="docutils literal notranslate"><span class="pre">device_type</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.dtype.device_type.cpu"><code class="docutils literal notranslate"><span class="pre">device_type.cpu</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.dtype.device_type.gpu"><code class="docutils literal notranslate"><span class="pre">device_type.gpu</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.dtype.device_type.name"><code class="docutils literal notranslate"><span class="pre">device_type.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.dtype.device_type.value"><code class="docutils literal notranslate"><span class="pre">device_type.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.dtype.scalar_type"><code class="docutils literal notranslate"><span class="pre">scalar_type</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.dtype.scalar_type.complex_double"><code class="docutils literal notranslate"><span class="pre">scalar_type.complex_double</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.dtype.scalar_type.complex_float"><code class="docutils literal notranslate"><span class="pre">scalar_type.complex_float</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.dtype.scalar_type.double"><code class="docutils literal notranslate"><span class="pre">scalar_type.double</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.dtype.scalar_type.float"><code class="docutils literal notranslate"><span class="pre">scalar_type.float</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.dtype.scalar_type.int"><code class="docutils literal notranslate"><span class="pre">scalar_type.int</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.dtype.scalar_type.name"><code class="docutils literal notranslate"><span class="pre">scalar_type.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.dtype.scalar_type.value"><code class="docutils literal notranslate"><span class="pre">scalar_type.value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="units.html">Units</a></li>
 </ul>
 </li>
@@ -90,8 +109,84 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="dtype">
-<h1>DType<a class="headerlink" href="#dtype" title="Link to this heading"></a></h1>
+  <section id="module-nuTens.dtype">
+<span id="dtype"></span><h1>DType<a class="headerlink" href="#module-nuTens.dtype" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nuTens.dtype.device_type">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nuTens.dtype.</span></span><span class="sig-name descname"><span class="pre">device_type</span></span><a class="headerlink" href="#nuTens.dtype.device_type" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<p>Members:</p>
+<p>cpu</p>
+<p>gpu</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nuTens.dtype.device_type.cpu">
+<span class="sig-name descname"><span class="pre">cpu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;device_type.cpu:</span> <span class="pre">0&gt;</span></em><a class="headerlink" href="#nuTens.dtype.device_type.cpu" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nuTens.dtype.device_type.gpu">
+<span class="sig-name descname"><span class="pre">gpu</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;device_type.gpu:</span> <span class="pre">1&gt;</span></em><a class="headerlink" href="#nuTens.dtype.device_type.gpu" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nuTens.dtype.device_type.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#nuTens.dtype.device_type.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nuTens.dtype.device_type.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#nuTens.dtype.device_type.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nuTens.dtype.scalar_type">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nuTens.dtype.</span></span><span class="sig-name descname"><span class="pre">scalar_type</span></span><a class="headerlink" href="#nuTens.dtype.scalar_type" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<p>Members:</p>
+<p>int</p>
+<p>float</p>
+<p>double</p>
+<p>complex_float</p>
+<p>complex_double</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nuTens.dtype.scalar_type.complex_double">
+<span class="sig-name descname"><span class="pre">complex_double</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;scalar_type.complex_double:</span> <span class="pre">4&gt;</span></em><a class="headerlink" href="#nuTens.dtype.scalar_type.complex_double" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nuTens.dtype.scalar_type.complex_float">
+<span class="sig-name descname"><span class="pre">complex_float</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;scalar_type.complex_float:</span> <span class="pre">3&gt;</span></em><a class="headerlink" href="#nuTens.dtype.scalar_type.complex_float" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nuTens.dtype.scalar_type.double">
+<span class="sig-name descname"><span class="pre">double</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;scalar_type.double:</span> <span class="pre">2&gt;</span></em><a class="headerlink" href="#nuTens.dtype.scalar_type.double" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nuTens.dtype.scalar_type.float">
+<span class="sig-name descname"><span class="pre">float</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;scalar_type.float:</span> <span class="pre">1&gt;</span></em><a class="headerlink" href="#nuTens.dtype.scalar_type.float" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nuTens.dtype.scalar_type.int">
+<span class="sig-name descname"><span class="pre">int</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;scalar_type.int:</span> <span class="pre">0&gt;</span></em><a class="headerlink" href="#nuTens.dtype.scalar_type.int" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nuTens.dtype.scalar_type.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#nuTens.dtype.scalar_type.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nuTens.dtype.scalar_type.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#nuTens.dtype.scalar_type.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 
 

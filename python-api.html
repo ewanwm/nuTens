@@ -93,9 +93,85 @@
 <h1>Python API 🐍<a class="headerlink" href="#python-api" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="python-api/propagator.html">Propagator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="python-api/tensor.html">Tensor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="python-api/dtype.html">DType</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python-api/propagator.html">Propagator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.BaseMatterSolver"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.BaseMatterSolver.calculate_eigenvalues"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver.calculate_eigenvalues()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.BaseMatterSolver.set_PMNS"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver.set_PMNS()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.BaseMatterSolver.set_energies"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver.set_energies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.BaseMatterSolver.set_masses"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver.set_masses()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.ConstDensitySolver"><code class="docutils literal notranslate"><span class="pre">ConstDensitySolver</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.Propagator"><code class="docutils literal notranslate"><span class="pre">Propagator</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.Propagator.calculate_probabilities"><code class="docutils literal notranslate"><span class="pre">Propagator.calculate_probabilities()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.Propagator.set_PMNS"><code class="docutils literal notranslate"><span class="pre">Propagator.set_PMNS()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.Propagator.set_energies"><code class="docutils literal notranslate"><span class="pre">Propagator.set_energies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.Propagator.set_masses"><code class="docutils literal notranslate"><span class="pre">Propagator.set_masses()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.Propagator.set_matter_solver"><code class="docutils literal notranslate"><span class="pre">Propagator.set_matter_solver()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python-api/tensor.html">Tensor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor"><code class="docutils literal notranslate"><span class="pre">Tensor</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.abs"><code class="docutils literal notranslate"><span class="pre">Tensor.abs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.add_batch_dim"><code class="docutils literal notranslate"><span class="pre">Tensor.add_batch_dim()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.angle"><code class="docutils literal notranslate"><span class="pre">Tensor.angle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.backward"><code class="docutils literal notranslate"><span class="pre">Tensor.backward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.conj"><code class="docutils literal notranslate"><span class="pre">Tensor.conj()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.device"><code class="docutils literal notranslate"><span class="pre">Tensor.device()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.diag"><code class="docutils literal notranslate"><span class="pre">Tensor.diag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.dtype"><code class="docutils literal notranslate"><span class="pre">Tensor.dtype()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.eye"><code class="docutils literal notranslate"><span class="pre">Tensor.eye()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.get_shape"><code class="docutils literal notranslate"><span class="pre">Tensor.get_shape()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.get_value"><code class="docutils literal notranslate"><span class="pre">Tensor.get_value()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.get_values"><code class="docutils literal notranslate"><span class="pre">Tensor.get_values()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.grad"><code class="docutils literal notranslate"><span class="pre">Tensor.grad()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.has_batch_dim"><code class="docutils literal notranslate"><span class="pre">Tensor.has_batch_dim()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.imag"><code class="docutils literal notranslate"><span class="pre">Tensor.imag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.ones"><code class="docutils literal notranslate"><span class="pre">Tensor.ones()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.rand"><code class="docutils literal notranslate"><span class="pre">Tensor.rand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.real"><code class="docutils literal notranslate"><span class="pre">Tensor.real()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.requires_grad"><code class="docutils literal notranslate"><span class="pre">Tensor.requires_grad()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.set_value"><code class="docutils literal notranslate"><span class="pre">Tensor.set_value()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.to_string"><code class="docutils literal notranslate"><span class="pre">Tensor.to_string()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.zeros"><code class="docutils literal notranslate"><span class="pre">Tensor.zeros()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.cos"><code class="docutils literal notranslate"><span class="pre">cos()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.cumsum"><code class="docutils literal notranslate"><span class="pre">cumsum()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.div"><code class="docutils literal notranslate"><span class="pre">div()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.exp"><code class="docutils literal notranslate"><span class="pre">exp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.matmul"><code class="docutils literal notranslate"><span class="pre">matmul()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.mul"><code class="docutils literal notranslate"><span class="pre">mul()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.outer"><code class="docutils literal notranslate"><span class="pre">outer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.pow"><code class="docutils literal notranslate"><span class="pre">pow()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.scale"><code class="docutils literal notranslate"><span class="pre">scale()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.sin"><code class="docutils literal notranslate"><span class="pre">sin()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.sum"><code class="docutils literal notranslate"><span class="pre">sum()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.transpose"><code class="docutils literal notranslate"><span class="pre">transpose()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python-api/dtype.html">DType</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python-api/dtype.html#nuTens.dtype.device_type"><code class="docutils literal notranslate"><span class="pre">device_type</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="python-api/dtype.html#nuTens.dtype.device_type.cpu"><code class="docutils literal notranslate"><span class="pre">device_type.cpu</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/dtype.html#nuTens.dtype.device_type.gpu"><code class="docutils literal notranslate"><span class="pre">device_type.gpu</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/dtype.html#nuTens.dtype.device_type.name"><code class="docutils literal notranslate"><span class="pre">device_type.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/dtype.html#nuTens.dtype.device_type.value"><code class="docutils literal notranslate"><span class="pre">device_type.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/dtype.html#nuTens.dtype.scalar_type"><code class="docutils literal notranslate"><span class="pre">scalar_type</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="python-api/dtype.html#nuTens.dtype.scalar_type.complex_double"><code class="docutils literal notranslate"><span class="pre">scalar_type.complex_double</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/dtype.html#nuTens.dtype.scalar_type.complex_float"><code class="docutils literal notranslate"><span class="pre">scalar_type.complex_float</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/dtype.html#nuTens.dtype.scalar_type.double"><code class="docutils literal notranslate"><span class="pre">scalar_type.double</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/dtype.html#nuTens.dtype.scalar_type.float"><code class="docutils literal notranslate"><span class="pre">scalar_type.float</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/dtype.html#nuTens.dtype.scalar_type.int"><code class="docutils literal notranslate"><span class="pre">scalar_type.int</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/dtype.html#nuTens.dtype.scalar_type.name"><code class="docutils literal notranslate"><span class="pre">scalar_type.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/dtype.html#nuTens.dtype.scalar_type.value"><code class="docutils literal notranslate"><span class="pre">scalar_type.value</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="python-api/units.html">Units</a></li>
 </ul>
 </div>

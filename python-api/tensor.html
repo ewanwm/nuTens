@@ -57,7 +57,46 @@
 <li class="toctree-l1"><a class="reference internal" href="../cpp-api.html">c++ API</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../python-api.html">Python API 🐍</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="propagator.html">Propagator</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Tensor</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tensor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.tensor.Tensor"><code class="docutils literal notranslate"><span class="pre">Tensor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.abs"><code class="docutils literal notranslate"><span class="pre">Tensor.abs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.add_batch_dim"><code class="docutils literal notranslate"><span class="pre">Tensor.add_batch_dim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.angle"><code class="docutils literal notranslate"><span class="pre">Tensor.angle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.backward"><code class="docutils literal notranslate"><span class="pre">Tensor.backward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.conj"><code class="docutils literal notranslate"><span class="pre">Tensor.conj()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.device"><code class="docutils literal notranslate"><span class="pre">Tensor.device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.diag"><code class="docutils literal notranslate"><span class="pre">Tensor.diag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.dtype"><code class="docutils literal notranslate"><span class="pre">Tensor.dtype()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.eye"><code class="docutils literal notranslate"><span class="pre">Tensor.eye()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.get_shape"><code class="docutils literal notranslate"><span class="pre">Tensor.get_shape()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.get_value"><code class="docutils literal notranslate"><span class="pre">Tensor.get_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.get_values"><code class="docutils literal notranslate"><span class="pre">Tensor.get_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.grad"><code class="docutils literal notranslate"><span class="pre">Tensor.grad()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.has_batch_dim"><code class="docutils literal notranslate"><span class="pre">Tensor.has_batch_dim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.imag"><code class="docutils literal notranslate"><span class="pre">Tensor.imag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.ones"><code class="docutils literal notranslate"><span class="pre">Tensor.ones()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.rand"><code class="docutils literal notranslate"><span class="pre">Tensor.rand()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.real"><code class="docutils literal notranslate"><span class="pre">Tensor.real()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.requires_grad"><code class="docutils literal notranslate"><span class="pre">Tensor.requires_grad()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.set_value"><code class="docutils literal notranslate"><span class="pre">Tensor.set_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.to_string"><code class="docutils literal notranslate"><span class="pre">Tensor.to_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.zeros"><code class="docutils literal notranslate"><span class="pre">Tensor.zeros()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.tensor.cos"><code class="docutils literal notranslate"><span class="pre">cos()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.tensor.cumsum"><code class="docutils literal notranslate"><span class="pre">cumsum()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.tensor.div"><code class="docutils literal notranslate"><span class="pre">div()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.tensor.exp"><code class="docutils literal notranslate"><span class="pre">exp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.tensor.matmul"><code class="docutils literal notranslate"><span class="pre">matmul()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.tensor.mul"><code class="docutils literal notranslate"><span class="pre">mul()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.tensor.outer"><code class="docutils literal notranslate"><span class="pre">outer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.tensor.pow"><code class="docutils literal notranslate"><span class="pre">pow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.tensor.scale"><code class="docutils literal notranslate"><span class="pre">scale()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.tensor.sin"><code class="docutils literal notranslate"><span class="pre">sin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.tensor.sum"><code class="docutils literal notranslate"><span class="pre">sum()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.tensor.transpose"><code class="docutils literal notranslate"><span class="pre">transpose()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="dtype.html">DType</a></li>
 <li class="toctree-l2"><a class="reference internal" href="units.html">Units</a></li>
 </ul>
@@ -90,8 +129,275 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="tensor">
-<h1>Tensor<a class="headerlink" href="#tensor" title="Link to this heading"></a></h1>
+  <section id="module-nuTens.tensor">
+<span id="tensor"></span><h1>Tensor<a class="headerlink" href="#module-nuTens.tensor" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nuTens.tensor.</span></span><span class="sig-name descname"><span class="pre">Tensor</span></span><a class="headerlink" href="#nuTens.tensor.Tensor" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<p>Tensor defines a basic interface for creating and manipulating tensors.To create tensors you should use the static constructor methods.
+Alternatively you can chain together multiple property setters.</p>
+<p>For example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nuTens.tensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">dtype</span>
+<span class="n">tensor</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">.</span><span class="n">scalar_type</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">dtype</span><span class="o">.</span><span class="n">device_type</span><span class="o">.</span><span class="n">cpu</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>will get you a 3x3 tensor of floats that lives on the CPU.</p>
+<p>This is equivalent to</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.abs">
+<span class="sig-name descname"><span class="pre">abs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.abs" title="Link to this definition"></a></dt>
+<dd><p>Get element-wise magnitudes of a complex tensor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.add_batch_dim">
+<span class="sig-name descname"><span class="pre">add_batch_dim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.add_batch_dim" title="Link to this definition"></a></dt>
+<dd><p>Add a batch dimension to the start of this tensor if it doesn’t have one already</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.angle">
+<span class="sig-name descname"><span class="pre">angle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.angle" title="Link to this definition"></a></dt>
+<dd><p>Get element-wise phases of a complex tensor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.backward">
+<span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.backward" title="Link to this definition"></a></dt>
+<dd><p>Do the backward propagation from this tensor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.conj">
+<span class="sig-name descname"><span class="pre">conj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.conj" title="Link to this definition"></a></dt>
+<dd><p>Get complex conjugate of a complex tensor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.device">
+<span class="sig-name descname"><span class="pre">device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="dtype.html#nuTens.dtype.device_type" title="nuTens._pyNuTens.dtype.device_type"><span class="pre">nuTens._pyNuTens.dtype.device_type</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.device" title="Link to this definition"></a></dt>
+<dd><p>Set the device that the tensor lives on</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.diag">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">diag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">diagonal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.diag" title="Link to this definition"></a></dt>
+<dd><p>Create a tensor with specified values along the diagonal</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.dtype">
+<span class="sig-name descname"><span class="pre">dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_dtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="dtype.html#nuTens.dtype.scalar_type" title="nuTens._pyNuTens.dtype.scalar_type"><span class="pre">nuTens._pyNuTens.dtype.scalar_type</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.dtype" title="Link to this definition"></a></dt>
+<dd><p>Set the data type of the tensor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.eye">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eye</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype:</span> <span class="pre">nuTens._pyNuTens.dtype.scalar_type</span> <span class="pre">=</span> <span class="pre">&lt;scalar_type.float:</span> <span class="pre">1&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device:</span> <span class="pre">nuTens._pyNuTens.dtype.device_type</span> <span class="pre">=</span> <span class="pre">&lt;device_type.cpu:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires_grad:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.eye" title="Link to this definition"></a></dt>
+<dd><p>Create a tensor initialised with an identity matrix</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.get_shape">
+<span class="sig-name descname"><span class="pre">get_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.get_shape" title="Link to this definition"></a></dt>
+<dd><p>Get the shape of this tensor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.get_value">
+<span class="sig-name descname"><span class="pre">get_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">complex</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">complex</span></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.get_value" title="Link to this definition"></a></dt>
+<dd><p>Get the data stored at a particular index of the tensor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.get_values">
+<span class="sig-name descname"><span class="pre">get_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.get_values" title="Link to this definition"></a></dt>
+<dd><p>Get the subset of values in this tensor at a specified location</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.grad">
+<span class="sig-name descname"><span class="pre">grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.grad" title="Link to this definition"></a></dt>
+<dd><p>Get the accumulated gradient stored in this tensor after calling backward()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.has_batch_dim">
+<span class="sig-name descname"><span class="pre">has_batch_dim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nuTens.tensor.Tensor.has_batch_dim" title="Link to this definition"></a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>has_batch_dim(self: nuTens._pyNuTens.tensor.Tensor) -&gt; bool</p></li>
+</ol>
+<p>Check Whether or not the first dimension should be interpreted as a batch dim for this tensor</p>
+<ol class="arabic simple" start="2">
+<li><p>has_batch_dim(self: nuTens._pyNuTens.tensor.Tensor, new_value: bool) -&gt; nuTens._pyNuTens.tensor.Tensor</p></li>
+</ol>
+<p>Set Whether or not the first dimension should be interpreted as a batch dim for this tensor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.imag">
+<span class="sig-name descname"><span class="pre">imag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.imag" title="Link to this definition"></a></dt>
+<dd><p>Get imaginary part of a complex tensor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.ones">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ones</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">shape:</span> <span class="pre">list[int],</span> <span class="pre">dtype:</span> <span class="pre">nuTens._pyNuTens.dtype.scalar_type</span> <span class="pre">=</span> <span class="pre">&lt;scalar_type.float:</span> <span class="pre">1&gt;,</span> <span class="pre">device:</span> <span class="pre">nuTens._pyNuTens.dtype.device_type</span> <span class="pre">=</span> <span class="pre">&lt;device_type.cpu:</span> <span class="pre">0&gt;,</span> <span class="pre">requires_grad:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.ones" title="Link to this definition"></a></dt>
+<dd><p>Create a tensor initialised with ones</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.rand">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">shape:</span> <span class="pre">list[int],</span> <span class="pre">dtype:</span> <span class="pre">nuTens._pyNuTens.dtype.scalar_type</span> <span class="pre">=</span> <span class="pre">&lt;scalar_type.float:</span> <span class="pre">1&gt;,</span> <span class="pre">device:</span> <span class="pre">nuTens._pyNuTens.dtype.device_type</span> <span class="pre">=</span> <span class="pre">&lt;device_type.cpu:</span> <span class="pre">0&gt;,</span> <span class="pre">requires_grad:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.rand" title="Link to this definition"></a></dt>
+<dd><p>Create a tensor initialised with random values</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.real">
+<span class="sig-name descname"><span class="pre">real</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.real" title="Link to this definition"></a></dt>
+<dd><p>Get real part of a complex tensor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.requires_grad">
+<span class="sig-name descname"><span class="pre">requires_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.requires_grad" title="Link to this definition"></a></dt>
+<dd><p>Set Whether or not this tensor requires gradient to be calculated</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.set_value">
+<span class="sig-name descname"><span class="pre">set_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nuTens.tensor.Tensor.set_value" title="Link to this definition"></a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>set_value(self: nuTens._pyNuTens.tensor.Tensor, indices: nuTens._pyNuTens.tensor.Tensor, value: nuTens._pyNuTens.tensor.Tensor) -&gt; None</p></li>
+</ol>
+<p>Set a value at a specific index of this tensor</p>
+<ol class="arabic simple" start="2">
+<li><p>set_value(self: nuTens._pyNuTens.tensor.Tensor, indices: list[Union[int, str]], value: nuTens._pyNuTens.tensor.Tensor) -&gt; None</p></li>
+</ol>
+<p>Set a value at a specific index of this tensor</p>
+<ol class="arabic simple" start="3">
+<li><p>set_value(self: nuTens._pyNuTens.tensor.Tensor, indices: list[int], value: float) -&gt; None</p></li>
+</ol>
+<p>Set a value at a specific index of this tensor</p>
+<ol class="arabic simple" start="4">
+<li><p>set_value(self: nuTens._pyNuTens.tensor.Tensor, indices: list[int], value: complex) -&gt; None</p></li>
+</ol>
+<p>Set a value at a specific index of this tensor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.to_string">
+<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.to_string" title="Link to this definition"></a></dt>
+<dd><p>get a summary of this tensor as a string</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.zeros">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">zeros</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">shape:</span> <span class="pre">list[int],</span> <span class="pre">dtype:</span> <span class="pre">nuTens._pyNuTens.dtype.scalar_type</span> <span class="pre">=</span> <span class="pre">&lt;scalar_type.float:</span> <span class="pre">1&gt;,</span> <span class="pre">device:</span> <span class="pre">nuTens._pyNuTens.dtype.device_type</span> <span class="pre">=</span> <span class="pre">&lt;device_type.cpu:</span> <span class="pre">0&gt;,</span> <span class="pre">requires_grad:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.zeros" title="Link to this definition"></a></dt>
+<dd><p>Create a tensor initialised with zeros</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nuTens.tensor.cos">
+<span class="sig-prename descclassname"><span class="pre">nuTens.tensor.</span></span><span class="sig-name descname"><span class="pre">cos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.cos" title="Link to this definition"></a></dt>
+<dd><p>Element-wise trigonometric cosine function</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nuTens.tensor.cumsum">
+<span class="sig-prename descclassname"><span class="pre">nuTens.tensor.</span></span><span class="sig-name descname"><span class="pre">cumsum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimensions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.cumsum" title="Link to this definition"></a></dt>
+<dd><p>Get the cumulative sum over particular dimensions</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nuTens.tensor.div">
+<span class="sig-prename descclassname"><span class="pre">nuTens.tensor.</span></span><span class="sig-name descname"><span class="pre">div</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">t2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.div" title="Link to this definition"></a></dt>
+<dd><p>Element-wise division</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nuTens.tensor.exp">
+<span class="sig-prename descclassname"><span class="pre">nuTens.tensor.</span></span><span class="sig-name descname"><span class="pre">exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.exp" title="Link to this definition"></a></dt>
+<dd><p>Take element-wise exponential of a tensor</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nuTens.tensor.matmul">
+<span class="sig-prename descclassname"><span class="pre">nuTens.tensor.</span></span><span class="sig-name descname"><span class="pre">matmul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">t2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.matmul" title="Link to this definition"></a></dt>
+<dd><p>Matrix multiplication</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nuTens.tensor.mul">
+<span class="sig-prename descclassname"><span class="pre">nuTens.tensor.</span></span><span class="sig-name descname"><span class="pre">mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">t2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.mul" title="Link to this definition"></a></dt>
+<dd><p>Element-wise multiplication</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nuTens.tensor.outer">
+<span class="sig-prename descclassname"><span class="pre">nuTens.tensor.</span></span><span class="sig-name descname"><span class="pre">outer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">t2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.outer" title="Link to this definition"></a></dt>
+<dd><p>Tensor outer product</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nuTens.tensor.pow">
+<span class="sig-prename descclassname"><span class="pre">nuTens.tensor.</span></span><span class="sig-name descname"><span class="pre">pow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nuTens.tensor.pow" title="Link to this definition"></a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>pow(t1: nuTens._pyNuTens.tensor.Tensor, power: float) -&gt; nuTens._pyNuTens.tensor.Tensor</p></li>
+</ol>
+<p>Raise to scalar power</p>
+<ol class="arabic simple" start="2">
+<li><p>pow(t1: nuTens._pyNuTens.tensor.Tensor, power: complex) -&gt; nuTens._pyNuTens.tensor.Tensor</p></li>
+</ol>
+<p>Raise to scalar power</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nuTens.tensor.scale">
+<span class="sig-prename descclassname"><span class="pre">nuTens.tensor.</span></span><span class="sig-name descname"><span class="pre">scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nuTens.tensor.scale" title="Link to this definition"></a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>scale(t1: nuTens._pyNuTens.tensor.Tensor, scalar: float) -&gt; nuTens._pyNuTens.tensor.Tensor</p></li>
+</ol>
+<p>Scalar multiplication</p>
+<ol class="arabic simple" start="2">
+<li><p>scale(t1: nuTens._pyNuTens.tensor.Tensor, scalar: complex) -&gt; nuTens._pyNuTens.tensor.Tensor</p></li>
+</ol>
+<p>Scalar multiplication</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nuTens.tensor.sin">
+<span class="sig-prename descclassname"><span class="pre">nuTens.tensor.</span></span><span class="sig-name descname"><span class="pre">sin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.sin" title="Link to this definition"></a></dt>
+<dd><p>Element-wise trigonometric sine function</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nuTens.tensor.sum">
+<span class="sig-prename descclassname"><span class="pre">nuTens.tensor.</span></span><span class="sig-name descname"><span class="pre">sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nuTens.tensor.sum" title="Link to this definition"></a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>sum(t1: nuTens._pyNuTens.tensor.Tensor) -&gt; nuTens._pyNuTens.tensor.Tensor</p></li>
+</ol>
+<p>Get the sum of all values in a tensor</p>
+<ol class="arabic simple" start="2">
+<li><p>sum(t1: nuTens._pyNuTens.tensor.Tensor, dimensions: list[int]) -&gt; nuTens._pyNuTens.tensor.Tensor</p></li>
+</ol>
+<p>Get the sum over particular dimensions</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nuTens.tensor.transpose">
+<span class="sig-prename descclassname"><span class="pre">nuTens.tensor.</span></span><span class="sig-name descname"><span class="pre">transpose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.transpose" title="Link to this definition"></a></dt>
+<dd><p>Get the matrix transpose</p>
+</dd></dl>
+
 </section>
 
 
