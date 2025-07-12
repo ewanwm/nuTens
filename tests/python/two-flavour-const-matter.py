@@ -21,7 +21,7 @@ class TestTwoFlavourConstMatter:
     energy_tensor = tensor.ones([1, 1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
     energy_tensor.set_value([0, 0], energy)
 
-    def setup_tensor_inputs(self, mass_diff:float, theta:float) -> typing.Tuple[tensor]:
+    def setup_tensor_inputs(self, mass_diff:float, theta:float) -> typing.Tuple[tensor.Tensor]:
         
         pmns = nt.tensor.zeros([1, 2, 2], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
         pmns.set_value([0, 0, 0], m.cos(theta))
