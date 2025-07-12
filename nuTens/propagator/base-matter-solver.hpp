@@ -26,7 +26,7 @@ class BaseMatterSolver
 
     inline virtual void setEnergies(const Tensor &newEnergies) {
       
-      assert((newEnergies.getNdim() == 2) && (newEnergies.getHasBatchDim()));
+      assert((newEnergies.getNdim() == 2));
       
       NT_PROFILE();
       
