@@ -123,16 +123,16 @@ class TestTwoFlavourConstMatter:
         )
 
         assert (
-            pytest.approx(abs(tensor_osc_probs.get_value([0, 0, 0])), abs = 1e-6) == abs(barger.calculate_prob(self.energy, i=0, j=0))
+            pytest.approx(tensor_osc_probs.get_value([0, 0, 0]), abs = 1e-6) == barger.calculate_prob(self.energy, i=0, j=0)
             ), f"Const matter osc prob[0,0] != barger osc prob"
         assert (
-            pytest.approx(abs(tensor_osc_probs.get_value([0, 0, 1])), abs = 1e-6) == abs(barger.calculate_prob(self.energy, i=0, j=1))
+            pytest.approx(tensor_osc_probs.get_value([0, 0, 1]), abs = 1e-6) == barger.calculate_prob(self.energy, i=0, j=1)
             ), f"Const matter osc prob[0,1] != barger osc prob"
         assert (
-            pytest.approx(abs(tensor_osc_probs.get_value([0, 1, 0])), abs = 1e-6) == abs(barger.calculate_prob(self.energy, i=1, j=0))
+            pytest.approx(tensor_osc_probs.get_value([0, 1, 0]), abs = 1e-6) == barger.calculate_prob(self.energy, i=1, j=0)
             ), f"Const matter osc prob[1,0] != barger osc prob"
         assert (
-            pytest.approx(abs(tensor_osc_probs.get_value([0, 1, 1])), abs = 1e-6) == abs(barger.calculate_prob(self.energy, i=1, j=1))
+            pytest.approx(tensor_osc_probs.get_value([0, 1, 1]), abs = 1e-6) == barger.calculate_prob(self.energy, i=1, j=1)
             ), f"Const matter osc prob[1,1] != barger osc prob"
 
 
