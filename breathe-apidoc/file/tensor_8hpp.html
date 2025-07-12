@@ -514,6 +514,24 @@
 </dl>
 </dd></dl>
 
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6Tensor4eighERK6TensorR6TensorR6Tensor">
+<span id="_CPPv3N6Tensor4eighERK6TensorR6TensorR6Tensor"></span><span id="_CPPv2N6Tensor4eighERK6TensorR6TensorR6Tensor"></span><span id="Tensor::eigh__TensorCR.TensorR.TensorR"></span><span class="target" id="classTensor_1ae56e325a351f831a5df8f56635cefb43"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eigh</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../class/classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <a class="reference internal" href="../class/classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eVals</span></span>, <a class="reference internal" href="../class/classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eVecs</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Get eigenvalues and vectors of a hermitian matrix. </p>
+<p><ul class="simple">
+<li><p>t The tensor </p></li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eVals</strong> – <strong>[out]</strong> The eigenvalues </p></li>
+<li><p><strong>eVecs</strong> – <strong>[out]</strong> The eigenvectors This is in general faster and more stable than <a class="reference internal" href="#classTensor_1a67c0ad8f189c70d4a6d5dd90a6ca1a13"><span class="std std-ref">Tensor::eig</span></a> and should be preferred in basically all cases where it can be used </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-trigonometric">Trigonometric</p>
