@@ -45,12 +45,9 @@ jobs:
         with:
           path: "PyTorch_requirements.txt"
 
-      - name: Build and install
-        run: |
-          pip install --verbose ..[docs]
-          # Need to set the library path so that torch can find itself (:
-          export LD_LIBRARY_PATH=`python3 -c 'import os;import torch;print(os.path.abspath(torch.__file__)[:-11])'`/lib:$LD_LIBRARY_PATH
-
+      - name: Build and install nuTens
+        run: pip install --verbose ..[docs]
+          
       # first need to create the xmls using doxygen
       - name: Build Doxygen files
         run: doxygen doxygen.config
@@ -61,7 +58,10 @@ jobs:
 
       # Now build the sphinx docs
       - name: Build Sphinx files
-        run: sphinx-build -M html source build
+        run: |
+          # Need to set the library path so that torch can find itself (:
+          export LD_LIBRARY_PATH=`python3 -c 'import os;import torch;print(os.path.abspath(torch.__file__)[:-11])'`/lib:$LD_LIBRARY_PATH
+          sphinx-build -M html source build
 
       # Deploys the generated documentation to GitHub Pages
       - name: Deploy
