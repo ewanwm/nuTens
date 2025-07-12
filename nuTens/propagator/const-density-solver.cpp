@@ -14,5 +14,5 @@ void ConstDensityMatterSolver::calculateEigenvalues(Tensor &eigenvectors, Tensor
         }
     }
 
-    Tensor::eig(hamiltonian, eigenvectors, eigenvalues);
+    Tensor::eigh(hamiltonian, eigenvectors, eigenvalues);
 }

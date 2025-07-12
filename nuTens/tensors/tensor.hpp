@@ -226,6 +226,14 @@ class Tensor
     /// @param[out] eVecs The eigenvectors
     static void eig(const Tensor &t, Tensor &eVals, Tensor &eVecs);
 
+    /// @brief Get eigenvalues and vectors of a hermitian matrix
+    /// @arg t The tensor
+    /// @param[out] eVals The eigenvalues
+    /// @param[out] eVecs The eigenvectors
+    /// This is in general faster and more stable than @ref Tensor::eig
+    /// and should be preferred in basically all cases where it can be used
+    static void eigh(const Tensor &t, Tensor &eVals, Tensor &eVecs);
+
     /// @}
 
     /// @name Mathematical
