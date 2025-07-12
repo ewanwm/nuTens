@@ -8,7 +8,7 @@ if(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
 endif()
 
 # set the project name and version
-project(nuTens VERSION 0.2.0)
+project(nuTens VERSION 0.3.0)
 
 # Changes default install path to be a subdirectory of the build dir.
 # Can set build dir at configure time with -DCMAKE_INSTALL_PREFIX=/install/path
