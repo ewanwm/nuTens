@@ -68,6 +68,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.diag"><code class="docutils literal notranslate"><span class="pre">Tensor.diag()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.dtype"><code class="docutils literal notranslate"><span class="pre">Tensor.dtype()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.eye"><code class="docutils literal notranslate"><span class="pre">Tensor.eye()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.from_torch_tensor"><code class="docutils literal notranslate"><span class="pre">Tensor.from_torch_tensor()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.get_shape"><code class="docutils literal notranslate"><span class="pre">Tensor.get_shape()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.get_value"><code class="docutils literal notranslate"><span class="pre">Tensor.get_value()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.get_values"><code class="docutils literal notranslate"><span class="pre">Tensor.get_values()</span></code></a></li>
@@ -80,6 +81,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.requires_grad"><code class="docutils literal notranslate"><span class="pre">Tensor.requires_grad()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.set_value"><code class="docutils literal notranslate"><span class="pre">Tensor.set_value()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.to_string"><code class="docutils literal notranslate"><span class="pre">Tensor.to_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.torch_tensor"><code class="docutils literal notranslate"><span class="pre">Tensor.torch_tensor()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.zeros"><code class="docutils literal notranslate"><span class="pre">Tensor.zeros()</span></code></a></li>
 </ul>
 </li>
@@ -199,6 +201,12 @@ Alternatively you can chain together multiple property setters.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.from_torch_tensor">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_torch_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.from_torch_tensor" title="Link to this definition"></a></dt>
+<dd><p>construct a nuTens Tensor from a pytorch tensor</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="nuTens.tensor.Tensor.get_shape">
 <span class="sig-name descname"><span class="pre">get_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.get_shape" title="Link to this definition"></a></dt>
 <dd><p>Get the shape of this tensor</p>
@@ -292,6 +300,12 @@ Alternatively you can chain together multiple property setters.</p>
 <dt class="sig sig-object py" id="nuTens.tensor.Tensor.to_string">
 <span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.to_string" title="Link to this definition"></a></dt>
 <dd><p>get a summary of this tensor as a string</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.torch_tensor">
+<span class="sig-name descname"><span class="pre">torch_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.torch_tensor" title="Link to this definition"></a></dt>
+<dd><p>Get the pytorch tensor that lives inside this tensor. Only available if using the pytorch backend…</p>
 </dd></dl>
 
 <dl class="py method">
