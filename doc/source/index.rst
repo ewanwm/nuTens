@@ -22,12 +22,12 @@ nuTens is an engine for calculating neutrino oscillation probabilities in an ext
 .. toctree::
 
    intro.rst
-   
+
 .. toctree::
    :caption: 🚀 Getting Started
 
    installation.rst
-   quick-start-guide.rst
+   quick-start-guide/quick-start-guide.rst
 
 .. toctree::
    :maxdepth: 1
