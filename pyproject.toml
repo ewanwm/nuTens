@@ -2,7 +2,7 @@
 [project]
 name = "nuTens"
 description="Library to calculate neutrino oscillation probabilities in a fast, flexible, and differentiable way"
-readme = "pypi-README.md"
+readme = "README.md"
 authors = [
   { name = "Ewan Miller", email = "emiller@ifae.es" },
 ]
