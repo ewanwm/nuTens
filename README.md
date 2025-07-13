@@ -47,18 +47,14 @@ Once [nuTens](#nutens) has been built, you can verify your installation by runni
 make test
 ```
 
-## Python
+### Python
 
-nuTens provides a python interface for it's high level functionality.
-
-### PyPi Distribution
-
-For each nuTens release there is a corresponding python module distributed using [PyPi](https://pypi.org/project/nuTens/) which can automatically be obtained via pip using 
+nuTens provides a python interface for it's high level functionality. The Pypi release of nuTens can be found [here](https://pypi.org/project/nuTens/) and can be installed using 
 ```
 pip install nuTens
 ```
 
-### Manual Installation 
+#### Manual Installation 
 
 The python interface can be installed manually after cloning the repository using pip by running
 ```
@@ -66,13 +62,13 @@ pip install .
 ```
 in the root directory of nuTens
 
-Additionally, the nuTens python module can be installed as a shared library `.so` object by specifying the CMake option
+Additionally, the nuTens python module can be installed by specifying the CMake option
 ```
 cmake -DNT_ENABLE_PYTHON=ON <other options> <source dir>
 ```
-and doing `make && make install`
+during configuration and then doing `make && make install`
 
-### Known Issues
+#### Known Issues
 
 When trying to run using the python interface you may get complaints relating to not being able to locate `libtorch.so` or `libtorch_cpu.so` library files. If so running
 
@@ -83,9 +79,14 @@ export LD_LIBRARY_PATH=`python3 -c 'import os;import torch;print(os.path.abspath
 should allow these files to be found
 
 
+## Usage
 
-## Benchmarking
-nuTens uses [Googles benchmark library](https://github.com/google/benchmark) to perform benchmarking and tracks the results uing [Bencher](https://bencher.dev). Each benchmark consists of calculating neutrino oscillations for 1024 batches of 1024 neutrino energies using the standard PMNS formalism in vacuum and in constant density matter:
+A few simple example scripts using nuTens are available [here](https://github.com/ewanwm/nuTens/tree/main/examples)
+
+
+
+## Benchmarks
+nuTens uses [Googles benchmark library](https://github.com/google/benchmark) to perform benchmarking and tracks the results uing [Bencher](https://bencher.dev). Each benchmark consists of calculating neutrino oscillations for 1024 random variations of parameters in the 3 flavour formalism for 1024 neutrino energies in vacuum and in constant density matter:
 
 <p align="center">  
 <a
