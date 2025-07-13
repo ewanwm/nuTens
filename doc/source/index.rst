@@ -9,12 +9,8 @@ nuTens is an engine for calculating neutrino oscillation probabilities in an ext
 .. toctree::
    :caption: 🚀 Getting Started
 
-   intro.rst
-
-.. toctree::
-   :caption: 🖥️ For Developers
-
-   development.rst
+   installation.rst
+   quick-start-guide.rst
 
 .. toctree::
    :maxdepth: 1
@@ -23,3 +19,9 @@ nuTens is an engine for calculating neutrino oscillation probabilities in an ext
    cpp-api.rst
    python-api.rst
    GitHub 🔗 <https://github.com/ewanwm/nuTens>
+
+.. toctree::
+   :caption: 🖥️ For Developers
+
+   development.rst
+
