@@ -1,8 +1,8 @@
 
 .. _profiling:
 
-Profiling
-=========
+Profiling 📊
+============
 
 nuTens is instrumented with a custom profiler. Compiling with the cmake option 
 
@@ -42,8 +42,8 @@ If using chrome, open chrome and type
 You can then drag and drop the json profile into the profiler.
 
 
-Benchmarking
-============
+Benchmarking 📉
+===============
 
 nuTens uses `Googles benchmark library <https://github.com/google/benchmark>`_ to perform benchmarking. 
 
