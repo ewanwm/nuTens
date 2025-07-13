@@ -1,16 +1,17 @@
 
 [project]
 name = "nuTens"
-description="Library to calculate neutrino oscillation probabilities using tensors"
-readme = "README.md"
+description="Library to calculate neutrino oscillation probabilities in a fast, flexible, and differentiable way"
+readme = "pypi-README.md"
 authors = [
   { name = "Ewan Miller", email = "emiller@ifae.es" },
 ]
 requires-python = ">=3.9"
 license = {file="LICENSE"}
-keywords = ["neutrino", "oscillations", "physics", "particle", "tensor", "experiment", "autograd", "differentiable programming"]
+keywords = ["neutrino", "oscillation", "physics", "particle", "tensor", "experiment", "autograd", "differentiable programming"]
 classifiers = [
-  "Development Status :: 2 - Pre-Alpha",
+  "Development Status :: 3 - Alpha",
+  "Operating System :: POSIX :: Linux",
   "Environment :: GPU",
   "Programming Language :: C++",
   "Programming Language :: Python :: 3",
