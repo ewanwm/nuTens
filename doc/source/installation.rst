@@ -152,3 +152,6 @@ NT_PROFILING            Enable profiling (see :ref:`profiling`)                 
 NT_TEST_COVERAGE        Add flags to allow checking of test coverage                          OFF
 NT_USE_PCH              Use precompiled headers to speed up the build process                 OFF
 ======================  ===================================================================   =======
+
+Building Against nuTens
+-----------------------
