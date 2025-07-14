@@ -36,7 +36,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// @arg density The electron density of the material to propagate in
     ConstDensityMatterSolver(int nGenerations, float density) : BaseMatterSolver(nGenerations), density(density)
     {
-        diagMassMatrix = Tensor::zeros({1, nGenerations, nGenerations}, NTdtypes::kFloat);
+        diagMassMatrix = Tensor::zeros({1, nGenerations, nGenerations}, NTdtypes::kFloat).requiresGrad(false);
     };
 
     /// @name Setters

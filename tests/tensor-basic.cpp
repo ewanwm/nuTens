@@ -117,7 +117,7 @@ int main()
         return 1;
     }
 
-    Tensor complexGradTest = Tensor::zeros({2, 2}, NTdtypes::kComplexFloat);
+    Tensor complexGradTest = Tensor::zeros({2, 2}, NTdtypes::kComplexFloat).requiresGrad(false);
     complexGradTest.setValue({0, 0}, std::complex<float>(0.0 + 0.0J));
     complexGradTest.setValue({0, 1}, std::complex<float>(0.0 + 1.0J));
     complexGradTest.setValue({1, 0}, std::complex<float>(1.0 + 0.0J));

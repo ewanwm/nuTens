@@ -83,7 +83,10 @@ Tensor Tensor::zeros(const std::vector<long int> &shape, NTdtypes::scalarType ty
     NT_PROFILE();
 
     Tensor ret;
-    ret.setTensor(torch::zeros(c10::IntArrayRef(shape), NTdtypes::scalarTypeMap(type)));
+    ret.setTensor(torch::zeros(c10::IntArrayRef(shape), torch::TensorOptions()
+                                                           .dtype(NTdtypes::scalarTypeMap(type))
+                                                           .device(NTdtypes::deviceTypeMap(device))
+                                                           .requires_grad(requiresGrad)));
     ret._dType = type;
     ret._device = device;
     return ret;
