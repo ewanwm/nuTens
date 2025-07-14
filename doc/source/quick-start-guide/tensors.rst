@@ -79,7 +79,7 @@ Setting Values
 Setting single values of a tensor is simply a case of calling the setValue method (set_value in python), providing the index of the element, and the new value.
 Note however, that if the tensor has the `requires gradient` attribute set to true, then it must be set to false before altering the values (then it can be re-enabled after setting is done).
 
-Lets set the value in our :math:`\theta` tensor to the oscillation maximising value of :math:`\frac{ \pi }{ 4 }`:
+Lets set the value in our :math:`\theta` tensor to :math:`\frac{ \pi }{ 8 }`:
 
 .. tabs::
 
@@ -87,7 +87,7 @@ Lets set the value in our :math:`\theta` tensor to the oscillation maximising va
 
         theta.requiresGrad(false);
         
-        theta.setValue({0}, M_PI / 4.0);
+        theta.setValue({0}, M_PI / 8.0);
         
         theta.requiresGrad(true);
 
@@ -97,7 +97,7 @@ Lets set the value in our :math:`\theta` tensor to the oscillation maximising va
         
         theta.requires_grad(Talse)
 
-        theta.set_value([0], m.pi / 4.0)
+        theta.set_value([0], m.pi / 8.0)
         
         theta.requires_grad(True)
 
@@ -244,8 +244,8 @@ Using nuTens tensors this looks like:
 which gives us
 
 .. code::
-
-    oscillation probability =  0.2434
+        
+    oscillation probability =  0.4973
     [ CPUFloatType{1} ]
 
 as expected.
@@ -253,7 +253,68 @@ as expected.
 Automatic Differentiation
 -------------------------
 
+One of the most powerful tools offered by nuTens is the ability to perform automatic differentiation and extract the gradient of a calculated quantity with respect to any of its inputs.
+This is built on top of pytorch and so the process of extracting these gradients is very similar to the process there.
 
+In the example we have been using so far, we may want to extract the derivative of :math:`P_{a \rightarrow b}` with respect to :math:`\theta`.
+In order to do this, we would first need to make sure that the ``requires gradient`` property of our :math:`\theta` tensor has been set (which we have already done).
+
+We then call the :code:`.backward()` method on the quantity we want to differentiate (the :math:`P_{a \rightarrow b}` tensor)
+
+.. tabs::
+
+    .. code-tab:: c++
+
+        oscProb.backward();
+
+    .. code-tab:: py
+        
+        osc_prob.backward()
+
+this performs backpropagation through the computational graph defined by our tensor computations, and will fill the gradients of any tensors that have the ``requires gradient`` property set.
+
+We can then access this gradient 
+
+.. tabs::
+
+    .. code-tab:: c++
+
+        Tensor gradient = theta.grad();
+
+        std::cout << "gradient = " << gradient.toString() << std::endl;
+
+    .. code-tab:: py
+        
+        gradient = theta.grad()
+        
+        print(f"gradient = {gradient.to_string()}")
+
+.. code::
+
+    gradient =  1.9893
+    [ CPUFloatType{1} ]
+
+Just to be sure this is right, we can calculate the probaility using our brains too:
+
+.. math::
+
+    \frac {\partial P_{a \rightarrow b} } { \partial \theta } = 4 \cos ( 2 \theta ) \sin ( 2 \theta ) \sin^2 \left( \frac{\Delta m^2 L}{ 4 E } \right)
+
+.. math::
+
+    = 4 \cos \left( \frac {\pi} {4} \right) \sin \left( \frac {\pi} {4} \right)  \sin^2 ( 1.4975... )
+    
+.. math::
+    
+    = 1.9893...
+
+viola! it's the same!
+
+This example is pretty simple, and we could have just calculated it by hand. 
+However, there is almost no limit to how complex we can make these calculations.
+We will see in the following parts of this tutorial how this can be used to create a fully differentioble neutrino oscillation model.
+
+Full scripts containing the 2-neutrino oscillation calculation here can be found in "simple-tensor.[py/cpp]" in the `examples folder <https://github.com/ewanwm/nuTens/tree/main/examples>`_.
 
 Oscillation Spectrum Example
 ----------------------------
