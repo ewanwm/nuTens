@@ -186,11 +186,25 @@ void Tensor::setValue(const std::vector<int> &indices, float value)
     _tensor.index_put_(convertIndices(indices), value);
 }
 
+void Tensor::setValue(const std::vector<int> &indices, double value)
+{
+    NT_PROFILE();
+
+    _tensor.index_put_(convertIndices(indices), value);
+}
+
 void Tensor::setValue(const std::vector<int> &indices, std::complex<float> value)
 {
     NT_PROFILE();
 
     _tensor.index_put_(convertIndices(indices), c10::complex<float>(value.real(), value.imag()));
+}
+
+void Tensor::setValue(const std::vector<int> &indices, std::complex<double> value)
+{
+    NT_PROFILE();
+
+    _tensor.index_put_(convertIndices(indices), c10::complex<double>(value.real(), value.imag()));
 }
 
 size_t Tensor::getNdim() const
