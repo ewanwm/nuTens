@@ -25,3 +25,10 @@ endif()
 
 target_include_directories(propagator PUBLIC "${CMAKE_SOURCE_DIR}")
 set_target_properties(propagator PROPERTIES LINKER_LANGUAGE CXX)
+
+## install headers to "include" directory
+set(HEADERS "constants.hpp;units.hpp;propagator.hpp;const-density-solver.hpp;base-matter-solver.hpp")
+install(FILES ${HEADERS} DESTINATION include/propagator)
+
+## install libraries to the "lib" directory
+install(TARGETS propagator DESTINATION lib)

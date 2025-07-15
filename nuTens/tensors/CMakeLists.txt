@@ -1,5 +1,5 @@
 
-if(Torch_FOUND)
+if(NT_USE_TORCH)
     add_library(tensor STATIC tensor.hpp torch-tensor.cpp)
     target_compile_definitions(tensor PUBLIC USE_PYTORCH)
 endif()
@@ -12,3 +12,10 @@ endif()
 
 target_link_libraries(tensor PUBLIC utils)
 set_target_properties(tensor PROPERTIES LINKER_LANGUAGE CXX)
+
+## install headers to "include" directory
+set(HEADERS "tensor.hpp")
+install(FILES ${HEADERS} DESTINATION include/tensor)
+
+## install libraries to the "lib" directory
+install(TARGETS tensor DESTINATION lib)

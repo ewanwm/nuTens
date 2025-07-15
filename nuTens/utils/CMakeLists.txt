@@ -42,7 +42,7 @@ endif()
 ################################
 add_library(tensor-backend INTERFACE)
 
-if(Torch_FOUND)
+if(NT_USE_TORCH)
     target_link_libraries(tensor-backend INTERFACE "${TORCH_LIBRARIES}")
 else()
     message( FATAL_ERROR "No library found to deal with tensors. Currently only pytorch is available, please install this and try again." )
@@ -65,7 +65,7 @@ if(NT_USE_PCH)
     set(PCH_LIBS "${PCH_LIBS};nt-logging;instrumentation")
 
     ## the headers included in the PCH will (at some point) depend on which tensor library is being used
-    if(Torch_FOUND)
+    if(NT_USE_TORCH)
         target_compile_definitions(nuTens-pch PUBLIC USE_PYTORCH)
         set(PCH_LIBS "${PCH_LIBS};${TORCH_LIBRARIES}")
     endif()
@@ -79,3 +79,10 @@ endif() ## end NT_USE_PCH block
 add_library(utils INTERFACE)
 target_link_libraries(utils INTERFACE nt-logging instrumentation tensor-backend)
 target_include_directories(utils INTERFACE "${CMAKE_SOURCE_DIR}")
+
+## install headers to "include" directory
+set(HEADERS "instrumentation.hpp")
+install(FILES ${HEADERS} DESTINATION include/utils)
+
+## install libraries to the "lib" directory
+install(TARGETS instrumentation DESTINATION lib)
