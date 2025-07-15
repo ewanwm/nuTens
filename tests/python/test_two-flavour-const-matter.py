@@ -23,13 +23,13 @@ class TestTwoFlavourConstMatter:
 
     def setup_tensor_inputs(self, mass_diff:float, theta:float) -> typing.Tuple[Tensor]:
         
-        pmns = Tensor.zeros([1, 2, 2], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
+        pmns = Tensor.zeros([1, 2, 2], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
         pmns.set_value([0, 0, 0], m.cos(theta))
         pmns.set_value([0, 0, 1], m.sin(theta))
         pmns.set_value([0, 1, 0], -m.sin(theta))
         pmns.set_value([0, 1, 1], m.cos(theta))
 
-        masses = Tensor.zeros([1,2], nt.dtype.scalar_type.float, nt.dtype.device_type.cpu, True)
+        masses = Tensor.zeros([1,2], nt.dtype.scalar_type.float, nt.dtype.device_type.cpu, False)
         masses.set_value([0,0], 0.0)
         masses.set_value([0,1], mass_diff)
 
