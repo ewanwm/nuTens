@@ -332,7 +332,9 @@ class Tensor
     void setValue(const Tensor &indices, const Tensor &value);
     void setValue(const std::vector<indexType> &indices, const Tensor &value);
     void setValue(const std::vector<int> &indices, float value);
+    void setValue(const std::vector<int> &indices, double value);
     void setValue(const std::vector<int> &indices, std::complex<float> value);
+    void setValue(const std::vector<int> &indices, std::complex<double> value);
 
     /// @brief Get the value at a certain entry in the tensor
     /// @param indices The index of the entry to get

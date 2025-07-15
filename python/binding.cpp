@@ -97,10 +97,17 @@ void initTensor(py::module &m)
             "Set a value at a specific index of this tensor",
             py::arg("indices"), py::arg("value")
         )
+        .def("set_value", py::overload_cast<const std::vector<int> &, double>(&Tensor::setValue),
+            "Set a value at a specific index of this tensor",
+            py::arg("indices"), py::arg("value")
+        )
         .def("set_value", py::overload_cast<const std::vector<int> &, std::complex<float>>(&Tensor::setValue),
             "Set a value at a specific index of this tensor",
             py::arg("indices"), py::arg("value")
         )
+        .def("set_value", py::overload_cast<const std::vector<int> &, std::complex<double>>(&Tensor::setValue),
+            "Set a value at a specific index of this tensor",
+            py::arg("indices"), py::arg("value"))
 
         // getters
         .def("get_shape", &Tensor::getShape, "Get the shape of this tensor")
