@@ -1,12 +1,12 @@
 
 
-add_library( constants SHARED constants.hpp)
-add_library( units SHARED units.hpp)
+add_library( constants constants.hpp)
+add_library( units units.hpp)
 set_target_properties(constants PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(units PROPERTIES LINKER_LANGUAGE CXX)
 
 add_library(
-    propagator SHARED
+    propagator
     propagator.hpp propagator.cpp 
     const-density-solver.hpp const-density-solver.cpp
 )

@@ -1,6 +1,6 @@
 
 if(NT_USE_TORCH)
-    add_library(tensor SHARED tensor.hpp torch-tensor.cpp)
+    add_library(tensor tensor.hpp torch-tensor.cpp)
     target_compile_definitions(tensor PUBLIC USE_PYTORCH)
 endif()
 

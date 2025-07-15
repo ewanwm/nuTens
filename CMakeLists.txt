@@ -30,6 +30,7 @@ option(NT_COMPILE_TESTS "whether or not to compile unit and integration tests" O
 option(NT_TEST_COVERAGE "produce code coverage reports when running tests" OFF)
 option(NT_BUILD_TIMING "output time to build each target" OFF)
 option(NT_USE_PCH "NT_USE_PCH" OFF)
+option(BUILD_SHARED_LIBS "Build using shared libs" ON)
 
 ## to build the python library we require to build with the pic flag
 if(NT_ENABLE_PYTHON)
