@@ -20,6 +20,10 @@ elseif(NOT DEFINED CMAKE_INSTALL_PREFIX)
 endif()
 
 # user options
+option(NT_USE_TORCH "Use torch as the backend for dealing with tensors" ON)
+option(NT_TORCH_FROM_PIP "If it is not found, torch will be installed using pip" ON)
+option(NT_TORCH_FROM_SCRATCH "If it is not found, torch will be compiled from scratch using CPM (very slow but maybe useful for debugging builds)" OFF)
+option(NT_ALLOW_GLOBAL_PYTHON_ENV "Allow installing pip packages in global python environment" OFF)
 option(NT_ENABLE_BENCHMARKING "enable benchmarking using google benchmark" OFF)
 option(NT_ENABLE_PYTHON "enable python interface" OFF)
 option(NT_COMPILE_TESTS "whether or not to compile unit and integration tests" ON)
@@ -92,3 +96,5 @@ foreach (_variableName ${_variableNames})
     
     message(STATUS "  ${_variableName}=${${_variableName}}")
 endforeach()
+
+include(cmake/nuTens-config.cmake)
