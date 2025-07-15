@@ -28,7 +28,7 @@ find_path(nuTens_INCLUDE_DIR
 )
 
 find_path(nuTens_LIB_DIR
-  NAME libtensor.a
+  NAME libtensor.so
   PATHS ${nuTens_CMAKE_DIR}/lib/
 )
 
