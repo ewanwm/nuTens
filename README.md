@@ -1,4 +1,4 @@
-![Logo](https://github.com/ewanwm/nuTens/blob/main/nuTens-logo.png)
+![Logo](https://github.com/ewanwm/nuTens/raw/main/nuTens-logo.png)
 <a name="nutens"></a>
 
 <div align="center">
