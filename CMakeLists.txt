@@ -20,12 +20,17 @@ elseif(NOT DEFINED CMAKE_INSTALL_PREFIX)
 endif()
 
 # user options
+option(NT_USE_TORCH "Use torch as the backend for dealing with tensors" ON)
+option(NT_TORCH_FROM_PIP "If it is not found, torch will be installed using pip" ON)
+option(NT_TORCH_FROM_SCRATCH "If it is not found, torch will be compiled from scratch using CPM (very slow but maybe useful for debugging builds)" OFF)
+option(NT_ALLOW_GLOBAL_PYTHON_ENV "Allow installing pip packages in global python environment" OFF)
 option(NT_ENABLE_BENCHMARKING "enable benchmarking using google benchmark" OFF)
 option(NT_ENABLE_PYTHON "enable python interface" OFF)
 option(NT_COMPILE_TESTS "whether or not to compile unit and integration tests" ON)
 option(NT_TEST_COVERAGE "produce code coverage reports when running tests" OFF)
 option(NT_BUILD_TIMING "output time to build each target" OFF)
 option(NT_USE_PCH "NT_USE_PCH" OFF)
+option(BUILD_SHARED_LIBS "Build using shared libs" ON)
 
 ## to build the python library we require to build with the pic flag
 if(NT_ENABLE_PYTHON)
@@ -92,3 +97,34 @@ foreach (_variableName ${_variableNames})
     
     message(STATUS "  ${_variableName}=${${_variableName}}")
 endforeach()
+message(STATUS "  BUILD_SHARED_LIB=${BUILD_SHARED_LIBS}")
+
+install(EXPORT nuTens-targets
+  FILE nuTensTargets.cmake
+  DESTINATION lib/cmake/nuTens
+)
+
+include(CMakePackageConfigHelpers)
+
+# generate the config file that includes the exports
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/nuTensConfig.cmake.in
+  "${CMAKE_CURRENT_BINARY_DIR}/nuTensConfig.cmake"
+  INSTALL_DESTINATION "lib/cmake/nuTens"
+  NO_SET_AND_CHECK_MACRO
+  NO_CHECK_REQUIRED_COMPONENTS_MACRO
+)
+
+write_basic_package_version_file(${CMAKE_BINARY_DIR}/nuTensConfigVersion.cmake
+  VERSION ${nuTens_VERSION}
+  COMPATIBILITY AnyNewerVersion)
+
+install(FILES
+  ${CMAKE_BINARY_DIR}/nuTensConfig.cmake
+  ${CMAKE_BINARY_DIR}/nuTensConfigVersion.cmake
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/nuTens)
+  
+ export(EXPORT nuTens-targets
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/nuTensTargets.cmake"
+)
+
+include(cmake/nuTens-config.cmake)

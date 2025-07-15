@@ -2,9 +2,15 @@
 ########################
 #### set up logging ####
 ########################
-add_library(logging logging.hpp)
-target_link_libraries(logging spdlog::spdlog)
-set_target_properties(logging PROPERTIES LINKER_LANGUAGE CXX)
+add_library(nt-logging SHARED logging.hpp)
+target_link_libraries(nt-logging PRIVATE spdlog)
+target_include_directories(nt-logging
+                           PUBLIC
+                            $<BUILD_INTERFACE:${spdlog_SOURCE_DIR}/include>
+                            $<INSTALL_INTERFACE:include>
+                           )
+
+set_target_properties(nt-logging PROPERTIES LINKER_LANGUAGE CXX)
 
 ## get the log level specified by the user via -DNT_LOG_LEVEL
 set( NT_LOG_LEVEL "INFO" CACHE STRING "the level of detail to log to the console" )
@@ -22,7 +28,7 @@ else()
 endif()
 
 ## set the log level that will be used inside the logging.hpp file
-target_compile_definitions(logging PUBLIC NT_LOG_LEVEL=NT_LOG_LEVEL_${LOG_LEVEL_UPPER})
+target_compile_definitions(nt-logging PUBLIC NT_LOG_LEVEL=NT_LOG_LEVEL_${LOG_LEVEL_UPPER})
 
 
 ################################
@@ -42,7 +48,7 @@ endif()
 ################################
 add_library(tensor-backend INTERFACE)
 
-if(TORCH_FOUND)
+if(NT_USE_TORCH)
     target_link_libraries(tensor-backend INTERFACE "${TORCH_LIBRARIES}")
 else()
     message( FATAL_ERROR "No library found to deal with tensors. Currently only pytorch is available, please install this and try again." )
@@ -62,10 +68,10 @@ if(NT_USE_PCH)
     add_library(nuTens-pch OBJECT ${CMAKE_CURRENT_BINARY_DIR}/nuTens-pch.cpp)
     target_include_directories(nuTens-pch PUBLIC "${CMAKE_SOURCE_DIR}")
     
-    set(PCH_LIBS "${PCH_LIBS};logging;instrumentation")
+    set(PCH_LIBS "${PCH_LIBS};nt-logging;instrumentation")
 
     ## the headers included in the PCH will (at some point) depend on which tensor library is being used
-    if(TORCH_FOUND)
+    if(NT_USE_TORCH)
         target_compile_definitions(nuTens-pch PUBLIC USE_PYTORCH)
         set(PCH_LIBS "${PCH_LIBS};${TORCH_LIBRARIES}")
     endif()
@@ -77,5 +83,19 @@ if(NT_USE_PCH)
 endif() ## end NT_USE_PCH block
 
 add_library(utils INTERFACE)
-target_link_libraries(utils INTERFACE logging instrumentation tensor-backend)
-target_include_directories(utils INTERFACE "${CMAKE_SOURCE_DIR}")
+target_link_libraries(utils INTERFACE nt-logging instrumentation tensor-backend)
+target_include_directories(utils INTERFACE 
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:include>
+)
+
+## install headers to "include" directory
+set(HEADERS "instrumentation.hpp")
+install(FILES ${HEADERS} DESTINATION include/utils)
+
+## install libraries to the "lib" directory
+install(
+    TARGETS nt-logging tensor-backend instrumentation utils
+    DESTINATION lib
+    EXPORT nuTens-targets
+)

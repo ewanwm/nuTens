@@ -1,0 +1,53 @@
+@PACKAGE_INIT@
+
+set(nuTens_VERSION @PROJECT_VERSION@)
+
+LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/../../../cmake)
+
+get_filename_component(nuTens_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+list(APPEND CMAKE_MODULE_PATH "${nuTens_CMAKE_DIR}")
+list(APPEND CMAKE_MODULE_PATH "${nuTens_CMAKE_DIR}/cmake")
+
+enable_language(CXX)
+
+set(nuTens_FOUND TRUE)
+
+find_package(Torch REQUIRED)
+
+get_filename_component(nuTens_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+
+include(${CMAKE_CURRENT_LIST_DIR}/nuTensTargets.cmake)
+
+if(NOT TARGET nuTens)
+  cmessage(FATAL_ERROR "Didn't set up nuTens")
+endif()
+
+find_path(nuTens_INCLUDE_DIR
+  NAME tensor/tensor.hpp
+  PATHS ${nuTens_CMAKE_DIR}/include/
+)
+
+find_path(nuTens_LIB_DIR
+  NAME libtensor.so
+  PATHS ${nuTens_CMAKE_DIR}/lib/
+)
+
+find_path(nuTens_PREFIX
+  NAME nuTens-config
+  PATHS ${nuTens_CMAKE_DIR}/
+)
+
+cmessage(STATUS "nuTens_LIB_DIR: ${nuTens_LIB_DIR}")
+cmessage(STATUS "nuTens_INCLUDE_DIR: ${nuTens_INCLUDE_DIR}")
+cmessage(STATUS "nuTens_PREFIX: ${nuTens_PREFIX}")
+cmessage(STATUS "nuTens_VERSION: ${nuTens_VERSION}")
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(nuTens
+    REQUIRED_VARS
+      nuTens_INCLUDE_DIR
+      nuTens_LIB_DIR
+      nuTens_PREFIX
+    VERSION_VAR
+      nuTens_VERSION
+)
