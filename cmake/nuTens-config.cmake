@@ -2,10 +2,21 @@ SET(nuTens_LIB_LIST "-lnuTens -libtensor -libpropagator -libinstrumentation -lib
 
 SET(nuTens_FEATURES_LIST)
 
-if(UseGPU EQUAL 1)
-  LIST(APPEND NUOSCILLATOR_FEATURES_LIST "GPU")
+if(NT_ENABLE_PYTHON EQUAL 1)
+  LIST(APPEND nuTens_FEATURES_LIST "python")
 endif()
-LIST(APPEND NUOSCILLATOR_FEATURES_LIST ${NuOscillator_Engines_Enabled})
+if(NT_USE_TORCH EQUAL 1)
+  LIST(APPEND nuTens_FEATURES_LIST "torch")
+endif()
+if(NT_ENABLE_BENCHMARKING EQUAL 1)
+  LIST(APPEND nuTens_FEATURES_LIST "benchmarks")
+endif()
+if(NT_COMPILE_TESTS EQUAL 1)
+  LIST(APPEND nuTens_FEATURES_LIST "tests")
+endif()
+if(NT_TEST_COVERAGE EQUAL 1)
+  LIST(APPEND nuTens_FEATURES_LIST "test-coverage")
+endif()
 
 # Set the creation date
 string(TIMESTAMP CREATION_DATE "%d-%m-%Y")
