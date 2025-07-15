@@ -97,6 +97,7 @@ foreach (_variableName ${_variableNames})
     
     message(STATUS "  ${_variableName}=${${_variableName}}")
 endforeach()
+message(STATUS "  BUILD_SHARED_LIB=${BUILD_SHARED_LIBS}")
 
 install(EXPORT nuTens-targets
   FILE nuTensTargets.cmake
