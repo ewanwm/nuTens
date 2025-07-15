@@ -18,3 +18,5 @@ foreach(TESTNAME
     add_test(NAME "${TESTNAME}-test" COMMAND "${TESTNAME}")
 
 endforeach()
+
+install( DIRECTORY python DESTINATION ./tests )
