@@ -4,7 +4,12 @@
 ########################
 add_library(nt-logging SHARED logging.hpp)
 target_link_libraries(nt-logging PRIVATE spdlog)
-target_include_directories(nt-logging PUBLIC ${spdlog_SOURCE_DIR}/include)
+target_include_directories(nt-logging
+                           PUBLIC
+                            $<BUILD_INTERFACE:${spdlog_SOURCE_DIR}/include>
+                            $<INSTALL_INTERFACE:include>
+                           )
+
 set_target_properties(nt-logging PROPERTIES LINKER_LANGUAGE CXX)
 
 ## get the log level specified by the user via -DNT_LOG_LEVEL
