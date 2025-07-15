@@ -4,6 +4,12 @@ if(NT_USE_TORCH)
     target_compile_definitions(tensor PUBLIC USE_PYTORCH)
 endif()
 
+target_include_directories(tensor
+                           PUBLIC
+                            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../>
+                            $<INSTALL_INTERFACE:include>
+                           )
+
 ## when new tensor backends are added will add coresponding <library>-tensor.cpp and compile accordingly
 
 if(NT_USE_PCH)
