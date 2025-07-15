@@ -2,8 +2,9 @@
 ########################
 #### set up logging ####
 ########################
-add_library(nt-logging logging.hpp)
-target_link_libraries(nt-logging spdlog::spdlog)
+add_library(nt-logging SHARED logging.hpp)
+target_link_libraries(nt-logging PRIVATE spdlog)
+target_include_directories(nt-logging PUBLIC ${spdlog_SOURCE_DIR}/include)
 set_target_properties(nt-logging PROPERTIES LINKER_LANGUAGE CXX)
 
 ## get the log level specified by the user via -DNT_LOG_LEVEL
@@ -78,11 +79,18 @@ endif() ## end NT_USE_PCH block
 
 add_library(utils INTERFACE)
 target_link_libraries(utils INTERFACE nt-logging instrumentation tensor-backend)
-target_include_directories(utils INTERFACE "${CMAKE_SOURCE_DIR}")
+target_include_directories(utils INTERFACE 
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:include>
+)
 
 ## install headers to "include" directory
 set(HEADERS "instrumentation.hpp")
 install(FILES ${HEADERS} DESTINATION include/utils)
 
 ## install libraries to the "lib" directory
-install(TARGETS instrumentation DESTINATION lib)
+install(
+    TARGETS nt-logging tensor-backend instrumentation utils
+    DESTINATION lib
+    EXPORT nuTens-targets
+)

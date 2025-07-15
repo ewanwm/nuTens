@@ -18,4 +18,8 @@ set(HEADERS "tensor.hpp")
 install(FILES ${HEADERS} DESTINATION include/tensor)
 
 ## install libraries to the "lib" directory
-install(TARGETS tensor DESTINATION lib)
+install(
+    TARGETS tensor 
+    DESTINATION lib
+    EXPORT nuTens-targets
+)

@@ -97,4 +97,32 @@ foreach (_variableName ${_variableNames})
     message(STATUS "  ${_variableName}=${${_variableName}}")
 endforeach()
 
+install(EXPORT nuTens-targets
+  FILE nuTensTargets.cmake
+  DESTINATION lib/cmake/nuTens
+)
+
+include(CMakePackageConfigHelpers)
+
+# generate the config file that includes the exports
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/nuTensConfig.cmake.in
+  "${CMAKE_CURRENT_BINARY_DIR}/nuTensConfig.cmake"
+  INSTALL_DESTINATION "lib/cmake/nuTens"
+  NO_SET_AND_CHECK_MACRO
+  NO_CHECK_REQUIRED_COMPONENTS_MACRO
+)
+
+write_basic_package_version_file(${CMAKE_BINARY_DIR}/nuTensConfigVersion.cmake
+  VERSION ${nuTens_VERSION}
+  COMPATIBILITY AnyNewerVersion)
+
+install(FILES
+  ${CMAKE_BINARY_DIR}/nuTensConfig.cmake
+  ${CMAKE_BINARY_DIR}/nuTensConfigVersion.cmake
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/nuTens)
+  
+ export(EXPORT nuTens-targets
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/nuTensTargets.cmake"
+)
+
 include(cmake/nuTens-config.cmake)

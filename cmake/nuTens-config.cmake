@@ -1,4 +1,4 @@
-SET(nuTens_LIB_LIST "-libtensor -libpropagator -libinstrumentation -libnt-logging -libconstants -libunits")
+SET(nuTens_LIB_LIST "-lnuTens -libtensor -libpropagator -libinstrumentation -libnt-logging -libconstants -libunits")
 
 SET(nuTens_FEATURES_LIST)
 
