@@ -54,7 +54,7 @@ void initTensor(py::module &m)
 
     py::class_<Tensor>(m_tensor, "Tensor")
         .def(py::init()) // <- default constructor
-        .def(py::init<std::vector<float>, NTdtypes::scalarType, NTdtypes::deviceType, bool>())
+        .def(py::init<std::vector<float>, dtypes::scalarType, dtypes::deviceType, bool>())
 
         // property setters
         .def("dtype", &Tensor::dType, py::return_value_policy::reference, 
@@ -147,19 +147,19 @@ void initTensor(py::module &m)
         // Tensor creation functions
         .def_static("eye", &Tensor::eye, 
             "Create a tensor initialised with an identity matrix",
-            py::arg("n"), py::arg("dtype") = NTdtypes::kFloat, py::arg("device") = NTdtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("n"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
         .def_static("rand", &Tensor::rand, 
             "Create a tensor initialised with random values",
-            py::arg("shape"), py::arg("dtype") = NTdtypes::kFloat, py::arg("device") = NTdtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("shape"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
         .def_static("diag", &Tensor::diag, 
             "Create a tensor with specified values along the diagonal",
             py::arg("diagonal"))
         .def_static("ones", &Tensor::ones, 
             "Create a tensor initialised with ones",
-            py::arg("shape"), py::arg("dtype") = NTdtypes::kFloat, py::arg("device") = NTdtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("shape"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
         .def_static("zeros", &Tensor::zeros, 
             "Create a tensor initialised with zeros",
-            py::arg("shape"), py::arg("dtype") = NTdtypes::kFloat, py::arg("device") = NTdtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("shape"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
 
         .doc() = 
             "Tensor defines a basic interface for creating and manipulating tensors."
@@ -311,17 +311,17 @@ void initDtypes(py::module &m)
     auto m_dtypes = m.def_submodule("dtype",
         "This module defines various data types used in nuTens");
 
-    py::enum_<NTdtypes::scalarType>(m_dtypes, "scalar_type")
-        .value("int", NTdtypes::scalarType::kInt)
-        .value("float", NTdtypes::scalarType::kFloat)
-        .value("double", NTdtypes::scalarType::kDouble)
-        .value("complex_float", NTdtypes::scalarType::kComplexFloat)
-        .value("complex_double", NTdtypes::scalarType::kComplexDouble)
+    py::enum_<dtypes::scalarType>(m_dtypes, "scalar_type")
+        .value("int", dtypes::scalarType::kInt)
+        .value("float", dtypes::scalarType::kFloat)
+        .value("double", dtypes::scalarType::kDouble)
+        .value("complex_float", dtypes::scalarType::kComplexFloat)
+        .value("complex_double", dtypes::scalarType::kComplexDouble)
     ;
 
-    py::enum_<NTdtypes::deviceType>(m_dtypes, "device_type")
-        .value("cpu", NTdtypes::deviceType::kCPU)
-        .value("gpu", NTdtypes::deviceType::kGPU)
+    py::enum_<dtypes::deviceType>(m_dtypes, "device_type")
+        .value("cpu", dtypes::deviceType::kCPU)
+        .value("gpu", dtypes::deviceType::kGPU)
     ;
 }
 
