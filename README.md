@@ -70,6 +70,8 @@ during configuration and then doing `make && make install`
 
 #### Known Issues
 
+##### Can't find libtorch.so
+
 When trying to run using the python interface you may get complaints relating to not being able to locate `libtorch.so` or `libtorch_cpu.so` library files. If so running
 
 ```
@@ -77,6 +79,11 @@ export LD_LIBRARY_PATH=`python3 -c 'import os;import torch;print(os.path.abspath
 ```
 
 should allow these files to be found
+
+##### Torch - yaml-cpp Incompatibility
+
+There is an incompatibility between some torch cpu versions and the yaml-cpp library (see [here](https://github.com/pytorch/pytorch/issues/19353) for discussion).
+If you are trying to use nuTens with the cpu version of torch in a project which also uses yaml-cpp, you will need to install torch version `torch==<version>+cpu.cxx11.abi` instead of just `torch==<version>+cpu`.
 
 
 ## Usage
