@@ -7,7 +7,10 @@
 // 1 eV^-1 = 0.197 e-6 m
 // => 1m = 5.07614213198 e^6 eV^-1
 
-namespace Units
+namespace nuTens
+{
+
+namespace units
 {
 
     static constexpr double eV =  1.0; // eV
@@ -17,5 +20,7 @@ namespace Units
     static constexpr double m = 5.07614213198e6; // eV^-1 
     static constexpr double cm = 1e-2 * m; // eV^-1
     static constexpr double km = 1e3  * m; // eV^-1
+
+}
 
 }

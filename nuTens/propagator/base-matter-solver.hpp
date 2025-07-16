@@ -5,6 +5,8 @@
 
 /// @file base-matter-solver.hpp
 
+namespace nuTens {
+
 class BaseMatterSolver
 {
     /// @class BaseMatterSolver
@@ -33,7 +35,7 @@ class BaseMatterSolver
       energies = newEnergies;
       energiesRed = energies.getValues({"...", 0});
 
-      hamiltonian = Tensor::zeros({energies.getBatchDim(), nGenerations, nGenerations}, NTdtypes::kComplexFloat).requiresGrad(false);
+      hamiltonian = Tensor::zeros({energies.getBatchDim(), nGenerations, nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
     }
 
     /// @}
@@ -44,4 +46,6 @@ class BaseMatterSolver
     Tensor energies;
     Tensor energiesRed;
     Tensor hamiltonian;
+};
+
 };

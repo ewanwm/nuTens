@@ -5,7 +5,8 @@
 
 // who tests the testers???
 
-using namespace Testing;
+using namespace nuTens;
+using namespace testing;
 
 int main()
 {
@@ -91,21 +92,21 @@ int main()
     //    prob_(alpha == beta) =      1 - 0.186410  = 0.81359
 
     bargerProp.setParams(/*m1=*/0.04, /*m2=*/0.001, /*theta=*/0.24,
-                         /*baseline=*/500.0 * Units::km, /*density=*/2.0);
+                         /*baseline=*/500.0 * units::km, /*density=*/2.0);
 
-    TEST_EXPECTED(bargerProp.lv(1.0 * Units::GeV), 7.8588934e+12  , "vacuum osc length", 0.00001)
+    TEST_EXPECTED(bargerProp.lv(1.0 * units::GeV), 7.8588934e+12  , "vacuum osc length", 0.00001)
 
     TEST_EXPECTED(bargerProp.lm(), 2.0588727e+13 , "matter osc length", 0.00001)
 
-    TEST_EXPECTED(bargerProp.calculateEffectiveAngle(1.0 * Units::GeV), 0.370219805, "effective mixing angle", 0.00001)
+    TEST_EXPECTED(bargerProp.calculateEffectiveAngle(1.0 * units::GeV), 0.370219805, "effective mixing angle", 0.00001)
 
-    TEST_EXPECTED(bargerProp.calculateEffectiveDm2(1.0 * Units::GeV), 0.00109453, "effective m^2 diff", 0.00001)
+    TEST_EXPECTED(bargerProp.calculateEffectiveDm2(1.0 * units::GeV), 0.00109453, "effective m^2 diff", 0.00001)
 
-    TEST_EXPECTED(bargerProp.calculateProb(1.0 * Units::GeV, 0, 0), 0.81359, "probability for alpha == beta == 0", 0.00001)
+    TEST_EXPECTED(bargerProp.calculateProb(1.0 * units::GeV, 0, 0), 0.81359, "probability for alpha == beta == 0", 0.00001)
 
-    TEST_EXPECTED(bargerProp.calculateProb(1.0 * Units::GeV, 1, 1), 0.81359, "probability for alpha == beta == 1", 0.00001)
+    TEST_EXPECTED(bargerProp.calculateProb(1.0 * units::GeV, 1, 1), 0.81359, "probability for alpha == beta == 1", 0.00001)
 
-    TEST_EXPECTED(bargerProp.calculateProb(1.0 * Units::GeV, 0, 1), 0.186410, "probability for alpha == 0, beta == 1", 0.00001)
+    TEST_EXPECTED(bargerProp.calculateProb(1.0 * units::GeV, 0, 1), 0.186410, "probability for alpha == 0, beta == 1", 0.00001)
 
-    TEST_EXPECTED(bargerProp.calculateProb(1.0 * Units::GeV, 1, 0), 0.186410, "probability for alpha == 1, beta == 0", 0.00001)
+    TEST_EXPECTED(bargerProp.calculateProb(1.0 * units::GeV, 1, 0), 0.186410, "probability for alpha == 1, beta == 0", 0.00001)
 }

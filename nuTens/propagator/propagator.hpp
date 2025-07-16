@@ -7,6 +7,8 @@
 
 /// @file propagator.hpp
 
+namespace nuTens {
+
 class Propagator
 {
     /*!
@@ -58,7 +60,7 @@ class Propagator
         NT_PROFILE();
 
         _energies = newEnergies;
-        _weightMatrix = Tensor::ones({_energies.getBatchDim(), _nGenerations, _nGenerations}, NTdtypes::kComplexFloat)
+        _weightMatrix = Tensor::ones({_energies.getBatchDim(), _nGenerations, _nGenerations}, dtypes::kComplexFloat)
                         .requiresGrad(false);
         _weightArgDenom = Tensor::scale(Tensor::scale(_energies, 2.0), std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline));
 
@@ -136,4 +138,6 @@ class Propagator
     float _baseline;
 
     std::shared_ptr<BaseMatterSolver> _matterSolver;
+};
+
 };

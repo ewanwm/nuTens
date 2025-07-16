@@ -1,5 +1,7 @@
 #include <nuTens/propagator/const-density-solver.hpp>
 
+using namespace nuTens;
+
 void ConstDensityMatterSolver::calculateEigenvalues(Tensor &eigenvectors, Tensor &eigenvalues)
 {
     NT_PROFILE();
