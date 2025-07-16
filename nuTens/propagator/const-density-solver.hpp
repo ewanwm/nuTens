@@ -55,7 +55,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
         // matrix used to construct the hamiltonian
         electronOuter =
             Tensor::scale(Tensor::outer(PMNS.getValues({0, 0, "..."}), PMNS.getValues({0, 0, "..."}).conj()),
-                          nuTens::Constants::Groot2 * density);
+                          nuTens::constants::Groot2 * density);
     };
 
     /// @brief Set new mass eigenvalues for this solver

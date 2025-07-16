@@ -45,7 +45,7 @@ class TwoFlavourBarger
     // characteristic length in matter
     [[nodiscard]] inline float lm() const
     {
-        return 2.0 * M_PI / (nuTens::Constants::Groot2 * _density);
+        return 2.0 * M_PI / (nuTens::constants::Groot2 * _density);
     }
 
     // calculate the modified rotation angle
