@@ -32,11 +32,11 @@ This is ill advised, but if you're sure that's what you want to do you can set t
         find_package(Python COMPONENTS Interpreter REQUIRED)
         
         ## install torch Python package using pip
-        execute_process(COMMAND ${Python_EXECUTABLE} -m pip install -r ${CMAKE_SOURCE_DIR}/PyTorch_requirements.txt)
+        execute_process(COMMAND ${Python_EXECUTABLE} -m pip install -r ${PROJECT_SOURCE_DIR}/PyTorch_requirements.txt)
         
         ## need to do some absolute tomfoolery to get the path to the torch shared library
         execute_process(
-            COMMAND ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/cmake/torch-cmake-prefix.py
+            COMMAND ${Python_EXECUTABLE} ${PROJECT_SOURCE_DIR}/cmake/torch-cmake-prefix.py
             OUTPUT_VARIABLE _TORCH_CMAKE_PREFIX
         )
         string(REPLACE ' "" TORCH_CMAKE_PREFIX ${_TORCH_CMAKE_PREFIX})

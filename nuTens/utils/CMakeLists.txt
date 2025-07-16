@@ -66,7 +66,7 @@ if(NT_USE_PCH)
     )
 
     add_library(nuTens-pch OBJECT ${CMAKE_CURRENT_BINARY_DIR}/nuTens-pch.cpp)
-    target_include_directories(nuTens-pch PUBLIC "${CMAKE_SOURCE_DIR}")
+    target_include_directories(nuTens-pch PUBLIC "${PROJECT_SOURCE_DIR}")
     
     set(PCH_LIBS "${PCH_LIBS};nt-logging;instrumentation")
 
@@ -85,7 +85,7 @@ endif() ## end NT_USE_PCH block
 add_library(utils INTERFACE)
 target_link_libraries(utils INTERFACE nt-logging instrumentation tensor-backend)
 target_include_directories(utils INTERFACE 
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:include>
 )
 
