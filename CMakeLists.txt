@@ -14,9 +14,9 @@ project(nuTens VERSION 0.3.1)
 # Can set build dir at configure time with -DCMAKE_INSTALL_PREFIX=/install/path
 if(CMAKE_INSTALL_PREFIX STREQUAL "" OR CMAKE_INSTALL_PREFIX STREQUAL
   "/usr/local")
-  set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}")
+  set(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}")
 elseif(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}")
+  set(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}")
 endif()
 
 # user options
@@ -114,13 +114,13 @@ configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/nuTens
   NO_CHECK_REQUIRED_COMPONENTS_MACRO
 )
 
-write_basic_package_version_file(${CMAKE_BINARY_DIR}/nuTensConfigVersion.cmake
+write_basic_package_version_file(${PROJECT_BINARY_DIR}/nuTensConfigVersion.cmake
   VERSION ${nuTens_VERSION}
   COMPATIBILITY AnyNewerVersion)
 
 install(FILES
-  ${CMAKE_BINARY_DIR}/nuTensConfig.cmake
-  ${CMAKE_BINARY_DIR}/nuTensConfigVersion.cmake
+  ${PROJECT_BINARY_DIR}/nuTensConfig.cmake
+  ${PROJECT_BINARY_DIR}/nuTensConfigVersion.cmake
   DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/nuTens)
   
  export(EXPORT nuTens-targets
