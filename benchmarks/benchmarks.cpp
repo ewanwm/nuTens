@@ -4,6 +4,8 @@
 #include <nuTens/propagator/propagator.hpp>
 #include <nuTens/tensors/tensor.hpp>
 
+using namespace nuTens;
+
 // The random seed to use for the RNG
 // want this to be fixed for reproducibility
 const int randSeed = 123;
@@ -22,9 +24,9 @@ class PMNSmatrix
     PMNSmatrix()
     {
         // set up the three matrices to build the PMNS matrix
-        _m1 = Tensor::zeros({1, 3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
-        _m2 = Tensor::zeros({1, 3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
-        _m3 = Tensor::zeros({1, 3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
+        _m1 = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat).requiresGrad(false);
+        _m2 = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat).requiresGrad(false);
+        _m3 = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat).requiresGrad(false);
     }
 
     void build(const Tensor &theta12, const Tensor &theta13, const Tensor &theta23, const Tensor &deltaCP)
@@ -70,11 +72,11 @@ class PMNSmatrix
 static void batchedOscProbs(
     Propagator &prop, 
     PMNSmatrix &matrix, 
-    AccessedTensor<float, 1, NTdtypes::kCPU> &theta23, 
-    AccessedTensor<float, 1, NTdtypes::kCPU> &theta13, 
-    AccessedTensor<float, 1, NTdtypes::kCPU> &theta12,
+    AccessedTensor<float, 1, dtypes::kCPU> &theta23, 
+    AccessedTensor<float, 1, dtypes::kCPU> &theta13, 
+    AccessedTensor<float, 1, dtypes::kCPU> &theta12,
     Tensor &deltaCP, 
-    AccessedTensor<float, 2, NTdtypes::kCPU> &masses, 
+    AccessedTensor<float, 2, dtypes::kCPU> &masses, 
     long nBatches)
 {
     for (int _ = 0; _ < nBatches; _++)
@@ -107,18 +109,18 @@ static void BM_vacuumOscillations(benchmark::State &state)
 {
     // make some random test energies
     Tensor energies =
-        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(NTdtypes::kFloat).requiresGrad(false), 10000.0).hasBatchDim(true) +
+        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kFloat).requiresGrad(false), 10000.0).hasBatchDim(true) +
         Tensor({100.0});
 
     energies = energies.hasBatchDim(true);
 
     // set up the inputs
-    auto masses = AccessedTensor<float, 2, NTdtypes::kCPU>::zeros({1, 3});
+    auto masses = AccessedTensor<float, 2, dtypes::kCPU>::zeros({1, 3});
 
-    auto theta23 = AccessedTensor<float, 1, NTdtypes::kCPU>::zeros({1}, false);
-    auto theta13 = AccessedTensor<float, 1, NTdtypes::kCPU>::zeros({1}, false);
-    auto theta12 = AccessedTensor<float, 1, NTdtypes::kCPU>::zeros({1}, false);
-    auto deltaCP = Tensor::zeros({1}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    auto theta23 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto theta13 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto theta12 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto deltaCP = Tensor::zeros({1}).dType(dtypes::kComplexFloat).requiresGrad(false);
 
     PMNSmatrix PMNS;
 
@@ -143,18 +145,18 @@ static void BM_constMatterOscillations(benchmark::State &state)
 {
     // make some random test energies
     Tensor energies =
-        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(NTdtypes::kFloat).requiresGrad(false), 10000.0) +
+        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kFloat).requiresGrad(false), 10000.0) +
         Tensor({100.0});
 
     energies = energies.hasBatchDim(true);
 
     // set up the inputs
-    auto masses = AccessedTensor<float, 2, NTdtypes::kCPU>::zeros({1, 3});
+    auto masses = AccessedTensor<float, 2, dtypes::kCPU>::zeros({1, 3});
 
-    auto theta23 = AccessedTensor<float, 1, NTdtypes::kCPU>::zeros({1}, false);
-    auto theta13 = AccessedTensor<float, 1, NTdtypes::kCPU>::zeros({1}, false);
-    auto theta12 = AccessedTensor<float, 1, NTdtypes::kCPU>::zeros({1}, false);
-    auto deltaCP = Tensor::zeros({1}).dType(NTdtypes::kComplexFloat).requiresGrad(false);
+    auto theta23 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto theta13 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto theta12 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto deltaCP = Tensor::zeros({1}).dType(dtypes::kComplexFloat).requiresGrad(false);
 
     PMNSmatrix PMNS;
     PMNS.build(theta12, theta13, theta23, deltaCP);
