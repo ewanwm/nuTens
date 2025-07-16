@@ -14,7 +14,7 @@ foreach(TESTNAME
     ENDIF()
 
     target_link_libraries("${TESTNAME}" PUBLIC nuTens test-utils m)
-    target_include_directories("${TESTNAME}" PUBLIC "${CMAKE_SOURCE_DIR}")
+    target_include_directories("${TESTNAME}" PUBLIC "${PROJECT_SOURCE_DIR}")
     add_test(NAME "${TESTNAME}-test" COMMAND "${TESTNAME}")
 
 endforeach()

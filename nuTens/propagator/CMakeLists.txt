@@ -24,7 +24,7 @@ if(NT_USE_PCH)
 endif()
 
 target_include_directories(propagator PUBLIC 
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:include>
 )
 
