@@ -1,0 +1,791 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class nuTens::Tensor &mdash; nuTens  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="File list" href="../filelist.html" />
+    <link rel="prev" title="Class nuTens::Propagator" href="classnuTens_1_1Propagator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/nuTens-logo-small.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">🚀 Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">🖥️ For Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Profiling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📖 References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../cpp-api.html">c++ API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../classlist.html">Class list</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="classBaseMatterSolver.html">Class BaseMatterSolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classConstDensityMatterSolver.html">Class ConstDensityMatterSolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classPropagator.html">Class Propagator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classTensor.html">Class Tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1BaseMatterSolver.html">Class nuTens::BaseMatterSolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1ConstDensityMatterSolver.html">Class nuTens::ConstDensityMatterSolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1Propagator.html">Class nuTens::Propagator</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Class nuTens::Tensor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N6nuTens6TensorE"><code class="docutils literal notranslate"><span class="pre">nuTens::Tensor</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../filelist.html">File list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../namespacelist.html">Namespace list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structlist.html">Struct list</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../python-api.html">Python API 🐍</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ewanwm/nuTens">GitHub 🔗</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nuTens</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../cpp-api.html">c++ API</a></li>
+          <li class="breadcrumb-item"><a href="../classlist.html">Class list</a></li>
+      <li class="breadcrumb-item active">Class nuTens::Tensor</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/breathe-apidoc/class/classnuTens_1_1Tensor.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nutens-tensor">
+<h1>Class nuTens::Tensor<a class="headerlink" href="#class-nutens-tensor" title="Link to this heading"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6TensorE">
+<span id="_CPPv3N6nuTens6TensorE"></span><span id="_CPPv2N6nuTens6TensorE"></span><span id="nuTens::Tensor"></span><span class="target" id="classnuTens_1_1Tensor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#_CPPv4N6nuTens6TensorE" title="Link to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-constructors">Constructors</p>
+<p>Use these methods to construct tensors </p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor6TensorEv">
+<span id="_CPPv3N6nuTens6Tensor6TensorEv"></span><span id="_CPPv2N6nuTens6Tensor6TensorEv"></span><span id="nuTens::Tensor::Tensor"></span><span class="target" id="classnuTens_1_1Tensor_1acae93f8f1e49ff75ab66ab1d66bb4871"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Tensor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor6TensorEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Default constructor with no initialisation. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor6TensorERKNSt6vectorIfEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb">
+<span id="_CPPv3N6nuTens6Tensor6TensorERKNSt6vectorIfEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="_CPPv2N6nuTens6Tensor6TensorERKNSt6vectorIfEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="nuTens::Tensor::Tensor__std::vector:float:CR.dtypes::scalarType.dtypes::deviceType.b"></span><span class="target" id="classnuTens_1_1Tensor_1a4132e1028ce2bf87350e4fd916654500"></span><span class="sig-name descname"><span class="n"><span class="pre">Tensor</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">values</span></span>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarType6kFloatE" title="nuTens::dtypes::kFloat"><span class="n"><span class="pre">kFloat</span></span></a>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requiresGrad</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor6TensorERKNSt6vectorIfEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb" title="Link to this definition"></a><br /></dt>
+<dd><p>Construct a 1-d array with specified values. </p>
+<p><ul class="simple">
+<li><p>values The values to include in the tensor </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor3eyeEiN6dtypes10scalarTypeEN6dtypes10deviceTypeEb">
+<span id="_CPPv3N6nuTens6Tensor3eyeEiN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="_CPPv2N6nuTens6Tensor3eyeEiN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="nuTens::Tensor::eye__i.dtypes::scalarType.dtypes::deviceType.b"></span><span class="target" id="classnuTens_1_1Tensor_1ae13a525951ab57a98a96613e88cdd4af"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eye</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarType6kFloatE" title="nuTens::dtypes::kFloat"><span class="n"><span class="pre">kFloat</span></span></a>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requiresGrad</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor3eyeEiN6dtypes10scalarTypeEN6dtypes10deviceTypeEb" title="Link to this definition"></a><br /></dt>
+<dd><p>Construct an identity tensor (has to be a 2d square tensor) </p>
+<p><ul class="simple">
+<li><p>n The size of one of the sides of the tensor </p></li>
+<li><p>type The data type of the tensor </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor4randERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb">
+<span id="_CPPv3N6nuTens6Tensor4randERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="_CPPv2N6nuTens6Tensor4randERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="nuTens::Tensor::rand__std::vector:l-i:CR.dtypes::scalarType.dtypes::deviceType.b"></span><span class="target" id="classnuTens_1_1Tensor_1a351aa0259374c615cf4aefbe761cfa77"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rand</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarType6kFloatE" title="nuTens::dtypes::kFloat"><span class="n"><span class="pre">kFloat</span></span></a>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requiresGrad</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor4randERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb" title="Link to this definition"></a><br /></dt>
+<dd><p>Construct a tensor with entries randomly initialised in the range [0, 1]. </p>
+<p><ul class="simple">
+<li><p>shape The desired shape of the intitalised tensor </p></li>
+<li><p>type The data type of the tensor </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor4diagERK6Tensor">
+<span id="_CPPv3N6nuTens6Tensor4diagERK6Tensor"></span><span id="_CPPv2N6nuTens6Tensor4diagERK6Tensor"></span><span id="nuTens::Tensor::diag__TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1a801e4c35a481a7af75f4e76ec21033f0"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">diag</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">diag</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor4diagERK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Construct a tensor diag values along the diagonal, and zero elsewhere. </p>
+<p><ul class="simple">
+<li><p>diag A 1-d tensor which represents the desired diagonal values </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor4onesERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb">
+<span id="_CPPv3N6nuTens6Tensor4onesERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="_CPPv2N6nuTens6Tensor4onesERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="nuTens::Tensor::ones__std::vector:l-i:CR.dtypes::scalarType.dtypes::deviceType.b"></span><span class="target" id="classnuTens_1_1Tensor_1a4b451c974c3db5769b10242a2ac3f57f"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ones</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarType6kFloatE" title="nuTens::dtypes::kFloat"><span class="n"><span class="pre">kFloat</span></span></a>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requiresGrad</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor4onesERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb" title="Link to this definition"></a><br /></dt>
+<dd><p>Construct a tensor with ones. </p>
+<p><ul class="simple">
+<li><p>shape The desired shape of the intitalised tensor </p></li>
+<li><p>type The data type of the tensor </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor5zerosERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb">
+<span id="_CPPv3N6nuTens6Tensor5zerosERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="_CPPv2N6nuTens6Tensor5zerosERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="nuTens::Tensor::zeros__std::vector:l-i:CR.dtypes::scalarType.dtypes::deviceType.b"></span><span class="target" id="classnuTens_1_1Tensor_1a5c23e82e8af6f9ee059ef34b14f5f4f4"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">zeros</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarType6kFloatE" title="nuTens::dtypes::kFloat"><span class="n"><span class="pre">kFloat</span></span></a>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requiresGrad</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor5zerosERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb" title="Link to this definition"></a><br /></dt>
+<dd><p>Construct a tensor with zeros. </p>
+<p><ul class="simple">
+<li><p>shape The desired shape of the intitalised tensor </p></li>
+<li><p>type The data type of the tensor </p></li>
+</ul>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-setters">Setters</p>
+<p>Set the underlying data type of this tensor </p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor5dTypeEN6dtypes10scalarTypeE">
+<span id="_CPPv3N6nuTens6Tensor5dTypeEN6dtypes10scalarTypeE"></span><span id="_CPPv2N6nuTens6Tensor5dTypeEN6dtypes10scalarTypeE"></span><span id="nuTens::Tensor::dType__dtypes::scalarType"></span><span class="target" id="classnuTens_1_1Tensor_1aa6b01708b4215e43a2d5f23979b1a2d0"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">dType</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor5dTypeEN6dtypes10scalarTypeE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor6deviceEN6dtypes10deviceTypeE">
+<span id="_CPPv3N6nuTens6Tensor6deviceEN6dtypes10deviceTypeE"></span><span id="_CPPv2N6nuTens6Tensor6deviceEN6dtypes10deviceTypeE"></span><span id="nuTens::Tensor::device__dtypes::deviceType"></span><span class="target" id="classnuTens_1_1Tensor_1a5a48df4656b9f92e30b02771291f2f4f"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">device</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor6deviceEN6dtypes10deviceTypeE" title="Link to this definition"></a><br /></dt>
+<dd><p>Set the device that this tensor lives on. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor12requiresGradEb">
+<span id="_CPPv3N6nuTens6Tensor12requiresGradEb"></span><span id="_CPPv2N6nuTens6Tensor12requiresGradEb"></span><span id="nuTens::Tensor::requiresGrad__b"></span><span class="target" id="classnuTens_1_1Tensor_1acda45d6bb19fe1566f2d75c97e99c7a8"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">requiresGrad</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">reqGrad</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor12requiresGradEb" title="Link to this definition"></a><br /></dt>
+<dd><p>Set whether the tensor requires a gradient. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor11hasBatchDimEb">
+<span id="_CPPv3N6nuTens6Tensor11hasBatchDimEb"></span><span id="_CPPv2N6nuTens6Tensor11hasBatchDimEb"></span><span id="nuTens::Tensor::hasBatchDim__b"></span><span class="target" id="classnuTens_1_1Tensor_1aa203ca840631c85b91f5908e92d8390a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">hasBatchDim</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">hasBatchDim</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor11hasBatchDimEb" title="Link to this definition"></a><br /></dt>
+<dd><p>Set whether or not the first dimension should be interpreted as a batch dimension. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-matrix-arithmetic">Matrix Arithmetic</p>
+<p>Generally there are static functions with the pattern &lt;function&gt;(Mat1, Mat2) which will return a new matrix and inline equivalents with the pattern &lt;function&gt;_(Mat2) which will affect the object they are called by </p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor7matmul_ERK6Tensor">
+<span id="_CPPv3N6nuTens6Tensor7matmul_ERK6Tensor"></span><span id="_CPPv2N6nuTens6Tensor7matmul_ERK6Tensor"></span><span id="nuTens::Tensor::matmul___TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1a6cea5a358e4c302e02849b096af51fbc"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">matmul_</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor7matmul_ERK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Inline matrix multiplication. </p>
+<p><ul class="simple">
+<li><p>t2 Right hand matrix to multiply with this one </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor4mul_ERK6Tensor">
+<span id="_CPPv3N6nuTens6Tensor4mul_ERK6Tensor"></span><span id="_CPPv2N6nuTens6Tensor4mul_ERK6Tensor"></span><span id="nuTens::Tensor::mul___TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1ac31c9898d2351baf397d0037b12d61d5"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mul_</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor4mul_ERK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>inline element-wise multiplication </p>
+<p><ul class="simple">
+<li><p>t2 Right hand tensor </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor4div_ERK6Tensor">
+<span id="_CPPv3N6nuTens6Tensor4div_ERK6Tensor"></span><span id="_CPPv2N6nuTens6Tensor4div_ERK6Tensor"></span><span id="nuTens::Tensor::div___TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1ae469bc2f2418929f7af7fba6afed2566"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">div_</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor4div_ERK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>inline element-wise division </p>
+<p><ul class="simple">
+<li><p>t2 Denominator </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor6scale_Ef">
+<span id="_CPPv3N6nuTens6Tensor6scale_Ef"></span><span id="_CPPv2N6nuTens6Tensor6scale_Ef"></span><span id="nuTens::Tensor::scale___float"></span><span class="target" id="classnuTens_1_1Tensor_1a263f536bf8f4782837b602352ceb3cf6"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scale_</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor6scale_Ef" title="Link to this definition"></a><br /></dt>
+<dd><p>Inline matrix scaling. </p>
+<p><ul class="simple">
+<li><p>s The scalar </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor6scale_ENSt7complexIfEE">
+<span id="_CPPv3N6nuTens6Tensor6scale_ENSt7complexIfEE"></span><span id="_CPPv2N6nuTens6Tensor6scale_ENSt7complexIfEE"></span><span id="nuTens::Tensor::scale___std::complex:float:"></span><span class="target" id="classnuTens_1_1Tensor_1a0e5339a30f70f6951abfcf26fd462ce1"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scale_</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor6scale_ENSt7complexIfEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Inline complex matrix scaling. </p>
+<p><ul class="simple">
+<li><p>s The scalar </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor4pow_Ef">
+<span id="_CPPv3N6nuTens6Tensor4pow_Ef"></span><span id="_CPPv2N6nuTens6Tensor4pow_Ef"></span><span id="nuTens::Tensor::pow___float"></span><span class="target" id="classnuTens_1_1Tensor_1ab5a7ad5dafa8dfaee1a6480a730445a7"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pow_</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor4pow_Ef" title="Link to this definition"></a><br /></dt>
+<dd><p>Inline raise to scalar power. </p>
+<p><ul class="simple">
+<li><p>s The scalar </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor4pow_ENSt7complexIfEE">
+<span id="_CPPv3N6nuTens6Tensor4pow_ENSt7complexIfEE"></span><span id="_CPPv2N6nuTens6Tensor4pow_ENSt7complexIfEE"></span><span id="nuTens::Tensor::pow___std::complex:float:"></span><span class="target" id="classnuTens_1_1Tensor_1ad78162c18d67f3a38fea1b8354ad1e73"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pow_</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor4pow_ENSt7complexIfEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Inline raise to scalar power. </p>
+<p><ul class="simple">
+<li><p>s The scalar </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor4exp_Ev">
+<span id="_CPPv3N6nuTens6Tensor4exp_Ev"></span><span id="_CPPv2N6nuTens6Tensor4exp_Ev"></span><span id="nuTens::Tensor::exp_"></span><span class="target" id="classnuTens_1_1Tensor_1aabeab5c61ad96e1f34eb29f1e9250af2"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">exp_</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor4exp_Ev" title="Link to this definition"></a><br /></dt>
+<dd><p>Inline element-wise exponential. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor10transpose_Eii">
+<span id="_CPPv3N6nuTens6Tensor10transpose_Eii"></span><span id="_CPPv2N6nuTens6Tensor10transpose_Eii"></span><span id="nuTens::Tensor::transpose___i.i"></span><span class="target" id="classnuTens_1_1Tensor_1a655d0f86ced47ad4fb86f7f00b00b4a7"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">transpose_</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dim1</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dim2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor10transpose_Eii" title="Link to this definition"></a><br /></dt>
+<dd><p>Inline transpose. </p>
+<p><ul class="simple">
+<li><p>dim1 The first dimension to swap </p></li>
+<li><p>dim2 The second dimension to swap </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor6matmulERK6TensorRK6Tensor">
+<span id="_CPPv3N6nuTens6Tensor6matmulERK6TensorRK6Tensor"></span><span id="_CPPv2N6nuTens6Tensor6matmulERK6TensorRK6Tensor"></span><span id="nuTens::Tensor::matmul__TensorCR.TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1a01c2c358ff81e82a1e02ea64a5439d3f"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">matmul</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor6matmulERK6TensorRK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Multiply two matrices together. </p>
+<p><ul class="simple">
+<li><p>t1 Left hand tensor </p></li>
+<li><p>t2 Right hand tensor </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor5outerERK6TensorRK6Tensor">
+<span id="_CPPv3N6nuTens6Tensor5outerERK6TensorRK6Tensor"></span><span id="_CPPv2N6nuTens6Tensor5outerERK6TensorRK6Tensor"></span><span id="nuTens::Tensor::outer__TensorCR.TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1a1a0878a0e015a69b5644c930b14e371f"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">outer</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor5outerERK6TensorRK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Outer product of two 1D tensors. </p>
+<p><ul class="simple">
+<li><p>t1 Left hand tensor </p></li>
+<li><p>t2 Right hand tensor </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor3mulERK6TensorRK6Tensor">
+<span id="_CPPv3N6nuTens6Tensor3mulERK6TensorRK6Tensor"></span><span id="_CPPv2N6nuTens6Tensor3mulERK6TensorRK6Tensor"></span><span id="nuTens::Tensor::mul__TensorCR.TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1a5ab168a11abbfe55e06d337f633e6d8a"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mul</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor3mulERK6TensorRK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Element-wise multiplication of two tensors. </p>
+<p><ul class="simple">
+<li><p>t1 Left hand tensor </p></li>
+<li><p>t2 Right hand tensor </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor3divERK6TensorRK6Tensor">
+<span id="_CPPv3N6nuTens6Tensor3divERK6TensorRK6Tensor"></span><span id="_CPPv2N6nuTens6Tensor3divERK6TensorRK6Tensor"></span><span id="nuTens::Tensor::div__TensorCR.TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1a5d26352659ff0e6cb548f14d6f1b65fe"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">div</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor3divERK6TensorRK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Element-wise division of two tensors. </p>
+<p><ul class="simple">
+<li><p>t1 Numerator </p></li>
+<li><p>t2 Denominator </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor3powERK6Tensorf">
+<span id="_CPPv3N6nuTens6Tensor3powERK6Tensorf"></span><span id="_CPPv2N6nuTens6Tensor3powERK6Tensorf"></span><span id="nuTens::Tensor::pow__TensorCR.float"></span><span class="target" id="classnuTens_1_1Tensor_1ab03252adfc59f62acfc2e58bf7d0dbef"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pow</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor3powERK6Tensorf" title="Link to this definition"></a><br /></dt>
+<dd><p>Raise a matrix to a scalar power. </p>
+<p><ul class="simple">
+<li><p>t The tensor </p></li>
+<li><p>s The scalar </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor3powERK6TensorNSt7complexIfEE">
+<span id="_CPPv3N6nuTens6Tensor3powERK6TensorNSt7complexIfEE"></span><span id="_CPPv2N6nuTens6Tensor3powERK6TensorNSt7complexIfEE"></span><span id="nuTens::Tensor::pow__TensorCR.std::complex:float:"></span><span class="target" id="classnuTens_1_1Tensor_1ae406770e6de832b836b23f56595162c0"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">pow</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor3powERK6TensorNSt7complexIfEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Raise a matrix to a scalar power. </p>
+<p><ul class="simple">
+<li><p>t The tensor </p></li>
+<li><p>s The scalar </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor3expERK6Tensor">
+<span id="_CPPv3N6nuTens6Tensor3expERK6Tensor"></span><span id="_CPPv2N6nuTens6Tensor3expERK6Tensor"></span><span id="nuTens::Tensor::exp__TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1a096b0bd4983de42c9ce9805f2241d8ce"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">exp</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor3expERK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Element-wise exponential. </p>
+<p><ul class="simple">
+<li><p>t The tensor </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor9transposeERK6Tensorii">
+<span id="_CPPv3N6nuTens6Tensor9transposeERK6Tensorii"></span><span id="_CPPv2N6nuTens6Tensor9transposeERK6Tensorii"></span><span id="nuTens::Tensor::transpose__TensorCR.i.i"></span><span class="target" id="classnuTens_1_1Tensor_1aed7229b22ec2cf4c064cf152b3f75707"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">transpose</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dim1</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dim2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor9transposeERK6Tensorii" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the transpose of a tensor. </p>
+<p><ul class="simple">
+<li><p>t The tensor </p></li>
+<li><p>dim1 The first dimension to swap </p></li>
+<li><p>dim2 The second dimension to swap </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor5scaleERK6Tensorf">
+<span id="_CPPv3N6nuTens6Tensor5scaleERK6Tensorf"></span><span id="_CPPv2N6nuTens6Tensor5scaleERK6Tensorf"></span><span id="nuTens::Tensor::scale__TensorCR.float"></span><span class="target" id="classnuTens_1_1Tensor_1a0a561d6274cb58972ebd98eb0d7a1de1"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scale</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor5scaleERK6Tensorf" title="Link to this definition"></a><br /></dt>
+<dd><p>Scale a matrix by some scalar. </p>
+<p><ul class="simple">
+<li><p>s The scalar </p></li>
+<li><p>t The tensor </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor5scaleERK6Tensord">
+<span id="_CPPv3N6nuTens6Tensor5scaleERK6Tensord"></span><span id="_CPPv2N6nuTens6Tensor5scaleERK6Tensord"></span><span id="nuTens::Tensor::scale__TensorCR.double"></span><span class="target" id="classnuTens_1_1Tensor_1a356cedb0969e79609c7994927d801b0b"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scale</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor5scaleERK6Tensord" title="Link to this definition"></a><br /></dt>
+<dd><p>Scale a matrix by some scalar. </p>
+<p><ul class="simple">
+<li><p>s The scalar </p></li>
+<li><p>t The tensor </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor5scaleERK6TensorNSt7complexIfEE">
+<span id="_CPPv3N6nuTens6Tensor5scaleERK6TensorNSt7complexIfEE"></span><span id="_CPPv2N6nuTens6Tensor5scaleERK6TensorNSt7complexIfEE"></span><span id="nuTens::Tensor::scale__TensorCR.std::complex:float:"></span><span class="target" id="classnuTens_1_1Tensor_1a305b24bb99a2148fadeb9841cf18e8a2"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scale</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor5scaleERK6TensorNSt7complexIfEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Scale a matrix by some complex scalar. </p>
+<p><ul class="simple">
+<li><p>s The scalar </p></li>
+<li><p>t The tensor </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor5scaleERK6TensorNSt7complexIdEE">
+<span id="_CPPv3N6nuTens6Tensor5scaleERK6TensorNSt7complexIdEE"></span><span id="_CPPv2N6nuTens6Tensor5scaleERK6TensorNSt7complexIdEE"></span><span id="nuTens::Tensor::scale__TensorCR.std::complex:double:"></span><span class="target" id="classnuTens_1_1Tensor_1a7dd10ed8b416efc8934904a75b1a148d"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scale</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor5scaleERK6TensorNSt7complexIdEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Scale a matrix by some complex scalar. </p>
+<p><ul class="simple">
+<li><p>s The scalar </p></li>
+<li><p>t The tensor </p></li>
+</ul>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-mathematical">Mathematical</p>
+<p>mathematical function overrides, generally work as expected, unless otherwise noted </p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6TensoreqERK6Tensor">
+<span id="_CPPv3NK6nuTens6TensoreqERK6Tensor"></span><span id="_CPPv2NK6nuTens6TensoreqERK6Tensor"></span><span id="nuTens::Tensor::eq-operator__TensorCRC"></span><span class="target" id="classnuTens_1_1Tensor_1aa71dd682f1f90686eb6c8f28c47834ad"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6TensoreqERK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6TensorneERK6Tensor">
+<span id="_CPPv3NK6nuTens6TensorneERK6Tensor"></span><span id="_CPPv2NK6nuTens6TensorneERK6Tensor"></span><span id="nuTens::Tensor::neq-operator__TensorCRC"></span><span class="target" id="classnuTens_1_1Tensor_1afa74501d5b7026eac47268052094146d"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">!=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6TensorneERK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6TensorplERK6Tensor">
+<span id="_CPPv3NK6nuTens6TensorplERK6Tensor"></span><span id="_CPPv2NK6nuTens6TensorplERK6Tensor"></span><span id="nuTens::Tensor::add-operator__TensorCRC"></span><span class="target" id="classnuTens_1_1Tensor_1a57d775dcf5cfed04ddac418d289f460a"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">+</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6TensorplERK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6TensormiERK6Tensor">
+<span id="_CPPv3NK6nuTens6TensormiERK6Tensor"></span><span id="_CPPv2NK6nuTens6TensormiERK6Tensor"></span><span id="nuTens::Tensor::sub-operator__TensorCRC"></span><span class="target" id="classnuTens_1_1Tensor_1a29ad26c02bf653d7df1d13793dc35c26"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rhs</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6TensormiERK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6TensormiEv">
+<span id="_CPPv3NK6nuTens6TensormiEv"></span><span id="_CPPv2NK6nuTens6TensormiEv"></span><span id="nuTens::Tensor::sub-operatorC"></span><span class="target" id="classnuTens_1_1Tensor_1a3fdca3117142b32cf89a72c5e3effbfe"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6TensormiEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-gradients">Gradients</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor8backwardEv">
+<span id="_CPPv3NK6nuTens6Tensor8backwardEv"></span><span id="_CPPv2NK6nuTens6Tensor8backwardEv"></span><span id="nuTens::Tensor::backwardC"></span><span class="target" id="classnuTens_1_1Tensor_1aa2e961897f7a4e1fc82b9149e86aeec2"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">backward</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor8backwardEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Compute gradients of this tensor with respect to leaves Those can then be accessed using gradient() </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor4gradEv">
+<span id="_CPPv3NK6nuTens6Tensor4gradEv"></span><span id="_CPPv2NK6nuTens6Tensor4gradEv"></span><span id="nuTens::Tensor::gradC"></span><span class="target" id="classnuTens_1_1Tensor_1a895f50b8abeff5f234488397c7db09ab"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">grad</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor4gradEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Return a tensor containing the accumulated gradients calculated for this tensor after calling <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1Tensor_1aa2e961897f7a4e1fc82b9149e86aeec2"><span class="std std-ref">backward()</span></a></p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-linear-algebra">Linear Algebra</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor3eigERK6TensorR6TensorR6Tensor">
+<span id="_CPPv3N6nuTens6Tensor3eigERK6TensorR6TensorR6Tensor"></span><span id="_CPPv2N6nuTens6Tensor3eigERK6TensorR6TensorR6Tensor"></span><span id="nuTens::Tensor::eig__TensorCR.TensorR.TensorR"></span><span class="target" id="classnuTens_1_1Tensor_1a67c0ad8f189c70d4a6d5dd90a6ca1a13"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eig</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eVals</span></span>, <a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eVecs</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor3eigERK6TensorR6TensorR6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Get eigenvalues and vectors of a tensor. </p>
+<p><ul class="simple">
+<li><p>t The tensor </p></li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eVals</strong> – <strong>[out]</strong> The eigenvalues </p></li>
+<li><p><strong>eVecs</strong> – <strong>[out]</strong> The eigenvectors </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor4eighERK6TensorR6TensorR6Tensor">
+<span id="_CPPv3N6nuTens6Tensor4eighERK6TensorR6TensorR6Tensor"></span><span id="_CPPv2N6nuTens6Tensor4eighERK6TensorR6TensorR6Tensor"></span><span id="nuTens::Tensor::eigh__TensorCR.TensorR.TensorR"></span><span class="target" id="classnuTens_1_1Tensor_1ae56e325a351f831a5df8f56635cefb43"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eigh</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eVals</span></span>, <a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eVecs</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor4eighERK6TensorR6TensorR6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Get eigenvalues and vectors of a hermitian matrix. </p>
+<p><ul class="simple">
+<li><p>t The tensor </p></li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eVals</strong> – <strong>[out]</strong> The eigenvalues </p></li>
+<li><p><strong>eVecs</strong> – <strong>[out]</strong> The eigenvectors This is in general faster and more stable than <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1Tensor_1a67c0ad8f189c70d4a6d5dd90a6ca1a13"><span class="std std-ref">Tensor::eig</span></a> and should be preferred in basically all cases where it can be used </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-trigonometric">Trigonometric</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor3sinERK6Tensor">
+<span id="_CPPv3N6nuTens6Tensor3sinERK6Tensor"></span><span id="_CPPv2N6nuTens6Tensor3sinERK6Tensor"></span><span id="nuTens::Tensor::sin__TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1a6f39833138b5394fd88090598640ce55"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sin</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor3sinERK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Get element-wise sin of a tensor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>t</strong> – The tensor </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor3cosERK6Tensor">
+<span id="_CPPv3N6nuTens6Tensor3cosERK6Tensor"></span><span id="_CPPv2N6nuTens6Tensor3cosERK6Tensor"></span><span id="nuTens::Tensor::cos__TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1aab82395a38450799135de29625569277"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cos</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor3cosERK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Get element-wise cosine of a tensor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>t</strong> – The tensor </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor9indexTypeE">
+<span id="_CPPv3N6nuTens6Tensor9indexTypeE"></span><span id="_CPPv2N6nuTens6Tensor9indexTypeE"></span><span class="target" id="classnuTens_1_1Tensor_1a8df76a86ddfe5b697b4080a45837b8f8"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">indexType</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">variant</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor9indexTypeE" title="Link to this definition"></a><br /></dt>
+<dd><p>Holds the possible “index” types, this allows us to pass integers OR strings as index values which allows us to do some basic slicing of tensors similar to python </p>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor11variantTypeE">
+<span id="_CPPv3N6nuTens6Tensor11variantTypeE"></span><span id="_CPPv2N6nuTens6Tensor11variantTypeE"></span><span class="target" id="classnuTens_1_1Tensor_1a2f33c85bbed5d88bb0fc7ae8aa4c2d96"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">variantType</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">variant</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor11variantTypeE" title="Link to this definition"></a><br /></dt>
+<dd><p>Container that holds all allowed types that can be returned by a tensor. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor11addBatchDimEv">
+<span id="_CPPv3N6nuTens6Tensor11addBatchDimEv"></span><span id="_CPPv2N6nuTens6Tensor11addBatchDimEv"></span><span id="nuTens::Tensor::addBatchDim"></span><span class="target" id="classnuTens_1_1Tensor_1af04ccd2b3dd65fdb22c3d721bc792436"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">addBatchDim</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor11addBatchDimEv" title="Link to this definition"></a><br /></dt>
+<dd><p>If the tensor does not already have a batch dimension (as set by <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1Tensor_1aa203ca840631c85b91f5908e92d8390a"><span class="std std-ref">hasBatchDim()</span></a>) this will add one. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor4realEv">
+<span id="_CPPv3NK6nuTens6Tensor4realEv"></span><span id="_CPPv2NK6nuTens6Tensor4realEv"></span><span id="nuTens::Tensor::realC"></span><span class="target" id="classnuTens_1_1Tensor_1a0dba8476df4f61a625a7d836fd4c4646"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">real</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor4realEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the real part of a complex tensor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor4imagEv">
+<span id="_CPPv3NK6nuTens6Tensor4imagEv"></span><span id="_CPPv2NK6nuTens6Tensor4imagEv"></span><span id="nuTens::Tensor::imagC"></span><span class="target" id="classnuTens_1_1Tensor_1a2b0e1fa60ec56c24b352be6406664045"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">imag</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor4imagEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the imaginary part of a complex tensor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor4conjEv">
+<span id="_CPPv3NK6nuTens6Tensor4conjEv"></span><span id="_CPPv2NK6nuTens6Tensor4conjEv"></span><span id="nuTens::Tensor::conjC"></span><span class="target" id="classnuTens_1_1Tensor_1aa3af94c5c579e2327a42794b3f07675a"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">conj</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor4conjEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the complex conjugate of this tensor. If the underlying tensor is not complex, this will just return the tensor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor3absEv">
+<span id="_CPPv3NK6nuTens6Tensor3absEv"></span><span id="_CPPv2NK6nuTens6Tensor3absEv"></span><span id="nuTens::Tensor::absC"></span><span class="target" id="classnuTens_1_1Tensor_1ae035d65f223bf87e1a2edc374ff6ffaa"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">abs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor3absEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get elementwise absolute magnitude of a complex tensor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor5angleEv">
+<span id="_CPPv3NK6nuTens6Tensor5angleEv"></span><span id="_CPPv2NK6nuTens6Tensor5angleEv"></span><span id="nuTens::Tensor::angleC"></span><span class="target" id="classnuTens_1_1Tensor_1aa1cd13610d9c692f8730b8ccd21a56d8"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">angle</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor5angleEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get elementwise phases of a complex tensor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor6cumsumEi">
+<span id="_CPPv3NK6nuTens6Tensor6cumsumEi"></span><span id="_CPPv2NK6nuTens6Tensor6cumsumEi"></span><span id="nuTens::Tensor::cumsum__iC"></span><span class="target" id="classnuTens_1_1Tensor_1a6166f6d8b00db004ffd1d5944571d10d"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cumsum</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dim</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor6cumsumEi" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the cumulative sum over some dimension. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dim</strong> – The dimension to sum over </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor3sumEv">
+<span id="_CPPv3NK6nuTens6Tensor3sumEv"></span><span id="_CPPv2NK6nuTens6Tensor3sumEv"></span><span id="nuTens::Tensor::sumC"></span><span class="target" id="classnuTens_1_1Tensor_1a369f0f04a516d32b5e2bb246487282f5"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sum</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor3sumEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the result of summing this tensor over all dimensions. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor3sumERKNSt6vectorIlEE">
+<span id="_CPPv3NK6nuTens6Tensor3sumERKNSt6vectorIlEE"></span><span id="_CPPv2NK6nuTens6Tensor3sumERKNSt6vectorIlEE"></span><span id="nuTens::Tensor::sum__std::vector:l-i:CRC"></span><span class="target" id="classnuTens_1_1Tensor_1ac4d6c1b374c58d872ae12f1d29778833"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sum</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">dims</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor3sumERKNSt6vectorIlEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the result of summing this tensor over all dimensions. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dims</strong> – The dimensions to sum over </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor8toStringEv">
+<span id="_CPPv3NK6nuTens6Tensor8toStringEv"></span><span id="_CPPv2NK6nuTens6Tensor8toStringEv"></span><span id="nuTens::Tensor::toStringC"></span><span class="target" id="classnuTens_1_1Tensor_1ad2c052b4150fd71d91a2185873f75bb6"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">toString</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor8toStringEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Print this object to a summary string. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor8setValueERK6TensorRK6Tensor">
+<span id="_CPPv3N6nuTens6Tensor8setValueERK6TensorRK6Tensor"></span><span id="_CPPv2N6nuTens6Tensor8setValueERK6TensorRK6Tensor"></span><span id="nuTens::Tensor::setValue__TensorCR.TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1a1fe34f8072b6b29ab72777f45010ae97"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">indices</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor8setValueERK6TensorRK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Set the value at a particular index of the tensor. </p>
+<p><ul class="simple">
+<li><p>indices The indices of the value to set </p></li>
+<li><p>value The value to set it to </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor8setValueERKNSt6vectorI9indexTypeEERK6Tensor">
+<span id="_CPPv3N6nuTens6Tensor8setValueERKNSt6vectorI9indexTypeEERK6Tensor"></span><span id="_CPPv2N6nuTens6Tensor8setValueERKNSt6vectorI9indexTypeEERK6Tensor"></span><span id="nuTens::Tensor::setValue__std::vector:indexType:CR.TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1a73616f43dc0c1cf09a4f2b4884d97598"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N6nuTens6Tensor9indexTypeE" title="nuTens::Tensor::indexType"><span class="n"><span class="pre">indexType</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">indices</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor8setValueERKNSt6vectorI9indexTypeEERK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor8setValueERKNSt6vectorIiEEf">
+<span id="_CPPv3N6nuTens6Tensor8setValueERKNSt6vectorIiEEf"></span><span id="_CPPv2N6nuTens6Tensor8setValueERKNSt6vectorIiEEf"></span><span id="nuTens::Tensor::setValue__std::vector:i:CR.float"></span><span class="target" id="classnuTens_1_1Tensor_1a10b9edf81234b731fd1b8f7f40538061"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">indices</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor8setValueERKNSt6vectorIiEEf" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor8setValueERKNSt6vectorIiEEd">
+<span id="_CPPv3N6nuTens6Tensor8setValueERKNSt6vectorIiEEd"></span><span id="_CPPv2N6nuTens6Tensor8setValueERKNSt6vectorIiEEd"></span><span id="nuTens::Tensor::setValue__std::vector:i:CR.double"></span><span class="target" id="classnuTens_1_1Tensor_1acb880c61dead9ba38d04e981ac0ee591"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">indices</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor8setValueERKNSt6vectorIiEEd" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor8setValueERKNSt6vectorIiEENSt7complexIfEE">
+<span id="_CPPv3N6nuTens6Tensor8setValueERKNSt6vectorIiEENSt7complexIfEE"></span><span id="_CPPv2N6nuTens6Tensor8setValueERKNSt6vectorIiEENSt7complexIfEE"></span><span id="nuTens::Tensor::setValue__std::vector:i:CR.std::complex:float:"></span><span class="target" id="classnuTens_1_1Tensor_1ac52ac83beb78bb1bf450b6d8f5a80447"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">indices</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor8setValueERKNSt6vectorIiEENSt7complexIfEE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor8setValueERKNSt6vectorIiEENSt7complexIdEE">
+<span id="_CPPv3N6nuTens6Tensor8setValueERKNSt6vectorIiEENSt7complexIdEE"></span><span id="_CPPv2N6nuTens6Tensor8setValueERKNSt6vectorIiEENSt7complexIdEE"></span><span id="nuTens::Tensor::setValue__std::vector:i:CR.std::complex:double:"></span><span class="target" id="classnuTens_1_1Tensor_1a4dc42e1bb9c993920218871c5254b70b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">indices</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor8setValueERKNSt6vectorIiEENSt7complexIdEE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor9getValuesERKNSt6vectorI9indexTypeEE">
+<span id="_CPPv3NK6nuTens6Tensor9getValuesERKNSt6vectorI9indexTypeEE"></span><span id="_CPPv2NK6nuTens6Tensor9getValuesERKNSt6vectorI9indexTypeEE"></span><span id="nuTens::Tensor::getValues__std::vector:indexType:CRC"></span><span class="target" id="classnuTens_1_1Tensor_1afd77ec799413df091b28a32a9ca9fcf5"></span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getValues</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N6nuTens6Tensor9indexTypeE" title="nuTens::Tensor::indexType"><span class="n"><span class="pre">indexType</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">indices</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor9getValuesERKNSt6vectorI9indexTypeEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the value at a certain entry in the tensor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>indices</strong> – The index of the entry to get </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor15getVariantValueERKNSt6vectorIiEE">
+<span id="_CPPv3NK6nuTens6Tensor15getVariantValueERKNSt6vectorIiEE"></span><span id="_CPPv2NK6nuTens6Tensor15getVariantValueERKNSt6vectorIiEE"></span><span id="nuTens::Tensor::getVariantValue__std::vector:i:CRC"></span><span class="target" id="classnuTens_1_1Tensor_1a7b16fca56a508a204d9f090a90fade3e"></span><a class="reference internal" href="#_CPPv4N6nuTens6Tensor11variantTypeE" title="nuTens::Tensor::variantType"><span class="n"><span class="pre">variantType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getVariantValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">indices</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor15getVariantValueERKNSt6vectorIiEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the value at a certain entry in the tensor as an std::variant. </p>
+<p>This mainly exists so we can get the values of a tensor in python as pybind11 DOES NOT like templated functions If using the c++ interface it is probably easier, faster and safer to use the templated getValue() function. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor7getNdimEv">
+<span id="_CPPv3NK6nuTens6Tensor7getNdimEv"></span><span id="_CPPv2NK6nuTens6Tensor7getNdimEv"></span><span id="nuTens::Tensor::getNdimC"></span><span class="target" id="classnuTens_1_1Tensor_1afbb1cf75cc2d97ac21ee63f4c7482eee"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getNdim</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor7getNdimEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the number of dimensions in the tensor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor11getBatchDimEv">
+<span id="_CPPv3NK6nuTens6Tensor11getBatchDimEv"></span><span id="_CPPv2NK6nuTens6Tensor11getBatchDimEv"></span><span id="nuTens::Tensor::getBatchDimC"></span><span class="target" id="classnuTens_1_1Tensor_1a784131f37c10b8a801a053d1044aec81"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getBatchDim</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor11getBatchDimEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the size of the batch dimension of the tensor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor14getHasBatchDimEv">
+<span id="_CPPv3NK6nuTens6Tensor14getHasBatchDimEv"></span><span id="_CPPv2NK6nuTens6Tensor14getHasBatchDimEv"></span><span id="nuTens::Tensor::getHasBatchDimC"></span><span class="target" id="classnuTens_1_1Tensor_1af47215396e4ed581802772f9e53f7ddf"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getHasBatchDim</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor14getHasBatchDimEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Check if tensor has batch dimension prepended. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor8getShapeEv">
+<span id="_CPPv3NK6nuTens6Tensor8getShapeEv"></span><span id="_CPPv2NK6nuTens6Tensor8getShapeEv"></span><span id="nuTens::Tensor::getShapeC"></span><span class="target" id="classnuTens_1_1Tensor_1aacded5eb407c8e510f09dd3be3c83025"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getShape</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor8getShapeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the shape of the tensor. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor6cumsumERK6Tensori">
+<span id="_CPPv3N6nuTens6Tensor6cumsumERK6Tensori"></span><span id="_CPPv2N6nuTens6Tensor6cumsumERK6Tensori"></span><span id="nuTens::Tensor::cumsum__TensorCR.i"></span><span class="target" id="classnuTens_1_1Tensor_1a6c6b25446c23996ae6ac736aeba90b56"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cumsum</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dim</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor6cumsumERK6Tensori" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the cumulative sum over some dimension. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dim</strong> – The dimension to sum over </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor3sumERK6Tensor">
+<span id="_CPPv3N6nuTens6Tensor3sumERK6Tensor"></span><span id="_CPPv2N6nuTens6Tensor3sumERK6Tensor"></span><span id="nuTens::Tensor::sum__TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1af3da9d691022cda1b4c78a2e55338309"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sum</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor3sumERK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the result of summing this tensor over all dimensions. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor3sumERK6TensorRKNSt6vectorIlEE">
+<span id="_CPPv3N6nuTens6Tensor3sumERK6TensorRKNSt6vectorIlEE"></span><span id="_CPPv2N6nuTens6Tensor3sumERK6TensorRKNSt6vectorIlEE"></span><span id="nuTens::Tensor::sum__TensorCR.std::vector:l-i:CR"></span><span class="target" id="classnuTens_1_1Tensor_1aa86154a9ec81d7b1c4666f17fdf6baed"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sum</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">dims</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor3sumERK6TensorRKNSt6vectorIlEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the result of summing this tensor over all dimensions. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dims</strong> – The dimensions to sum over </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor16getTensorLibraryEv">
+<span id="_CPPv3N6nuTens6Tensor16getTensorLibraryEv"></span><span id="_CPPv2N6nuTens6Tensor16getTensorLibraryEv"></span><span id="nuTens::Tensor::getTensorLibrary"></span><span class="target" id="classnuTens_1_1Tensor_1a4769ffbca778565253f564b1a8970dfd"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getTensorLibrary</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor16getTensorLibraryEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the name of the backend library used to deal with tensors. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6TensorlsERNSt7ostreamERK6Tensor">
+<span id="_CPPv3N6nuTens6TensorlsERNSt7ostreamERK6Tensor"></span><span id="_CPPv2N6nuTens6TensorlsERNSt7ostreamERK6Tensor"></span><span id="nuTens::Tensor::lshift-operator__osR.TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1adc591646ecdc20f23287289f65e0aae9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">stream</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tensor</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6TensorlsERNSt7ostreamERK6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Overwrite the &lt;&lt; operator to print this tensor out to the command line. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classnuTens_1_1Propagator.html" class="btn btn-neutral float-left" title="Class nuTens::Propagator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../filelist.html" class="btn btn-neutral float-right" title="File list" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Ewan Miller.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

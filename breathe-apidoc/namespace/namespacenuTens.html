@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>File tensor.hpp &mdash; nuTens  documentation</title>
+  <title>Namespace nuTens &mdash; nuTens  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
@@ -20,8 +20,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="File tf-tensor.cpp" href="tf-tensor_8cpp.html" />
-    <link rel="prev" title="File propagator.hpp" href="propagator_8hpp.html" /> 
+    <link rel="next" title="Namespace nuTens::constants" href="namespacenuTens_1_1constants.html" />
+    <link rel="prev" title="Namespace ntlogging" href="namespacentlogging.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -56,28 +56,18 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../cpp-api.html">c++ API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../classlist.html">Class list</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../filelist.html">File list</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="README_8md.html">File README.md</a></li>
-<li class="toctree-l3"><a class="reference internal" href="base-matter-solver_8hpp.html">File base-matter-solver.hpp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="const-density-solver_8cpp.html">File const-density-solver.cpp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="const-density-solver_8hpp.html">File const-density-solver.hpp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="constants_8hpp.html">File constants.hpp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dtypes_8hpp.html">File dtypes.hpp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="instrumentation_8hpp.html">File instrumentation.hpp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="logging_8hpp.html">File logging.hpp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nuTens-pch_8hpp.html">File nuTens-pch.hpp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="propagator_8cpp.html">File propagator.cpp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="propagator_8hpp.html">File propagator.hpp</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">File tensor.hpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../filelist.html">File list</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../namespacelist.html">Namespace list</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="namespacentlogging.html">Namespace ntlogging</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Namespace nuTens</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#_CPPv46nuTens"><code class="docutils literal notranslate"><span class="pre">nuTens</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="tf-tensor_8cpp.html">File tf-tensor.cpp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="torch-tensor_8cpp.html">File torch-tensor.cpp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="units_8hpp.html">File units.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespacenuTens_1_1constants.html">Namespace nuTens::constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespacenuTens_1_1dtypes.html">Namespace nuTens::dtypes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="namespacenuTens_1_1units.html">Namespace nuTens::units</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../namespacelist.html">Namespace list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../structlist.html">Struct list</a></li>
 </ul>
 </li>
@@ -100,10 +90,10 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../cpp-api.html">c++ API</a></li>
-          <li class="breadcrumb-item"><a href="../filelist.html">File list</a></li>
-      <li class="breadcrumb-item active">File tensor.hpp</li>
+          <li class="breadcrumb-item"><a href="../namespacelist.html">Namespace list</a></li>
+      <li class="breadcrumb-item active">Namespace nuTens</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/breathe-apidoc/file/tensor_8hpp.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/breathe-apidoc/namespace/namespacenuTens.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -111,13 +101,230 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="file-tensor-hpp">
-<h1>File tensor.hpp<a class="headerlink" href="#file-tensor-hpp" title="Link to this heading"></a></h1>
-<p>Defines the interface of a Tensor object. </p>
+  <section id="namespace-nutens">
+<h1>Namespace nuTens<a class="headerlink" href="#namespace-nutens" title="Link to this heading"></a></h1>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv46nuTens">
 <span id="_CPPv36nuTens"></span><span id="_CPPv26nuTens"></span><span id="nuTens"></span><span class="target" id="namespacenuTens"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nuTens</span></span></span><br /></dt>
 <dd><dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMatterSolverE">
+<span id="_CPPv3N6nuTens16BaseMatterSolverE"></span><span id="_CPPv2N6nuTens16BaseMatterSolverE"></span><span id="nuTens::BaseMatterSolver"></span><span class="target" id="classnuTens_1_1BaseMatterSolver"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BaseMatterSolver</span></span></span><br /></dt>
+<dd><p>Subclassed by <a class="reference internal" href="#classnuTens_1_1ConstDensityMatterSolver"><span class="std std-ref">nuTens::ConstDensityMatterSolver</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-setters">Setters</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMatterSolver7setPMNSERK6Tensor">
+<span id="_CPPv3N6nuTens16BaseMatterSolver7setPMNSERK6Tensor"></span><span id="_CPPv2N6nuTens16BaseMatterSolver7setPMNSERK6Tensor"></span><span id="nuTens::BaseMatterSolver::setPMNS__TensorCR"></span><span class="target" id="classnuTens_1_1BaseMatterSolver_1a725650e277a7c7524988c4bc0e30a974"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPMNS</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newPMNS</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMatterSolver9setMassesERK6Tensor">
+<span id="_CPPv3N6nuTens16BaseMatterSolver9setMassesERK6Tensor"></span><span id="_CPPv2N6nuTens16BaseMatterSolver9setMassesERK6Tensor"></span><span id="nuTens::BaseMatterSolver::setMasses__TensorCR"></span><span class="target" id="classnuTens_1_1BaseMatterSolver_1a7d5570ec3b57d63b42ad1ccfab6f4418"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setMasses</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newMasses</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMatterSolver20calculateEigenvaluesER6TensorR6Tensor">
+<span id="_CPPv3N6nuTens16BaseMatterSolver20calculateEigenvaluesER6TensorR6Tensor"></span><span id="_CPPv2N6nuTens16BaseMatterSolver20calculateEigenvaluesER6TensorR6Tensor"></span><span id="nuTens::BaseMatterSolver::calculateEigenvalues__TensorR.TensorR"></span><span class="target" id="classnuTens_1_1BaseMatterSolver_1afac577fd976ac609b2cc234759290c89"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">calculateEigenvalues</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eigenvectors</span></span>, <a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eigenvalues</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMatterSolver11setEnergiesERK6Tensor">
+<span id="_CPPv3N6nuTens16BaseMatterSolver11setEnergiesERK6Tensor"></span><span id="_CPPv2N6nuTens16BaseMatterSolver11setEnergiesERK6Tensor"></span><span id="nuTens::BaseMatterSolver::setEnergies__TensorCR"></span><span class="target" id="classnuTens_1_1BaseMatterSolver_1a6d53dab36f6e2792325e249aef237f22"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setEnergies</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newEnergies</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMatterSolver16BaseMatterSolverEi">
+<span id="_CPPv3N6nuTens16BaseMatterSolver16BaseMatterSolverEi"></span><span id="_CPPv2N6nuTens16BaseMatterSolver16BaseMatterSolverEi"></span><span id="nuTens::BaseMatterSolver::BaseMatterSolver__i"></span><span class="target" id="classnuTens_1_1BaseMatterSolver_1ab5c7002f9b00b13ad5b511f63842229c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BaseMatterSolver</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nGenerations</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens24ConstDensityMatterSolverE">
+<span id="_CPPv3N6nuTens24ConstDensityMatterSolverE"></span><span id="_CPPv2N6nuTens24ConstDensityMatterSolverE"></span><span id="nuTens::ConstDensityMatterSolver"></span><span class="target" id="classnuTens_1_1ConstDensityMatterSolver"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ConstDensityMatterSolver</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="../file/base-matter-solver_8hpp.html#_CPPv46nuTens" title="nuTens"><span class="n"><span class="pre">nuTens</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../class/classnuTens_1_1BaseMatterSolver.html#_CPPv4N6nuTens16BaseMatterSolverE" title="nuTens::BaseMatterSolver"><span class="n"><span class="pre">BaseMatterSolver</span></span></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-setters">Setters</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens24ConstDensityMatterSolver7setPMNSERK6Tensor">
+<span id="_CPPv3N6nuTens24ConstDensityMatterSolver7setPMNSERK6Tensor"></span><span id="_CPPv2N6nuTens24ConstDensityMatterSolver7setPMNSERK6Tensor"></span><span id="nuTens::ConstDensityMatterSolver::setPMNS__TensorCR"></span><span class="target" id="classnuTens_1_1ConstDensityMatterSolver_1ae1194c464f49267b332d4d18e1e1141e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPMNS</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newPMNS</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><br /></dt>
+<dd><p>Set a new PMNS matrix for this solver. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newPMNS</strong> – The new matrix to set </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens24ConstDensityMatterSolver9setMassesERK6Tensor">
+<span id="_CPPv3N6nuTens24ConstDensityMatterSolver9setMassesERK6Tensor"></span><span id="_CPPv2N6nuTens24ConstDensityMatterSolver9setMassesERK6Tensor"></span><span id="nuTens::ConstDensityMatterSolver::setMasses__TensorCR"></span><span class="target" id="classnuTens_1_1ConstDensityMatterSolver_1ae51f221e498a2d8180e1d39883654aba"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setMasses</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newMasses</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><br /></dt>
+<dd><p>Set new mass eigenvalues for this solver. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newMasses</strong> – The new masses </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens24ConstDensityMatterSolver24ConstDensityMatterSolverEif">
+<span id="_CPPv3N6nuTens24ConstDensityMatterSolver24ConstDensityMatterSolverEif"></span><span id="_CPPv2N6nuTens24ConstDensityMatterSolver24ConstDensityMatterSolverEif"></span><span id="nuTens::ConstDensityMatterSolver::ConstDensityMatterSolver__i.float"></span><span class="target" id="classnuTens_1_1ConstDensityMatterSolver_1adc3998765ba25fa6f46070a477e445b3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ConstDensityMatterSolver</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nGenerations</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">density</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Constructor. </p>
+<p><ul class="simple">
+<li><p>nGenerations The number of neutrino generations this propagator should expect </p></li>
+<li><p>density The electron density of the material to propagate in </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens24ConstDensityMatterSolver20calculateEigenvaluesER6TensorR6Tensor">
+<span id="_CPPv3N6nuTens24ConstDensityMatterSolver20calculateEigenvaluesER6TensorR6Tensor"></span><span id="_CPPv2N6nuTens24ConstDensityMatterSolver20calculateEigenvaluesER6TensorR6Tensor"></span><span id="nuTens::ConstDensityMatterSolver::calculateEigenvalues__TensorR.TensorR"></span><span class="target" id="classnuTens_1_1ConstDensityMatterSolver_1a847aa656cd77169e44ce2065dc79cbb8"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">calculateEigenvalues</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eigenvectors</span></span>, <a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eigenvalues</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><br /></dt>
+<dd><p>Set new mass eigenvalues for this solver. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>energies</strong> – <strong>[in]</strong> <a class="reference internal" href="#classnuTens_1_1Tensor"><span class="std std-ref">Tensor</span></a> of energies, expected to have a batch dimension and two further dimensions to make casting unambiguous i.e. shape should look like {Nbatches, 1, 1}. </p></li>
+<li><p><strong>eigenvectors</strong> – <strong>[out]</strong> The returned eigenvectors </p></li>
+<li><p><strong>eigenvalues</strong> – <strong>[out]</strong> The corresponding eigenvalues </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PropagatorE">
+<span id="_CPPv3N6nuTens10PropagatorE"></span><span id="_CPPv2N6nuTens10PropagatorE"></span><span id="nuTens::Propagator"></span><span class="target" id="classnuTens_1_1Propagator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Propagator</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-setters">Setters</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator15setMatterSolverERNSt10shared_ptrI16BaseMatterSolverEE">
+<span id="_CPPv3N6nuTens10Propagator15setMatterSolverERNSt10shared_ptrI16BaseMatterSolverEE"></span><span id="_CPPv2N6nuTens10Propagator15setMatterSolverERNSt10shared_ptrI16BaseMatterSolverEE"></span><span id="nuTens::Propagator::setMatterSolver__std::shared_ptr:BaseMatterSolver:R"></span><span class="target" id="classnuTens_1_1Propagator_1a9b38f17627552f3618db8174e9c581d6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setMatterSolver</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../class/classnuTens_1_1BaseMatterSolver.html#_CPPv4N6nuTens16BaseMatterSolverE" title="nuTens::BaseMatterSolver"><span class="n"><span class="pre">BaseMatterSolver</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newSolver</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Set a matter solver to use to deal with matter effects. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newSolver</strong> – A derivative of <a class="reference internal" href="#classnuTens_1_1BaseMatterSolver"><span class="std std-ref">BaseMatterSolver</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator11setEnergiesER6Tensor">
+<span id="_CPPv3N6nuTens10Propagator11setEnergiesER6Tensor"></span><span id="_CPPv2N6nuTens10Propagator11setEnergiesER6Tensor"></span><span id="nuTens::Propagator::setEnergies__TensorR"></span><span class="target" id="classnuTens_1_1Propagator_1a39844f04429f575943e624c8da8ac8ad"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setEnergies</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newEnergies</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Set the neutrino energies. </p>
+<p><dl>
+<dt class="sig sig-object cpp">
+<em><span class="pre">Todo:</span></em></dt>
+<dd><p>Should add a check to tensors supplied to the setters to see how many dimensions they have, and if missing a batch dimension, add one. </p>
+</dd></dl>
+
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newEnergies</strong> – The neutrino energies </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator9setMassesER6Tensor">
+<span id="_CPPv3N6nuTens10Propagator9setMassesER6Tensor"></span><span id="_CPPv2N6nuTens10Propagator9setMassesER6Tensor"></span><span id="nuTens::Propagator::setMasses__TensorR"></span><span class="target" id="classnuTens_1_1Propagator_1a83b453c4485cd612cc925329b58badff"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setMasses</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newMasses</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Set the masses corresponding to the vacuum hamiltonian eigenstates. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newMasses</strong> – The new masses to use. This tensor is expected to have a batch dimension + 1 more dimensions of size nGenerations. The batch dimension can (and probably should) be 1 and it will be broadcast to match the batch dimension of the energies supplied to <a class="reference internal" href="#classnuTens_1_1Propagator_1a87b59371bafcef272c515cdd5c7accf7"><span class="std std-ref">calculateProbs()</span></a>. So dimension should be {1, nGenerations}. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator7setPMNSER6Tensor">
+<span id="_CPPv3N6nuTens10Propagator7setPMNSER6Tensor"></span><span id="_CPPv2N6nuTens10Propagator7setPMNSER6Tensor"></span><span id="nuTens::Propagator::setPMNS__TensorR"></span><span class="target" id="classnuTens_1_1Propagator_1a44c49ad484ddee3fbf71f203941c2f3d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPMNS</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newPMNS</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Set a whole new PMNS matrix. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newPMNS</strong> – The new matrix to use </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator7setPMNSERKNSt6vectorIiEEf">
+<span id="_CPPv3N6nuTens10Propagator7setPMNSERKNSt6vectorIiEEf"></span><span id="_CPPv2N6nuTens10Propagator7setPMNSERKNSt6vectorIiEEf"></span><span id="nuTens::Propagator::setPMNS__std::vector:i:CR.float"></span><span class="target" id="classnuTens_1_1Propagator_1acc0ea93f92d4ff6b47fb20dfa1a0da2b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPMNS</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">indices</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Set a single element of the PMNS matrix. </p>
+<p><dl>
+<dt class="sig sig-object cpp">
+<em><span class="pre">Todo:</span></em></dt>
+<dd><p>add <a class="reference internal" href="#classnuTens_1_1Propagator_1acc0ea93f92d4ff6b47fb20dfa1a0da2b"><span class="std std-ref">setPMNS(const std::vector&lt;int&gt; &amp;indices, float value)</span></a> methods to <a class="reference internal" href="#classnuTens_1_1BaseMatterSolver"><span class="std std-ref">BaseMatterSolver</span></a>? maybe have these setters in a base class of both <a class="reference internal" href="#classnuTens_1_1Propagator"><span class="std std-ref">Propagator</span></a> and <a class="reference internal" href="#classnuTens_1_1BaseMatterSolver"><span class="std std-ref">BaseMatterSolver</span></a> ?? </p>
+</dd></dl>
+
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indices</strong> – The index of the value to set </p></li>
+<li><p><strong>value</strong> – The new value </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator7setPMNSERKNSt6vectorIiEENSt7complexIfEE">
+<span id="_CPPv3N6nuTens10Propagator7setPMNSERKNSt6vectorIiEENSt7complexIfEE"></span><span id="_CPPv2N6nuTens10Propagator7setPMNSERKNSt6vectorIiEENSt7complexIfEE"></span><span id="nuTens::Propagator::setPMNS__std::vector:i:CR.std::complex:float:"></span><span class="target" id="classnuTens_1_1Propagator_1ab3c445c771126170eda4dd07ae345067"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPMNS</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">indices</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Set a single element of the PMNS matrix. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indices</strong> – The index of the value to set </p></li>
+<li><p><strong>value</strong> – The new value </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator10PropagatorEif">
+<span id="_CPPv3N6nuTens10Propagator10PropagatorEif"></span><span id="_CPPv2N6nuTens10Propagator10PropagatorEif"></span><span id="nuTens::Propagator::Propagator__i.float"></span><span class="target" id="classnuTens_1_1Propagator_1a4215b00e64bb469d3b03eaffcf028439"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Propagator</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nGenerations</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">baseline</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Constructor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nGenerations</strong> – The number of generations the propagator should expect </p></li>
+<li><p><strong>baseline</strong> – The baseline to propagate over </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator14calculateProbsEv">
+<span id="_CPPv3N6nuTens10Propagator14calculateProbsEv"></span><span id="_CPPv2N6nuTens10Propagator14calculateProbsEv"></span><span id="nuTens::Propagator::calculateProbs"></span><span class="target" id="classnuTens_1_1Propagator_1a87b59371bafcef272c515cdd5c7accf7"></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">calculateProbs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Calculate the oscillation probabilities. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>energies</strong> – The energies of the neutrinos </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens6TensorE">
 <span id="_CPPv3N6nuTens6TensorE"></span><span id="_CPPv2N6nuTens6TensorE"></span><span id="nuTens::Tensor"></span><span class="target" id="classnuTens_1_1Tensor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Tensor</span></span></span><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
@@ -131,7 +338,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor6TensorERKNSt6vectorIfEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb">
-<span id="_CPPv3N6nuTens6Tensor6TensorERKNSt6vectorIfEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="_CPPv2N6nuTens6Tensor6TensorERKNSt6vectorIfEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="nuTens::Tensor::Tensor__std::vector:float:CR.dtypes::scalarType.dtypes::deviceType.b"></span><span class="target" id="classnuTens_1_1Tensor_1a4132e1028ce2bf87350e4fd916654500"></span><span class="sig-name descname"><span class="n"><span class="pre">Tensor</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">values</span></span>, <a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarType6kFloatE" title="nuTens::dtypes::kFloat"><span class="n"><span class="pre">kFloat</span></span></a>, <a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requiresGrad</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><br /></dt>
+<span id="_CPPv3N6nuTens6Tensor6TensorERKNSt6vectorIfEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="_CPPv2N6nuTens6Tensor6TensorERKNSt6vectorIfEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="nuTens::Tensor::Tensor__std::vector:float:CR.dtypes::scalarType.dtypes::deviceType.b"></span><span class="target" id="classnuTens_1_1Tensor_1a4132e1028ce2bf87350e4fd916654500"></span><span class="sig-name descname"><span class="n"><span class="pre">Tensor</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">values</span></span>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarType6kFloatE" title="nuTens::dtypes::kFloat"><span class="n"><span class="pre">kFloat</span></span></a>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requiresGrad</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><br /></dt>
 <dd><p>Construct a 1-d array with specified values. </p>
 <p><ul class="simple">
 <li><p>values The values to include in the tensor </p></li>
@@ -141,7 +348,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor3eyeEiN6dtypes10scalarTypeEN6dtypes10deviceTypeEb">
-<span id="_CPPv3N6nuTens6Tensor3eyeEiN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="_CPPv2N6nuTens6Tensor3eyeEiN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="nuTens::Tensor::eye__i.dtypes::scalarType.dtypes::deviceType.b"></span><span class="target" id="classnuTens_1_1Tensor_1ae13a525951ab57a98a96613e88cdd4af"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eye</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span>, <a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarType6kFloatE" title="nuTens::dtypes::kFloat"><span class="n"><span class="pre">kFloat</span></span></a>, <a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requiresGrad</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><br /></dt>
+<span id="_CPPv3N6nuTens6Tensor3eyeEiN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="_CPPv2N6nuTens6Tensor3eyeEiN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="nuTens::Tensor::eye__i.dtypes::scalarType.dtypes::deviceType.b"></span><span class="target" id="classnuTens_1_1Tensor_1ae13a525951ab57a98a96613e88cdd4af"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eye</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarType6kFloatE" title="nuTens::dtypes::kFloat"><span class="n"><span class="pre">kFloat</span></span></a>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requiresGrad</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><br /></dt>
 <dd><p>Construct an identity tensor (has to be a 2d square tensor) </p>
 <p><ul class="simple">
 <li><p>n The size of one of the sides of the tensor </p></li>
@@ -152,7 +359,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor4randERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb">
-<span id="_CPPv3N6nuTens6Tensor4randERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="_CPPv2N6nuTens6Tensor4randERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="nuTens::Tensor::rand__std::vector:l-i:CR.dtypes::scalarType.dtypes::deviceType.b"></span><span class="target" id="classnuTens_1_1Tensor_1a351aa0259374c615cf4aefbe761cfa77"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rand</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span>, <a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarType6kFloatE" title="nuTens::dtypes::kFloat"><span class="n"><span class="pre">kFloat</span></span></a>, <a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requiresGrad</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><br /></dt>
+<span id="_CPPv3N6nuTens6Tensor4randERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="_CPPv2N6nuTens6Tensor4randERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="nuTens::Tensor::rand__std::vector:l-i:CR.dtypes::scalarType.dtypes::deviceType.b"></span><span class="target" id="classnuTens_1_1Tensor_1a351aa0259374c615cf4aefbe761cfa77"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rand</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarType6kFloatE" title="nuTens::dtypes::kFloat"><span class="n"><span class="pre">kFloat</span></span></a>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requiresGrad</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><br /></dt>
 <dd><p>Construct a tensor with entries randomly initialised in the range [0, 1]. </p>
 <p><ul class="simple">
 <li><p>shape The desired shape of the intitalised tensor </p></li>
@@ -173,7 +380,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor4onesERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb">
-<span id="_CPPv3N6nuTens6Tensor4onesERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="_CPPv2N6nuTens6Tensor4onesERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="nuTens::Tensor::ones__std::vector:l-i:CR.dtypes::scalarType.dtypes::deviceType.b"></span><span class="target" id="classnuTens_1_1Tensor_1a4b451c974c3db5769b10242a2ac3f57f"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ones</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span>, <a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarType6kFloatE" title="nuTens::dtypes::kFloat"><span class="n"><span class="pre">kFloat</span></span></a>, <a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requiresGrad</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><br /></dt>
+<span id="_CPPv3N6nuTens6Tensor4onesERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="_CPPv2N6nuTens6Tensor4onesERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="nuTens::Tensor::ones__std::vector:l-i:CR.dtypes::scalarType.dtypes::deviceType.b"></span><span class="target" id="classnuTens_1_1Tensor_1a4b451c974c3db5769b10242a2ac3f57f"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ones</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarType6kFloatE" title="nuTens::dtypes::kFloat"><span class="n"><span class="pre">kFloat</span></span></a>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requiresGrad</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><br /></dt>
 <dd><p>Construct a tensor with ones. </p>
 <p><ul class="simple">
 <li><p>shape The desired shape of the intitalised tensor </p></li>
@@ -184,7 +391,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor5zerosERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb">
-<span id="_CPPv3N6nuTens6Tensor5zerosERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="_CPPv2N6nuTens6Tensor5zerosERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="nuTens::Tensor::zeros__std::vector:l-i:CR.dtypes::scalarType.dtypes::deviceType.b"></span><span class="target" id="classnuTens_1_1Tensor_1a5c23e82e8af6f9ee059ef34b14f5f4f4"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">zeros</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span>, <a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarType6kFloatE" title="nuTens::dtypes::kFloat"><span class="n"><span class="pre">kFloat</span></span></a>, <a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requiresGrad</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><br /></dt>
+<span id="_CPPv3N6nuTens6Tensor5zerosERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="_CPPv2N6nuTens6Tensor5zerosERKNSt6vectorIlEEN6dtypes10scalarTypeEN6dtypes10deviceTypeEb"></span><span id="nuTens::Tensor::zeros__std::vector:l-i:CR.dtypes::scalarType.dtypes::deviceType.b"></span><span class="target" id="classnuTens_1_1Tensor_1a5c23e82e8af6f9ee059ef34b14f5f4f4"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">zeros</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarType6kFloatE" title="nuTens::dtypes::kFloat"><span class="n"><span class="pre">kFloat</span></span></a>, <a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">requiresGrad</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="sig-paren">)</span><br /></dt>
 <dd><p>Construct a tensor with zeros. </p>
 <p><ul class="simple">
 <li><p>shape The desired shape of the intitalised tensor </p></li>
@@ -199,12 +406,12 @@
 <p>Set the underlying data type of this tensor </p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor5dTypeEN6dtypes10scalarTypeE">
-<span id="_CPPv3N6nuTens6Tensor5dTypeEN6dtypes10scalarTypeE"></span><span id="_CPPv2N6nuTens6Tensor5dTypeEN6dtypes10scalarTypeE"></span><span id="nuTens::Tensor::dType__dtypes::scalarType"></span><span class="target" id="classnuTens_1_1Tensor_1aa6b01708b4215e43a2d5f23979b1a2d0"></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">dType</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="sig-paren">)</span><br /></dt>
+<span id="_CPPv3N6nuTens6Tensor5dTypeEN6dtypes10scalarTypeE"></span><span id="_CPPv2N6nuTens6Tensor5dTypeEN6dtypes10scalarTypeE"></span><span id="nuTens::Tensor::dType__dtypes::scalarType"></span><span class="target" id="classnuTens_1_1Tensor_1aa6b01708b4215e43a2d5f23979b1a2d0"></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">dType</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">type</span></span><span class="sig-paren">)</span><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor6deviceEN6dtypes10deviceTypeE">
-<span id="_CPPv3N6nuTens6Tensor6deviceEN6dtypes10deviceTypeE"></span><span id="_CPPv2N6nuTens6Tensor6deviceEN6dtypes10deviceTypeE"></span><span id="nuTens::Tensor::device__dtypes::deviceType"></span><span class="target" id="classnuTens_1_1Tensor_1a5a48df4656b9f92e30b02771291f2f4f"></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">device</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="sig-paren">)</span><br /></dt>
+<span id="_CPPv3N6nuTens6Tensor6deviceEN6dtypes10deviceTypeE"></span><span id="_CPPv2N6nuTens6Tensor6deviceEN6dtypes10deviceTypeE"></span><span id="nuTens::Tensor::device__dtypes::deviceType"></span><span class="target" id="classnuTens_1_1Tensor_1a5a48df4656b9f92e30b02771291f2f4f"></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">device</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="sig-paren">)</span><br /></dt>
 <dd><p>Set the device that this tensor lives on. </p>
 </dd></dl>
 
@@ -484,7 +691,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor4gradEv">
 <span id="_CPPv3NK6nuTens6Tensor4gradEv"></span><span id="_CPPv2NK6nuTens6Tensor4gradEv"></span><span id="nuTens::Tensor::gradC"></span><span class="target" id="classnuTens_1_1Tensor_1a895f50b8abeff5f234488397c7db09ab"></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">grad</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
-<dd><p>Return a tensor containing the accumulated gradients calculated for this tensor after calling <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1Tensor_1aa2e961897f7a4e1fc82b9149e86aeec2"><span class="std std-ref">backward()</span></a></p>
+<dd><p>Return a tensor containing the accumulated gradients calculated for this tensor after calling <a class="reference internal" href="#classnuTens_1_1Tensor_1aa2e961897f7a4e1fc82b9149e86aeec2"><span class="std std-ref">backward()</span></a></p>
 </dd></dl>
 
 </div>
@@ -520,7 +727,7 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>eVals</strong> – <strong>[out]</strong> The eigenvalues </p></li>
-<li><p><strong>eVecs</strong> – <strong>[out]</strong> The eigenvectors This is in general faster and more stable than <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1Tensor_1a67c0ad8f189c70d4a6d5dd90a6ca1a13"><span class="std std-ref">Tensor::eig</span></a> and should be preferred in basically all cases where it can be used </p></li>
+<li><p><strong>eVecs</strong> – <strong>[out]</strong> The eigenvectors This is in general faster and more stable than <a class="reference internal" href="#classnuTens_1_1Tensor_1a67c0ad8f189c70d4a6d5dd90a6ca1a13"><span class="std std-ref">Tensor::eig</span></a> and should be preferred in basically all cases where it can be used </p></li>
 </ul>
 </dd>
 </dl>
@@ -572,7 +779,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor11addBatchDimEv">
 <span id="_CPPv3N6nuTens6Tensor11addBatchDimEv"></span><span id="_CPPv2N6nuTens6Tensor11addBatchDimEv"></span><span id="nuTens::Tensor::addBatchDim"></span><span class="target" id="classnuTens_1_1Tensor_1af04ccd2b3dd65fdb22c3d721bc792436"></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">addBatchDim</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
-<dd><p>If the tensor does not already have a batch dimension (as set by <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1Tensor_1aa203ca840631c85b91f5908e92d8390a"><span class="std std-ref">hasBatchDim()</span></a>) this will add one. </p>
+<dd><p>If the tensor does not already have a batch dimension (as set by <a class="reference internal" href="#classnuTens_1_1Tensor_1aa203ca840631c85b91f5908e92d8390a"><span class="std std-ref">hasBatchDim()</span></a>) this will add one. </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -756,30 +963,160 @@
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor12_hasBatchDimE">
-<span id="_CPPv3N6nuTens6Tensor12_hasBatchDimE"></span><span id="_CPPv2N6nuTens6Tensor12_hasBatchDimE"></span><span id="nuTens::Tensor::_hasBatchDim__b"></span><span class="target" id="classnuTens_1_1Tensor_1aa37843ba9972d2c5b0901aff02bda3d5"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_hasBatchDim</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor12_hasBatchDimE" title="Link to this definition"></a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor6_dTypeE">
-<span id="_CPPv3N6nuTens6Tensor6_dTypeE"></span><span id="_CPPv2N6nuTens6Tensor6_dTypeE"></span><span id="nuTens::Tensor::_dType__dtypes::scalarType"></span><span class="target" id="classnuTens_1_1Tensor_1afd84cdda88d9c4f9bccab327a60a1989"></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_dType</span></span></span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor6_dTypeE" title="Link to this definition"></a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor7_deviceE">
-<span id="_CPPv3N6nuTens6Tensor7_deviceE"></span><span id="_CPPv2N6nuTens6Tensor7_deviceE"></span><span id="nuTens::Tensor::_device__dtypes::deviceType"></span><span class="target" id="classnuTens_1_1Tensor_1a92a7c64e6bb79fec98c4df837711c89a"></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_device</span></span></span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor7_deviceE" title="Link to this definition"></a><br /></dt>
-<dd></dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens6TensorlsERNSt7ostreamERK6Tensor">
 <span id="_CPPv3N6nuTens6TensorlsERNSt7ostreamERK6Tensor"></span><span id="_CPPv2N6nuTens6TensorlsERNSt7ostreamERK6Tensor"></span><span id="nuTens::Tensor::lshift-operator__osR.TensorCR"></span><span class="target" id="classnuTens_1_1Tensor_1adc591646ecdc20f23287289f65e0aae9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;&lt;</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">stream</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tensor</span></span><span class="sig-paren">)</span><br /></dt>
 <dd><p>Overwrite the &lt;&lt; operator to print this tensor out to the command line. </p>
 </dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens9constantsE">
+<span id="_CPPv3N6nuTens9constantsE"></span><span id="_CPPv2N6nuTens9constantsE"></span><span id="nuTens::constants"></span><span class="target" id="namespacenuTens_1_1constants"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">constants</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-variables">Variables</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens9constants6Groot2E">
+<span id="_CPPv3N6nuTens9constants6Groot2E"></span><span id="_CPPv2N6nuTens9constants6Groot2E"></span><span id="nuTens::constants::Groot2__float"></span><span class="target" id="constants_8hpp_1a95173ca25be82b5c70e7057162856c4b"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Groot2</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1.52588e-4</span></span><span class="w"> </span><span class="o"><span class="pre">*</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="../file/units_8hpp.html#_CPPv4N6nuTens5unitsE" title="nuTens::units"><span class="n"><span class="pre">units</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/units_8hpp.html#_CPPv4N6nuTens5units2eVE" title="nuTens::units::eV"><span class="n"><span class="pre">eV</span></span></a><span class="w"> </span><span class="o"><span class="pre">*</span></span><span class="w"> </span><a class="reference internal" href="../file/units_8hpp.html#_CPPv4N6nuTens5unitsE" title="nuTens::units"><span class="n"><span class="pre">units</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/units_8hpp.html#_CPPv4N6nuTens5units2eVE" title="nuTens::units::eV"><span class="n"><span class="pre">eV</span></span></a><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">/</span></span><span class="w"> </span><a class="reference internal" href="../file/units_8hpp.html#_CPPv4N6nuTens5unitsE" title="nuTens::units"><span class="n"><span class="pre">units</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/units_8hpp.html#_CPPv4N6nuTens5units3GeVE" title="nuTens::units::GeV"><span class="n"><span class="pre">GeV</span></span></a><br /></dt>
+<dd><p>sqrt(2)*G_fermi in (eV^2-cm^3)/(mole-GeV) used in calculating matter hamiltonian </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6dtypesE">
+<span id="_CPPv3N6nuTens6dtypesE"></span><span id="_CPPv2N6nuTens6dtypesE"></span><span id="nuTens::dtypes"></span><span class="target" id="namespacenuTens_1_1dtypes"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dtypes</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-enums">Enums</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6dtypes10scalarTypeE">
+<span id="_CPPv3N6nuTens6dtypes10scalarTypeE"></span><span id="_CPPv2N6nuTens6dtypes10scalarTypeE"></span><span class="target" id="dtypes_8hpp_1af5b88fa67dbf16e6686b02b0582d4755"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scalarType</span></span></span><br /></dt>
+<dd><p>Types of scalar values. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6dtypes10scalarType4kIntE">
+<span id="_CPPv3N6nuTens6dtypes10scalarType4kIntE"></span><span id="_CPPv2N6nuTens6dtypes10scalarType4kIntE"></span><span class="target" id="dtypes_8hpp_1af5b88fa67dbf16e6686b02b0582d4755a8c832b01d2296b0a24b77622fb65f806"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kInt</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6dtypes10scalarType6kFloatE">
+<span id="_CPPv3N6nuTens6dtypes10scalarType6kFloatE"></span><span id="_CPPv2N6nuTens6dtypes10scalarType6kFloatE"></span><span class="target" id="dtypes_8hpp_1af5b88fa67dbf16e6686b02b0582d4755a7c51aaed1de8b768ff3f91f96a9c1e6c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kFloat</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6dtypes10scalarType7kDoubleE">
+<span id="_CPPv3N6nuTens6dtypes10scalarType7kDoubleE"></span><span id="_CPPv2N6nuTens6dtypes10scalarType7kDoubleE"></span><span class="target" id="dtypes_8hpp_1af5b88fa67dbf16e6686b02b0582d4755a37ea16109b9f2c46791dd5fbe550372e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kDouble</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6dtypes10scalarType13kComplexFloatE">
+<span id="_CPPv3N6nuTens6dtypes10scalarType13kComplexFloatE"></span><span id="_CPPv2N6nuTens6dtypes10scalarType13kComplexFloatE"></span><span class="target" id="dtypes_8hpp_1af5b88fa67dbf16e6686b02b0582d4755a59f2b41e683a1afc965df3e93f528080"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kComplexFloat</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6dtypes10scalarType14kComplexDoubleE">
+<span id="_CPPv3N6nuTens6dtypes10scalarType14kComplexDoubleE"></span><span id="_CPPv2N6nuTens6dtypes10scalarType14kComplexDoubleE"></span><span class="target" id="dtypes_8hpp_1af5b88fa67dbf16e6686b02b0582d4755a036f0f2247382335e4ed5955b7cea8c6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kComplexDouble</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6dtypes10scalarType13kUninitScalarE">
+<span id="_CPPv3N6nuTens6dtypes10scalarType13kUninitScalarE"></span><span id="_CPPv2N6nuTens6dtypes10scalarType13kUninitScalarE"></span><span class="target" id="dtypes_8hpp_1af5b88fa67dbf16e6686b02b0582d4755ab08956bb0013b0ad1a626e4a60eeabe6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kUninitScalar</span></span></span><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6dtypes10deviceTypeE">
+<span id="_CPPv3N6nuTens6dtypes10deviceTypeE"></span><span id="_CPPv2N6nuTens6dtypes10deviceTypeE"></span><span class="target" id="dtypes_8hpp_1a3e1bbb708d42e69658e576092c4145a9"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">deviceType</span></span></span><br /></dt>
+<dd><p>Devices that a <a class="reference internal" href="#classnuTens_1_1Tensor"><span class="std std-ref">Tensor</span></a> can live on. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6dtypes10deviceType4kCPUE">
+<span id="_CPPv3N6nuTens6dtypes10deviceType4kCPUE"></span><span id="_CPPv2N6nuTens6dtypes10deviceType4kCPUE"></span><span class="target" id="dtypes_8hpp_1a3e1bbb708d42e69658e576092c4145a9acdf08101e1af9ee13a64d29d503516ea"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kCPU</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6dtypes10deviceType4kGPUE">
+<span id="_CPPv3N6nuTens6dtypes10deviceType4kGPUE"></span><span id="_CPPv2N6nuTens6dtypes10deviceType4kGPUE"></span><span class="target" id="dtypes_8hpp_1a3e1bbb708d42e69658e576092c4145a9ab1735402291cb4d8f7568c73bcfa6e85"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kGPU</span></span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6dtypes10deviceType13kUninitDeviceE">
+<span id="_CPPv3N6nuTens6dtypes10deviceType13kUninitDeviceE"></span><span id="_CPPv2N6nuTens6dtypes10deviceType13kUninitDeviceE"></span><span class="target" id="dtypes_8hpp_1a3e1bbb708d42e69658e576092c4145a9a7b336cea2cc9859b92d5dd5f0e75a2cd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kUninitDevice</span></span></span><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6nuTens6dtypes17scalarTypeFromRawE10scalarTypev">
+<span id="_CPPv3I0EN6nuTens6dtypes17scalarTypeFromRawEv"></span><span id="_CPPv2I0EN6nuTens6dtypes17scalarTypeFromRawEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="dtypes_8hpp_1a47e1da5e25694deeacfbd8eadcc66907"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scalarTypeFromRaw</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>map between raw c++ types and the data types used in nuTens </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4IEN6nuTens6dtypes17scalarTypeFromRawIfEE10scalarTypev">
+<span id="_CPPv3IEN6nuTens6dtypes17scalarTypeFromRawIfEEv"></span><span id="_CPPv2IEN6nuTens6dtypes17scalarTypeFromRawIfEEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="dtypes_8hpp_1ac4f00fe49da565367ca36e10350d237b"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scalarTypeFromRaw</span></span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4IEN6nuTens6dtypes17scalarTypeFromRawIdEE10scalarTypev">
+<span id="_CPPv3IEN6nuTens6dtypes17scalarTypeFromRawIdEEv"></span><span id="_CPPv2IEN6nuTens6dtypes17scalarTypeFromRawIdEEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="dtypes_8hpp_1a047e24482459d9a49649876aacec59ec"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scalarTypeFromRaw</span></span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4IEN6nuTens6dtypes17scalarTypeFromRawINSt7complexIfEEEE10scalarTypev">
+<span id="_CPPv3IEN6nuTens6dtypes17scalarTypeFromRawINSt7complexIfEEEEv"></span><span id="_CPPv2IEN6nuTens6dtypes17scalarTypeFromRawINSt7complexIfEEEEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="dtypes_8hpp_1a9a8d9bc397826c28d222c21f0496ef49"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scalarTypeFromRaw</span></span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4IEN6nuTens6dtypes17scalarTypeFromRawINSt7complexIdEEEE10scalarTypev">
+<span id="_CPPv3IEN6nuTens6dtypes17scalarTypeFromRawINSt7complexIdEEEEv"></span><span id="_CPPv2IEN6nuTens6dtypes17scalarTypeFromRawINSt7complexIdEEEEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="dtypes_8hpp_1a5c54a1a1b56910f2d99a53a6845797c4"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scalarTypeFromRaw</span></span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens5unitsE">
+<span id="_CPPv3N6nuTens5unitsE"></span><span id="_CPPv2N6nuTens5unitsE"></span><span id="nuTens::units"></span><span class="target" id="namespacenuTens_1_1units"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">units</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-variables">Variables</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens5units2eVE">
+<span id="_CPPv3N6nuTens5units2eVE"></span><span id="_CPPv2N6nuTens5units2eVE"></span><span id="nuTens::units::eV__double"></span><span class="target" id="units_8hpp_1a5bd1017a4b1de4f8d7b8ace0f6afb285"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eV</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1.0</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens5units3MeVE">
+<span id="_CPPv3N6nuTens5units3MeVE"></span><span id="_CPPv2N6nuTens5units3MeVE"></span><span id="nuTens::units::MeV__double"></span><span class="target" id="units_8hpp_1a20e2e1f166b1a449143eb00bb70d65d0"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MeV</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e6</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens5units3GeVE">
+<span id="_CPPv3N6nuTens5units3GeVE"></span><span id="_CPPv2N6nuTens5units3GeVE"></span><span id="nuTens::units::GeV__double"></span><span class="target" id="units_8hpp_1a5e1b31bf14ff8e975b84fe6d95c41bef"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GeV</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e9</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens5units1mE">
+<span id="_CPPv3N6nuTens5units1mE"></span><span id="_CPPv2N6nuTens5units1mE"></span><span id="nuTens::units::m__double"></span><span class="target" id="units_8hpp_1a232d88d62a2027c3472eab6ae7ae7d1c"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">m</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">5.07614213198e6</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens5units2cmE">
+<span id="_CPPv3N6nuTens5units2cmE"></span><span id="_CPPv2N6nuTens5units2cmE"></span><span id="nuTens::units::cm__double"></span><span class="target" id="units_8hpp_1a2e9f5e9bf106b53b9dbbc35c036cc0a2"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cm</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-2</span></span><span class="w"> </span><span class="o"><span class="pre">*</span></span><span class="w"> </span><a class="reference internal" href="../file/units_8hpp.html#_CPPv4N6nuTens5units1mE" title="nuTens::units::m"><span class="n"><span class="pre">m</span></span></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens5units2kmE">
+<span id="_CPPv3N6nuTens5units2kmE"></span><span id="_CPPv2N6nuTens5units2kmE"></span><span id="nuTens::units::km__double"></span><span class="target" id="units_8hpp_1a655a9a071666b927157b87d019feddee"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">km</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e3</span></span><span class="w"> </span><span class="o"><span class="pre">*</span></span><span class="w"> </span><a class="reference internal" href="../file/units_8hpp.html#_CPPv4N6nuTens5units1mE" title="nuTens::units::m"><span class="n"><span class="pre">m</span></span></a><br /></dt>
+<dd></dd></dl>
 
 </div>
 </dd></dl>
@@ -792,8 +1129,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="propagator_8hpp.html" class="btn btn-neutral float-left" title="File propagator.hpp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="tf-tensor_8cpp.html" class="btn btn-neutral float-right" title="File tf-tensor.cpp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="namespacentlogging.html" class="btn btn-neutral float-left" title="Namespace ntlogging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="namespacenuTens_1_1constants.html" class="btn btn-neutral float-right" title="Namespace nuTens::constants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

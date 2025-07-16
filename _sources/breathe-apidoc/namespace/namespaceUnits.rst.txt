@@ -1,5 +1,0 @@
-Namespace Units
-===============
-
-.. doxygennamespace:: Units
-   :members:

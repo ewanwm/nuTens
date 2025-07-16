@@ -64,6 +64,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="classPropagator.html">Class Propagator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classTensor.html">Class Tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1BaseMatterSolver.html">Class nuTens::BaseMatterSolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1ConstDensityMatterSolver.html">Class nuTens::ConstDensityMatterSolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1Propagator.html">Class nuTens::Propagator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1Tensor.html">Class nuTens::Tensor</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../filelist.html">File list</a></li>
@@ -105,7 +109,7 @@
 <h1>Class ConstDensityMatterSolver<a class="headerlink" href="#class-constdensitymattersolver" title="Link to this heading"></a></h1>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv424ConstDensityMatterSolver">
-<span id="_CPPv324ConstDensityMatterSolver"></span><span id="_CPPv224ConstDensityMatterSolver"></span><span id="ConstDensityMatterSolver"></span><span class="target" id="classConstDensityMatterSolver"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ConstDensityMatterSolver</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="classBaseMatterSolver.html#_CPPv416BaseMatterSolver" title="BaseMatterSolver"><span class="n"><span class="pre">BaseMatterSolver</span></span></a><a class="headerlink" href="#_CPPv424ConstDensityMatterSolver" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv324ConstDensityMatterSolver"></span><span id="_CPPv224ConstDensityMatterSolver"></span><span id="ConstDensityMatterSolver"></span><span class="target" id="classConstDensityMatterSolver"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ConstDensityMatterSolver</span></span></span><a class="headerlink" href="#_CPPv424ConstDensityMatterSolver" title="Link to this definition"></a><br /></dt>
 <dd><p>Solver class for constant density material. </p>
 <p>This class is used to obtain effective mass eigenstates and an effective PMNS matrix due to matter effects for neutrinos passing through a block of material of constant density.</p>
 <p>The method used here is to first construct the effective Hamiltonian  <div class="math notranslate nohighlight">
@@ -115,60 +119,6 @@
  where <span class="math notranslate nohighlight">\( \mathbf{U} \)</span> is the supplied PMNS matrix and <span class="math notranslate nohighlight">\( Diag(m^2_i) \)</span> is a diagonal matrix with the specified mass eigenvalues on the diagonal. We then calculate the eigenvalues <span class="math notranslate nohighlight">\(
 m_i^\prime \)</span> and eigenvectors, summarised in the matrix <span class="math notranslate nohighlight">\( V_{ij} \)</span>. These can then be passed to a propagator class to get the oscillation probabilities in the presence of such matter effects.</p>
 <p>See Barger for more details. </p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-setters">Setters</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N24ConstDensityMatterSolver7setPMNSERK6Tensor">
-<span id="_CPPv3N24ConstDensityMatterSolver7setPMNSERK6Tensor"></span><span id="_CPPv2N24ConstDensityMatterSolver7setPMNSERK6Tensor"></span><span id="ConstDensityMatterSolver::setPMNS__TensorCR"></span><span class="target" id="classConstDensityMatterSolver_1abcc8701265048be83069744fa53ba5c2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPMNS</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newPMNS</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N24ConstDensityMatterSolver7setPMNSERK6Tensor" title="Link to this definition"></a><br /></dt>
-<dd><p>Set a new PMNS matrix for this solver. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>newPMNS</strong> – The new matrix to set </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N24ConstDensityMatterSolver9setMassesERK6Tensor">
-<span id="_CPPv3N24ConstDensityMatterSolver9setMassesERK6Tensor"></span><span id="_CPPv2N24ConstDensityMatterSolver9setMassesERK6Tensor"></span><span id="ConstDensityMatterSolver::setMasses__TensorCR"></span><span class="target" id="classConstDensityMatterSolver_1a33454075a97ad88893f4b3310809aaa1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setMasses</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newMasses</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N24ConstDensityMatterSolver9setMassesERK6Tensor" title="Link to this definition"></a><br /></dt>
-<dd><p>Set new mass eigenvalues for this solver. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>newMasses</strong> – The new masses </p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N24ConstDensityMatterSolver24ConstDensityMatterSolverEif">
-<span id="_CPPv3N24ConstDensityMatterSolver24ConstDensityMatterSolverEif"></span><span id="_CPPv2N24ConstDensityMatterSolver24ConstDensityMatterSolverEif"></span><span id="ConstDensityMatterSolver::ConstDensityMatterSolver__i.float"></span><span class="target" id="classConstDensityMatterSolver_1a8a7d9238e40bb5d6f6984626cefb2595"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ConstDensityMatterSolver</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nGenerations</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">density</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N24ConstDensityMatterSolver24ConstDensityMatterSolverEif" title="Link to this definition"></a><br /></dt>
-<dd><p>Constructor. </p>
-<p><ul class="simple">
-<li><p>nGenerations The number of neutrino generations this propagator should expect </p></li>
-<li><p>density The electron density of the material to propagate in </p></li>
-</ul>
-</p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N24ConstDensityMatterSolver20calculateEigenvaluesER6TensorR6Tensor">
-<span id="_CPPv3N24ConstDensityMatterSolver20calculateEigenvaluesER6TensorR6Tensor"></span><span id="_CPPv2N24ConstDensityMatterSolver20calculateEigenvaluesER6TensorR6Tensor"></span><span id="ConstDensityMatterSolver::calculateEigenvalues__TensorR.TensorR"></span><span class="target" id="classConstDensityMatterSolver_1a847aa656cd77169e44ce2065dc79cbb8"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">calculateEigenvalues</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eigenvectors</span></span>, <a class="reference internal" href="classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eigenvalues</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N24ConstDensityMatterSolver20calculateEigenvaluesER6TensorR6Tensor" title="Link to this definition"></a><br /></dt>
-<dd><p>Set new mass eigenvalues for this solver. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>energies</strong> – <strong>[in]</strong> <a class="reference internal" href="../file/tensor_8hpp.html#classTensor"><span class="std std-ref">Tensor</span></a> of energies, expected to have a batch dimension and two further dimensions to make casting unambiguous i.e. shape should look like {Nbatches, 1, 1}. </p></li>
-<li><p><strong>eigenvectors</strong> – <strong>[out]</strong> The returned eigenvectors </p></li>
-<li><p><strong>eigenvalues</strong> – <strong>[out]</strong> The corresponding eigenvalues </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
 </dd></dl>
 
 </section>

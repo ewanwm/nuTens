@@ -1,0 +1,5 @@
+Namespace nuTens::units
+=======================
+
+.. doxygennamespace:: nuTens::units
+   :members:

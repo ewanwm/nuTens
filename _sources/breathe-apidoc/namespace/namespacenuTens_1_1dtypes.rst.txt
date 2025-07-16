@@ -1,0 +1,5 @@
+Namespace nuTens::dtypes
+========================
+
+.. doxygennamespace:: nuTens::dtypes
+   :members:

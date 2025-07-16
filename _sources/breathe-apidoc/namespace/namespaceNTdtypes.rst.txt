@@ -1,5 +1,0 @@
-Namespace NTdtypes
-==================
-
-.. doxygennamespace:: NTdtypes
-   :members:

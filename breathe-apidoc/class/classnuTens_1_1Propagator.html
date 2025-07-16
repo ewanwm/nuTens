@@ -1,0 +1,264 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class nuTens::Propagator &mdash; nuTens  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Class nuTens::Tensor" href="classnuTens_1_1Tensor.html" />
+    <link rel="prev" title="Class nuTens::ConstDensityMatterSolver" href="classnuTens_1_1ConstDensityMatterSolver.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/nuTens-logo-small.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">🚀 Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">🖥️ For Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Profiling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📖 References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../cpp-api.html">c++ API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../classlist.html">Class list</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="classBaseMatterSolver.html">Class BaseMatterSolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classConstDensityMatterSolver.html">Class ConstDensityMatterSolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classPropagator.html">Class Propagator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classTensor.html">Class Tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1BaseMatterSolver.html">Class nuTens::BaseMatterSolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1ConstDensityMatterSolver.html">Class nuTens::ConstDensityMatterSolver</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Class nuTens::Propagator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N6nuTens10PropagatorE"><code class="docutils literal notranslate"><span class="pre">nuTens::Propagator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1Tensor.html">Class nuTens::Tensor</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../filelist.html">File list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../namespacelist.html">Namespace list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structlist.html">Struct list</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../python-api.html">Python API 🐍</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ewanwm/nuTens">GitHub 🔗</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nuTens</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../cpp-api.html">c++ API</a></li>
+          <li class="breadcrumb-item"><a href="../classlist.html">Class list</a></li>
+      <li class="breadcrumb-item active">Class nuTens::Propagator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/breathe-apidoc/class/classnuTens_1_1Propagator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nutens-propagator">
+<h1>Class nuTens::Propagator<a class="headerlink" href="#class-nutens-propagator" title="Link to this heading"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PropagatorE">
+<span id="_CPPv3N6nuTens10PropagatorE"></span><span id="_CPPv2N6nuTens10PropagatorE"></span><span id="nuTens::Propagator"></span><span class="target" id="classnuTens_1_1Propagator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Propagator</span></span></span><a class="headerlink" href="#_CPPv4N6nuTens10PropagatorE" title="Link to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-setters">Setters</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator15setMatterSolverERNSt10shared_ptrI16BaseMatterSolverEE">
+<span id="_CPPv3N6nuTens10Propagator15setMatterSolverERNSt10shared_ptrI16BaseMatterSolverEE"></span><span id="_CPPv2N6nuTens10Propagator15setMatterSolverERNSt10shared_ptrI16BaseMatterSolverEE"></span><span id="nuTens::Propagator::setMatterSolver__std::shared_ptr:BaseMatterSolver:R"></span><span class="target" id="classnuTens_1_1Propagator_1a9b38f17627552f3618db8174e9c581d6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setMatterSolver</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="classnuTens_1_1BaseMatterSolver.html#_CPPv4N6nuTens16BaseMatterSolverE" title="nuTens::BaseMatterSolver"><span class="n"><span class="pre">BaseMatterSolver</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newSolver</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens10Propagator15setMatterSolverERNSt10shared_ptrI16BaseMatterSolverEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Set a matter solver to use to deal with matter effects. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newSolver</strong> – A derivative of <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1BaseMatterSolver"><span class="std std-ref">BaseMatterSolver</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator11setEnergiesER6Tensor">
+<span id="_CPPv3N6nuTens10Propagator11setEnergiesER6Tensor"></span><span id="_CPPv2N6nuTens10Propagator11setEnergiesER6Tensor"></span><span id="nuTens::Propagator::setEnergies__TensorR"></span><span class="target" id="classnuTens_1_1Propagator_1a39844f04429f575943e624c8da8ac8ad"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setEnergies</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newEnergies</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens10Propagator11setEnergiesER6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Set the neutrino energies. </p>
+<p><dl>
+<dt class="sig sig-object cpp">
+<em><span class="pre">Todo:</span></em></dt>
+<dd><p>Should add a check to tensors supplied to the setters to see how many dimensions they have, and if missing a batch dimension, add one. </p>
+</dd></dl>
+
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newEnergies</strong> – The neutrino energies </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator9setMassesER6Tensor">
+<span id="_CPPv3N6nuTens10Propagator9setMassesER6Tensor"></span><span id="_CPPv2N6nuTens10Propagator9setMassesER6Tensor"></span><span id="nuTens::Propagator::setMasses__TensorR"></span><span class="target" id="classnuTens_1_1Propagator_1a83b453c4485cd612cc925329b58badff"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setMasses</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newMasses</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens10Propagator9setMassesER6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Set the masses corresponding to the vacuum hamiltonian eigenstates. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newMasses</strong> – The new masses to use. This tensor is expected to have a batch dimension + 1 more dimensions of size nGenerations. The batch dimension can (and probably should) be 1 and it will be broadcast to match the batch dimension of the energies supplied to <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1Propagator_1a87b59371bafcef272c515cdd5c7accf7"><span class="std std-ref">calculateProbs()</span></a>. So dimension should be {1, nGenerations}. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator7setPMNSER6Tensor">
+<span id="_CPPv3N6nuTens10Propagator7setPMNSER6Tensor"></span><span id="_CPPv2N6nuTens10Propagator7setPMNSER6Tensor"></span><span id="nuTens::Propagator::setPMNS__TensorR"></span><span class="target" id="classnuTens_1_1Propagator_1a44c49ad484ddee3fbf71f203941c2f3d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPMNS</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newPMNS</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens10Propagator7setPMNSER6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Set a whole new PMNS matrix. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newPMNS</strong> – The new matrix to use </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator7setPMNSERKNSt6vectorIiEEf">
+<span id="_CPPv3N6nuTens10Propagator7setPMNSERKNSt6vectorIiEEf"></span><span id="_CPPv2N6nuTens10Propagator7setPMNSERKNSt6vectorIiEEf"></span><span id="nuTens::Propagator::setPMNS__std::vector:i:CR.float"></span><span class="target" id="classnuTens_1_1Propagator_1acc0ea93f92d4ff6b47fb20dfa1a0da2b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPMNS</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">indices</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens10Propagator7setPMNSERKNSt6vectorIiEEf" title="Link to this definition"></a><br /></dt>
+<dd><p>Set a single element of the PMNS matrix. </p>
+<p><dl>
+<dt class="sig sig-object cpp">
+<em><span class="pre">Todo:</span></em></dt>
+<dd><p>add <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1Propagator_1acc0ea93f92d4ff6b47fb20dfa1a0da2b"><span class="std std-ref">setPMNS(const std::vector&lt;int&gt; &amp;indices, float value)</span></a> methods to <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1BaseMatterSolver"><span class="std std-ref">BaseMatterSolver</span></a>? maybe have these setters in a base class of both <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1Propagator"><span class="std std-ref">Propagator</span></a> and <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1BaseMatterSolver"><span class="std std-ref">BaseMatterSolver</span></a> ?? </p>
+</dd></dl>
+
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indices</strong> – The index of the value to set </p></li>
+<li><p><strong>value</strong> – The new value </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator7setPMNSERKNSt6vectorIiEENSt7complexIfEE">
+<span id="_CPPv3N6nuTens10Propagator7setPMNSERKNSt6vectorIiEENSt7complexIfEE"></span><span id="_CPPv2N6nuTens10Propagator7setPMNSERKNSt6vectorIiEENSt7complexIfEE"></span><span id="nuTens::Propagator::setPMNS__std::vector:i:CR.std::complex:float:"></span><span class="target" id="classnuTens_1_1Propagator_1ab3c445c771126170eda4dd07ae345067"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPMNS</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">indices</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens10Propagator7setPMNSERKNSt6vectorIiEENSt7complexIfEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Set a single element of the PMNS matrix. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indices</strong> – The index of the value to set </p></li>
+<li><p><strong>value</strong> – The new value </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator10PropagatorEif">
+<span id="_CPPv3N6nuTens10Propagator10PropagatorEif"></span><span id="_CPPv2N6nuTens10Propagator10PropagatorEif"></span><span id="nuTens::Propagator::Propagator__i.float"></span><span class="target" id="classnuTens_1_1Propagator_1a4215b00e64bb469d3b03eaffcf028439"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Propagator</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nGenerations</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">baseline</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens10Propagator10PropagatorEif" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nGenerations</strong> – The number of generations the propagator should expect </p></li>
+<li><p><strong>baseline</strong> – The baseline to propagate over </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10Propagator14calculateProbsEv">
+<span id="_CPPv3N6nuTens10Propagator14calculateProbsEv"></span><span id="_CPPv2N6nuTens10Propagator14calculateProbsEv"></span><span id="nuTens::Propagator::calculateProbs"></span><span class="target" id="classnuTens_1_1Propagator_1a87b59371bafcef272c515cdd5c7accf7"></span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">calculateProbs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens10Propagator14calculateProbsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Calculate the oscillation probabilities. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>energies</strong> – The energies of the neutrinos </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classnuTens_1_1ConstDensityMatterSolver.html" class="btn btn-neutral float-left" title="Class nuTens::ConstDensityMatterSolver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classnuTens_1_1Tensor.html" class="btn btn-neutral float-right" title="Class nuTens::Tensor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Ewan Miller.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

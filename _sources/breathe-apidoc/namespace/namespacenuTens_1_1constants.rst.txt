@@ -1,0 +1,5 @@
+Namespace nuTens::constants
+===========================
+
+.. doxygennamespace:: nuTens::constants
+   :members:

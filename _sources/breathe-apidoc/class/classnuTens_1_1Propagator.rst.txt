@@ -1,0 +1,5 @@
+Class nuTens::Propagator
+========================
+
+.. doxygenclass:: nuTens::Propagator
+   :members:

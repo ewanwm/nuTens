@@ -63,6 +63,10 @@
 <li class="toctree-l3"><a class="reference internal" href="classConstDensityMatterSolver.html">Class ConstDensityMatterSolver</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classPropagator.html">Class Propagator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classTensor.html">Class Tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1BaseMatterSolver.html">Class nuTens::BaseMatterSolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1ConstDensityMatterSolver.html">Class nuTens::ConstDensityMatterSolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1Propagator.html">Class nuTens::Propagator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1Tensor.html">Class nuTens::Tensor</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../filelist.html">File list</a></li>
@@ -106,38 +110,6 @@
 <dt class="sig sig-object cpp" id="_CPPv416BaseMatterSolver">
 <span id="_CPPv316BaseMatterSolver"></span><span id="_CPPv216BaseMatterSolver"></span><span id="BaseMatterSolver"></span><span class="target" id="classBaseMatterSolver"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BaseMatterSolver</span></span></span><a class="headerlink" href="#_CPPv416BaseMatterSolver" title="Link to this definition"></a><br /></dt>
 <dd><p>Abstract base class for matter effect solvers. </p>
-<p>Subclassed by <a class="reference internal" href="../file/const-density-solver_8hpp.html#classConstDensityMatterSolver"><span class="std std-ref">ConstDensityMatterSolver</span></a></p>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-setters">Setters</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N16BaseMatterSolver7setPMNSERK6Tensor">
-<span id="_CPPv3N16BaseMatterSolver7setPMNSERK6Tensor"></span><span id="_CPPv2N16BaseMatterSolver7setPMNSERK6Tensor"></span><span id="BaseMatterSolver::setPMNS__TensorCR"></span><span class="target" id="classBaseMatterSolver_1a39101d0569db4339d5de150a1c8d165d"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setPMNS</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newPMNS</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N16BaseMatterSolver7setPMNSERK6Tensor" title="Link to this definition"></a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N16BaseMatterSolver9setMassesERK6Tensor">
-<span id="_CPPv3N16BaseMatterSolver9setMassesERK6Tensor"></span><span id="_CPPv2N16BaseMatterSolver9setMassesERK6Tensor"></span><span id="BaseMatterSolver::setMasses__TensorCR"></span><span class="target" id="classBaseMatterSolver_1ae58d7b09043e4735031bdd925f737eb7"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setMasses</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newMasses</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N16BaseMatterSolver9setMassesERK6Tensor" title="Link to this definition"></a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N16BaseMatterSolver20calculateEigenvaluesER6TensorR6Tensor">
-<span id="_CPPv3N16BaseMatterSolver20calculateEigenvaluesER6TensorR6Tensor"></span><span id="_CPPv2N16BaseMatterSolver20calculateEigenvaluesER6TensorR6Tensor"></span><span id="BaseMatterSolver::calculateEigenvalues__TensorR.TensorR"></span><span class="target" id="classBaseMatterSolver_1a7383f222a6a5abc830290100856f1261"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">calculateEigenvalues</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eigenvectors</span></span>, <a class="reference internal" href="classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eigenvalues</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N16BaseMatterSolver20calculateEigenvaluesER6TensorR6Tensor" title="Link to this definition"></a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N16BaseMatterSolver11setEnergiesERK6Tensor">
-<span id="_CPPv3N16BaseMatterSolver11setEnergiesERK6Tensor"></span><span id="_CPPv2N16BaseMatterSolver11setEnergiesERK6Tensor"></span><span id="BaseMatterSolver::setEnergies__TensorCR"></span><span class="target" id="classBaseMatterSolver_1a502c0b4dbf5199a454329ecb9a77019b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setEnergies</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classTensor.html#_CPPv46Tensor" title="Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newEnergies</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16BaseMatterSolver11setEnergiesERK6Tensor" title="Link to this definition"></a><br /></dt>
-<dd></dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N16BaseMatterSolver16BaseMatterSolverEi">
-<span id="_CPPv3N16BaseMatterSolver16BaseMatterSolverEi"></span><span id="_CPPv2N16BaseMatterSolver16BaseMatterSolverEi"></span><span id="BaseMatterSolver::BaseMatterSolver__i"></span><span class="target" id="classBaseMatterSolver_1a62890eec777b4746672c0666cf47b47a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BaseMatterSolver</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">nGenerations</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16BaseMatterSolver16BaseMatterSolverEi" title="Link to this definition"></a><br /></dt>
-<dd></dd></dl>
-
-</div>
 </dd></dl>
 
 </section>
