@@ -22,6 +22,8 @@
 
 namespace py = pybind11;
 
+using namespace nuTens;
+
 void initTensor(py::module & /*m*/);
 void initPropagator(py::module & /*m*/);
 void initDtypes(py::module & /*m*/);
@@ -52,7 +54,7 @@ void initTensor(py::module &m)
 
     py::class_<Tensor>(m_tensor, "Tensor")
         .def(py::init()) // <- default constructor
-        .def(py::init<std::vector<float>, NTdtypes::scalarType, NTdtypes::deviceType, bool>())
+        .def(py::init<std::vector<float>, dtypes::scalarType, dtypes::deviceType, bool>())
 
         // property setters
         .def("dtype", &Tensor::dType, py::return_value_policy::reference, 
@@ -145,19 +147,19 @@ void initTensor(py::module &m)
         // Tensor creation functions
         .def_static("eye", &Tensor::eye, 
             "Create a tensor initialised with an identity matrix",
-            py::arg("n"), py::arg("dtype") = NTdtypes::kFloat, py::arg("device") = NTdtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("n"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
         .def_static("rand", &Tensor::rand, 
             "Create a tensor initialised with random values",
-            py::arg("shape"), py::arg("dtype") = NTdtypes::kFloat, py::arg("device") = NTdtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("shape"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
         .def_static("diag", &Tensor::diag, 
             "Create a tensor with specified values along the diagonal",
             py::arg("diagonal"))
         .def_static("ones", &Tensor::ones, 
             "Create a tensor initialised with ones",
-            py::arg("shape"), py::arg("dtype") = NTdtypes::kFloat, py::arg("device") = NTdtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("shape"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
         .def_static("zeros", &Tensor::zeros, 
             "Create a tensor initialised with zeros",
-            py::arg("shape"), py::arg("dtype") = NTdtypes::kFloat, py::arg("device") = NTdtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("shape"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
 
         .doc() = 
             "Tensor defines a basic interface for creating and manipulating tensors."
@@ -309,17 +311,17 @@ void initDtypes(py::module &m)
     auto m_dtypes = m.def_submodule("dtype",
         "This module defines various data types used in nuTens");
 
-    py::enum_<NTdtypes::scalarType>(m_dtypes, "scalar_type")
-        .value("int", NTdtypes::scalarType::kInt)
-        .value("float", NTdtypes::scalarType::kFloat)
-        .value("double", NTdtypes::scalarType::kDouble)
-        .value("complex_float", NTdtypes::scalarType::kComplexFloat)
-        .value("complex_double", NTdtypes::scalarType::kComplexDouble)
+    py::enum_<dtypes::scalarType>(m_dtypes, "scalar_type")
+        .value("int", dtypes::scalarType::kInt)
+        .value("float", dtypes::scalarType::kFloat)
+        .value("double", dtypes::scalarType::kDouble)
+        .value("complex_float", dtypes::scalarType::kComplexFloat)
+        .value("complex_double", dtypes::scalarType::kComplexDouble)
     ;
 
-    py::enum_<NTdtypes::deviceType>(m_dtypes, "device_type")
-        .value("cpu", NTdtypes::deviceType::kCPU)
-        .value("gpu", NTdtypes::deviceType::kGPU)
+    py::enum_<dtypes::deviceType>(m_dtypes, "device_type")
+        .value("cpu", dtypes::deviceType::kCPU)
+        .value("gpu", dtypes::deviceType::kGPU)
     ;
 }
 
@@ -328,13 +330,13 @@ void initUnits(py::module &m)
     auto m_units = m.def_submodule("units",
         "Defines some helpful units, which are really just conversion factors to eV");
 
-    m_units.attr("eV")  = py::float_(Units::eV);
-    m_units.attr("MeV") = py::float_(Units::MeV);
-    m_units.attr("GeV") = py::float_(Units::GeV);
+    m_units.attr("eV")  = py::float_(units::eV);
+    m_units.attr("MeV") = py::float_(units::MeV);
+    m_units.attr("GeV") = py::float_(units::GeV);
 
-    m_units.attr("cm") = py::float_(Units::cm);
-    m_units.attr("m")  = py::float_(Units::m);
-    m_units.attr("km") = py::float_(Units::km);
+    m_units.attr("cm") = py::float_(units::cm);
+    m_units.attr("m")  = py::float_(units::m);
+    m_units.attr("km") = py::float_(units::km);
     
 }
 
@@ -343,31 +345,31 @@ void initTesting(py::module &m)
     auto m_testing = m.def_submodule("testing",
         "Some helpful utilities to use when writing python tests for your code");
 
-    py::class_<Testing::TwoFlavourBarger>(m_testing, "TwoFlavourBarger")
+    py::class_<testing::TwoFlavourBarger>(m_testing, "TwoFlavourBarger")
         .def(py::init<>())
-        .def("set_params", &Testing::TwoFlavourBarger::setParams, 
+        .def("set_params", &testing::TwoFlavourBarger::setParams, 
             py::arg("m1"), py::arg("m2"), py::arg("theta"), py::arg("baseline"), py::arg("density") = (float)-999.9
         )
-        .def("lv", &Testing::TwoFlavourBarger::lv,
+        .def("lv", &testing::TwoFlavourBarger::lv,
             "Calculates the vacuum oscillation length",
             py::arg("energy")
         )
-        .def("lm", &Testing::TwoFlavourBarger::lm,
+        .def("lm", &testing::TwoFlavourBarger::lm,
             "Calculates the matter oscillation length"
         )
-        .def("calculate_effective_angle", &Testing::TwoFlavourBarger::calculateEffectiveAngle,
+        .def("calculate_effective_angle", &testing::TwoFlavourBarger::calculateEffectiveAngle,
             "Calculates the effective mixing angle, alpha, in matter",
             py::arg("energy")
         )
-        .def("calculate_effective_dm2", &Testing::TwoFlavourBarger::calculateEffectiveDm2,
+        .def("calculate_effective_dm2", &testing::TwoFlavourBarger::calculateEffectiveDm2,
             "Calculates the effective delta m^2 in matter",
             py::arg("energy")
         )
-        .def("get_PMNS_element", &Testing::TwoFlavourBarger::getPMNSelement,
+        .def("get_PMNS_element", &testing::TwoFlavourBarger::getPMNSelement,
             "Calculates the effective i,j-th element of the mizing matrix for a given energy",
             py::arg("energy"), py::arg("i"), py::arg("j")
         )
-        .def("calculate_prob", &Testing::TwoFlavourBarger::calculateProb,
+        .def("calculate_prob", &testing::TwoFlavourBarger::calculateProb,
             "Calculate probability of transitioning from state i to state j for a given energy",
             py::arg("energy"), py::arg("i"), py::arg("j")
         )

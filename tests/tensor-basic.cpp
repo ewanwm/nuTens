@@ -7,6 +7,8 @@
     e.g. test that complex matrices work as expected, 1+1 == 2 etc.
 */
 
+using namespace nuTens;
+
 int main()
 {
     NT_PROFILE_BEGINSESSION("tensor-basic-test");
@@ -17,7 +19,7 @@ int main()
 
     std::cout << "########################################" << std::endl;
     std::cout << "Float: " << std::endl;
-    auto tensorFloat = AccessedTensor<double, 2, NTdtypes::kCPU>::zeros({3, 3}, false);
+    auto tensorFloat = AccessedTensor<double, 2, dtypes::kCPU>::zeros({3, 3}, false);
     tensorFloat.setValue(0.0, 0, 0);
     tensorFloat.setValue(1.0, 0, 1);
     tensorFloat.setValue(2.0, 0, 2);
@@ -40,7 +42,7 @@ int main()
 
     std::cout << "########################################" << std::endl;
     std::cout << "Complex float: " << std::endl;
-    Tensor tensorComplex = Tensor::zeros({3, 3}, NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor tensorComplex = Tensor::zeros({3, 3}, dtypes::kComplexFloat).requiresGrad(false);
     tensorComplex.setValue({0, 0}, std::complex<float>(0.0J));
     tensorComplex.setValue({0, 1}, std::complex<float>(1.0J));
     tensorComplex.setValue({0, 2}, std::complex<float>(2.0J));
@@ -83,7 +85,7 @@ int main()
         return 1;
     }
 
-    Tensor ones = Tensor::ones({3, 3}, NTdtypes::kFloat);
+    Tensor ones = Tensor::ones({3, 3}, dtypes::kFloat);
     Tensor twos = ones + ones;
 
     std::cout << "ones + ones: " << std::endl;
@@ -101,7 +103,7 @@ int main()
     // ######### test some of the basic autograd functionality ###########
 
     // first just a simple test of scaling by a constant factor
-    Tensor ones_scaleTest = Tensor::ones({2, 2}).dType(NTdtypes::kFloat).requiresGrad(true);
+    Tensor ones_scaleTest = Tensor::ones({2, 2}).dType(dtypes::kFloat).requiresGrad(true);
     Tensor threes = Tensor::scale(ones_scaleTest, 3.0).sum();
     threes.backward();
     Tensor grad = ones_scaleTest.grad();
@@ -117,7 +119,7 @@ int main()
         return 1;
     }
 
-    Tensor complexGradTest = Tensor::zeros({2, 2}, NTdtypes::kComplexFloat).requiresGrad(false);
+    Tensor complexGradTest = Tensor::zeros({2, 2}, dtypes::kComplexFloat).requiresGrad(false);
     complexGradTest.setValue({0, 0}, std::complex<float>(0.0 + 0.0J));
     complexGradTest.setValue({0, 1}, std::complex<float>(0.0 + 1.0J));
     complexGradTest.setValue({1, 0}, std::complex<float>(1.0 + 0.0J));

@@ -17,7 +17,9 @@
 // just want to use vv simple c++ standard objects so is independent of the
 // rest of the nuTens libraries.
 
-namespace Testing
+namespace nuTens
+{
+namespace testing
 {
 
 class TwoFlavourBarger
@@ -43,7 +45,7 @@ class TwoFlavourBarger
     // characteristic length in matter
     [[nodiscard]] inline float lm() const
     {
-        return 2.0 * M_PI / (Constants::Groot2 * _density);
+        return 2.0 * M_PI / (nuTens::constants::Groot2 * _density);
     }
 
     // calculate the modified rotation angle
@@ -181,4 +183,6 @@ class TwoFlavourBarger
     float _density;
 };
 
-} // namespace Testing
+} // testing
+
+} // namespace nuTens

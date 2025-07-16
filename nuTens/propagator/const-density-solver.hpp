@@ -5,6 +5,8 @@
 
 /// @file const-density-solver.hpp
 
+namespace nuTens {
+
 class ConstDensityMatterSolver : public BaseMatterSolver
 {
     /*!
@@ -36,7 +38,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// @arg density The electron density of the material to propagate in
     ConstDensityMatterSolver(int nGenerations, float density) : BaseMatterSolver(nGenerations), density(density)
     {
-        diagMassMatrix = Tensor::zeros({1, nGenerations, nGenerations}, NTdtypes::kFloat).requiresGrad(false);
+        diagMassMatrix = Tensor::zeros({1, nGenerations, nGenerations}, dtypes::kFloat).requiresGrad(false);
     };
 
     /// @name Setters
@@ -53,7 +55,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
         // matrix used to construct the hamiltonian
         electronOuter =
             Tensor::scale(Tensor::outer(PMNS.getValues({0, 0, "..."}), PMNS.getValues({0, 0, "..."}).conj()),
-                          Constants::Groot2 * density);
+                          nuTens::constants::Groot2 * density);
     };
 
     /// @brief Set new mass eigenvalues for this solver
@@ -88,4 +90,6 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     Tensor diagMassMatrix;
     Tensor electronOuter;
     float density;
+};
+
 };

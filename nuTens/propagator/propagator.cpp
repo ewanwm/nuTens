@@ -1,5 +1,7 @@
 #include <nuTens/propagator/propagator.hpp>
 
+using namespace nuTens;
+
 Tensor Propagator::calculateProbs()
 {
     NT_PROFILE();
@@ -11,9 +13,9 @@ Tensor Propagator::calculateProbs()
     if (_matterSolver != nullptr)
     {
         Tensor eigenVals =
-            Tensor::zeros({1, _nGenerations, _nGenerations}, NTdtypes::kComplexFloat).requiresGrad(false);
+            Tensor::zeros({1, _nGenerations, _nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
         Tensor eigenVecs =
-            Tensor::zeros({1, _nGenerations, _nGenerations}, NTdtypes::kComplexFloat).requiresGrad(false);
+            Tensor::zeros({1, _nGenerations, _nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
 
         _matterSolver->calculateEigenvalues(eigenVecs, eigenVals);
         Tensor effectiveMassesSq = Tensor::mul(eigenVals, Tensor::scale(_energies, 2.0));

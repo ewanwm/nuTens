@@ -1,12 +1,14 @@
 
 #include <nuTens/tensors/tensor.hpp>
 
+using namespace nuTens;
+
 std::string Tensor::getTensorLibrary()
 {
     return "PyTorch";
 }
 
-Tensor::Tensor(const std::vector<float> &values, NTdtypes::scalarType type, NTdtypes::deviceType device,
+Tensor::Tensor(const std::vector<float> &values, dtypes::scalarType type, dtypes::deviceType device,
                bool requiresGrad)
 :
 _dType(type),
@@ -15,34 +17,34 @@ _device(device)
     NT_PROFILE();
 
     _tensor = torch::tensor(values, torch::TensorOptions()
-                                        .dtype(NTdtypes::scalarTypeMap(type))
-                                        .device(NTdtypes::deviceTypeMap(device))
+                                        .dtype(dtypes::scalarTypeMap(type))
+                                        .device(dtypes::deviceTypeMap(device))
                                         .requires_grad(requiresGrad));
 }
 
-Tensor Tensor::eye(int n, NTdtypes::scalarType type, NTdtypes::deviceType device, bool requiresGrad)
+Tensor Tensor::eye(int n, dtypes::scalarType type, dtypes::deviceType device, bool requiresGrad)
 {
     NT_PROFILE();
 
     Tensor ret;
     ret.setTensor(torch::eye(n, torch::TensorOptions()
-                                    .dtype(NTdtypes::scalarTypeMap(type))
-                                    .device(NTdtypes::deviceTypeMap(device))
+                                    .dtype(dtypes::scalarTypeMap(type))
+                                    .device(dtypes::deviceTypeMap(device))
                                     .requires_grad(requiresGrad)));
     ret._dType = type;
     ret._device = device;
     return ret;
 }
 
-Tensor Tensor::rand(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
+Tensor Tensor::rand(const std::vector<long int> &shape, dtypes::scalarType type, dtypes::deviceType device,
                     bool requiresGrad)
 {
     NT_PROFILE();
 
     Tensor ret;
     ret.setTensor(torch::rand(c10::IntArrayRef(shape), torch::TensorOptions()
-                                                           .dtype(NTdtypes::scalarTypeMap(type))
-                                                           .device(NTdtypes::deviceTypeMap(device))
+                                                           .dtype(dtypes::scalarTypeMap(type))
+                                                           .device(dtypes::deviceTypeMap(device))
                                                            .requires_grad(requiresGrad)));
 
     ret._dType = type;
@@ -62,50 +64,50 @@ Tensor Tensor::diag(const Tensor &diag)
     return ret;
 }
 
-Tensor Tensor::ones(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
+Tensor Tensor::ones(const std::vector<long int> &shape, dtypes::scalarType type, dtypes::deviceType device,
                     bool requiresGrad)
 {
     NT_PROFILE();
 
     Tensor ret;
     ret.setTensor(torch::ones(c10::IntArrayRef(shape), torch::TensorOptions()
-                                                           .dtype(NTdtypes::scalarTypeMap(type))
-                                                           .device(NTdtypes::deviceTypeMap(device))
+                                                           .dtype(dtypes::scalarTypeMap(type))
+                                                           .device(dtypes::deviceTypeMap(device))
                                                            .requires_grad(requiresGrad)));
     ret._dType = type;
     ret._device = device;
     return ret;
 }
 
-Tensor Tensor::zeros(const std::vector<long int> &shape, NTdtypes::scalarType type, NTdtypes::deviceType device,
+Tensor Tensor::zeros(const std::vector<long int> &shape, dtypes::scalarType type, dtypes::deviceType device,
                      bool requiresGrad)
 {
     NT_PROFILE();
 
     Tensor ret;
     ret.setTensor(torch::zeros(c10::IntArrayRef(shape), torch::TensorOptions()
-                                                           .dtype(NTdtypes::scalarTypeMap(type))
-                                                           .device(NTdtypes::deviceTypeMap(device))
+                                                           .dtype(dtypes::scalarTypeMap(type))
+                                                           .device(dtypes::deviceTypeMap(device))
                                                            .requires_grad(requiresGrad)));
     ret._dType = type;
     ret._device = device;
     return ret;
 }
 
-Tensor &Tensor::dType(NTdtypes::scalarType type)
+Tensor &Tensor::dType(dtypes::scalarType type)
 {
     NT_PROFILE();
 
-    _tensor = _tensor.to(NTdtypes::scalarTypeMap(type));
+    _tensor = _tensor.to(dtypes::scalarTypeMap(type));
     _dType = type;
     return *this;
 }
 
-Tensor &Tensor::device(NTdtypes::deviceType device)
+Tensor &Tensor::device(dtypes::deviceType device)
 {
     NT_PROFILE();
 
-    _tensor = _tensor.to(NTdtypes::deviceTypeMap(device));
+    _tensor = _tensor.to(dtypes::deviceTypeMap(device));
     _device = device;
     return *this;
 }
@@ -146,19 +148,19 @@ Tensor::variantType Tensor::getVariantValue(const std::vector<int> &indices) con
 
     switch (_dType)
     {
-    case NTdtypes::kInt:
+    case dtypes::kInt:
         return _tensor.index(convertIndices(indices)).item<int>();
 
-    case NTdtypes::kFloat:
+    case dtypes::kFloat:
         return _tensor.index(convertIndices(indices)).item<float>();
 
-    case NTdtypes::kDouble:
+    case dtypes::kDouble:
         return _tensor.index(convertIndices(indices)).item<double>();
 
-    case NTdtypes::kComplexFloat:
+    case dtypes::kComplexFloat:
         return (std::complex<float>)_tensor.index(convertIndices(indices)).item<c10::complex<float>>();
 
-    case NTdtypes::kComplexDouble:
+    case dtypes::kComplexDouble:
         return (std::complex<double>)_tensor.index(convertIndices(indices)).item<c10::complex<double>>();
 
     default:

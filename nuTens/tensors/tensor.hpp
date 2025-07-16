@@ -20,6 +20,8 @@
  * @brief Defines the interface of a Tensor object
  */
 
+namespace nuTens {
+
 class Tensor
 {
     /*!
@@ -33,12 +35,12 @@ class Tensor
      *
      * For example
      * \code{.cpp}
-     *   Tensor = ones({3,3}).dType(NTdtypes::kFloat).device(NTdtypes::kGPU);
+     *   Tensor = ones({3,3}).dType(dtypes::kFloat).device(dtypes::kGPU);
      * \endcode
      * will get you a 3x3 tensor of floats that lives on the GPU.
      * This is equivalent to
      * \code{.cpp}
-     *   Tensor = ones({3,3}, NTdtypes::kFloat, NTdtypes::kGPU);
+     *   Tensor = ones({3,3}, dtypes::kFloat, dtypes::kGPU);
      * \endcode
      */
 
@@ -57,26 +59,26 @@ class Tensor
     /// @brief Default constructor with no initialisation
     Tensor()
     :
-    _dType(NTdtypes::kUninitScalar),
-    _device(NTdtypes::kUninitDevice)
+    _dType(dtypes::kUninitScalar),
+    _device(dtypes::kUninitDevice)
     {};
 
     /// @brief Construct a 1-d array with specified values
     /// @arg values The values to include in the tensor
-    Tensor(const std::vector<float> &values, NTdtypes::scalarType type = NTdtypes::kFloat,
-           NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+    Tensor(const std::vector<float> &values, dtypes::scalarType type = dtypes::kFloat,
+           dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
 
     /// @brief Construct an identity tensor (has to be a 2d square tensor)
     /// @arg n The size of one of the sides of the tensor
     /// @arg type The data type of the tensor
-    static Tensor eye(int n, NTdtypes::scalarType type = NTdtypes::kFloat, NTdtypes::deviceType device = NTdtypes::kCPU,
+    static Tensor eye(int n, dtypes::scalarType type = dtypes::kFloat, dtypes::deviceType device = dtypes::kCPU,
                       bool requiresGrad = true);
 
     /// @brief Construct a tensor with entries randomly initialised in the range [0, 1]
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
-    static Tensor rand(const std::vector<long int> &shape, NTdtypes::scalarType type = NTdtypes::kFloat,
-                       NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+    static Tensor rand(const std::vector<long int> &shape, dtypes::scalarType type = dtypes::kFloat,
+                       dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
 
     /// @brief Construct a tensor diag values along the diagonal, and zero elsewhere
     /// @arg diag A 1-d tensor which represents the desired diagonal values
@@ -85,23 +87,23 @@ class Tensor
     /// @brief Construct a tensor with ones
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
-    static Tensor ones(const std::vector<long int> &shape, NTdtypes::scalarType type = NTdtypes::kFloat,
-                       NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+    static Tensor ones(const std::vector<long int> &shape, dtypes::scalarType type = dtypes::kFloat,
+                       dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
 
     /// @brief Construct a tensor with zeros
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
-    static Tensor zeros(const std::vector<long int> &shape, NTdtypes::scalarType type = NTdtypes::kFloat,
-                        NTdtypes::deviceType device = NTdtypes::kCPU, bool requiresGrad = true);
+    static Tensor zeros(const std::vector<long int> &shape, dtypes::scalarType type = dtypes::kFloat,
+                        dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
 
     /// @}
 
     /// @name Setters
     /// @{
     /// @brief Set the underlying data type of this tensor
-    Tensor &dType(NTdtypes::scalarType type);
+    Tensor &dType(dtypes::scalarType type);
     /// @brief Set the device that this tensor lives on
-    Tensor &device(NTdtypes::deviceType device);
+    Tensor &device(dtypes::deviceType device);
     /// @brief Set whether the tensor requires a gradient
     Tensor &requiresGrad(bool reqGrad);
     /// @brief Set whether or not the first dimension should be interpreted as a batch dimension
@@ -363,8 +365,8 @@ class Tensor
 
   protected:
     bool _hasBatchDim = false;
-    NTdtypes::scalarType _dType;
-    NTdtypes::deviceType _device;
+    dtypes::scalarType _dType;
+    dtypes::deviceType _device;
 
     // ###################################################
     // ########## Tensor library specific stuff ##########
@@ -417,8 +419,8 @@ class Tensor
         NT_PROFILE();
 
         _tensor = tensor;
-        _dType = NTdtypes::invScalarTypeMap(tensor.scalar_type());
-        _device = NTdtypes::invDeviceTypeMap(tensor.device().type());
+        _dType = dtypes::invScalarTypeMap(tensor.scalar_type());
+        _device = dtypes::invDeviceTypeMap(tensor.device().type());
     }
 
     /// Utility function to convert from a vector of ints to a vector of a10 tensor indices, which is needed for
@@ -485,7 +487,7 @@ class Tensor
 /// You should only use these when you intend to directly manipulate the 
 /// entries of the tensor. e.g. to set parameter values, or energy values
 /// at the start of a computational chain. 
-template<typename Tdtype, int TnDims, NTdtypes::deviceType Tdevice>
+template<typename Tdtype, int TnDims, dtypes::deviceType Tdevice>
 class AccessedTensor: public Tensor {
 
   private:
@@ -508,13 +510,13 @@ class AccessedTensor: public Tensor {
 
         AccessedTensor<Tdtype, TnDims, Tdevice> ret(
             torch::eye(TnDims, torch::TensorOptions()
-                .dtype(NTdtypes::scalarTypeMap(NTdtypes::scalarTypeFromRaw<Tdtype>()))
-                .device(NTdtypes::deviceTypeMap(Tdevice))
+                .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
+                .device(dtypes::deviceTypeMap(Tdevice))
                 .requires_grad(requiresGrad)
             )
         );
 
-        ret._dType = NTdtypes::scalarTypeFromRaw<Tdtype>();
+        ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
         ret._device = Tdevice;
 
         return ret;
@@ -531,13 +533,13 @@ class AccessedTensor: public Tensor {
 
         AccessedTensor<Tdtype, TnDims, Tdevice> ret(
             torch::rand(c10::IntArrayRef(shape), torch::TensorOptions()
-                .dtype(NTdtypes::scalarTypeMap(NTdtypes::scalarTypeFromRaw<Tdtype>()))
-                .device(NTdtypes::deviceTypeMap(Tdevice))
+                .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
+                .device(dtypes::deviceTypeMap(Tdevice))
                 .requires_grad(requiresGrad)
             )
         );
 
-        ret._dType = NTdtypes::scalarTypeFromRaw<Tdtype>();
+        ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
         ret._device = Tdevice;
         
         return ret;
@@ -554,13 +556,13 @@ class AccessedTensor: public Tensor {
 
         AccessedTensor<Tdtype, TnDims, Tdevice> ret(
             torch::ones(c10::IntArrayRef(shape), torch::TensorOptions()
-                .dtype(NTdtypes::scalarTypeMap(NTdtypes::scalarTypeFromRaw<Tdtype>()))
-                .device(NTdtypes::deviceTypeMap(Tdevice))
+                .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
+                .device(dtypes::deviceTypeMap(Tdevice))
                 .requires_grad(requiresGrad)
             )
         );
 
-        ret._dType = NTdtypes::scalarTypeFromRaw<Tdtype>();
+        ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
         ret._device = Tdevice;
         return ret;
     
@@ -576,8 +578,8 @@ class AccessedTensor: public Tensor {
         assert((shape.size() == TnDims) && "dimensions in shape must match templated TnDims");
 
         torch::Tensor zeros = torch::zeros(c10::IntArrayRef(shape), torch::TensorOptions()
-            .dtype(NTdtypes::scalarTypeMap(NTdtypes::scalarTypeFromRaw<Tdtype>()))
-            .device(NTdtypes::deviceTypeMap(Tdevice))
+            .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
+            .device(dtypes::deviceTypeMap(Tdevice))
             .requires_grad(requiresGrad)
         );
         
@@ -585,7 +587,7 @@ class AccessedTensor: public Tensor {
             zeros
         );
 
-        ret._dType = NTdtypes::scalarTypeFromRaw<Tdtype>();
+        ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
         ret._device = Tdevice;
         return ret;
     }
@@ -600,11 +602,11 @@ class AccessedTensor: public Tensor {
 
         assert(TnDims == 1 && "wrong number of indices");
 
-        if (Tdevice == NTdtypes::kGPU) {
+        if (Tdevice == dtypes::kGPU) {
             _packedAccessor[i] = value;
         }
 
-        else if (Tdevice == NTdtypes::kCPU) {
+        else if (Tdevice == dtypes::kCPU) {
             _accessor[i] = value;
         }
     }
@@ -616,11 +618,11 @@ class AccessedTensor: public Tensor {
 
         assert(TnDims == 2 && "wrong number of indices");
 
-        if (Tdevice == NTdtypes::kGPU) {
+        if (Tdevice == dtypes::kGPU) {
             _packedAccessor[i][j] = value;
         }
 
-        else if (Tdevice == NTdtypes::kCPU) {
+        else if (Tdevice == dtypes::kCPU) {
             _accessor[i][j] = value;
         }
     }
@@ -632,11 +634,11 @@ class AccessedTensor: public Tensor {
 
         assert(TnDims == 3 && "wrong number of indices");
 
-        if (Tdevice == NTdtypes::kGPU) {
+        if (Tdevice == dtypes::kGPU) {
             _packedAccessor[i][j][k] = value;
         }
 
-        else if (Tdevice == NTdtypes::kCPU) {
+        else if (Tdevice == dtypes::kCPU) {
             _accessor[i][j][k] = value;
         }
     }
@@ -650,4 +652,7 @@ class AccessedTensor: public Tensor {
     torch::PackedTensorAccessor32<Tdtype, TnDims> _packedAccessor;
         
 };
+
 #endif
+
+};
