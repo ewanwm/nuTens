@@ -284,7 +284,11 @@ void initPropagator(py::module &m)
         .def("set_baseline", (&Propagator::setBaseline),
             "Set the baseline that the propagator should use",
             py::arg("new_value")
-        );
+        )
+        .def("get_baseline", (&Propagator::getBaseline),
+            "Get the baseline used by the propagator"
+        )
+        ;
 
     py::class_<BaseMatterSolver, std::shared_ptr<BaseMatterSolver>>(m_propagator, "BaseMatterSolver")
         .def("set_PMNS", &BaseMatterSolver::setPMNS,
@@ -311,7 +315,11 @@ void initPropagator(py::module &m)
         .def("set_density", (&ConstDensityMatterSolver::setDensity),
             "Set the density that the solver should use",
             py::arg("new_value")
-        );
+        )
+        .def("get_density", (&ConstDensityMatterSolver::getDensity),
+            "Get the density used by the solver"
+        )
+        ;
 }
 
 void initDtypes(py::module &m)
