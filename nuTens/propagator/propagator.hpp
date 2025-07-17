@@ -136,6 +136,16 @@ class Propagator
 
     /// @}
 
+
+    /// @{ Getters
+
+    inline float getBaseline() const 
+    {
+        return _baseline;
+    }
+
+    /// @}
+
   private:
     // For calculating with alternate masses and PMNS, e.g. if using effective
     // values from massSolver

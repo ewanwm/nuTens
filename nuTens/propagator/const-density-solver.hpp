@@ -89,7 +89,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
         NT_PROFILE();
 
         density = newDensity;
-        
+
         // construct the outer product of the electron neutrino row of the PMNS
         // matrix used to construct the hamiltonian
         electronOuter =
@@ -100,6 +100,14 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     }
 
     /// @}
+
+
+    /// @{ Getters
+
+    inline float getDensity() const
+    {
+        return density;
+    }
 
     /// @brief Set new mass eigenvalues for this solver
     /// @param[in] energies Tensor of energies, expected to have a batch
