@@ -45,7 +45,7 @@ class Propagator
     inline void setMatterSolver(const std::shared_ptr<BaseMatterSolver> &newSolver)
     {
         NT_PROFILE();
-        _matterSolver = std::move(newSolver);
+        _matterSolver = newSolver;
         _matterSolver->setMasses(_masses);
         _matterSolver->setPMNS(_pmnsMatrix);
     }
