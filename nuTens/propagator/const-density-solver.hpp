@@ -74,7 +74,40 @@ class ConstDensityMatterSolver : public BaseMatterSolver
         diagMassMatrix = Tensor::diag(diag).requiresGrad(true);
     }
 
+
+    /// @brief set a new density 
+    /// @param newDensity the new value
+    inline void setDensity(float newDensity)
+    {
+
+        /// @todo super inefficient to recalculate this here and also in 
+        /// setPMNS. Would be good to have some _valuesChanged flag that causes
+        /// these kind of things to be recalculated inside of calculateEigenvalues
+        /// if any of the dependent variables changed e.g. pmns, density, masses
+        /// See also smilar problem in propagator::setBaseline
+        
+        NT_PROFILE();
+
+        density = newDensity;
+
+        // construct the outer product of the electron neutrino row of the PMNS
+        // matrix used to construct the hamiltonian
+        electronOuter =
+            Tensor::scale(Tensor::outer(PMNS.getValues({0, 0, "..."}), PMNS.getValues({0, 0, "..."}).conj()),
+            nuTens::constants::Groot2 * density
+        );
+    
+    }
+
     /// @}
+
+
+    /// @{ Getters
+
+    [[nodiscard]] inline float getDensity() const
+    {
+        return density;
+    }
 
     /// @brief Set new mass eigenvalues for this solver
     /// @param[in] energies Tensor of energies, expected to have a batch
