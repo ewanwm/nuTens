@@ -121,6 +121,19 @@ class Propagator
         _pmnsMatrix.setValue(indices, value);
     }
 
+    /// @brief Set the baseline
+    /// @param newBaseline new value
+    inline void setBaseline(float newBaseline) 
+    {
+
+        NT_PROFILE();
+
+        _baseline = newBaseline;
+
+        _weightArgDenom = Tensor::scale(Tensor::scale(_energies, 2.0), std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline));
+    
+    }
+
     /// @}
 
   private:

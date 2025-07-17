@@ -280,6 +280,10 @@ void initPropagator(py::module &m)
         .def("set_PMNS", py::overload_cast<const std::vector<int> &, std::complex<float>>(&Propagator::setPMNS),
             "Set the PMNS matrix that the propagator should use",
             py::arg("indices"), py::arg("value")
+        )
+        .def("set_baseline", (&Propagator::setBaseline),
+            "Set the baseline that the propagator should use",
+            py::arg("new_value")
         );
 
     py::class_<BaseMatterSolver, std::shared_ptr<BaseMatterSolver>>(m_propagator, "BaseMatterSolver")
@@ -302,8 +306,12 @@ void initPropagator(py::module &m)
         ;
 
      py::class_<ConstDensityMatterSolver, std::shared_ptr<ConstDensityMatterSolver>, BaseMatterSolver>(
-          m_propagator, "ConstDensitySolver")
-          .def(py::init<int, float>());
+        m_propagator, "ConstDensitySolver")
+        .def(py::init<int, float>())
+        .def("set_density", (&ConstDensityMatterSolver::setDensity),
+            "Set the density that the solver should use",
+            py::arg("new_value")
+        );
 }
 
 void initDtypes(py::module &m)
