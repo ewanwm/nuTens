@@ -64,10 +64,16 @@
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver.set_masses"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver.set_masses()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#nuTens.propagator.ConstDensitySolver"><code class="docutils literal notranslate"><span class="pre">ConstDensitySolver</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuTens.propagator.ConstDensitySolver"><code class="docutils literal notranslate"><span class="pre">ConstDensitySolver</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.ConstDensitySolver.get_density"><code class="docutils literal notranslate"><span class="pre">ConstDensitySolver.get_density()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.ConstDensitySolver.set_density"><code class="docutils literal notranslate"><span class="pre">ConstDensitySolver.set_density()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#nuTens.propagator.Propagator"><code class="docutils literal notranslate"><span class="pre">Propagator</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.calculate_probabilities"><code class="docutils literal notranslate"><span class="pre">Propagator.calculate_probabilities()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.get_baseline"><code class="docutils literal notranslate"><span class="pre">Propagator.get_baseline()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.set_PMNS"><code class="docutils literal notranslate"><span class="pre">Propagator.set_PMNS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.set_baseline"><code class="docutils literal notranslate"><span class="pre">Propagator.set_baseline()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.set_energies"><code class="docutils literal notranslate"><span class="pre">Propagator.set_energies()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.set_masses"><code class="docutils literal notranslate"><span class="pre">Propagator.set_masses()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.set_matter_solver"><code class="docutils literal notranslate"><span class="pre">Propagator.set_matter_solver()</span></code></a></li>
@@ -144,6 +150,18 @@
 <dt class="sig sig-object py" id="nuTens.propagator.ConstDensitySolver">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nuTens.propagator.</span></span><span class="sig-name descname"><span class="pre">ConstDensitySolver</span></span><a class="headerlink" href="#nuTens.propagator.ConstDensitySolver" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#nuTens.propagator.BaseMatterSolver" title="nuTens._pyNuTens.propagator.BaseMatterSolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseMatterSolver</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.propagator.ConstDensitySolver.get_density">
+<span class="sig-name descname"><span class="pre">get_density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.propagator.ConstDensitySolver" title="nuTens._pyNuTens.propagator.ConstDensitySolver"><span class="pre">nuTens._pyNuTens.propagator.ConstDensitySolver</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#nuTens.propagator.ConstDensitySolver.get_density" title="Link to this definition"></a></dt>
+<dd><p>Get the density used by the solver</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.propagator.ConstDensitySolver.set_density">
+<span class="sig-name descname"><span class="pre">set_density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.propagator.ConstDensitySolver" title="nuTens._pyNuTens.propagator.ConstDensitySolver"><span class="pre">nuTens._pyNuTens.propagator.ConstDensitySolver</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nuTens.propagator.ConstDensitySolver.set_density" title="Link to this definition"></a></dt>
+<dd><p>Set the density that the solver should use</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -154,6 +172,12 @@
 <dt class="sig sig-object py" id="nuTens.propagator.Propagator.calculate_probabilities">
 <span class="sig-name descname"><span class="pre">calculate_probabilities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.propagator.Propagator" title="nuTens._pyNuTens.propagator.Propagator"><span class="pre">nuTens._pyNuTens.propagator.Propagator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="tensor.html#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></span><a class="headerlink" href="#nuTens.propagator.Propagator.calculate_probabilities" title="Link to this definition"></a></dt>
 <dd><p>Calculate the oscillation probabilities for neutrinos of specified energies</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.propagator.Propagator.get_baseline">
+<span class="sig-name descname"><span class="pre">get_baseline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.propagator.Propagator" title="nuTens._pyNuTens.propagator.Propagator"><span class="pre">nuTens._pyNuTens.propagator.Propagator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#nuTens.propagator.Propagator.get_baseline" title="Link to this definition"></a></dt>
+<dd><p>Get the baseline used by the propagator</p>
 </dd></dl>
 
 <dl class="py method">
@@ -172,6 +196,12 @@
 <li><p>set_PMNS(self: nuTens._pyNuTens.propagator.Propagator, indices: list[int], value: complex) -&gt; None</p></li>
 </ol>
 <p>Set the PMNS matrix that the propagator should use</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.propagator.Propagator.set_baseline">
+<span class="sig-name descname"><span class="pre">set_baseline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.propagator.Propagator" title="nuTens._pyNuTens.propagator.Propagator"><span class="pre">nuTens._pyNuTens.propagator.Propagator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nuTens.propagator.Propagator.set_baseline" title="Link to this definition"></a></dt>
+<dd><p>Set the baseline that the propagator should use</p>
 </dd></dl>
 
 <dl class="py method">
