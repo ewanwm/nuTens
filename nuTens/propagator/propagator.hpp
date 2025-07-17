@@ -139,7 +139,7 @@ class Propagator
 
     /// @{ Getters
 
-    inline float getBaseline() const 
+    [[nodiscard]] inline float getBaseline() const
     {
         return _baseline;
     }

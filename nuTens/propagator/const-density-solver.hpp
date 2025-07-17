@@ -104,7 +104,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
 
     /// @{ Getters
 
-    inline float getDensity() const
+    [[nodiscard]] inline float getDensity() const
     {
         return density;
     }
