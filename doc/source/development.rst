@@ -24,6 +24,17 @@ will enable the profiling information. You can then profile an application by ad
         // the rest of your application
         // ...
 
+and adding the NT_PROFILE_ENDSESSION() to the end:
+
+.. code::
+
+        // ...
+        // the rest of your application
+        // ...
+
+        NT_PROFILE_ENDSESSION()
+    
+    }
 
 Now after running that application, a file will be produced called "<name of the profile>.json" containing profile information. 
 
@@ -87,3 +98,14 @@ the main branch is benchmarked every time there is a commit, and the results are
     /></a>
 
     </p>
+
+Precompiled Headers 🗿
+======================
+
+nuTens has the option to use precompiled headers which can significantyly speed up build times.
+To enable this feature use the :code:`NT_USE_PCH` cmake option:
+
+.. code::
+
+    cmake [other options] -DNT_USE_PCH=ON <path to src>
+    
