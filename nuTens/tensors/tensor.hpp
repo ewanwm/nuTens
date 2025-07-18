@@ -667,7 +667,8 @@ class AccessedTensor: public Tensor {
             return _packedAccessor[i];
         }
 
-        else if (Tdevice == dtypes::kCPU) {
+        if (Tdevice == dtypes::kCPU)
+        {
             return _accessor[i];
         }
     }
@@ -683,7 +684,8 @@ class AccessedTensor: public Tensor {
             return _packedAccessor[i][j];
         }
 
-        else if (Tdevice == dtypes::kCPU) {
+        if (Tdevice == dtypes::kCPU)
+        {
             return _accessor[i][j];
         }
     }
@@ -699,7 +701,8 @@ class AccessedTensor: public Tensor {
             return _packedAccessor[i][j][k];
         }
 
-        else if (Tdevice == dtypes::kCPU) {
+        if (Tdevice == dtypes::kCPU)
+        {
             return _accessor[i][j][k];
         }
     }
