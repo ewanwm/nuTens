@@ -8,7 +8,7 @@ target_link_libraries(nuTens INTERFACE tensor propagator)
 
 target_include_directories(nuTens
                            INTERFACE
-                            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+                            $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>
                             $<INSTALL_INTERFACE:include>
                            )
 

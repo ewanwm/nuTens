@@ -12,11 +12,13 @@ add_library(
 )
 
 target_link_libraries(
-    propagator PUBLIC 
+    propagator PRIVATE
     tensor 
     constants 
-    units 
-    utils
+    units
+    nt-logging
+    instrumentation
+    tensor-backend
     )
 
 if(NT_USE_PCH)
