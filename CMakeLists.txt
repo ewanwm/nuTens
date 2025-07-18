@@ -111,8 +111,8 @@ install(EXPORT nuTens-targets
 include(CMakePackageConfigHelpers)
 
 # generate the config file that includes the exports
-configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/templates/nuTensConfig.cmake.in
-  "${CMAKE_CURRENT_BINARY_DIR}/nuTensConfig.cmake"
+configure_package_config_file(${PROJECT_SOURCE_DIR}/cmake/templates/nuTensConfig.cmake.in
+  "${PROJECT_BINARY_DIR}/nuTensConfig.cmake"
   INSTALL_DESTINATION "lib/cmake/nuTens"
   NO_SET_AND_CHECK_MACRO
   NO_CHECK_REQUIRED_COMPONENTS_MACRO
@@ -128,7 +128,7 @@ install(FILES
   DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/nuTens)
   
  export(EXPORT nuTens-targets
-  FILE "${CMAKE_CURRENT_BINARY_DIR}/nuTensTargets.cmake"
+  FILE "${PROJECT_BINARY_DIR}/nuTensTargets.cmake"
 )
 
 include(cmake/nuTens-config.cmake)

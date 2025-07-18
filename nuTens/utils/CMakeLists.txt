@@ -61,11 +61,11 @@ if(NT_USE_PCH)
     message("Using precompiled header")
     
     file(GENERATE
-        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/nuTens-pch.cpp
+        OUTPUT ${PROJECT_BINARY_DIR}/utils/nuTens-pch.cpp
         CONTENT ""
     )
 
-    add_library(nuTens-pch OBJECT ${CMAKE_CURRENT_BINARY_DIR}/nuTens-pch.cpp)
+    add_library(nuTens-pch OBJECT ${PROJECT_BINARY_DIR}/utils/nuTens-pch.cpp)
     target_include_directories(nuTens-pch PUBLIC "${PROJECT_SOURCE_DIR}")
     
     set(PCH_LIBS "${PCH_LIBS};nt-logging;instrumentation")
@@ -82,20 +82,13 @@ if(NT_USE_PCH)
 
 endif() ## end NT_USE_PCH block
 
-add_library(utils INTERFACE)
-target_link_libraries(utils INTERFACE nt-logging instrumentation tensor-backend)
-target_include_directories(utils INTERFACE 
-    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
-    $<INSTALL_INTERFACE:include>
-)
-
 ## install headers to "include" directory
 set(HEADERS "instrumentation.hpp")
 install(FILES ${HEADERS} DESTINATION include/utils)
 
 ## install libraries to the "lib" directory
 install(
-    TARGETS nt-logging tensor-backend instrumentation utils
+    TARGETS instrumentation nt-logging tensor-backend
     DESTINATION lib
     EXPORT nuTens-targets
 )
