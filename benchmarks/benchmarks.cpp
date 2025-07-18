@@ -23,7 +23,7 @@ class PMNSmatrix
   public:
     PMNSmatrix()
     {
-        // set up the three matrices to build the PMNS matrix
+        // set up the three matrices to build the mixing matrix
         _m1 = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat).requiresGrad(false);
         _m2 = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat).requiresGrad(false);
         _m3 = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat).requiresGrad(false);
@@ -93,10 +93,10 @@ static void batchedOscProbs(
 
         deltaCP.setValue({0}, Tensor::scale(Tensor::rand({1}), 2.0 * 3.1415));
 
-        // calculate new values of the PMNS matrix
+        // calculate new values of the mixing matrix
         matrix.build(theta12, theta13, theta23, deltaCP);
 
-        prop.setPMNS(matrix.matrix);
+        prop.setMixingMatrix(matrix.matrix);
         prop.setMasses(masses);
 
         // calculate the osc probabilities
@@ -107,6 +107,10 @@ static void batchedOscProbs(
 
 static void BM_vacuumOscillations(benchmark::State &state)
 {
+
+    NT_PROFILE_BEGINSESSION("Benchmark-vacuum-oscillations");
+    NT_PROFILE();
+
     // make some random test energies
     Tensor energies =
         Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kFloat).requiresGrad(false), 10000.0).hasBatchDim(true) +
@@ -139,10 +143,17 @@ static void BM_vacuumOscillations(benchmark::State &state)
         // This code gets timed
         batchedOscProbs(vacuumProp, PMNS, theta23, theta13, theta12, deltaCP, masses, state.range(1));
     }
+
+    NT_PROFILE_ENDSESSION();
 }
 
 static void BM_constMatterOscillations(benchmark::State &state)
 {
+    
+    NT_PROFILE_BEGINSESSION("Benchmark-const-density-oscillations");
+
+    NT_PROFILE();
+    
     // make some random test energies
     Tensor energies =
         Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kFloat).requiresGrad(false), 10000.0) +
@@ -163,7 +174,7 @@ static void BM_constMatterOscillations(benchmark::State &state)
 
     // set up the propagator
     Propagator matterProp(3, 295000.0);
-    matterProp.setPMNS(PMNS.matrix);
+    matterProp.setMixingMatrix(PMNS.matrix);
     matterProp.setMasses(masses);
 
     std::shared_ptr<BaseMatterSolver> matterSolver = std::make_shared<ConstDensityMatterSolver>(3, 2.6);
@@ -182,6 +193,8 @@ static void BM_constMatterOscillations(benchmark::State &state)
         // This code gets timed
         batchedOscProbs(matterProp, PMNS, theta23, theta13, theta12, deltaCP, masses, state.range(1));
     }
+
+    NT_PROFILE_ENDSESSION();
 }
 
 // Register the function as a benchmark

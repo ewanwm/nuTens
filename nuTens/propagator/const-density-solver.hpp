@@ -14,13 +14,13 @@ class ConstDensityMatterSolver : public BaseMatterSolver
      * @brief Solver class for constant density material
      *
      * This class is used to obtain effective mass eigenstates and an effective
-     * PMNS matrix due to matter effects for neutrinos passing through a block of
+     * mixing matrix due to matter effects for neutrinos passing through a block of
      * material of constant density.
      *
      * The method used here is to first construct the effective Hamiltonian
      * \f{equation}
      *   \frac{1}{2E} Diag(m^2_i) - \sqrt(2)G N_e \mathbf{U}_{ei} \otimes
-     * \mathbf{U}_{ie}^\dagger \f} where \f$ \mathbf{U} \f$ is the supplied PMNS
+     * \mathbf{U}_{ie}^\dagger \f} where \f$ \mathbf{U} \f$ is the supplied mixing
      * matrix and \f$ Diag(m^2_i) \f$ is a diagonal matrix with the specified
      * mass eigenvalues on the diagonal. We then calculate the eigenvalues \f$
      * m_i^\prime \f$ and eigenvectors, summarised in the matrix \f$ V_{ij} \f$.
@@ -44,17 +44,18 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// @name Setters
     /// @{
 
-    /// @brief Set a new PMNS matrix for this solver
-    /// @param newPMNS The new matrix to set
-    inline void setPMNS(const Tensor &newPMNS) override
+    /// @brief Set a new mixing matrix for this solver
+    /// @param newMatrix The new matrix to set
+    inline void setMixingMatrix(const Tensor &newMatrix) override
     {
         NT_PROFILE();
-        PMNS = newPMNS;
 
-        // construct the outer product of the electron neutrino row of the PMNS
+        mixingMatrix = newMatrix;
+
+        // construct the outer product of the electron neutrino row of the mixing
         // matrix used to construct the hamiltonian
         electronOuter =
-            Tensor::scale(Tensor::outer(PMNS.getValues({0, 0, "..."}), PMNS.getValues({0, 0, "..."}).conj()),
+            Tensor::scale(Tensor::outer(mixingMatrix.getValues({0, 0, "..."}), mixingMatrix.getValues({0, 0, "..."}).conj()),
                           nuTens::constants::Groot2 * density);
     };
 
@@ -81,19 +82,19 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     {
 
         /// @todo super inefficient to recalculate this here and also in 
-        /// setPMNS. Would be good to have some _valuesChanged flag that causes
+        /// setMixingMatrix. Would be good to have some _valuesChanged flag that causes
         /// these kind of things to be recalculated inside of calculateEigenvalues
-        /// if any of the dependent variables changed e.g. pmns, density, masses
+        /// if any of the dependent variables changed e.g. mixing matrix, density, masses
         /// See also smilar problem in propagator::setBaseline
         
         NT_PROFILE();
 
         density = newDensity;
 
-        // construct the outer product of the electron neutrino row of the PMNS
+        // construct the outer product of the electron neutrino row of the mixing
         // matrix used to construct the hamiltonian
         electronOuter =
-            Tensor::scale(Tensor::outer(PMNS.getValues({0, 0, "..."}), PMNS.getValues({0, 0, "..."}).conj()),
+            Tensor::scale(Tensor::outer(mixingMatrix.getValues({0, 0, "..."}), mixingMatrix.getValues({0, 0, "..."}).conj()),
             nuTens::constants::Groot2 * density
         );
     
@@ -118,7 +119,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     void calculateEigenvalues(Tensor &eigenvectors, Tensor &eigenvalues) override;
 
   private:
-    Tensor PMNS;
+    Tensor mixingMatrix;
     Tensor masses;
     Tensor diagMassMatrix;
     Tensor electronOuter;

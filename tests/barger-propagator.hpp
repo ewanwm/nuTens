@@ -83,7 +83,7 @@ class TwoFlavourBarger
         return ret;
     }
 
-    // get the good old 2 flavour PMNS matrix entries
+    // get the good old 2 flavour mixing matrix entries
     [[nodiscard]] inline float getPMNSelement(float energy, int alpha, int beta) const
     {
         if ((alpha > 1 || alpha < 0) || (beta > 1 || beta < 0))

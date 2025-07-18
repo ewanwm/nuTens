@@ -7,16 +7,16 @@ import typing
 N_ENERGIES = 10000
 
 def build_PMNS(theta12: Tensor):
-    """ Construct a PMNS matrix in the usual parameterisation """
-    # set up the three matrices to build the PMNS matrix
-    PMNS = Tensor.zeros([1, 2, 2], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
+    """ Construct a mixing matrix in the usual parameterisation """
+    # set up the three matrices to build the mixing matrix
+    PMNS = Tensor.zeros([1, 2, 2], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
 
     PMNS.set_value([0, 0, 0], tensor.cos(theta12))
     PMNS.set_value([0, 0, 1], tensor.sin(theta12))
     PMNS.set_value([0, 1, 0], -tensor.sin(theta12))
     PMNS.set_value([0, 1, 1], tensor.cos(theta12))
 
-    return PMNS
+    return PMNS.requires_grad(True)
 
 ## First we build up a tensor to contain the test energies
 energies = Tensor.ones([N_ENERGIES, 1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
@@ -33,10 +33,12 @@ theta12 = Tensor([0.15], nt.dtype.scalar_type.complex_float, nt.dtype.device_typ
 PMNS = build_PMNS(theta12)
 
 ## set the mass tensor
-masses = Tensor.zeros([1,2], nt.dtype.scalar_type.float, nt.dtype.device_type.cpu, True)
+masses = Tensor.zeros([1,2], nt.dtype.scalar_type.float, nt.dtype.device_type.cpu, False)
 
 masses.set_value([0,0], 0.00868 * nt.units.eV)
 masses.set_value([0,1], 0.0501 * nt.units.eV)
+
+masses.requires_grad(True)
 
 ## print info about the parameters
 print("PMNS: ")
@@ -50,7 +52,7 @@ print()
 propagator = nt.propagator.Propagator(2, 295 * nt.units.km)
 matter_solver = nt.propagator.ConstDensitySolver(2, 2.79)
 
-propagator.set_PMNS(PMNS)
+propagator.set_mixing_matrix(PMNS)
 propagator.set_masses(masses)
 propagator.set_matter_solver(matter_solver)
 

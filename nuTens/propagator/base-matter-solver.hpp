@@ -20,7 +20,7 @@ class BaseMatterSolver
 
     /// @name Setters
     /// @{
-    virtual void setPMNS(const Tensor &newPMNS) = 0;
+    virtual void setMixingMatrix(const Tensor &newMatrix) = 0;
 
     virtual void setMasses(const Tensor &newMasses) = 0;
 

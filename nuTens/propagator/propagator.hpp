@@ -18,7 +18,7 @@ class Propagator
      * This class is used to propagate neutrinos over some baseline and calculate
      * the probability that they will oscillate to another flavour. A Propagator
      * can be configured using the Setters by assigning parameters (neutrino
-     * masses and PMNS matrix elements). You can assign a matter solver (a
+     * masses and mixing matrix elements). You can assign a matter solver (a
      * derivative of BaseMatterSolver) to deal with matter effects using
      * setMatterSolver(). calculateProbs() can then be used to calculate energy
      * dependent oscillation probabilities.
@@ -47,7 +47,7 @@ class Propagator
         NT_PROFILE();
         _matterSolver = newSolver;
         _matterSolver->setMasses(_masses);
-        _matterSolver->setPMNS(_pmnsMatrix);
+        _matterSolver->setMixingMatrix(_mixingMatrix);
     }
 
     /// \todo Should add a check to tensors supplied to the setters to see how
@@ -87,38 +87,38 @@ class Propagator
         }
     }
 
-    /// @brief Set a whole new PMNS matrix
-    /// @param newPMNS The new matrix to use
-    inline void setPMNS(Tensor &newPMNS)
+    /// @brief Set a whole new mixing matrix
+    /// @param newMatrix The new matrix to use
+    inline void setMixingMatrix(Tensor &newMatrix)
     {
         NT_PROFILE();
-        _pmnsMatrix = newPMNS;
+        _mixingMatrix = newMatrix;
         if (_matterSolver != nullptr)
         {
-            _matterSolver->setPMNS(newPMNS);
+            _matterSolver->setMixingMatrix(newMatrix);
         }
     }
 
-    /// \todo add setPMNS(const std::vector<int> &indices, float value) methods
+    /// \todo add setMixingMatrix(const std::vector<int> &indices, float value) methods
     /// to BaseMatterSolver? maybe have these setters in a base class of both
     /// Propagator and BaseMatterSolver ??
 
-    /// @brief Set a single element of the PMNS matrix
+    /// @brief Set a single element of the mixing matrix
     /// @param indices The index of the value to set
     /// @param value The new value
-    inline void setPMNS(const std::vector<int> &indices, float value)
+    inline void setMixingMatrix(const std::vector<int> &indices, float value)
     {
         NT_PROFILE();
-        _pmnsMatrix.setValue(indices, value);
+        _mixingMatrix.setValue(indices, value);
     }
 
-    /// @brief Set a single element of the PMNS matrix
+    /// @brief Set a single element of the mixing matrix
     /// @param indices The index of the value to set
     /// @param value The new value
-    inline void setPMNS(const std::vector<int> &indices, std::complex<float> value)
+    inline void setMixingMatrix(const std::vector<int> &indices, std::complex<float> value)
     {
         NT_PROFILE();
-        _pmnsMatrix.setValue(indices, value);
+        _mixingMatrix.setValue(indices, value);
     }
 
     /// @brief Set the baseline
@@ -147,12 +147,12 @@ class Propagator
     /// @}
 
   private:
-    // For calculating with alternate masses and PMNS, e.g. if using effective
+    // For calculating with alternate masses and mixing matrix, e.g. if using effective
     // values from massSolver
-    [[nodiscard]] Tensor _calculateProbs(const Tensor &masses, const Tensor &PMNS);
+    [[nodiscard]] Tensor _calculateProbs(const Tensor &masses, const Tensor &mixingMatrix);
 
   private:
-    Tensor _pmnsMatrix;
+    Tensor _mixingMatrix;
     Tensor _masses;
     Tensor _energies;
     Tensor _weightMatrix;

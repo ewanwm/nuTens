@@ -37,7 +37,7 @@ int main()
 
         bargerProp.setParams(m1, m2, theta, baseline);
 
-        // construct the PMNS matrix for current theta value
+        // construct the mixing matrix for current theta value
         Tensor PMNS = Tensor::ones({1, 2, 2}, dtypes::kComplexFloat).requiresGrad(false);
         PMNS.setValue({0, 0, 0}, std::cos(theta));
         PMNS.setValue({0, 0, 1}, -std::sin(theta));
@@ -45,7 +45,7 @@ int main()
         PMNS.setValue({0, 1, 1}, std::cos(theta));
         PMNS.requiresGrad(true);
 
-        tensorPropagator.setPMNS(PMNS);
+        tensorPropagator.setMixingMatrix(PMNS);
 
         tensorPropagator.setEnergies(energies);
 

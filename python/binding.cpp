@@ -269,16 +269,16 @@ void initPropagator(py::module &m)
             "Set the neutrino energies that the propagator should use",
             py::arg("new_energies")
         )
-        .def("set_PMNS", py::overload_cast<Tensor &>(&Propagator::setPMNS),
-            "Set the PMNS matrix that the propagator should use",
+        .def("set_mixing_matrix", py::overload_cast<Tensor &>(&Propagator::setMixingMatrix),
+            "Set the mixing matrix that the propagator should use",
             py::arg("new_matrix")
         )
-        .def("set_PMNS", py::overload_cast<const std::vector<int> &, float>(&Propagator::setPMNS),
-            "Set a particular value within the PMNS matrix used by the propagator",
+        .def("set_mixing_matrix", py::overload_cast<const std::vector<int> &, float>(&Propagator::setMixingMatrix),
+            "Set a particular value within the mixing matrix used by the propagator",
             py::arg("indices"), py::arg("value")
         )
-        .def("set_PMNS", py::overload_cast<const std::vector<int> &, std::complex<float>>(&Propagator::setPMNS),
-            "Set the PMNS matrix that the propagator should use",
+        .def("set_mixing_matrix", py::overload_cast<const std::vector<int> &, std::complex<float>>(&Propagator::setMixingMatrix),
+            "Set the mixing matrix that the propagator should use",
             py::arg("indices"), py::arg("value")
         )
         .def("set_baseline", (&Propagator::setBaseline),
@@ -291,8 +291,8 @@ void initPropagator(py::module &m)
         ;
 
     py::class_<BaseMatterSolver, std::shared_ptr<BaseMatterSolver>>(m_propagator, "BaseMatterSolver")
-        .def("set_PMNS", &BaseMatterSolver::setPMNS,
-            "Set the PMNS matrix that the solver should use",
+        .def("set_mixing_matrix", &BaseMatterSolver::setMixingMatrix,
+            "Set the mixing matrix that the solver should use",
             py::arg("new_matrix")
         )
         .def("set_energies", &BaseMatterSolver::setEnergies,
