@@ -111,12 +111,12 @@
 <dt class="sig sig-object cpp" id="_CPPv424ConstDensityMatterSolver">
 <span id="_CPPv324ConstDensityMatterSolver"></span><span id="_CPPv224ConstDensityMatterSolver"></span><span id="ConstDensityMatterSolver"></span><span class="target" id="classConstDensityMatterSolver"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ConstDensityMatterSolver</span></span></span><a class="headerlink" href="#_CPPv424ConstDensityMatterSolver" title="Link to this definition"></a><br /></dt>
 <dd><p>Solver class for constant density material. </p>
-<p>This class is used to obtain effective mass eigenstates and an effective PMNS matrix due to matter effects for neutrinos passing through a block of material of constant density.</p>
+<p>This class is used to obtain effective mass eigenstates and an effective mixing matrix due to matter effects for neutrinos passing through a block of material of constant density.</p>
 <p>The method used here is to first construct the effective Hamiltonian  <div class="math notranslate nohighlight">
 \[\begin{equation}
   \frac{1}{2E} Diag(m^2_i) - \sqrt(2)G N_e \mathbf{U}_{ei} \otimes
 \mathbf{U}_{ie}^\dagger \end{equation}\]</div>
- where <span class="math notranslate nohighlight">\( \mathbf{U} \)</span> is the supplied PMNS matrix and <span class="math notranslate nohighlight">\( Diag(m^2_i) \)</span> is a diagonal matrix with the specified mass eigenvalues on the diagonal. We then calculate the eigenvalues <span class="math notranslate nohighlight">\(
+ where <span class="math notranslate nohighlight">\( \mathbf{U} \)</span> is the supplied mixing matrix and <span class="math notranslate nohighlight">\( Diag(m^2_i) \)</span> is a diagonal matrix with the specified mass eigenvalues on the diagonal. We then calculate the eigenvalues <span class="math notranslate nohighlight">\(
 m_i^\prime \)</span> and eigenvectors, summarised in the matrix <span class="math notranslate nohighlight">\( V_{ij} \)</span>. These can then be passed to a propagator class to get the oscillation probabilities in the presence of such matter effects.</p>
 <p>See Barger for more details. </p>
 </dd></dl>

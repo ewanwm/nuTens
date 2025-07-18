@@ -59,9 +59,9 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Propagator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver.calculate_eigenvalues"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver.calculate_eigenvalues()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver.set_PMNS"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver.set_PMNS()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver.set_energies"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver.set_energies()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver.set_masses"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver.set_masses()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver.set_mixing_matrix"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver.set_mixing_matrix()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#nuTens.propagator.ConstDensitySolver"><code class="docutils literal notranslate"><span class="pre">ConstDensitySolver</span></code></a><ul>
@@ -72,11 +72,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#nuTens.propagator.Propagator"><code class="docutils literal notranslate"><span class="pre">Propagator</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.calculate_probabilities"><code class="docutils literal notranslate"><span class="pre">Propagator.calculate_probabilities()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.get_baseline"><code class="docutils literal notranslate"><span class="pre">Propagator.get_baseline()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.set_PMNS"><code class="docutils literal notranslate"><span class="pre">Propagator.set_PMNS()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.set_baseline"><code class="docutils literal notranslate"><span class="pre">Propagator.set_baseline()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.set_energies"><code class="docutils literal notranslate"><span class="pre">Propagator.set_energies()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.set_masses"><code class="docutils literal notranslate"><span class="pre">Propagator.set_masses()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.set_matter_solver"><code class="docutils literal notranslate"><span class="pre">Propagator.set_matter_solver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.set_mixing_matrix"><code class="docutils literal notranslate"><span class="pre">Propagator.set_mixing_matrix()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -127,12 +127,6 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="nuTens.propagator.BaseMatterSolver.set_PMNS">
-<span class="sig-name descname"><span class="pre">set_PMNS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver" title="nuTens._pyNuTens.propagator.BaseMatterSolver"><span class="pre">nuTens._pyNuTens.propagator.BaseMatterSolver</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tensor.html#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nuTens.propagator.BaseMatterSolver.set_PMNS" title="Link to this definition"></a></dt>
-<dd><p>Set the PMNS matrix that the solver should use</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="nuTens.propagator.BaseMatterSolver.set_energies">
 <span class="sig-name descname"><span class="pre">set_energies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver" title="nuTens._pyNuTens.propagator.BaseMatterSolver"><span class="pre">nuTens._pyNuTens.propagator.BaseMatterSolver</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_energies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tensor.html#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nuTens.propagator.BaseMatterSolver.set_energies" title="Link to this definition"></a></dt>
 <dd><p>Set the neutrino energies</p>
@@ -142,6 +136,12 @@
 <dt class="sig sig-object py" id="nuTens.propagator.BaseMatterSolver.set_masses">
 <span class="sig-name descname"><span class="pre">set_masses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver" title="nuTens._pyNuTens.propagator.BaseMatterSolver"><span class="pre">nuTens._pyNuTens.propagator.BaseMatterSolver</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_masses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tensor.html#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nuTens.propagator.BaseMatterSolver.set_masses" title="Link to this definition"></a></dt>
 <dd><p>Set the neutrino masses the solver should use</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.propagator.BaseMatterSolver.set_mixing_matrix">
+<span class="sig-name descname"><span class="pre">set_mixing_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver" title="nuTens._pyNuTens.propagator.BaseMatterSolver"><span class="pre">nuTens._pyNuTens.propagator.BaseMatterSolver</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tensor.html#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nuTens.propagator.BaseMatterSolver.set_mixing_matrix" title="Link to this definition"></a></dt>
+<dd><p>Set the mixing matrix that the solver should use</p>
 </dd></dl>
 
 </dd></dl>
@@ -181,24 +181,6 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="nuTens.propagator.Propagator.set_PMNS">
-<span class="sig-name descname"><span class="pre">set_PMNS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nuTens.propagator.Propagator.set_PMNS" title="Link to this definition"></a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>set_PMNS(self: nuTens._pyNuTens.propagator.Propagator, new_matrix: nuTens._pyNuTens.tensor.Tensor) -&gt; None</p></li>
-</ol>
-<p>Set the PMNS matrix that the propagator should use</p>
-<ol class="arabic simple" start="2">
-<li><p>set_PMNS(self: nuTens._pyNuTens.propagator.Propagator, indices: list[int], value: float) -&gt; None</p></li>
-</ol>
-<p>Set a particular value within the PMNS matrix used by the propagator</p>
-<ol class="arabic simple" start="3">
-<li><p>set_PMNS(self: nuTens._pyNuTens.propagator.Propagator, indices: list[int], value: complex) -&gt; None</p></li>
-</ol>
-<p>Set the PMNS matrix that the propagator should use</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="nuTens.propagator.Propagator.set_baseline">
 <span class="sig-name descname"><span class="pre">set_baseline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.propagator.Propagator" title="nuTens._pyNuTens.propagator.Propagator"><span class="pre">nuTens._pyNuTens.propagator.Propagator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nuTens.propagator.Propagator.set_baseline" title="Link to this definition"></a></dt>
 <dd><p>Set the baseline that the propagator should use</p>
@@ -220,6 +202,24 @@
 <dt class="sig sig-object py" id="nuTens.propagator.Propagator.set_matter_solver">
 <span class="sig-name descname"><span class="pre">set_matter_solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">nuTens._pyNuTens.propagator.Propagator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_matter_solver:</span> <span class="pre">nuTens::BaseMatterSolver</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nuTens.propagator.Propagator.set_matter_solver" title="Link to this definition"></a></dt>
 <dd><p>Set the matter effect solver that the propagator should use</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.propagator.Propagator.set_mixing_matrix">
+<span class="sig-name descname"><span class="pre">set_mixing_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nuTens.propagator.Propagator.set_mixing_matrix" title="Link to this definition"></a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>set_mixing_matrix(self: nuTens._pyNuTens.propagator.Propagator, new_matrix: nuTens._pyNuTens.tensor.Tensor) -&gt; None</p></li>
+</ol>
+<p>Set the mixing matrix that the propagator should use</p>
+<ol class="arabic simple" start="2">
+<li><p>set_mixing_matrix(self: nuTens._pyNuTens.propagator.Propagator, indices: list[int], value: float) -&gt; None</p></li>
+</ol>
+<p>Set a particular value within the mixing matrix used by the propagator</p>
+<ol class="arabic simple" start="3">
+<li><p>set_mixing_matrix(self: nuTens._pyNuTens.propagator.Propagator, indices: list[int], value: complex) -&gt; None</p></li>
+</ol>
+<p>Set the mixing matrix that the propagator should use</p>
 </dd></dl>
 
 </dd></dl>
