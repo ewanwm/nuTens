@@ -7,11 +7,11 @@ import typing
 N_ENERGIES = 10000
 
 def build_PMNS(theta12: Tensor, theta13: Tensor, theta23: Tensor, deltaCP: Tensor):
-    """ Construct a PMNS matrix in the usual parameterisation """
-    # set up the three matrices to build the PMNS matrix
-    M1 = Tensor.zeros([1, 3, 3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
-    M2 = Tensor.zeros([1, 3, 3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
-    M3 = Tensor.zeros([1, 3, 3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, True)
+    """ Construct a mixing matrix in the usual parameterisation """
+    # set up the three matrices to build the mixing matrix
+    M1 = Tensor.zeros([1, 3, 3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
+    M2 = Tensor.zeros([1, 3, 3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
+    M3 = Tensor.zeros([1, 3, 3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
 
     M1.set_value([0, 0, 0], 1.0)
     M1.set_value([0, 1, 1], tensor.cos(theta23))
@@ -59,11 +59,13 @@ deltaCP = Tensor([1.5], nt.dtype.scalar_type.complex_float, nt.dtype.device_type
 PMNS = build_PMNS(theta12, theta13, theta23, deltaCP)
 
 ## set the mass tensor
-masses = Tensor.zeros([1,3], nt.dtype.scalar_type.float, nt.dtype.device_type.cpu, True)
+masses = Tensor.zeros([1,3], nt.dtype.scalar_type.float, nt.dtype.device_type.cpu, False)
 
 masses.set_value([0,0], 0.0)
 masses.set_value([0,1], 0.00868 * nt.units.eV)
 masses.set_value([0,2], 0.0501 * nt.units.eV)
+
+masses.requires_grad(True)
 
 ## print info about the parameters
 print("PMNS: ")
@@ -77,7 +79,7 @@ print()
 propagator = nt.propagator.Propagator(3, 295.0 * nt.units.km)
 matter_solver = nt.propagator.ConstDensitySolver(3, 2.79)
 
-propagator.set_PMNS(PMNS)
+propagator.set_mixing_matrix(PMNS)
 propagator.set_masses(masses)
 
 ## uncomment for matter oscillations

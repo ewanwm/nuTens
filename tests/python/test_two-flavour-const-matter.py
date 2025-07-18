@@ -45,7 +45,7 @@ class TestTwoFlavourConstMatter:
 
         # set up tensor solver
         tensor_solver = ConstDensitySolver(2, self.density)
-        tensor_solver.set_PMNS(pmns)
+        tensor_solver.set_mixing_matrix(pmns)
         tensor_solver.set_masses(masses)
         tensor_solver.set_energies(self.energy_tensor)
 
@@ -95,7 +95,7 @@ class TestTwoFlavourConstMatter:
         propagator = nt.propagator.Propagator(2, self.baseline)
         matter_solver = ConstDensitySolver(2, self.density)
         
-        propagator.set_PMNS(pmns)
+        propagator.set_mixing_matrix(pmns)
         propagator.set_masses(masses)
         propagator.set_matter_solver(matter_solver)
         propagator.set_energies(self.energy_tensor)
