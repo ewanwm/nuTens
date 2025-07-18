@@ -19,7 +19,20 @@ nuTens is an engine for calculating neutrino oscillation proabilities using [ten
 
 See the [full documentation](https://ewanwm.github.io/nuTens/) for more details.
 
-## Installation
+# Features
+
+nuTens is built on top of PyTorch's c++ libtorch library. This allows it to leverage the many useful features of pytorch such as automatic differentiation, highly optimised linear algebra funcionality, and in-built hardware acceleration.
+
+Currently the following features are supported in nuTens:
+
+- Perform neutrino oscillation calculations in vacuum and constant density matter
+- Automatic differentiation, allowing gradients of final quantities like oscillation probabilities, or likelihoods, to be calculated with respect to model parameters
+- Fast execution due to the highly optimised and parallelised libtorch backend library
+- Easy hardware acceleration using e.g. GPUs
+- Extremely flexible neutrino oscillation modelling, allowing you to define your own oscillation model, and have it work with all other features described
+- c++ and Python interfaces, allowing for both easy experimentation, and efficient integration with efficient integration with other neutrino related software libraries
+
+# Installation
 ### Requirements
 
 - CMake - Should work with most modern versions. If you wish to use precompiled headers to speed up build times you will need CMake > 3.16.
@@ -86,13 +99,13 @@ There is an incompatibility between some torch cpu versions and the yaml-cpp lib
 If you are trying to use nuTens with the cpu version of torch in a project which also uses yaml-cpp, you will need to install torch version `torch==<version>+cpu.cxx11.abi` instead of just `torch==<version>+cpu`.
 
 
-## Usage
+# Usage
 
 A few simple example scripts using nuTens are available [here](https://github.com/ewanwm/nuTens/tree/main/examples)
 
 
 
-## Benchmarks
+# Benchmarks
 nuTens uses [Googles benchmark library](https://github.com/google/benchmark) to perform benchmarking and tracks the results uing [Bencher](https://bencher.dev). Each benchmark consists of calculating neutrino oscillations for 1024 random variations of parameters in the 3 flavour formalism for 1024 neutrino energies in vacuum and in constant density matter:
 
 <p align="center">  
@@ -114,24 +127,3 @@ nuTens uses [Googles benchmark library](https://github.com/google/benchmark) to 
 /></a>
 
 </p>
-
-
-## Feature Wishlist
-- [x] Support PyTorch in tensor library
-- [x] Vacuum oscillation calculations
-- [x] Constant matter density propagation
-- [x] Basic test suite
-- [x] Basic CI
-- [x] Doxygen documentation with automatic deployment
-- [x] Add test coverage checks into CI
-- [x] Integrate linting ( [cpp-linter](https://github.com/cpp-linter)? )
-- [x] Add instrumentation library for benchmarking and profiling
-- [x] Add suite of benchmarking tests
-- [x] Integrate benchmarks into CI ( maybe use [hyperfine](https://github.com/sharkdp/hyperfine) and [bencher](https://bencher.dev/) for this? )
-- [ ] Add proper unit tests
-- [x] Expand CI to include more platforms
-- [ ] Add support for modules (see [PyTorch doc](https://pytorch.org/cppdocs/api/classtorch_1_1nn_1_1_module.html))
-- [ ] Propagation in variable matter density
-- [ ] Add support for Tensorflow backend
-- [x] Add python interface 
-
