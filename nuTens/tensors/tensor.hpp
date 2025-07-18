@@ -490,8 +490,15 @@ class Tensor
 template<typename Tdtype, int TnDims, dtypes::deviceType Tdevice>
 class AccessedTensor: public Tensor {
 
+  public:
+
+    inline AccessedTensor(const Tensor &tensor)
+    :
+    AccessedTensor(tensor.getTensor())
+    {};
+
   private:
-    AccessedTensor(torch::Tensor tensor) 
+    AccessedTensor(const torch::Tensor &tensor) 
     :
     _packedAccessor(tensor.packed_accessor32<Tdtype, TnDims>()),
     _accessor(tensor.accessor<Tdtype, TnDims>())
@@ -611,7 +618,7 @@ class AccessedTensor: public Tensor {
         }
     }
 
-    /// @brief Set a value in a 1D tensor
+    /// @brief Set a value in a 2D tensor
     void setValue(Tdtype value, int i, int j) {
 
         NT_PROFILE();
@@ -640,6 +647,60 @@ class AccessedTensor: public Tensor {
 
         else if (Tdevice == dtypes::kCPU) {
             _accessor[i][j][k] = value;
+        }
+    }
+
+    /// @}
+
+
+    /// @name Value Getters
+    /// @{
+
+    /// @brief Get a value in a 1D tensor
+    Tdtype getValue(int i) const {
+
+        NT_PROFILE();
+
+        static_assert(TnDims == 1 && "wrong number of indices");
+
+        if (Tdevice == dtypes::kGPU) {
+            return _packedAccessor[i];
+        }
+
+        else if (Tdevice == dtypes::kCPU) {
+            return _accessor[i];
+        }
+    }
+
+    /// @brief Get a value in a 2D tensor
+    Tdtype getValue(int i, int j) const {
+
+        NT_PROFILE();
+
+        static_assert(TnDims == 2 && "wrong number of indices");
+
+        if (Tdevice == dtypes::kGPU) {
+            return _packedAccessor[i][j];
+        }
+
+        else if (Tdevice == dtypes::kCPU) {
+            return _accessor[i][j];
+        }
+    }
+
+    /// @brief Get a value in a 3D tensor
+    Tdtype getValue(int i, int j, int k) const {
+
+        NT_PROFILE();
+
+        static_assert(TnDims == 3 && "wrong number of indices");
+
+        if (Tdevice == dtypes::kGPU) {
+            return _packedAccessor[i][j][k];
+        }
+
+        else if (Tdevice == dtypes::kCPU) {
+            return _accessor[i][j][k];
         }
     }
 
