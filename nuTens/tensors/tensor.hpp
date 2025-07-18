@@ -607,7 +607,7 @@ class AccessedTensor: public Tensor {
 
         NT_PROFILE();
 
-        assert(TnDims == 1 && "wrong number of indices");
+        static_assert(TnDims == 1, "wrong number of indices");
 
         if (Tdevice == dtypes::kGPU) {
             _packedAccessor[i] = value;
@@ -623,7 +623,7 @@ class AccessedTensor: public Tensor {
 
         NT_PROFILE();
 
-        assert(TnDims == 2 && "wrong number of indices");
+        static_assert(TnDims == 2, "wrong number of indices");
 
         if (Tdevice == dtypes::kGPU) {
             _packedAccessor[i][j] = value;
@@ -639,7 +639,7 @@ class AccessedTensor: public Tensor {
 
         NT_PROFILE();
 
-        assert(TnDims == 3 && "wrong number of indices");
+        static_assert(TnDims == 3, "wrong number of indices");
 
         if (Tdevice == dtypes::kGPU) {
             _packedAccessor[i][j][k] = value;
@@ -661,7 +661,7 @@ class AccessedTensor: public Tensor {
 
         NT_PROFILE();
 
-        static_assert(TnDims == 1 && "wrong number of indices");
+        static_assert(TnDims == 1, "wrong number of indices");
 
         if (Tdevice == dtypes::kGPU) {
             return _packedAccessor[i];
@@ -678,7 +678,7 @@ class AccessedTensor: public Tensor {
 
         NT_PROFILE();
 
-        static_assert(TnDims == 2 && "wrong number of indices");
+        static_assert(TnDims == 2, "wrong number of indices");
 
         if (Tdevice == dtypes::kGPU) {
             return _packedAccessor[i][j];
@@ -695,7 +695,7 @@ class AccessedTensor: public Tensor {
 
         NT_PROFILE();
 
-        static_assert(TnDims == 3 && "wrong number of indices");
+        static_assert(TnDims == 3, "wrong number of indices");
 
         if (Tdevice == dtypes::kGPU) {
             return _packedAccessor[i][j][k];
