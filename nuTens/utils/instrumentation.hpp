@@ -258,7 +258,7 @@ class InstrumentationTimer
 /// @brief Profile the current scope. Can spefify a message that will be added if say you only want to
 //         profile one loop in a function instead of the whole thing
 /// Shold always be used at the very start of the scope.
-#define NT_PROFILE()
+#define NT_PROFILE(message)
 #endif
 
 /// @brief End the profiling session
