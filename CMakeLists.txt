@@ -35,6 +35,10 @@ option(BUILD_SHARED_LIBS "Build using shared libs" ON)
 ## to build the python library we require to build with the pic flag
 if(NT_ENABLE_PYTHON)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+
+    ## for now we also need to build with static libs
+    message(WARNING "BUILD_SHARED_LIBS cannot be used when building python interface, setting BUILD_SHARED_LIBS=OFF")
+    set(BUILD_SHARED_LIBS OFF)
 endif()
 
 # Need to add some special compile flags to check the code test coverage 
@@ -97,7 +101,7 @@ foreach (_variableName ${_variableNames})
     
     message(STATUS "  ${_variableName}=${${_variableName}}")
 endforeach()
-message(STATUS "  BUILD_SHARED_LIB=${BUILD_SHARED_LIBS}")
+message(STATUS "  BUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}")
 
 install(EXPORT nuTens-targets
   FILE nuTensTargets.cmake
