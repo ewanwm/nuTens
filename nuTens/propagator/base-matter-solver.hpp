@@ -14,9 +14,11 @@ class BaseMatterSolver
 
   public:
 
-    BaseMatterSolver(int nGenerations) 
+    BaseMatterSolver(int nGenerations, bool antiNeutrino) 
     :
-      nGenerations(nGenerations) {}
+      antiNeutrino(antiNeutrino),
+      nGenerations(nGenerations) 
+      {}
 
     /// @name Setters
     /// @{
@@ -38,10 +40,21 @@ class BaseMatterSolver
       hamiltonian = Tensor::zeros({energies.getBatchDim(), nGenerations, nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
     }
 
+    /// @brief Set whether we are dealing with anti-neutrinos
+    /// @param newValue 
+    virtual inline void setAntiNeutrino(bool newValue) 
+    {
+        NT_PROFILE();
+
+        antiNeutrino = newValue;
+
+    }
+
     /// @}
 
   protected:
 
+    bool antiNeutrino;
     int nGenerations;
     Tensor energies;
     Tensor energiesRed;

@@ -253,7 +253,8 @@ void initPropagator(py::module &m)
      auto m_propagator = m.def_submodule("propagator");
 
     py::class_<Propagator>(m_propagator, "Propagator")
-        .def(py::init<int, float>())
+        .def(py::init<int, float, bool>(), 
+            py::arg("n_generations"), py::arg("baseline"), py::arg("anti_neutrino")=false)
         .def("calculate_probabilities", &Propagator::calculateProbs,
             "Calculate the oscillation probabilities for neutrinos of specified energies"
         )
@@ -288,6 +289,10 @@ void initPropagator(py::module &m)
         .def("get_baseline", (&Propagator::getBaseline),
             "Get the baseline used by the propagator"
         )
+        .def("set_antineutrino", (&Propagator::setAntiNeutrino),
+            "Set whether the propagator should calculate oscillations for anti-neutrinos",
+            py::arg("new_value")
+        )
         ;
 
     py::class_<BaseMatterSolver, std::shared_ptr<BaseMatterSolver>>(m_propagator, "BaseMatterSolver")
@@ -307,11 +312,16 @@ void initPropagator(py::module &m)
             "calculate the eigenvalues of the Hamiltonian",
             py::arg("eigenvector_out"), py::arg("eigenvalue_out")
         )
+        .def("set_antineutrino", (&BaseMatterSolver::setAntiNeutrino),
+            "Set whether the solver should calculate values for anti-neutrinos",
+            py::arg("new_value")
+        )
         ;
 
      py::class_<ConstDensityMatterSolver, std::shared_ptr<ConstDensityMatterSolver>, BaseMatterSolver>(
         m_propagator, "ConstDensitySolver")
-        .def(py::init<int, float>())
+        .def(py::init<int, float, bool>(), 
+            py::arg("n_generations"), py::arg("density"), py::arg("anti_neutrino")=false)
         .def("set_density", (&ConstDensityMatterSolver::setDensity),
             "Set the density that the solver should use",
             py::arg("new_value")

@@ -49,7 +49,13 @@ Tensor Propagator::_calculateProbs(const Tensor &massesSq, const Tensor &mixingM
     }
     _weightMatrix.requiresGrad(true);
 
-    Tensor sqrtProbabilities = Tensor::matmul(mixingMatrix.conj(), Tensor::transpose(Tensor::mul(mixingMatrix, _weightMatrix), 1, 2));
-
+    Tensor sqrtProbabilities;
+    
+    if (_antiNeutrino) {
+        sqrtProbabilities = Tensor::matmul(mixingMatrix, Tensor::transpose(Tensor::mul(mixingMatrix.conj(), _weightMatrix), 1, 2));
+    }
+    else {
+        sqrtProbabilities = Tensor::matmul(mixingMatrix.conj(), Tensor::transpose(Tensor::mul(mixingMatrix, _weightMatrix), 1, 2));
+    }
     return Tensor::pow(sqrtProbabilities.abs(), 2);
 }

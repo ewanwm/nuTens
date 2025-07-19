@@ -18,3 +18,24 @@ void ConstDensityMatterSolver::calculateEigenvalues(Tensor &eigenvectors, Tensor
 
     Tensor::eigh(hamiltonian, eigenvectors, eigenvalues);
 }
+
+void ConstDensityMatterSolver::buildElectronOuterProduct() 
+{
+
+    NT_PROFILE();
+
+    if (antiNeutrino)
+    {
+        electronOuter =
+            Tensor::scale(Tensor::outer(mixingMatrix.getValues({0, 0, "..."}).conj(), mixingMatrix.getValues({0, 0, "..."})),
+                          -nuTens::constants::Groot2 * density);
+        
+    }
+
+    else 
+    {
+        electronOuter =
+            Tensor::scale(Tensor::outer(mixingMatrix.getValues({0, 0, "..."}), mixingMatrix.getValues({0, 0, "..."}).conj()),
+                          nuTens::constants::Groot2 * density);
+    }
+}
