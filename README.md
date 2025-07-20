@@ -11,7 +11,7 @@
   <a href="">[![CI badge](https://github.com/ewanwm/nuTens/actions/workflows/CI-cpp.yml/badge.svg)](https://github.com/ewanwm/nuTens/actions/workflows/CI-cpp.yml)</a>
   <a href="">[![pip](https://github.com/ewanwm/nuTens/actions/workflows/CI-Python.yaml/badge.svg)](https://github.com/ewanwm/nuTens/actions/workflows/CI-Python.yaml)</a>
   <a href="">[![test - coverage](https://codecov.io/github/ewanwm/nuTens/graph/badge.svg?token=PJ8C8CX37O)](https://codecov.io/github/ewanwm/nuTens)</a>
-  <a href="">[![cpp - linter](https://github.com/ewanwm/nuTens/actions/workflows/Lint-cpp.yaml/badge.svg)](https://github.com/ewanwm/nuTens/actions/workflows/Lint-cpp.yaml)</a>
+  <a href="">[![cpp - linter](https://github.com/ewanwm/nuTens/actions/workflows/Lint-cpp-main.yaml/badge.svg)](https://github.com/ewanwm/nuTens/actions/workflows/Lint-cpp-main.yaml)</a>
 
 </div>
 
