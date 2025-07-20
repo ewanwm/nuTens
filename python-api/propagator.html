@@ -59,6 +59,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Propagator</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver.calculate_eigenvalues"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver.calculate_eigenvalues()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver.set_antineutrino"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver.set_antineutrino()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver.set_energies"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver.set_energies()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver.set_masses"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver.set_masses()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver.set_mixing_matrix"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver.set_mixing_matrix()</span></code></a></li>
@@ -72,6 +73,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#nuTens.propagator.Propagator"><code class="docutils literal notranslate"><span class="pre">Propagator</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.calculate_probabilities"><code class="docutils literal notranslate"><span class="pre">Propagator.calculate_probabilities()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.get_baseline"><code class="docutils literal notranslate"><span class="pre">Propagator.get_baseline()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.set_antineutrino"><code class="docutils literal notranslate"><span class="pre">Propagator.set_antineutrino()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.set_baseline"><code class="docutils literal notranslate"><span class="pre">Propagator.set_baseline()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.set_energies"><code class="docutils literal notranslate"><span class="pre">Propagator.set_energies()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.propagator.Propagator.set_masses"><code class="docutils literal notranslate"><span class="pre">Propagator.set_masses()</span></code></a></li>
@@ -127,6 +129,12 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="nuTens.propagator.BaseMatterSolver.set_antineutrino">
+<span class="sig-name descname"><span class="pre">set_antineutrino</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver" title="nuTens._pyNuTens.propagator.BaseMatterSolver"><span class="pre">nuTens._pyNuTens.propagator.BaseMatterSolver</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nuTens.propagator.BaseMatterSolver.set_antineutrino" title="Link to this definition"></a></dt>
+<dd><p>Set whether the solver should calculate values for anti-neutrinos</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="nuTens.propagator.BaseMatterSolver.set_energies">
 <span class="sig-name descname"><span class="pre">set_energies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.propagator.BaseMatterSolver" title="nuTens._pyNuTens.propagator.BaseMatterSolver"><span class="pre">nuTens._pyNuTens.propagator.BaseMatterSolver</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_energies</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="tensor.html#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">nuTens._pyNuTens.tensor.Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nuTens.propagator.BaseMatterSolver.set_energies" title="Link to this definition"></a></dt>
 <dd><p>Set the neutrino energies</p>
@@ -178,6 +186,12 @@
 <dt class="sig sig-object py" id="nuTens.propagator.Propagator.get_baseline">
 <span class="sig-name descname"><span class="pre">get_baseline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.propagator.Propagator" title="nuTens._pyNuTens.propagator.Propagator"><span class="pre">nuTens._pyNuTens.propagator.Propagator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#nuTens.propagator.Propagator.get_baseline" title="Link to this definition"></a></dt>
 <dd><p>Get the baseline used by the propagator</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.propagator.Propagator.set_antineutrino">
+<span class="sig-name descname"><span class="pre">set_antineutrino</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.propagator.Propagator" title="nuTens._pyNuTens.propagator.Propagator"><span class="pre">nuTens._pyNuTens.propagator.Propagator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nuTens.propagator.Propagator.set_antineutrino" title="Link to this definition"></a></dt>
+<dd><p>Set whether the propagator should calculate oscillations for anti-neutrinos</p>
 </dd></dl>
 
 <dl class="py method">
