@@ -421,8 +421,8 @@ void Tensor::eig(const Tensor &t, Tensor &eVals, Tensor &eVecs)
     NT_PROFILE();
 
     auto ret = torch::linalg_eig(t._tensor);
-    eVals._tensor = std::get<1>(ret);
-    eVecs._tensor = std::get<0>(ret);
+    eVals.setTensor(std::get<1>(ret));
+    eVecs.setTensor(std::get<0>(ret));
 }
 
 void Tensor::eigh(const Tensor &t, Tensor &eVals, Tensor &eVecs)
@@ -430,8 +430,31 @@ void Tensor::eigh(const Tensor &t, Tensor &eVals, Tensor &eVecs)
     NT_PROFILE();
 
     auto ret = torch::linalg_eigh(t._tensor);
-    eVals._tensor = std::get<1>(ret);
-    eVecs._tensor = std::get<0>(ret);
+    eVals.setTensor(std::get<1>(ret));
+    eVecs.setTensor(std::get<0>(ret));
+}
+
+void Tensor::eigvals(const Tensor &t, Tensor &eVals)
+{
+    NT_PROFILE();
+
+    eVals.setTensor(torch::linalg_eigvals(t._tensor));
+}
+
+void Tensor::eigvalsh(const Tensor &t, Tensor &eVals)
+{
+    NT_PROFILE();
+
+    eVals.setTensor(torch::linalg_eigvalsh(t._tensor));
+}
+
+void Tensor::qr(const Tensor &t, Tensor &Q, Tensor &R)
+{
+    NT_PROFILE();
+
+    auto ret = torch::linalg::qr(t._tensor);
+    Q.setTensor(std::get<1>(ret));
+    R.setTensor(std::get<0>(ret));
 }
 
 Tensor Tensor::real() const

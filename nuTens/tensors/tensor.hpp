@@ -236,6 +236,24 @@ class Tensor
     /// and should be preferred in basically all cases where it can be used
     static void eigh(const Tensor &t, Tensor &eVals, Tensor &eVecs);
 
+    /// @brief Get eigenvalues of a tensor
+    /// @arg t The tensor
+    /// @param[out] eVals The eigenvalues
+    static void eigvals(const Tensor &t, Tensor &eVals);
+
+    /// @brief Get eigenvalues of a hermitian matrix
+    /// @arg t The tensor
+    /// @param[out] eVals The eigenvalues
+    /// This is in general faster and more stable than @ref Tensor::eigvals
+    /// and should be preferred in basically all cases where it can be used
+    static void eigvalsh(const Tensor &t, Tensor &eVals);
+
+    /// @brief Perform QR decomposition on a hermitian matrix
+    /// @arg t The tensor
+    /// @param[out] Q 
+    /// @param[out] R 
+    static void qr(const Tensor &t, Tensor &Q, Tensor &R);
+
     /// @}
 
     /// @name Mathematical
