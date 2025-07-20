@@ -374,7 +374,7 @@ void initTesting(py::module &m)
     py::class_<testing::TwoFlavourBarger>(m_testing, "TwoFlavourBarger")
         .def(py::init<>())
         .def("set_params", &testing::TwoFlavourBarger::setParams, 
-            py::arg("m1"), py::arg("m2"), py::arg("theta"), py::arg("baseline"), py::arg("density") = (float)-999.9
+            py::arg("m1"), py::arg("m2"), py::arg("theta"), py::arg("baseline"), py::arg("density") = (float)-999.9, py::arg("anti_neutrino") = false
         )
         .def("lv", &testing::TwoFlavourBarger::lv,
             "Calculates the vacuum oscillation length",

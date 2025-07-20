@@ -10,7 +10,7 @@ Tensor Propagator::calculateProbs()
 
     // if a matter solver was specified, use effective values for masses and mixing
     // matrix, otherwise just use the "raw" ones
-    if (_matterSolver != nullptr)
+    if (_matterSolver)
     {
         Tensor eigenVals =
             Tensor::zeros({1, _nGenerations, _nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
