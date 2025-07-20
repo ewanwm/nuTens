@@ -47,9 +47,9 @@ int main()
         PMNS.setValue({0, 1, 1}, std::cos(theta));
         PMNS.requiresGrad(true);
 
+        tensorPropagator.setMatterSolver(tensorSolver);
         tensorPropagator.setMixingMatrix(PMNS);
         tensorPropagator.setMasses(masses);
-        tensorPropagator.setMatterSolver(tensorSolver);
 
         tensorPropagator.setEnergies(energies);
 

@@ -174,12 +174,13 @@ static void BM_constMatterOscillations(benchmark::State &state)
 
     // set up the propagator
     Propagator matterProp(3, 295000.0);
-    matterProp.setMixingMatrix(PMNS.matrix);
-    matterProp.setMasses(masses);
-
+    
     std::shared_ptr<BaseMatterSolver> matterSolver = std::make_shared<ConstDensityMatterSolver>(3, 2.6);
 
     matterProp.setMatterSolver(matterSolver);
+    matterProp.setMixingMatrix(PMNS.matrix);
+    matterProp.setMasses(masses);
+
 
     matterProp.setEnergies(energies);
 
