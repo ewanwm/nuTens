@@ -27,13 +27,14 @@ class TwoFlavourBarger
   public:
     // set the parameters of this propagator
     // negative density values will be interpreted as propagating in vacuum
-    inline void setParams(float m1, float m2, float theta, float baseline, float density = -999.9)
+    inline void setParams(float m1, float m2, float theta, float baseline, float density = -999.9, bool antiNeutrino = false)
     {
         _m1 = m1;
         _m2 = m2;
         _theta = theta;
         _baseline = baseline;
         _density = density;
+        _antiNeutrino = antiNeutrino;
     };
 
     // characteristic length in vacuum
@@ -45,7 +46,15 @@ class TwoFlavourBarger
     // characteristic length in matter
     [[nodiscard]] inline float lm() const
     {
-        return 2.0 * M_PI / (nuTens::constants::Groot2 * _density);
+        float lm = 2.0 * M_PI / (nuTens::constants::Groot2 * _density);
+    
+        // for anti-neutrinos, sign of lm is reversed
+        if (_antiNeutrino)
+        {
+            lm *= -1;
+        }
+
+        return lm;
     }
 
     // calculate the modified rotation angle
@@ -181,6 +190,9 @@ class TwoFlavourBarger
     // other parameters
     float _baseline;
     float _density;
+
+    // anti-neutrino flag
+    bool _antiNeutrino;
 };
 
 } // testing

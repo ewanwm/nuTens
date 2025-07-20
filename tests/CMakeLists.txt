@@ -4,7 +4,7 @@ target_link_libraries(test-utils PUBLIC constants m)
 set_target_properties(test-utils PROPERTIES LINKER_LANGUAGE CXX)
 
 foreach(TESTNAME 
-    barger tensor-basic two-flavour-vacuum two-flavour-const-matter
+    barger tensor-basic two-flavour-vacuum two-flavour-const-matter two-flavour-const-matter-anti-nu
     )
 
     add_executable("${TESTNAME}" "${TESTNAME}.cpp")

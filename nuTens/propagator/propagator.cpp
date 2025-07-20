@@ -10,7 +10,7 @@ Tensor Propagator::calculateProbs()
 
     // if a matter solver was specified, use effective values for masses and mixing
     // matrix, otherwise just use the "raw" ones
-    if (_matterSolver != nullptr)
+    if (_matterSolver)
     {
         Tensor eigenVals =
             Tensor::zeros({1, _nGenerations, _nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
@@ -49,7 +49,13 @@ Tensor Propagator::_calculateProbs(const Tensor &massesSq, const Tensor &mixingM
     }
     _weightMatrix.requiresGrad(true);
 
-    Tensor sqrtProbabilities = Tensor::matmul(mixingMatrix.conj(), Tensor::transpose(Tensor::mul(mixingMatrix, _weightMatrix), 1, 2));
-
+    Tensor sqrtProbabilities;
+    
+    if (_antiNeutrino) {
+        sqrtProbabilities = Tensor::matmul(mixingMatrix, Tensor::transpose(Tensor::mul(mixingMatrix.conj(), _weightMatrix), 1, 2));
+    }
+    else {
+        sqrtProbabilities = Tensor::matmul(mixingMatrix.conj(), Tensor::transpose(Tensor::mul(mixingMatrix, _weightMatrix), 1, 2));
+    }
     return Tensor::pow(sqrtProbabilities.abs(), 2);
 }

@@ -31,7 +31,12 @@ class Propagator
     /// @param nGenerations The number of generations the propagator should
     /// expect
     /// @param baseline The baseline to propagate over
-    Propagator(int nGenerations, float baseline) : _baseline(baseline), _nGenerations(nGenerations){};
+    Propagator(int nGenerations, float baseline, bool antiNeutrino=false) 
+    : 
+        _baseline(baseline), 
+        _nGenerations(nGenerations),
+        _antiNeutrino(antiNeutrino)
+    {};
 
     /// @brief Calculate the oscillation probabilities
     /// @param energies The energies of the neutrinos
@@ -39,6 +44,21 @@ class Propagator
 
     /// @name Setters
     /// @{
+
+    /// @brief Set whether we are dealing with anti-neutrinos
+    /// @param newValue 
+    inline void setAntiNeutrino(bool newValue) 
+    {
+        NT_PROFILE();
+
+        _antiNeutrino = newValue;
+
+        if (_matterSolver)
+        {
+            _matterSolver->setAntiNeutrino(newValue);
+        }
+
+    }
 
     /// @brief Set a matter solver to use to deal with matter effects
     /// @param newSolver A derivative of BaseMatterSolver
@@ -159,6 +179,7 @@ class Propagator
     Tensor _weightArgDenom;
     int _nGenerations;
     float _baseline;
+    bool _antiNeutrino;
 
     std::shared_ptr<BaseMatterSolver> _matterSolver;
 };
