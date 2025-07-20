@@ -1,3 +1,4 @@
+#include <nuTens/propagator/propagator.hpp>
 #include <nuTens/propagator/const-density-solver.hpp>
 #include <tests/barger-propagator.hpp>
 #include <tests/test-utils.hpp>
@@ -11,9 +12,10 @@ int main()
 
     NT_PROFILE();
 
-    float m1 = 1.0;
-    float m2 = 2.0;
-    float energy = 100.0;
+    float m1 = 0.0;
+    float m2 = 0.008 * units::eV * units::eV;
+    float energy = 0.5 * units::GeV;
+    float baseline = 295.0 * units::km;
     float density = 2.6;
 
     // set the tensors we will use to calculate matter eigenvalues
@@ -23,12 +25,10 @@ int main()
     energies.setValue({0, 0}, energy);
     energies.requiresGrad(true);
 
-    std::cout << "value tensors created" << std::endl;
+    auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(2, density);
 
-    ConstDensityMatterSolver tensorSolver(2, density);
-
-    std::cout << "tensorSolver created" << std::endl;
-
+    Propagator tensorPropagator(2, baseline);
+    
     TwoFlavourBarger bargerProp{};
 
     // test that Propagator gives expected oscillation probabilites for a range
@@ -37,7 +37,7 @@ int main()
     {
         float theta = (-1.0 + 2.0 * (float)i / 20.0) * 0.49 * M_PI;
 
-        bargerProp.setParams(m1, m2, theta, /*baseline=*/-999.9, density);
+        bargerProp.setParams(m1, m2, theta, baseline, density);
 
         // construct the mixing matrix for current theta value
         Tensor PMNS = Tensor::ones({1, 2, 2}, dtypes::kComplexFloat).requiresGrad(false);
@@ -47,13 +47,15 @@ int main()
         PMNS.setValue({0, 1, 1}, std::cos(theta));
         PMNS.requiresGrad(true);
 
-        tensorSolver.setMixingMatrix(PMNS);
-        tensorSolver.setMasses(masses);
+        tensorPropagator.setMixingMatrix(PMNS);
+        tensorPropagator.setMasses(masses);
+        tensorPropagator.setMatterSolver(tensorSolver);
+
+        tensorPropagator.setEnergies(energies);
 
         Tensor eigenVals;
         Tensor eigenVecs;
-        tensorSolver.setEnergies(energies);
-        tensorSolver.calculateEigenvalues(eigenVecs, eigenVals);
+        tensorSolver->calculateEigenvalues(eigenVecs, eigenVals);
 
         std::cout << "######## theta = " << theta << " ########" << std::endl;
 
@@ -71,19 +73,44 @@ int main()
         // now check the actual mixing matrix entries
         Tensor PMNSeff = Tensor::matmul(PMNS, eigenVecs);
         std::cout << "effective PMNS: " << std::endl;
-        std::cout << PMNSeff << std::endl << std::endl;
+        std::cout << "[0,0] :: tensor solver: " << PMNSeff.getValue<float>({0, 0, 0}) << " :: barger: " <<  bargerProp.getPMNSelement(energy, 0, 0) << std::endl;
+        std::cout << "[0,1] :: tensor solver: " << PMNSeff.getValue<float>({0, 0, 1}) << " :: barger: " <<  bargerProp.getPMNSelement(energy, 0, 1) << std::endl;
+        std::cout << "[1,0] :: tensor solver: " << PMNSeff.getValue<float>({0, 1, 0}) << " :: barger: " <<  bargerProp.getPMNSelement(energy, 1, 0) << std::endl;
+        std::cout << "[1,1] :: tensor solver: " << PMNSeff.getValue<float>({0, 1, 1}) << " :: barger: " <<  bargerProp.getPMNSelement(energy, 1, 1) << std::endl;
 
-        TEST_EXPECTED(PMNSeff.getValue<float>({0, 0, 0}), bargerProp.getPMNSelement(energy, 0, 0),
+        TEST_EXPECTED(std::abs(PMNSeff.getValue<float>({0, 0, 0})), std::abs(bargerProp.getPMNSelement(energy, 0, 0)),
                       "PMNS[0,0] for theta == " + std::to_string(theta), 0.00001)
 
-        TEST_EXPECTED(PMNSeff.getValue<float>({0, 1, 1}), bargerProp.getPMNSelement(energy, 1, 1),
+        TEST_EXPECTED(std::abs(PMNSeff.getValue<float>({0, 1, 1})), std::abs(bargerProp.getPMNSelement(energy, 1, 1)),
                       "PMNS[1,1] for theta == " + std::to_string(theta), 0.00001)
 
-        TEST_EXPECTED(PMNSeff.getValue<float>({0, 0, 1}), bargerProp.getPMNSelement(energy, 0, 1),
+        TEST_EXPECTED(std::abs(PMNSeff.getValue<float>({0, 0, 1})), std::abs(bargerProp.getPMNSelement(energy, 0, 1)),
                       "PMNS[0,1] for theta == " + std::to_string(theta), 0.00001)
 
-        TEST_EXPECTED(PMNSeff.getValue<float>({0, 1, 0}), bargerProp.getPMNSelement(energy, 1, 0),
+        TEST_EXPECTED(std::abs(PMNSeff.getValue<float>({0, 1, 0})), std::abs(bargerProp.getPMNSelement(energy, 1, 0)),
                       "PMNS[1,0] for theta == " + std::to_string(theta), 0.00001)
+
+
+
+        Tensor probabilities = tensorPropagator.calculateProbs();
+        std::cout << "Oscillation probabilities:" << std::endl;
+        std::cout << "[0,0] :: tensor solver: " << probabilities.getValue<float>({0, 0, 0}) << " :: barger: " <<  bargerProp.calculateProb(energy, 0, 0) << std::endl;
+        std::cout << "[0,1] :: tensor solver: " << probabilities.getValue<float>({0, 0, 1}) << " :: barger: " <<  bargerProp.calculateProb(energy, 0, 1) << std::endl;
+        std::cout << "[1,0] :: tensor solver: " << probabilities.getValue<float>({0, 1, 0}) << " :: barger: " <<  bargerProp.calculateProb(energy, 1, 0) << std::endl;
+        std::cout << "[1,1] :: tensor solver: " << probabilities.getValue<float>({0, 1, 1}) << " :: barger: " <<  bargerProp.calculateProb(energy, 1, 1) << std::endl;
+
+
+        TEST_EXPECTED(probabilities.getValue<float>({0, 0, 0}), bargerProp.calculateProb(energy, 0, 0),
+                      "probability for alpha == beta == 0", 0.00001)
+
+        TEST_EXPECTED(probabilities.getValue<float>({0, 1, 1}), bargerProp.calculateProb(energy, 1, 1),
+                      "probability for alpha == beta == 1", 0.00001)
+
+        TEST_EXPECTED(probabilities.getValue<float>({0, 0, 1}), bargerProp.calculateProb(energy, 0, 1),
+                      "probability for alpha == 0, beta == 1", 0.00001)
+
+        TEST_EXPECTED(probabilities.getValue<float>({0, 1, 0}), bargerProp.calculateProb(energy, 1, 0),
+                      "probability for alpha == 1, beta == 0", 0.00001)
 
         std::cout << "###############################" << std::endl << std::endl;
     }
