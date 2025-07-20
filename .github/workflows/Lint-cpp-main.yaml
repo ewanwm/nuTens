@@ -44,6 +44,7 @@ jobs:
           style: "Microsoft"
           ignore: '.github|_deps|CMakeFiles|spdlog*'
           step-summary: true
+          files-changed-only: false
           
           thread-comments: false
           file-annotations: false
