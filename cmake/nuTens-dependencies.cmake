@@ -86,7 +86,8 @@ if(NT_ENABLE_BENCHMARKING)
     CPMAddPackage(
         GITHUB_REPOSITORY "google/benchmark"
         VERSION 1.8.5 
-        OPTIONS "BENCHMARK_DOWNLOAD_DEPENDENCIES ON"
+        OPTIONS 
+        "BENCHMARK_ENABLE_TESTING OFF"
     )
 else()
     message("Won't benchmark")
