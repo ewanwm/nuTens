@@ -27,7 +27,7 @@ int main()
     Propagator tensorPropagator(2, baseline);
     auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(2, density);
 
-    TwoFlavourBarger bargerProp;
+    TwoFlavourBarger bargerProp{};
 
     // test that Propagator gives expected oscillation probabilites for a range
     // of thetas

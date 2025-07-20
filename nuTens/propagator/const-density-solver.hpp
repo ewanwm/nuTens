@@ -49,8 +49,8 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// @{
 
     /// @brief Set whether we are dealing with anti-neutrinos
-    /// @param newValue 
-    inline void setAntiNeutrino(bool newValue) 
+    /// @param newValue
+    inline void setAntiNeutrino(bool newValue) override
     {
         NT_PROFILE();
 
