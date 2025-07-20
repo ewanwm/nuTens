@@ -76,7 +76,7 @@ matter_solver = nt.propagator.ConstDensitySolver(3, 2.79)
 
 propagator.set_mixing_matrix(PMNS)
 propagator.set_masses(masses)
-#propagator.set_matter_solver(matter_solver)
+propagator.set_matter_solver(matter_solver)
 
 ## run!
 propagator.set_energies(energies)
