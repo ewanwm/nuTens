@@ -19,7 +19,7 @@ int main()
 
     std::cout << "########################################" << std::endl;
     std::cout << "Float: " << std::endl;
-    auto tensorFloat = AccessedTensor<double, 2, dtypes::kCPU>::zeros({3, 3}, false);
+    auto tensorFloat = AccessedTensor<double, 2, dtypes::kCPU>::zeros({3, 3}).requiresGrad(false);
     tensorFloat.setValue(0.0, 0, 0);
     tensorFloat.setValue(1.0, 0, 1);
     tensorFloat.setValue(2.0, 0, 2);

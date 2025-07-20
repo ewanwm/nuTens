@@ -526,6 +526,60 @@ class AccessedTensor: public Tensor {
 
   public:
 
+    /// @name Setters
+    /// @{
+    /// @brief Set the underlying data type of this tensor
+    inline AccessedTensor &dType(dtypes::scalarType type) 
+    {
+        NT_PROFILE();
+
+        _tensor = _tensor.to(dtypes::scalarTypeMap(type));
+        _dType = type;
+        return *this;
+    }
+
+    /// @brief Set the device that this tensor lives on
+    inline AccessedTensor &device(dtypes::deviceType device) 
+    {
+        NT_PROFILE();
+
+        _tensor = _tensor.to(dtypes::deviceTypeMap(device));
+        _device = device;
+        return *this;
+    }
+
+    /// @brief Set whether the tensor requires a gradient
+    inline AccessedTensor &requiresGrad(bool reqGrad) 
+    {
+        NT_PROFILE();
+
+        _tensor = _tensor.set_requires_grad(reqGrad);
+        return *this;
+    }
+
+    /// @brief Set whether or not the first dimension should be interpreted as a batch dimension
+    inline AccessedTensor &hasBatchDim(bool hasBatchDim)
+    {
+        _hasBatchDim = hasBatchDim;
+        return *this;
+    };
+
+    /// @}
+
+    /// @brief If the tensor does not already have a batch dimension (as set by hasBatchDim()) this will add one
+    inline AccessedTensor &addBatchDim() 
+    {
+        NT_PROFILE();
+
+        if (!_hasBatchDim)
+        {
+            _tensor = torch::unsqueeze(_tensor, 0);
+            _hasBatchDim = true;
+        }
+
+        return *this;
+    }
+
     /// @brief Construct an identity tensor (has to be a 2d square tensor)
     /// @arg n The size of one of the sides of the tensor
     /// @arg type The data type of the tensor
