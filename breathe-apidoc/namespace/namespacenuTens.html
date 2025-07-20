@@ -807,6 +807,54 @@
 </dl>
 </dd></dl>
 
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor7eigvalsERK6TensorR6Tensor">
+<span id="_CPPv3N6nuTens6Tensor7eigvalsERK6TensorR6Tensor"></span><span id="_CPPv2N6nuTens6Tensor7eigvalsERK6TensorR6Tensor"></span><span id="nuTens::Tensor::eigvals__TensorCR.TensorR"></span><span class="target" id="classnuTens_1_1Tensor_1aa3192ed289842ee4e9259e0987c363b7"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eigvals</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eVals</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Get eigenvalues of a tensor. </p>
+<p><ul class="simple">
+<li><p>t The tensor </p></li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>eVals</strong> – <strong>[out]</strong> The eigenvalues </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor8eigvalshERK6TensorR6Tensor">
+<span id="_CPPv3N6nuTens6Tensor8eigvalshERK6TensorR6Tensor"></span><span id="_CPPv2N6nuTens6Tensor8eigvalshERK6TensorR6Tensor"></span><span id="nuTens::Tensor::eigvalsh__TensorCR.TensorR"></span><span class="target" id="classnuTens_1_1Tensor_1a678fb2da05f6855dd10a31d26ad8a6f0"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eigvalsh</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eVals</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Get eigenvalues of a hermitian matrix. </p>
+<p><ul class="simple">
+<li><p>t The tensor </p></li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>eVals</strong> – <strong>[out]</strong> The eigenvalues This is in general faster and more stable than <a class="reference internal" href="#classnuTens_1_1Tensor_1aa3192ed289842ee4e9259e0987c363b7"><span class="std std-ref">Tensor::eigvals</span></a> and should be preferred in basically all cases where it can be used </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor2qrERK6TensorR6TensorR6Tensor">
+<span id="_CPPv3N6nuTens6Tensor2qrERK6TensorR6TensorR6Tensor"></span><span id="_CPPv2N6nuTens6Tensor2qrERK6TensorR6TensorR6Tensor"></span><span id="nuTens::Tensor::qr__TensorCR.TensorR.TensorR"></span><span class="target" id="classnuTens_1_1Tensor_1a1243c22a7686de531808a2536ef39f58"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">qr</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Q</span></span>, <a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">R</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Perform QR decomposition on a hermitian matrix. </p>
+<p><ul class="simple">
+<li><p>t The tensor </p></li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Q</strong> – <strong>[out]</strong> </p></li>
+<li><p><strong>R</strong> – <strong>[out]</strong> </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-trigonometric">Trigonometric</p>
