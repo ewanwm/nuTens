@@ -40,14 +40,14 @@ class Propagator
 
     /// @brief Calculate the oscillation probabilities
     /// @param energies The energies of the neutrinos
-    [[nodiscard]] Tensor calculateProbs();
+    [[nodiscard]] virtual Tensor calculateProbs();
 
     /// @name Setters
     /// @{
 
     /// @brief Set whether we are dealing with anti-neutrinos
     /// @param newValue 
-    inline void setAntiNeutrino(bool newValue) 
+    virtual inline void setAntiNeutrino(bool newValue) 
     {
         NT_PROFILE();
 
@@ -63,7 +63,7 @@ class Propagator
     /// @brief Set a matter solver to use to deal with matter effects
     /// @param newSolver A derivative of BaseMatterSolver
     /// @warning Should be called *before* setMixingMatrix and setMasses
-    inline void setMatterSolver(const std::shared_ptr<BaseMatterSolver> &newSolver)
+    virtual inline void setMatterSolver(const std::shared_ptr<BaseMatterSolver> &newSolver)
     {
         NT_PROFILE();
         _matterSolver = newSolver;
@@ -74,7 +74,7 @@ class Propagator
 
     /// @brief Set the neutrino energies
     /// @param newEnergies The neutrino energies
-    void setEnergies(Tensor &newEnergies)
+    virtual void setEnergies(Tensor &newEnergies)
     {
         NT_PROFILE();
 
@@ -95,7 +95,7 @@ class Propagator
     /// dimension can (and probably should) be 1 and it will be broadcast to
     /// match the batch dimension of the energies supplied to calculateProbs().
     /// So dimension should be {1, nGenerations}.
-    void setMasses(Tensor &newMasses)
+    virtual void setMasses(Tensor &newMasses)
     {
         NT_PROFILE();
 
@@ -108,7 +108,7 @@ class Propagator
 
     /// @brief Set a whole new mixing matrix
     /// @param newMatrix The new matrix to use
-    inline void setMixingMatrix(Tensor &newMatrix)
+    virtual inline void setMixingMatrix(Tensor &newMatrix)
     {
         NT_PROFILE();
         _mixingMatrix = newMatrix;
@@ -142,7 +142,7 @@ class Propagator
 
     /// @brief Set the baseline
     /// @param newBaseline new value
-    inline void setBaseline(float newBaseline) 
+    virtual inline void setBaseline(float newBaseline) 
     {
 
         NT_PROFILE();
@@ -170,7 +170,7 @@ class Propagator
     // values from massSolver
     [[nodiscard]] Tensor _calculateProbs(const Tensor &masses, const Tensor &mixingMatrix);
 
-  private:
+  protected:
     Tensor _mixingMatrix;
     Tensor _masses;
     Tensor _energies;

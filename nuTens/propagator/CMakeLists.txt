@@ -9,8 +9,12 @@ add_library(
     propagator
     propagator.hpp propagator.cpp 
     const-density-solver.hpp const-density-solver.cpp
+<<<<<<< HEAD
     base-mixing-matrix.hpp
     pmns-matrix.hpp
+=======
+    DP-propagator.hpp DP-propagator.cpp
+>>>>>>> 18b5685 (add Denton-Parke propagator class for speedy speedy 3 flavour oscillation calculations)
 )
 
 target_link_libraries(
