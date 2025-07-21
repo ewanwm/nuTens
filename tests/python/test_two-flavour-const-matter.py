@@ -95,9 +95,9 @@ class TestTwoFlavourConstMatter:
         propagator = nt.propagator.Propagator(2, self.baseline)
         matter_solver = ConstDensitySolver(2, self.density)
         
+        propagator.set_matter_solver(matter_solver)
         propagator.set_mixing_matrix(pmns)
         propagator.set_masses(masses)
-        propagator.set_matter_solver(matter_solver)
         propagator.set_energies(self.energy_tensor)
 
         # calculate the evals + evecs + effective PMNS to print 
