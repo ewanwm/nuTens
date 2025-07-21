@@ -2,6 +2,7 @@
 #include <benchmark/benchmark.h>
 #include <nuTens/propagator/const-density-solver.hpp>
 #include <nuTens/propagator/propagator.hpp>
+#include <nuTens/propagator/DP-propagator.hpp>
 #include <nuTens/tensors/tensor.hpp>
 #include <nuTens/propagator/pmns-matrix.hpp>
 
@@ -120,6 +121,64 @@ static void BM_constMatterOscillations(benchmark::State &state)
     NT_PROFILE_ENDSESSION();
 }
 
+
+static void BM_DPpropOscillations(benchmark::State &state)
+{
+    
+    NT_PROFILE_BEGINSESSION("Benchmark-DP-propagator");
+
+    NT_PROFILE();
+    
+    // make some random test energies
+    Tensor energies =
+        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kFloat).requiresGrad(false), 10000.0) +
+        Tensor({100.0});
+
+    energies = energies.hasBatchDim(true);
+    
+    auto dmsq21 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto dmsq31 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto theta23 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto theta13 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto theta12 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto deltaCP = Tensor::zeros({1}).dType(dtypes::kComplexFloat).requiresGrad(false);
+
+    // set up the propagator
+    DPpropagator dpProp(3, 295000.0, 2.6, 5);
+    
+    dpProp.setEnergies(energies);
+
+    // seed the random number generator for the energies
+    std::srand(randSeed);
+
+    // linter gets angry about this as _ is never used :)))
+    // NOLINTNEXTLINE
+    for (auto _ : state)
+    {
+        // This code gets timed
+        for (int _ = 0; _ < state.range(1); _++)
+        {
+            // set random values of the oscillation parameters
+            dmsq21.setValue(randomDouble(), 0);
+            dmsq31.setValue(randomDouble(), 0);
+
+            theta23.setValue(randomDouble(), 0);
+            theta13.setValue(randomDouble(), 0);
+            theta12.setValue(randomDouble(), 0);
+
+            deltaCP.setValue({0}, Tensor::scale(Tensor::rand({1}), 2.0 * 3.1415));
+
+            dpProp.setParameters(theta12, theta23, theta13, deltaCP, dmsq21, dmsq31);
+
+            // calculate the osc probabilities
+            // static_cast<void> to discard the return value that we're not supposed to discard :)
+            static_cast<void>(dpProp.calculateProbs().sum());
+        }
+    }
+    NT_PROFILE_ENDSESSION();
+}
+
+
 // Register the function as a benchmark
 // NOLINTNEXTLINE
 BENCHMARK(BM_vacuumOscillations)->Name("Vacuum Oscillations")->Args({1 << 10, 1 << 10});
@@ -127,6 +186,10 @@ BENCHMARK(BM_vacuumOscillations)->Name("Vacuum Oscillations")->Args({1 << 10, 1 
 // Register the function as a benchmark
 // NOLINTNEXTLINE
 BENCHMARK(BM_constMatterOscillations)->Name("Const Density Oscillations")->Args({1 << 10, 1 << 10});
+
+// Register the function as a benchmark
+// NOLINTNEXTLINE
+BENCHMARK(BM_DPpropOscillations)->Name("DP Propagator Const Density Oscillations")->Args({1 << 10, 1 << 10});
 
 // Run the benchmark
 // NOLINTNEXTLINE
