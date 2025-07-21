@@ -58,9 +58,9 @@ int main()
         PMNS.setValue({0, 1, 0}, -std::sin(theta));
         PMNS.setValue({0, 1, 1}, std::cos(theta));
 
+        tensorPropagator.setMatterSolver(tensorSolver);
         tensorPropagator.setMixingMatrix(PMNS);
         tensorPropagator.setMasses(masses);
-        tensorPropagator.setMatterSolver(tensorSolver);
         tensorPropagator.setAntiNeutrino(true);
 
         tensorPropagator.setEnergies(energies);

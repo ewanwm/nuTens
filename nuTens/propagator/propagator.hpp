@@ -62,12 +62,11 @@ class Propagator
 
     /// @brief Set a matter solver to use to deal with matter effects
     /// @param newSolver A derivative of BaseMatterSolver
+    /// @warning Should be called *before* setMixingMatrix and setMasses
     inline void setMatterSolver(const std::shared_ptr<BaseMatterSolver> &newSolver)
     {
         NT_PROFILE();
         _matterSolver = newSolver;
-        _matterSolver->setMasses(_masses);
-        _matterSolver->setMixingMatrix(_mixingMatrix);
     }
 
     /// \todo Should add a check to tensors supplied to the setters to see how

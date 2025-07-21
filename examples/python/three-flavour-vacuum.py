@@ -79,11 +79,11 @@ print()
 propagator = nt.propagator.Propagator(3, 295.0 * nt.units.km)
 matter_solver = nt.propagator.ConstDensitySolver(3, 2.79)
 
-propagator.set_mixing_matrix(PMNS)
-propagator.set_masses(masses)
-
 ## uncomment for matter oscillations
 #propagator.set_matter_solver(matter_solver)
+
+propagator.set_mixing_matrix(PMNS)
+propagator.set_masses(masses)
 
 ## run!
 propagator.set_energies(energies)

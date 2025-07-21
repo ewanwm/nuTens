@@ -52,9 +52,9 @@ print()
 propagator = nt.propagator.Propagator(2, 295 * nt.units.km)
 matter_solver = nt.propagator.ConstDensitySolver(2, 2.79)
 
+propagator.set_matter_solver(matter_solver)
 propagator.set_mixing_matrix(PMNS)
 propagator.set_masses(masses)
-propagator.set_matter_solver(matter_solver)
 
 ## run!
 propagator.set_energies(energies)
