@@ -122,14 +122,18 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="python-api/tensor.html#nuTens.tensor.Tensor.backward">backward() (nuTens.tensor.Tensor method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="breathe-apidoc/class/classBaseMatterSolver.html#_CPPv416BaseMatterSolver">BaseMatterSolver (C++ class)</a>
 
       <ul>
         <li><a href="python-api/propagator.html#nuTens.propagator.BaseMatterSolver">(class in nuTens.propagator)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python-api/propagator.html#nuTens.propagator.BaseMixingMatrix">BaseMixingMatrix (class in nuTens.propagator)</a>
+</li>
+      <li><a href="python-api/propagator.html#nuTens.propagator.BaseMixingMatrix.build">build() (nuTens.propagator.BaseMixingMatrix method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -210,12 +214,20 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="python-api/propagator.html#nuTens.propagator.Propagator.get_baseline">get_baseline() (nuTens.propagator.Propagator method)</a>
 </li>
+      <li><a href="python-api/propagator.html#nuTens.propagator.PMNSmatrix.get_delta_cp_tensor">get_delta_cp_tensor() (nuTens.propagator.PMNSmatrix method)</a>
+</li>
       <li><a href="python-api/propagator.html#nuTens.propagator.ConstDensitySolver.get_density">get_density() (nuTens.propagator.ConstDensitySolver method)</a>
 </li>
       <li><a href="python-api/tensor.html#nuTens.tensor.Tensor.get_shape">get_shape() (nuTens.tensor.Tensor method)</a>
 </li>
+      <li><a href="python-api/propagator.html#nuTens.propagator.PMNSmatrix.get_theta_12_tensor">get_theta_12_tensor() (nuTens.propagator.PMNSmatrix method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python-api/propagator.html#nuTens.propagator.PMNSmatrix.get_theta_13_tensor">get_theta_13_tensor() (nuTens.propagator.PMNSmatrix method)</a>
+</li>
+      <li><a href="python-api/propagator.html#nuTens.propagator.PMNSmatrix.get_theta_23_tensor">get_theta_23_tensor() (nuTens.propagator.PMNSmatrix method)</a>
+</li>
       <li><a href="python-api/tensor.html#nuTens.tensor.Tensor.get_value">get_value() (nuTens.tensor.Tensor method)</a>
 </li>
       <li><a href="python-api/tensor.html#nuTens.tensor.Tensor.get_values">get_values() (nuTens.tensor.Tensor method)</a>
@@ -315,7 +327,7 @@
 </li>
       <li><a href="breathe-apidoc/file/logging_8hpp.html#_CPPv4N9ntlogging13setup_loggingEv">ntlogging::setup_logging (C++ function)</a>, <a href="breathe-apidoc/namespace/namespacentlogging.html#_CPPv4N9ntlogging13setup_loggingEv">[1]</a>
 </li>
-      <li><a href="breathe-apidoc/file/base-matter-solver_8hpp.html#_CPPv46nuTens">nuTens (C++ type)</a>, <a href="breathe-apidoc/file/const-density-solver_8hpp.html#_CPPv46nuTens">[1]</a>, <a href="breathe-apidoc/file/constants_8hpp.html#_CPPv46nuTens">[2]</a>, <a href="breathe-apidoc/file/dtypes_8hpp.html#_CPPv46nuTens">[3]</a>, <a href="breathe-apidoc/file/propagator_8hpp.html#_CPPv46nuTens">[4]</a>, <a href="breathe-apidoc/file/tensor_8hpp.html#_CPPv46nuTens">[5]</a>, <a href="breathe-apidoc/file/units_8hpp.html#_CPPv46nuTens">[6]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv46nuTens">[7]</a>
+      <li><a href="breathe-apidoc/file/base-matter-solver_8hpp.html#_CPPv46nuTens">nuTens (C++ type)</a>, <a href="breathe-apidoc/file/base-mixing-matrix_8hpp.html#_CPPv46nuTens">[1]</a>, <a href="breathe-apidoc/file/const-density-solver_8hpp.html#_CPPv46nuTens">[2]</a>, <a href="breathe-apidoc/file/constants_8hpp.html#_CPPv46nuTens">[3]</a>, <a href="breathe-apidoc/file/dtypes_8hpp.html#_CPPv46nuTens">[4]</a>, <a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv46nuTens">[5]</a>, <a href="breathe-apidoc/file/propagator_8hpp.html#_CPPv46nuTens">[6]</a>, <a href="breathe-apidoc/file/tensor_8hpp.html#_CPPv46nuTens">[7]</a>, <a href="breathe-apidoc/file/units_8hpp.html#_CPPv46nuTens">[8]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv46nuTens">[9]</a>
 </li>
       <li>
     nuTens.dtype
@@ -368,6 +380,12 @@
       <li><a href="breathe-apidoc/class/classnuTens_1_1BaseMatterSolver.html#_CPPv4N6nuTens16BaseMatterSolver9setMassesERK6Tensor">nuTens::BaseMatterSolver::setMasses (C++ function)</a>, <a href="breathe-apidoc/file/base-matter-solver_8hpp.html#_CPPv4N6nuTens16BaseMatterSolver9setMassesERK6Tensor">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens16BaseMatterSolver9setMassesERK6Tensor">[2]</a>
 </li>
       <li><a href="breathe-apidoc/class/classnuTens_1_1BaseMatterSolver.html#_CPPv4N6nuTens16BaseMatterSolver15setMixingMatrixERK6Tensor">nuTens::BaseMatterSolver::setMixingMatrix (C++ function)</a>, <a href="breathe-apidoc/file/base-matter-solver_8hpp.html#_CPPv4N6nuTens16BaseMatterSolver15setMixingMatrixERK6Tensor">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens16BaseMatterSolver15setMixingMatrixERK6Tensor">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1BaseMixingMatrix.html#_CPPv4N6nuTens16BaseMixingMatrixE">nuTens::BaseMixingMatrix (C++ class)</a>, <a href="breathe-apidoc/file/base-mixing-matrix_8hpp.html#_CPPv4N6nuTens16BaseMixingMatrixE">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens16BaseMixingMatrixE">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1BaseMixingMatrix.html#_CPPv4N6nuTens16BaseMixingMatrix5buildEv">nuTens::BaseMixingMatrix::build (C++ function)</a>, <a href="breathe-apidoc/file/base-mixing-matrix_8hpp.html#_CPPv4N6nuTens16BaseMixingMatrix5buildEv">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens16BaseMixingMatrix5buildEv">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1BaseMixingMatrix.html#_CPPv4N6nuTens16BaseMixingMatrixD0Ev">nuTens::BaseMixingMatrix::~BaseMixingMatrix (C++ function)</a>, <a href="breathe-apidoc/file/base-mixing-matrix_8hpp.html#_CPPv4N6nuTens16BaseMixingMatrixD0Ev">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens16BaseMixingMatrixD0Ev">[2]</a>
 </li>
       <li><a href="breathe-apidoc/file/constants_8hpp.html#_CPPv4N6nuTens9constantsE">nuTens::constants (C++ type)</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens9constantsE">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens_1_1constants.html#_CPPv4N6nuTens9constantsE">[2]</a>
 </li>
@@ -435,6 +453,40 @@
 </li>
       <li><a href="breathe-apidoc/file/dtypes_8hpp.html#_CPPv4IEN6nuTens6dtypes17scalarTypeFromRawINSt7complexIfEEEE10scalarTypev">nuTens::dtypes::scalarTypeFromRaw&lt;std::complex&lt;float&gt;&gt; (C++ function)</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4IEN6nuTens6dtypes17scalarTypeFromRawINSt7complexIfEEEE10scalarTypev">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens_1_1dtypes.html#_CPPv4IEN6nuTens6dtypes17scalarTypeFromRawINSt7complexIfEEEE10scalarTypev">[2]</a>
 </li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1PMNSmatrix.html#_CPPv4N6nuTens10PMNSmatrixE">nuTens::PMNSmatrix (C++ class)</a>, <a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrixE">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens10PMNSmatrixE">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix8_deltaCPE">nuTens::PMNSmatrix::_deltaCP (C++ member)</a>
+</li>
+      <li><a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix5_mat1E">nuTens::PMNSmatrix::_mat1 (C++ member)</a>
+</li>
+      <li><a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix5_mat2E">nuTens::PMNSmatrix::_mat2 (C++ member)</a>
+</li>
+      <li><a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix5_mat3E">nuTens::PMNSmatrix::_mat3 (C++ member)</a>
+</li>
+      <li><a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix7_matrixE">nuTens::PMNSmatrix::_matrix (C++ member)</a>
+</li>
+      <li><a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix8_theta12E">nuTens::PMNSmatrix::_theta12 (C++ member)</a>
+</li>
+      <li><a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix8_theta13E">nuTens::PMNSmatrix::_theta13 (C++ member)</a>
+</li>
+      <li><a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix8_theta23E">nuTens::PMNSmatrix::_theta23 (C++ member)</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1PMNSmatrix.html#_CPPv4N6nuTens10PMNSmatrix5buildEv">nuTens::PMNSmatrix::build (C++ function)</a>, <a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix5buildEv">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens10PMNSmatrix5buildEv">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1PMNSmatrix.html#_CPPv4N6nuTens10PMNSmatrix16getDeltaCPTensorEv">nuTens::PMNSmatrix::getDeltaCPTensor (C++ function)</a>, <a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix16getDeltaCPTensorEv">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens10PMNSmatrix16getDeltaCPTensorEv">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1PMNSmatrix.html#_CPPv4N6nuTens10PMNSmatrix16getTheta12TensorEv">nuTens::PMNSmatrix::getTheta12Tensor (C++ function)</a>, <a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix16getTheta12TensorEv">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens10PMNSmatrix16getTheta12TensorEv">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1PMNSmatrix.html#_CPPv4N6nuTens10PMNSmatrix16getTheta13TensorEv">nuTens::PMNSmatrix::getTheta13Tensor (C++ function)</a>, <a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix16getTheta13TensorEv">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens10PMNSmatrix16getTheta13TensorEv">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1PMNSmatrix.html#_CPPv4N6nuTens10PMNSmatrix16getTheta23TensorEv">nuTens::PMNSmatrix::getTheta23Tensor (C++ function)</a>, <a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix16getTheta23TensorEv">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens10PMNSmatrix16getTheta23TensorEv">[2]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1PMNSmatrix.html#_CPPv4N6nuTens10PMNSmatrix10PMNSmatrixEv">nuTens::PMNSmatrix::PMNSmatrix (C++ function)</a>, <a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix10PMNSmatrixEv">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens10PMNSmatrix10PMNSmatrixEv">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1PMNSmatrix.html#_CPPv4N6nuTens10PMNSmatrix18setParameterValuesEffff">nuTens::PMNSmatrix::setParameterValues (C++ function)</a>, <a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix18setParameterValuesEffff">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens10PMNSmatrix18setParameterValuesEffff">[2]</a>
+</li>
       <li><a href="breathe-apidoc/class/classnuTens_1_1Propagator.html#_CPPv4N6nuTens10PropagatorE">nuTens::Propagator (C++ class)</a>, <a href="breathe-apidoc/file/propagator_8hpp.html#_CPPv4N6nuTens10PropagatorE">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens10PropagatorE">[2]</a>
 </li>
       <li><a href="breathe-apidoc/file/propagator_8hpp.html#_CPPv4N6nuTens10Propagator13_antiNeutrinoE">nuTens::Propagator::_antiNeutrino (C++ member)</a>
@@ -451,8 +503,6 @@
 </li>
       <li><a href="breathe-apidoc/file/propagator_8hpp.html#_CPPv4N6nuTens10Propagator13_mixingMatrixE">nuTens::Propagator::_mixingMatrix (C++ member)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="breathe-apidoc/file/propagator_8hpp.html#_CPPv4N6nuTens10Propagator13_nGenerationsE">nuTens::Propagator::_nGenerations (C++ member)</a>
 </li>
       <li><a href="breathe-apidoc/file/propagator_8hpp.html#_CPPv4N6nuTens10Propagator15_weightArgDenomE">nuTens::Propagator::_weightArgDenom (C++ member)</a>
@@ -633,16 +683,18 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python-api/propagator.html#nuTens.propagator.PMNSmatrix">PMNSmatrix (class in nuTens.propagator)</a>
+</li>
       <li><a href="python-api/tensor.html#nuTens.tensor.pow">pow() (in module nuTens.tensor)</a>
 </li>
       <li><a href="breathe-apidoc/file/instrumentation_8hpp.html#_CPPv413ProfileResult">ProfileResult (C++ struct)</a>, <a href="breathe-apidoc/struct/structProfileResult.html#_CPPv413ProfileResult">[1]</a>
 </li>
       <li><a href="breathe-apidoc/file/instrumentation_8hpp.html#_CPPv4N13ProfileResult3endE">ProfileResult::end (C++ member)</a>, <a href="breathe-apidoc/struct/structProfileResult.html#_CPPv4N13ProfileResult3endE">[1]</a>
 </li>
-      <li><a href="breathe-apidoc/file/instrumentation_8hpp.html#_CPPv4N13ProfileResult4nameE">ProfileResult::name (C++ member)</a>, <a href="breathe-apidoc/struct/structProfileResult.html#_CPPv4N13ProfileResult4nameE">[1]</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="breathe-apidoc/file/instrumentation_8hpp.html#_CPPv4N13ProfileResult4nameE">ProfileResult::name (C++ member)</a>, <a href="breathe-apidoc/struct/structProfileResult.html#_CPPv4N13ProfileResult4nameE">[1]</a>
+</li>
       <li><a href="breathe-apidoc/file/instrumentation_8hpp.html#_CPPv4N13ProfileResult5startE">ProfileResult::start (C++ member)</a>, <a href="breathe-apidoc/struct/structProfileResult.html#_CPPv4N13ProfileResult5startE">[1]</a>
 </li>
       <li><a href="breathe-apidoc/file/instrumentation_8hpp.html#_CPPv4N13ProfileResult8threadIDE">ProfileResult::threadID (C++ member)</a>, <a href="breathe-apidoc/struct/structProfileResult.html#_CPPv4N13ProfileResult8threadIDE">[1]</a>
@@ -695,14 +747,14 @@
         <li><a href="python-api/propagator.html#nuTens.propagator.Propagator.set_energies">(nuTens.propagator.Propagator method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="python-api/propagator.html#nuTens.propagator.BaseMatterSolver.set_masses">set_masses() (nuTens.propagator.BaseMatterSolver method)</a>
 
       <ul>
         <li><a href="python-api/propagator.html#nuTens.propagator.Propagator.set_masses">(nuTens.propagator.Propagator method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="python-api/propagator.html#nuTens.propagator.Propagator.set_matter_solver">set_matter_solver() (nuTens.propagator.Propagator method)</a>
 </li>
       <li><a href="python-api/propagator.html#nuTens.propagator.BaseMatterSolver.set_mixing_matrix">set_mixing_matrix() (nuTens.propagator.BaseMatterSolver method)</a>
@@ -711,6 +763,8 @@
         <li><a href="python-api/propagator.html#nuTens.propagator.Propagator.set_mixing_matrix">(nuTens.propagator.Propagator method)</a>
 </li>
       </ul></li>
+      <li><a href="python-api/propagator.html#nuTens.propagator.PMNSmatrix.set_parameter_values">set_parameter_values() (nuTens.propagator.PMNSmatrix method)</a>
+</li>
       <li><a href="python-api/tensor.html#nuTens.tensor.Tensor.set_value">set_value() (nuTens.tensor.Tensor method)</a>
 </li>
       <li><a href="python-api/tensor.html#nuTens.tensor.sin">sin() (in module nuTens.tensor)</a>
