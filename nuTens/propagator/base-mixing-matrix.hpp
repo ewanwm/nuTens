@@ -13,9 +13,7 @@ class BaseMixingMatrix
     virtual Tensor &build() = 0;
 
     /// destructor
-    virtual ~BaseMixingMatrix()
-    {}
-    
+    virtual ~BaseMixingMatrix() = default;
 };
 
 };
