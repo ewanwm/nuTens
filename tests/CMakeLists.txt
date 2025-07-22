@@ -1,11 +1,22 @@
+enable_testing()
 
-add_library(test-utils test-utils.hpp barger-propagator.hpp)
+add_library(
+    test-utils 
+    test-utils.hpp barger-propagator.hpp
+)
+
 target_link_libraries(test-utils PUBLIC constants m)
 set_target_properties(test-utils PROPERTIES LINKER_LANGUAGE CXX)
 
+include(GoogleTest)
+
 foreach(TESTNAME 
-    barger tensor-basic two-flavour-vacuum two-flavour-const-matter two-flavour-const-matter-anti-nu
-    )
+    test-barger 
+    test-tensor-basic 
+    test-two-flavour-vacuum 
+    test-two-flavour-const-matter 
+    test-two-flavour-const-matter-anti-nu
+)
 
     add_executable("${TESTNAME}" "${TESTNAME}.cpp")
     
@@ -13,9 +24,17 @@ foreach(TESTNAME
         target_precompile_headers("${TESTNAME}" REUSE_FROM nuTens-pch)
     ENDIF()
 
-    target_link_libraries("${TESTNAME}" PUBLIC nuTens test-utils m)
+    target_link_libraries(
+        "${TESTNAME}" PUBLIC 
+        nuTens 
+        test-utils 
+        m 
+        GTest::gtest_main
+    )
+    
     target_include_directories("${TESTNAME}" PUBLIC "${PROJECT_SOURCE_DIR}")
-    add_test(NAME "${TESTNAME}-test" COMMAND "${TESTNAME}")
+    
+    gtest_discover_tests("${TESTNAME}")
 
 endforeach()
 

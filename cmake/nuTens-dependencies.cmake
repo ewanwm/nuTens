@@ -80,6 +80,16 @@ CPMFindPackage(
     VERSION 1.8.2
 )
 
+# ==== google tests ====
+if(NT_COMPILE_TESTS)
+    CPMAddPackage(
+        GITHUB_REPOSITORY "google/googletest"
+        VERSION 1.17.0
+        OPTIONS 
+        "BUILD_GMOCK OFF"
+    )
+endif()
+
 # ==== google benchmark ====
 if(NT_ENABLE_BENCHMARKING)
     message("Enabling benchmarking")
