@@ -1,4 +1,0 @@
-File base-mixing-matrix.hpp
-===========================
-
-.. doxygenfile:: base-mixing-matrix.hpp

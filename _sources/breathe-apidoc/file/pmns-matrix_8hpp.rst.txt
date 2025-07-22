@@ -1,4 +1,0 @@
-File pmns-matrix.hpp
-====================
-
-.. doxygenfile:: pmns-matrix.hpp

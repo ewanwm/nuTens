@@ -1,5 +1,0 @@
-Class nuTens::BaseMixingMatrix
-==============================
-
-.. doxygenclass:: nuTens::BaseMixingMatrix
-   :members:

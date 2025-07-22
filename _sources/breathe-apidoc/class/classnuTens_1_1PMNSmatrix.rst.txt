@@ -1,5 +1,0 @@
-Class nuTens::PMNSmatrix
-========================
-
-.. doxygenclass:: nuTens::PMNSmatrix
-   :members:
