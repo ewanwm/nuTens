@@ -3,6 +3,7 @@
 #include <nuTens/propagator/const-density-solver.hpp>
 #include <nuTens/propagator/propagator.hpp>
 #include <nuTens/tensors/tensor.hpp>
+#include <nuTens/propagator/pmns-matrix.hpp>
 
 using namespace nuTens;
 
@@ -10,72 +11,15 @@ using namespace nuTens;
 // want this to be fixed for reproducibility
 const int randSeed = 123;
 
-const std::complex<float> imagUnit(0.0, 1.0);
-
 /// get random double between 0.0 and 1.0
 double randomDouble()
 {
     return (double)rand() / (RAND_MAX + 1.);
 }
 
-class PMNSmatrix
-{
-  public:
-    PMNSmatrix()
-    {
-        // set up the three matrices to build the mixing matrix
-        _m1 = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat).requiresGrad(false);
-        _m2 = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat).requiresGrad(false);
-        _m3 = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat).requiresGrad(false);
-    }
-
-    void build(const Tensor &theta12, const Tensor &theta13, const Tensor &theta23, const Tensor &deltaCP)
-    {
-        _m1.requiresGrad(false);
-        _m2.requiresGrad(false);
-        _m3.requiresGrad(false);
-
-        _m1.setValue({0, 0, 0}, 1.0);
-        _m1.setValue({0, 1, 1}, Tensor::cos(theta23));
-        _m1.setValue({0, 1, 2}, Tensor::sin(theta23));
-        _m1.setValue({0, 2, 1}, -Tensor::sin(theta23));
-        _m1.setValue({0, 2, 2}, Tensor::cos(theta23));
-        _m1.requiresGrad(true);
-
-        _m2.setValue({0, 1, 1}, 1.0);
-        _m2.setValue({0, 0, 0}, Tensor::cos(theta13));
-        _m2.setValue({0, 0, 2}, Tensor::mul(Tensor::sin(theta13), Tensor::exp(Tensor::scale(deltaCP, -imagUnit))));
-        _m2.setValue({0, 2, 0}, -Tensor::mul(Tensor::sin(theta13), Tensor::exp(Tensor::scale(deltaCP, imagUnit))));
-        _m2.setValue({0, 2, 2}, Tensor::cos(theta13));
-        _m2.requiresGrad(true);
-
-        _m3.setValue({0, 2, 2}, 1.0);
-        _m3.setValue({0, 0, 0}, Tensor::cos(theta12));
-        _m3.setValue({0, 0, 1}, Tensor::sin(theta12));
-        _m3.setValue({0, 1, 0}, -Tensor::sin(theta12));
-        _m3.setValue({0, 1, 1}, Tensor::cos(theta12));
-        _m3.requiresGrad(true);
-
-        // Build PMNS
-        matrix = Tensor::matmul(_m1, Tensor::matmul(_m2, _m3));
-        matrix.requiresGrad(true);
-    }
-
-    Tensor matrix;
-
-  private:
-    Tensor _m1;
-    Tensor _m2;
-    Tensor _m3;
-};
-
 static void batchedOscProbs(
     Propagator &prop, 
-    PMNSmatrix &matrix, 
-    AccessedTensor<float, 1, dtypes::kCPU> &theta23, 
-    AccessedTensor<float, 1, dtypes::kCPU> &theta13, 
-    AccessedTensor<float, 1, dtypes::kCPU> &theta12,
-    Tensor &deltaCP, 
+    PMNSmatrix &matrix,
     AccessedTensor<float, 2, dtypes::kCPU> &masses, 
     long nBatches)
 {
@@ -87,16 +31,14 @@ static void batchedOscProbs(
         masses.setValue(randomDouble(), 0, 1);
         masses.setValue(randomDouble(), 0, 2);
 
-        theta23.setValue(randomDouble(), 0);
-        theta13.setValue(randomDouble(), 0);
-        theta12.setValue(randomDouble(), 0);
+        matrix.setParameterValues(
+            /*theta12=*/randomDouble(),
+            /*theta13=*/randomDouble(),
+            /*theta23=*/randomDouble(),
+            /*deltaCP=*/randomDouble() * 2.0 * M_PI
+        );
 
-        deltaCP.setValue({0}, Tensor::scale(Tensor::rand({1}), 2.0 * 3.1415));
-
-        // calculate new values of the mixing matrix
-        matrix.build(theta12, theta13, theta23, deltaCP);
-
-        prop.setMixingMatrix(matrix.matrix);
+        prop.setMixingMatrix(matrix.build());
         prop.setMasses(masses);
 
         // calculate the osc probabilities
@@ -120,17 +62,10 @@ static void BM_vacuumOscillations(benchmark::State &state)
 
     // set up the inputs
     auto masses = AccessedTensor<float, 2, dtypes::kCPU>::zeros({1, 3});
-
-    auto theta23 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
-    auto theta13 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
-    auto theta12 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
-    auto deltaCP = Tensor::zeros({1}).dType(dtypes::kComplexFloat).requiresGrad(false);
-
     PMNSmatrix PMNS;
 
     // set up the propagator
     Propagator vacuumProp(3, 295000.0);
-
     vacuumProp.setEnergies(energies);
 
     // seed the random number generator for the energies
@@ -141,7 +76,7 @@ static void BM_vacuumOscillations(benchmark::State &state)
     for (auto _ : state)
     {
         // This code gets timed
-        batchedOscProbs(vacuumProp, PMNS, theta23, theta13, theta12, deltaCP, masses, state.range(1));
+        batchedOscProbs(vacuumProp, PMNS, masses, state.range(1));
     }
 
     NT_PROFILE_ENDSESSION();
@@ -163,25 +98,12 @@ static void BM_constMatterOscillations(benchmark::State &state)
 
     // set up the inputs
     auto masses = AccessedTensor<float, 2, dtypes::kCPU>::zeros({1, 3});
-
-    auto theta23 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
-    auto theta13 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
-    auto theta12 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
-    auto deltaCP = Tensor::zeros({1}).dType(dtypes::kComplexFloat).requiresGrad(false);
-
     PMNSmatrix PMNS;
-    PMNS.build(theta12, theta13, theta23, deltaCP);
 
     // set up the propagator
     Propagator matterProp(3, 295000.0);
-    
-    std::shared_ptr<BaseMatterSolver> matterSolver = std::make_shared<ConstDensityMatterSolver>(3, 2.6);
-
+    auto matterSolver = std::make_shared<ConstDensityMatterSolver>(3, 2.6);
     matterProp.setMatterSolver(matterSolver);
-    matterProp.setMixingMatrix(PMNS.matrix);
-    matterProp.setMasses(masses);
-
-
     matterProp.setEnergies(energies);
 
     // seed the random number generator for the energies
@@ -192,7 +114,7 @@ static void BM_constMatterOscillations(benchmark::State &state)
     for (auto _ : state)
     {
         // This code gets timed
-        batchedOscProbs(matterProp, PMNS, theta23, theta13, theta12, deltaCP, masses, state.range(1));
+        batchedOscProbs(matterProp, PMNS, masses, state.range(1));
     }
 
     NT_PROFILE_ENDSESSION();
