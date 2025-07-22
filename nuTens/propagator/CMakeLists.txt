@@ -9,6 +9,8 @@ add_library(
     propagator
     propagator.hpp propagator.cpp 
     const-density-solver.hpp const-density-solver.cpp
+    base-mixing-matrix.hpp
+    pmns-matrix.hpp
 )
 
 target_link_libraries(
