@@ -36,26 +36,31 @@ Tensor Propagator::_calculateProbs(const Tensor &massesSq, const Tensor &mixingM
 {
     NT_PROFILE();
 
+    // basically exp { - i m^2 L / 2 E }
     Tensor weightVector = Tensor::exp(
         Tensor::div(massesSq, _weightArgDenom));
 
+    // turn it into a matrix with the right shape
     _weightMatrix.requiresGrad(false);
     for (int i = 0; i < _nGenerations; i++)
     {
-        for (int j = 0; j < _nGenerations; j++)
-        {
-            _weightMatrix.setValue({"...", i, j}, weightVector.getValues({"...", j}));
-        }
+        _weightMatrix.setValue({"...", i}, weightVector);
     }
     _weightMatrix.requiresGrad(true);
 
-    Tensor sqrtProbabilities;
-    
+    Tensor A;
+    Tensor B;
+
     if (_antiNeutrino) {
-        sqrtProbabilities = Tensor::matmul(mixingMatrix, Tensor::transpose(Tensor::mul(mixingMatrix.conj(), _weightMatrix), 1, 2));
+        A = Tensor::mul( mixingMatrix.conj(), Tensor::transpose(_weightMatrix, 1, 2) );
+        B = Tensor::transpose( mixingMatrix, 1, 2 );
     }
     else {
-        sqrtProbabilities = Tensor::matmul(mixingMatrix.conj(), Tensor::transpose(Tensor::mul(mixingMatrix, _weightMatrix), 1, 2));
+        A = Tensor::mul( mixingMatrix, Tensor::transpose(_weightMatrix, 1, 2) );
+        B = Tensor::transpose( mixingMatrix.conj(), 1, 2 );
     }
+
+    Tensor sqrtProbabilities = Tensor::matmul( A, B );
+
     return Tensor::pow(sqrtProbabilities.abs(), 2);
 }
