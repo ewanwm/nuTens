@@ -11,10 +11,10 @@ Tensor DPpropagator::calculateProbs()
 	// --------------------------------------------------------------------- //
 	Tensor one = Tensor::ones({1}).requiresGrad(false);
 
-	Tensor cosSqTheta13 = Tensor::pow(Tensor::cos(theta13), 2.0);
-	Tensor sinSqTheta13 = Tensor::pow(Tensor::sin(theta13), 2.0);
 	Tensor sinSqTheta12 = Tensor::pow(Tensor::sin(theta12), 2.0);
 	Tensor cosSqTheta12 = Tensor::pow(Tensor::cos(theta12), 2.0);
+	Tensor sinSqTheta13 = Tensor::pow(Tensor::sin(theta13), 2.0);
+	Tensor cosSqTheta13 = Tensor::pow(Tensor::cos(theta13), 2.0);
 	Tensor sinSqTheta23 = Tensor::pow(Tensor::sin(theta23), 2.0);
 	Tensor cosSqTheta23 = Tensor::pow(Tensor::cos(theta23), 2.0);
 
