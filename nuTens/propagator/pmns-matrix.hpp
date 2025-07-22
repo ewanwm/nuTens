@@ -24,7 +24,7 @@ class PMNSmatrix: public BaseMixingMatrix
         _mat3 = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat).requiresGrad(false);
     }
 
-    inline Tensor &build()
+    inline Tensor &build() override
     {
         NT_PROFILE();
 
