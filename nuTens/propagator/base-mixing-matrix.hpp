@@ -11,6 +11,11 @@ class BaseMixingMatrix
   
     /// @brief Should construct and return the mixing matrix
     virtual Tensor &build() = 0;
+
+    /// destructor
+    virtual ~BaseMixingMatrix()
+    {}
+    
 };
 
 };
