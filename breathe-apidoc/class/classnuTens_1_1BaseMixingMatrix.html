@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Class BaseMatterSolver &mdash; nuTens  documentation</title>
+  <title>Class nuTens::BaseMixingMatrix &mdash; nuTens  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
@@ -20,8 +20,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Class ConstDensityMatterSolver" href="classConstDensityMatterSolver.html" />
-    <link rel="prev" title="Class list" href="../classlist.html" /> 
+    <link rel="next" title="Class nuTens::ConstDensityMatterSolver" href="classnuTens_1_1ConstDensityMatterSolver.html" />
+    <link rel="prev" title="Class nuTens::BaseMatterSolver" href="classnuTens_1_1BaseMatterSolver.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -56,15 +56,15 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../cpp-api.html">c++ API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../classlist.html">Class list</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Class BaseMatterSolver</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv416BaseMatterSolver"><code class="docutils literal notranslate"><span class="pre">BaseMatterSolver</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="classBaseMatterSolver.html">Class BaseMatterSolver</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classConstDensityMatterSolver.html">Class ConstDensityMatterSolver</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classPropagator.html">Class Propagator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classTensor.html">Class Tensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1BaseMatterSolver.html">Class nuTens::BaseMatterSolver</a></li>
-<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1BaseMixingMatrix.html">Class nuTens::BaseMixingMatrix</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Class nuTens::BaseMixingMatrix</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N6nuTens16BaseMixingMatrixE"><code class="docutils literal notranslate"><span class="pre">nuTens::BaseMixingMatrix</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1ConstDensityMatterSolver.html">Class nuTens::ConstDensityMatterSolver</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1PMNSmatrix.html">Class nuTens::PMNSmatrix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1Propagator.html">Class nuTens::Propagator</a></li>
@@ -96,9 +96,9 @@
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../cpp-api.html">c++ API</a></li>
           <li class="breadcrumb-item"><a href="../classlist.html">Class list</a></li>
-      <li class="breadcrumb-item active">Class BaseMatterSolver</li>
+      <li class="breadcrumb-item active">Class nuTens::BaseMixingMatrix</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/breathe-apidoc/class/classBaseMatterSolver.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/breathe-apidoc/class/classnuTens_1_1BaseMixingMatrix.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -106,12 +106,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="class-basemattersolver">
-<h1>Class BaseMatterSolver<a class="headerlink" href="#class-basemattersolver" title="Link to this heading"></a></h1>
+  <section id="class-nutens-basemixingmatrix">
+<h1>Class nuTens::BaseMixingMatrix<a class="headerlink" href="#class-nutens-basemixingmatrix" title="Link to this heading"></a></h1>
 <dl class="cpp class">
-<dt class="sig sig-object cpp" id="_CPPv416BaseMatterSolver">
-<span id="_CPPv316BaseMatterSolver"></span><span id="_CPPv216BaseMatterSolver"></span><span id="BaseMatterSolver"></span><span class="target" id="classBaseMatterSolver"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BaseMatterSolver</span></span></span><a class="headerlink" href="#_CPPv416BaseMatterSolver" title="Link to this definition"></a><br /></dt>
-<dd><p>Abstract base class for matter effect solvers. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMixingMatrixE">
+<span id="_CPPv3N6nuTens16BaseMixingMatrixE"></span><span id="_CPPv2N6nuTens16BaseMixingMatrixE"></span><span id="nuTens::BaseMixingMatrix"></span><span class="target" id="classnuTens_1_1BaseMixingMatrix"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BaseMixingMatrix</span></span></span><a class="headerlink" href="#_CPPv4N6nuTens16BaseMixingMatrixE" title="Link to this definition"></a><br /></dt>
+<dd><p>Subclassed by <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1PMNSmatrix"><span class="std std-ref">nuTens::PMNSmatrix</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMixingMatrix5buildEv">
+<span id="_CPPv3N6nuTens16BaseMixingMatrix5buildEv"></span><span id="_CPPv2N6nuTens16BaseMixingMatrix5buildEv"></span><span id="nuTens::BaseMixingMatrix::build"></span><span class="target" id="classnuTens_1_1BaseMixingMatrix_1aa3c2a7084c0498f770565265d03aedba"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">build</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N6nuTens16BaseMixingMatrix5buildEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Should construct and return the mixing matrix. </p>
+</dd></dl>
+
+</div>
 </dd></dl>
 
 </section>
@@ -120,8 +129,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../classlist.html" class="btn btn-neutral float-left" title="Class list" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="classConstDensityMatterSolver.html" class="btn btn-neutral float-right" title="Class ConstDensityMatterSolver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="classnuTens_1_1BaseMatterSolver.html" class="btn btn-neutral float-left" title="Class nuTens::BaseMatterSolver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classnuTens_1_1ConstDensityMatterSolver.html" class="btn btn-neutral float-right" title="Class nuTens::ConstDensityMatterSolver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

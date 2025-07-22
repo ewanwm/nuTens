@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File pmns-matrix.hpp &mdash; nuTens  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="File propagator.cpp" href="propagator_8cpp.html" />
+    <link rel="prev" title="File nuTens-pch.hpp" href="nuTens-pch_8hpp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/nuTens-logo-small.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">🚀 Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">🖥️ For Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Profiling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📖 References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../cpp-api.html">c++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../classlist.html">Class list</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../filelist.html">File list</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="README_8md.html">File README.md</a></li>
+<li class="toctree-l3"><a class="reference internal" href="base-matter-solver_8hpp.html">File base-matter-solver.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="base-mixing-matrix_8hpp.html">File base-mixing-matrix.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="const-density-solver_8cpp.html">File const-density-solver.cpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="const-density-solver_8hpp.html">File const-density-solver.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="constants_8hpp.html">File constants.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dtypes_8hpp.html">File dtypes.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="instrumentation_8hpp.html">File instrumentation.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logging_8hpp.html">File logging.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nuTens-pch_8hpp.html">File nuTens-pch.hpp</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">File pmns-matrix.hpp</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv46nuTens"><code class="docutils literal notranslate"><span class="pre">nuTens</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="propagator_8cpp.html">File propagator.cpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="propagator_8hpp.html">File propagator.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tensor_8hpp.html">File tensor.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tf-tensor_8cpp.html">File tf-tensor.cpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch-tensor_8cpp.html">File torch-tensor.cpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="units_8hpp.html">File units.hpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../namespacelist.html">Namespace list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structlist.html">Struct list</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../python-api.html">Python API 🐍</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ewanwm/nuTens">GitHub 🔗</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nuTens</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../cpp-api.html">c++ API</a></li>
+          <li class="breadcrumb-item"><a href="../filelist.html">File list</a></li>
+      <li class="breadcrumb-item active">File pmns-matrix.hpp</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/breathe-apidoc/file/pmns-matrix_8hpp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="file-pmns-matrix-hpp">
+<h1>File pmns-matrix.hpp<a class="headerlink" href="#file-pmns-matrix-hpp" title="Link to this heading"></a></h1>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv46nuTens">
+<span id="_CPPv36nuTens"></span><span id="_CPPv26nuTens"></span><span id="nuTens"></span><span class="target" id="namespacenuTens"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nuTens</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="pmns-matrix_8hpp_1ac81aeefcb1c886c8bcadfa4829978ac7"></span><span class="sig-name descname"><span class="pre">const</span> <span class="pre">std::complex&lt;</span> <span class="pre">float</span> <span class="pre">&gt;</span> <span class="pre">imagUnit</span> <span class="pre">(0.0,</span> <span class="pre">1.0)</span></span></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrixE">
+<span id="_CPPv3N6nuTens10PMNSmatrixE"></span><span id="_CPPv2N6nuTens10PMNSmatrixE"></span><span id="nuTens::PMNSmatrix"></span><span class="target" id="classnuTens_1_1PMNSmatrix"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PMNSmatrix</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="base-matter-solver_8hpp.html#_CPPv46nuTens" title="nuTens"><span class="n"><span class="pre">nuTens</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../class/classnuTens_1_1BaseMixingMatrix.html#_CPPv4N6nuTens16BaseMixingMatrixE" title="nuTens::BaseMixingMatrix"><span class="n"><span class="pre">BaseMixingMatrix</span></span></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;pmns-matrix.hpp&gt;</em></div>
+<p>PMNS matrix in the standard parameterisation Convenient way to construct the matrix. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-unnamed-group">Unnamed Group</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrix16getTheta12TensorEv">
+<span id="_CPPv3N6nuTens10PMNSmatrix16getTheta12TensorEv"></span><span id="_CPPv2N6nuTens10PMNSmatrix16getTheta12TensorEv"></span><span id="nuTens::PMNSmatrix::getTheta12Tensor"></span><span class="target" id="classnuTens_1_1PMNSmatrix_1ac7f00d16ab8c97fb8d4c3fc8687e018d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getTheta12Tensor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Setters. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrix16getTheta13TensorEv">
+<span id="_CPPv3N6nuTens10PMNSmatrix16getTheta13TensorEv"></span><span id="_CPPv2N6nuTens10PMNSmatrix16getTheta13TensorEv"></span><span id="nuTens::PMNSmatrix::getTheta13Tensor"></span><span class="target" id="classnuTens_1_1PMNSmatrix_1a3e52c643f37cd29ea826d68ffd16f872"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getTheta13Tensor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrix16getTheta23TensorEv">
+<span id="_CPPv3N6nuTens10PMNSmatrix16getTheta23TensorEv"></span><span id="_CPPv2N6nuTens10PMNSmatrix16getTheta23TensorEv"></span><span id="nuTens::PMNSmatrix::getTheta23Tensor"></span><span class="target" id="classnuTens_1_1PMNSmatrix_1a8696795bfc9d51c924d75b06c6b66bb5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getTheta23Tensor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrix16getDeltaCPTensorEv">
+<span id="_CPPv3N6nuTens10PMNSmatrix16getDeltaCPTensorEv"></span><span id="_CPPv2N6nuTens10PMNSmatrix16getDeltaCPTensorEv"></span><span id="nuTens::PMNSmatrix::getDeltaCPTensor"></span><span class="target" id="classnuTens_1_1PMNSmatrix_1a93cc56747de7e6700b4b62e18b8f4cdf"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getDeltaCPTensor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrix10PMNSmatrixEv">
+<span id="_CPPv3N6nuTens10PMNSmatrix10PMNSmatrixEv"></span><span id="_CPPv2N6nuTens10PMNSmatrix10PMNSmatrixEv"></span><span id="nuTens::PMNSmatrix::PMNSmatrix"></span><span class="target" id="classnuTens_1_1PMNSmatrix_1ae40b768367df714f74a168cf0538ed45"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PMNSmatrix</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrix5buildEv">
+<span id="_CPPv3N6nuTens10PMNSmatrix5buildEv"></span><span id="_CPPv2N6nuTens10PMNSmatrix5buildEv"></span><span id="nuTens::PMNSmatrix::build"></span><span class="target" id="classnuTens_1_1PMNSmatrix_1a4ba580a40c6002ac8a4849e77e1e5a61"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">build</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Should construct and return the mixing matrix. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrix18setParameterValuesEffff">
+<span id="_CPPv3N6nuTens10PMNSmatrix18setParameterValuesEffff"></span><span id="_CPPv2N6nuTens10PMNSmatrix18setParameterValuesEffff"></span><span id="nuTens::PMNSmatrix::setParameterValues__float.float.float.float"></span><span class="target" id="classnuTens_1_1PMNSmatrix_1a165a5c345de9c25f0044b58d9183d5ee"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setParameterValues</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">theta12</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">theta13</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">theta23</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">deltaCP</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrix8_theta12E">
+<span id="_CPPv3N6nuTens10PMNSmatrix8_theta12E"></span><span id="_CPPv2N6nuTens10PMNSmatrix8_theta12E"></span><span id="nuTens::PMNSmatrix::_theta12__AccessedTensor:float.1.dtypes::kCPU:"></span><span class="target" id="classnuTens_1_1PMNSmatrix_1aa19f5fe008d5df63bd3249cb213b100a"></span><span class="n"><span class="pre">AccessedTensor</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_theta12</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">AccessedTensor</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">zeros</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">}</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4N6nuTens10PMNSmatrix8_theta12E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrix8_theta13E">
+<span id="_CPPv3N6nuTens10PMNSmatrix8_theta13E"></span><span id="_CPPv2N6nuTens10PMNSmatrix8_theta13E"></span><span id="nuTens::PMNSmatrix::_theta13__AccessedTensor:float.1.dtypes::kCPU:"></span><span class="target" id="classnuTens_1_1PMNSmatrix_1a9ddd1e07e1a3acbfe500e961f6404e46"></span><span class="n"><span class="pre">AccessedTensor</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_theta13</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">AccessedTensor</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">zeros</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">}</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4N6nuTens10PMNSmatrix8_theta13E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrix8_theta23E">
+<span id="_CPPv3N6nuTens10PMNSmatrix8_theta23E"></span><span id="_CPPv2N6nuTens10PMNSmatrix8_theta23E"></span><span id="nuTens::PMNSmatrix::_theta23__AccessedTensor:float.1.dtypes::kCPU:"></span><span class="target" id="classnuTens_1_1PMNSmatrix_1a41019ac64e6d5b126a9ba77b800b5f5d"></span><span class="n"><span class="pre">AccessedTensor</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_theta23</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">AccessedTensor</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">zeros</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">}</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4N6nuTens10PMNSmatrix8_theta23E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrix8_deltaCPE">
+<span id="_CPPv3N6nuTens10PMNSmatrix8_deltaCPE"></span><span id="_CPPv2N6nuTens10PMNSmatrix8_deltaCPE"></span><span id="nuTens::PMNSmatrix::_deltaCP__AccessedTensor:float.1.dtypes::kCPU:"></span><span class="target" id="classnuTens_1_1PMNSmatrix_1a6a5c9c6a41b12c62bd30593a89e0531c"></span><span class="n"><span class="pre">AccessedTensor</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_deltaCP</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">AccessedTensor</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceType4kCPUE" title="nuTens::dtypes::kCPU"><span class="n"><span class="pre">kCPU</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">zeros</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">}</span></span><span class="p"><span class="pre">)</span></span><a class="headerlink" href="#_CPPv4N6nuTens10PMNSmatrix8_deltaCPE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrix5_mat1E">
+<span id="_CPPv3N6nuTens10PMNSmatrix5_mat1E"></span><span id="_CPPv2N6nuTens10PMNSmatrix5_mat1E"></span><span id="nuTens::PMNSmatrix::_mat1__Tensor"></span><span class="target" id="classnuTens_1_1PMNSmatrix_1a1830867ee6e93f1252fcb998a5a82318"></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_mat1</span></span></span><a class="headerlink" href="#_CPPv4N6nuTens10PMNSmatrix5_mat1E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrix5_mat2E">
+<span id="_CPPv3N6nuTens10PMNSmatrix5_mat2E"></span><span id="_CPPv2N6nuTens10PMNSmatrix5_mat2E"></span><span id="nuTens::PMNSmatrix::_mat2__Tensor"></span><span class="target" id="classnuTens_1_1PMNSmatrix_1aa18284b4ed382ece767320e361995cfc"></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_mat2</span></span></span><a class="headerlink" href="#_CPPv4N6nuTens10PMNSmatrix5_mat2E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrix5_mat3E">
+<span id="_CPPv3N6nuTens10PMNSmatrix5_mat3E"></span><span id="_CPPv2N6nuTens10PMNSmatrix5_mat3E"></span><span id="nuTens::PMNSmatrix::_mat3__Tensor"></span><span class="target" id="classnuTens_1_1PMNSmatrix_1aaa6cc4c32f174b234b5c9ae43eca9228"></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_mat3</span></span></span><a class="headerlink" href="#_CPPv4N6nuTens10PMNSmatrix5_mat3E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrix7_matrixE">
+<span id="_CPPv3N6nuTens10PMNSmatrix7_matrixE"></span><span id="_CPPv2N6nuTens10PMNSmatrix7_matrixE"></span><span id="nuTens::PMNSmatrix::_matrix__Tensor"></span><span class="target" id="classnuTens_1_1PMNSmatrix_1af8336cf479dd3cf4be813a56f9ca8f96"></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_matrix</span></span></span><a class="headerlink" href="#_CPPv4N6nuTens10PMNSmatrix7_matrixE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nuTens-pch_8hpp.html" class="btn btn-neutral float-left" title="File nuTens-pch.hpp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="propagator_8cpp.html" class="btn btn-neutral float-right" title="File propagator.cpp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Ewan Miller.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
