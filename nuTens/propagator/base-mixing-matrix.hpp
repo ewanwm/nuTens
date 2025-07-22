@@ -1,3 +1,5 @@
+#pragma once
+
 #include <nuTens/tensors/tensor.hpp>
 
 namespace nuTens

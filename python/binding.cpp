@@ -14,6 +14,8 @@
 #include <nuTens/tensors/dtypes.hpp>
 #include <nuTens/tensors/tensor.hpp>
 #include <tests/barger-propagator.hpp>
+#include <nuTens/propagator/base-mixing-matrix.hpp>
+#include <nuTens/propagator/pmns-matrix.hpp>
 
 #if USE_PYTORCH
 #include <torch/torch.h>
@@ -330,6 +332,23 @@ void initPropagator(py::module &m)
             "Get the density used by the solver"
         )
         ;
+
+
+    py::class_<BaseMixingMatrix, std::shared_ptr<BaseMixingMatrix>>(m_propagator, "BaseMixingMatrix")
+        .def("build", (&BaseMixingMatrix::build))
+        ;
+
+     py::class_<PMNSmatrix, std::shared_ptr<PMNSmatrix>, BaseMixingMatrix>(
+        m_propagator, "PMNSmatrix")
+        .def(py::init<>())
+        .def("set_parameter_values", (&PMNSmatrix::setParameterValues),
+            py::arg("theta_12"), py::arg("theta_13"), py::arg("theta_23"), py::arg("delta_cp"))
+        .def("get_theta_12_tensor", (&PMNSmatrix::getTheta12Tensor), py::return_value_policy::reference)
+        .def("get_theta_13_tensor", (&PMNSmatrix::getTheta13Tensor), py::return_value_policy::reference)
+        .def("get_theta_23_tensor", (&PMNSmatrix::getTheta23Tensor), py::return_value_policy::reference)
+        .def("get_delta_cp_tensor", (&PMNSmatrix::getDeltaCPTensor), py::return_value_policy::reference)
+        ;
+
 }
 
 void initDtypes(py::module &m)

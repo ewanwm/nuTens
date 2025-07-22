@@ -1,3 +1,5 @@
+#pragma once
+
 #include <nuTens/propagator/base-mixing-matrix.hpp>
 #include <nuTens/tensors/tensor.hpp>
 
