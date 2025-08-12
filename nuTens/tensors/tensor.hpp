@@ -789,6 +789,49 @@ class AccessedTensor: public Tensor {
         
 };
 
+
+// Specialisations of value getters for complex values
+// needs to be specialised outside the body of the class
+template <> 
+inline std::complex<float> Tensor::getValue<std::complex<float>>(const std::vector<int> &indices) const
+{
+    NT_PROFILE();
+
+    return static_cast<std::complex<float>>(
+        _tensor.index(convertIndices(indices)).item<c10::complex<float>>()
+    );
+}
+
+template <> 
+inline std::complex<double> Tensor::getValue<std::complex<double>>(const std::vector<int> &indices) const
+{
+    NT_PROFILE();
+
+    return static_cast<std::complex<double>>(
+        _tensor.index(convertIndices(indices)).item<c10::complex<double>>()
+    );
+}
+
+template <> 
+inline std::complex<float> Tensor::getValue<std::complex<float>>() const
+{
+    NT_PROFILE();
+
+    return static_cast<std::complex<float>>(
+        _tensor.item<c10::complex<float>>()
+    );
+}
+
+template <> 
+inline std::complex<double> Tensor::getValue<std::complex<double>>() const
+{
+    NT_PROFILE();
+
+    return static_cast<std::complex<double>>(
+        _tensor.item<c10::complex<double>>()
+    );
+}
+
 #endif
 
 };
