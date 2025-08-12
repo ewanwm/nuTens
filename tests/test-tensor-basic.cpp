@@ -2,6 +2,7 @@
 #include <nuTens/tensors/dtypes.hpp>
 #include <nuTens/tensors/tensor.hpp>
 
+#include <complex>
 #include <gtest/gtest.h>
 
 /*
