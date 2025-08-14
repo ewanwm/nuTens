@@ -339,6 +339,8 @@ Tensor Tensor::scale(const Tensor &t, std::complex<float> s)
 {
     NT_PROFILE();
 
+    assert(t._dType == dtypes::kComplexFloat | t._dType == dtypes::kComplexDouble);
+
     Tensor ret;
     ret.setTensor(torch::multiply(t._tensor, c10::complex<float>(s.real(), s.imag())));
     return ret;
@@ -347,6 +349,8 @@ Tensor Tensor::scale(const Tensor &t, std::complex<float> s)
 Tensor Tensor::scale(const Tensor &t, std::complex<double> s)
 {
     NT_PROFILE();
+
+    assert(t._dType == dtypes::kComplexFloat | t._dType == dtypes::kComplexDouble);
 
     Tensor ret;
     ret.setTensor(torch::multiply(t._tensor, c10::complex<double>(s.real(), s.imag())));
