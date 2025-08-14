@@ -16,9 +16,11 @@ using namespace nuTens;
 TEST(Tensor, TensorCreationFloat) {
 
     Tensor zero = Tensor::zeros({1}, dtypes::kFloat, dtypes::kCPU, false);
+    std::cout << "zero tensor: " << zero << std::endl;
     ASSERT_EQ(zero.getValue<float>(), 0.0);
 
     Tensor one = Tensor::ones({1}, dtypes::kFloat, dtypes::kCPU, false);
+    std::cout << "one tensor: " << one << std::endl;
     ASSERT_EQ(one.getValue<float>(), 1.0);
 
     Tensor three = Tensor({3.0}, dtypes::kFloat, dtypes::kCPU, false);
@@ -26,173 +28,174 @@ TEST(Tensor, TensorCreationFloat) {
 
     Tensor diagonal = Tensor({0.0, 1.0, 2.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor diagTensor = Tensor::diag(diagonal);
-    ASSERT_EQ(diagTensor.getValue<float>({0}), 0.0);
-    ASSERT_EQ(diagTensor.getValue<float>({1}), 1.0);
-    ASSERT_EQ(diagTensor.getValue<float>({2}), 2.0);
+    std::cout << "diagonal tensor: \n" << diagTensor << std::endl;
+    ASSERT_EQ(diagTensor.getValue<float>({0, 0}), 0.0);
+    ASSERT_EQ(diagTensor.getValue<float>({1, 1}), 1.0);
+    ASSERT_EQ(diagTensor.getValue<float>({2, 2}), 2.0);
+
+    ASSERT_EQ(diagTensor.getValue<float>({0, 1}), 0.0);
+    ASSERT_EQ(diagTensor.getValue<float>({0, 2}), 0.0);
+    ASSERT_EQ(diagTensor.getValue<float>({1, 0}), 0.0);
+    ASSERT_EQ(diagTensor.getValue<float>({1, 2}), 0.0);
+    ASSERT_EQ(diagTensor.getValue<float>({2, 0}), 0.0);
+    ASSERT_EQ(diagTensor.getValue<float>({2, 1}), 0.0);
 
     Tensor eye = Tensor::eye(2, dtypes::kFloat, dtypes::kCPU, false);
+    std::cout << "identity tensor: " << eye << std::endl;
     ASSERT_EQ(eye.getValue<float>({0,0}), 1.0);
     ASSERT_EQ(eye.getValue<float>({1,1}), 1.0);
     ASSERT_EQ(eye.getValue<float>({0,1}), 0.0);
     ASSERT_EQ(eye.getValue<float>({1,0}), 0.0);
 }
 
+// test manipulation of elements of tensor
+TEST(Tensor, ElementMapipulation) {
+
+    auto tensorFloat = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+
+    tensorFloat.setValue({0,0}, 0.0);
+    tensorFloat.setValue({0,1}, 1.0);
+    
+    tensorFloat.setValue({1,0}, 2.0);
+    tensorFloat.setValue({1,1}, 3.0);
+
+    std::cout << "Test matrix: \n" << tensorFloat << std::endl;
+
+    // test slicing
+    Tensor slice = tensorFloat.getValues({1, "..."});
+    ASSERT_EQ(slice.getValue<float>({0}), 2.0);
+    ASSERT_EQ(slice.getValue<float>({1}), 3.0);
+
+}
 
 // check some basic arithmetic
 TEST(Tensor, simpleArithmeticFloat) {
 
+    // test simple addition
     Tensor one = Tensor::ones({1}, dtypes::kFloat, dtypes::kCPU, false);
     ASSERT_EQ((one + one).getValue<float>(), 2.0);
     ASSERT_EQ((one - one).getValue<float>(), 0.0);
 
+    // test multiplication of scalars
     Tensor ten  = Tensor({10.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor five = Tensor({5.0}, dtypes::kFloat, dtypes::kCPU, false);
     ASSERT_EQ(Tensor::div(ten, five).getValue<float>(), 2.0);
     ASSERT_EQ(Tensor::mul(ten, five).getValue<float>(), 50.0);
     ASSERT_EQ(Tensor::pow(ten, 2.0).getValue<float>(), 100.0);
 
+    // test sqrt
     Tensor four = Tensor({4.0}, dtypes::kFloat, dtypes::kCPU, false);
-    ASSERT_EQ(Tensor::pow(ten, 0.5).getValue<float>(), 2.0);
+    ASSERT_EQ(Tensor::pow(four, 0.5).getValue<float>(), 2.0);
 
-    ASSERT_EQ(Tensor::scale(one, 1.234).getValue<float>(), 1.234);
+    // test scaling by float
+    ASSERT_NEAR(Tensor::scale(one, 1.234).getValue<float>(), 1.234, 1e-6);
 }
 
 // check some basic arithmetic
 TEST(Tensor, simpleArithmeticComplexFloat) {
 
+    // test addition for complex value with real component
     Tensor one = Tensor::ones({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
     ASSERT_EQ((one + one).getValue<std::complex<float>>(), std::complex<float>(2.0, 0.0));
     ASSERT_EQ((one - one).getValue<std::complex<float>>(), std::complex<float>(0.0, 0.0));
 
+    // check that sqrt -1 = i
+    ASSERT_EQ((Tensor::pow(-one, 0.5)).getValue<std::complex<float>>(), std::complex<float>(0.0, -1.0));
+
+    // imag unit to use in testing
+    Tensor imag = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    imag.setValue({0}, std::complex<float>(0.0, 1.0));
+
+    // check that i^2 = -1
+    ASSERT_EQ((Tensor::pow(imag, 2.0)).getValue<std::complex<float>>(), std::complex<float>(-1.0, 0.0));
+
+    // test addition
+    ASSERT_EQ((one + imag).getValue<std::complex<float>>(), std::complex<float>(1.0, 1.0));
+
+    // test multiplication by real scalar
+    Tensor ten  = Tensor({10.0}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor five = Tensor({5.0}, dtypes::kFloat, dtypes::kCPU, false);
+    ASSERT_EQ(Tensor::div(imag, five).getValue<std::complex<float>>(), std::complex<float>(0.0, 0.2));
+    ASSERT_EQ(Tensor::mul(imag, five).getValue<std::complex<float>>(), std::complex<float>(0.0, 5.0));
+
+    // test scaling by real float
+    ASSERT_EQ(Tensor::scale(imag, 1.234f).getValue<std::complex<float>>(), std::complex<float>(0.0, 1.234));
+
+    // test scaling by complex float
+    ASSERT_EQ(Tensor::scale(imag, std::complex<float>(1.0, 1.0)).getValue<std::complex<float>>(), std::complex<float>(-1.0, 1.0));
+
+    // test complex operations
+    ASSERT_EQ(imag.imag().getValue<float>(), 1.0);
+    ASSERT_EQ(imag.real().getValue<float>(), 0.0);
+    ASSERT_EQ((one + imag).conj(), (one - imag));
+
 }
 
-int main()
-{
-    NT_PROFILE_BEGINSESSION("tensor-basic-test");
+// check standard functions of real tensors
+TEST(Tensor, StandardFunctionsFloat) {
 
-    NT_PROFILE();
-
-    std::cout << "Tensor library: " << Tensor::getTensorLibrary() << std::endl;
-
-    std::cout << "########################################" << std::endl;
-    std::cout << "Float: " << std::endl;
-    auto tensorFloat = AccessedTensor<double, 2, dtypes::kCPU>::zeros({3, 3}).requiresGrad(false);
-    tensorFloat.setValue(0.0, 0, 0);
-    tensorFloat.setValue(1.0, 0, 1);
-    tensorFloat.setValue(2.0, 0, 2);
+    float theta = 1.234;
+    Tensor thetaTensor = Tensor({theta}, dtypes::kComplexFloat, dtypes::kCPU, false);
     
-    tensorFloat.setValue(3.0, 1, 0);
-    tensorFloat.setValue(4.0, 1, 1);
-    tensorFloat.setValue(5.0, 1, 2);
+    ASSERT_EQ(Tensor::sin(thetaTensor).getValue<float>(), std::sin(theta));
+    ASSERT_EQ(Tensor::cos(thetaTensor).getValue<float>(), std::cos(theta));
+    ASSERT_EQ(Tensor::exp(thetaTensor).getValue<float>(), std::exp(theta));
+
+}
+
+// test matrix operations for real tensor
+TEST(Tensor, MatrixFloat) {
+
+    auto tensorFloat = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    auto eye = Tensor::eye(2, dtypes::kFloat, dtypes::kCPU, false);
+
+    tensorFloat.setValue({0,0}, 0.0);
+    tensorFloat.setValue({0,1}, 1.0);
     
-    tensorFloat.setValue(6.0, 2, 0);
-    tensorFloat.setValue(7.0, 2, 1);
-    tensorFloat.setValue(8.0, 2, 2);
-    std::cout << "tensor: " << std::endl << tensorFloat << std::endl;
-    std::cout << "Middle value: " << tensorFloat.getValue(1, 1) << std::endl;
-    std::cout << "tensorFloat({'...', 1}) = " << tensorFloat.getValues({1, "..."}) << std::endl;
+    tensorFloat.setValue({1,0}, 2.0);
+    tensorFloat.setValue({1,1}, 3.0);
 
-    Tensor realSquared = Tensor::matmul(tensorFloat, tensorFloat);
-    std::cout << "Squared: " << std::endl;
-    std::cout << realSquared << std::endl;
-    std::cout << "########################################" << std::endl << std::endl;
+    std::cout << "Test matrix: \n" << tensorFloat << std::endl;
 
-    std::cout << "########################################" << std::endl;
-    std::cout << "Complex float: " << std::endl;
-    Tensor tensorComplex = Tensor::zeros({3, 3}, dtypes::kComplexFloat).requiresGrad(false);
-    tensorComplex.setValue({0, 0}, std::complex<float>(0.0J));
-    tensorComplex.setValue({0, 1}, std::complex<float>(1.0J));
-    tensorComplex.setValue({0, 2}, std::complex<float>(2.0J));
+    // test matrix multiplication
+    Tensor squared = Tensor::matmul(tensorFloat, tensorFloat);
+    ASSERT_EQ(squared.getValue<float>({0,0}), 2.0);
+    ASSERT_EQ(squared.getValue<float>({0,1}), 3.0);
+    ASSERT_EQ(squared.getValue<float>({1,0}), 6.0);
+    ASSERT_EQ(squared.getValue<float>({1,1}), 11.0);
 
-    tensorComplex.setValue({1, 0}, std::complex<float>(3.0J));
-    tensorComplex.setValue({1, 1}, std::complex<float>(4.0J));
-    tensorComplex.setValue({1, 2}, std::complex<float>(5.0J));
+    // test multiplication by identity matrix
+    ASSERT_EQ(Tensor::matmul(eye, tensorFloat).getValue<float>({0,0}), 0.0);
+    ASSERT_EQ(Tensor::matmul(eye, tensorFloat).getValue<float>({0,1}), 1.0);
+    ASSERT_EQ(Tensor::matmul(eye, tensorFloat).getValue<float>({1,0}), 2.0);
+    ASSERT_EQ(Tensor::matmul(eye, tensorFloat).getValue<float>({1,1}), 3.0);
 
-    tensorComplex.setValue({2, 0}, std::complex<float>(6.0J));
-    tensorComplex.setValue({2, 1}, std::complex<float>(7.0J));
-    tensorComplex.setValue({2, 2}, std::complex<float>(8.0J));
+    // test matrix addition
+    ASSERT_EQ((tensorFloat + tensorFloat).getValue<float>({0,0}), 0.0);
+    ASSERT_EQ((tensorFloat + tensorFloat).getValue<float>({0,1}), 2.0);
+    ASSERT_EQ((tensorFloat + tensorFloat).getValue<float>({1,0}), 4.0);
+    ASSERT_EQ((tensorFloat + tensorFloat).getValue<float>({1,1}), 6.0);
 
-    std::cout << "real: " << std::endl << tensorComplex.real() << std::endl;
-    std::cout << "imag: " << std::endl << tensorComplex.imag() << std::endl << std::endl;
+    // test transpose
+    ASSERT_EQ((Tensor::transpose(tensorFloat, 0,1)).getValue<float>({0,0}), 0.0);
+    ASSERT_EQ((Tensor::transpose(tensorFloat, 0,1)).getValue<float>({1,0}), 1.0);
+    ASSERT_EQ((Tensor::transpose(tensorFloat, 0,1)).getValue<float>({0,1}), 2.0);
+    ASSERT_EQ((Tensor::transpose(tensorFloat, 0,1)).getValue<float>({1,1}), 3.0);
 
-    std::cout << "Complex conjugate: " << std::endl;
-    std::cout << "real: " << std::endl << tensorComplex.conj().real() << std::endl;
-    std::cout << "imag: " << std::endl << tensorComplex.conj().imag() << std::endl << std::endl;
+    // test outer product of two vectors
+    Tensor vec1 = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor vec2 = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
 
-    if (tensorComplex.imag() != -tensorComplex.conj().imag())
-    {
-        std::cerr << std::endl;
-        std::cerr << "ERROR: Im(complex.conj()) != - Im(complex) " << std::endl;
-        std::cerr << std::endl;
-        return 1;
-    }
+    vec1.setValue({0}, 1.0);
+    vec1.setValue({1}, 2.0);
+    vec2.setValue({0}, 3.0);
+    vec2.setValue({1}, 4.0);
 
-    Tensor imagSquared = Tensor::matmul(tensorComplex, tensorComplex);
-    std::cout << "Squared: " << std::endl;
-    std::cout << imagSquared << std::endl;
-    std::cout << "########################################" << std::endl << std::endl;
-
-    // check if the real matrix squared is equal to the -ve of the imaginary one
-    // squared
-    if (realSquared != -imagSquared.real())
-    {
-        std::cerr << std::endl;
-        std::cerr << "real**2 != -imaginary**2" << std::endl;
-        std::cerr << std::endl;
-        return 1;
-    }
-
-    Tensor ones = Tensor::ones({3, 3}, dtypes::kFloat);
-    Tensor twos = ones + ones;
-
-    std::cout << "ones + ones: " << std::endl;
-    std::cout << twos << std::endl;
-
-    // check that adding works
-    if (twos.getValue<float>({1, 1}) != 2.0)
-    {
-        std::cerr << std::endl;
-        std::cerr << "ERROR: 1 + 1 != 2 !!!!" << std::endl;
-        std::cerr << std::endl;
-        return 1;
-    }
-
-    // ######### test some of the basic autograd functionality ###########
-
-    // first just a simple test of scaling by a constant factor
-    Tensor ones_scaleTest = Tensor::ones({2, 2}).dType(dtypes::kFloat).requiresGrad(true);
-    Tensor threes = Tensor::scale(ones_scaleTest, 3.0).sum();
-    threes.backward();
-    Tensor grad = ones_scaleTest.grad();
-    std::cout << "Gradient of 2x2 ones multiplied by 3: " << std::endl;
-    std::cout << grad << std::endl << std::endl;
-
-    if ((grad.getValue<float>({0, 0}) != 3.0) || (grad.getValue<float>({0, 1}) != 3.0) ||
-        (grad.getValue<float>({1, 0}) != 3.0) || (grad.getValue<float>({1, 1}) != 3.0))
-    {
-        std::cerr << std::endl;
-        std::cerr << "ERROR: unexpected gradient when scaling by constant!!!!" << std::endl;
-        std::cerr << std::endl;
-        return 1;
-    }
-
-    Tensor complexGradTest = Tensor::zeros({2, 2}, dtypes::kComplexFloat).requiresGrad(false);
-    complexGradTest.setValue({0, 0}, std::complex<float>(0.0 + 0.0J));
-    complexGradTest.setValue({0, 1}, std::complex<float>(0.0 + 1.0J));
-    complexGradTest.setValue({1, 0}, std::complex<float>(1.0 + 0.0J));
-    complexGradTest.setValue({1, 1}, std::complex<float>(1.0 + 1.0J));
-    complexGradTest.requiresGrad(true);
-
-    Tensor complexGradSquared = Tensor::matmul(complexGradTest, complexGradTest).sum();
-    std::cout << "sum(complexTest **2): " << std::endl;
-    std::cout << complexGradSquared.real().getValue<float>() << " + " << complexGradSquared.imag().getValue<float>()
-              << "i" << std::endl;
-    complexGradSquared.backward();
-    std::cout << "complex test gradient: " << std::endl;
-    std::cout << "  Real: " << std::endl;
-    std::cout << complexGradTest.grad().real() << std::endl;
-    std::cout << "  Imag: " << std::endl;
-    std::cout << complexGradTest.grad().imag() << std::endl << std::endl;
-
-    NT_PROFILE_ENDSESSION();
+    Tensor outer = Tensor::outer(vec1, vec2);
+    
+    ASSERT_EQ(outer.getValue<float>({0,0}), 3.0);
+    ASSERT_EQ(outer.getValue<float>({0,1}), 4.0);
+    ASSERT_EQ(outer.getValue<float>({1,0}), 6.0);
+    ASSERT_EQ(outer.getValue<float>({1,1}), 8.0);
+    
 }
