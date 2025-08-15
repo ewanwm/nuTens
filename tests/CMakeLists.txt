@@ -12,9 +12,8 @@ include(GoogleTest)
 
 foreach(TESTNAME 
     test-barger 
-    test-tensor-basic 
-    test-two-flavour-vacuum 
-    test-two-flavour-const-matter 
+    test-tensor
+    test-two-flavour-osc
     test-two-flavour-const-matter-anti-nu
 )
 
