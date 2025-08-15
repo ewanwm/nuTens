@@ -15,6 +15,7 @@ foreach(TESTNAME
     test-tensor
     test-two-flavour-osc
     test-pmns-matrix
+    test-DP-propagator
 )
 
     add_executable("${TESTNAME}" "${TESTNAME}.cpp")
