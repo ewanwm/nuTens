@@ -2,7 +2,7 @@ enable_testing()
 
 add_library(
     test-utils 
-    test-utils.hpp barger-propagator.hpp
+    barger-propagator.hpp
 )
 
 target_link_libraries(test-utils PUBLIC constants m)

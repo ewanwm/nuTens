@@ -6,7 +6,6 @@ namespace gtest = ::testing;
 #include <nuTens/propagator/propagator.hpp>
 #include <tests/barger-propagator.hpp>
 #include <nuTens/propagator/const-density-solver.hpp>
-#include <tests/test-utils.hpp>
 
 using namespace nuTens;
 using namespace nuTens::testing;
@@ -32,9 +31,9 @@ protected:
         energy = 0.5 * units::GeV;
         baseline = 295.0 * units::km;
 
-        masses = Tensor({m1, m2}, dtypes::kFloat).addBatchDim();
+        masses = Tensor({m1, m2}, dtypes::kComplexFloat).addBatchDim();
 
-        energies = Tensor::ones({1, 1}, dtypes::kFloat).requiresGrad(false);
+        energies = Tensor::ones({1, 1}, dtypes::kComplexFloat).requiresGrad(false);
         energies.setValue({0, 0}, energy);
 
         density = 2.6;

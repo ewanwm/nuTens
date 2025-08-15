@@ -1,7 +1,6 @@
 #include <iostream>
 #include <nuTens/propagator/units.hpp>
 #include <tests/barger-propagator.hpp>
-#include <tests/test-utils.hpp>
 
 #include <gtest/gtest.h>
 
