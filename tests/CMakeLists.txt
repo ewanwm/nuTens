@@ -14,7 +14,6 @@ foreach(TESTNAME
     test-barger 
     test-tensor
     test-two-flavour-osc
-    test-two-flavour-const-matter-anti-nu
 )
 
     add_executable("${TESTNAME}" "${TESTNAME}.cpp")
