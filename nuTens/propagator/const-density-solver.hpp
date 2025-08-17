@@ -42,7 +42,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
         BaseMatterSolver(nGenerations, antiNeutrino),
         density(density)
     {
-        diagMassMatrix = Tensor::zeros({1, nGenerations, nGenerations}, dtypes::kFloat).requiresGrad(false);
+        diagMassMatrix = Tensor::zeros({1, nGenerations, nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
     };
 
     /// @name Setters
