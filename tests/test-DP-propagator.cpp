@@ -2,7 +2,6 @@
 #include <nuTens/propagator/DP-propagator.hpp>
 #include <nuTens/propagator/const-density-solver.hpp>
 #include <tests/barger-propagator.hpp>
-#include <tests/test-utils.hpp>
 #include <nuTens/tensors/tensor.hpp>
 
 // nuFast c++ implementation
@@ -78,19 +77,18 @@ int main()
     float density = 2.6;
 
     // set the tensors we will use to calculate matter eigenvalues
-    Tensor masses = Tensor({m1, m2, m3}, dtypes::kFloat).addBatchDim().requiresGrad(true);
+    Tensor masses = Tensor({m1, m2, m3}, dtypes::kComplexFloat).addBatchDim().requiresGrad(true);
 
     auto theta23 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
     auto theta13 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
     auto theta12 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
     auto deltaCP = Tensor::zeros({1}).dType(dtypes::kComplexFloat).requiresGrad(false);
 
-    Tensor dmsq21 = Tensor({m2 * m2}, dtypes::kFloat).requiresGrad(true);
-    Tensor dmsq31 = Tensor({m3 * m3}, dtypes::kFloat).requiresGrad(true);
+    Tensor dmsq21 = Tensor({m2 * m2}, dtypes::kComplexFloat).requiresGrad(true);
+    Tensor dmsq31 = Tensor({m3 * m3}, dtypes::kComplexFloat).requiresGrad(true);
 
-    Tensor energies = Tensor::ones({1, 1}, dtypes::kFloat).requiresGrad(false).hasBatchDim(true);
+    Tensor energies = Tensor::ones({1, 1}, dtypes::kComplexFloat).requiresGrad(false).hasBatchDim(true);
     energies.setValue({0, 0}, energy);
-    energies.requiresGrad(true);
 
     Propagator tensorPropagator(3, baseline);
     auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
