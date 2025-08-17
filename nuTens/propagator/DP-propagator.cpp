@@ -124,17 +124,17 @@ Tensor DPpropagator::calculateProbs()
 	// Calculate the three necessary probabilities, separating CPC and CPV //
 	// ------------------------------------------------------------------- //
 	Tensor Pme_CPC = (Ut3sq - Um2sq * Ue1sq - Um1sq * Ue2sq) * sinsqD21_2
-			+ (Ut2sq - Um3sq * Ue1sq - Um1sq * Ue3sq) * sinsqD31_2
-			+ (Ut1sq - Um3sq * Ue2sq - Um2sq * Ue3sq) * sinsqD32_2;
+			       + (Ut2sq - Um3sq * Ue1sq - Um1sq * Ue3sq) * sinsqD31_2
+			       + (Ut1sq - Um3sq * Ue2sq - Um2sq * Ue3sq) * sinsqD32_2;
 	Tensor Pme_CPV = -Jmatter * triple_sin;
 
 	Tensor Pmm = one - (Um2sq * Um1sq * sinsqD21_2
-				 + Um3sq * Um1sq * sinsqD31_2
-				 + Um3sq * Um2sq * sinsqD32_2) * 2.0;
+				      + Um3sq * Um1sq * sinsqD31_2
+				      + Um3sq * Um2sq * sinsqD32_2) * 2.0;
 
 	Tensor Pee = one - (Ue2sq * Ue1sq * sinsqD21_2
-				 + Ue3sq * Ue1sq * sinsqD31_2
-				 + Ue3sq * Ue2sq * sinsqD32_2) * 2.0;
+				      + Ue3sq * Ue1sq * sinsqD31_2
+				      + Ue3sq * Ue2sq * sinsqD32_2) * 2.0;
 
 
 	Tensor probsRet = Tensor::zeros({_energies.getShape()[0], 3, 3}).requiresGrad(false);

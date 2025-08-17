@@ -123,14 +123,14 @@ class DPpropagator : public Propagator
 
   private:
 
-    Tensor theta12 = Tensor::zeros({1}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor theta13 = Tensor::zeros({1}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor theta23 = Tensor::zeros({1}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor theta12 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    Tensor theta13 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    Tensor theta23 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
 
-    Tensor deltaCP = Tensor::zeros({1}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor deltaCP = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
 
-    Tensor dmsq21 = Tensor::zeros({1}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor dmsq31 = Tensor::zeros({1}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor dmsq21 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    Tensor dmsq31 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
 
     int NRiterations;
     float _density;
