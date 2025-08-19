@@ -3,6 +3,7 @@
 #include <nuTens/propagator/const-density-solver.hpp>
 #include <tests/barger-propagator.hpp>
 #include <nuTens/tensors/tensor.hpp>
+#include <nuTens/utils/logging.hpp>
 
 // nuFast c++ implementation
 #include <tests/nuFast.hpp>
@@ -69,7 +70,7 @@ int main()
 
     NT_PROFILE();
 
-    float m1 = 0.0;
+    float m1 = 0.0001 * units::eV;
     float m2 = 0.008 * units::eV;
     float m3 = 0.02 * units::eV;
     float energy = 0.5 * units::GeV;
@@ -84,8 +85,8 @@ int main()
     auto theta12 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
     auto deltaCP = Tensor::zeros({1}).dType(dtypes::kComplexFloat).requiresGrad(false);
 
-    Tensor dmsq21 = Tensor({m2 * m2}, dtypes::kComplexFloat).requiresGrad(true);
-    Tensor dmsq31 = Tensor({m3 * m3}, dtypes::kComplexFloat).requiresGrad(true);
+    Tensor dmsq21 = Tensor({m1 * m1 - m2 * m2}, dtypes::kComplexFloat).requiresGrad(true);
+    Tensor dmsq31 = Tensor({m1 * m1 - m3 * m3}, dtypes::kComplexFloat).requiresGrad(true);
 
     Tensor energies = Tensor::ones({1, 1}, dtypes::kComplexFloat).requiresGrad(false).hasBatchDim(true);
     energies.setValue({0, 0}, energy);
@@ -100,6 +101,8 @@ int main()
     dpPropagator.setEnergies(energies);
 
     PMNSmatrix pmns;
+
+    ThreeFlavourBarger barger;
     
     // test that Propagator gives expected oscillation probabilites for a range
     // of thetas
@@ -120,7 +123,12 @@ int main()
 
         tensorPropagator.setMixingMatrix(pmns.matrix);
         dpPropagator.setParameters(theta12, theta23, theta13, deltaCP, dmsq21, dmsq31);
-
+        barger.setParams(
+            masses.getValue<float>({0, 0}), masses.getValue<float>({0, 1}), masses.getValue<float>({0, 2}), 
+            theta12.getValue(0), theta13.getValue(0), theta23.getValue(0), 
+            deltaCP.getValue<float>(),
+            baseline, density, /*antiNeutrino=*/false
+        );
 
         // #######################################################################################
         std:: cout << std::endl << "---------------------------------------------------------" << std::endl;
@@ -140,17 +148,40 @@ int main()
         auto calcV2 = eigenVals.getValue<float>({0, 1});
         auto calcV3 = eigenVals.getValue<float>({0, 2});
 
-        float effM1sq = calcV1 * 2.0 * energy;
-        float effM2sq = calcV2 * 2.0 * energy;
-        float effM3sq = calcV3 * 2.0 * energy;
-        
-        std::cout << "tensor eff M1^2: " << effM1sq << std::endl;
-        std::cout << "tensor eff M2^2: " << effM2sq << std::endl;
-        std::cout << "tensor eff M3^2: " << effM3sq << std::endl;
+        float effDm21sq = (calcV2 - calcV1) * 2.0 * energy;
+        float effDm31sq = (calcV3 - calcV1) * 2.0 * energy;
+
+        std::cout << "tensor eff M1^2: " << calcV1 * 2.0 * energy << std::endl;
+        std::cout << "tensor eff M2^2: " << calcV2 * 2.0 * energy << std::endl;
+        std::cout << "tensor eff M3^2: " << calcV3 * 2.0 * energy << std::endl;
+
+        std::cout << "tensor eff Dm21^2: " << effDm21sq << std::endl;
+        std::cout << "tensor eff Dm31^2: " << effDm31sq << std::endl;
+
+        std::cout << std::endl;
+
+        Tensor lambda1, lambda2, lambda3, Dlambda21, Dlambda31, Dlambda32;
+        dpPropagator.calculateEigenvalues(lambda1, lambda2, lambda3, Dlambda21, Dlambda31, Dlambda32);
+
+        std::cout << "DP eff M1^2: " << lambda1.getValue<float>({0}) << std::endl;
+        std::cout << "DP eff M2^2: " << lambda2.getValue<float>({0}) << std::endl;
+        std::cout << "DP eff M3^2: " << lambda3.getValue<float>({0}) << std::endl;
+
+        std::cout << "DP eff Dm21^2: " << Dlambda21.getValue<float>({0}) << std::endl;
+        std::cout << "DP eff Dm31^2: " << Dlambda31.getValue<float>({0}) << std::endl;
+
+        std::cout << std::endl;
+
+        std::cout << "Barger eff M1^2: " << barger.calculateEffectiveM2(energy, 0) << std::endl;
+        std::cout << "Barger eff M2^2: " << barger.calculateEffectiveM2(energy, 1) << std::endl;
+        std::cout << "Barger eff M3^2: " << barger.calculateEffectiveM2(energy, 2) << std::endl;
+
+        std::cout << "Barger eff Dm21^2: " << barger.calculateEffectiveM2(energy, 1) - barger.calculateEffectiveM2(energy, 0) << std::endl;
+        std::cout << "Barger eff Dm31^2: " << barger.calculateEffectiveM2(energy, 2) - barger.calculateEffectiveM2(energy, 0) << std::endl;
 
         
         // ##########################################################################################
-        
+
         Tensor probabilities = tensorPropagator.calculateProbs();
         Tensor dpProbabilities = dpPropagator.calculateProbs();
         
@@ -158,20 +189,6 @@ int main()
 
         std::cout << "probs:" << probabilities << std::endl;
         std::cout << "dpProbs:" << dpProbabilities << std::endl;
-        
-        std::cout << "Oscillation probabilities:" << std::endl;
-        std::cout << "general propagator[0,0]: " << probabilities.getValue<float>({0, 0, 0}) << " :: DP propagator[0,0]: " << dpProbabilities.getValue<float>({0, 0, 0}) << std::endl;
-        std::cout << "general propagator[0,1]: " << probabilities.getValue<float>({0, 0, 1}) << " :: DP propagator[1,0]: " << dpProbabilities.getValue<float>({0, 1, 0}) << std::endl;
-        std::cout << "general propagator[0,2]: " << probabilities.getValue<float>({0, 0, 2}) << " :: DP propagator[2,0]: " << dpProbabilities.getValue<float>({0, 2, 0}) << std::endl;
-        
-        std::cout << "general propagator[1,0]: " << probabilities.getValue<float>({0, 1, 0}) << " :: DP propagator[0,1]: " << dpProbabilities.getValue<float>({0, 0, 1}) << std::endl;
-        std::cout << "general propagator[1,1]: " << probabilities.getValue<float>({0, 1, 1}) << " :: DP propagator[1,1]: " << dpProbabilities.getValue<float>({0, 1, 1}) << std::endl;
-        std::cout << "general propagator[1,2]: " << probabilities.getValue<float>({0, 1, 2}) << " :: DP propagator[2,1]: " << dpProbabilities.getValue<float>({0, 2, 1}) << std::endl;
-        
-        std::cout << "general propagator[2,0]: " << probabilities.getValue<float>({0, 2, 0}) << " :: DP propagator[0,2]: " << dpProbabilities.getValue<float>({0, 0, 2}) << std::endl;
-        std::cout << "general propagator[2,1]: " << probabilities.getValue<float>({0, 2, 1}) << " :: DP propagator[1,2]: " << dpProbabilities.getValue<float>({0, 1, 2}) << std::endl;
-        std::cout << "general propagator[2,2]: " << probabilities.getValue<float>({0, 2, 2}) << " :: DP propagator[2,2]: " << dpProbabilities.getValue<float>({0, 2, 2}) << std::endl;
-        
 
         double probs_returned[3][3];
         Probability_Matter_LBL(
@@ -179,8 +196,8 @@ int main()
             std::sin(theta13.getValue(0)) * std::sin(theta13.getValue(0)),
             std::sin(theta23.getValue(0)) * std::sin(theta23.getValue(0)), 
             deltaCP.getValue<float>(), 
-            m2 * m2,
-            m3 * m3,
+            m1 * m1 - m2 * m2,
+            m1 * m1 - m3 * m3,
             baseline / units::km,
             energies.getValue<float>() / units::GeV, 
             1.0, 
@@ -188,20 +205,16 @@ int main()
             10, 
             &probs_returned
         );
-
-        std::cout << "Oscillation probabilities:" << std::endl;
-        std::cout << "[0,0] :: nuFast: " << probs_returned[0][0] << std::endl;
-        std::cout << "[0,1] :: nuFast: " << probs_returned[0][1] << std::endl;
-        std::cout << "[0,2] :: nuFast: " << probs_returned[0][2] << std::endl;
         
-        std::cout << "[1,0] :: nuFast: " << probs_returned[1][0] << std::endl;
-        std::cout << "[1,1] :: nuFast: " << probs_returned[1][1] << std::endl;
-        std::cout << "[1,2] :: nuFast: " << probs_returned[1][2] << std::endl;
-        
-        std::cout << "[2,0] :: nuFast: " << probs_returned[2][0] << std::endl;
-        std::cout << "[2,1] :: nuFast: " << probs_returned[2][1] << std::endl;
-        std::cout << "[2,2] :: nuFast: " << probs_returned[2][2] << std::endl;
-        
+        NT_INFO("[0, 0] :: propagator: {0:.4f} :: DP propagator: {1:.4f} :: nuFast: {2:.4f}", probabilities.getValue<float>({0, 0, 0}), dpProbabilities.getValue<float>({0, 0, 0}), probs_returned[0][0]);
+        NT_INFO("[0, 1] :: propagator: {0:.4f} :: DP propagator: {1:.4f} :: nuFast: {2:.4f}", probabilities.getValue<float>({0, 0, 1}), dpProbabilities.getValue<float>({0, 1, 0}), probs_returned[1][0]);
+        NT_INFO("[0, 2] :: propagator: {0:.4f} :: DP propagator: {1:.4f} :: nuFast: {2:.4f}", probabilities.getValue<float>({0, 0, 2}), dpProbabilities.getValue<float>({0, 2, 0}), probs_returned[2][0]);
+        NT_INFO("[1, 0] :: propagator: {0:.4f} :: DP propagator: {1:.4f} :: nuFast: {2:.4f}", probabilities.getValue<float>({0, 1, 0}), dpProbabilities.getValue<float>({0, 0, 1}), probs_returned[0][1]);
+        NT_INFO("[1, 1] :: propagator: {0:.4f} :: DP propagator: {1:.4f} :: nuFast: {2:.4f}", probabilities.getValue<float>({0, 1, 1}), dpProbabilities.getValue<float>({0, 1, 1}), probs_returned[1][1]);
+        NT_INFO("[1, 2] :: propagator: {0:.4f} :: DP propagator: {1:.4f} :: nuFast: {2:.4f}", probabilities.getValue<float>({0, 1, 2}), dpProbabilities.getValue<float>({0, 2, 1}), probs_returned[2][1]);
+        NT_INFO("[2, 0] :: propagator: {0:.4f} :: DP propagator: {1:.4f} :: nuFast: {2:.4f}", probabilities.getValue<float>({0, 2, 0}), dpProbabilities.getValue<float>({0, 0, 2}), probs_returned[0][2]);
+        NT_INFO("[2, 1] :: propagator: {0:.4f} :: DP propagator: {1:.4f} :: nuFast: {2:.4f}", probabilities.getValue<float>({0, 2, 1}), dpProbabilities.getValue<float>({0, 1, 2}), probs_returned[1][2]);
+        NT_INFO("[2, 2] :: propagator: {0:.4f} :: DP propagator: {1:.4f} :: nuFast: {2:.4f}", probabilities.getValue<float>({0, 2, 2}), dpProbabilities.getValue<float>({0, 2, 2}), probs_returned[2][2]);
         
         // TEST_EXPECTED(probabilities.getValue<float>({0, 0, 0}), dpProbabilities.getValue<float>({0, 0, 0}),
         //               "probability for alpha == beta == 0", 0.00001)
