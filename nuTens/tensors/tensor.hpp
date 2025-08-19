@@ -117,6 +117,9 @@ class Tensor
     /// @brief If the tensor does not already have a batch dimension (as set by hasBatchDim()) this will add one
     Tensor &addBatchDim();
 
+    /// @brief add new dimension to the tensor at a particular index
+    Tensor &unsqueeze(int index);
+
     /// @name Matrix Arithmetic
     /// Generally there are static functions with the pattern <function>(Mat1,
     /// Mat2) which will return a new matrix and inline equivalents with the
@@ -264,6 +267,12 @@ class Tensor
     bool operator!=(const Tensor &rhs) const;
     Tensor operator+(const Tensor &rhs) const;
     Tensor operator-(const Tensor &rhs) const;
+    Tensor operator+(double rhs) const;
+    Tensor operator-(double rhs) const;
+    Tensor operator*(const Tensor &rhs) const;
+    Tensor operator*(double rhs) const;
+    Tensor operator/(const Tensor &rhs) const;
+    Tensor operator/(double rhs) const;
     Tensor operator-() const;
     /// @}
 
@@ -579,6 +588,17 @@ class AccessedTensor: public Tensor {
 
         return *this;
     }
+
+    /// @brief add new dimension to the tensor at a particular index
+    inline AccessedTensor &unsqueeze(int index) 
+    {
+        NT_PROFILE();
+
+        _tensor = torch::unsqueeze(_tensor, index);
+
+        return *this;
+    }
+
 
     /// @brief Construct an identity tensor (has to be a 2d square tensor)
     /// @arg n The size of one of the sides of the tensor

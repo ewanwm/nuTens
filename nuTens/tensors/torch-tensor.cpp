@@ -133,6 +133,15 @@ Tensor &Tensor::addBatchDim()
     return *this;
 }
 
+Tensor &Tensor::unsqueeze(int index)
+{
+    NT_PROFILE();
+
+    _tensor = torch::unsqueeze(_tensor, index);
+
+    return *this;
+}
+
 Tensor Tensor::getValues(const std::vector<Tensor::indexType> &indices) const
 {
     NT_PROFILE();
@@ -532,6 +541,15 @@ Tensor Tensor::operator+(const Tensor &rhs) const
     return ret;
 }
 
+Tensor Tensor::operator+(double rhs) const
+{
+    NT_PROFILE();
+
+    Tensor ret;
+    ret.setTensor(_tensor + rhs);
+    return ret;
+}
+
 Tensor Tensor::operator-(const Tensor &rhs) const
 {
     NT_PROFILE();
@@ -541,12 +559,57 @@ Tensor Tensor::operator-(const Tensor &rhs) const
     return ret;
 }
 
+Tensor Tensor::operator-(double rhs) const
+{
+    NT_PROFILE();
+
+    Tensor ret;
+    ret.setTensor(_tensor - rhs);
+    return ret;
+}
+
 Tensor Tensor::operator-() const
 {
     NT_PROFILE();
 
     Tensor ret;
     ret.setTensor(-_tensor);
+    return ret;
+}
+
+Tensor Tensor::operator*(const Tensor &rhs) const
+{
+    NT_PROFILE();
+
+    Tensor ret;
+    ret.setTensor(_tensor * rhs._tensor);
+    return ret;
+}
+
+Tensor Tensor::operator*(double rhs) const
+{
+    NT_PROFILE();
+
+    Tensor ret;
+    ret.setTensor(_tensor * rhs);
+    return ret;
+}
+
+Tensor Tensor::operator/(const Tensor &rhs) const
+{
+    NT_PROFILE();
+
+    Tensor ret;
+    ret.setTensor(_tensor / rhs._tensor);
+    return ret;
+}
+
+Tensor Tensor::operator/(double rhs) const
+{
+    NT_PROFILE();
+
+    Tensor ret;
+    ret.setTensor(_tensor / rhs);
     return ret;
 }
 
