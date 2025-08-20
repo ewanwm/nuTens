@@ -130,28 +130,33 @@ should allow these files to be found
 CMake Configuration Options
 ---------------------------
 
-======================  ===============================================   =======
-Option                  Description                                       Default
-======================  ===============================================   =======
-NT_COMPILE_TESTS        Whether or not to compile the test library        ON
-NT_ENABLE_PYTHON        Enable compilation of the python interface        OFF
-======================  ===============================================   =======
+=========================  ============================================================================  =======
+Option                     Description                                                                   Default
+=========================  ============================================================================  =======
+NT_USE_TORCH               Use torch as the backend for dealing with tensors                             ON
+NT_TORCH_FROM_PIP          If it is not found, torch will be installed using pip                         ON
+NT_ALLOW_GLOBAL_PYTHON_ENV Allow installing pip packages in global python environment (Not recommended)  OFF
+NT_COMPILE_TESTS           Whether or not to compile the test library                                    ON
+NT_ENABLE_PYTHON           Enable compilation of the python interface                                    OFF
+=========================  ============================================================================  =======
 
 For Developers
 ^^^^^^^^^^^^^^
 
 These options are a bit more "advanced" and probably only of interest to anyone actually writing nuTens library code.
 
-======================  ===================================================================   =======
-Option                  Description                                                           Default
-======================  ===================================================================   =======
-NT_ENABLE_BENCHMARKING  Whether or not to compile benchmark executables                       OFF
-NT_BUILD_TIMING         Whether or not to time the build process                              OFF
-NT_LOG_LEVEL            Set the log level to one of <SILENT ERROR WARNING INFO DEBUG TRACE>   INFO
-NT_PROFILING            Enable profiling (see :ref:`profiling`)                               OFF
-NT_TEST_COVERAGE        Add flags to allow checking of test coverage                          OFF
-NT_USE_PCH              Use precompiled headers to speed up the build process                 OFF
-======================  ===================================================================   =======
+======================  =====================================================================================================================================================================================   =======
+Option                  Description                                                                                                                                                                             Default
+======================  =====================================================================================================================================================================================   =======
+NT_TORCH_FROM_SCRATCH   If it is not found, torch will be compiled from scratch using CPM (very slow but maybe useful for debugging builds)                                                                      OFF
+NT_ENABLE_BENCHMARKING  Whether or not to compile benchmark executables                                                                                                                                         OFF
+NT_BUILD_TIMING         Whether or not to time the build process                                                                                                                                                OFF
+NT_LOG_LEVEL            Set the log level to one of <SILENT ERROR WARNING INFO DEBUG TRACE>                                                                                                                     INFO
+NT_PROFILING            Enable profiling (see :ref:`profiling`)                                                                                                                                                 OFF
+NT_TEST_COVERAGE        Add flags to allow checking of test coverage                                                                                                                                            OFF
+NT_USE_PCH              Use precompiled headers to speed up the build process                                                                                                                                   OFF
+BUILD_SHARED_LIBS       Whether or not to build shared libraries or static (not compatible with NT_ENABLE_PYTHON which requires static libraries. If both are specified BUILD SHARED_LIBS will be set to OFF)   ON
+======================  =====================================================================================================================================================================================   =======
 
 Building Against nuTens
 -----------------------
