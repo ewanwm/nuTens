@@ -17,7 +17,7 @@ namespace units
     static constexpr double MeV = 1e6; // eV
     static constexpr double GeV = 1e9; // eV
 
-    static constexpr double m = 5.07614213198e6; // eV^-1 
+    static constexpr double m = 5.07614213198e6; // eV^-1
     static constexpr double cm = 1e-2 * m; // eV^-1
     static constexpr double km = 1e3  * m; // eV^-1
 
