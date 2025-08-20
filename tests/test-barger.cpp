@@ -11,7 +11,7 @@ using namespace nuTens::testing;
 
 TEST(TwoFlavourBargerPropTest, zeroThetaNoOscTest) {
   
-    constexpr float baseline = 500.0 * units::km;
+    constexpr float baseline = 5.0e12;
 
     TwoFlavourBarger bargerProp{};
 
@@ -36,7 +36,7 @@ TEST(TwoFlavourBargerPropTest, zeroThetaNoOscTest) {
 
 TEST(TwoFlavourBargerPropTest, zeroDmsqNoOscTest) {
   
-    constexpr float baseline = 500.0 * units::km;
+    constexpr float baseline = 5.0e12;
 
     TwoFlavourBarger bargerProp{};
 
@@ -65,54 +65,59 @@ TEST(TwoFlavourBargerPropTest, fixedValuesTest) {
 
     // now check for fixed parameters values against externally calculated values
 
-    // theta = pi/8, m1 = 1, m2 = 2, E = 3, L = 4
-    // => prob_(alpha != beta) = sin^2(Pi/4) * sin^2(1) = 0.35403670913
-    //    prob_(alpha == beta) =      1 - 0.35403670913 = 0.64596329086
+    // theta = pi/8, dm^2 = 0.01 eV E = 1 GeV L = 100 km
+    // => prob_(alpha != beta) = sin^2(2 theta) * sin^2( 1.27 * dm^2 * L / E [ eV^2 km / GeV] )
+    //
+    //                         = sin^2(Pi/4) * sin^2( 1.27 * 0.01 * 100 / 1 ) = 0.4561088222
+    // 
+    //    prob_(alpha == beta) =      1 - 0.4561088222 = 0.5438911778
 
-    bargerProp.setParams(/*m1=*/1.0, /*m2=*/2.0, /*theta=*/M_PI / 8.0,
-                         /*baseline=*/4.0);
+    bargerProp.setParams(/*m1=*/0.0, /*m2=*/0.1, /*theta=*/M_PI / 8.0,
+                         /*baseline=*/100.0 * units::km );
 
-    ASSERT_NEAR(bargerProp.calculateProb(3.0, 0, 0), 0.64596329086, 1e-5);
+    ASSERT_NEAR(bargerProp.calculateProb(1.0 * units::GeV, 0, 0), 0.5438911778, 1e-3);
 
-    ASSERT_NEAR(bargerProp.calculateProb(3.0, 1, 1), 0.64596329086, 1e-5);
+    ASSERT_NEAR(bargerProp.calculateProb(1.0 * units::GeV, 1, 1), 0.5438911778, 1e-3);
 
-    ASSERT_NEAR(bargerProp.calculateProb(3.0, 0, 1), 0.35403670913, 1e-5);
+    ASSERT_NEAR(bargerProp.calculateProb(1.0 * units::GeV, 0, 1), 0.4561088222, 1e-3);
 
-    ASSERT_NEAR(bargerProp.calculateProb(3.0, 1, 0), 0.35403670913, 1e-5);
+    ASSERT_NEAR(bargerProp.calculateProb(1.0 * units::GeV, 1, 0), 0.4561088222, 1e-3);
 
 
     // ##############################################################
     // ## Now test matter propagations for some fixed param values ##
     // ##############################################################
 
-    // theta = 0.24, m1 = 0.04eV, m2 = 0.001eV, E = 1GeV, L = 500km, density = 2
+    // theta = 0.24, m1 = 0.04eV, m2 = 0.001eV, E = 1GeV, L = 250 km, density = 2
     // lv = 4pi * E / dm^2 = 7.8588934e+12 
-    // lm = 2pi / ( sqrt(2) * G * density ) = 2.0588727e+13 
+    // lm = 2pi / ( sqrt(2) * G * density ) = 4.1177454e+13 
     // gamma = atan( sin( 2theta ) / (cos( 2theta ) - lv / lm) ) / 2.0
-    //       = atan(0.91389598537 ) / 2 = 0.370219805 rad
+    //       = atan(0.663342 ) / 2 = 0.292848614 rad
     // dM2 = dm^2 * sqrt( 1 - 2 * (lv / lm) * cos(2theta) + (lv / lm)^2)
-    //     = 0.00109453
+    //     = 0.001599 * sqrt ( 1 - 2 * 0.19085428 * 0.8869949 +  0.19085428 ^2)
+    //     = 0.001335765
     //
-    // => prob_(alpha != beta) = sin^2(2*gamma) * sin^2((L / E) * dM2/4 )
-    //                         = 0.186410
-    //    prob_(alpha == beta) =      1 - 0.186410  = 0.81359
+    // => prob_(alpha != beta) = sin^2(2*gamma) * sin^2( 1.27 (L / E) * dM2 )
+    //                         = sin^2( 2 * 0.292848614 ) * sin^2( 1.27 * 250 / 1 * 0.001599)
+    //                         = 0.0517436
+    //    prob_(alpha == beta) =      1 - 0.0517436  = 0.9482564
 
     bargerProp.setParams(/*m1=*/0.04, /*m2=*/0.001, /*theta=*/0.24,
-                         /*baseline=*/500.0 * units::km, /*density=*/2.0);
+                         /*baseline=*/250 * units::km, /*density=*/2.0);
 
-    ASSERT_NEAR(bargerProp.lv(1.0 * units::GeV), 7.8588934e+12, 1e6) << "vacuum osc length";
+    ASSERT_NEAR(bargerProp.lv(1.0e9), 7.8588934e+12, 1e6) << "vacuum osc length";
 
-    ASSERT_NEAR(bargerProp.lm(), 2.0588727e+13, 1e6) <<  "matter osc length";
+    ASSERT_NEAR(bargerProp.lm(), 4.1177454e+13 , 1e6) <<  "matter osc length";
 
-    ASSERT_NEAR(bargerProp.calculateEffectiveAngle(1.0 * units::GeV), 0.370219805, 0.00001) << "effective mixing angle";
+    ASSERT_NEAR(bargerProp.calculateEffectiveAngle(1.0e9), 0.292848614, 0.00001) << "effective mixing angle";
 
-    ASSERT_NEAR(bargerProp.calculateEffectiveDm2(1.0 * units::GeV), 0.00109453, 0.00001) << "effective m^2 diff";
+    ASSERT_NEAR(bargerProp.calculateEffectiveDm2(1.0e9), 0.001335765, 0.00001) << "effective m^2 diff";
 
-    ASSERT_NEAR(bargerProp.calculateProb(1.0 * units::GeV, 0, 0), 0.81359, 0.00001) << "probability for alpha == beta == 0";
+    ASSERT_NEAR(bargerProp.calculateProb(1.0e9, 0, 0), 0.9482564, 1e-3) << "probability for alpha == beta == 0";
 
-    ASSERT_NEAR(bargerProp.calculateProb(1.0 * units::GeV, 1, 1), 0.81359, 0.00001) << "probability for alpha == beta == 1";
+    ASSERT_NEAR(bargerProp.calculateProb(1.0e9, 1, 1), 0.9482564, 1e-3) << "probability for alpha == beta == 1";
 
-    ASSERT_NEAR(bargerProp.calculateProb(1.0 * units::GeV, 0, 1), 0.186410, 0.00001) << "probability for alpha == 0, beta == 1";
+    ASSERT_NEAR(bargerProp.calculateProb(1.0e9, 0, 1), 0.0517436, 1e-3) << "probability for alpha == 0, beta == 1";
 
-    ASSERT_NEAR(bargerProp.calculateProb(1.0 * units::GeV, 1, 0), 0.186410, 0.00001) << "probability for alpha == 1, beta == 0";
+    ASSERT_NEAR(bargerProp.calculateProb(1.0e9, 1, 0), 0.0517436, 1e-3) << "probability for alpha == 1, beta == 0";
 }
