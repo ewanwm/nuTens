@@ -1,0 +1,441 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tensors &mdash; nuTens  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../_static/tabs.js?v=3030b3cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Propagator" href="propagator.html" />
+    <link rel="prev" title="Quick Start Guide" href="quick-start-guide.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/nuTens-logo-small.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">🚀 Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="quick-start-guide.html">Quick Start Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tensors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-tensors">Creating Tensors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-values">Setting Values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrieving-values">Retrieving Values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#units">Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tensor-operations">Tensor Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#automatic-differentiation">Automatic Differentiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#oscillation-spectrum-example">Oscillation Spectrum Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="propagator.html">Propagator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matter-solvers.html">Matter Solvers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📖 References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user-manual.html">User Manual 📗</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp-api.html">c++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-api.html">Python API 🐍</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ewanwm/nuTens">GitHub 🔗</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ewanwm/nuTens/tree/main/examples">Examples 🔗</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">🖥️ For Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Testing 🧪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html#profiling">Profiling 📊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html#benchmarking">Benchmarking 📉</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html#precompiled-headers">Precompiled Headers 🗿</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">nuTens</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="quick-start-guide.html">Quick Start Guide</a></li>
+      <li class="breadcrumb-item active">Tensors</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/quick-start-guide/tensors.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tensors">
+<h1>Tensors<a class="headerlink" href="#tensors" title="Link to this heading"></a></h1>
+<p>The interface for tensors in nuTens is <em>heavily</em> inspired by pyTorch tensors. This is mainly because nuTens tensors are essentially little more than a wrapper around a pytorch tensor.
+Thus, it is recommended that you familiarise yourself a bit with pytorch and pytorch tensors.
+They provide some very nice resources to do this including <a class="reference external" href="https://docs.pytorch.org/tutorials/beginner/introyt/tensors_deeper_tutorial.html">videos and tutorials</a> which are very helpful.</p>
+<p>Here we will give a specific example of using nuTens tensors, with more of a focus on neutrino oscillations, by “manually” calculating oscillation probabilities for the simple case of two neutrino flavours.</p>
+<section id="creating-tensors">
+<h2>Creating Tensors<a class="headerlink" href="#creating-tensors" title="Link to this heading"></a></h2>
+<p>The Tensor class provides a number of static creator methods to build tensors. These are the preferred way to initialise tensors and you should avoid directly creating them yourself.
+The creator methods are</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>c++</p></th>
+<th class="head"><p>Python</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Tensor::eye</p></td>
+<td><p><a class="reference internal" href="../python-api/tensor.html#nuTens.tensor.Tensor.eye" title="nuTens.tensor.Tensor.eye"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nuTens.tensor.Tensor.eye()</span></code></a></p></td>
+<td><p>Creates an identity tensor (ones along the diagonal, zeros everywhere else)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tensor::rand</p></td>
+<td><p><a class="reference internal" href="../python-api/tensor.html#nuTens.tensor.Tensor.rand" title="nuTens.tensor.Tensor.rand"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nuTens.tensor.Tensor.rand()</span></code></a></p></td>
+<td><p>Creates a tensor with random elements (in the range [0.0, 1.0])</p></td>
+</tr>
+<tr class="row-even"><td><p>Tensor::diag</p></td>
+<td><p><a class="reference internal" href="../python-api/tensor.html#nuTens.tensor.Tensor.diag" title="nuTens.tensor.Tensor.diag"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nuTens.tensor.Tensor.diag()</span></code></a></p></td>
+<td><p>Creates a tensor with specified values along the diagonal</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tensor::zeros</p></td>
+<td><p><a class="reference internal" href="../python-api/tensor.html#nuTens.tensor.Tensor.zeros" title="nuTens.tensor.Tensor.zeros"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nuTens.tensor.Tensor.zeros()</span></code></a></p></td>
+<td><p>Creates a tensor filled with zeros</p></td>
+</tr>
+<tr class="row-even"><td><p>Tensor::ones</p></td>
+<td><p><a class="reference internal" href="../python-api/tensor.html#nuTens.tensor.Tensor.ones" title="nuTens.tensor.Tensor.ones"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nuTens.tensor.Tensor.ones()</span></code></a></p></td>
+<td><p>Creates a tensor filled with ones</p></td>
+</tr>
+</tbody>
+</table>
+<p>Let’s create a single entry tensor that we will use as the mixing angle for our 2-flavour neutrino mixing example.
+We have to specify the shape, data type, and a device for the tensor to live on, and also specify whether or not gradients will be required for this tensor (these can be changed later with setter methods).
+Whether or not gradients are needed for a tensor generally depends where it sits in the computational “chain”, generally this should only be true for tensors which sit at the very start of a computation, e.g. the input oscillation parameters for your oscillation models.
+Basically for anyhing you will want to know the gradient of some other quantity with respect to, this should be true.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-Qysr" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Qysr" name="Qysr" role="tab" tabindex="0">C++</button><button aria-controls="panel-0-UHl0aG9u" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="-1">Python</button></div><div aria-labelledby="tab-0-Qysr" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-Qysr" name="Qysr" role="tabpanel" tabindex="0"><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/tensors/tensor.hpp&gt;</span>
+
+<span class="n">Tensor</span><span class="w"> </span><span class="n">theta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Tensor</span><span class="o">::</span><span class="n">zeros</span><span class="p">(</span><span class="cm">/*shape=*/</span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="cm">/*dtype=*/</span><span class="n">NTdtypes</span><span class="o">::</span><span class="n">kFloat</span><span class="p">,</span><span class="w"> </span><span class="cm">/*device=*/</span><span class="n">NTdtypes</span><span class="o">::</span><span class="n">kCPU</span><span class="p">,</span><span class="w"> </span><span class="cm">/*requiresGrad=*/</span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nuTens.tensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">nuTens</span><span class="w"> </span><span class="kn">import</span> <span class="n">dtype</span>
+
+<span class="n">theta</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="o">.</span><span class="n">scalar_type</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dtype</span><span class="o">.</span><span class="n">device_type</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+<p>As mentioned above, we can change the dtype, device and requiresGrad options using the provided setter methods</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>c++</p></th>
+<th class="head"><p>Python</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Tensor::dType</p></td>
+<td><p><a class="reference internal" href="../python-api/tensor.html#nuTens.tensor.Tensor.dtype" title="nuTens.tensor.Tensor.dtype"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nuTens.tensor.Tensor.dtype()</span></code></a></p></td>
+<td><p>Set the data type of the tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tensor::device</p></td>
+<td><p><a class="reference internal" href="../python-api/tensor.html#nuTens.tensor.Tensor.device" title="nuTens.tensor.Tensor.device"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nuTens.tensor.Tensor.device()</span></code></a></p></td>
+<td><p>Move the tensor to another device</p></td>
+</tr>
+<tr class="row-even"><td><p>Tensor::requiresGrad</p></td>
+<td><p><a class="reference internal" href="../python-api/tensor.html#nuTens.tensor.Tensor.requires_grad" title="nuTens.tensor.Tensor.requires_grad"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nuTens.tensor.Tensor.requires_grad()</span></code></a></p></td>
+<td><p>Set whether gradients are required for this tensor</p></td>
+</tr>
+</tbody>
+</table>
+<p>These setter methods can be chained together to create tensors, as an alternative way of achieving the same result above</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-Qysr" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Qysr" name="Qysr" role="tab" tabindex="0">C++</button><button aria-controls="panel-1-UHl0aG9u" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="-1">Python</button></div><div aria-labelledby="tab-1-Qysr" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-Qysr" name="Qysr" role="tabpanel" tabindex="0"><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/tensors/tensor.hpp&gt;</span>
+
+<span class="n">Tensor</span><span class="w"> </span><span class="n">theta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Tensor</span><span class="o">::</span><span class="n">zeros</span><span class="p">(</span><span class="cm">/*shape=*/</span><span class="p">{</span><span class="mi">1</span><span class="p">}).</span><span class="n">dtype</span><span class="p">(</span><span class="n">NTdtypes</span><span class="o">::</span><span class="n">kFloat</span><span class="p">).</span><span class="n">device</span><span class="p">(</span><span class="n">NTdtypes</span><span class="o">::</span><span class="n">kCPU</span><span class="p">).</span><span class="n">requiresGrad</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nuTens.tensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">nuTens</span><span class="w"> </span><span class="kn">import</span> <span class="n">dtype</span>
+
+<span class="n">theta</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">dtype</span><span class="o">.</span><span class="n">scalar_type</span><span class="o">.</span><span class="n">float</span><span class="p">)</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">dtype</span><span class="o">.</span><span class="n">device_type</span><span class="o">.</span><span class="n">cpu</span><span class="p">)</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="setting-values">
+<h2>Setting Values<a class="headerlink" href="#setting-values" title="Link to this heading"></a></h2>
+<p>Setting single values of a tensor is simply a case of calling the setValue method (set_value in python), providing the index of the element, and the new value.
+Note however, that if the tensor has the <cite>requires gradient</cite> attribute set to true, then it must be set to false before altering the values (then it can be re-enabled after setting is done).</p>
+<p>Lets set the value in our <span class="math notranslate nohighlight">\(\theta\)</span> tensor to <span class="math notranslate nohighlight">\(\frac{ \pi }{ 8 }\)</span>:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-Qysr" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Qysr" name="Qysr" role="tab" tabindex="0">C++</button><button aria-controls="panel-2-UHl0aG9u" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="-1">Python</button></div><div aria-labelledby="tab-2-Qysr" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-Qysr" name="Qysr" role="tabpanel" tabindex="0"><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">theta</span><span class="p">.</span><span class="n">requiresGrad</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+
+<span class="n">theta</span><span class="p">.</span><span class="n">setValue</span><span class="p">({</span><span class="mi">0</span><span class="p">},</span><span class="w"> </span><span class="n">M_PI</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">8.0</span><span class="p">);</span>
+
+<span class="n">theta</span><span class="p">.</span><span class="n">requiresGrad</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-2-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">m</span>
+
+<span class="n">theta</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">(</span><span class="n">Talse</span><span class="p">)</span>
+
+<span class="n">theta</span><span class="o">.</span><span class="n">set_value</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="n">m</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">8.0</span><span class="p">)</span>
+
+<span class="n">theta</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As in pyTorch, nuTens supports more complex “slicing” of tensors too.
+You can read more about this in the <a class="reference internal" href="../user-manual.html#indexing"><span class="std std-ref">Indexing</span></a> section of the user manual.</p>
+</div>
+<p>If you are using the c++ interface, and will be performing a large number of these setValue operations on single elements of your tensor, for example inside of a loop, it may be faster to use an AccessedTensor.
+You can read more about these in <a class="reference internal" href="../user-manual.html#accessed-tensors"><span class="std std-ref">Accessed Tensors</span></a></p>
+<p>We can inspect our tensor to check that the value has been set by printing it using the <cite>toString</cite> method (<cite>to_string</cite> in python):</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-Qysr" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Qysr" name="Qysr" role="tab" tabindex="0">C++</button><button aria-controls="panel-3-UHl0aG9u" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="-1">Python</button></div><div aria-labelledby="tab-3-Qysr" class="sphinx-tabs-panel code-tab group-tab" id="panel-3-Qysr" name="Qysr" role="tabpanel" tabindex="0"><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">tensor</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-3-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-3-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div></div>
+<p>which will give us</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">0.7854</span>
+<span class="p">[</span> <span class="n">CPUFloatType</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="retrieving-values">
+<h2>Retrieving Values<a class="headerlink" href="#retrieving-values" title="Link to this heading"></a></h2>
+<p>Individual values can be retrieved from tensors using the <cite>getValue</cite> (<cite>get_value</cite> in python) method:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In c++ this method is templated, so that the return type can be known at compile time, but in python there is no such condition.</p>
+</div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-Qysr" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-Qysr" name="Qysr" role="tab" tabindex="0">C++</button><button aria-controls="panel-4-UHl0aG9u" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="-1">Python</button></div><div aria-labelledby="tab-4-Qysr" class="sphinx-tabs-panel code-tab group-tab" id="panel-4-Qysr" name="Qysr" role="tabpanel" tabindex="0"><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">float</span><span class="w"> </span><span class="n">thetaValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">theta</span><span class="p">.</span><span class="n">getValue</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">({</span><span class="mi">0</span><span class="p">});</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;theta as float = &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">thetaValue</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-4-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-4-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">theta_value</span> <span class="o">=</span> <span class="n">theta</span><span class="o">.</span><span class="n">get_value</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;theta as float = </span><span class="si">{</span><span class="n">theta_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">theta</span> <span class="k">as</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.7853981852531433</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As with setting values, slicing is also implemented for retrieving values.
+See <a class="reference internal" href="../user-manual.html#indexing"><span class="std std-ref">Indexing</span></a> for more details.</p>
+</div>
+</section>
+<section id="units">
+<h2>Units<a class="headerlink" href="#units" title="Link to this heading"></a></h2>
+<p>It is generally keeps things nice and simple to work with natural units in calculating neutrino oscillations.
+To this end, nuTens provides a number of standard units (which are really just conversion factors to eV).
+These can be found in <span class="xref std std-doc">../breathe-apidoc/file/units_8hpp.html</span> header file for c++, and the <a class="reference internal" href="../python-api/units.html#module-nuTens.units" title="nuTens.units"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nuTens.units</span></code></a> module in python.</p>
+</section>
+<section id="tensor-operations">
+<h2>Tensor Operations<a class="headerlink" href="#tensor-operations" title="Link to this heading"></a></h2>
+<p>nuTens exposes a subset of mathematical operations on tensors that are useful for neutrino oscillations.
+These typically have the signature <code class="docutils literal notranslate"><span class="pre">Tensor::&lt;function&gt;(tensor1)</span></code> for unary operators like <code class="docutils literal notranslate"><span class="pre">sin</span></code> and <code class="docutils literal notranslate"><span class="pre">cos</span></code>, or <code class="docutils literal notranslate"><span class="pre">Tensor::&lt;function&gt;(tensor1,</span> <span class="pre">tensor2)</span></code> for binary operators like addition or matrix multiplication, or <code class="docutils literal notranslate"><span class="pre">Tensor::&lt;function&gt;(tensor1,</span> <span class="pre">scalar)</span></code> for functions operating on a tensor and a scalar like scalar multiplication or division.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See the Tensor API page (<a class="reference internal" href="../breathe-apidoc/class/classTensor.html"><span class="doc">c++</span></a>, <a class="reference internal" href="../python-api/tensor.html"><span class="doc">python</span></a>) for a full list of available operations.</p>
+</div>
+<p>Here we will use some of these operations to calculate oscillation probabilities for our simple 2-flavour case.</p>
+<p>Lets calculate the two flavour oscillation probability from flavour a to flavour b using</p>
+<div class="math notranslate nohighlight">
+\[P_{a \rightarrow b}(E) = \sin^2(2\theta)\sin^2 \left( \frac{\Delta m^2 L}{ 4 E } \right)\]</div>
+<p>using a baseline of 295 km and an energy of 0.5 GeV, with a <span class="math notranslate nohighlight">\(\Delta m^2\)</span> of <span class="math notranslate nohighlight">\(20 \times 10 ^{-4}\)</span> eV</p>
+<p>and lets define</p>
+<div class="math notranslate nohighlight">
+\[\Phi \equiv \frac{\Delta m^2 L} { 4 E }\]</div>
+<p>for convenience</p>
+<p>Using nuTens tensors this looks like:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-Qysr" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-5-Qysr" name="Qysr" role="tab" tabindex="0">C++</button><button aria-controls="panel-5-UHl0aG9u" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-5-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="-1">Python</button></div><div aria-labelledby="tab-5-Qysr" class="sphinx-tabs-panel code-tab group-tab" id="panel-5-Qysr" name="Qysr" role="tabpanel" tabindex="0"><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/propagator/units.hpp&gt;</span>
+
+<span class="n">Tensor</span><span class="w"> </span><span class="n">sin2Theta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Tensor</span><span class="o">::</span><span class="n">sin</span><span class="p">(</span><span class="n">Tensor</span><span class="o">::</span><span class="n">scale</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">));</span>
+
+<span class="n">Tensor</span><span class="w"> </span><span class="n">sinSquared2Theta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Tensor</span><span class="o">::</span><span class="n">pow</span><span class="p">(</span><span class="n">sin2Theta</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">);</span>
+
+<span class="c1">// for now we will just use floats for the other variables</span>
+<span class="c1">// to keep things (relatively) simple</span>
+
+<span class="kt">float</span><span class="w"> </span><span class="n">dm2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Units</span><span class="o">::</span><span class="n">eV</span><span class="p">;</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">baseline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">295</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Units</span><span class="o">::</span><span class="n">km</span><span class="p">;</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Units</span><span class="o">::</span><span class="n">GeV</span><span class="p">;</span>
+
+<span class="kt">float</span><span class="w"> </span><span class="n">phi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dm2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">baseline</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="mf">4.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="p">);</span>
+
+<span class="kt">float</span><span class="w"> </span><span class="n">sinSquaredPhi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">);</span>
+
+<span class="n">Tensor</span><span class="w"> </span><span class="n">oscProb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Tensor</span><span class="o">::</span><span class="n">Scale</span><span class="p">(</span><span class="n">sinSquared2Theta</span><span class="p">,</span><span class="w"> </span><span class="n">sinSquaredPhi</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;oscillation probability = &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">oscProb</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-5-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-5-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nuTens</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span>
+
+<span class="n">sin_2_theta</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">))</span>
+
+<span class="n">sin_squared_2_theta</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">sin_2_theta</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
+
+<span class="c1"># for now we will just use floats for the other variables</span>
+<span class="c1"># to keep things (relatively) simple</span>
+
+<span class="n">dm2</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">eV</span>
+<span class="n">baseline</span> <span class="o">=</span> <span class="mi">295</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">km</span>
+<span class="n">energy</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">GeV</span>
+
+<span class="n">phi</span> <span class="o">=</span> <span class="n">dm2</span> <span class="o">*</span> <span class="n">baseline</span> <span class="o">/</span> <span class="p">(</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="n">energy</span> <span class="p">)</span>
+
+<span class="n">sin_squared_phi</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+
+<span class="n">osc_prob</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">sin_squared_2_theta</span><span class="p">,</span> <span class="n">sin_squared_phi</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;oscillation probability = </span><span class="si">{</span><span class="n">osc_prob</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+<p>which gives us</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">oscillation</span> <span class="n">probability</span> <span class="o">=</span>  <span class="mf">0.4973</span>
+<span class="p">[</span> <span class="n">CPUFloatType</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>as expected.</p>
+</section>
+<section id="automatic-differentiation">
+<h2>Automatic Differentiation<a class="headerlink" href="#automatic-differentiation" title="Link to this heading"></a></h2>
+<p>One of the most powerful tools offered by nuTens is the ability to perform automatic differentiation and extract the gradient of a calculated quantity with respect to any of its inputs.
+This is built on top of pytorch and so the process of extracting these gradients is very similar to the process there.</p>
+<p>In the example we have been using so far, we may want to extract the derivative of <span class="math notranslate nohighlight">\(P_{a \rightarrow b}\)</span> with respect to <span class="math notranslate nohighlight">\(\theta\)</span>.
+In order to do this, we would first need to make sure that the <code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">gradient</span></code> property of our <span class="math notranslate nohighlight">\(\theta\)</span> tensor has been set (which we have already done).</p>
+<p>We then call the <code class="code docutils literal notranslate"><span class="pre">.backward()</span></code> method on the quantity we want to differentiate (the <span class="math notranslate nohighlight">\(P_{a \rightarrow b}\)</span> tensor)</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-Qysr" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-6-Qysr" name="Qysr" role="tab" tabindex="0">C++</button><button aria-controls="panel-6-UHl0aG9u" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-6-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="-1">Python</button></div><div aria-labelledby="tab-6-Qysr" class="sphinx-tabs-panel code-tab group-tab" id="panel-6-Qysr" name="Qysr" role="tabpanel" tabindex="0"><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">oscProb</span><span class="p">.</span><span class="n">backward</span><span class="p">();</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-6-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-6-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">osc_prob</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></div>
+<p>this performs backpropagation through the computational graph defined by our tensor computations, and will fill the gradients of any tensors that have the <code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">gradient</span></code> property set.</p>
+<p>We can then access this gradient</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-Qysr" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-7-Qysr" name="Qysr" role="tab" tabindex="0">C++</button><button aria-controls="panel-7-UHl0aG9u" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-7-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="-1">Python</button></div><div aria-labelledby="tab-7-Qysr" class="sphinx-tabs-panel code-tab group-tab" id="panel-7-Qysr" name="Qysr" role="tabpanel" tabindex="0"><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="w"> </span><span class="n">gradient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">theta</span><span class="p">.</span><span class="n">grad</span><span class="p">();</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;gradient = &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">gradient</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-7-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-7-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">gradient</span> <span class="o">=</span> <span class="n">theta</span><span class="o">.</span><span class="n">grad</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;gradient = </span><span class="si">{</span><span class="n">gradient</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gradient</span> <span class="o">=</span>  <span class="mf">1.9893</span>
+<span class="p">[</span> <span class="n">CPUFloatType</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>Just to be sure this is right, we can calculate the probaility using our brains too:</p>
+<div class="math notranslate nohighlight">
+\[\frac {\partial P_{a \rightarrow b} } { \partial \theta } = 4 \cos ( 2 \theta ) \sin ( 2 \theta ) \sin^2 \left( \frac{\Delta m^2 L}{ 4 E } \right)\]</div>
+<div class="math notranslate nohighlight">
+\[= 4 \cos \left( \frac {\pi} {4} \right) \sin \left( \frac {\pi} {4} \right)  \sin^2 ( 1.4975... )\]</div>
+<div class="math notranslate nohighlight">
+\[= 1.9893...\]</div>
+<p>viola! it’s the same!</p>
+<p>This example is pretty simple, and we could have just calculated it by hand.
+However, there is almost no limit to how complex we can make these calculations.
+We will see in the following parts of this tutorial how this can be used to create a fully differentioble neutrino oscillation model.</p>
+<p>Full scripts containing the 2-neutrino oscillation calculation here can be found in “simple-tensor.[py/cpp]” in the <a class="reference external" href="https://github.com/ewanwm/nuTens/tree/main/examples">examples folder</a>.</p>
+</section>
+<section id="oscillation-spectrum-example">
+<h2>Oscillation Spectrum Example<a class="headerlink" href="#oscillation-spectrum-example" title="Link to this heading"></a></h2>
+<p><em>calculate oscillations for a range of energies (specified with a tensor), then plot the spectrum, and the derivative of the spectrum wrt L/E</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quick-start-guide.html" class="btn btn-neutral float-left" title="Quick Start Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="propagator.html" class="btn btn-neutral float-right" title="Propagator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Ewan Miller.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

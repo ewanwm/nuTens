@@ -1,0 +1,210 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Propagator &mdash; nuTens  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/tabs.js?v=3030b3cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Matter Solvers" href="matter-solvers.html" />
+    <link rel="prev" title="Tensors" href="tensors.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/nuTens-logo-small.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">🚀 Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="quick-start-guide.html">Quick Start Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tensors.html">Tensors</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Propagator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configurng-the-propagator">Configurng the Propagator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#setting-a-mixing-matrix">Setting a Mixing Matrix</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#calculating-oscillation-probabilities">Calculating Oscillation probabilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#oscillation-spectrum-example">Oscillation Spectrum Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="matter-solvers.html">Matter Solvers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📖 References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user-manual.html">User Manual 📗</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp-api.html">c++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python-api.html">Python API 🐍</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ewanwm/nuTens">GitHub 🔗</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ewanwm/nuTens/tree/main/examples">Examples 🔗</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">🖥️ For Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Testing 🧪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html#profiling">Profiling 📊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html#benchmarking">Benchmarking 📉</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html#precompiled-headers">Precompiled Headers 🗿</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">nuTens</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="quick-start-guide.html">Quick Start Guide</a></li>
+      <li class="breadcrumb-item active">Propagator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/quick-start-guide/propagator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="propagator">
+<h1>Propagator<a class="headerlink" href="#propagator" title="Link to this heading"></a></h1>
+<p>In the example previously, we saw how we can calculate oscillation probabilities for two flavours using tensore “by hand”.
+But the point of nuTens is to perform these calculations for you so that you don’t have to!</p>
+<p>This is exactly the job of the Propagator class.
+In this section we will cover the basics of using this class and provide some examples.</p>
+<section id="configurng-the-propagator">
+<h2>Configurng the Propagator<a class="headerlink" href="#configurng-the-propagator" title="Link to this heading"></a></h2>
+<p>We instantiate a Propagator, specifying the number of neutrino generations, and a baseline, like so:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-Qysr" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Qysr" name="Qysr" role="tab" tabindex="0">C++</button><button aria-controls="panel-0-UHl0aG9u" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="-1">Python</button></div><div aria-labelledby="tab-0-Qysr" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-Qysr" name="Qysr" role="tabpanel" tabindex="0"><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/propagator/propagator.hpp&gt;</span>
+
+<span class="n">Propagator</span><span class="w"> </span><span class="nf">propagator</span><span class="p">(</span><span class="cm">/*nGenerations=*/</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="cm">/*baseline=*/</span><span class="mi">295</span><span class="o">*</span><span class="n">units</span><span class="o">::</span><span class="n">km</span><span class="p">);</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nuTens.propagator</span><span class="w"> </span><span class="kn">import</span> <span class="n">Propagator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">nuTens</span><span class="w"> </span><span class="kn">import</span> <span class="n">units</span>
+
+<span class="n">propagator</span> <span class="o">=</span> <span class="n">Propagator</span><span class="p">(</span><span class="n">n_generations</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">baseline</span> <span class="o">=</span> <span class="mf">295.0</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">km</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+<p>if we decide later that we want to change the baseline, we can always change it like so:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-Qysr" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Qysr" name="Qysr" role="tab" tabindex="0">C++</button><button aria-controls="panel-1-UHl0aG9u" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="-1">Python</button></div><div aria-labelledby="tab-1-Qysr" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-Qysr" name="Qysr" role="tabpanel" tabindex="0"><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">propagator</span><span class="p">.</span><span class="n">setBaseline</span><span class="p">(</span><span class="mi">600</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">units</span><span class="o">::</span><span class="n">km</span><span class="p">);</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">propagator</span><span class="o">.</span><span class="n">set_baseline</span><span class="p">(</span><span class="mi">600</span> <span class="o">*</span> <span class="n">units</span><span class="p">::</span><span class="n">km</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is likely that in the near future the baseline will be changed to a Tensor so that we can calculate gradients with respect to it.
+This may change the interface here.</p>
+</div>
+<section id="setting-a-mixing-matrix">
+<h3>Setting a Mixing Matrix<a class="headerlink" href="#setting-a-mixing-matrix" title="Link to this heading"></a></h3>
+<p>We will also need to specify a mixing matrix</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-Qysr" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Qysr" name="Qysr" role="tab" tabindex="0">C++</button><button aria-controls="panel-2-UHl0aG9u" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="-1">Python</button></div><div aria-labelledby="tab-2-Qysr" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-Qysr" name="Qysr" role="tabpanel" tabindex="0"><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/tensors/tensor.hpp&gt;</span>
+
+<span class="n">Tensor</span><span class="w"> </span><span class="n">theta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Tensor</span><span class="o">::</span><span class="n">zeros</span><span class="p">(</span><span class="cm">/*shape=*/</span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="cm">/*dtype=*/</span><span class="n">NTdtypes</span><span class="o">::</span><span class="n">kFloat</span><span class="p">,</span><span class="w"> </span><span class="cm">/*device=*/</span><span class="n">NTdtypes</span><span class="o">::</span><span class="n">kCPU</span><span class="p">,</span><span class="w"> </span><span class="cm">/*requiresGrad=*/</span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-2-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nuTens.tensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">nuTens</span><span class="w"> </span><span class="kn">import</span> <span class="n">dtype</span>
+
+<span class="n">theta</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="o">.</span><span class="n">scalar_type</span><span class="o">.</span><span class="n">float</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">dtype</span><span class="o">.</span><span class="n">device_type</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+</section>
+<section id="calculating-oscillation-probabilities">
+<h2>Calculating Oscillation probabilities<a class="headerlink" href="#calculating-oscillation-probabilities" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We specify a 1 at the start of the shape. This is to allow for batched calculations (see <a class="reference internal" href="../user-manual.html#batched-oscillation-calculations"><span class="std std-ref">Batching Oscillation calculations</span></a>).
+This extra dummy dimension is essentially the same idea as batch dimensions in machine learning, for those familiar.</p>
+</div>
+</section>
+<section id="oscillation-spectrum-example">
+<h2>Oscillation Spectrum Example<a class="headerlink" href="#oscillation-spectrum-example" title="Link to this heading"></a></h2>
+<p><em>calculate oscillations for a range of energies (specified with a tensor), then plot the spectrum, and the derivative of the spectrum wrt L/E</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tensors.html" class="btn btn-neutral float-left" title="Tensors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="matter-solvers.html" class="btn btn-neutral float-right" title="Matter Solvers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Ewan Miller.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
