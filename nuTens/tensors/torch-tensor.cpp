@@ -434,8 +434,8 @@ void Tensor::eig(const Tensor &t, Tensor &eVals, Tensor &eVecs)
     NT_PROFILE();
 
     auto ret = torch::linalg_eig(t._tensor);
-    eVals.setTensor(std::get<1>(ret));
-    eVecs.setTensor(std::get<0>(ret));
+    eVals.setTensor(std::get<0>(ret));
+    eVecs.setTensor(std::get<1>(ret));
 }
 
 void Tensor::eigh(const Tensor &t, Tensor &eVals, Tensor &eVecs)
@@ -443,8 +443,8 @@ void Tensor::eigh(const Tensor &t, Tensor &eVals, Tensor &eVecs)
     NT_PROFILE();
 
     auto ret = torch::linalg_eigh(t._tensor);
-    eVals.setTensor(std::get<1>(ret));
-    eVecs.setTensor(std::get<0>(ret));
+    eVals.setTensor(std::get<0>(ret));
+    eVecs.setTensor(std::get<1>(ret));
 }
 
 void Tensor::eigvals(const Tensor &t, Tensor &eVals)
