@@ -16,7 +16,7 @@ void ConstDensityMatterSolver::calculateEigenvalues(Tensor &eigenvectors, Tensor
         }
     }
 
-    Tensor::eigh(hamiltonian, eigenvectors, eigenvalues);
+    Tensor::eigh(hamiltonian, eigenvalues, eigenvectors);
 }
 
 void ConstDensityMatterSolver::buildElectronOuterProduct() 
