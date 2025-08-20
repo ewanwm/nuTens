@@ -130,15 +130,15 @@ should allow these files to be found
 CMake Configuration Options
 ---------------------------
 
-=========================  ============================================================================  =======
-Option                     Description                                                                   Default
-=========================  ============================================================================  =======
-NT_USE_TORCH               Use torch as the backend for dealing with tensors                             ON
-NT_TORCH_FROM_PIP          If it is not found, torch will be installed using pip                         ON
-NT_ALLOW_GLOBAL_PYTHON_ENV Allow installing pip packages in global python environment (Not recommended)  OFF
-NT_COMPILE_TESTS           Whether or not to compile the test library                                    ON
-NT_ENABLE_PYTHON           Enable compilation of the python interface                                    OFF
-=========================  ============================================================================  =======
+==========================  ============================================================================  =======
+Option                      Description                                                                   Default
+==========================  ============================================================================  =======
+NT_USE_TORCH                Use torch as the backend for dealing with tensors                             ON
+NT_TORCH_FROM_PIP           If it is not found, torch will be installed using pip                         ON
+NT_ALLOW_GLOBAL_PYTHON_ENV  Allow installing pip packages in global python environment (Not recommended)  OFF
+NT_COMPILE_TESTS            Whether or not to compile the test library                                    ON
+NT_ENABLE_PYTHON            Enable compilation of the python interface                                    OFF
+==========================  ============================================================================  =======
 
 For Developers
 ^^^^^^^^^^^^^^
