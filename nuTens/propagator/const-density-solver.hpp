@@ -84,7 +84,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
         Tensor diag = Tensor::scale(Tensor::mul(m, m), 0.5);
 
         // construct the diagonal mass^2 matrix used in the hamiltonian
-        diagMassMatrix = Tensor::diag(diag).requiresGrad(false);
+        diagMassMatrix = Tensor::diag(diag).requiresGrad(false).unsqueeze(0);
     }
 
 

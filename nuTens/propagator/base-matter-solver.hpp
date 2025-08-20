@@ -35,7 +35,8 @@ class BaseMatterSolver
       NT_PROFILE();
       
       energies = newEnergies;
-      energiesRed = energies.getValues({"...", 0});
+      energiesRed = energies.getValues({"..."});
+      energiesRed.unsqueeze(-1);
 
       hamiltonian = Tensor::zeros({energies.getBatchDim(), nGenerations, nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
     }
