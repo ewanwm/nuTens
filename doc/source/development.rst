@@ -1,4 +1,28 @@
 
+.. _testing:
+
+Testing 🧪
+==========
+
+Tests live in the `tests <https://github.com/ewanwm/nuTens/tree/main/tests>`_ directory. For c++ tests we use Googles `GoogleTest <http://google.github.io/googletest/primer.html>`_ framework and for python tests we use `pytest <https://docs.pytest.org/en/stable/>`_ in order to organise our tests and more easily track them.
+Tests are run as part of our continuous integration and generally for every pull request all tests should pass (i.e. your new change should not break the behaviour of existing code).
+
+If you are adding a new feature to nuTens, you should also include some tests of your new feature.
+These tests should ideally cover all of the new code that you are adding and should be as "simple" as possible i.e. they should rely as little as possible on other parts of the code.
+Try to test the smallest possible "units" of your code on their own, ideally against externally calculated values (unit tests), and also the overall behaviour of your new feature (integration tests).
+
+If your new feature has a python interface, new python tests should also be added.
+
+Coverage
+--------
+
+The coverage (how much of the source code appears in tests) of our test suite is tracked using `CodeCov <https://codecov.io/github/ewanwm/nuTens>`_. 
+We would ideally like for this to be as close as possible to 100% (though as you can see we aren't quite there yet).
+
+For this reason, new features should be covered as close as possible to 100%. 
+You will be able to see the coverage of added code in any pull request.
+Unless there is a good reason for not doing so, new code should only be merged if it is fully covered by new tests.
+
 .. _profiling:
 
 Profiling 📊
@@ -52,6 +76,7 @@ If using chrome, open chrome and type
 
 You can then drag and drop the json profile into the profiler.
 
+.. _benchmarking:
 
 Benchmarking 📉
 ===============
