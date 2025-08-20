@@ -30,10 +30,6 @@ void ConstDensityMatterSolver::buildElectronOuterProduct()
             Tensor::scale(Tensor::outer(mixingMatrix.getValues({0, 0, "..."}), mixingMatrix.getValues({0, 0, "..."}).conj()),
                           nuTens::constants::Groot2 * density);
     }
-<<<<<<< HEAD
-}
-=======
 
     electronOuter.unsqueeze(0);
 }
->>>>>>> bd1b1ae (now create hamiltonian with more tensor-y operations rather than in for loop, hopefully saving some time)
