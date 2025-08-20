@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include <complex>
 
 #include <iostream>
 #include <nuTens/propagator/constants.hpp>
@@ -186,6 +187,102 @@ class TwoFlavourBarger
     // characteristic lengths in vacuum and matter
     float _lv;
     float _lm;
+
+    // other parameters
+    float _baseline;
+    float _density;
+
+    // anti-neutrino flag
+    bool _antiNeutrino;
+};
+
+class ThreeFlavourBarger 
+{
+  public:
+
+    // set the parameters of this propagator
+    // negative density values will be interpreted as propagating in vacuum
+    inline void setParams(
+        float m1, float m2, float m3, 
+        float theta12, float theta13, float theta23, 
+        float deltaCP,
+        float baseline, float density = -999.9f, bool antiNeutrino = false)
+    {
+        _m1 = m1;
+        _m2 = m2;
+        _m3 = m3;
+        _theta12 = theta12;
+        _theta13 = theta13;
+        _theta23 = theta23;
+        _deltaCP = deltaCP;
+        _baseline = baseline;
+        _density = density;
+        _antiNeutrino = antiNeutrino;
+    };
+
+    /// calculate the alpha factor used in the eigenvalue computation
+    [[nodiscard]] inline float alpha(float energy) const 
+    {
+        float dmsq12 = _m1 * _m1 - _m2 * _m2;
+        float dmsq13 = _m1 * _m1 - _m3 * _m3;
+
+        return 2.0 * constants::Groot2 * energy * _density + dmsq12 + dmsq13;
+    }
+
+    /// calculate the beta factor used in the eigenvalue computation
+    [[nodiscard]] inline float beta(float energy) const 
+    {
+        float               Ue2 = std::sin(_theta12) * std::cos(_theta13);
+        std::complex<float> Ue3 = std::sin(_theta13) * std::exp(-std::complex<float>(0.0, 1.0) * _deltaCP);
+        float dmsq12 = _m1 * _m1 - _m2 * _m2;
+        float dmsq13 = _m1 * _m1 - _m3 * _m3;
+
+        return (
+            dmsq12 * dmsq13 + 
+            2.0 * constants::Groot2 * energy * _density * (
+                dmsq12 * (1.0 - Ue2 * Ue2) +
+                dmsq13 * (1.0 - std::abs(Ue3) * std::abs(Ue3))
+            )
+        );
+    }
+
+    /// calculate the gamma factor used in the eigenvalue computation
+    [[nodiscard]] inline float gamma(float energy) const 
+    {
+        float Ue1 = std::cos(_theta12) * std::cos(_theta13);
+        float dmsq12 = _m1 * _m1 - _m2 * _m2;
+        float dmsq13 = _m1 * _m1 - _m3 * _m3;
+
+        return 2 * constants::Groot2 * energy * _density * dmsq12 * dmsq13 * Ue1 * Ue1;
+    }
+
+    /// calculate effective M^2 values (eigenvalues of the hamiltonian) due to matter effects
+    /// @param energy The neutrino energy
+    /// @param index The index of the eigenvalue. should be [0-2]
+    [[nodiscard]] inline float calculateEffectiveM2(float energy, int index) const 
+    {
+        float a = alpha(energy);
+        float b = beta(energy);
+        float c = gamma(energy);
+
+        // calculate argument of arccos
+        float arg = (2.0 * a*a*a - 9.0 * a*b + 27.0 * c) / ( 2.0 * std::pow( a*a - 3.0 * b, 3.0 / 2.0) ); 
+
+        // calculate the coefficient of the cos term
+        float coeff = - (2.0 / 3.0) * std::sqrt( a*a - 3.0 * b );
+
+        return coeff * std::cos( ( 1.0 / 3.0 ) * ( std::acos(arg) + index * 2.0 * M_PI ) ) + _m1 * _m1 - a / 3.0;
+    }
+
+  private:
+    // oscillation parameters
+    float _m1;
+    float _m2;
+    float _m3;
+    float _theta12;
+    float _theta13;
+    float _theta23;
+    float _deltaCP;
 
     // other parameters
     float _baseline;
