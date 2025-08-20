@@ -160,7 +160,7 @@ class TwoFlavourBarger
 
         // now get the actual probabilities
         float sin2Gamma = std::sin(2.0 * gamma);
-        float sinPhi = std::sin(dM2 * _baseline / (4.0 * energy));
+        float sinPhi = std::sin(dM2 * 2.0 * M_PI * _baseline / (4.0 * energy));
 
         float offAxis = sin2Gamma * sin2Gamma * sinPhi * sinPhi;
         float onAxis = 1.0 - offAxis;
@@ -195,6 +195,6 @@ class TwoFlavourBarger
     bool _antiNeutrino;
 };
 
-} // testing
+} // namespace testing
 
 } // namespace nuTens
