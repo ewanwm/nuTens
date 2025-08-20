@@ -33,6 +33,7 @@ docs = [
   "breathe",
   "autodoc",
   "sphinx-rtd-theme",
+  "sphinx-tabs",
 ]
 testing = [
   "pytest"
