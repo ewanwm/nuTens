@@ -47,12 +47,14 @@ if we decide later that we want to change the baseline, we can always change it 
     This may change the interface here.
 
 Setting a Mixing Matrix
------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
+
+We will also need to specify a mixing matrix
 
 .. tabs::
 
     .. code-tab:: c++
-            
+
         #include <nuTens/tensors/tensor.hpp>
 
         Tensor theta = Tensor::zeros(/*shape=*/{1}, /*dtype=*/NTdtypes::kFloat, /*device=*/NTdtypes::kCPU, /*requiresGrad=*/true);
