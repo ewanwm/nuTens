@@ -536,26 +536,11 @@ class AccessedTensor: public Tensor {
   public:
 
     /// @name Setters
-    /// @{
-    /// @brief Set the underlying data type of this tensor
-    inline AccessedTensor &dType(dtypes::scalarType type) 
-    {
-        NT_PROFILE();
+    /// dtype for accessedtensor is fixed at compile time
+    inline AccessedTensor &dType(dtypes::scalarType type) = delete;
 
-        _tensor = _tensor.to(dtypes::scalarTypeMap(type));
-        _dType = type;
-        return *this;
-    }
-
-    /// @brief Set the device that this tensor lives on
-    inline AccessedTensor &device(dtypes::deviceType device) 
-    {
-        NT_PROFILE();
-
-        _tensor = _tensor.to(dtypes::deviceTypeMap(device));
-        _device = device;
-        return *this;
-    }
+    /// device for accessedtensor is fixed at compile time
+    inline AccessedTensor &device(dtypes::deviceType device) = delete;
 
     /// @brief Set whether the tensor requires a gradient
     inline AccessedTensor &requiresGrad(bool reqGrad) 
@@ -575,29 +560,11 @@ class AccessedTensor: public Tensor {
 
     /// @}
 
-    /// @brief If the tensor does not already have a batch dimension (as set by hasBatchDim()) this will add one
-    inline AccessedTensor &addBatchDim() 
-    {
-        NT_PROFILE();
+    /// n dimensions for accessedtensor is fixed at compile time
+    inline AccessedTensor &addBatchDim() = delete;
 
-        if (!_hasBatchDim)
-        {
-            _tensor = torch::unsqueeze(_tensor, 0);
-            _hasBatchDim = true;
-        }
-
-        return *this;
-    }
-
-    /// @brief add new dimension to the tensor at a particular index
-    inline AccessedTensor &unsqueeze(int index) 
-    {
-        NT_PROFILE();
-
-        _tensor = torch::unsqueeze(_tensor, index);
-
-        return *this;
-    }
+    /// n dimensions for accessedtensor is fixed at compile time
+    inline AccessedTensor &unsqueeze(int index) = delete;
 
 
     /// @brief Construct an identity tensor (has to be a 2d square tensor)
