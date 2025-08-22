@@ -1,5 +1,8 @@
 #pragma once
 
+#include <assert.h>
+#include <array>
+
 #include <cmath>
 #include <complex>
 
@@ -203,10 +206,10 @@ class ThreeFlavourBarger
     // set the parameters of this propagator
     // negative density values will be interpreted as propagating in vacuum
     inline void setParams(
-        float m1, float m2, float m3, 
-        float theta12, float theta13, float theta23, 
-        float deltaCP,
-        float baseline, float density = -999.9f, bool antiNeutrino = false)
+        double m1, double m2, double m3, 
+        double theta12, double theta13, double theta23, 
+        double deltaCP,
+        double baseline, double density = -999.9f, bool antiNeutrino = false)
     {
         _m1 = m1;
         _m2 = m2;
@@ -218,48 +221,96 @@ class ThreeFlavourBarger
         _baseline = baseline;
         _density = density;
         _antiNeutrino = antiNeutrino;
+
+        // fill the mass array
+        masses[0] = _m1;
+        masses[1] = _m2;
+        masses[2] = _m3;
+
+        // fill the PMNS matrix elements
+        pmnsMatrix[0][0] = std::complex<double>(std::cos(theta12) * std::cos(theta13), 0.0);
+        pmnsMatrix[0][1] = std::complex<double>(std::sin(theta12) * std::cos(theta13), 0.0);
+        pmnsMatrix[0][2] = std::sin(theta13) * std::exp(std::complex<double>(0.0, -1.0) * deltaCP);
+
+        pmnsMatrix[1][0] = -std::sin(theta12) * std::cos(theta23) - std::cos(theta12) * std::sin(theta23) * std::sin(theta13) * std::exp(std::complex<double>(0.0, 1.0) * deltaCP);
+        pmnsMatrix[1][1] = std::cos(theta12) * std::cos(theta23) - std::sin(theta12) * std::sin(theta23) * std::sin(theta13) * std::exp(std::complex<double>(0.0, 1.0) * deltaCP);
+        pmnsMatrix[1][2] = std::complex<double>(std::sin(theta23) * std::cos(theta13), 0.0);
+
+        pmnsMatrix[2][0] = std::sin(theta12) * std::sin(theta23) - std::cos(theta12) * std::cos(theta23) * std::sin(theta13) * std::exp(std::complex<double>(0.0, 1.0) * deltaCP);
+        pmnsMatrix[2][1] = -std::cos(theta12) * std::sin(theta23) - std::sin(theta12) * std::cos(theta23) * std::sin(theta13) * std::exp(std::complex<double>(0.0, 1.0) * deltaCP);
+        pmnsMatrix[2][2] = std::complex<double>(std::cos(theta23) * std::cos(theta13), 0.0);
+
     };
 
     /// calculate the alpha factor used in the eigenvalue computation
-    [[nodiscard]] inline float alpha(float energy) const 
+    [[nodiscard]] inline double alpha(float energy) const 
     {
         float dmsq12 = _m1 * _m1 - _m2 * _m2;
         float dmsq13 = _m1 * _m1 - _m3 * _m3;
 
-        return 2.0 * constants::Groot2 * energy * _density + dmsq12 + dmsq13;
+        double ret;
+        
+        if (_antiNeutrino) {
+            ret = - 2.0 * constants::Groot2 * energy * _density + dmsq12 + dmsq13;
+        }
+        else {
+            ret = 2.0 * constants::Groot2 * energy * _density + dmsq12 + dmsq13;
+        }
+
+        return ret;
     }
 
     /// calculate the beta factor used in the eigenvalue computation
-    [[nodiscard]] inline float beta(float energy) const 
+    [[nodiscard]] inline double beta(float energy) const 
     {
-        float               Ue2 = std::sin(_theta12) * std::cos(_theta13);
-        std::complex<float> Ue3 = std::sin(_theta13) * std::exp(-std::complex<float>(0.0, 1.0) * _deltaCP);
-        float dmsq12 = _m1 * _m1 - _m2 * _m2;
-        float dmsq13 = _m1 * _m1 - _m3 * _m3;
+        double dmsq12 = _m1 * _m1 - _m2 * _m2;
+        double dmsq13 = _m1 * _m1 - _m3 * _m3;
 
-        return (
-            dmsq12 * dmsq13 + 
-            2.0 * constants::Groot2 * energy * _density * (
-                dmsq12 * (1.0 - Ue2 * Ue2) +
-                dmsq13 * (1.0 - std::abs(Ue3) * std::abs(Ue3))
-            )
-        );
+        double ret;
+
+        if (_antiNeutrino) {
+            ret = (
+                dmsq12 * dmsq13 + 
+                - 2.0 * constants::Groot2 * energy * _density * (
+                    dmsq12 * (1.0 - std::abs(pmnsMatrix[0][1]) * std::abs(pmnsMatrix[0][1])) +
+                    dmsq13 * (1.0 - std::abs(pmnsMatrix[0][2]) * std::abs(pmnsMatrix[0][2]))
+                )
+            );
+        }
+        else {
+            ret = (
+                dmsq12 * dmsq13 + 
+                2.0 * constants::Groot2 * energy * _density * (
+                    dmsq12 * (1.0 - std::abs(pmnsMatrix[0][1]) * std::abs(pmnsMatrix[0][1])) +
+                    dmsq13 * (1.0 - std::abs(pmnsMatrix[0][2]) * std::abs(pmnsMatrix[0][2]))
+                )
+            );
+        }
+
+        return ret;
     }
 
     /// calculate the gamma factor used in the eigenvalue computation
-    [[nodiscard]] inline float gamma(float energy) const 
+    [[nodiscard]] inline double gamma(float energy) const 
     {
-        float Ue1 = std::cos(_theta12) * std::cos(_theta13);
         float dmsq12 = _m1 * _m1 - _m2 * _m2;
         float dmsq13 = _m1 * _m1 - _m3 * _m3;
 
-        return 2 * constants::Groot2 * energy * _density * dmsq12 * dmsq13 * Ue1 * Ue1;
+        double ret;
+        if (_antiNeutrino) {
+            ret = -2 * constants::Groot2 * energy * _density * dmsq12 * dmsq13 * std::abs(pmnsMatrix[0][0]) * std::abs(pmnsMatrix[0][0]);
+        }
+        else {
+            ret = 2 * constants::Groot2 * energy * _density * dmsq12 * dmsq13 * std::abs(pmnsMatrix[0][0]) * std::abs(pmnsMatrix[0][0]);
+        }
+
+        return ret;
     }
 
     /// calculate effective M^2 values (eigenvalues of the hamiltonian) due to matter effects
     /// @param energy The neutrino energy
     /// @param index The index of the eigenvalue. should be [0-2]
-    [[nodiscard]] inline float calculateEffectiveM2(float energy, int index) const 
+    [[nodiscard]] inline double calculateEffectiveM2(float energy, int index) const 
     {
         float a = alpha(energy);
         float b = beta(energy);
@@ -274,22 +325,116 @@ class ThreeFlavourBarger
         return coeff * std::cos( ( 1.0 / 3.0 ) * ( std::acos(arg) + index * 2.0 * M_PI ) ) + _m1 * _m1 - a / 3.0;
     }
 
+    /// @brief Calculate an element of the hamiltonian
+    /// @param energy The neutrino energy
+    /// @param k Row
+    /// @param j Column
+    /// @return Matrix element
+    [[nodiscard]] inline std::complex<double> getHamiltonianElement(float energy, int a, int b) const {
+        
+        std::complex<double> ret = 0.0;
+
+        if ( a == b ) {
+            ret += masses[a] * masses[a] / (2.0 * energy);
+        }
+
+        if (_antiNeutrino) {
+            ret += constants::Groot2 * _density * std::conj(pmnsMatrix[0][b]) * pmnsMatrix[0][a];
+        }
+        else {
+            ret -= constants::Groot2 * _density * pmnsMatrix[0][b] * std::conj(pmnsMatrix[0][a]);
+        }
+
+        return ret;
+    }
+
+    /// @brief Calculate an element of the "X" transition matrix matrix (equation 11 in Barger et al)
+    /// @param energy The neutrino energy
+    /// @param a Row
+    /// @param b Column
+    /// @return Matrix element
+    [[nodiscard]] inline std::complex<double> getTransitionMatrixElement(float energy, int a, int b) const {
+
+        std::complex<double> ret = 0.0;
+
+        for (int k = 0; k < 3; k++) {
+
+            std::complex<double> numerator = 4.0 * energy * energy * (
+                getHamiltonianElement(energy, a, 0) * getHamiltonianElement(energy, 0, b) +
+                getHamiltonianElement(energy, a, 1) * getHamiltonianElement(energy, 1, b) +
+                getHamiltonianElement(energy, a, 2) * getHamiltonianElement(energy, 2, b) 
+            );
+
+            std::complex<double> constant = 1.0;
+            std::complex<double> denominator = 1.0;
+
+            for (int j = 0; j < 3; j++) {
+
+                if (j == k) continue;
+
+                numerator -= 2.0 * energy * getHamiltonianElement(energy, a, b) * calculateEffectiveM2(energy, j);
+                denominator *= calculateEffectiveM2(energy, k) - calculateEffectiveM2(energy, j);
+                constant *= calculateEffectiveM2(energy, j);
+
+            }
+
+            std::complex<double> prod = numerator;
+
+            if (a == b) 
+                prod += constant;
+        
+            prod /= denominator;
+
+            std::complex<double> exponential = std::exp(-std::complex<double>(0.0, 1.0) * calculateEffectiveM2(energy, k) * _baseline * 2.0 * M_PI / (2.0 * energy));
+
+            ret += prod * exponential;
+        }
+
+        return ret;
+    }
+
+    [[nodiscard]] inline double calculateProb(float energy, int alpha, int beta) const {
+
+        std::complex<double> ret = 0.0;
+
+        for (int i = 0; i < 3; i++) {
+
+            for (int j = 0; j < 3; j++) {
+            
+                if (_antiNeutrino) {
+                    ret += std::conj(pmnsMatrix[beta][i] * getTransitionMatrixElement(energy, i, j)) * pmnsMatrix[alpha][j];
+                }
+                else {
+                    ret += pmnsMatrix[alpha][i] * getTransitionMatrixElement(energy, i, j) * std::conj(pmnsMatrix[beta][j]);
+                }
+
+            }
+        
+        }
+
+        return std::abs(ret) * std::abs(ret);
+    }
+    
+
   private:
     // oscillation parameters
-    float _m1;
-    float _m2;
-    float _m3;
-    float _theta12;
-    float _theta13;
-    float _theta23;
-    float _deltaCP;
+    double _m1;
+    double _m2;
+    double _m3;
+    double _theta12;
+    double _theta13;
+    double _theta23;
+    double _deltaCP;
 
     // other parameters
-    float _baseline;
-    float _density;
+    double _baseline;
+    double _density;
 
     // anti-neutrino flag
     bool _antiNeutrino;
+
+    std::array<std::array<std::complex<double>, 3>, 3> pmnsMatrix;
+    std::array<double, 3> masses;
 };
 
 } // namespace testing
