@@ -419,4 +419,39 @@ void initTesting(py::module &m)
             py::arg("energy"), py::arg("i"), py::arg("j")
         )
     ;
+
+    py::class_<testing::ThreeFlavourBarger>(m_testing, "ThreeFlavourBarger")
+        .def(py::init<>())
+        .def("set_params", &testing::ThreeFlavourBarger::setParams, 
+            py::arg("m1"), py::arg("m2"), py::arg("m3"), py::arg("theta12"), py::arg("theta13"), py::arg("theta23"), py::arg("deltaCP"), py::arg("baseline"), py::arg("density") = (float)-999.9, py::arg("anti_neutrino") = false
+        )
+        .def("alpha", &testing::ThreeFlavourBarger::alpha,
+            "Calculates alpha term used in calculating the mass eigenvalues",
+            py::arg("energy")
+        )
+        .def("beta", &testing::ThreeFlavourBarger::beta,
+            "Calculates beta term used in calculating the mass eigenvalues",
+            py::arg("energy")
+        )
+        .def("gamma", &testing::ThreeFlavourBarger::gamma,
+            "Calculates gamma term used in calculating the mass eigenvalues",
+            py::arg("energy")
+        )
+        .def("calculate_effective_m2", &testing::ThreeFlavourBarger::calculateEffectiveM2,
+            "Calculates the effective hamiltonian eigenvalues (the M^2) in matter",
+            py::arg("energy"), py::arg("index")
+        )
+        .def("get_hamiltonian_element", &testing::ThreeFlavourBarger::getHamiltonianElement,
+            "Calculates an element of the Hamiltonian",
+            py::arg("energy"), py::arg("a"), py::arg("b")
+        )
+        .def("get_transition_matrix_element", &testing::ThreeFlavourBarger::getTransitionMatrixElement,
+            "Calculates an element of the transition matrix from one mass eigenstate to another due to the presense of matter",
+            py::arg("energy"), py::arg("a"), py::arg("b")
+        )
+        .def("calculate_prob", &testing::ThreeFlavourBarger::calculateProb,
+            "Calculate probability of transitioning from state i to state j for a given energy",
+            py::arg("energy"), py::arg("i"), py::arg("j")
+        )
+    ;
 }
