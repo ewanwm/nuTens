@@ -131,16 +131,27 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens24ConstDensityMatterSolver20calculateEigenvaluesER6TensorR6Tensor">
 <span id="_CPPv3N6nuTens24ConstDensityMatterSolver20calculateEigenvaluesER6TensorR6Tensor"></span><span id="_CPPv2N6nuTens24ConstDensityMatterSolver20calculateEigenvaluesER6TensorR6Tensor"></span><span id="nuTens::ConstDensityMatterSolver::calculateEigenvalues__TensorR.TensorR"></span><span class="target" id="classnuTens_1_1ConstDensityMatterSolver_1a847aa656cd77169e44ce2065dc79cbb8"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">calculateEigenvalues</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eigenvectors</span></span>, <a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eigenvalues</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N6nuTens24ConstDensityMatterSolver20calculateEigenvaluesER6TensorR6Tensor" title="Link to this definition"></a><br /></dt>
-<dd><p>Set new mass eigenvalues for this solver. </p>
+<dd><p>Calculate the hamiltonian eigenvalues and eigenvectors, i.e. the effective Mass^2 states and effective mixing matrix. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>energies</strong> – <strong>[in]</strong> <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1Tensor"><span class="std std-ref">Tensor</span></a> of energies, expected to have a batch dimension and two further dimensions to make casting unambiguous i.e. shape should look like {Nbatches, 1, 1}. </p></li>
 <li><p><strong>eigenvectors</strong> – <strong>[out]</strong> The returned eigenvectors </p></li>
 <li><p><strong>eigenvalues</strong> – <strong>[out]</strong> The corresponding eigenvalues </p></li>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens24ConstDensityMatterSolver23getElectronOuterProductEv">
+<span id="_CPPv3N6nuTens24ConstDensityMatterSolver23getElectronOuterProductEv"></span><span id="_CPPv2N6nuTens24ConstDensityMatterSolver23getElectronOuterProductEv"></span><span id="nuTens::ConstDensityMatterSolver::getElectronOuterProduct"></span><span class="target" id="classnuTens_1_1ConstDensityMatterSolver_1a0e246b314ec4417a53e40397790ddd8c"></span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getElectronOuterProduct</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens24ConstDensityMatterSolver23getElectronOuterProductEv" title="Link to this definition"></a><br /></dt>
+<dd><p>construct the outer product of the electron row of the mixing matrix, used in building the hamiltonian, and return a copy of it potentially useful for debugging </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens24ConstDensityMatterSolver14getHamiltonianEv">
+<span id="_CPPv3N6nuTens24ConstDensityMatterSolver14getHamiltonianEv"></span><span id="_CPPv2N6nuTens24ConstDensityMatterSolver14getHamiltonianEv"></span><span id="nuTens::ConstDensityMatterSolver::getHamiltonian"></span><span class="target" id="classnuTens_1_1ConstDensityMatterSolver_1ae2aa016d820ec416bfcc74adee7023a4"></span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getHamiltonian</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens24ConstDensityMatterSolver14getHamiltonianEv" title="Link to this definition"></a><br /></dt>
+<dd><p>construct the hamiltonian and return a copy of it potentially useful for debugging </p>
 </dd></dl>
 
 </div>
