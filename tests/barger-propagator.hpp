@@ -1,6 +1,5 @@
 #pragma once
 
-#include <assert.h>
 #include <array>
 
 #include <cmath>
@@ -393,6 +392,11 @@ class ThreeFlavourBarger
         return ret;
     }
 
+    /// @brief calculate oscillation probability from flavour alpha to flavour beta
+    /// @param energy neutrino energy
+    /// @param alpha initial flavour index
+    /// @param beta final flavour index
+    /// @return oscillation probability
     [[nodiscard]] inline double calculateProb(float energy, int alpha, int beta) const {
 
         std::complex<double> ret = 0.0;
