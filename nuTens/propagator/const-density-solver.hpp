@@ -115,19 +115,27 @@ class ConstDensityMatterSolver : public BaseMatterSolver
         return density;
     }
 
-    /// @brief Set new mass eigenvalues for this solver
-    /// @param[in] energies Tensor of energies, expected to have a batch
-    /// dimension and two further dimensions to make casting unambiguous i.e.
-    /// shape should look like {Nbatches, 1, 1}.
+    /// @brief Calculate the hamiltonian eigenvalues and eigenvectors, i.e. the effective Mass^2 states and effective mixing matrix
     /// @param[out] eigenvectors The returned eigenvectors
     /// @param[out] eigenvalues The corresponding eigenvalues
     void calculateEigenvalues(Tensor &eigenvectors, Tensor &eigenvalues) override;
+
+    /// construct the outer product of the electron row of the mixing matrix, used in building the hamiltonian, and return a copy of it
+    /// potentially useful for debugging
+    Tensor getElectronOuterProduct();
+
+    /// construct the hamiltonian and return a copy of it
+    /// potentially useful for debugging
+    Tensor getHamiltonian();
 
   private:
 
     /// @brief construct the outer product of the electron neutrino row of the mixing
     /// matrix used to construct the hamiltonian
     void buildElectronOuterProduct();
+
+    /// @brief Construct the hamiltonian 
+    void buildHamiltonian();
 
     Tensor mixingMatrix;
     Tensor masses;

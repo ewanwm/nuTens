@@ -6,10 +6,38 @@ void ConstDensityMatterSolver::calculateEigenvalues(Tensor &eigenvectors, Tensor
 {
     NT_PROFILE();
 
-    hamiltonian.setValue({"..."}, (Tensor::div(diagMassMatrix, energiesRed) - electronOuter));
+    buildHamiltonian();
 
     Tensor::eigh(hamiltonian, eigenvalues, eigenvectors);
     
+}
+
+void ConstDensityMatterSolver::buildHamiltonian() {
+
+    NT_PROFILE();
+
+    hamiltonian.setValue({"..."}, (Tensor::div(diagMassMatrix, energiesRed) - electronOuter));
+
+}
+
+Tensor ConstDensityMatterSolver::getHamiltonian() {
+
+    NT_PROFILE();
+
+    buildHamiltonian();
+
+    return hamiltonian;
+
+}
+
+Tensor ConstDensityMatterSolver::getElectronOuterProduct() {
+
+    NT_PROFILE();
+
+    buildElectronOuterProduct();
+
+    return electronOuter;
+
 }
 
 void ConstDensityMatterSolver::buildElectronOuterProduct() 
