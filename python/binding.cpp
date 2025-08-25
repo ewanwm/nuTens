@@ -299,7 +299,7 @@ void initPropagator(py::module &m)
         ;
 
 
-    py::class_<DPpropagator, std::shared_ptr<DPpropagator>, Propagator>(m_propagator, "DPpropagator")
+    py::class_<DPpropagator, Propagator>(m_propagator, "DPpropagator")
         .def(py::init<float, bool, float, int>(), 
             py::arg("baseline"), py::arg("anti_neutrino")=false, py::arg("density"), py::arg("NR_iterations"))
         .def("set_parameters", &DPpropagator::setParameters,
