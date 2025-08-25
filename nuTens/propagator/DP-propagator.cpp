@@ -6,6 +6,8 @@ Tensor DPpropagator::calculateProbs()
 {
 	NT_PROFILE();
 	
+	float antinuFactor = (0.5 - ((float) _antiNeutrino)) * 2.0;
+	
 	// --------------------------------------------------------------------- //
 	// First calculate useful simple functions of the oscillation parameters //
 	// --------------------------------------------------------------------- //
@@ -32,11 +34,15 @@ Tensor DPpropagator::calculateProbs()
 	Tensor Ut2sq = Tensor::mul(Tensor::mul(sinSqTheta13, sinSqTheta12), sinSqTheta23);
 	Tensor Um2sq = Tensor::mul(cosSqTheta12, cosSqTheta23);
 
-	Tensor Jrr = Tensor::pow( Tensor::mul(Um2sq, Ut2sq), 0.5);
+	/// TODO: The nufast version of this would look like 
+	///         Tensor::pow( Tensor::mul(Um2sq, Ut2sq), 0.5);
+	///       however this means that the sign of the sin functions is lost
+	///       giving weong Um2sq and then wrong osc probs
+	Tensor Jrr = Tensor::cos(theta12) * Tensor::cos(theta23) * Tensor::sin(theta13) * Tensor::sin(theta12) * Tensor::sin(theta23); 
 
 	Um2sq = Um2sq + Ut2sq - Jrr * cosDeltaCP * 2.0;
 	Tensor Jmatter = Jrr * cosSqTheta13 * sinDeltaCP * 8.0;
-	Tensor Amatter = _energies * _density * constants::Groot2 * 2.0;
+	Tensor Amatter = _energies * antinuFactor * _density * constants::Groot2 * 2.0;
 	Tensor Dmsqee = dmsq31 - sinSqTheta12 * dmsq21;
 
 	// calculate A, B, C, See, Tee, and part of Tmm
@@ -107,8 +113,8 @@ Tensor DPpropagator::calculateProbs()
 	// Get the kinematic terms //
 	// ----------------------- //
 
-	Tensor D21 = Dlambda21 * _baseline * 2.0 * M_PI / (_energies * 4.0);
-	Tensor D32 = Dlambda32 * _baseline * 2.0 * M_PI / (_energies * 4.0);
+	Tensor D21 = Dlambda21 * _baseline * 2.0 * M_PI / (_energies * antinuFactor * 4.0);
+	Tensor D32 = Dlambda32 * _baseline * 2.0 * M_PI / (_energies * antinuFactor * 4.0);
 	  
 	Tensor sinD21 = Tensor::sin(D21);
 	Tensor sinD31 = Tensor::sin(D32 + D21);

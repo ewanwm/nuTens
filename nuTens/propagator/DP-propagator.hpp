@@ -7,15 +7,16 @@
 namespace nuTens 
 {
 
-template <typename T>
-struct fail : std::false_type 
-{
-};
 
 /// @brief Solver based on Denton, Parke (https://arxiv.org/pdf/2405.02400)
 /// assumes 3 flavour oscillations and dm^2_21 > 0
 class DPpropagator : public Propagator
 {
+
+    template <typename T>
+    struct fail : std::false_type 
+    {
+    };
 
   public:
 
