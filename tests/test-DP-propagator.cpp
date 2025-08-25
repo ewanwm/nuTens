@@ -193,6 +193,24 @@ TEST_P(DPpropagatorTest, CompareToNuFast_antinu) {
 
 }
 
+// test only that the auto diff works and gives *something*
+// not actually a test that it is the right something 
+TEST_P(DPpropagatorTest, autogradTest) {
+
+    _setParamValues();
+
+    theta23.requiresGrad(true);
+
+    // get propagator probabilities
+    Tensor dpProbabilities = dpPropagator.calculateProbs();
+
+    Tensor muSurvivalProb = dpProbabilities.getValues({0, 1, 1});
+
+    muSurvivalProb.backward();
+
+    NT_INFO("d P_(mu->mu) / d theta_23 = {}", theta23.grad().getValue<float>());
+}
+
 INSTANTIATE_TEST_CASE_P(
     OscProb,
     DPpropagatorTest,
