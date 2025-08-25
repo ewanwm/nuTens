@@ -15,6 +15,7 @@
 #include <nuTens/tensors/tensor.hpp>
 #include <tests/barger-propagator.hpp>
 #include <nuTens/propagator/base-mixing-matrix.hpp>
+#include <nuTens/propagator/DP-propagator.hpp>
 #include <nuTens/propagator/pmns-matrix.hpp>
 
 #if USE_PYTORCH
@@ -294,6 +295,22 @@ void initPropagator(py::module &m)
         .def("set_antineutrino", (&Propagator::setAntiNeutrino),
             "Set whether the propagator should calculate oscillations for anti-neutrinos",
             py::arg("new_value")
+        )
+        ;
+
+
+    py::class_<DPpropagator, std::shared_ptr<DPpropagator>, Propagator>(m_propagator, "DPpropagator")
+        .def(py::init<float, bool, float, int>(), 
+            py::arg("baseline"), py::arg("anti_neutrino")=false, py::arg("density"), py::arg("NR_iterations"))
+        .def("set_parameters", &DPpropagator::setParameters,
+            "set the parameters for the oscillation calculations",
+            py::arg("new_theta12"), py::arg("new_theta23"), py::arg("new_theta13"), py::arg("new_deltaCP"), py::arg("new_deltamsq21"), py::arg("new_deltamsq32")
+        )
+        .def("set_energies", &DPpropagator::setEnergies,
+            "set the neutrino energies",
+            py::arg("new_energies")
+        )
+        .def("calculate_probs", &DPpropagator::calculateProbs
         )
         ;
 
