@@ -62,9 +62,15 @@ class DPpropagatorTest :public gtest::TestWithParam<float> {
     }
 
     /// set the oscillation parameter values
-    void _setParamValues() {
+    void _setParamValues(bool forceLowerOctant = false) {
         // get parameterised theta value
         float theta = GetParam();
+
+        // allow user to force theta to be in lower octant
+        // (allows correct comparison with nufast)
+        if (forceLowerOctant) {
+            theta = asin(std::abs(sin(theta)));
+        }
 
         NT_INFO("########## theta = {} ##########", theta);
 
@@ -84,7 +90,9 @@ class DPpropagatorTest :public gtest::TestWithParam<float> {
     /// compare DP propagator oscillation probabilities to the "official" nufast code
     void compareNufast(bool antineutrino) {
 
-        _setParamValues();
+        // need to force theta into lower octant as this is assumed by
+        // nufast so otherwise result will differ and test will break
+        _setParamValues(/*forceLowerOctant=*/true);
 
         dpPropagator.setAntiNeutrino(antineutrino);
         
