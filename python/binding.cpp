@@ -14,6 +14,7 @@
 #include <nuTens/tensors/dtypes.hpp>
 #include <nuTens/tensors/tensor.hpp>
 #include <tests/barger-propagator.hpp>
+#include <tests/nuFast.hpp>
 #include <nuTens/propagator/base-mixing-matrix.hpp>
 #include <nuTens/propagator/DP-propagator.hpp>
 #include <nuTens/propagator/pmns-matrix.hpp>
@@ -87,6 +88,10 @@ void initTensor(py::module &m)
         .def("add_batch_dim", &Tensor::addBatchDim, py::return_value_policy::reference,
             "Add a batch dimension to the start of this tensor if it doesn't have one already"
         )
+        .def("unsqueeze", &Tensor::unsqueeze, py::return_value_policy::reference,
+            "add an extra dimension to this tensor at the specified location",
+            py::arg("dim")
+        )
 
         // setters
         .def("set_value", py::overload_cast<const Tensor &, const Tensor &>(&Tensor::setValue),
@@ -116,8 +121,8 @@ void initTensor(py::module &m)
 
         // getters
         .def("get_shape", &Tensor::getShape, "Get the shape of this tensor")
-        .def("get_values", &Tensor::getValues, "Get the subset of values in this tensor at a specified location")
-        .def("get_value", &Tensor::getVariantValue, "Get the data stored at a particular index of the tensor")
+        .def("get_values", &Tensor::getValues, py::arg("indices"), "Get the subset of values in this tensor at a specified location")
+        .def("get_value", &Tensor::getVariantValue, py::arg("indices"), "Get the data stored at a particular index of the tensor")
 
         // complex number stuff
         .def("real", &Tensor::real, "Get real part of a complex tensor")
@@ -405,7 +410,31 @@ void initUnits(py::module &m)
 void initTesting(py::module &m)
 {
     auto m_testing = m.def_submodule("testing",
-        "Some helpful utilities to use when writing python tests for your code");
+        "Some helpful utilities to use when writing python tests for your code"
+    )
+    .def("nufast_probability_matter", [](double s12sq, double s13sq, double s23sq, double delta, double dm21, double dm31, double L, double E, double rho, double Ye, double Nnewton) 
+        {
+            // the probabilities as a raw c array
+            double probs_returned[3][3];
+
+            // get the probabilities
+            Probability_Matter_LBL(s12sq, s13sq, s23sq, delta, dm21, dm31, L, E, rho, Ye, Nnewton, &probs_returned);
+
+            // turn them into a vector so they can be returned as a numpy array
+            std::vector<std::vector<double>> ret = {
+                {probs_returned[0][0], probs_returned[0][1], probs_returned[0][2]},
+                {probs_returned[1][0], probs_returned[1][1], probs_returned[1][2]},
+                {probs_returned[2][0], probs_returned[2][1], probs_returned[2][2]}
+            };
+
+            return ret;
+        },
+        "Calculates the oscillation probabilities using nufast",
+        py::arg("sin_squared_theta12"), py::arg("sin_squared_theta13"), py::arg("sin_squared_theta23"), 
+        py::arg("delta_cp"), py::arg("delta_m_squared_21"), py::arg("delta_m_squared_31"), 
+        py::arg("baseline"), py::arg("energy"), py::arg("rho"), py::arg("Ye"), py::arg("N_Newton")
+    )
+    ;
 
     py::class_<testing::TwoFlavourBarger>(m_testing, "TwoFlavourBarger")
         .def(py::init<>())
