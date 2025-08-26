@@ -26,7 +26,7 @@ class DPpropagatorTest :public gtest::TestWithParam<float> {
     float dcp = M_PI / 4.0;
     float energy = 0.5 * units::GeV;
     float baseline = 295.0 * units::km;
-    float density = 0.0; //2.6;
+    float density = 2.6;
 
     // set the tensors we will use to calculate matter eigenvalues
     Tensor masses = Tensor({m1, m2, m3}, dtypes::kComplexFloat).addBatchDim().requiresGrad(true);
