@@ -58,10 +58,20 @@ class PMNSmatrix: public BaseMixingMatrix
     {
         NT_PROFILE();
 
+        _theta12.requiresGrad(false);
+        _theta13.requiresGrad(false);
+        _theta23.requiresGrad(false);
+        _deltaCP.requiresGrad(false);
+
         _theta12.setValue(theta12, 0);
         _theta13.setValue(theta13, 0);
         _theta23.setValue(theta23, 0);
-        _deltaCP.setValue(deltaCP, 0);
+        _deltaCP.setValue({0}, deltaCP);
+
+        _theta12.requiresGrad(true);
+        _theta13.requiresGrad(true);
+        _theta23.requiresGrad(true);
+        _deltaCP.requiresGrad(true);
     }
 
     /// @{Setters
@@ -74,10 +84,10 @@ class PMNSmatrix: public BaseMixingMatrix
   private:
 
     // the mixing parameters
-    AccessedTensor<float, 1, dtypes::kCPU> _theta12 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1});
-    AccessedTensor<float, 1, dtypes::kCPU> _theta13 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1});
-    AccessedTensor<float, 1, dtypes::kCPU> _theta23 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1});
-    AccessedTensor<float, 1, dtypes::kCPU> _deltaCP = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1});
+    AccessedTensor<float, 1, dtypes::kCPU> _theta12 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, true);
+    AccessedTensor<float, 1, dtypes::kCPU> _theta13 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, true);
+    AccessedTensor<float, 1, dtypes::kCPU> _theta23 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, true);
+    Tensor _deltaCP = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, true);
 
     // the sub-matrices 
     Tensor _mat1;
