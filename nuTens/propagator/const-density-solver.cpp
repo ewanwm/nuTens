@@ -9,54 +9,53 @@ void ConstDensityMatterSolver::calculateEigenvalues(Tensor &eigenvectors, Tensor
     buildHamiltonian();
 
     Tensor::eigh(hamiltonian, eigenvalues, eigenvectors);
-    
 }
 
-void ConstDensityMatterSolver::buildHamiltonian() {
+void ConstDensityMatterSolver::buildHamiltonian()
+{
 
     NT_PROFILE();
 
     hamiltonian.setValue({"..."}, (Tensor::div(diagMassMatrix, energiesRed) - electronOuter));
-
 }
 
-Tensor ConstDensityMatterSolver::getHamiltonian() {
+Tensor ConstDensityMatterSolver::getHamiltonian()
+{
 
     NT_PROFILE();
 
     buildHamiltonian();
 
     return hamiltonian;
-
 }
 
-Tensor ConstDensityMatterSolver::getElectronOuterProduct() {
+Tensor ConstDensityMatterSolver::getElectronOuterProduct()
+{
 
     NT_PROFILE();
 
     buildElectronOuterProduct();
 
     return electronOuter;
-
 }
 
-void ConstDensityMatterSolver::buildElectronOuterProduct() 
+void ConstDensityMatterSolver::buildElectronOuterProduct()
 {
 
     NT_PROFILE();
 
     if (antiNeutrino)
     {
-        electronOuter =
-            Tensor::scale(Tensor::outer(mixingMatrix.getValues({0, 0, "..."}).conj(), mixingMatrix.getValues({0, 0, "..."})),
-                          -nuTens::constants::Groot2 * density);
+        electronOuter = Tensor::scale(
+            Tensor::outer(mixingMatrix.getValues({0, 0, "..."}).conj(), mixingMatrix.getValues({0, 0, "..."})),
+            -nuTens::constants::Groot2 * density);
     }
 
-    else 
+    else
     {
-        electronOuter =
-            Tensor::scale(Tensor::outer(mixingMatrix.getValues({0, 0, "..."}).conj(), mixingMatrix.getValues({0, 0, "..."})),
-                          nuTens::constants::Groot2 * density);
+        electronOuter = Tensor::scale(
+            Tensor::outer(mixingMatrix.getValues({0, 0, "..."}).conj(), mixingMatrix.getValues({0, 0, "..."})),
+            nuTens::constants::Groot2 * density);
     }
 
     electronOuter.unsqueeze(0);

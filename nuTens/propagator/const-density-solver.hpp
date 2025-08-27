@@ -5,7 +5,8 @@
 
 /// @file const-density-solver.hpp
 
-namespace nuTens {
+namespace nuTens
+{
 
 class ConstDensityMatterSolver : public BaseMatterSolver
 {
@@ -37,10 +38,8 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// should expect
     /// @arg density The electron density of the material to propagate in
     /// @arg antiNeutrino True if we are calculating effects for anti-neutrinos
-    ConstDensityMatterSolver(int nGenerations, float density, bool antiNeutrino=false) 
-    : 
-        BaseMatterSolver(nGenerations, antiNeutrino),
-        density(density)
+    ConstDensityMatterSolver(int nGenerations, float density, bool antiNeutrino = false)
+        : BaseMatterSolver(nGenerations, antiNeutrino), density(density)
     {
         diagMassMatrix = Tensor::zeros({1, nGenerations, nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
     };
@@ -55,9 +54,8 @@ class ConstDensityMatterSolver : public BaseMatterSolver
         NT_PROFILE();
 
         BaseMatterSolver::setAntiNeutrino(newValue);
-        
-        buildElectronOuterProduct();
 
+        buildElectronOuterProduct();
     }
 
     /// @brief Set a new mixing matrix for this solver
@@ -87,26 +85,24 @@ class ConstDensityMatterSolver : public BaseMatterSolver
         diagMassMatrix = Tensor::diag(diag).requiresGrad(false).unsqueeze(0);
     }
 
-
-    /// @brief set a new density 
+    /// @brief set a new density
     /// @param newDensity the new value
     inline void setDensity(float newDensity)
     {
-        /// @todo super inefficient to recalculate this here and also in 
+        /// @todo super inefficient to recalculate this here and also in
         /// setMixingMatrix. Would be good to have some _valuesChanged flag that causes
         /// these kind of things to be recalculated inside of calculateEigenvalues
         /// if any of the dependent variables changed e.g. mixing matrix, density, masses
         /// See also smilar problem in propagator::setBaseline
-        
+
         NT_PROFILE();
 
         density = newDensity;
 
-        buildElectronOuterProduct();    
+        buildElectronOuterProduct();
     }
 
     /// @}
-
 
     /// @{ Getters
 
@@ -115,13 +111,14 @@ class ConstDensityMatterSolver : public BaseMatterSolver
         return density;
     }
 
-    /// @brief Calculate the hamiltonian eigenvalues and eigenvectors, i.e. the effective Mass^2 states and effective mixing matrix
+    /// @brief Calculate the hamiltonian eigenvalues and eigenvectors, i.e. the effective Mass^2 states and effective
+    /// mixing matrix
     /// @param[out] eigenvectors The returned eigenvectors
     /// @param[out] eigenvalues The corresponding eigenvalues
     void calculateEigenvalues(Tensor &eigenvectors, Tensor &eigenvalues) override;
 
-    /// construct the outer product of the electron row of the mixing matrix, used in building the hamiltonian, and return a copy of it
-    /// potentially useful for debugging
+    /// construct the outer product of the electron row of the mixing matrix, used in building the hamiltonian, and
+    /// return a copy of it potentially useful for debugging
     Tensor getElectronOuterProduct();
 
     /// construct the hamiltonian and return a copy of it
@@ -129,12 +126,11 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     Tensor getHamiltonian();
 
   private:
-
     /// @brief construct the outer product of the electron neutrino row of the mixing
     /// matrix used to construct the hamiltonian
     void buildElectronOuterProduct();
 
-    /// @brief Construct the hamiltonian 
+    /// @brief Construct the hamiltonian
     void buildHamiltonian();
 
     Tensor diagMassMatrix;
@@ -142,4 +138,4 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     float density;
 };
 
-};
+}; // namespace nuTens
