@@ -48,7 +48,7 @@ void ConstDensityMatterSolver::buildElectronOuterProduct()
     if (antiNeutrino)
     {
         electronOuter =
-            Tensor::scale(Tensor::outer(mixingMatrix.getValues({0, 0, "..."}), mixingMatrix.getValues({0, 0, "..."}).conj()),
+            Tensor::scale(Tensor::outer(mixingMatrix.getValues({0, 0, "..."}).conj(), mixingMatrix.getValues({0, 0, "..."})),
                           -nuTens::constants::Groot2 * density);
     }
 

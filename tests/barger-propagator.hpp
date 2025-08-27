@@ -232,10 +232,10 @@ class ThreeFlavourBarger
         pmnsMatrix[0][2] = std::sin(theta13) * std::exp(std::complex<double>(0.0, -1.0) * deltaCP);
 
         pmnsMatrix[1][0] = -std::sin(theta12) * std::cos(theta23) - std::cos(theta12) * std::sin(theta23) * std::sin(theta13) * std::exp(std::complex<double>(0.0, 1.0) * deltaCP);
-        pmnsMatrix[1][1] = std::cos(theta12) * std::cos(theta23) - std::sin(theta12) * std::sin(theta23) * std::sin(theta13) * std::exp(std::complex<double>(0.0, 1.0) * deltaCP);
+        pmnsMatrix[1][1] = std::cos(theta12) * std::cos(theta23)  - std::sin(theta12) * std::sin(theta23) * std::sin(theta13) * std::exp(std::complex<double>(0.0, 1.0) * deltaCP);
         pmnsMatrix[1][2] = std::complex<double>(std::sin(theta23) * std::cos(theta13), 0.0);
 
-        pmnsMatrix[2][0] = std::sin(theta12) * std::sin(theta23) - std::cos(theta12) * std::cos(theta23) * std::sin(theta13) * std::exp(std::complex<double>(0.0, 1.0) * deltaCP);
+        pmnsMatrix[2][0] = std::sin(theta12) * std::sin(theta23)  - std::cos(theta12) * std::cos(theta23) * std::sin(theta13) * std::exp(std::complex<double>(0.0, 1.0) * deltaCP);
         pmnsMatrix[2][1] = -std::cos(theta12) * std::sin(theta23) - std::sin(theta12) * std::cos(theta23) * std::sin(theta13) * std::exp(std::complex<double>(0.0, 1.0) * deltaCP);
         pmnsMatrix[2][2] = std::complex<double>(std::cos(theta23) * std::cos(theta13), 0.0);
 
@@ -338,7 +338,7 @@ class ThreeFlavourBarger
         }
 
         if (_antiNeutrino) {
-            ret += constants::Groot2 * _density * std::conj(pmnsMatrix[0][b]) * pmnsMatrix[0][a];
+            ret += constants::Groot2 * _density * pmnsMatrix[0][b] * std::conj(pmnsMatrix[0][a]);
         }
         else {
             ret -= constants::Groot2 * _density * pmnsMatrix[0][b] * std::conj(pmnsMatrix[0][a]);
