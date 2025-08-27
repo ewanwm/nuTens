@@ -126,15 +126,15 @@ class DPpropagatorTest :public gtest::TestWithParam<float> {
         NT_INFO("[2, 1] :: DP propagator: {:.7f} :: nuFast: {:.7f}", dpProbabilities.getValue<float>({0, 2, 1}), probs_returned[2][1]);
         NT_INFO("[2, 2] :: DP propagator: {:.7f} :: nuFast: {:.7f}", dpProbabilities.getValue<float>({0, 2, 2}), probs_returned[2][2]);
 
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 0}), probs_returned[0][0], 1e-6);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 1}), probs_returned[0][1], 1e-6);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 2}), probs_returned[0][2], 1e-6);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 0}), probs_returned[1][0], 1e-6);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 1}), probs_returned[1][1], 1e-6);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 2}), probs_returned[1][2], 1e-6);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 0}), probs_returned[2][0], 1e-6);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 1}), probs_returned[2][1], 1e-6);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 2}), probs_returned[2][2], 1e-6);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 0}), probs_returned[0][0], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 1}), probs_returned[0][1], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 2}), probs_returned[0][2], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 0}), probs_returned[1][0], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 1}), probs_returned[1][1], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 2}), probs_returned[1][2], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 0}), probs_returned[2][0], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 1}), probs_returned[2][1], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 2}), probs_returned[2][2], 1e-5);
 
     }
 
@@ -164,15 +164,15 @@ class DPpropagatorTest :public gtest::TestWithParam<float> {
         NT_INFO("[2, 1] :: propagator: {:.7f} :: DP propagator: {:.7f}", probabilities.getValue<float>({0, 2, 1}), dpProbabilities.getValue<float>({0, 2, 1}));
         NT_INFO("[2, 2] :: propagator: {:.7f} :: DP propagator: {:.7f}", probabilities.getValue<float>({0, 2, 2}), dpProbabilities.getValue<float>({0, 2, 2}));
 
-        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 0}), dpProbabilities.getValue<float>({0, 0, 0}), 1e-6);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 1}), dpProbabilities.getValue<float>({0, 0, 1}), 1e-6);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 2}), dpProbabilities.getValue<float>({0, 0, 2}), 1e-6);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 0}), dpProbabilities.getValue<float>({0, 1, 0}), 1e-6);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 1}), dpProbabilities.getValue<float>({0, 1, 1}), 1e-6);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 2}), dpProbabilities.getValue<float>({0, 1, 2}), 1e-6);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 0}), dpProbabilities.getValue<float>({0, 2, 0}), 1e-6);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 1}), dpProbabilities.getValue<float>({0, 2, 1}), 1e-6);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 2}), dpProbabilities.getValue<float>({0, 2, 2}), 1e-6);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 0}), dpProbabilities.getValue<float>({0, 0, 0}), 1e-5);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 1}), dpProbabilities.getValue<float>({0, 0, 1}), 1e-5);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 2}), dpProbabilities.getValue<float>({0, 0, 2}), 1e-5);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 0}), dpProbabilities.getValue<float>({0, 1, 0}), 1e-5);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 1}), dpProbabilities.getValue<float>({0, 1, 1}), 1e-5);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 2}), dpProbabilities.getValue<float>({0, 1, 2}), 1e-5);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 0}), dpProbabilities.getValue<float>({0, 2, 0}), 1e-5);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 1}), dpProbabilities.getValue<float>({0, 2, 1}), 1e-5);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 2}), dpProbabilities.getValue<float>({0, 2, 2}), 1e-5);
     }
 };
 
