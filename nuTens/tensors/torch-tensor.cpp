@@ -8,11 +8,8 @@ std::string Tensor::getTensorLibrary()
     return "PyTorch";
 }
 
-Tensor::Tensor(const std::vector<float> &values, dtypes::scalarType type, dtypes::deviceType device,
-               bool requiresGrad)
-:
-_dType(type),
-_device(device)
+Tensor::Tensor(const std::vector<float> &values, dtypes::scalarType type, dtypes::deviceType device, bool requiresGrad)
+    : _dType(type), _device(device)
 {
     NT_PROFILE();
 
@@ -86,9 +83,9 @@ Tensor Tensor::zeros(const std::vector<long int> &shape, dtypes::scalarType type
 
     Tensor ret;
     ret.setTensor(torch::zeros(c10::IntArrayRef(shape), torch::TensorOptions()
-                                                           .dtype(dtypes::scalarTypeMap(type))
-                                                           .device(dtypes::deviceTypeMap(device))
-                                                           .requires_grad(requiresGrad)));
+                                                            .dtype(dtypes::scalarTypeMap(type))
+                                                            .device(dtypes::deviceTypeMap(device))
+                                                            .requires_grad(requiresGrad)));
     ret._dType = type;
     ret._device = device;
     return ret;

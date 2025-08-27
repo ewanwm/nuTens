@@ -3,17 +3,16 @@
 #include <nuTens/propagator/base-mixing-matrix.hpp>
 #include <nuTens/tensors/tensor.hpp>
 
-namespace nuTens 
+namespace nuTens
 {
 
 const std::complex<float> imagUnit(0.0, 1.0);
 
 /// @brief PMNS matrix in the standard parameterisation
 /// Convenient way to construct the matrix
-class PMNSmatrix: public BaseMixingMatrix
+class PMNSmatrix : public BaseMixingMatrix
 {
   public:
-
     PMNSmatrix()
     {
         NT_PROFILE();
@@ -75,21 +74,32 @@ class PMNSmatrix: public BaseMixingMatrix
     }
 
     /// @{Setters
-    inline const Tensor &getTheta12Tensor() { return _theta12; }
-    inline const Tensor &getTheta13Tensor() { return _theta13; }
-    inline const Tensor &getTheta23Tensor() { return _theta23; }
-    inline const Tensor &getDeltaCPTensor() { return _deltaCP; }
+    inline const Tensor &getTheta12Tensor()
+    {
+        return _theta12;
+    }
+    inline const Tensor &getTheta13Tensor()
+    {
+        return _theta13;
+    }
+    inline const Tensor &getTheta23Tensor()
+    {
+        return _theta23;
+    }
+    inline const Tensor &getDeltaCPTensor()
+    {
+        return _deltaCP;
+    }
     /// @}
 
   private:
-
     // the mixing parameters
     AccessedTensor<float, 1, dtypes::kCPU> _theta12 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, true);
     AccessedTensor<float, 1, dtypes::kCPU> _theta13 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, true);
     AccessedTensor<float, 1, dtypes::kCPU> _theta23 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, true);
     Tensor _deltaCP = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, true);
 
-    // the sub-matrices 
+    // the sub-matrices
     Tensor _mat1;
     Tensor _mat2;
     Tensor _mat3;
@@ -98,4 +108,4 @@ class PMNSmatrix: public BaseMixingMatrix
     Tensor _matrix;
 };
 
-};
+}; // namespace nuTens

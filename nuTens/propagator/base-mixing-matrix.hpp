@@ -5,10 +5,9 @@
 namespace nuTens
 {
 
-class BaseMixingMatrix 
+class BaseMixingMatrix
 {
   public:
-  
     /// @brief Should construct and return the mixing matrix
     virtual Tensor &build() = 0;
 
@@ -16,4 +15,4 @@ class BaseMixingMatrix
     virtual ~BaseMixingMatrix() = default;
 };
 
-};
+}; // namespace nuTens

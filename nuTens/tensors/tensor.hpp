@@ -20,7 +20,8 @@
  * @brief Defines the interface of a Tensor object
  */
 
-namespace nuTens {
+namespace nuTens
+{
 
 class Tensor
 {
@@ -57,11 +58,7 @@ class Tensor
     /// @{
 
     /// @brief Default constructor with no initialisation
-    Tensor()
-    :
-    _dType(dtypes::kUninitScalar),
-    _device(dtypes::kUninitDevice)
-    {};
+    Tensor() : _dType(dtypes::kUninitScalar), _device(dtypes::kUninitDevice) {};
 
     /// @brief Construct a 1-d array with specified values
     /// @arg values The values to include in the tensor
@@ -253,8 +250,8 @@ class Tensor
 
     /// @brief Perform QR decomposition on a hermitian matrix
     /// @arg t The tensor
-    /// @param[out] Q 
-    /// @param[out] R 
+    /// @param[out] Q
+    /// @param[out] R
     static void qr(const Tensor &t, Tensor &Q, Tensor &R);
 
     /// @}
@@ -427,15 +424,16 @@ class Tensor
         return _tensor;
     }
 
-    /// Builds a nuTens tensor from a torch tensor. Only available if using the 
+    /// Builds a nuTens tensor from a torch tensor. Only available if using the
     /// pytorch backend... obviously
-    static inline Tensor fromTorchTensor(const torch::Tensor &tensor) {
+    static inline Tensor fromTorchTensor(const torch::Tensor &tensor)
+    {
 
         NT_PROFILE();
 
         Tensor ret;
         ret.setTensor(tensor);
-        
+
         return ret;
     }
 
@@ -506,35 +504,28 @@ class Tensor
 /// @tparam TnDims The number of dimensions of the tensor
 /// @tparam Tdevice The device the tensor will live on
 ///
-/// AccessedTensors are designed to be used for fast direct access to 
+/// AccessedTensors are designed to be used for fast direct access to
 /// the individual values of the underlying tensor. This speed comes at
-/// the cost of some flexibility as you must define the type, number of 
-/// dimensions, and device at compile time. This allows us to use pyTorchs 
+/// the cost of some flexibility as you must define the type, number of
+/// dimensions, and device at compile time. This allows us to use pyTorchs
 /// tensor accessors to increase the access speed.
-/// You should only use these when you intend to directly manipulate the 
+/// You should only use these when you intend to directly manipulate the
 /// entries of the tensor. e.g. to set parameter values, or energy values
-/// at the start of a computational chain. 
-template<typename Tdtype, int TnDims, dtypes::deviceType Tdevice>
-class AccessedTensor: public Tensor {
+/// at the start of a computational chain.
+template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class AccessedTensor : public Tensor
+{
 
   public:
-
-    inline AccessedTensor(const Tensor &tensor)
-    :
-    AccessedTensor(tensor.getTensor())
-    {};
+    inline AccessedTensor(const Tensor &tensor) : AccessedTensor(tensor.getTensor()) {};
 
   private:
-    AccessedTensor(const torch::Tensor &tensor) 
-    :
-    _packedAccessor(tensor.packed_accessor32<Tdtype, TnDims>()),
-    _accessor(tensor.accessor<Tdtype, TnDims>())
+    AccessedTensor(const torch::Tensor &tensor)
+        : _packedAccessor(tensor.packed_accessor32<Tdtype, TnDims>()), _accessor(tensor.accessor<Tdtype, TnDims>())
     {
         setTensor(tensor);
     };
 
   public:
-
     /// @name Setters
     /// dtype for accessedtensor is fixed at compile time
     inline AccessedTensor &dType(dtypes::scalarType type) = delete;
@@ -543,7 +534,7 @@ class AccessedTensor: public Tensor {
     inline AccessedTensor &device(dtypes::deviceType device) = delete;
 
     /// @brief Set whether the tensor requires a gradient
-    inline AccessedTensor &requiresGrad(bool reqGrad) 
+    inline AccessedTensor &requiresGrad(bool reqGrad)
     {
         NT_PROFILE();
 
@@ -566,21 +557,19 @@ class AccessedTensor: public Tensor {
     /// n dimensions for accessedtensor is fixed at compile time
     inline AccessedTensor &unsqueeze(int index) = delete;
 
-
     /// @brief Construct an identity tensor (has to be a 2d square tensor)
     /// @arg n The size of one of the sides of the tensor
     /// @arg type The data type of the tensor
-    static AccessedTensor eye(bool requiresGrad = true) {
+    static AccessedTensor eye(bool requiresGrad = true)
+    {
 
         NT_PROFILE();
 
         AccessedTensor<Tdtype, TnDims, Tdevice> ret(
             torch::eye(TnDims, torch::TensorOptions()
-                .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
-                .device(dtypes::deviceTypeMap(Tdevice))
-                .requires_grad(requiresGrad)
-            )
-        );
+                                   .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
+                                   .device(dtypes::deviceTypeMap(Tdevice))
+                                   .requires_grad(requiresGrad)));
 
         ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
         ret._device = Tdevice;
@@ -591,7 +580,8 @@ class AccessedTensor: public Tensor {
     /// @brief Construct a tensor with entries randomly initialised in the range [0, 1]
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
-    static AccessedTensor rand(const std::vector<long int> &shape, bool requiresGrad = true) {
+    static AccessedTensor rand(const std::vector<long int> &shape, bool requiresGrad = true)
+    {
 
         NT_PROFILE();
 
@@ -599,22 +589,21 @@ class AccessedTensor: public Tensor {
 
         AccessedTensor<Tdtype, TnDims, Tdevice> ret(
             torch::rand(c10::IntArrayRef(shape), torch::TensorOptions()
-                .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
-                .device(dtypes::deviceTypeMap(Tdevice))
-                .requires_grad(requiresGrad)
-            )
-        );
+                                                     .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
+                                                     .device(dtypes::deviceTypeMap(Tdevice))
+                                                     .requires_grad(requiresGrad)));
 
         ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
         ret._device = Tdevice;
-        
+
         return ret;
     }
 
     /// @brief Construct a tensor with ones
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
-    static AccessedTensor ones(const std::vector<long int> &shape, bool requiresGrad = true) {
+    static AccessedTensor ones(const std::vector<long int> &shape, bool requiresGrad = true)
+    {
 
         NT_PROFILE();
 
@@ -622,36 +611,32 @@ class AccessedTensor: public Tensor {
 
         AccessedTensor<Tdtype, TnDims, Tdevice> ret(
             torch::ones(c10::IntArrayRef(shape), torch::TensorOptions()
-                .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
-                .device(dtypes::deviceTypeMap(Tdevice))
-                .requires_grad(requiresGrad)
-            )
-        );
+                                                     .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
+                                                     .device(dtypes::deviceTypeMap(Tdevice))
+                                                     .requires_grad(requiresGrad)));
 
         ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
         ret._device = Tdevice;
         return ret;
-    
     }
 
     /// @brief Construct a tensor with zeros
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
-    static AccessedTensor zeros(const std::vector<long int> &shape, bool requiresGrad = true) {
-        
+    static AccessedTensor zeros(const std::vector<long int> &shape, bool requiresGrad = true)
+    {
+
         NT_PROFILE();
 
         assert((shape.size() == TnDims) && "dimensions in shape must match templated TnDims");
 
-        torch::Tensor zeros = torch::zeros(c10::IntArrayRef(shape), torch::TensorOptions()
-            .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
-            .device(dtypes::deviceTypeMap(Tdevice))
-            .requires_grad(requiresGrad)
-        );
-        
-        AccessedTensor<Tdtype, TnDims, Tdevice> ret(
-            zeros
-        );
+        torch::Tensor zeros =
+            torch::zeros(c10::IntArrayRef(shape), torch::TensorOptions()
+                                                      .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
+                                                      .device(dtypes::deviceTypeMap(Tdevice))
+                                                      .requires_grad(requiresGrad));
+
+        AccessedTensor<Tdtype, TnDims, Tdevice> ret(zeros);
 
         ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
         ret._device = Tdevice;
@@ -662,67 +647,77 @@ class AccessedTensor: public Tensor {
     /// @{
 
     /// @brief Set a value in a 1D tensor
-    void setValue(Tdtype value, int i) {
+    void setValue(Tdtype value, int i)
+    {
 
         NT_PROFILE();
 
         static_assert(TnDims == 1, "wrong number of indices");
 
-        if (Tdevice == dtypes::kGPU) {
+        if (Tdevice == dtypes::kGPU)
+        {
             _packedAccessor[i] = value;
         }
 
-        else if (Tdevice == dtypes::kCPU) {
+        else if (Tdevice == dtypes::kCPU)
+        {
             _accessor[i] = value;
         }
     }
 
     /// @brief Set a value in a 2D tensor
-    void setValue(Tdtype value, int i, int j) {
+    void setValue(Tdtype value, int i, int j)
+    {
 
         NT_PROFILE();
 
         static_assert(TnDims == 2, "wrong number of indices");
 
-        if (Tdevice == dtypes::kGPU) {
+        if (Tdevice == dtypes::kGPU)
+        {
             _packedAccessor[i][j] = value;
         }
 
-        else if (Tdevice == dtypes::kCPU) {
+        else if (Tdevice == dtypes::kCPU)
+        {
             _accessor[i][j] = value;
         }
     }
 
     /// @brief Set a value in a 3D tensor
-    void setValue(Tdtype value, int i, int j, int k) {
+    void setValue(Tdtype value, int i, int j, int k)
+    {
 
         NT_PROFILE();
 
         static_assert(TnDims == 3, "wrong number of indices");
 
-        if (Tdevice == dtypes::kGPU) {
+        if (Tdevice == dtypes::kGPU)
+        {
             _packedAccessor[i][j][k] = value;
         }
 
-        else if (Tdevice == dtypes::kCPU) {
+        else if (Tdevice == dtypes::kCPU)
+        {
             _accessor[i][j][k] = value;
         }
     }
 
     /// @}
 
-
     /// @name Value Getters
     /// @{
 
     /// @brief Get a value in a 1D tensor
-    Tdtype getValue(int i) const {
+    Tdtype getValue(int i) const
+    {
 
         NT_PROFILE();
 
         static_assert(TnDims == 1, "wrong number of indices");
 
-        if (Tdevice == dtypes::kGPU) {
+        if (Tdevice == dtypes::kGPU)
+        {
             return _packedAccessor[i];
         }
 
@@ -733,13 +728,15 @@ class AccessedTensor: public Tensor {
     }
 
     /// @brief Get a value in a 2D tensor
-    Tdtype getValue(int i, int j) const {
+    Tdtype getValue(int i, int j) const
+    {
 
         NT_PROFILE();
 
         static_assert(TnDims == 2, "wrong number of indices");
 
-        if (Tdevice == dtypes::kGPU) {
+        if (Tdevice == dtypes::kGPU)
+        {
             return _packedAccessor[i][j];
         }
 
@@ -750,13 +747,15 @@ class AccessedTensor: public Tensor {
     }
 
     /// @brief Get a value in a 3D tensor
-    Tdtype getValue(int i, int j, int k) const {
+    Tdtype getValue(int i, int j, int k) const
+    {
 
         NT_PROFILE();
 
         static_assert(TnDims == 3, "wrong number of indices");
 
-        if (Tdevice == dtypes::kGPU) {
+        if (Tdevice == dtypes::kGPU)
+        {
             return _packedAccessor[i][j][k];
         }
 
@@ -773,52 +772,38 @@ class AccessedTensor: public Tensor {
   private:
     torch::TensorAccessor<Tdtype, TnDims> _accessor;
     torch::PackedTensorAccessor32<Tdtype, TnDims> _packedAccessor;
-        
 };
-
 
 // Specialisations of value getters for complex values
 // needs to be specialised outside the body of the class
-template <> 
-inline std::complex<float> Tensor::getValue<std::complex<float>>(const std::vector<int> &indices) const
+template <> inline std::complex<float> Tensor::getValue<std::complex<float>>(const std::vector<int> &indices) const
 {
     NT_PROFILE();
 
-    return static_cast<std::complex<float>>(
-        _tensor.index(convertIndices(indices)).item<c10::complex<float>>()
-    );
+    return static_cast<std::complex<float>>(_tensor.index(convertIndices(indices)).item<c10::complex<float>>());
 }
 
-template <> 
-inline std::complex<double> Tensor::getValue<std::complex<double>>(const std::vector<int> &indices) const
+template <> inline std::complex<double> Tensor::getValue<std::complex<double>>(const std::vector<int> &indices) const
 {
     NT_PROFILE();
 
-    return static_cast<std::complex<double>>(
-        _tensor.index(convertIndices(indices)).item<c10::complex<double>>()
-    );
+    return static_cast<std::complex<double>>(_tensor.index(convertIndices(indices)).item<c10::complex<double>>());
 }
 
-template <> 
-inline std::complex<float> Tensor::getValue<std::complex<float>>() const
+template <> inline std::complex<float> Tensor::getValue<std::complex<float>>() const
 {
     NT_PROFILE();
 
-    return static_cast<std::complex<float>>(
-        _tensor.item<c10::complex<float>>()
-    );
+    return static_cast<std::complex<float>>(_tensor.item<c10::complex<float>>());
 }
 
-template <> 
-inline std::complex<double> Tensor::getValue<std::complex<double>>() const
+template <> inline std::complex<double> Tensor::getValue<std::complex<double>>() const
 {
     NT_PROFILE();
 
-    return static_cast<std::complex<double>>(
-        _tensor.item<c10::complex<double>>()
-    );
+    return static_cast<std::complex<double>>(_tensor.item<c10::complex<double>>());
 }
 
 #endif
 
-};
+}; // namespace nuTens

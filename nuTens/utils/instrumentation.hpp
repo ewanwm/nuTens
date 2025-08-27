@@ -235,24 +235,22 @@ class InstrumentationTimer
 // this mysterious wizzardry lets us have an optional "message" in the profile for the current scope
 
 // NOLINTNEXTLINE
-#define _NT_PROFILE_0() InstrumentationTimer timer##__LINE__(std::string(__PRETTY_FUNCTION__)) 
+#define _NT_PROFILE_0() InstrumentationTimer timer##__LINE__(std::string(__PRETTY_FUNCTION__))
 // NOLINTNEXTLINE
-#define _NT_PROFILE_1(message) InstrumentationTimer timer##__LINE__(std::string(__PRETTY_FUNCTION__) + "[" + message + "]")
+#define _NT_PROFILE_1(message)                                                                                         \
+    InstrumentationTimer timer##__LINE__(std::string(__PRETTY_FUNCTION__) + "[" + message + "]")
 
 // The interim macro that simply strips the excess and ends up with the required macro
 // NOLINTNEXTLINE
-#define _NT_PROFILE_X(x,A,FUNC, ...)  FUNC  
+#define _NT_PROFILE_X(x, A, FUNC, ...) FUNC
 
 /// @brief Profile the current scope. Can spefify a message that will be added if say you only want to
 //         profile one loop in a function instead of the whole thing
 /// Shold always be used at the very start of the scope.
 
-// The macro for the user 
+// The macro for the user
 // NOLINTNEXTLINE
-#define NT_PROFILE(...) _NT_PROFILE_X(,##__VA_ARGS__,\
-                        _NT_PROFILE_1(__VA_ARGS__),\
-                        _NT_PROFILE_0(__VA_ARGS__)\
-                       ) 
+#define NT_PROFILE(...) _NT_PROFILE_X(, ##__VA_ARGS__, _NT_PROFILE_1(__VA_ARGS__), _NT_PROFILE_0(__VA_ARGS__))
 
 #else
 /// @brief Profile the current scope. Can spefify a message that will be added if say you only want to

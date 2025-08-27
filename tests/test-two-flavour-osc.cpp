@@ -139,7 +139,7 @@ TEST_P(TwoFlavourOscillations, VacuumOscProbs) {
     // get parameterised theta value
     float theta = GetParam();
 
-    std::cout << "\n#### const density test for theta = " << theta << " ####" << std::endl;   
+    std::cout << "\n#### vacuum test for theta = " << theta << " ####" << std::endl;   
 
     Propagator tensorPropagator(2, baseline);
     tensorPropagator.setMasses(masses);

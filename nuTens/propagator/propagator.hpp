@@ -7,7 +7,8 @@
 
 /// @file propagator.hpp
 
-namespace nuTens {
+namespace nuTens
+{
 
 class Propagator
 {
@@ -31,12 +32,8 @@ class Propagator
     /// @param nGenerations The number of generations the propagator should
     /// expect
     /// @param baseline The baseline to propagate over
-    Propagator(int nGenerations, float baseline, bool antiNeutrino=false) 
-    : 
-        _baseline(baseline), 
-        _nGenerations(nGenerations),
-        _antiNeutrino(antiNeutrino)
-    {};
+    Propagator(int nGenerations, float baseline, bool antiNeutrino = false)
+        : _baseline(baseline), _nGenerations(nGenerations), _antiNeutrino(antiNeutrino) {};
 
     /// @brief Calculate the oscillation probabilities
     /// @param energies The energies of the neutrinos
@@ -46,8 +43,8 @@ class Propagator
     /// @{
 
     /// @brief Set whether we are dealing with anti-neutrinos
-    /// @param newValue 
-    virtual inline void setAntiNeutrino(bool newValue) 
+    /// @param newValue
+    virtual inline void setAntiNeutrino(bool newValue)
     {
         NT_PROFILE();
 
@@ -57,7 +54,6 @@ class Propagator
         {
             _matterSolver->setAntiNeutrino(newValue);
         }
-
     }
 
     /// @brief Set a matter solver to use to deal with matter effects
@@ -80,15 +76,17 @@ class Propagator
 
         _energies = newEnergies;
         _weightMatrix = Tensor::ones({_energies.getBatchDim(), _nGenerations, _nGenerations}, dtypes::kComplexFloat)
-                        .requiresGrad(false);
-        _weightArgDenom = Tensor::scale(Tensor::scale(_energies, 2.0), std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline * 2.0f * (float)M_PI));
+                            .requiresGrad(false);
+        _weightArgDenom =
+            Tensor::scale(Tensor::scale(_energies, 2.0),
+                          std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline * 2.0f * (float)M_PI));
 
         if (_matterSolver)
         {
             _matterSolver->setEnergies(newEnergies);
         }
     }
-    
+
     /// @brief Set the masses corresponding to the vacuum hamiltonian eigenstates
     /// @param newMasses The new masses to use. This tensor is expected to have a
     /// batch dimension + 1 more dimensions of size nGenerations. The batch
@@ -142,19 +140,18 @@ class Propagator
 
     /// @brief Set the baseline
     /// @param newBaseline new value
-    virtual inline void setBaseline(float newBaseline) 
+    virtual inline void setBaseline(float newBaseline)
     {
 
         NT_PROFILE();
 
         _baseline = newBaseline;
 
-        _weightArgDenom = Tensor::scale(Tensor::scale(_energies, 2.0), std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline));
-    
+        _weightArgDenom = Tensor::scale(Tensor::scale(_energies, 2.0),
+                                        std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline));
     }
 
     /// @}
-
 
     /// @{ Getters
 
@@ -183,4 +180,4 @@ class Propagator
     std::shared_ptr<BaseMatterSolver> _matterSolver;
 };
 
-};
+}; // namespace nuTens
