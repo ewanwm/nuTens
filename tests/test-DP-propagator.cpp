@@ -201,22 +201,36 @@ TEST_P(DPpropagatorTest, CompareToNuFast_antinu) {
 
 }
 
-// test only that the auto diff works and gives *something*
-// not actually a test that it is the right something 
+// test that auto diff works and gives same value for both
+// Propagator and DPpropagator
 TEST_P(DPpropagatorTest, autogradTest) {
 
     _setParamValues();
 
     theta23.requiresGrad(true);
 
-    // get propagator probabilities
-    Tensor dpProbabilities = dpPropagator.calculateProbs();
-
-    Tensor muSurvivalProb = dpProbabilities.getValues({0, 1, 1});
+    Tensor pmnsTensor = pmns.build();
+    tensorPropagator.setMixingMatrix(pmnsTensor);
+    
+    // get Propagator probabilities
+    Tensor probabilities = tensorPropagator.calculateProbs();
+    Tensor muSurvivalProb = probabilities.getValues({0, 1, 1});
 
     muSurvivalProb.backward();
+    
+    NT_INFO("Propagator:   d P_(mu->mu) / d theta_23 = {}", pmns.getTheta23Tensor().grad().getValue<float>());
+    
+    // get DPpropagator probabilities
+    Tensor dpProbabilities = dpPropagator.calculateProbs();
+    Tensor dpMuSurvivalProb = dpProbabilities.getValues({0, 1, 1});
 
-    NT_INFO("d P_(mu->mu) / d theta_23 = {}", theta23.grad().getValue<float>());
+    dpMuSurvivalProb.backward();
+
+    NT_INFO("DPpropagator: d P_(mu->mu) / d theta_23 = {}", theta23.grad().getValue<float>());
+
+    // check that the values are close to each other
+    ASSERT_NEAR(pmns.getTheta23Tensor().grad().getValue<float>(), theta23.grad().getValue<float>(), 1e-5);
+
 }
 
 INSTANTIATE_TEST_CASE_P(
