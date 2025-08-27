@@ -201,8 +201,8 @@ TEST_P(DPpropagatorTest, CompareToNuFast_antinu) {
 
 }
 
-// test only that the auto diff works and gives *something*
-// not actually a test that it is the right something 
+// test that auto diff works and gives same value for both
+// Propagator and DPpropagator
 TEST_P(DPpropagatorTest, autogradTest) {
 
     _setParamValues();
