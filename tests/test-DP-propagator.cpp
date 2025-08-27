@@ -78,8 +78,8 @@ class DPpropagatorTest :public gtest::TestWithParam<float> {
         theta13.setValue({0}, 0.3 * M_PI);
         theta12.setValue({0}, 0.2 * M_PI);
 
-        dmsq21.setValue({0}, m1 * m1 - m2 * m2);
-        dmsq31.setValue({0}, m1 * m1 - m3 * m3);
+        dmsq21.setValue({0}, m2 * m2 - m1 * m1);
+        dmsq31.setValue({0}, m3 * m3 - m1 * m1);
 
         deltaCP.setValue({0}, dcp);
 

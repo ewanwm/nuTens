@@ -20,8 +20,8 @@ class TestDPpropagator:
     m2 = 0.008 * nt.units.eV
     m3 = 0.02  * nt.units.eV
 
-    dmsq21 = Tensor([m1 * m1 - m2 * m2], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
-    dmsq31 = Tensor([m1 * m1 - m3 * m3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
+    dmsq21 = Tensor([m2 * m2 - m1 * m1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
+    dmsq31 = Tensor([m3 * m3 - m1 * m1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
 
     dcp = Tensor([m.pi / 4.0], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
 
@@ -61,8 +61,8 @@ class TestDPpropagator:
                 m.sin(self.theta13.get_value([0]).real) ** 2,
                 m.sin(theta23) ** 2,
                 self.dcp.get_value([0]).real,
-                self.dmsq21.get_value([0]).real,
-                self.dmsq31.get_value([0]).real,
+                -self.dmsq21.get_value([0]).real,
+                -self.dmsq31.get_value([0]).real,
                 self.baseline / nt.units.km,
                 self.energy.get_value([0,0]).real / nt.units.GeV,
                 1.0,

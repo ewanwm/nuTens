@@ -43,11 +43,11 @@ Tensor DPpropagator::calculateProbs()
 	Um2sq = Um2sq + Ut2sq - Jrr * cosDeltaCP * 2.0;
 	Tensor Jmatter = Jrr * cosSqTheta13 * sinDeltaCP * 8.0;
 	Tensor Amatter = _energies * antinuFactor * _density * constants::Groot2 * 2.0;
-	Tensor Dmsqee = dmsq31 - sinSqTheta12 * dmsq21;
+	Tensor Dmsqee = -dmsq31 + sinSqTheta12 * dmsq21;
 
 	// calculate A, B, C, See, Tee, and part of Tmm
-	Tensor A = dmsq21 + dmsq31; // temporary variable
-	Tensor See = A - dmsq21 * Ue2sq - dmsq31 * Ue3sq;
+	Tensor A = -dmsq21 - dmsq31; // temporary variable
+	Tensor See = A + dmsq21 * Ue2sq + dmsq31 * Ue3sq;
 	Tensor Tmm = dmsq21 * dmsq31; // using Tmm as a temporary variable	  
 	Tensor Tee = Tmm * (one -  Ue3sq - Ue2sq);
 	Tensor C = Amatter * Tee;
@@ -58,7 +58,7 @@ Tensor DPpropagator::calculateProbs()
 	// ---------------------------------- //
 	Tensor xmat = Amatter / Dmsqee;
 	Tensor tmp = one - xmat;
-	Tensor lambda3 = dmsq31 + Dmsqee * (xmat - 1 + Tensor::pow(tmp * tmp + sinSqTheta13 * xmat * 4.0, 0.5)) * 0.5;
+	Tensor lambda3 = -dmsq31 + Dmsqee * (xmat - 1 + Tensor::pow(tmp * tmp + sinSqTheta13 * xmat * 4.0, 0.5)) * 0.5;
 
 	// ---------------------------------------------------------------------------- //
 	// Newton iterations to improve lambda3 arbitrarily, if needed, (B needed here) //
@@ -88,7 +88,7 @@ Tensor DPpropagator::calculateProbs()
 	Ue3sq = (lambda3 * (lambda3 - See) + Tee) * Xp3;
 	Ue2sq = (lambda2 * (lambda2 - See) + Tee) * Xp2;
 
-	Tensor Smm = A - dmsq21 * Um2sq - dmsq31 * Um3sq;
+	Tensor Smm = A + dmsq21 * Um2sq + dmsq31 * Um3sq;
 	Tmm = Tmm * (one - Um3sq - Um2sq) + Amatter * (See + Smm - A);
 
 	Um3sq = (lambda3 * (lambda3 - Smm) + Tmm) * Xp3;
@@ -97,7 +97,7 @@ Tensor DPpropagator::calculateProbs()
 	// ------------- //
 	// Use NHS for J //
 	// ------------- //
-	Jmatter = Jmatter * dmsq21 * dmsq31 * (dmsq31 - dmsq21) * PiDlambdaInv;
+	Jmatter = Jmatter * dmsq21 * dmsq31 * (dmsq21 - dmsq31) * PiDlambdaInv;
 
 	// ----------------------- //
 	// Get all elements of Usq //
