@@ -137,8 +137,6 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// @brief Construct the hamiltonian 
     void buildHamiltonian();
 
-    Tensor mixingMatrix;
-    Tensor masses;
     Tensor diagMassMatrix;
     Tensor electronOuter;
     float density;

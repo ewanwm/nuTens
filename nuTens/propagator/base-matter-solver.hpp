@@ -20,11 +20,29 @@ class BaseMatterSolver
       nGenerations(nGenerations) 
       {}
 
+    ~BaseMatterSolver() {};
+
     /// @name Setters
     /// @{
-    virtual void setMixingMatrix(const Tensor &newMatrix) = 0;
 
-    virtual void setMasses(const Tensor &newMasses) = 0;
+    /// @brief Set a new mixing matrix for this solver
+    /// @param newMatrix The new matrix to set
+    virtual inline void setMixingMatrix(const Tensor &newMatrix)
+    {
+        NT_PROFILE();
+
+        mixingMatrix = newMatrix;
+    }
+
+    /// @brief Set new mass eigenvalues for this solver
+    /// @param newMasses The new masses
+    virtual inline void setMasses(const Tensor &newMasses)
+    {
+        assert((newMasses.getNdim() == 2));
+        NT_PROFILE();
+
+        masses = newMasses;
+    }
 
     virtual void calculateEigenvalues(Tensor &eigenvectors, Tensor &eigenvalues) = 0;
 
@@ -60,6 +78,8 @@ class BaseMatterSolver
     Tensor energies;
     Tensor energiesRed;
     Tensor hamiltonian;
+    Tensor mixingMatrix;
+    Tensor masses;
 };
 
 };
