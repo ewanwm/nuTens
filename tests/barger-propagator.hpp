@@ -352,41 +352,54 @@ class ThreeFlavourBarger
     /// @param a Row
     /// @param b Column
     /// @return Matrix element
-    [[nodiscard]] inline std::complex<double> getTransitionMatrixElement(float energy, int a, int b) const {
+    [[nodiscard]] inline std::complex<double> getTransitionMatrixElement(double energy, int a, int b) const {
 
         std::complex<double> ret = 0.0;
 
-        for (int k = 0; k < 3; k++) {
-
-            std::complex<double> numerator = 4.0 * energy * energy * (
-                getHamiltonianElement(energy, a, 0) * getHamiltonianElement(energy, 0, b) +
-                getHamiltonianElement(energy, a, 1) * getHamiltonianElement(energy, 1, b) +
-                getHamiltonianElement(energy, a, 2) * getHamiltonianElement(energy, 2, b) 
-            );
-
-            std::complex<double> constant = 1.0;
-            std::complex<double> denominator = 1.0;
-
-            for (int j = 0; j < 3; j++) {
-
-                if (j == k) continue;
-
-                numerator -= 2.0 * energy * getHamiltonianElement(energy, a, b) * calculateEffectiveM2(energy, j);
-                denominator *= calculateEffectiveM2(energy, k) - calculateEffectiveM2(energy, j);
-                constant *= calculateEffectiveM2(energy, j);
-
-            }
-
-            std::complex<double> prod = numerator;
-
-            if (a == b) 
-                prod += constant;
+        // interpret density <= 0.0 as vacuum, then transition matrix
+        // is just matrix with exponential terms along diagonal
+        if (_density <= 0.0 ) {
+            
+            if ( a == b )
+                ret = std::exp(- 0.5 * std::complex<double>(0.0, 1.0) * masses[a] * masses[a] * _baseline * 2.0 * M_PI / energy);
         
-            prod /= denominator;
+            else 
+                ret = 0.0;
+        }
 
-            std::complex<double> exponential = std::exp(-std::complex<double>(0.0, 1.0) * calculateEffectiveM2(energy, k) * _baseline * 2.0 * M_PI / (2.0 * energy));
+        else {
+            for (int k = 0; k < 3; k++) {
 
-            ret += prod * exponential;
+                std::complex<double> numerator = 4.0 * energy * energy * (
+                    getHamiltonianElement(energy, a, 0) * getHamiltonianElement(energy, 0, b) +
+                    getHamiltonianElement(energy, a, 1) * getHamiltonianElement(energy, 1, b) +
+                    getHamiltonianElement(energy, a, 2) * getHamiltonianElement(energy, 2, b) 
+                );
+
+                std::complex<double> constant = 1.0;
+                std::complex<double> denominator = 1.0;
+
+                for (int j = 0; j < 3; j++) {
+
+                    if (j == k) continue;
+
+                    numerator -= 2.0 * energy * getHamiltonianElement(energy, a, b) * calculateEffectiveM2(energy, j);
+                    denominator *= calculateEffectiveM2(energy, k) - calculateEffectiveM2(energy, j);
+                    constant *= calculateEffectiveM2(energy, j);
+
+                }
+
+                std::complex<double> prod = numerator;
+
+                if (a == b) 
+                    prod += constant;
+            
+                prod /= denominator;
+
+                std::complex<double> exponential = std::exp(-std::complex<double>(0.0, 1.0) * calculateEffectiveM2(energy, k) * _baseline * 2.0 * M_PI / (2.0 * energy));
+
+                ret += prod * exponential;
+            }
         }
 
         return ret;
