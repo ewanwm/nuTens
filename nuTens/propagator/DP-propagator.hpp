@@ -4,6 +4,8 @@
 #include <nuTens/propagator/propagator.hpp>
 #include <nuTens/propagator/constants.hpp>
 
+/// @file base-matter-solver.hpp
+
 namespace nuTens 
 {
 
@@ -92,6 +94,54 @@ class DPpropagator : public Propagator
         NT_PROFILE();
 
         _energies = newEnergies;
+    }
+
+    /// @}
+
+
+    /// @{Getters
+    
+    const Tensor& getTheta12()
+    {
+        NT_PROFILE();
+        
+        return theta12;
+    }
+    const Tensor& getTheta23()
+    {
+        NT_PROFILE();
+
+        return theta23;
+    }
+    const Tensor& getTheta13()
+    {
+        NT_PROFILE();
+
+        return theta13;
+    }
+    const Tensor& getDeltaCP()
+    {
+        NT_PROFILE();
+
+        return deltaCP;
+    }
+    const Tensor& getDmsp21()
+    {
+        NT_PROFILE();
+
+        return dmsq21;
+    }
+    const Tensor& getDmsq31()
+    {
+        NT_PROFILE();
+        
+        return dmsq31;
+    }
+    const Tensor& getEnergies()
+    {
+        NT_PROFILE();
+        
+        return _energies;
     }
 
     /// @}

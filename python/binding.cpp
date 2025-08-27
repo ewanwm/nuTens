@@ -309,7 +309,7 @@ void initPropagator(py::module &m)
             py::arg("baseline"), py::arg("anti_neutrino")=false, py::arg("density"), py::arg("NR_iterations"))
         .def("set_parameters", &DPpropagator::setParameters,
             "set the parameters for the oscillation calculations",
-            py::arg("new_theta12"), py::arg("new_theta23"), py::arg("new_theta13"), py::arg("new_deltaCP"), py::arg("new_deltamsq21"), py::arg("new_deltamsq32")
+            py::arg("new_theta12"), py::arg("new_theta23"), py::arg("new_theta13"), py::arg("new_deltaCP"), py::arg("new_deltamsq21"), py::arg("new_deltamsq31")
         )
         .def("set_energies", &DPpropagator::setEnergies,
             "set the neutrino energies",
@@ -317,6 +317,13 @@ void initPropagator(py::module &m)
         )
         .def("calculate_probs", &DPpropagator::calculateProbs
         )
+        .def("get_theta12", &DPpropagator::getTheta12)
+        .def("get_theta23", &DPpropagator::getTheta23)
+        .def("get_theta13", &DPpropagator::getTheta13)
+        .def("get_deltacp", &DPpropagator::getDeltaCP)
+        .def("get_deltamsq21", &DPpropagator::getDmsp21)
+        .def("get_deltamsq31", &DPpropagator::getDmsq31)
+        .def("get_energies", &DPpropagator::getEnergies)
         ;
 
     py::class_<BaseMatterSolver, std::shared_ptr<BaseMatterSolver>>(m_propagator, "BaseMatterSolver")
