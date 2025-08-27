@@ -14,6 +14,7 @@ foreach(TESTNAME
     test-barger 
     test-tensor
     test-two-flavour-osc
+    test-three-flavour-osc
     test-pmns-matrix
     test-DP-propagator
 )
