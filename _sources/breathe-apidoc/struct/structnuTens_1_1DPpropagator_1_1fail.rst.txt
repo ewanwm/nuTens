@@ -1,0 +1,5 @@
+Struct nuTens::DPpropagator::fail
+=================================
+
+.. doxygenstruct:: nuTens::DPpropagator::fail
+   :members:

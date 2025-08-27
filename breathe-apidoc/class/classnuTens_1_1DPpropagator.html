@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class nuTens::DPpropagator &mdash; nuTens  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Class nuTens::PMNSmatrix" href="classnuTens_1_1PMNSmatrix.html" />
+    <link rel="prev" title="Class nuTens::ConstDensityMatterSolver" href="classnuTens_1_1ConstDensityMatterSolver.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/nuTens-logo-small.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">🚀 Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick-start-guide/quick-start-guide.html">Quick Start Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📖 References</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../user-manual.html">User Manual 📗</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../cpp-api.html">c++ API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../classlist.html">Class list</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="classBaseMatterSolver.html">Class BaseMatterSolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classConstDensityMatterSolver.html">Class ConstDensityMatterSolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classPropagator.html">Class Propagator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classTensor.html">Class Tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1BaseMatterSolver.html">Class nuTens::BaseMatterSolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1BaseMixingMatrix.html">Class nuTens::BaseMixingMatrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1ConstDensityMatterSolver.html">Class nuTens::ConstDensityMatterSolver</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Class nuTens::DPpropagator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N6nuTens12DPpropagatorE"><code class="docutils literal notranslate"><span class="pre">nuTens::DPpropagator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1PMNSmatrix.html">Class nuTens::PMNSmatrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1Propagator.html">Class nuTens::Propagator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1Tensor.html">Class nuTens::Tensor</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../filelist.html">File list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../namespacelist.html">Namespace list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structlist.html">Struct list</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../python-api.html">Python API 🐍</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ewanwm/nuTens">GitHub 🔗</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ewanwm/nuTens/tree/main/examples">Examples 🔗</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">🖥️ For Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Testing 🧪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#profiling">Profiling 📊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#benchmarking">Benchmarking 📉</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#precompiled-headers">Precompiled Headers 🗿</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nuTens</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../cpp-api.html">c++ API</a></li>
+          <li class="breadcrumb-item"><a href="../classlist.html">Class list</a></li>
+      <li class="breadcrumb-item active">Class nuTens::DPpropagator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/breathe-apidoc/class/classnuTens_1_1DPpropagator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nutens-dppropagator">
+<h1>Class nuTens::DPpropagator<a class="headerlink" href="#class-nutens-dppropagator" title="Link to this heading"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagatorE">
+<span id="_CPPv3N6nuTens12DPpropagatorE"></span><span id="_CPPv2N6nuTens12DPpropagatorE"></span><span id="nuTens::DPpropagator"></span><span class="target" id="classnuTens_1_1DPpropagator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DPpropagator</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="../file/DP-propagator_8hpp.html#_CPPv46nuTens" title="nuTens"><span class="n"><span class="pre">nuTens</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classnuTens_1_1Propagator.html#_CPPv4N6nuTens10PropagatorE" title="nuTens::Propagator"><span class="n"><span class="pre">Propagator</span></span></a><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagatorE" title="Link to this definition"></a><br /></dt>
+<dd><p>Solver based on Denton, Parke (<a class="reference external" href="https://arxiv.org/pdf/2405.02400">https://arxiv.org/pdf/2405.02400</a>) assumes 3 flavour oscillations and dm^2_21 &gt; 0. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-unnamed-group">Unnamed Group</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator10setTheta12ER6Tensor">
+<span id="_CPPv3N6nuTens12DPpropagator10setTheta12ER6Tensor"></span><span id="_CPPv2N6nuTens12DPpropagator10setTheta12ER6Tensor"></span><span id="nuTens::DPpropagator::setTheta12__TensorR"></span><span class="target" id="classnuTens_1_1DPpropagator_1a2c2710067ed7dc7f48750346bf7a7a8c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setTheta12</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newTheta12</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator10setTheta12ER6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Setters. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator10setTheta23ER6Tensor">
+<span id="_CPPv3N6nuTens12DPpropagator10setTheta23ER6Tensor"></span><span id="_CPPv2N6nuTens12DPpropagator10setTheta23ER6Tensor"></span><span id="nuTens::DPpropagator::setTheta23__TensorR"></span><span class="target" id="classnuTens_1_1DPpropagator_1aafe7e9956ce97cd2e8017941e6794dd8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setTheta23</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newTheta23</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator10setTheta23ER6Tensor" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator10setTheta13ER6Tensor">
+<span id="_CPPv3N6nuTens12DPpropagator10setTheta13ER6Tensor"></span><span id="_CPPv2N6nuTens12DPpropagator10setTheta13ER6Tensor"></span><span id="nuTens::DPpropagator::setTheta13__TensorR"></span><span class="target" id="classnuTens_1_1DPpropagator_1a846307f8038da6f17bfa941dc97ebf09"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setTheta13</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newTheta13</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator10setTheta13ER6Tensor" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator10setDeltaCPER6Tensor">
+<span id="_CPPv3N6nuTens12DPpropagator10setDeltaCPER6Tensor"></span><span id="_CPPv2N6nuTens12DPpropagator10setDeltaCPER6Tensor"></span><span id="nuTens::DPpropagator::setDeltaCP__TensorR"></span><span class="target" id="classnuTens_1_1DPpropagator_1a979295fd780e0d7d44247b7a148313d6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setDeltaCP</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newDeltaCP</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator10setDeltaCPER6Tensor" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator9setDmsp21ER6Tensor">
+<span id="_CPPv3N6nuTens12DPpropagator9setDmsp21ER6Tensor"></span><span id="_CPPv2N6nuTens12DPpropagator9setDmsp21ER6Tensor"></span><span id="nuTens::DPpropagator::setDmsp21__TensorR"></span><span class="target" id="classnuTens_1_1DPpropagator_1a03f3660ec148e6b7647a52a670694b7a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setDmsp21</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newDmsq21</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator9setDmsp21ER6Tensor" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator9setDmsq31ER6Tensor">
+<span id="_CPPv3N6nuTens12DPpropagator9setDmsq31ER6Tensor"></span><span id="_CPPv2N6nuTens12DPpropagator9setDmsq31ER6Tensor"></span><span id="nuTens::DPpropagator::setDmsq31__TensorR"></span><span class="target" id="classnuTens_1_1DPpropagator_1a9ac55e8ed0b37eb4f37c729b2f86f653"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setDmsq31</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newDmsq31</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator9setDmsq31ER6Tensor" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator13setParametersER6TensorR6TensorR6TensorR6TensorR6TensorR6Tensor">
+<span id="_CPPv3N6nuTens12DPpropagator13setParametersER6TensorR6TensorR6TensorR6TensorR6TensorR6Tensor"></span><span id="_CPPv2N6nuTens12DPpropagator13setParametersER6TensorR6TensorR6TensorR6TensorR6TensorR6Tensor"></span><span id="nuTens::DPpropagator::setParameters__TensorR.TensorR.TensorR.TensorR.TensorR.TensorR"></span><span class="target" id="classnuTens_1_1DPpropagator_1a3fe08852e28d2ad98ea145861987d2c9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setParameters</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newTheta12</span></span>, <a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newTheta23</span></span>, <a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newTheta13</span></span>, <a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newDeltaCP</span></span>, <a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newDmsq21</span></span>, <a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newDmsq31</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator13setParametersER6TensorR6TensorR6TensorR6TensorR6TensorR6Tensor" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator11setEnergiesER6Tensor">
+<span id="_CPPv3N6nuTens12DPpropagator11setEnergiesER6Tensor"></span><span id="_CPPv2N6nuTens12DPpropagator11setEnergiesER6Tensor"></span><span id="nuTens::DPpropagator::setEnergies__TensorR"></span><span class="target" id="classnuTens_1_1DPpropagator_1a3f2b8a46540b74c185ed59a0f021ab2a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setEnergies</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newEnergies</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator11setEnergiesER6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Set the neutrino energies. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newEnergies</strong> – The neutrino energies </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-unnamed-group">Unnamed Group</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator10getTheta12Ev">
+<span id="_CPPv3N6nuTens12DPpropagator10getTheta12Ev"></span><span id="_CPPv2N6nuTens12DPpropagator10getTheta12Ev"></span><span id="nuTens::DPpropagator::getTheta12"></span><span class="target" id="classnuTens_1_1DPpropagator_1a7edc32c0f6883856b425d329a3a27d1c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getTheta12</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator10getTheta12Ev" title="Link to this definition"></a><br /></dt>
+<dd><p>Getters. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator10getTheta23Ev">
+<span id="_CPPv3N6nuTens12DPpropagator10getTheta23Ev"></span><span id="_CPPv2N6nuTens12DPpropagator10getTheta23Ev"></span><span id="nuTens::DPpropagator::getTheta23"></span><span class="target" id="classnuTens_1_1DPpropagator_1a139099197b33b981527cabca7ac4c49c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getTheta23</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator10getTheta23Ev" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator10getTheta13Ev">
+<span id="_CPPv3N6nuTens12DPpropagator10getTheta13Ev"></span><span id="_CPPv2N6nuTens12DPpropagator10getTheta13Ev"></span><span id="nuTens::DPpropagator::getTheta13"></span><span class="target" id="classnuTens_1_1DPpropagator_1ae20cd9b57886d377af6147d3c83f1c79"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getTheta13</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator10getTheta13Ev" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator10getDeltaCPEv">
+<span id="_CPPv3N6nuTens12DPpropagator10getDeltaCPEv"></span><span id="_CPPv2N6nuTens12DPpropagator10getDeltaCPEv"></span><span id="nuTens::DPpropagator::getDeltaCP"></span><span class="target" id="classnuTens_1_1DPpropagator_1a389b0e9d18cee288fd83867b0d395330"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getDeltaCP</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator10getDeltaCPEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator9getDmsp21Ev">
+<span id="_CPPv3N6nuTens12DPpropagator9getDmsp21Ev"></span><span id="_CPPv2N6nuTens12DPpropagator9getDmsp21Ev"></span><span id="nuTens::DPpropagator::getDmsp21"></span><span class="target" id="classnuTens_1_1DPpropagator_1a3e14f7b46db1418b5d38674bbc9fe576"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getDmsp21</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator9getDmsp21Ev" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator9getDmsq31Ev">
+<span id="_CPPv3N6nuTens12DPpropagator9getDmsq31Ev"></span><span id="_CPPv2N6nuTens12DPpropagator9getDmsq31Ev"></span><span id="nuTens::DPpropagator::getDmsq31"></span><span class="target" id="classnuTens_1_1DPpropagator_1a2f675f7ca1d2ed545f484f24bc696b2e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getDmsq31</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator9getDmsq31Ev" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator11getEnergiesEv">
+<span id="_CPPv3N6nuTens12DPpropagator11getEnergiesEv"></span><span id="_CPPv2N6nuTens12DPpropagator11getEnergiesEv"></span><span id="nuTens::DPpropagator::getEnergies"></span><span class="target" id="classnuTens_1_1DPpropagator_1afba9a53b052a103d8be4f4307f5ff9b9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getEnergies</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator11getEnergiesEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator12DPpropagatorEfbfi">
+<span id="_CPPv3N6nuTens12DPpropagator12DPpropagatorEfbfi"></span><span id="_CPPv2N6nuTens12DPpropagator12DPpropagatorEfbfi"></span><span id="nuTens::DPpropagator::DPpropagator__float.b.float.i"></span><span class="target" id="classnuTens_1_1DPpropagator_1ab34bbef26fe5df10bc514af4111ff879"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DPpropagator</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">baseline</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">antiNeutrino</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">density</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">NRiterations</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator12DPpropagatorEfbfi" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens12DPpropagator14calculateProbsEv">
+<span id="_CPPv3N6nuTens12DPpropagator14calculateProbsEv"></span><span id="_CPPv2N6nuTens12DPpropagator14calculateProbsEv"></span><span id="nuTens::DPpropagator::calculateProbs"></span><span class="target" id="classnuTens_1_1DPpropagator_1a044df5a79e5dcdb731bd284d1fc175c4"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">calculateProbs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens12DPpropagator14calculateProbsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Calculate the oscilaltion probabilities for the current set of parameters and energies. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6nuTens12DPpropagator15setMatterSolverEvRKNSt10shared_ptrI16BaseMatterSolverEE">
+<span id="_CPPv3I0EN6nuTens12DPpropagator15setMatterSolverERKNSt10shared_ptrI16BaseMatterSolverEE"></span><span id="_CPPv2I0EN6nuTens12DPpropagator15setMatterSolverERKNSt10shared_ptrI16BaseMatterSolverEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classnuTens_1_1DPpropagator_1a50e85d69de409ad8a1b8d397c2cbcd35"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setMatterSolver</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/namespacestd.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="classnuTens_1_1BaseMatterSolver.html#_CPPv4N6nuTens16BaseMatterSolverE" title="nuTens::BaseMatterSolver"><span class="n"><span class="pre">BaseMatterSolver</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newSolver</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN6nuTens12DPpropagator15setMatterSolverEvRKNSt10shared_ptrI16BaseMatterSolverEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Set a matter solver to use to deal with matter effects. </p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Should be called <em>before</em> setMixingMatrix and setMasses </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newSolver</strong> – A derivative of <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1BaseMatterSolver"><span class="std std-ref">BaseMatterSolver</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6nuTens12DPpropagator15setMixingMatrixEvR6Tensor">
+<span id="_CPPv3I0EN6nuTens12DPpropagator15setMixingMatrixER6Tensor"></span><span id="_CPPv2I0EN6nuTens12DPpropagator15setMixingMatrixER6Tensor"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classnuTens_1_1DPpropagator_1a3d65aa8aef047cfe4c12b118c20393ab"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setMixingMatrix</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newMatrix</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN6nuTens12DPpropagator15setMixingMatrixEvR6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Set a whole new mixing matrix. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newMatrix</strong> – The new matrix to use </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN6nuTens12DPpropagator9setMassesEvR6Tensor">
+<span id="_CPPv3I0EN6nuTens12DPpropagator9setMassesER6Tensor"></span><span id="_CPPv2I0EN6nuTens12DPpropagator9setMassesER6Tensor"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classnuTens_1_1DPpropagator_1a8aa17a4421a33dddc0a385df5daad39a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setMasses</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">newMasses</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN6nuTens12DPpropagator9setMassesEvR6Tensor" title="Link to this definition"></a><br /></dt>
+<dd><p>Set the masses corresponding to the vacuum hamiltonian eigenstates. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newMasses</strong> – The new masses to use. This tensor is expected to have a batch dimension + 1 more dimensions of size nGenerations. The batch dimension can (and probably should) be 1 and it will be broadcast to match the batch dimension of the energies supplied to <a class="reference internal" href="../namespace/namespacenuTens.html#classnuTens_1_1DPpropagator_1a044df5a79e5dcdb731bd284d1fc175c4"><span class="std std-ref">calculateProbs()</span></a>. So dimension should be {1, nGenerations}. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classnuTens_1_1ConstDensityMatterSolver.html" class="btn btn-neutral float-left" title="Class nuTens::ConstDensityMatterSolver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classnuTens_1_1PMNSmatrix.html" class="btn btn-neutral float-right" title="Class nuTens::PMNSmatrix" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Ewan Miller.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

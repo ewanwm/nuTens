@@ -108,6 +108,7 @@
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
  | <a href="#Z"><strong>Z</strong></a>
  
@@ -153,14 +154,16 @@
 </li>
       <li><a href="python-api/propagator.html#nuTens.propagator.Propagator.calculate_probabilities">calculate_probabilities() (nuTens.propagator.Propagator method)</a>
 </li>
+      <li><a href="python-api/propagator.html#nuTens.propagator.DPpropagator.calculate_probs">calculate_probs() (nuTens.propagator.DPpropagator method)</a>
+</li>
       <li><a href="python-api/dtype.html#nuTens.dtype.scalar_type.complex_double">complex_double (nuTens.dtype.scalar_type attribute)</a>
 </li>
       <li><a href="python-api/dtype.html#nuTens.dtype.scalar_type.complex_float">complex_float (nuTens.dtype.scalar_type attribute)</a>
 </li>
-      <li><a href="python-api/tensor.html#nuTens.tensor.Tensor.conj">conj() (nuTens.tensor.Tensor method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python-api/tensor.html#nuTens.tensor.Tensor.conj">conj() (nuTens.tensor.Tensor method)</a>
+</li>
       <li><a href="breathe-apidoc/class/classConstDensityMatterSolver.html#_CPPv424ConstDensityMatterSolver">ConstDensityMatterSolver (C++ class)</a>
 </li>
       <li><a href="python-api/propagator.html#nuTens.propagator.ConstDensitySolver">ConstDensitySolver (class in nuTens.propagator)</a>
@@ -188,6 +191,8 @@
       <li><a href="python-api/tensor.html#nuTens.tensor.div">div() (in module nuTens.tensor)</a>
 </li>
       <li><a href="python-api/dtype.html#nuTens.dtype.scalar_type.double">double (nuTens.dtype.scalar_type attribute)</a>
+</li>
+      <li><a href="python-api/propagator.html#nuTens.propagator.DPpropagator">DPpropagator (class in nuTens.propagator)</a>
 </li>
       <li><a href="python-api/tensor.html#nuTens.tensor.Tensor.dtype">dtype() (nuTens.tensor.Tensor method)</a>
 </li>
@@ -225,14 +230,28 @@
 </li>
       <li><a href="python-api/propagator.html#nuTens.propagator.PMNSmatrix.get_delta_cp_tensor">get_delta_cp_tensor() (nuTens.propagator.PMNSmatrix method)</a>
 </li>
+      <li><a href="python-api/propagator.html#nuTens.propagator.DPpropagator.get_deltacp">get_deltacp() (nuTens.propagator.DPpropagator method)</a>
+</li>
+      <li><a href="python-api/propagator.html#nuTens.propagator.DPpropagator.get_deltamsq21">get_deltamsq21() (nuTens.propagator.DPpropagator method)</a>
+</li>
+      <li><a href="python-api/propagator.html#nuTens.propagator.DPpropagator.get_deltamsq31">get_deltamsq31() (nuTens.propagator.DPpropagator method)</a>
+</li>
       <li><a href="python-api/propagator.html#nuTens.propagator.ConstDensitySolver.get_density">get_density() (nuTens.propagator.ConstDensitySolver method)</a>
+</li>
+      <li><a href="python-api/propagator.html#nuTens.propagator.DPpropagator.get_energies">get_energies() (nuTens.propagator.DPpropagator method)</a>
 </li>
       <li><a href="python-api/tensor.html#nuTens.tensor.Tensor.get_shape">get_shape() (nuTens.tensor.Tensor method)</a>
 </li>
-      <li><a href="python-api/propagator.html#nuTens.propagator.PMNSmatrix.get_theta_12_tensor">get_theta_12_tensor() (nuTens.propagator.PMNSmatrix method)</a>
+      <li><a href="python-api/propagator.html#nuTens.propagator.DPpropagator.get_theta12">get_theta12() (nuTens.propagator.DPpropagator method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python-api/propagator.html#nuTens.propagator.DPpropagator.get_theta13">get_theta13() (nuTens.propagator.DPpropagator method)</a>
+</li>
+      <li><a href="python-api/propagator.html#nuTens.propagator.DPpropagator.get_theta23">get_theta23() (nuTens.propagator.DPpropagator method)</a>
+</li>
+      <li><a href="python-api/propagator.html#nuTens.propagator.PMNSmatrix.get_theta_12_tensor">get_theta_12_tensor() (nuTens.propagator.PMNSmatrix method)</a>
+</li>
       <li><a href="python-api/propagator.html#nuTens.propagator.PMNSmatrix.get_theta_13_tensor">get_theta_13_tensor() (nuTens.propagator.PMNSmatrix method)</a>
 </li>
       <li><a href="python-api/propagator.html#nuTens.propagator.PMNSmatrix.get_theta_23_tensor">get_theta_23_tensor() (nuTens.propagator.PMNSmatrix method)</a>
@@ -336,7 +355,7 @@
 </li>
       <li><a href="breathe-apidoc/file/logging_8hpp.html#_CPPv4N9ntlogging13setup_loggingEv">ntlogging::setup_logging (C++ function)</a>, <a href="breathe-apidoc/namespace/namespacentlogging.html#_CPPv4N9ntlogging13setup_loggingEv">[1]</a>
 </li>
-      <li><a href="breathe-apidoc/file/base-matter-solver_8hpp.html#_CPPv46nuTens">nuTens (C++ type)</a>, <a href="breathe-apidoc/file/base-mixing-matrix_8hpp.html#_CPPv46nuTens">[1]</a>, <a href="breathe-apidoc/file/const-density-solver_8hpp.html#_CPPv46nuTens">[2]</a>, <a href="breathe-apidoc/file/constants_8hpp.html#_CPPv46nuTens">[3]</a>, <a href="breathe-apidoc/file/dtypes_8hpp.html#_CPPv46nuTens">[4]</a>, <a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv46nuTens">[5]</a>, <a href="breathe-apidoc/file/propagator_8hpp.html#_CPPv46nuTens">[6]</a>, <a href="breathe-apidoc/file/tensor_8hpp.html#_CPPv46nuTens">[7]</a>, <a href="breathe-apidoc/file/units_8hpp.html#_CPPv46nuTens">[8]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv46nuTens">[9]</a>
+      <li><a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv46nuTens">nuTens (C++ type)</a>, <a href="breathe-apidoc/file/base-matter-solver_8hpp.html#_CPPv46nuTens">[1]</a>, <a href="breathe-apidoc/file/base-mixing-matrix_8hpp.html#_CPPv46nuTens">[2]</a>, <a href="breathe-apidoc/file/const-density-solver_8hpp.html#_CPPv46nuTens">[3]</a>, <a href="breathe-apidoc/file/constants_8hpp.html#_CPPv46nuTens">[4]</a>, <a href="breathe-apidoc/file/dtypes_8hpp.html#_CPPv46nuTens">[5]</a>, <a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv46nuTens">[6]</a>, <a href="breathe-apidoc/file/propagator_8hpp.html#_CPPv46nuTens">[7]</a>, <a href="breathe-apidoc/file/tensor_8hpp.html#_CPPv46nuTens">[8]</a>, <a href="breathe-apidoc/file/units_8hpp.html#_CPPv46nuTens">[9]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv46nuTens">[10]</a>
 </li>
       <li>
     nuTens.dtype
@@ -436,6 +455,66 @@
 </li>
       <li><a href="breathe-apidoc/class/classnuTens_1_1ConstDensityMatterSolver.html#_CPPv4N6nuTens24ConstDensityMatterSolver15setMixingMatrixERK6Tensor">nuTens::ConstDensityMatterSolver::setMixingMatrix (C++ function)</a>, <a href="breathe-apidoc/file/const-density-solver_8hpp.html#_CPPv4N6nuTens24ConstDensityMatterSolver15setMixingMatrixERK6Tensor">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens24ConstDensityMatterSolver15setMixingMatrixERK6Tensor">[2]</a>
 </li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagatorE">nuTens::DPpropagator (C++ class)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagatorE">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagatorE">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator8_densityE">nuTens::DPpropagator::_density (C++ member)</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator14calculateProbsEv">nuTens::DPpropagator::calculateProbs (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator14calculateProbsEv">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator14calculateProbsEv">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator7deltaCPE">nuTens::DPpropagator::deltaCP (C++ member)</a>
+</li>
+      <li><a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator6dmsq21E">nuTens::DPpropagator::dmsq21 (C++ member)</a>
+</li>
+      <li><a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator6dmsq31E">nuTens::DPpropagator::dmsq31 (C++ member)</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator12DPpropagatorEfbfi">nuTens::DPpropagator::DPpropagator (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator12DPpropagatorEfbfi">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator12DPpropagatorEfbfi">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4I0EN6nuTens12DPpropagator4failE">nuTens::DPpropagator::fail (C++ struct)</a>, <a href="breathe-apidoc/struct/structnuTens_1_1DPpropagator_1_1fail.html#_CPPv4I0EN6nuTens12DPpropagator4failE">[1]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator10getDeltaCPEv">nuTens::DPpropagator::getDeltaCP (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator10getDeltaCPEv">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator10getDeltaCPEv">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator9getDmsp21Ev">nuTens::DPpropagator::getDmsp21 (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator9getDmsp21Ev">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator9getDmsp21Ev">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator9getDmsq31Ev">nuTens::DPpropagator::getDmsq31 (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator9getDmsq31Ev">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator9getDmsq31Ev">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator11getEnergiesEv">nuTens::DPpropagator::getEnergies (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator11getEnergiesEv">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator11getEnergiesEv">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator10getTheta12Ev">nuTens::DPpropagator::getTheta12 (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator10getTheta12Ev">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator10getTheta12Ev">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator10getTheta13Ev">nuTens::DPpropagator::getTheta13 (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator10getTheta13Ev">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator10getTheta13Ev">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator10getTheta23Ev">nuTens::DPpropagator::getTheta23 (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator10getTheta23Ev">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator10getTheta23Ev">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator12NRiterationsE">nuTens::DPpropagator::NRiterations (C++ member)</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator10setDeltaCPER6Tensor">nuTens::DPpropagator::setDeltaCP (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator10setDeltaCPER6Tensor">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator10setDeltaCPER6Tensor">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator9setDmsp21ER6Tensor">nuTens::DPpropagator::setDmsp21 (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator9setDmsp21ER6Tensor">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator9setDmsp21ER6Tensor">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator9setDmsq31ER6Tensor">nuTens::DPpropagator::setDmsq31 (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator9setDmsq31ER6Tensor">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator9setDmsq31ER6Tensor">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator11setEnergiesER6Tensor">nuTens::DPpropagator::setEnergies (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator11setEnergiesER6Tensor">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator11setEnergiesER6Tensor">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4I0EN6nuTens12DPpropagator9setMassesEvR6Tensor">nuTens::DPpropagator::setMasses (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4I0EN6nuTens12DPpropagator9setMassesEvR6Tensor">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4I0EN6nuTens12DPpropagator9setMassesEvR6Tensor">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4I0EN6nuTens12DPpropagator15setMatterSolverEvRKNSt10shared_ptrI16BaseMatterSolverEE">nuTens::DPpropagator::setMatterSolver (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4I0EN6nuTens12DPpropagator15setMatterSolverEvRKNSt10shared_ptrI16BaseMatterSolverEE">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4I0EN6nuTens12DPpropagator15setMatterSolverEvRKNSt10shared_ptrI16BaseMatterSolverEE">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4I0EN6nuTens12DPpropagator15setMixingMatrixEvR6Tensor">nuTens::DPpropagator::setMixingMatrix (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4I0EN6nuTens12DPpropagator15setMixingMatrixEvR6Tensor">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4I0EN6nuTens12DPpropagator15setMixingMatrixEvR6Tensor">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator13setParametersER6TensorR6TensorR6TensorR6TensorR6TensorR6Tensor">nuTens::DPpropagator::setParameters (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator13setParametersER6TensorR6TensorR6TensorR6TensorR6TensorR6Tensor">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator13setParametersER6TensorR6TensorR6TensorR6TensorR6TensorR6Tensor">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator10setTheta12ER6Tensor">nuTens::DPpropagator::setTheta12 (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator10setTheta12ER6Tensor">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator10setTheta12ER6Tensor">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator10setTheta13ER6Tensor">nuTens::DPpropagator::setTheta13 (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator10setTheta13ER6Tensor">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator10setTheta13ER6Tensor">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/class/classnuTens_1_1DPpropagator.html#_CPPv4N6nuTens12DPpropagator10setTheta23ER6Tensor">nuTens::DPpropagator::setTheta23 (C++ function)</a>, <a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator10setTheta23ER6Tensor">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens12DPpropagator10setTheta23ER6Tensor">[2]</a>
+</li>
+      <li><a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator7theta12E">nuTens::DPpropagator::theta12 (C++ member)</a>
+</li>
+      <li><a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator7theta13E">nuTens::DPpropagator::theta13 (C++ member)</a>
+</li>
+      <li><a href="breathe-apidoc/file/DP-propagator_8hpp.html#_CPPv4N6nuTens12DPpropagator7theta23E">nuTens::DPpropagator::theta23 (C++ member)</a>
+</li>
       <li><a href="breathe-apidoc/file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE">nuTens::dtypes (C++ type)</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens6dtypesE">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens_1_1dtypes.html#_CPPv4N6nuTens6dtypesE">[2]</a>
 </li>
       <li><a href="breathe-apidoc/file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE">nuTens::dtypes::deviceType (C++ enum)</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens6dtypes10deviceTypeE">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens_1_1dtypes.html#_CPPv4N6nuTens6dtypes10deviceTypeE">[2]</a>
@@ -468,6 +547,8 @@
 </li>
       <li><a href="breathe-apidoc/file/dtypes_8hpp.html#_CPPv4IEN6nuTens6dtypes17scalarTypeFromRawINSt7complexIdEEEE10scalarTypev">nuTens::dtypes::scalarTypeFromRaw&lt;std::complex&lt;double&gt;&gt; (C++ function)</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4IEN6nuTens6dtypes17scalarTypeFromRawINSt7complexIdEEEE10scalarTypev">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens_1_1dtypes.html#_CPPv4IEN6nuTens6dtypes17scalarTypeFromRawINSt7complexIdEEEE10scalarTypev">[2]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="breathe-apidoc/file/dtypes_8hpp.html#_CPPv4IEN6nuTens6dtypes17scalarTypeFromRawINSt7complexIfEEEE10scalarTypev">nuTens::dtypes::scalarTypeFromRaw&lt;std::complex&lt;float&gt;&gt; (C++ function)</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4IEN6nuTens6dtypes17scalarTypeFromRawINSt7complexIfEEEE10scalarTypev">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens_1_1dtypes.html#_CPPv4IEN6nuTens6dtypes17scalarTypeFromRawINSt7complexIfEEEE10scalarTypev">[2]</a>
 </li>
       <li><a href="breathe-apidoc/class/classnuTens_1_1PMNSmatrix.html#_CPPv4N6nuTens10PMNSmatrixE">nuTens::PMNSmatrix (C++ class)</a>, <a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrixE">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens10PMNSmatrixE">[2]</a>
@@ -498,8 +579,6 @@
 </li>
       <li><a href="breathe-apidoc/class/classnuTens_1_1PMNSmatrix.html#_CPPv4N6nuTens10PMNSmatrix16getTheta23TensorEv">nuTens::PMNSmatrix::getTheta23Tensor (C++ function)</a>, <a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix16getTheta23TensorEv">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens10PMNSmatrix16getTheta23TensorEv">[2]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="breathe-apidoc/class/classnuTens_1_1PMNSmatrix.html#_CPPv4N6nuTens10PMNSmatrix10PMNSmatrixEv">nuTens::PMNSmatrix::PMNSmatrix (C++ function)</a>, <a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix10PMNSmatrixEv">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens10PMNSmatrix10PMNSmatrixEv">[2]</a>
 </li>
       <li><a href="breathe-apidoc/class/classnuTens_1_1PMNSmatrix.html#_CPPv4N6nuTens10PMNSmatrix18setParameterValuesEffff">nuTens::PMNSmatrix::setParameterValues (C++ function)</a>, <a href="breathe-apidoc/file/pmns-matrix_8hpp.html#_CPPv4N6nuTens10PMNSmatrix18setParameterValuesEffff">[1]</a>, <a href="breathe-apidoc/namespace/namespacenuTens.html#_CPPv4N6nuTens10PMNSmatrix18setParameterValuesEffff">[2]</a>
@@ -767,6 +846,8 @@
       <li><a href="python-api/propagator.html#nuTens.propagator.BaseMatterSolver.set_energies">set_energies() (nuTens.propagator.BaseMatterSolver method)</a>
 
       <ul>
+        <li><a href="python-api/propagator.html#nuTens.propagator.DPpropagator.set_energies">(nuTens.propagator.DPpropagator method)</a>
+</li>
         <li><a href="python-api/propagator.html#nuTens.propagator.Propagator.set_energies">(nuTens.propagator.Propagator method)</a>
 </li>
       </ul></li>
@@ -788,11 +869,15 @@
       </ul></li>
       <li><a href="python-api/propagator.html#nuTens.propagator.PMNSmatrix.set_parameter_values">set_parameter_values() (nuTens.propagator.PMNSmatrix method)</a>
 </li>
+      <li><a href="python-api/propagator.html#nuTens.propagator.DPpropagator.set_parameters">set_parameters() (nuTens.propagator.DPpropagator method)</a>
+</li>
       <li><a href="python-api/tensor.html#nuTens.tensor.Tensor.set_value">set_value() (nuTens.tensor.Tensor method)</a>
 </li>
       <li><a href="python-api/tensor.html#nuTens.tensor.sin">sin() (in module nuTens.tensor)</a>
 </li>
       <li><a href="breathe-apidoc/file/logging_8hpp.html#c.SPDLOG_ACTIVE_LEVEL">SPDLOG_ACTIVE_LEVEL (C macro)</a>
+</li>
+      <li><a href="breathe-apidoc/namespace/namespacestd.html#_CPPv4St">std (C++ type)</a>
 </li>
       <li><a href="python-api/tensor.html#nuTens.tensor.sum">sum() (in module nuTens.tensor)</a>
 </li>
@@ -815,6 +900,14 @@
       <li><a href="python-api/tensor.html#nuTens.tensor.Tensor.torch_tensor">torch_tensor() (nuTens.tensor.Tensor method)</a>
 </li>
       <li><a href="python-api/tensor.html#nuTens.tensor.transpose">transpose() (in module nuTens.tensor)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python-api/tensor.html#nuTens.tensor.Tensor.unsqueeze">unsqueeze() (nuTens.tensor.Tensor method)</a>
 </li>
   </ul></td>
 </tr></table>

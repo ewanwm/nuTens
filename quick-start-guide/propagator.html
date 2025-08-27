@@ -61,6 +61,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#calculating-oscillation-probabilities">Calculating Oscillation probabilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#oscillation-spectrum-example">Oscillation Spectrum Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-propagators">Other Propagators</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="matter-solvers.html">Matter Solvers</a></li>
@@ -173,6 +174,15 @@ This extra dummy dimension is essentially the same idea as batch dimensions in m
 <section id="oscillation-spectrum-example">
 <h2>Oscillation Spectrum Example<a class="headerlink" href="#oscillation-spectrum-example" title="Link to this heading"></a></h2>
 <p><em>calculate oscillations for a range of energies (specified with a tensor), then plot the spectrum, and the derivative of the spectrum wrt L/E</em></p>
+</section>
+<section id="other-propagators">
+<h2>Other Propagators<a class="headerlink" href="#other-propagators" title="Link to this heading"></a></h2>
+<p>The Propagator class described above is the most generic one offered by nuTens.
+Your needs however may be more specific.
+As such nuTens offers some other specialised propagators :</p>
+<ul class="simple">
+<li><p>The <a class="reference internal" href="../user-manual.html#dp-propagator"><span class="std std-ref">Denton-Parke Propagator</span></a> class offers reduced flexibility but far greater speed for 3 flavour oscillations</p></li>
+</ul>
 </section>
 </section>
 

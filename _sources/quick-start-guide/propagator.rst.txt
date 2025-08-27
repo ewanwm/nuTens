@@ -79,3 +79,12 @@ Oscillation Spectrum Example
 ----------------------------
 
 *calculate oscillations for a range of energies (specified with a tensor), then plot the spectrum, and the derivative of the spectrum wrt L/E*
+
+Other Propagators
+-----------------
+
+The Propagator class described above is the most generic one offered by nuTens.
+Your needs however may be more specific. 
+As such nuTens offers some other specialised propagators :
+
+* The :ref:`dp-propagator` class offers reduced flexibility but far greater speed for 3 flavour oscillations

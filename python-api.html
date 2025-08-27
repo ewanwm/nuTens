@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Propagator" href="python-api/propagator.html" />
-    <link rel="prev" title="Struct ProfileResult" href="breathe-apidoc/struct/structProfileResult.html" /> 
+    <link rel="prev" title="Struct nuTens::DPpropagator::fail" href="breathe-apidoc/struct/structnuTens_1_1DPpropagator_1_1fail.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -120,6 +120,19 @@
 <li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.ConstDensitySolver.set_density"><code class="docutils literal notranslate"><span class="pre">ConstDensitySolver.set_density()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.DPpropagator"><code class="docutils literal notranslate"><span class="pre">DPpropagator</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.DPpropagator.calculate_probs"><code class="docutils literal notranslate"><span class="pre">DPpropagator.calculate_probs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.DPpropagator.get_deltacp"><code class="docutils literal notranslate"><span class="pre">DPpropagator.get_deltacp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.DPpropagator.get_deltamsq21"><code class="docutils literal notranslate"><span class="pre">DPpropagator.get_deltamsq21()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.DPpropagator.get_deltamsq31"><code class="docutils literal notranslate"><span class="pre">DPpropagator.get_deltamsq31()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.DPpropagator.get_energies"><code class="docutils literal notranslate"><span class="pre">DPpropagator.get_energies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.DPpropagator.get_theta12"><code class="docutils literal notranslate"><span class="pre">DPpropagator.get_theta12()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.DPpropagator.get_theta13"><code class="docutils literal notranslate"><span class="pre">DPpropagator.get_theta13()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.DPpropagator.get_theta23"><code class="docutils literal notranslate"><span class="pre">DPpropagator.get_theta23()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.DPpropagator.set_energies"><code class="docutils literal notranslate"><span class="pre">DPpropagator.set_energies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.DPpropagator.set_parameters"><code class="docutils literal notranslate"><span class="pre">DPpropagator.set_parameters()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.PMNSmatrix"><code class="docutils literal notranslate"><span class="pre">PMNSmatrix</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.PMNSmatrix.get_delta_cp_tensor"><code class="docutils literal notranslate"><span class="pre">PMNSmatrix.get_delta_cp_tensor()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="python-api/propagator.html#nuTens.propagator.PMNSmatrix.get_theta_12_tensor"><code class="docutils literal notranslate"><span class="pre">PMNSmatrix.get_theta_12_tensor()</span></code></a></li>
@@ -166,6 +179,7 @@
 <li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.set_value"><code class="docutils literal notranslate"><span class="pre">Tensor.set_value()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.to_string"><code class="docutils literal notranslate"><span class="pre">Tensor.to_string()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.torch_tensor"><code class="docutils literal notranslate"><span class="pre">Tensor.torch_tensor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.unsqueeze"><code class="docutils literal notranslate"><span class="pre">Tensor.unsqueeze()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="python-api/tensor.html#nuTens.tensor.Tensor.zeros"><code class="docutils literal notranslate"><span class="pre">Tensor.zeros()</span></code></a></li>
 </ul>
 </li>
@@ -212,7 +226,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="breathe-apidoc/struct/structProfileResult.html" class="btn btn-neutral float-left" title="Struct ProfileResult" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="breathe-apidoc/struct/structnuTens_1_1DPpropagator_1_1fail.html" class="btn btn-neutral float-left" title="Struct nuTens::DPpropagator::fail" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="python-api/propagator.html" class="btn btn-neutral float-right" title="Propagator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
