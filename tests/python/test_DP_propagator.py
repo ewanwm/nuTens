@@ -10,7 +10,7 @@ import typing
 
 import pytest
 
-@pytest.mark.parametrize("theta23", np.linspace(0.0, 2.0 * m.pi, 5, True))
+@pytest.mark.parametrize("theta23", np.linspace(0.0, 0.5 * m.pi, 10, True))
 class TestDPpropagator: 
 
     baseline = 295.0 * nt.units.km
@@ -20,15 +20,15 @@ class TestDPpropagator:
     m2 = 0.008 * nt.units.eV
     m3 = 0.02  * nt.units.eV
 
-    dmsq21 = Tensor([m2 * m2 - m1 * m1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
-    dmsq31 = Tensor([m3 * m3 - m1 * m1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
+    dmsq21 = Tensor([m1 * m1 - m2 * m2], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
+    dmsq31 = Tensor([m1 * m1 - m3 * m3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
 
     dcp = Tensor([m.pi / 4.0], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
 
     theta13 = Tensor([0.3 * m.pi], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
     theta12 = Tensor([0.2 * m.pi], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
     
-    energy = Tensor([0.5 * nt.units.eV], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False).unsqueeze(0)
+    energy = Tensor([0.5 * nt.units.GeV], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False).unsqueeze(0)
 
     def test_compare_nufast(self, theta23:float):
 
@@ -55,18 +55,20 @@ class TestDPpropagator:
         print(dp_probabilities.to_string())
         print()
 
-        nufast_probabilities = nufast_probability_matter(
-            m.sin(self.theta12.get_value([0]).real) ** 2,
-            m.sin(self.theta13.get_value([0]).real) ** 2,
-            m.sin(theta23) ** 2,
-            self.dcp.get_value([0]).real,
-            self.m1 * self.m1 - self.m2 * self.m2,
-            self.m1 * self.m1 - self.m3 * self.m3,
-            self.baseline / nt.units.km,
-            self.energy.get_value([0,0]).real / nt.units.GeV,
-            1.0,
-            self.density,
-            10 
+        nufast_probabilities = np.array(
+            nufast_probability_matter(
+                m.sin(self.theta12.get_value([0]).real) ** 2,
+                m.sin(self.theta13.get_value([0]).real) ** 2,
+                m.sin(theta23) ** 2,
+                self.dcp.get_value([0]).real,
+                self.dmsq21.get_value([0]).real,
+                self.dmsq31.get_value([0]).real,
+                self.baseline / nt.units.km,
+                self.energy.get_value([0,0]).real / nt.units.GeV,
+                1.0,
+                self.density,
+                10 
+            )
         )
 
         print("nufast probabilities: ")
