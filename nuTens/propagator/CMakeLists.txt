@@ -11,6 +11,7 @@ add_library(
     const-density-solver.hpp const-density-solver.cpp
     base-mixing-matrix.hpp
     pmns-matrix.hpp
+    DP-propagator.hpp DP-propagator.cpp
 )
 
 target_link_libraries(
