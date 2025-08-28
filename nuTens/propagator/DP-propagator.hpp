@@ -24,6 +24,18 @@ class DPpropagator : public Propagator
 
     /// @{Setters
 
+    inline void setBaseline(float newBaseline) override
+    {
+        NT_PROFILE();
+
+        _baseline = newBaseline;
+    }
+    inline void setDensity(float newDensity)
+    {
+        NT_PROFILE();
+
+        _density = newDensity;
+    }
     inline void setTheta12(Tensor &newTheta12)
     {
         NT_PROFILE();

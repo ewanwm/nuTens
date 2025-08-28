@@ -311,6 +311,14 @@ void initPropagator(py::module &m)
             "set the parameters for the oscillation calculations",
             py::arg("new_theta12"), py::arg("new_theta23"), py::arg("new_theta13"), py::arg("new_deltaCP"), py::arg("new_deltamsq21"), py::arg("new_deltamsq31")
         )
+        .def("set_baseline", &DPpropagator::setBaseline,
+            "set the baseline",
+            py::arg("new_baseline")
+        )
+        .def("set_density", &DPpropagator::setDensity,
+            "set the density",
+            py::arg("new_density")
+        )
         .def("set_energies", &DPpropagator::setEnergies,
             "set the neutrino energies",
             py::arg("new_energies")
