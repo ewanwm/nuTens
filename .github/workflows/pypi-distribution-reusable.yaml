@@ -16,6 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     ## runner will run out of space if we don't clear some up by removing some unused tools
     - name: Clear space
