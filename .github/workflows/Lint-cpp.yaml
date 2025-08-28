@@ -37,7 +37,7 @@ jobs:
           cp -r _deps/spdlog-src/include/spdlog .
           cp spdlog/spdlog* .
         
-      - uses: cpp-linter/cpp-linter-action@2.15.0
+      - uses: cpp-linter/cpp-linter-action@v2.15.0
         id: linter
         continue-on-error: true
         env:
