@@ -78,7 +78,10 @@ endif()
 ######################################
 
 add_subdirectory(nuTens)
-add_subdirectory(tests)
+
+if(NT_COMPILE_TESTS)
+    add_subdirectory(tests)
+endif()
 
 if(NT_ENABLE_PYTHON)
     add_subdirectory(python)
