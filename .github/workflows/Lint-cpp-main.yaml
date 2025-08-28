@@ -20,7 +20,7 @@ jobs:
         run: sudo apt install protobuf-compiler
         
       - name: Install Python dependencies
-        uses: py-actions/py-dependency-install@v4
+        uses: py-actions/py-dependency-install@v5
         with:
           path: "PyTorch_requirements.txt"
         
@@ -35,7 +35,7 @@ jobs:
           cp -r _deps/spdlog-src/include/spdlog .
           cp spdlog/spdlog* .
         
-      - uses: cpp-linter/cpp-linter-action@v5
+      - uses: cpp-linter/cpp-linter-action@v2
         id: linter
         continue-on-error: true
         env:
