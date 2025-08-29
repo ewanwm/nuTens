@@ -56,7 +56,7 @@ static void BM_vacuumOscillations(benchmark::State &state)
 
     // make some random test energies
     Tensor energies =
-        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kFloat).requiresGrad(false), 10000.0).hasBatchDim(true) +
+        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), 10000.0).hasBatchDim(true) +
         Tensor({100.0});
 
     energies = energies.hasBatchDim(true);
@@ -92,7 +92,7 @@ static void BM_constMatterOscillations(benchmark::State &state)
     
     // make some random test energies
     Tensor energies =
-        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kFloat).requiresGrad(false), 10000.0) +
+        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), 10000.0) +
         Tensor({100.0});
 
     energies = energies.hasBatchDim(true);
@@ -131,7 +131,7 @@ static void BM_DPpropOscillations(benchmark::State &state)
     
     // make some random test energies
     Tensor energies =
-        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kFloat).requiresGrad(false), 10000.0) +
+        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), 10000.0) +
         Tensor({100.0});
 
     energies = energies.hasBatchDim(true);
