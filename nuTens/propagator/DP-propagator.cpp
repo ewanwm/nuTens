@@ -157,19 +157,19 @@ Tensor DPpropagator::calculateProbs()
     // ---------------------------- //
     // Assign all the probabilities //
     // ---------------------------- //
-    probsRet.setValue({"...", 0, 0}, Pee.getValues({"...", 0}));                             // Pee
-    probsRet.setValue({"...", 0, 1}, (Pme_CPC - Pme_CPV).getValues({"...", 0}));             // Pem
-    probsRet.setValue({"...", 0, 2}, (one - Pee - Pme_CPC + Pme_CPV).getValues({"...", 0})); // Pet
+    probsRet.setValue({"...", 0, 0}, Pee);                             // Pee
+    probsRet.setValue({"...", 0, 1}, (Pme_CPC - Pme_CPV));             // Pem
+    probsRet.setValue({"...", 0, 2}, (one - Pee - Pme_CPC + Pme_CPV)); // Pet
 
-    probsRet.setValue({"...", 1, 0}, (Pme_CPC + Pme_CPV).getValues({"...", 0}));             // Pme
-    probsRet.setValue({"...", 1, 1}, Pmm.getValues({"...", 0}));                             // Pmm
-    probsRet.setValue({"...", 1, 2}, (one - Pme_CPC - Pme_CPV - Pmm).getValues({"...", 0})); // Pmt
+    probsRet.setValue({"...", 1, 0}, (Pme_CPC + Pme_CPV));             // Pme
+    probsRet.setValue({"...", 1, 1}, Pmm);                             // Pmm
+    probsRet.setValue({"...", 1, 2}, (one - Pme_CPC - Pme_CPV - Pmm)); // Pmt
 
-    probsRet.setValue({"...", 2, 0}, (one - Pee - Pme_CPC - Pme_CPV).getValues({"...", 0})); // Pte
-    probsRet.setValue({"...", 2, 1}, (one - Pme_CPC + Pme_CPV - Pmm).getValues({"...", 0})); // Ptm
+    probsRet.setValue({"...", 2, 0}, (one - Pee - Pme_CPC - Pme_CPV)); // Pte
+    probsRet.setValue({"...", 2, 1}, (one - Pme_CPC + Pme_CPV - Pmm)); // Ptm
     probsRet.setValue(
         {"...", 2, 2},
-        (one - (one - Pee - Pme_CPC + Pme_CPV) - (one - Pme_CPC - Pme_CPV - Pmm)).getValues({"...", 0})); // Ptt
+        (one - (one - Pee - Pme_CPC + Pme_CPV) - (one - Pme_CPC - Pme_CPV - Pmm))); // Ptt
 
     return probsRet;
 }
