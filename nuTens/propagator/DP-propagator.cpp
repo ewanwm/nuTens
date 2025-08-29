@@ -32,28 +32,23 @@ Tensor DPpropagator::calculateProbs()
     Tensor Ue2sq = Tensor::mul(cosSqTheta13, sinSqTheta12);
     Tensor Ue3sq = sinSqTheta13;
 
-    // Umisq's, Utisq's and Jvac
-    Tensor Um3sq = Tensor::mul(cosSqTheta13, sinSqTheta23);
-
-    // Um2sq and Ut2sq are used here as temporary variables, will be properly defined later
-    Tensor Ut2sq = Tensor::mul(Tensor::mul(sinSqTheta13, sinSqTheta12), sinSqTheta23);
-    Tensor Um2sq = Tensor::mul(cosSqTheta12, cosSqTheta23);
-
     // if user wants to interpret theta_ij's as sin^2(theta_ij) we use the "normal" nufast method
     // for Jrr, effectively forcing the thetas to be in lower octant.
     // Otherwise we calculate performing the trig functions which is slower but allows any octant
     Tensor Jrr;
 
     if(interpretSinSquaredThetas) {
-        Jrr = Tensor::pow(Tensor::mul(Um2sq, Ut2sq), 0.5);
+        Jrr = Tensor::pow(cosSqTheta12 * cosSqTheta23 * sinSqTheta13 * sinSqTheta12 * sinSqTheta23, 0.5);
     }
     else {
         Jrr = Tensor::cos(theta12) * Tensor::cos(theta23) * Tensor::sin(theta13) * Tensor::sin(theta12) *
                     Tensor::sin(theta23);
     }
 
-    Um2sq = Um2sq + Ut2sq - Jrr * cosDeltaCP * 2.0;
-    Tensor Jmatter = Jrr * cosSqTheta13 * sinDeltaCP * 8.0;
+    // Umisq's, Utisq's and Jvac
+    Tensor Um2sq = cosSqTheta12 * cosSqTheta23 + sinSqTheta13 * sinSqTheta12 * sinSqTheta23 - Jrr * cosDeltaCP * 2.0;
+    Tensor Um3sq = Tensor::mul(cosSqTheta13, sinSqTheta23);
+
     Tensor Amatter = _energies * antinuFactor * _density * constants::Groot2 * 2.0;
     Tensor Dmsqee = -dmsq31 + sinSqTheta12 * dmsq21;
 
@@ -99,29 +94,29 @@ Tensor DPpropagator::calculateProbs()
     Tensor Xp2 = -PiDlambdaInv * Dlambda31;
 
     // numerators
-    Ue3sq = (lambda3 * (lambda3 - See) + Tee) * Xp3;
-    Ue2sq = (lambda2 * (lambda2 - See) + Tee) * Xp2;
+    Tensor Ve3sq = (lambda3 * (lambda3 - See) + Tee) * Xp3;
+    Tensor Ve2sq = (lambda2 * (lambda2 - See) + Tee) * Xp2;
 
     Tensor Smm = A + dmsq21 * Um2sq + dmsq31 * Um3sq;
     Tmm = Tmm * (one - Um3sq - Um2sq) + Amatter * (See + Smm - A);
 
-    Um3sq = (lambda3 * (lambda3 - Smm) + Tmm) * Xp3;
-    Um2sq = (lambda2 * (lambda2 - Smm) + Tmm) * Xp2;
+    Tensor Vm3sq = (lambda3 * (lambda3 - Smm) + Tmm) * Xp3;
+    Tensor Vm2sq = (lambda2 * (lambda2 - Smm) + Tmm) * Xp2;
 
     // ------------- //
     // Use NHS for J //
     // ------------- //
-    Jmatter = Jmatter * dmsq21 * dmsq31 * (dmsq21 - dmsq31) * PiDlambdaInv;
+    Tensor Jmatter = Jrr * cosSqTheta13 * sinDeltaCP * 8.0 * dmsq21 * dmsq31 * (dmsq21 - dmsq31) * PiDlambdaInv;
 
     // ----------------------- //
     // Get all elements of Usq //
     // ----------------------- //
-    Tensor Ue1sq = one - Ue3sq - Ue2sq;
-    Tensor Um1sq = one - Um3sq - Um2sq;
+    Tensor Ve1sq = one - Ve3sq - Ve2sq;
+    Tensor Vm1sq = one - Vm3sq - Vm2sq;
 
-    Tensor Ut3sq = one - Um3sq - Ue3sq;
-    Ut2sq = one - Um2sq - Ue2sq;
-    Tensor Ut1sq = one - Um1sq - Ue1sq;
+    Tensor Vt3sq = one - Vm3sq - Ve3sq;
+    Tensor Vt2sq = one - Vm2sq - Ve2sq;
+    Tensor Vt1sq = one - Vm1sq - Ve1sq;
 
     // ----------------------- //
     // Get the kinematic terms //
@@ -143,14 +138,14 @@ Tensor DPpropagator::calculateProbs()
     // ------------------------------------------------------------------- //
     // Calculate the three necessary probabilities, separating CPC and CPV //
     // ------------------------------------------------------------------- //
-    Tensor Pme_CPC = (Ut3sq - Um2sq * Ue1sq - Um1sq * Ue2sq) * sinsqD21_2 +
-                     (Ut2sq - Um3sq * Ue1sq - Um1sq * Ue3sq) * sinsqD31_2 +
-                     (Ut1sq - Um3sq * Ue2sq - Um2sq * Ue3sq) * sinsqD32_2;
+    Tensor Pme_CPC = (Vt3sq - Vm2sq * Ve1sq - Vm1sq * Ve2sq) * sinsqD21_2 +
+                     (Vt2sq - Vm3sq * Ve1sq - Vm1sq * Ve3sq) * sinsqD31_2 +
+                     (Vt1sq - Vm3sq * Ve2sq - Vm2sq * Ve3sq) * sinsqD32_2;
     Tensor Pme_CPV = -Jmatter * triple_sin;
 
-    Tensor Pmm = one - (Um2sq * Um1sq * sinsqD21_2 + Um3sq * Um1sq * sinsqD31_2 + Um3sq * Um2sq * sinsqD32_2) * 2.0;
+    Tensor Pmm = one - (Vm2sq * Vm1sq * sinsqD21_2 + Vm3sq * Vm1sq * sinsqD31_2 + Vm3sq * Vm2sq * sinsqD32_2) * 2.0;
 
-    Tensor Pee = one - (Ue2sq * Ue1sq * sinsqD21_2 + Ue3sq * Ue1sq * sinsqD31_2 + Ue3sq * Ue2sq * sinsqD32_2) * 2.0;
+    Tensor Pee = one - (Ve2sq * Ve1sq * sinsqD21_2 + Ve3sq * Ve1sq * sinsqD31_2 + Ve3sq * Ve2sq * sinsqD32_2) * 2.0;
 
     Tensor probsRet = Tensor::zeros({_energies.getShape()[0], 3, 3}).requiresGrad(false);
 
