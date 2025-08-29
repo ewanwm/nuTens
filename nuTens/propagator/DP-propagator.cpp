@@ -13,12 +13,17 @@ Tensor DPpropagator::calculateProbs()
     // --------------------------------------------------------------------- //
     Tensor one = Tensor::ones({1}).requiresGrad(false);
 
-    Tensor sinSqTheta12 = Tensor::pow(Tensor::sin(theta12), 2.0);
-    Tensor cosSqTheta12 = Tensor::pow(Tensor::cos(theta12), 2.0);
-    Tensor sinSqTheta13 = Tensor::pow(Tensor::sin(theta13), 2.0);
-    Tensor cosSqTheta13 = Tensor::pow(Tensor::cos(theta13), 2.0);
-    Tensor sinSqTheta23 = Tensor::pow(Tensor::sin(theta23), 2.0);
-    Tensor cosSqTheta23 = Tensor::pow(Tensor::cos(theta23), 2.0);
+    // need to calculate the sin^2(theta)'s if not provided by user
+    if(!interpretSinSquaredThetas) 
+    {
+        sinSqTheta12 = Tensor::pow(Tensor::sin(theta12), 2.0);
+        sinSqTheta13 = Tensor::pow(Tensor::sin(theta13), 2.0);
+        sinSqTheta23 = Tensor::pow(Tensor::sin(theta23), 2.0);
+    }
+
+    Tensor cosSqTheta12 = one - sinSqTheta12;
+    Tensor cosSqTheta13 = one - sinSqTheta13;
+    Tensor cosSqTheta23 = one - sinSqTheta23;
 
     Tensor sinDeltaCP = Tensor::sin(deltaCP);
     Tensor cosDeltaCP = Tensor::cos(deltaCP);
@@ -34,12 +39,18 @@ Tensor DPpropagator::calculateProbs()
     Tensor Ut2sq = Tensor::mul(Tensor::mul(sinSqTheta13, sinSqTheta12), sinSqTheta23);
     Tensor Um2sq = Tensor::mul(cosSqTheta12, cosSqTheta23);
 
-    /// TODO: The nufast version of this would look like
-    ///         Tensor::pow( Tensor::mul(Um2sq, Ut2sq), 0.5);
-    ///       however this means that the sign of the sin functions is lost
-    ///       giving weong Um2sq and then wrong osc probs
-    Tensor Jrr = Tensor::cos(theta12) * Tensor::cos(theta23) * Tensor::sin(theta13) * Tensor::sin(theta12) *
-                 Tensor::sin(theta23);
+    // if user wants to interpret theta_ij's as sin^2(theta_ij) we use the "normal" nufast method
+    // for Jrr, effectively forcing the thetas to be in lower octant.
+    // Otherwise we calculate performing the trig functions which is slower but allows any octant
+    Tensor Jrr;
+
+    if(interpretSinSquaredThetas) {
+        Jrr = Tensor::pow(Tensor::mul(Um2sq, Ut2sq), 0.5);
+    }
+    else {
+        Jrr = Tensor::cos(theta12) * Tensor::cos(theta23) * Tensor::sin(theta13) * Tensor::sin(theta12) *
+                    Tensor::sin(theta23);
+    }
 
     Um2sq = Um2sq + Ut2sq - Jrr * cosDeltaCP * 2.0;
     Tensor Jmatter = Jrr * cosSqTheta13 * sinDeltaCP * 8.0;

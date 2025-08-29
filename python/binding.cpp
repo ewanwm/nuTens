@@ -452,7 +452,7 @@ void initPropagator(py::module &m_nuTens)
             py::arg("baseline"), py::arg("anti_neutrino")=false, py::arg("density"), py::arg("NR_iterations"))
         .def("set_parameters", &DPpropagator::setParameters,
             "set the parameters for the oscillation calculations",
-            py::arg("new_theta12"), py::arg("new_theta23"), py::arg("new_theta13"), py::arg("new_deltaCP"), py::arg("new_deltamsq21"), py::arg("new_deltamsq31")
+            py::arg("new_theta12"), py::arg("new_theta23"), py::arg("new_theta13"), py::arg("new_deltaCP"), py::arg("new_deltamsq21"), py::arg("new_deltamsq31"), py::arg("sin_squared_thetas") = false
         )
         .def("set_baseline", &DPpropagator::setBaseline,
             "set the baseline",
@@ -465,6 +465,10 @@ void initPropagator(py::module &m_nuTens)
         .def("set_energies", &DPpropagator::setEnergies,
             "set the neutrino energies",
             py::arg("new_energies")
+        )
+        .def("set_sin_squared_thetas", &DPpropagator::setSinSquaredThetas,
+            "If `True`, the provided theta_ij values will be interpreted as sin^2(theta_ij) meaning that some of the computation can be shortcut and the probability calculation will be sped up. Note however that this will force the thetas to be in the lower octant (which is probably fine for most applications)",
+            py::arg("new_value")
         )
         .def("calculate_probs", &DPpropagator::calculateProbs
         )
