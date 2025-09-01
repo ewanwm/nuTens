@@ -53,12 +53,15 @@ Tensor DPpropagator::calculateProbs()
     Tensor Dmsqee = -dmsq31 + sinSqTheta12 * dmsq21;
 
     // calculate A, B, C, See, Tee, and part of Tmm
-    Tensor A = -dmsq21 - dmsq31; // temporary variable
-    Tensor See = A + dmsq21 * Ue2sq + dmsq31 * Ue3sq;
-    Tensor Tmm = dmsq21 * dmsq31; // using Tmm as a temporary variable
-    Tensor Tee = Tmm * (one - Ue3sq - Ue2sq);
+    Tensor Araw = -dmsq21 - dmsq31;
+    Tensor See  = Araw + dmsq21 * Ue2sq + dmsq31 * Ue3sq;
+    Tensor Tee  = dmsq21 * dmsq31 * (one - Ue3sq - Ue2sq);
+    
     Tensor C = Amatter * Tee;
-    A = A + Amatter;
+    Tensor A = Araw + Amatter;
+
+    Tensor Smm = A + dmsq21 * Um2sq + dmsq31 * Um3sq;
+    Tensor Tmm = dmsq21 * dmsq31 * (one - Um3sq - Um2sq) + Amatter * (See + Smm - A);
 
     // ---------------------------------- //
     // Get lambda3 from lambda+ of MP/DMP //
@@ -70,7 +73,7 @@ Tensor DPpropagator::calculateProbs()
     // ---------------------------------------------------------------------------- //
     // Newton iterations to improve lambda3 arbitrarily, if needed, (B needed here) //
     // ---------------------------------------------------------------------------- //
-    Tensor B = Tmm + Amatter * See; // B is only needed for N_Newton >= 1
+    Tensor B = dmsq21 * dmsq31 + Amatter * See; // B is only needed for N_Newton >= 1
     for (int i = 0; i < NRiterations; i++)
         lambda3 =
             (lambda3 * lambda3 * (lambda3 + lambda3 - A) + C) /
@@ -97,16 +100,8 @@ Tensor DPpropagator::calculateProbs()
     Tensor Ve3sq = (lambda3 * (lambda3 - See) + Tee) * Xp3;
     Tensor Ve2sq = (lambda2 * (lambda2 - See) + Tee) * Xp2;
 
-    Tensor Smm = A + dmsq21 * Um2sq + dmsq31 * Um3sq;
-    Tmm = Tmm * (one - Um3sq - Um2sq) + Amatter * (See + Smm - A);
-
     Tensor Vm3sq = (lambda3 * (lambda3 - Smm) + Tmm) * Xp3;
     Tensor Vm2sq = (lambda2 * (lambda2 - Smm) + Tmm) * Xp2;
-
-    // ------------- //
-    // Use NHS for J //
-    // ------------- //
-    Tensor Jmatter = Jrr * cosSqTheta13 * sinDeltaCP * 8.0 * dmsq21 * dmsq31 * (dmsq21 - dmsq31) * PiDlambdaInv;
 
     // ----------------------- //
     // Get all elements of Usq //
@@ -134,6 +129,11 @@ Tensor DPpropagator::calculateProbs()
     Tensor sinsqD21_2 = sinD21 * sinD21 * 2.0;
     Tensor sinsqD31_2 = sinD31 * sinD31 * 2.0;
     Tensor sinsqD32_2 = sinD32 * sinD32 * 2.0;
+
+    // ------------- //
+    // Use NHS for J //
+    // ------------- //
+    Tensor Jmatter = Jrr * cosSqTheta13 * sinDeltaCP * 8.0 * dmsq21 * dmsq31 * (dmsq21 - dmsq31) * PiDlambdaInv;
 
     // ------------------------------------------------------------------- //
     // Calculate the three necessary probabilities, separating CPC and CPV //
