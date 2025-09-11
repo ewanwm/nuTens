@@ -47,21 +47,22 @@ Tensor DPpropagator::calculateProbs()
 
     // Umisq's, Utisq's and Jvac
     Tensor Um2sq = cosSqTheta12 * cosSqTheta23 + sinSqTheta13 * sinSqTheta12 * sinSqTheta23 - Jrr * cosDeltaCP * 2.0;
-    Tensor Um3sq = Tensor::mul(cosSqTheta13, sinSqTheta23);
+    Tensor Um3sq = cosSqTheta13 * sinSqTheta23;
 
-    Tensor Amatter = _energies * antinuFactor * _density * constants::Groot2 * 2.0;
+    Tensor Amatter = _energies * (antinuFactor * _density * constants::Groot2 * 2.0);
     Tensor Dmsqee = -dmsq31 + sinSqTheta12 * dmsq21;
 
     // calculate A, B, C, See, Tee, and part of Tmm
     Tensor Araw = -dmsq21 - dmsq31;
+    Tensor A = Araw + Amatter;
+
     Tensor See  = Araw + dmsq21 * Ue2sq + dmsq31 * Ue3sq;
     Tensor Tee  = dmsq21 * dmsq31 * (one - Ue3sq - Ue2sq);
-    
-    Tensor C = Amatter * Tee;
-    Tensor A = Araw + Amatter;
 
     Tensor Smm = A + dmsq21 * Um2sq + dmsq31 * Um3sq;
     Tensor Tmm = dmsq21 * dmsq31 * (one - Um3sq - Um2sq) + Amatter * (See + Smm - A);
+    
+    Tensor C = Amatter * Tee;
 
     // ---------------------------------- //
     // Get lambda3 from lambda+ of MP/DMP //
