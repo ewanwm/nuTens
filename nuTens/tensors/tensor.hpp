@@ -58,7 +58,9 @@ class Tensor
     /// @{
 
     /// @brief Default constructor with no initialisation
-    Tensor() : _dType(dtypes::kUninitScalar), _device(dtypes::kUninitDevice) {};
+    Tensor() : _dType(dtypes::kUninitScalar), _device(dtypes::kUninitDevice) {
+        NT_PROFILE();
+    };
 
     /// @brief Construct a 1-d array with specified values
     /// @arg values The values to include in the tensor
@@ -106,6 +108,8 @@ class Tensor
     /// @brief Set whether or not the first dimension should be interpreted as a batch dimension
     inline Tensor &hasBatchDim(bool hasBatchDim)
     {
+        NT_PROFILE();
+
         _hasBatchDim = hasBatchDim;
         return *this;
     };
@@ -516,7 +520,9 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 {
 
   public:
-    inline AccessedTensor(const Tensor &tensor) : AccessedTensor(tensor.getTensor()) {};
+    inline AccessedTensor(const Tensor &tensor) : AccessedTensor(tensor.getTensor()) {
+        NT_PROFILE();
+    };
 
   private:
     AccessedTensor(const torch::Tensor &tensor)
