@@ -116,7 +116,7 @@ class ProfileWriter
     /// @param[in] result The result to write
     void writeProfile(const ProfileResult &result)
     {
-        if (_profileCount++ > 0)
+        if (_profileCount++ > 1)
         {
             _outputStream << ",";
         }
