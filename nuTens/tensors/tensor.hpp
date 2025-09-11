@@ -435,10 +435,7 @@ class Tensor
 
         NT_PROFILE();
 
-        Tensor ret;
-        ret.setTensor(tensor);
-
-        return ret;
+        return Tensor(tensor);
     }
 
   protected:
@@ -496,8 +493,21 @@ class Tensor
         return indicesVec;
     }
 
+  private:
+
+    /// Construct a nuTens tensor directly from a pytorch tensor
+    Tensor(const torch::Tensor &tensor)
+    :
+        _tensor(tensor),
+        _dType(dtypes::invScalarTypeMap(tensor.scalar_type())),
+        _device(dtypes::invDeviceTypeMap(tensor.device().type()))
+    {
+        NT_PROFILE();
+    }
+
   protected:
     torch::Tensor _tensor;
+
 #endif
 };
 
@@ -528,6 +538,8 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
     AccessedTensor(const torch::Tensor &tensor)
         : _packedAccessor(tensor.packed_accessor32<Tdtype, TnDims>()), _accessor(tensor.accessor<Tdtype, TnDims>())
     {
+        NT_PROFILE();
+        
         setTensor(tensor);
     };
 
