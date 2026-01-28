@@ -140,9 +140,7 @@ endif()
 
 add_subdirectory(nuTens)
 
-if(NT_COMPILE_TESTS)
-    add_subdirectory(tests)
-endif()
+add_subdirectory(tests)
 
 if(NT_ENABLE_PYTHON)
     add_subdirectory(python)
