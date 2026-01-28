@@ -177,7 +177,7 @@ Tensor::variantType Tensor::getVariantValue(const std::vector<int> &indices) con
     // in theory this is not reachable so exclude it from code coverage
     // LCOV_EXCL_START
     default:
-        NT_ERROR("Invalid dtype has been set for this tensor: {}", _dType);
+        NT_ERROR("Invalid dtype has been set for this tensor: {}", (int)_dType);
         NT_ERROR("{}:{}", __FILE__, __LINE__);
         throw;
     }
