@@ -137,7 +137,14 @@ void initTensor(py::module &m)
         .def("grad", &Tensor::grad, "Get the accumulated gradient stored in this tensor after calling backward()")
 
         // operator overloads
+        .def(py::self + py::self)
+        .def(py::self + float())
+        .def(float() + py::self)
+        .def(float() * py::self)
+        .def(py::self * float())
+        .def(py::self / float())
         .def(-py::self)
+        .def("__repr__", &Tensor::toString)
 
 
 #if USE_PYTORCH
@@ -202,6 +209,10 @@ void initTensor(py::module &m)
     );
     m_tensor.def("mul", &Tensor::mul, 
         "Element-wise multiplication",
+        py::arg("t1"), py::arg("t2")
+    );
+    m_tensor.def("add", &Tensor::add, 
+        "Element-wise addition",
         py::arg("t1"), py::arg("t2")
     );
     m_tensor.def("div", &Tensor::div, 

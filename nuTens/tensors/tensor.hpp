@@ -142,6 +142,11 @@ class Tensor
     /// @arg t2 Right hand tensor
     static Tensor mul(const Tensor &t1, const Tensor &t2);
 
+    /// @brief Element-wise addition of two tensors
+    /// @arg t1 Left hand tensor
+    /// @arg t2 Right hand tensor
+    static Tensor add(const Tensor &t1, const Tensor &t2);
+
     /// @brief Element-wise division of two tensors
     /// @arg t1 Numerator
     /// @arg t2 Denominator
@@ -264,17 +269,29 @@ class Tensor
     /// mathematical function overrides, generally work as expected, unless
     /// otherwise noted
     /// @{
-    bool operator==(const Tensor &rhs) const;
-    bool operator!=(const Tensor &rhs) const;
-    Tensor operator+(const Tensor &rhs) const;
-    Tensor operator-(const Tensor &rhs) const;
-    Tensor operator+(double rhs) const;
-    Tensor operator-(double rhs) const;
-    Tensor operator*(const Tensor &rhs) const;
-    Tensor operator*(double rhs) const;
-    Tensor operator/(const Tensor &rhs) const;
-    Tensor operator/(double rhs) const;
-    Tensor operator-() const;
+    [[nodiscard]] bool operator==(const Tensor &rhs) const;
+    [[nodiscard]] bool operator!=(const Tensor &rhs) const;
+    [[nodiscard]] Tensor operator+(const Tensor &rhs) const;
+    [[nodiscard]] Tensor operator-(const Tensor &rhs) const;
+    [[nodiscard]] Tensor operator+(double rhs) const;
+    [[nodiscard]] Tensor operator-(double rhs) const;
+    [[nodiscard]] Tensor operator*(const Tensor &rhs) const;
+    [[nodiscard]] Tensor operator*(double rhs) const;
+    [[nodiscard]] Tensor operator/(const Tensor &rhs) const;
+    [[nodiscard]] Tensor operator/(double rhs) const;
+    [[nodiscard]] Tensor operator-() const;
+    [[nodiscard]] friend Tensor operator*(double lhs, const Tensor &t)
+    {
+        NT_PROFILE();
+
+        return {t * lhs};
+    };
+    [[nodiscard]] friend Tensor operator+(double lhs, const Tensor &t)
+    {
+        NT_PROFILE();
+
+        return {t + lhs};
+    };
     /// @}
 
     /// @brief Get the real part of a complex tensor
