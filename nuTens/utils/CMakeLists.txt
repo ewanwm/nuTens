@@ -2,7 +2,7 @@
 ########################
 #### set up logging ####
 ########################
-add_library(nt-logging SHARED logging.hpp)
+add_library(nt-logging STATIC logging.hpp)
 target_link_libraries(nt-logging PRIVATE spdlog)
 target_include_directories(nt-logging
                            PUBLIC
@@ -88,7 +88,7 @@ install(FILES ${HEADERS} DESTINATION include/utils)
 
 ## install libraries to the "lib" directory
 install(
-    TARGETS instrumentation nt-logging tensor-backend
+    TARGETS instrumentation nt-logging tensor-backend spdlog
     DESTINATION lib
     EXPORT nuTens-targets
 )
