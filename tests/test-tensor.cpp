@@ -26,6 +26,10 @@ TEST(Tensor, TensorCreationFloat) {
     Tensor three = Tensor({3.0}, dtypes::kFloat, dtypes::kCPU, false);
     ASSERT_EQ(three.getValue<float>(), 3.0);
 
+    Tensor rand = Tensor::rand({1}, dtypes::kFloat, dtypes::kCPU, false);
+    ASSERT_LE(rand.getValue<float>(), 1.0);
+    ASSERT_GE(rand.getValue<float>(), 0.0);
+
     Tensor diagonal = Tensor({0.0, 1.0, 2.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor diagTensor = Tensor::diag(diagonal);
     std::cout << "diagonal tensor: \n" << diagTensor << std::endl;
@@ -48,6 +52,16 @@ TEST(Tensor, TensorCreationFloat) {
     ASSERT_EQ(eye.getValue<float>({1,0}), 0.0);
 }
 
+// check equality operators
+TEST(Tensor, EqualityOperators) {
+
+    Tensor one = Tensor({1.0}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor two = Tensor({2.0}, dtypes::kFloat, dtypes::kCPU, false);
+
+    ASSERT_TRUE(one == one);
+    ASSERT_TRUE(one != two);
+}
+
 // test manipulation of elements of tensor
 TEST(Tensor, ElementMapipulation) {
 
@@ -65,6 +79,10 @@ TEST(Tensor, ElementMapipulation) {
     Tensor slice = tensorFloat.getValues({1, "..."});
     ASSERT_EQ(slice.getValue<float>({0}), 2.0);
     ASSERT_EQ(slice.getValue<float>({1}), 3.0);
+
+    tensorFloat.dType(dtypes::kDouble);
+    ASSERT_EQ(tensorFloat.getValue<double>({0,0}), 0.0);
+    ASSERT_EQ(tensorFloat.getValue<double>({0,1}), 1.0);
 
 }
 
@@ -140,6 +158,56 @@ TEST(Tensor, simpleArithmeticComplexFloat) {
     ASSERT_EQ(imag.real().getValue<float>(), 0.0);
     ASSERT_EQ((one + imag).conj(), (one - imag));
 
+    // proof of eulers identity
+    Tensor euler = Tensor({static_cast<float>(std::exp(1.0))}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    std::complex<float> testVal = Tensor::pow(euler, std::complex<float>(0.0, M_PI)).getValue<std::complex<float>>();
+    ASSERT_NEAR(testVal.real(), -1.0, 1e-6);
+    ASSERT_NEAR(testVal.imag(), 0.0, 1e-6);
+
+    // other complex operations
+    ASSERT_NEAR(imag.angle().getValue<float>(), M_PI / 2.0, 1e-5);
+    ASSERT_NEAR(imag.abs().getValue<float>(), 1.0, 1e-5);
+
+}
+
+TEST(Tensor, Summation){
+
+    Tensor tensor = Tensor::ones({3, 3}, dtypes::kFloat, dtypes::kCPU, false);
+
+    ASSERT_EQ(tensor.sum(tensor).getValue<float>(), 9.0);
+
+    Tensor sum = tensor.sum({1});
+
+    ASSERT_EQ(sum.getValue<float>({0}), 3.0);
+    ASSERT_EQ(sum.getValue<float>({1}), 3.0);
+    ASSERT_EQ(sum.getValue<float>({2}), 3.0);
+
+    Tensor cumsum = tensor.cumsum(1);
+
+    ASSERT_EQ(cumsum.getValue<float>({0, 0}), 1.0);
+    ASSERT_EQ(cumsum.getValue<float>({0, 1}), 2.0);
+    ASSERT_EQ(cumsum.getValue<float>({0, 2}), 3.0);
+    
+}
+
+TEST(Tensor, GetVariantValue) {
+
+    Tensor floatTensor = Tensor::ones({1}, dtypes::kFloat, dtypes::kCPU);
+    auto variantFloat = floatTensor.getVariantValue({0});
+    ASSERT_TRUE(std::holds_alternative<float>(variantFloat));
+
+    Tensor doubleTensor = Tensor::ones({1}, dtypes::kDouble, dtypes::kCPU);
+    auto variantDouble = doubleTensor.getVariantValue({0});
+    ASSERT_TRUE(std::holds_alternative<double>(variantDouble));
+
+    Tensor complexFloatTensor = Tensor::ones({1}, dtypes::kComplexFloat, dtypes::kCPU);
+    auto variantComplexFloat = complexFloatTensor.getVariantValue({0});
+    ASSERT_TRUE(std::holds_alternative<std::complex<float>>(variantComplexFloat));
+
+    Tensor complexDoubleTensor = Tensor::ones({1}, dtypes::kComplexDouble, dtypes::kCPU);
+    auto variantComplexDouble = complexDoubleTensor.getVariantValue({0});
+    ASSERT_TRUE(std::holds_alternative<std::complex<double>>(variantComplexDouble));
+
 }
 
 // check standard functions of real tensors
@@ -151,6 +219,188 @@ TEST(Tensor, StandardFunctionsFloat) {
     ASSERT_EQ(Tensor::sin(thetaTensor).getValue<float>(), std::sin(theta));
     ASSERT_EQ(Tensor::cos(thetaTensor).getValue<float>(), std::cos(theta));
     ASSERT_EQ(Tensor::exp(thetaTensor).getValue<float>(), std::exp(theta));
+
+}
+
+// check inplace functions
+TEST(Tensor, InPlaceMatmul) {
+
+    // test matrix multiplication
+    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    tensor.setValue({0,0}, 0.0);
+    tensor.setValue({0,1}, 1.0);
+    
+    tensor.setValue({1,0}, 2.0);
+    tensor.setValue({1,1}, 3.0);
+
+    Tensor otherTensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    otherTensor.setValue({0,0}, 0.0);
+    otherTensor.setValue({0,1}, 1.0);
+
+    otherTensor.setValue({1,0}, 2.0);
+    otherTensor.setValue({1,1}, 3.0);
+
+    tensor.matmul_(otherTensor);
+
+    // test matrix multiplication
+    ASSERT_EQ(tensor.getValue<float>({0,0}), 2.0);
+    ASSERT_EQ(tensor.getValue<float>({0,1}), 3.0);
+    ASSERT_EQ(tensor.getValue<float>({1,0}), 6.0);
+    ASSERT_EQ(tensor.getValue<float>({1,1}), 11.0);
+
+}
+
+TEST(Tensor, InPlaceMul) {
+
+    // test matrix multiplication
+    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    tensor.setValue({0,0}, 0.0);
+    tensor.setValue({0,1}, 1.0);
+    
+    tensor.setValue({1,0}, 2.0);
+    tensor.setValue({1,1}, 3.0);
+
+    Tensor otherTensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    otherTensor.setValue({0,0}, 0.0);
+    otherTensor.setValue({0,1}, 1.0);
+
+    otherTensor.setValue({1,0}, 2.0);
+    otherTensor.setValue({1,1}, 3.0);
+
+    tensor.mul_(otherTensor);
+
+    // test matrix multiplication
+    ASSERT_EQ(tensor.getValue<float>({0,0}), 0.0);
+    ASSERT_EQ(tensor.getValue<float>({0,1}), 1.0);
+    ASSERT_EQ(tensor.getValue<float>({1,0}), 4.0);
+    ASSERT_EQ(tensor.getValue<float>({1,1}), 9.0);
+
+}
+
+TEST(Tensor, InPlaceDiv) {
+
+    // test matrix multiplication
+    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    tensor.setValue({0,0}, 1.0);
+    tensor.setValue({0,1}, 2.0);
+    
+    tensor.setValue({1,0}, 3.0);
+    tensor.setValue({1,1}, 4.0);
+
+    Tensor otherTensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    otherTensor.setValue({0,0}, 1.0);
+    otherTensor.setValue({0,1}, 2.0);
+
+    otherTensor.setValue({1,0}, 3.0);
+    otherTensor.setValue({1,1}, 4.0);
+
+    tensor.div_(otherTensor);
+
+    // test matrix multiplication
+    ASSERT_EQ(tensor.getValue<float>({0,0}), 1.0);
+    ASSERT_EQ(tensor.getValue<float>({0,1}), 1.0);
+    ASSERT_EQ(tensor.getValue<float>({1,0}), 1.0);
+    ASSERT_EQ(tensor.getValue<float>({1,1}), 1.0);
+
+}
+
+TEST(Tensor, InPlaceScale) {
+
+    // test matrix multiplication
+    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    tensor.setValue({0,0}, 1.0);
+    tensor.setValue({0,1}, 2.0);
+    
+    tensor.setValue({1,0}, 3.0);
+    tensor.setValue({1,1}, 4.0);
+
+    tensor.scale_(2.0);
+
+    // test matrix multiplication
+    ASSERT_EQ(tensor.getValue<float>({0,0}), 2.0);
+    ASSERT_EQ(tensor.getValue<float>({0,1}), 4.0);
+    ASSERT_EQ(tensor.getValue<float>({1,0}), 6.0);
+    ASSERT_EQ(tensor.getValue<float>({1,1}), 8.0);
+
+}
+
+TEST(Tensor, InPlaceScaleComplex) {
+
+    // test matrix multiplication
+    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    tensor.setValue({0,0}, 1.0);
+    tensor.setValue({0,1}, 2.0);
+    
+    tensor.setValue({1,0}, 3.0);
+    tensor.setValue({1,1}, 4.0);
+
+    tensor.scale_(std::complex<float>(2.0, 2.0));
+
+    // test matrix multiplication
+    ASSERT_EQ(tensor.getValue<std::complex<float>>({0,0}), std::complex<float>(2.0, 2.0));
+    ASSERT_EQ(tensor.getValue<std::complex<float>>({0,1}), std::complex<float>(4.0, 4.0));
+    ASSERT_EQ(tensor.getValue<std::complex<float>>({1,0}), std::complex<float>(6.0, 6.0));
+    ASSERT_EQ(tensor.getValue<std::complex<float>>({1,1}), std::complex<float>(8.0, 8.0));
+
+}
+
+TEST(Tensor, InPlacePow) {
+
+    // test matrix multiplication
+    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    tensor.setValue({0,0}, 1.0);
+    tensor.setValue({0,1}, 2.0);
+    
+    tensor.setValue({1,0}, 3.0);
+    tensor.setValue({1,1}, 4.0);
+
+    tensor.pow_(2.0);
+
+    // test matrix multiplication
+    ASSERT_EQ(tensor.getValue<float>({0,0}), 1.0);
+    ASSERT_EQ(tensor.getValue<float>({0,1}), 4.0);
+    ASSERT_EQ(tensor.getValue<float>({1,0}), 9.0);
+    ASSERT_EQ(tensor.getValue<float>({1,1}), 16.0);
+
+}
+
+TEST(Tensor, InPlaceExp) {
+
+    // test matrix multiplication
+    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    tensor.setValue({0,0}, 1.0);
+    tensor.setValue({0,1}, 2.0);
+    
+    tensor.setValue({1,0}, 3.0);
+    tensor.setValue({1,1}, 4.0);
+
+    tensor.exp_();
+
+    // test matrix multiplication
+    ASSERT_NEAR(tensor.getValue<float>({0,0}), std::exp(1.0), 1e-4);
+    ASSERT_NEAR(tensor.getValue<float>({0,1}), std::exp(2.0), 1e-4);
+    ASSERT_NEAR(tensor.getValue<float>({1,0}), std::exp(3.0), 1e-4);
+    ASSERT_NEAR(tensor.getValue<float>({1,1}), std::exp(4.0), 1e-4);
+
+}
+
+TEST(Tensor, InPlaceTranspose) {
+
+    // test matrix multiplication
+    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    tensor.setValue({0,0}, 1.0);
+    tensor.setValue({0,1}, 2.0);
+    
+    tensor.setValue({1,0}, 3.0);
+    tensor.setValue({1,1}, 4.0);
+
+    tensor.transpose_(0, 1);
+
+    // test matrix multiplication
+    ASSERT_EQ(tensor.getValue<float>({0,0}), 1.0);
+    ASSERT_EQ(tensor.getValue<float>({0,1}), 3.0);
+    ASSERT_EQ(tensor.getValue<float>({1,0}), 2.0);
+    ASSERT_EQ(tensor.getValue<float>({1,1}), 4.0);
 
 }
 

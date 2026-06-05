@@ -3,10 +3,12 @@
 
 using namespace nuTens;
 
+// LCOV_EXCL_START
 std::string Tensor::getTensorLibrary()
 {
     return "PyTorch";
 }
+// LCOV_EXCL_STOP
 
 Tensor::Tensor(const std::vector<float> &values, dtypes::scalarType type, dtypes::deviceType device, bool requiresGrad)
     : _dType(type), _device(device)
