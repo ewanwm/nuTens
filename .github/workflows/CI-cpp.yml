@@ -18,6 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        OS: [ubuntu-22.04]
         build_type: [Release, Debug]
         include:
           - OS: ubuntu-22.04
@@ -32,7 +33,7 @@ jobs:
           #  cpp_compiler: cl
           #  c_compiler: cl
              
-    name: Build & Test ${{ matrix.os }} ${{ matrix.c_compiler }}
+    name: Build & Test ${{ matrix.os }} ${{ matrix.c_compiler }} ${{ matrix.build_type }}
 
     runs-on: ${{ matrix.os }}
     
@@ -94,7 +95,7 @@ jobs:
 
     - name: Generate Coverage Report
       # only need to do this for one combination of OS and compiler
-      if: ${{ matrix.OS == 'ubuntu-22.04' && matrix.c_compiler == 'gcc' }}
+      if: ${{ matrix.OS == 'ubuntu-22.04' && matrix.c_compiler == 'gcc' && matrix.build_type == "Debug" }}
       working-directory: ${{github.workspace}}/build
       run: gcovr --json -o nuTens_coverage.json -r .. -f "../nuTens/*"
       
