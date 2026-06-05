@@ -9,10 +9,6 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
-env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Debug
-
 jobs:
   build:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
@@ -22,6 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        build_type: [Release, Debug, RelWithDebInfo]
         include:
           - OS: ubuntu-22.04
             cpp_compiler: g++
@@ -73,7 +70,7 @@ jobs:
         -DNT_TEST_COVERAGE=ON \
         -DCMAKE_PREFIX_PATH=`python3 -c "import torch;print(torch.utils.cmake_prefix_path)"` \
         -B ${{github.workspace}}/build \
-        -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
 
     - name: Configure CMake windows
       if: ${{ startsWith(matrix.OS, 'windows') }}
@@ -83,17 +80,17 @@ jobs:
       run: |
         $Torch_DIR = python3 -c "import torch;print(torch.utils.cmake_prefix_path)"
         echo "torch location: $Torch_DIR"
-        cmake -DNT_COMPILE_TESTS=ON -DNT_TEST_COVERAGE=ON -DCMAKE_PREFIX_PATH="$Torch_DIR" -B ${{github.workspace}}\build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        cmake -DNT_COMPILE_TESTS=ON -DNT_TEST_COVERAGE=ON -DCMAKE_PREFIX_PATH="$Torch_DIR" -B ${{github.workspace}}\build -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
          
     - name: Build
       # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 2
+      run: cmake --build ${{github.workspace}}/build --config ${{matrix.build_type}} --parallel 2
 
     - name: Test
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest -C ${{env.BUILD_TYPE}}
+      run: ctest -C ${{matrix.build_type}}
 
     - name: Generate Coverage Report
       # only need to do this for one combination of OS and compiler
@@ -103,7 +100,7 @@ jobs:
       
     - name: Upload coverage reports to Codecov
       # only need to do this for one combination of OS and compiler
-      if: ${{ matrix.OS == 'ubuntu-22.04' && matrix.c_compiler == 'gcc' }}
+      if: ${{ matrix.OS == 'ubuntu-22.04' && matrix.c_compiler == 'gcc' && matrix.build_type == "Debug"}}
       uses: codecov/codecov-action@v4.0.1
       with:
         verbose: true
