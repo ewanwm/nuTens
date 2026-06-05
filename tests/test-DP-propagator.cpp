@@ -44,6 +44,7 @@ class DPpropagatorTest :public gtest::TestWithParam<float> {
     std::shared_ptr<ConstDensityMatterSolver> tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
 
     DPpropagator dpPropagator = DPpropagator(baseline, false, density, 10);
+    DPpropagator dpPropagatorVac = DPpropagator(baseline, false, 0.0, 10);
 
     PMNSmatrix pmns;
 
@@ -59,6 +60,8 @@ class DPpropagatorTest :public gtest::TestWithParam<float> {
         
         dpPropagator.setEnergies(energies);
         dpPropagator.setParameters(theta12, theta23, theta13, deltaCP, dmsq21, dmsq31);
+        dpPropagatorVac.setEnergies(energies);
+        dpPropagatorVac.setParameters(theta12, theta23, theta13, deltaCP, dmsq21, dmsq31);
     }
 
     /// set the oscillation parameter values
@@ -113,6 +116,54 @@ class DPpropagatorTest :public gtest::TestWithParam<float> {
             1.0, 
             density,
             10, 
+            &probs_returned
+        );
+
+        NT_INFO("[0, 0] :: DP propagator: {:.7f} :: nuFast: {:.7f}", dpProbabilities.getValue<float>({0, 0, 0}), probs_returned[0][0]);
+        NT_INFO("[0, 1] :: DP propagator: {:.7f} :: nuFast: {:.7f}", dpProbabilities.getValue<float>({0, 0, 1}), probs_returned[0][1]);
+        NT_INFO("[0, 2] :: DP propagator: {:.7f} :: nuFast: {:.7f}", dpProbabilities.getValue<float>({0, 0, 2}), probs_returned[0][2]);
+        NT_INFO("[1, 0] :: DP propagator: {:.7f} :: nuFast: {:.7f}", dpProbabilities.getValue<float>({0, 1, 0}), probs_returned[1][0]);
+        NT_INFO("[1, 1] :: DP propagator: {:.7f} :: nuFast: {:.7f}", dpProbabilities.getValue<float>({0, 1, 1}), probs_returned[1][1]);
+        NT_INFO("[1, 2] :: DP propagator: {:.7f} :: nuFast: {:.7f}", dpProbabilities.getValue<float>({0, 1, 2}), probs_returned[1][2]);
+        NT_INFO("[2, 0] :: DP propagator: {:.7f} :: nuFast: {:.7f}", dpProbabilities.getValue<float>({0, 2, 0}), probs_returned[2][0]);
+        NT_INFO("[2, 1] :: DP propagator: {:.7f} :: nuFast: {:.7f}", dpProbabilities.getValue<float>({0, 2, 1}), probs_returned[2][1]);
+        NT_INFO("[2, 2] :: DP propagator: {:.7f} :: nuFast: {:.7f}", dpProbabilities.getValue<float>({0, 2, 2}), probs_returned[2][2]);
+
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 0}), probs_returned[0][0], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 1}), probs_returned[0][1], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 2}), probs_returned[0][2], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 0}), probs_returned[1][0], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 1}), probs_returned[1][1], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 2}), probs_returned[1][2], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 0}), probs_returned[2][0], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 1}), probs_returned[2][1], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 2}), probs_returned[2][2], 1e-5);
+
+    }
+
+    /// compare DP propagator oscillation probabilities to the "official" nufast code for vacuum oscillations
+    void compareNufastVacuum(bool antineutrino) {
+
+        // need to force theta into lower octant as this is assumed by
+        // nufast so otherwise result will differ and test will break
+        _setParamValues(/*forceLowerOctant=*/true);
+
+        dpPropagatorVac.setAntiNeutrino(antineutrino);
+        
+        // get propagator probabilities
+        Tensor dpProbabilities = dpPropagatorVac.calculateProbs();
+
+        // get the nuFast probabilities
+        double probs_returned[3][3];
+        Probability_Vacuum_LBL(
+            std::sin(theta12.getValue<float>({0})) * std::sin(theta12.getValue<float>({0})),
+            std::sin(theta13.getValue<float>({0})) * std::sin(theta13.getValue<float>({0})),
+            std::sin(theta23.getValue<float>({0})) * std::sin(theta23.getValue<float>({0})), 
+            deltaCP.getValue<float>({0}), 
+            m1 * m1 - m2 * m2,
+            m1 * m1 - m3 * m3,
+            baseline / units::km,
+            (0.5 - (float)antineutrino) * 2.0 * energies.getValue<float>() / units::GeV,  
             &probs_returned
         );
 
@@ -198,6 +249,17 @@ TEST_P(DPpropagatorTest, CompareToNuFast) {
 TEST_P(DPpropagatorTest, CompareToNuFast_antinu) {
 
     compareNufast(true);
+
+}
+// compare dpPropagator osc probs with nuFast
+TEST_P(DPpropagatorTest, CompareToNuFastVacuum) {
+
+    compareNufastVacuum(false);
+
+}
+TEST_P(DPpropagatorTest, CompareToNuFastVacuum_antinu) {
+
+    compareNufastVacuum(true);
 
 }
 

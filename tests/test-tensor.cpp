@@ -210,3 +210,33 @@ TEST(Tensor, MatrixFloat) {
     ASSERT_EQ(outer.getValue<float>({1,1}), 8.0);
     
 }
+
+TEST(Tensor, AccessedTensor1D) {
+
+    auto tensor = AccessedTensor<float, 1, dtypes::kCPU>::zeros({3}, false);
+
+    tensor.setValue(1.0, 1);
+
+    ASSERT_EQ(tensor.getValue(1), 1.0);
+
+}
+
+TEST(Tensor, AccessedTensor2D) {
+
+    auto tensor = AccessedTensor<float, 2, dtypes::kCPU>::zeros({3, 3}, false);
+
+    tensor.setValue(2.0, 1, 1);
+
+    ASSERT_EQ(tensor.getValue(1, 1), 2.0);
+
+}
+
+TEST(Tensor, AccessedTensor3D) {
+
+    auto tensor = AccessedTensor<float, 3, dtypes::kCPU>::zeros({3, 3, 3}, false);
+
+    tensor.setValue(3.0, 1, 1, 1);
+
+    ASSERT_EQ(tensor.getValue(1, 1, 1), 3.0);
+
+}

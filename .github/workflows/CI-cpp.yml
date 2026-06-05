@@ -9,10 +9,6 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
-env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
-
 jobs:
   build:
     # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
@@ -26,16 +22,28 @@ jobs:
           - OS: ubuntu-22.04
             cpp_compiler: g++
             c_compiler: gcc
+            build_type: Release
+            
+          - OS: ubuntu-22.04
+            cpp_compiler: g++
+            c_compiler: gcc
+            build_type: Debug
             
           - OS: ubuntu-22.04
             cpp_compiler: clang++
             c_compiler: clang
+            build_type: Release
+            
+          - OS: ubuntu-22.04
+            cpp_compiler: clang++
+            c_compiler: clang
+            build_type: Debug
             
           #- OS: windows-latest
           #  cpp_compiler: cl
           #  c_compiler: cl
              
-    name: Build & Test ${{ matrix.os }} ${{ matrix.c_compiler }}
+    name: Build & Test ${{ matrix.os }} ${{ matrix.c_compiler }} ${{ matrix.build_type }}
 
     runs-on: ${{ matrix.os }}
     
@@ -73,7 +81,7 @@ jobs:
         -DNT_TEST_COVERAGE=ON \
         -DCMAKE_PREFIX_PATH=`python3 -c "import torch;print(torch.utils.cmake_prefix_path)"` \
         -B ${{github.workspace}}/build \
-        -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
 
     - name: Configure CMake windows
       if: ${{ startsWith(matrix.OS, 'windows') }}
@@ -83,27 +91,27 @@ jobs:
       run: |
         $Torch_DIR = python3 -c "import torch;print(torch.utils.cmake_prefix_path)"
         echo "torch location: $Torch_DIR"
-        cmake -DNT_COMPILE_TESTS=ON -DNT_TEST_COVERAGE=ON -DCMAKE_PREFIX_PATH="$Torch_DIR" -B ${{github.workspace}}\build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        cmake -DNT_COMPILE_TESTS=ON -DNT_TEST_COVERAGE=ON -DCMAKE_PREFIX_PATH="$Torch_DIR" -B ${{github.workspace}}\build -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
          
     - name: Build
       # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 2
+      run: cmake --build ${{github.workspace}}/build --config ${{matrix.build_type}} --parallel 2
 
     - name: Test
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest -C ${{env.BUILD_TYPE}}
+      run: ctest -C ${{matrix.build_type}}
 
     - name: Generate Coverage Report
       # only need to do this for one combination of OS and compiler
-      if: ${{ matrix.OS == 'ubuntu-22.04' && matrix.c_compiler == 'gcc' }}
+      if: ${{ matrix.OS == 'ubuntu-22.04' && matrix.c_compiler == 'gcc' && matrix.build_type == 'Debug' }}
       working-directory: ${{github.workspace}}/build
       run: gcovr --json -o nuTens_coverage.json -r .. -f "../nuTens/*"
       
     - name: Upload coverage reports to Codecov
       # only need to do this for one combination of OS and compiler
-      if: ${{ matrix.OS == 'ubuntu-22.04' && matrix.c_compiler == 'gcc' }}
+      if: ${{ matrix.OS == 'ubuntu-22.04' && matrix.c_compiler == 'gcc' && matrix.build_type == 'Debug' }}
       uses: codecov/codecov-action@v4.0.1
       with:
         verbose: true
