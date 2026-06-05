@@ -54,7 +54,7 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release --debug-output -DNT_USE_PCH=ON -DNT_ENABLE_BENCHMARKING=ON -DCMAKE_PREFIX_PATH=`python3 -c 'import torch;print(torch.utils.cmake_prefix_path)'` -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} .. 
           echo :::: Build directory post-CMake:
           ls
-          echo 
+          echo
           echo :::: _deps directory:
           ls _deps
           echo 
