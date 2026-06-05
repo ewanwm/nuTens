@@ -292,6 +292,12 @@ class Tensor
 
         return {t + lhs};
     };
+    [[nodiscard]] friend Tensor operator-(double lhs, const Tensor &t)
+    {
+        NT_PROFILE();
+
+        return {-t + lhs};
+    };
     /// @}
 
     /// @brief Get the real part of a complex tensor
