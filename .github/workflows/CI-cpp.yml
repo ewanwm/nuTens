@@ -18,16 +18,26 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        OS: [ubuntu-22.04]
-        build_type: [Release, Debug]
         include:
           - OS: ubuntu-22.04
             cpp_compiler: g++
             c_compiler: gcc
+            build_type: Release
+            
+          - OS: ubuntu-22.04
+            cpp_compiler: g++
+            c_compiler: gcc
+            build_type: Debug
             
           - OS: ubuntu-22.04
             cpp_compiler: clang++
             c_compiler: clang
+            build_type: Release
+            
+          - OS: ubuntu-22.04
+            cpp_compiler: clang++
+            c_compiler: clang
+            build_type: Debug
             
           #- OS: windows-latest
           #  cpp_compiler: cl
