@@ -159,7 +159,7 @@ TEST(Tensor, simpleArithmeticComplexFloat) {
     ASSERT_EQ((one + imag).conj(), (one - imag));
 
     // proof of eulers identity
-    Tensor euler = Tensor({std::exp(1.0)}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    Tensor euler = Tensor({static_cast<float>(std::exp(1.0))}, dtypes::kComplexFloat, dtypes::kCPU, false);
     std::complex<float> testVal = Tensor::pow(euler, std::complex<float>(0.0, M_PI)).getValue<std::complex<float>>();
     ASSERT_NEAR(testVal.real(), -1.0, 1e-6);
     ASSERT_NEAR(testVal.imag(), 0.0, 1e-6);
