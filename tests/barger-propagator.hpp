@@ -98,6 +98,7 @@ class TwoFlavourBarger
     // get the good old 2 flavour mixing matrix entries
     [[nodiscard]] inline float getPMNSelement(float energy, int alpha, int beta) const
     {
+        // LCOV_EXCL_START
         if ((alpha > 1 || alpha < 0) || (beta > 1 || beta < 0))
         {
             std::cerr << "ERROR: TwoFlavourBarger class only supports flavour "
@@ -109,6 +110,7 @@ class TwoFlavourBarger
 
             throw;
         }
+        // LCOV_EXCL_STOP
 
         float ret = NAN;
 
@@ -130,12 +132,14 @@ class TwoFlavourBarger
         }
 
         // should be caught at start of function but just in case...
+        // LCOV_EXCL_START
         else
         {
             std::cerr << "ERROR: how did you get here????" << std::endl;
             std::cerr << __FILE__ << ":" << __LINE__ << std::endl;
             throw;
         }
+        // LCOV_EXCL_STOP
 
         return ret;
     }
@@ -143,6 +147,7 @@ class TwoFlavourBarger
     // get the good old 2 flavour vacuum oscillation probability
     [[nodiscard]] inline float calculateProb(float energy, int alpha, int beta) const
     {
+        // LCOV_EXCL_START
         if ((alpha > 1 || alpha < 0) || (beta > 1 || beta < 0))
         {
             std::cerr << "ERROR: TwoFlavourBarger class only supports flavour "
@@ -153,6 +158,7 @@ class TwoFlavourBarger
             std::cerr << "       " << __FILE__ << ": " << __LINE__ << std::endl;
             throw;
         }
+        // LCOV_EXCL_STOP
 
         float ret = NAN;
 
