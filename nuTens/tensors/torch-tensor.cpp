@@ -420,15 +420,6 @@ void Tensor::eigvalsh(const Tensor &t, Tensor &eVals)
     eVals.setTensor(torch::linalg_eigvalsh(t._tensor));
 }
 
-void Tensor::qr(const Tensor &t, Tensor &Q, Tensor &R)
-{
-    NT_PROFILE();
-
-    auto ret = torch::linalg::qr(t._tensor);
-    Q.setTensor(std::get<1>(ret));
-    R.setTensor(std::get<0>(ret));
-}
-
 Tensor Tensor::real() const
 {
     NT_PROFILE();
