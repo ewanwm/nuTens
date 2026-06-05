@@ -76,11 +76,11 @@ TEST(Tensor, simpleArithmeticFloat) {
     ASSERT_EQ((one + one).getValue<float>(), 2.0);
     ASSERT_EQ((one - one).getValue<float>(), 0.0);
 
-    // test multiplication of scalars
+    // test multiplication of tensors
     Tensor ten  = Tensor({10.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor five = Tensor({5.0}, dtypes::kFloat, dtypes::kCPU, false);
-    ASSERT_EQ(Tensor::div(ten, five).getValue<float>(), 2.0);
-    ASSERT_EQ(Tensor::mul(ten, five).getValue<float>(), 50.0);
+    ASSERT_EQ((ten / five).getValue<float>(), 2.0);
+    ASSERT_EQ((ten * five).getValue<float>(), 50.0);
     ASSERT_EQ(Tensor::pow(ten, 2.0).getValue<float>(), 100.0);
 
     // test sqrt
@@ -88,7 +88,18 @@ TEST(Tensor, simpleArithmeticFloat) {
     ASSERT_EQ(Tensor::pow(four, 0.5).getValue<float>(), 2.0);
 
     // test scaling by float
-    ASSERT_NEAR(Tensor::scale(one, 1.234).getValue<float>(), 1.234, 1e-6);
+    ASSERT_NEAR((one * 1.234).getValue<float>(), 1.234, 1e-6);
+    ASSERT_NEAR((one / 2.0).getValue<float>(), 0.5, 1e-6);
+    ASSERT_NEAR((1.234 * one).getValue<float>(), 1.234, 1e-6);
+
+    // addition of float
+    ASSERT_EQ((one + 1.0).getValue<float>(), 2.0);
+    ASSERT_EQ((one - 1.0).getValue<float>(), 0.0);
+    ASSERT_EQ((1.0 + one).getValue<float>(), 2.0);
+    ASSERT_EQ((1.0 - one).getValue<float>(), 0.0);
+
+    // negation
+    ASSERT_EQ((-one).getValue<float>(), -1.0);
 }
 
 // check some basic arithmetic

@@ -249,6 +249,13 @@ Tensor Tensor::mul(const Tensor &t1, const Tensor &t2)
     return {torch::mul(t1._tensor, t2._tensor)};
 }
 
+Tensor Tensor::add(const Tensor &t1, const Tensor &t2)
+{
+    NT_PROFILE();
+
+    return {torch::add(t1._tensor, t2._tensor)};
+}
+
 Tensor Tensor::div(const Tensor &t1, const Tensor &t2)
 {
     NT_PROFILE();
