@@ -364,7 +364,21 @@ TEST(Tensor, InPlacePow) {
 
 }
 
-TEST(Tensor, InPlaceExp) {
+TEST(Tensor /*unused*/, InPlaceComplexPow /*unused*/)
+{
+
+    // proof of eulers identity
+    Tensor euler = Tensor({static_cast<float>(std::exp(1.0))}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    euler.pow_(std::complex<float>(0.0, M_PI));
+
+    std::complex<float> testVal = euler.getValue<std::complex<float>>();
+    ASSERT_NEAR(testVal.real(), -1.0, 1e-6);
+    ASSERT_NEAR(testVal.imag(), 0.0, 1e-6);
+
+}
+
+TEST(Tensor /*unused*/, InPlaceExp /*unused*/)
+{
 
     // test matrix multiplication
     Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
@@ -460,6 +474,94 @@ TEST(Tensor, MatrixFloat) {
     ASSERT_EQ(outer.getValue<float>({1,1}), 8.0);
     
 }
+
+
+// get eigenvalues of matrix
+// ------
+// | 2 1 |
+// | 1 2 |
+// ------
+// which are 1 and 3
+// with eigenvectors
+// v_1 = [1, -1]
+// v_3 = [1, 1 ]
+
+TEST(Tensor /*unused*/, eig /*unused*/)
+{
+
+    Tensor evals = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor evecs = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor mat = Tensor::ones({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    mat.setValue({0,0}, 2.0);
+    mat.setValue({0,1}, 1.0);
+    mat.setValue({1,0}, 1.0);
+    mat.setValue({1,1}, 2.0);
+
+    Tensor::eig(mat, evals, evecs);
+
+    ASSERT_EQ(evals.getValue<float>({0}), 3.0);
+    ASSERT_EQ(evals.getValue<float>({1}), 1.0);
+
+    ASSERT_EQ(evecs.getValue<float>({0, 0}),  evecs.getValue<float>({1, 0}));
+    ASSERT_EQ(evecs.getValue<float>({0, 1}), -evecs.getValue<float>({1, 1}));
+
+}
+
+TEST(Tensor /*unused*/, eigh /*unused*/)
+{
+
+    Tensor evals = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor evecs = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor mat = Tensor::ones({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    mat.setValue({0,0}, 2.0);
+    mat.setValue({0,1}, 1.0);
+    mat.setValue({1,0}, 1.0);
+    mat.setValue({1,1}, 2.0);
+
+    Tensor::eigh(mat, evals, evecs);
+
+    ASSERT_EQ(evals.getValue<float>({0}), 1.0);
+    ASSERT_EQ(evals.getValue<float>({1}), 3.0);
+
+    ASSERT_EQ(evecs.getValue<float>({0, 0}), -evecs.getValue<float>({1, 0}));
+    ASSERT_EQ(evecs.getValue<float>({0, 1}),  evecs.getValue<float>({1, 1}));
+
+}
+
+TEST(Tensor /*unused*/, eigvals /*unused*/)
+{
+
+    Tensor evals = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor mat = Tensor::ones({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    mat.setValue({0,0}, 2.0);
+    mat.setValue({0,1}, 1.0);
+    mat.setValue({1,0}, 1.0);
+    mat.setValue({1,1}, 2.0);
+
+    Tensor::eigvals(mat, evals);
+
+    ASSERT_EQ(evals.getValue<float>({0}), 3.0);
+    ASSERT_EQ(evals.getValue<float>({1}), 1.0);
+
+}
+
+TEST(Tensor /*unused*/, eigvalsh /*unused*/)
+{
+
+    Tensor evals = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor mat = Tensor::ones({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+    mat.setValue({0,0}, 2.0);
+    mat.setValue({0,1}, 1.0);
+    mat.setValue({1,0}, 1.0);
+    mat.setValue({1,1}, 2.0);
+
+    Tensor::eigvalsh(mat, evals);
+
+    ASSERT_EQ(evals.getValue<float>({0}), 1.0);
+    ASSERT_EQ(evals.getValue<float>({1}), 3.0);
+
+}
+
 
 TEST(Tensor, AccessedTensor1D) {
 

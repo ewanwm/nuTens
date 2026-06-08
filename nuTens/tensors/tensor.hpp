@@ -232,6 +232,8 @@ class Tensor
     /// @{
 
     /// @brief Get eigenvalues and vectors of a tensor
+    /// ordering of the eigenvalues is not guarenteed for eigh!!! AAARRRGGHHH
+    /// @todo: figure out a way to deal with that!
     /// @arg t The tensor
     /// @param[out] eVals The eigenvalues
     /// @param[out] eVecs The eigenvectors
@@ -246,6 +248,8 @@ class Tensor
     static void eigh(const Tensor &t, Tensor &eVals, Tensor &eVecs);
 
     /// @brief Get eigenvalues of a tensor
+    /// ordering of the eigenvalues is not guarenteed for eigh!!! AAARRRGGHHH
+    /// @todo: figure out a way to deal with that!
     /// @arg t The tensor
     /// @param[out] eVals The eigenvalues
     static void eigvals(const Tensor &t, Tensor &eVals);
@@ -508,8 +512,7 @@ class Tensor
             }
             else
             {
-                assert(false && "ERROR: Unsupported index type");
-                throw;
+                throw std::runtime_error("Unsupported index type");
             }
         }
 
