@@ -223,6 +223,27 @@
 
 </div>
 <div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-getters">Getters</p>
+<p>The underlying data type of this tensor </p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor8getDTypeEv">
+<span id="_CPPv3NK6nuTens6Tensor8getDTypeEv"></span><span id="_CPPv2NK6nuTens6Tensor8getDTypeEv"></span><span id="nuTens::Tensor::getDTypeC"></span><span class="target" id="classnuTens_1_1Tensor_1a4db67fe96d268f8474ee37f87ce2c39e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor8getDTypeEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor9getDeviceEv">
+<span id="_CPPv3NK6nuTens6Tensor9getDeviceEv"></span><span id="_CPPv2NK6nuTens6Tensor9getDeviceEv"></span><span id="nuTens::Tensor::getDeviceC"></span><span class="target" id="classnuTens_1_1Tensor_1a933f5ab7f50ee68ca4cf9a62716bd12e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypesE" title="nuTens::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../file/dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getDevice</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor9getDeviceEv" title="Link to this definition"></a><br /></dt>
+<dd><p>The device that this tensor lives on. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor15getRequiresGradEv">
+<span id="_CPPv3NK6nuTens6Tensor15getRequiresGradEv"></span><span id="_CPPv2NK6nuTens6Tensor15getRequiresGradEv"></span><span id="nuTens::Tensor::getRequiresGradC"></span><span class="target" id="classnuTens_1_1Tensor_1a514cf82dee79726aa8476ae2f6ad459c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getRequiresGrad</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor15getRequiresGradEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Whether the tensor requires a gradient. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-matrix-arithmetic">Matrix Arithmetic</p>
 <p>Generally there are static functions with the pattern &lt;function&gt;(Mat1, Mat2) which will return a new matrix and inline equivalents with the pattern &lt;function&gt;_(Mat2) which will affect the object they are called by </p>
 <dl class="cpp function">
