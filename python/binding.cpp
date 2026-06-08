@@ -216,35 +216,42 @@ void initTensor(py::module &m)
         // construct from a numpy array
         .def(
             py::init(
-                [](py::array_t<float> buffer){
+                [](py::array_t<float> buffer, bool requiresGrad){
 
                     /* Request a buffer descriptor from Python */
                     py::buffer_info info = buffer.request();
 
-                    return Tensor::fromTorchTensor(torch::from_blob(info.ptr, info.shape));
+                    return Tensor::fromTorchTensor(torch::from_blob(info.ptr, info.shape)).requiresGrad(requiresGrad);
                 }
-            )
+            ),
+            "Construct a tensor from a numpy array",
+            py::arg("array"), py::arg("requires_grad") = true
         ) 
         .def(
             py::init(
-                [](py::array_t<std::complex<float>> buffer){
+                [](py::array_t<std::complex<float>> buffer, bool requiresGrad){
 
                     /* Request a buffer descriptor from Python */
                     py::buffer_info info = buffer.request();
 
                     auto options = torch::TensorOptions()
-                        .dtype(torch::kComplexFloat);
+                        .dtype(torch::kComplexFloat)
+                        .requires_grad(requiresGrad);
 
                     return Tensor::fromTorchTensor(torch::from_blob(info.ptr, info.shape, options));
                 }
-            )
+            ),
+            "Construct a tensor from an \"array like\" object",
+            py::arg("array_like"), py::arg("requires_grad") = true
+
         ) 
 #endif
         // get a numpy array of tensor contents
         .def("numpy",
             [](Tensor &tensor) -> py::array {
                 return py::array(tensorToNumpy(tensor));
-            }
+            },
+            "Get a numpy array with the contents of the tensor"
         )
         
         // return a python buffer interface object
