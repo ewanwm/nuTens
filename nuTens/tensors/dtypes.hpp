@@ -18,7 +18,6 @@ namespace dtypes
 /// Types of scalar values
 enum scalarType
 {
-    kInt,
     kFloat,
     kDouble,
     kComplexFloat,
