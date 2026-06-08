@@ -56,25 +56,25 @@ PYBIND11_MODULE(_pyNuTens, m)
 // helper function to convert a nuTens tensor to a numpy array
 py::buffer_info tensorToNumpy(const Tensor &tensor){
 
-    size_t size;
-    std::string format;
+     size_t size = 0;
+     std::string format = 0;
 
-    switch (tensor.getDType())
-    {
-    case dtypes::kFloat:
-        size = sizeof(float);
-        format = pybind11::format_descriptor<float>::format();
-        break;
+     switch (tensor.getDType())
+     {
+     case dtypes::kFloat:
+         size = sizeof(float);
+         format = pybind11::format_descriptor<float>::format();
+         break;
 
-    case dtypes::kComplexFloat:
-        size = sizeof(std::complex<float>);
-        format = pybind11::format_descriptor<std::complex<float>>::format();
-        break;
+     case dtypes::kComplexFloat:
+         size = sizeof(std::complex<float>);
+         format = pybind11::format_descriptor<std::complex<float>>::format();
+         break;
 
-    default:
-        NT_ERROR("Invalid dtype has been set for this tensor: {}", tensor.getDType());
-        NT_ERROR("{}:{}", __FILE__, __LINE__);
-        throw;
+     default:
+         NT_ERROR("Invalid dtype has been set for this tensor: {}", tensor.getDType());
+         NT_ERROR("{}:{}", __FILE__, __LINE__);
+         throw;
     }
 
 // backend specific stuff for extracting data and layout
@@ -89,8 +89,8 @@ py::buffer_info tensorToNumpy(const Tensor &tensor){
 
 #endif
 
-    std::vector<int> stridesBytes;
-    
+    std::vector<int> stridesBytes = 0;
+
     // convert strides into bytes
     for(const long int &stride : strides) {
         stridesBytes.push_back(stride * size);

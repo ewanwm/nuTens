@@ -118,15 +118,18 @@ class Tensor
     /// @name Getters
     /// @{
     /// @brief The underlying data type of this tensor
-    inline dtypes::scalarType getDType() const {
+    [[nodiscard]] inline dtypes::scalarType getDType() const
+    {
         return _dType;
     };
     /// @brief The device that this tensor lives on
-    inline dtypes::deviceType getDevice() const {
+    [[nodiscard]] inline dtypes::deviceType getDevice() const
+    {
         return _device;
     };
     /// @brief Whether the tensor requires a gradient
-    inline bool getRequiresGrad() const {
+    [[nodiscard]] inline bool getRequiresGrad() const
+    {
         return _tensor.requires_grad();
     };
     ///@}
