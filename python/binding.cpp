@@ -123,6 +123,9 @@ void initTensor(py::module &m)
         .def("get_shape", &Tensor::getShape, "Get the shape of this tensor")
         .def("get_values", &Tensor::getValues, py::arg("indices"), "Get the subset of values in this tensor at a specified location")
         .def("get_value", &Tensor::getVariantValue, py::arg("indices"), "Get the data stored at a particular index of the tensor")
+        .def("get_dtype", &Tensor::getDType, "Get the type of the data contained within this tensor")
+        .def("get_device", &Tensor::getDevice, "Get the device that this tensor lives on")
+        .def("get_requires_grad", &Tensor::getRequiresGrad, "Get whether or not this tensor will collect gradients")
 
         // complex number stuff
         .def("real", &Tensor::real, "Get real part of a complex tensor")
