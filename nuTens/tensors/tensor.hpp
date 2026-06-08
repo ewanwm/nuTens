@@ -115,6 +115,25 @@ class Tensor
     };
     /// @}
 
+    /// @name Getters
+    /// @{
+    /// @brief The underlying data type of this tensor
+    [[nodiscard]] inline dtypes::scalarType getDType() const
+    {
+        return _dType;
+    };
+    /// @brief The device that this tensor lives on
+    [[nodiscard]] inline dtypes::deviceType getDevice() const
+    {
+        return _device;
+    };
+    /// @brief Whether the tensor requires a gradient
+    [[nodiscard]] inline bool getRequiresGrad() const
+    {
+        return _tensor.requires_grad();
+    };
+    ///@}
+
     /// @brief If the tensor does not already have a batch dimension (as set by hasBatchDim()) this will add one
     Tensor &addBatchDim();
 
