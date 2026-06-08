@@ -57,7 +57,7 @@ PYBIND11_MODULE(_pyNuTens, m)
 py::buffer_info tensorToNumpy(const Tensor &tensor){
 
      size_t size = 0;
-     std::string format = 0;
+     std::string format = "";
 
      switch (tensor.getDType())
      {
@@ -89,7 +89,7 @@ py::buffer_info tensorToNumpy(const Tensor &tensor){
 
 #endif
 
-    std::vector<int> stridesBytes = 0;
+    std::vector<int> stridesBytes(0);
 
     // convert strides into bytes
     for(const long int &stride : strides) {
