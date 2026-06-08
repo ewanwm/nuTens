@@ -108,7 +108,7 @@ if(NT_ENABLE_PYTHON)
     message("Enabling python")
     CPMAddPackage(
         GITHUB_REPOSITORY "pybind/pybind11"
-        VERSION 2.13.5 
+        VERSION 3.0.4 
     )
 
 else()
