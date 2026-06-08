@@ -148,10 +148,6 @@ void initTensor(py::module &m)
         )
 
         // setters
-        .def("set_value", py::overload_cast<const Tensor &, const Tensor &>(&Tensor::setValue),
-            "Set a value at a specific index of this tensor",
-            py::arg("indices"), py::arg("value")
-        )
         .def("set_value",
             py::overload_cast<const std::vector<std::variant<int, std::string>> &, const Tensor &>(&Tensor::setValue),
             "Set a value at a specific index of this tensor",
@@ -509,7 +505,6 @@ void initDtypes(py::module &m)
         "This module defines various data types used in nuTens");
 
     py::enum_<dtypes::scalarType>(m_dtypes, "scalar_type")
-        .value("int", dtypes::scalarType::kInt)
         .value("float", dtypes::scalarType::kFloat)
         .value("double", dtypes::scalarType::kDouble)
         .value("complex_float", dtypes::scalarType::kComplexFloat)

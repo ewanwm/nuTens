@@ -405,7 +405,6 @@ class Tensor
     /// @brief Set the value at a particular index of the tensor
     /// @arg indices The indices of the value to set
     /// @arg value The value to set it to
-    void setValue(const Tensor &indices, const Tensor &value);
     void setValue(const std::vector<indexType> &indices, const Tensor &value);
     void setValue(const std::vector<int> &indices, float value);
     void setValue(const std::vector<int> &indices, double value);

@@ -133,9 +133,6 @@ Tensor::variantType Tensor::getVariantValue(const std::vector<int> &indices) con
 
     switch (_dType)
     {
-    case dtypes::kInt:
-        return _tensor.index(convertIndices(indices)).item<int>();
-
     case dtypes::kFloat:
         return _tensor.index(convertIndices(indices)).item<float>();
 
@@ -153,13 +150,6 @@ Tensor::variantType Tensor::getVariantValue(const std::vector<int> &indices) con
         NT_ERROR("{}:{}", __FILE__, __LINE__);
         throw;
     }
-}
-
-void Tensor::setValue(const Tensor &indices, const Tensor &value)
-{
-    NT_PROFILE();
-
-    _tensor.index_put_({indices._tensor}, value._tensor);
 }
 
 void Tensor::setValue(const std::vector<Tensor::indexType> &indices, const Tensor &value)
