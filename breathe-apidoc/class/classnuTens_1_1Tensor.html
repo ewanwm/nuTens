@@ -550,8 +550,14 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor3eigERK6TensorR6TensorR6Tensor">
 <span id="_CPPv3N6nuTens6Tensor3eigERK6TensorR6TensorR6Tensor"></span><span id="_CPPv2N6nuTens6Tensor3eigERK6TensorR6TensorR6Tensor"></span><span id="nuTens::Tensor::eig__TensorCR.TensorR.TensorR"></span><span class="target" id="classnuTens_1_1Tensor_1a67c0ad8f189c70d4a6d5dd90a6ca1a13"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eig</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eVals</span></span>, <a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eVecs</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor3eigERK6TensorR6TensorR6Tensor" title="Link to this definition"></a><br /></dt>
-<dd><p>Get eigenvalues and vectors of a tensor. </p>
-<p><ul class="simple">
+<dd><p>Get eigenvalues and vectors of a tensor ordering of the eigenvalues is not guarenteed for eigh!!! AAARRRGGHHH. </p>
+<p><dl>
+<dt class="sig sig-object cpp">
+<em><span class="pre">Todo:</span></em></dt>
+<dd><p>: figure out a way to deal with that! </p>
+</dd></dl>
+
+<ul class="simple">
 <li><p>t The tensor </p></li>
 </ul>
 </p>
@@ -586,8 +592,14 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor7eigvalsERK6TensorR6Tensor">
 <span id="_CPPv3N6nuTens6Tensor7eigvalsERK6TensorR6Tensor"></span><span id="_CPPv2N6nuTens6Tensor7eigvalsERK6TensorR6Tensor"></span><span id="nuTens::Tensor::eigvals__TensorCR.TensorR"></span><span class="target" id="classnuTens_1_1Tensor_1aa3192ed289842ee4e9259e0987c363b7"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eigvals</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eVals</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor7eigvalsERK6TensorR6Tensor" title="Link to this definition"></a><br /></dt>
-<dd><p>Get eigenvalues of a tensor. </p>
-<p><ul class="simple">
+<dd><p>Get eigenvalues of a tensor ordering of the eigenvalues is not guarenteed for eigh!!! AAARRRGGHHH. </p>
+<p><dl>
+<dt class="sig sig-object cpp">
+<em><span class="pre">Todo:</span></em></dt>
+<dd><p>: figure out a way to deal with that! </p>
+</dd></dl>
+
+<ul class="simple">
 <li><p>t The tensor </p></li>
 </ul>
 </p>
@@ -615,7 +627,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens6Tensor2qrERK6TensorR6TensorR6Tensor">
-<span id="_CPPv3N6nuTens6Tensor2qrERK6TensorR6TensorR6Tensor"></span><span id="_CPPv2N6nuTens6Tensor2qrERK6TensorR6TensorR6Tensor"></span><span id="nuTens::Tensor::qr__TensorCR.TensorR.TensorR"></span><span class="target" id="classnuTens_1_1Tensor_1a1243c22a7686de531808a2536ef39f58"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">qr</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Q</span></span>, <a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">R</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor2qrERK6TensorR6TensorR6Tensor" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N6nuTens6Tensor2qrERK6TensorR6TensorR6Tensor"></span><span id="_CPPv2N6nuTens6Tensor2qrERK6TensorR6TensorR6Tensor"></span><span id="nuTens::Tensor::qr__TensorCR.TensorR.TensorR"></span><span class="target" id="classnuTens_1_1Tensor_1a9c7b195e08a506b838ab4439698f92dd"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">qr</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">t</span></span>, <a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Q</span></span>, <a class="reference internal" href="#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">R</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6Tensor2qrERK6TensorR6TensorR6Tensor" title="Link to this definition"></a><br /></dt>
 <dd><p>Perform QR decomposition on a hermitian matrix. </p>
 <p><ul class="simple">
 <li><p>t The tensor </p></li>
