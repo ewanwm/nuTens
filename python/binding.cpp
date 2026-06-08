@@ -3,6 +3,7 @@
 #include <pybind11/operators.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <pybind11/numpy.h>
 
 #include <vector>
 #include <iostream>
@@ -52,11 +53,64 @@ PYBIND11_MODULE(_pyNuTens, m)
 #endif
 }
 
+// helper function to convert a nuTens tensor to a numpy array
+py::buffer_info tensorToNumpy(const Tensor &tensor){
+
+    size_t size;
+    std::string format;
+
+    switch (tensor.getDType())
+    {
+    case dtypes::kFloat:
+        size = sizeof(float);
+        format = pybind11::format_descriptor<float>::format();
+        break;
+
+    case dtypes::kComplexFloat:
+        size = sizeof(std::complex<float>);
+        format = pybind11::format_descriptor<std::complex<float>>::format();
+        break;
+
+    default:
+        NT_ERROR("Invalid dtype has been set for this tensor: {}", tensor.getDType());
+        NT_ERROR("{}:{}", __FILE__, __LINE__);
+        throw;
+    }
+
+// backend specific stuff for extracting data and layout
+#if USE_PYTORCH
+    at::Tensor torchTensor = tensor.getTensor().contiguous();
+    void *dataPtr = torchTensor.data_ptr();
+    std::vector<long int> strides = torchTensor.strides().vec();
+
+#else
+
+#   error Only pytorch supported right now :(
+
+#endif
+
+    std::vector<int> stridesBytes;
+    
+    // convert strides into bytes
+    for(const long int &stride : strides) {
+        stridesBytes.push_back(stride * size);
+    }
+
+    return py::buffer_info(
+        dataPtr,     /* Pointer to buffer */
+        size,                       /* Size of one scalar */
+        format.c_str(),             /* Python struct-style format descriptor */
+        torchTensor.dim(),          /* Number of dimensions */
+        torchTensor.sizes().vec(),  /* Buffer dimensions */
+        stridesBytes                /* Strides (in bytes) for each index */
+    );
+}
+
 void initTensor(py::module &m)
 {
     auto m_tensor = m.def_submodule("tensor");
 
-    py::class_<Tensor>(m_tensor, "Tensor")
+    py::class_<Tensor>(m_tensor, "Tensor", py::buffer_protocol())
         .def(py::init()) // <- default constructor
         .def(py::init<std::vector<float>, dtypes::scalarType, dtypes::deviceType, bool>())
 
@@ -158,8 +212,48 @@ void initTensor(py::module &m)
         .def_static("from_torch_tensor", Tensor::fromTorchTensor,
             "construct a nuTens Tensor from a pytorch tensor"
         )
+
+        // construct from a numpy array
+        .def(
+            py::init(
+                [](py::array_t<float> buffer){
+
+                    /* Request a buffer descriptor from Python */
+                    py::buffer_info info = buffer.request();
+
+                    return Tensor::fromTorchTensor(torch::from_blob(info.ptr, info.shape));
+                }
+            )
+        ) 
+        .def(
+            py::init(
+                [](py::array_t<std::complex<float>> buffer){
+
+                    /* Request a buffer descriptor from Python */
+                    py::buffer_info info = buffer.request();
+
+                    auto options = torch::TensorOptions()
+                        .dtype(torch::kComplexFloat);
+
+                    return Tensor::fromTorchTensor(torch::from_blob(info.ptr, info.shape, options));
+                }
+            )
+        ) 
 #endif
+        // get a numpy array of tensor contents
+        .def("numpy",
+            [](Tensor &tensor) -> py::array {
+                return py::array(tensorToNumpy(tensor));
+            }
+        )
         
+        // return a python buffer interface object
+        .def_buffer(
+            [](Tensor &tensor) -> py::buffer_info {
+                return tensorToNumpy(tensor);
+            }
+        )
+
         // end of Tensor non-static functions
         
         // Tensor creation functions
