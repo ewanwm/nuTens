@@ -364,7 +364,8 @@ TEST(Tensor, InPlacePow) {
 
 }
 
-TEST(Tensor, InPlaceComplexPow) {
+TEST(Tensor /*unused*/, InPlaceComplexPow /*unused*/)
+{
 
     // proof of eulers identity
     Tensor euler = Tensor({static_cast<float>(std::exp(1.0))}, dtypes::kComplexFloat, dtypes::kCPU, false);
@@ -376,7 +377,8 @@ TEST(Tensor, InPlaceComplexPow) {
 
 }
 
-TEST(Tensor, InPlaceExp) {
+TEST(Tensor /*unused*/, InPlaceExp /*unused*/)
+{
 
     // test matrix multiplication
     Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
@@ -484,8 +486,9 @@ TEST(Tensor, MatrixFloat) {
 // v_1 = [1, -1]
 // v_3 = [1, 1 ]
 
-TEST(Tensor, eig) {
- 
+TEST(Tensor /*unused*/, eig /*unused*/)
+{
+
     Tensor evals = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor evecs = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor mat = Tensor::ones({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
@@ -504,7 +507,8 @@ TEST(Tensor, eig) {
 
 }
 
-TEST(Tensor, eigh) {
+TEST(Tensor /*unused*/, eigh /*unused*/)
+{
 
     Tensor evals = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor evecs = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
@@ -524,7 +528,8 @@ TEST(Tensor, eigh) {
 
 }
 
-TEST(Tensor, eigvals) {
+TEST(Tensor /*unused*/, eigvals /*unused*/)
+{
 
     Tensor evals = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor mat = Tensor::ones({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
@@ -540,7 +545,8 @@ TEST(Tensor, eigvals) {
 
 }
 
-TEST(Tensor, eigvalsh) {
+TEST(Tensor /*unused*/, eigvalsh /*unused*/)
+{
 
     Tensor evals = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor mat = Tensor::ones({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
