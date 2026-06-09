@@ -1,28 +1,21 @@
-name: Documentation - GitHub Pages Deploy Action
-
-# Builds documentation using doxygen, breathe, and sphinx
-# Then deploys them to github pages
-
-defaults:
-  run:
-    shell: bash
-    working-directory: ./doc
-
-# Needed to be able to commit to the gh-pages branch
-permissions:
-  contents: write
+name: Generate Python Stubs
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'python/**'
+      - 'python/*'
+
   workflow_dispatch:
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  cpp-linter:
+    permissions: write-all
+    runs-on: ubuntu-22.04
+
     steps:
-      
+
       # Checks-out repository
       - uses: actions/checkout@v4
         with:
@@ -48,26 +41,21 @@ jobs:
           path: "PyTorch_requirements.txt"
 
       - name: Build and install nuTens
-        run: pip install --verbose ..[docs]
-        
-      # first need to create the xmls using doxygen
-      - name: Build Doxygen files
-        run: doxygen doxygen.config
+        run: pip install --verbose .[docs]
 
-      # generate the c++ API rst files from the doxygen XMLs
-      - name: breathe-apidoc
-        run: breathe-apidoc -o source/breathe-apidoc/ -m source/doxygen/xml/
-
-      # Now build the sphinx docs
-      - name: Build Sphinx files
+      # make stub files
+      - name: Make stubs
         run: |
           # Need to set the library path so that torch can find itself (:
           export LD_LIBRARY_PATH=`python3 -c 'import os;import torch;print(os.path.abspath(torch.__file__)[:-11])'`/lib:$LD_LIBRARY_PATH
-          sphinx-build -M html source build
+          pybind11-stubgen --enum-class-locations "scalar_type:nuTens.dtype" --enum-class-locations "device_type:nuTens.dtype" -o stubs nuTens
+          mv stubs/nuTens/_pyNuTens/*.pyi ../python/nuTens/
 
-      # Deploys the generated documentation to GitHub Pages
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
+      # commit the stub files to the repository
+      - uses: EndBug/add-and-commit@v10 # You can change this to use a specific version.
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./doc/build/html
+          add: 'python/nuTens/*.pyi'
+          author_name: ewanwm
+          author_email: e.w.miller@imperial.ac.uk
+          message: 'Commit python stubs (from Github Action: "Documentation - GitHub Pages Deploy Action")'
+          push: true
