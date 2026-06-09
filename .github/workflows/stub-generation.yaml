@@ -58,5 +58,4 @@ jobs:
           author_name: ewanwm
           author_email: e.w.miller@imperial.ac.uk
           message: 'Commit python stubs (from Github Action: "Documentation - GitHub Pages Deploy Action")'
-          $GITHUB_HEAD_REF
           push: true
