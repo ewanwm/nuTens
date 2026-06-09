@@ -26,9 +26,9 @@ Tensor Tensor::eye(int n, dtypes::scalarType type, dtypes::deviceType device, bo
     NT_PROFILE();
 
     return {torch::eye(n, torch::TensorOptions()
-                                    .dtype(dtypes::scalarTypeMap(type))
-                                    .device(dtypes::deviceTypeMap(device))
-                                    .requires_grad(requiresGrad))};
+                              .dtype(dtypes::scalarTypeMap(type))
+                              .device(dtypes::deviceTypeMap(device))
+                              .requires_grad(requiresGrad))};
 }
 
 Tensor Tensor::rand(const std::vector<long int> &shape, dtypes::scalarType type, dtypes::deviceType device,
@@ -37,9 +37,9 @@ Tensor Tensor::rand(const std::vector<long int> &shape, dtypes::scalarType type,
     NT_PROFILE();
 
     return {torch::rand(c10::IntArrayRef(shape), torch::TensorOptions()
-                                                           .dtype(dtypes::scalarTypeMap(type))
-                                                           .device(dtypes::deviceTypeMap(device))
-                                                           .requires_grad(requiresGrad))};
+                                                     .dtype(dtypes::scalarTypeMap(type))
+                                                     .device(dtypes::deviceTypeMap(device))
+                                                     .requires_grad(requiresGrad))};
 }
 
 Tensor Tensor::diag(const Tensor &diag)
@@ -56,9 +56,9 @@ Tensor Tensor::ones(const std::vector<long int> &shape, dtypes::scalarType type,
     NT_PROFILE();
 
     return {torch::ones(c10::IntArrayRef(shape), torch::TensorOptions()
-                                                           .dtype(dtypes::scalarTypeMap(type))
-                                                           .device(dtypes::deviceTypeMap(device))
-                                                           .requires_grad(requiresGrad))};
+                                                     .dtype(dtypes::scalarTypeMap(type))
+                                                     .device(dtypes::deviceTypeMap(device))
+                                                     .requires_grad(requiresGrad))};
 }
 
 Tensor Tensor::zeros(const std::vector<long int> &shape, dtypes::scalarType type, dtypes::deviceType device,
@@ -67,9 +67,9 @@ Tensor Tensor::zeros(const std::vector<long int> &shape, dtypes::scalarType type
     NT_PROFILE();
 
     return {torch::zeros(c10::IntArrayRef(shape), torch::TensorOptions()
-                                                            .dtype(dtypes::scalarTypeMap(type))
-                                                            .device(dtypes::deviceTypeMap(device))
-                                                            .requires_grad(requiresGrad))};
+                                                      .dtype(dtypes::scalarTypeMap(type))
+                                                      .device(dtypes::deviceTypeMap(device))
+                                                      .requires_grad(requiresGrad))};
 }
 
 Tensor &Tensor::dType(dtypes::scalarType type)

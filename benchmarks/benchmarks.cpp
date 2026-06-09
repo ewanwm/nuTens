@@ -1,10 +1,10 @@
 
 #include <benchmark/benchmark.h>
-#include <nuTens/propagator/const-density-solver.hpp>
-#include <nuTens/propagator/propagator.hpp>
 #include <nuTens/propagator/DP-propagator.hpp>
-#include <nuTens/tensors/tensor.hpp>
+#include <nuTens/propagator/const-density-solver.hpp>
 #include <nuTens/propagator/pmns-matrix.hpp>
+#include <nuTens/propagator/propagator.hpp>
+#include <nuTens/tensors/tensor.hpp>
 
 using namespace nuTens;
 
@@ -18,11 +18,8 @@ double randomDouble()
     return (double)rand() / (RAND_MAX + 1.);
 }
 
-static void batchedOscProbs(
-    Propagator &prop, 
-    PMNSmatrix &matrix,
-    AccessedTensor<float, 2, dtypes::kCPU> &masses, 
-    long nBatches)
+static void batchedOscProbs(Propagator &prop, PMNSmatrix &matrix, AccessedTensor<float, 2, dtypes::kCPU> &masses,
+                            long nBatches)
 {
     for (int _ = 0; _ < nBatches; _++)
     {
@@ -36,8 +33,7 @@ static void batchedOscProbs(
             /*theta12=*/randomDouble(),
             /*theta13=*/randomDouble(),
             /*theta23=*/randomDouble(),
-            /*deltaCP=*/randomDouble() * 2.0 * M_PI
-        );
+            /*deltaCP=*/randomDouble() * 2.0 * M_PI);
 
         prop.setMixingMatrix(matrix.build());
         prop.setMasses(masses);
@@ -56,7 +52,8 @@ static void BM_vacuumOscillations(benchmark::State &state)
 
     // make some random test energies
     Tensor energies =
-        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), 10000.0).hasBatchDim(true) +
+        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), 10000.0)
+            .hasBatchDim(true) +
         Tensor({100.0});
 
     energies = energies.hasBatchDim(true);
@@ -85,11 +82,11 @@ static void BM_vacuumOscillations(benchmark::State &state)
 
 static void BM_constMatterOscillations(benchmark::State &state)
 {
-    
+
     NT_PROFILE_BEGINSESSION("Benchmark-const-density-oscillations");
 
     NT_PROFILE();
-    
+
     // make some random test energies
     Tensor energies =
         Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), 10000.0) +
@@ -121,21 +118,20 @@ static void BM_constMatterOscillations(benchmark::State &state)
     NT_PROFILE_ENDSESSION();
 }
 
-
 static void BM_DPpropOscillations(benchmark::State &state)
 {
-    
+
     NT_PROFILE_BEGINSESSION("Benchmark-DP-propagator");
 
     NT_PROFILE();
-    
+
     // make some random test energies
     Tensor energies =
         Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), 10000.0) +
         Tensor({100.0});
 
     energies = energies.hasBatchDim(true);
-    
+
     auto dmsq21 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
     auto dmsq31 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
     auto theta23 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
@@ -145,7 +141,7 @@ static void BM_DPpropOscillations(benchmark::State &state)
 
     // set up the propagator
     DPpropagator dpProp(3, 295000.0, 2.6, 5);
-    
+
     dpProp.setEnergies(energies);
 
     // seed the random number generator for the energies
@@ -177,7 +173,6 @@ static void BM_DPpropOscillations(benchmark::State &state)
     }
     NT_PROFILE_ENDSESSION();
 }
-
 
 // Register the function as a benchmark
 // NOLINTNEXTLINE

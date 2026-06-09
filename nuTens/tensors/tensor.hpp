@@ -58,7 +58,8 @@ class Tensor
     /// @{
 
     /// @brief Default constructor with no initialisation
-    Tensor() : _dType(dtypes::kUninitScalar), _device(dtypes::kUninitDevice) {
+    Tensor() : _dType(dtypes::kUninitScalar), _device(dtypes::kUninitDevice)
+    {
         NT_PROFILE();
     };
 
@@ -538,13 +539,10 @@ class Tensor
     }
 
   private:
-
     /// Construct a nuTens tensor directly from a pytorch tensor
     Tensor(const torch::Tensor &tensor)
-    :
-        _tensor(tensor),
-        _dType(dtypes::invScalarTypeMap(tensor.scalar_type())),
-        _device(dtypes::invDeviceTypeMap(tensor.device().type()))
+        : _tensor(tensor), _dType(dtypes::invScalarTypeMap(tensor.scalar_type())),
+          _device(dtypes::invDeviceTypeMap(tensor.device().type()))
     {
         NT_PROFILE();
     }
@@ -574,7 +572,8 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 {
 
   public:
-    inline AccessedTensor(const Tensor &tensor) : AccessedTensor(tensor.getTensor()) {
+    inline AccessedTensor(const Tensor &tensor) : AccessedTensor(tensor.getTensor())
+    {
         NT_PROFILE();
     };
 
@@ -583,7 +582,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
         : _packedAccessor(tensor.packed_accessor32<Tdtype, TnDims>()), _accessor(tensor.accessor<Tdtype, TnDims>())
     {
         NT_PROFILE();
-        
+
         setTensor(tensor);
     };
 

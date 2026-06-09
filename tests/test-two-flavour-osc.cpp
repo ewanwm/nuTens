@@ -2,17 +2,17 @@
 // alias the gtest "testing" namespace
 namespace gtest = ::testing;
 
-#include <nuTens/tensors/tensor.hpp>
-#include <nuTens/propagator/propagator.hpp>
-#include <tests/barger-propagator.hpp>
 #include <nuTens/propagator/const-density-solver.hpp>
+#include <nuTens/propagator/propagator.hpp>
+#include <nuTens/tensors/tensor.hpp>
+#include <tests/barger-propagator.hpp>
 
 using namespace nuTens;
 using namespace nuTens::testing;
 
-class TwoFlavourOscillations :public gtest::TestWithParam<float> {
-protected:
-
+class TwoFlavourOscillations : public gtest::TestWithParam<float>
+{
+  protected:
     float theta;
 
     float m1;
@@ -24,7 +24,8 @@ protected:
     Tensor energies;
 
     // set up common values to use across tests
-    void SetUp() {
+    void SetUp()
+    {
 
         m1 = 0.0;
         m2 = 0.008 * units::eV * units::eV;
@@ -39,20 +40,21 @@ protected:
         density = 2.6;
     }
 
-    void testConstDensity(bool antiNu) {
+    void testConstDensity(bool antiNu)
+    {
 
         // get parameterised theta value
         float theta = GetParam();
 
         std::cout << "\n#### const density test for theta = " << theta << " ####" << std::endl;
-       
+
         Propagator tensorPropagator(2, baseline);
         auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(2, density);
-        
+
         TwoFlavourBarger bargerProp{};
 
         bargerProp.setParams(m1, m2, theta, baseline, density, antiNu);
-        
+
         std::cout << "lm():        " << bargerProp.lm() << std::endl;
         std::cout << "ang:         " << bargerProp.calculateEffectiveAngle(energy) << std::endl;
         std::cout << "dm2:         " << bargerProp.calculateEffectiveDm2(energy) << std::endl;
@@ -86,16 +88,19 @@ protected:
         auto calcV2 = eigenVals.getValue<float>({0, 1});
         float effDm2 = (calcV1 - calcV2) * 2.0 * energy;
 
-        ASSERT_NEAR(effDm2, bargerProp.calculateEffectiveDm2(energy),
-                    0.00001);
+        ASSERT_NEAR(effDm2, bargerProp.calculateEffectiveDm2(energy), 0.00001);
 
         // now check the actual mixing matrix entries
         Tensor PMNSeff = Tensor::matmul(PMNS, eigenVecs);
         std::cout << "effective PMNS: " << std::endl;
-        std::cout << "[0,0] :: tensor solver: " << PMNSeff.getValue<float>({0, 0, 0}) << " :: barger: " <<  bargerProp.getPMNSelement(energy, 0, 0) << std::endl;
-        std::cout << "[0,1] :: tensor solver: " << PMNSeff.getValue<float>({0, 0, 1}) << " :: barger: " <<  bargerProp.getPMNSelement(energy, 0, 1) << std::endl;
-        std::cout << "[1,0] :: tensor solver: " << PMNSeff.getValue<float>({0, 1, 0}) << " :: barger: " <<  bargerProp.getPMNSelement(energy, 1, 0) << std::endl;
-        std::cout << "[1,1] :: tensor solver: " << PMNSeff.getValue<float>({0, 1, 1}) << " :: barger: " <<  bargerProp.getPMNSelement(energy, 1, 1) << std::endl;
+        std::cout << "[0,0] :: tensor solver: " << PMNSeff.getValue<float>({0, 0, 0})
+                  << " :: barger: " << bargerProp.getPMNSelement(energy, 0, 0) << std::endl;
+        std::cout << "[0,1] :: tensor solver: " << PMNSeff.getValue<float>({0, 0, 1})
+                  << " :: barger: " << bargerProp.getPMNSelement(energy, 0, 1) << std::endl;
+        std::cout << "[1,0] :: tensor solver: " << PMNSeff.getValue<float>({0, 1, 0})
+                  << " :: barger: " << bargerProp.getPMNSelement(energy, 1, 0) << std::endl;
+        std::cout << "[1,1] :: tensor solver: " << PMNSeff.getValue<float>({0, 1, 1})
+                  << " :: barger: " << bargerProp.getPMNSelement(energy, 1, 1) << std::endl;
 
         ASSERT_NEAR(std::abs(PMNSeff.getValue<float>({0, 0, 0})), std::abs(bargerProp.getPMNSelement(energy, 0, 0)),
                     0.00001);
@@ -111,35 +116,34 @@ protected:
 
         Tensor probabilities = tensorPropagator.calculateProbs();
         std::cout << "Oscillation probabilities:" << std::endl;
-        std::cout << "[0,0] :: tensor solver: " << probabilities.getValue<float>({0, 0, 0}) << " :: barger: " <<  bargerProp.calculateProb(energy, 0, 0) << std::endl;
-        std::cout << "[0,1] :: tensor solver: " << probabilities.getValue<float>({0, 0, 1}) << " :: barger: " <<  bargerProp.calculateProb(energy, 0, 1) << std::endl;
-        std::cout << "[1,0] :: tensor solver: " << probabilities.getValue<float>({0, 1, 0}) << " :: barger: " <<  bargerProp.calculateProb(energy, 1, 0) << std::endl;
-        std::cout << "[1,1] :: tensor solver: " << probabilities.getValue<float>({0, 1, 1}) << " :: barger: " <<  bargerProp.calculateProb(energy, 1, 1) << std::endl;
+        std::cout << "[0,0] :: tensor solver: " << probabilities.getValue<float>({0, 0, 0})
+                  << " :: barger: " << bargerProp.calculateProb(energy, 0, 0) << std::endl;
+        std::cout << "[0,1] :: tensor solver: " << probabilities.getValue<float>({0, 0, 1})
+                  << " :: barger: " << bargerProp.calculateProb(energy, 0, 1) << std::endl;
+        std::cout << "[1,0] :: tensor solver: " << probabilities.getValue<float>({0, 1, 0})
+                  << " :: barger: " << bargerProp.calculateProb(energy, 1, 0) << std::endl;
+        std::cout << "[1,1] :: tensor solver: " << probabilities.getValue<float>({0, 1, 1})
+                  << " :: barger: " << bargerProp.calculateProb(energy, 1, 1) << std::endl;
 
+        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 0}), bargerProp.calculateProb(energy, 0, 0), 0.00001);
 
-        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 0}), bargerProp.calculateProb(energy, 0, 0),
-                    0.00001);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 1}), bargerProp.calculateProb(energy, 1, 1), 0.00001);
 
-        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 1}), bargerProp.calculateProb(energy, 1, 1),
-                    0.00001);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 1}), bargerProp.calculateProb(energy, 0, 1), 0.00001);
 
-        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 1}), bargerProp.calculateProb(energy, 0, 1),
-                    0.00001);
-
-        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 0}), bargerProp.calculateProb(energy, 1, 0),
-                    0.00001);
-
+        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 0}), bargerProp.calculateProb(energy, 1, 0), 0.00001);
     }
 };
 
 // test that Propagator gives expected oscillation probabilites for a range
 // of thetas
-TEST_P(TwoFlavourOscillations, VacuumOscProbs) {
+TEST_P(TwoFlavourOscillations, VacuumOscProbs)
+{
 
     // get parameterised theta value
     float theta = GetParam();
 
-    std::cout << "\n#### vacuum test for theta = " << theta << " ####" << std::endl;   
+    std::cout << "\n#### vacuum test for theta = " << theta << " ####" << std::endl;
 
     Propagator tensorPropagator(2, baseline);
     tensorPropagator.setMasses(masses);
@@ -162,34 +166,29 @@ TEST_P(TwoFlavourOscillations, VacuumOscProbs) {
 
     Tensor probabilities = tensorPropagator.calculateProbs();
 
-    ASSERT_NEAR(probabilities.getValue<float>({0, 0, 0}), bargerProp.calculateProb(energy, 0, 0),
-                0.00001);
+    ASSERT_NEAR(probabilities.getValue<float>({0, 0, 0}), bargerProp.calculateProb(energy, 0, 0), 0.00001);
 
-    ASSERT_NEAR(probabilities.getValue<float>({0, 1, 1}), bargerProp.calculateProb(energy, 1, 1),
-                0.00001);
+    ASSERT_NEAR(probabilities.getValue<float>({0, 1, 1}), bargerProp.calculateProb(energy, 1, 1), 0.00001);
 
-    ASSERT_NEAR(probabilities.getValue<float>({0, 0, 1}), bargerProp.calculateProb(energy, 0, 1),
-                0.00001);
+    ASSERT_NEAR(probabilities.getValue<float>({0, 0, 1}), bargerProp.calculateProb(energy, 0, 1), 0.00001);
 
-    ASSERT_NEAR(probabilities.getValue<float>({0, 1, 0}), bargerProp.calculateProb(energy, 1, 0),
-                0.00001);
+    ASSERT_NEAR(probabilities.getValue<float>({0, 1, 0}), bargerProp.calculateProb(energy, 1, 0), 0.00001);
 }
 
 // test const density matter oscillations
-TEST_P(TwoFlavourOscillations, ConstDensityOscProbsNu) {
+TEST_P(TwoFlavourOscillations, ConstDensityOscProbsNu)
+{
 
     testConstDensity(/*antiNu=*/false);
 }
 
 // test const density matter oscillations for anti-neutrinos
-TEST_P(TwoFlavourOscillations, ConstDensityOscProbsAntiNu) {
-    
+TEST_P(TwoFlavourOscillations, ConstDensityOscProbsAntiNu)
+{
+
     testConstDensity(/*antiNu=*/true);
 }
 
-INSTANTIATE_TEST_CASE_P(
-    OscProb,
-    TwoFlavourOscillations,
-    ::testing::Values(
-        -M_PI, -0.8*M_PI, -0.6*M_PI, -0.4*M_PI, -0.2*M_PI, 0.0, 0.2*M_PI, 0.4*M_PI, 0.6*M_PI, 0.8*M_PI, M_PI
-));
+INSTANTIATE_TEST_CASE_P(OscProb, TwoFlavourOscillations,
+                        ::testing::Values(-M_PI, -0.8 * M_PI, -0.6 * M_PI, -0.4 * M_PI, -0.2 * M_PI, 0.0, 0.2 * M_PI,
+                                          0.4 * M_PI, 0.6 * M_PI, 0.8 * M_PI, M_PI));
