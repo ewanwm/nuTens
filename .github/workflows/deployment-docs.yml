@@ -56,6 +56,11 @@ jobs:
           pybind11-stubgen --enum-class-locations "scalar_type:nuTens.dtype" --enum-class-locations "device_type:nuTens.dtype" -o stubs nuTens
           mv stubs/nuTens/_pyNuTens/*.pyi python/nuTens/
       
+      - name: Set LD_LIBRARY_PATH
+        run: |
+          # Need to set the library path so that torch can find itself (:
+          export LD_LIBRARY_PATH=`python3 -c 'import os;import torch;print(os.path.abspath(torch.__file__)[:-11])'`/lib:$LD_LIBRARY_PATH
+
       # commit the stub files to the repository
       - uses: EndBug/add-and-commit@v10 # You can change this to use a specific version.
         with:
@@ -75,10 +80,7 @@ jobs:
 
       # Now build the sphinx docs
       - name: Build Sphinx files
-        run: |
-          # Need to set the library path so that torch can find itself (:
-          export LD_LIBRARY_PATH=`python3 -c 'import os;import torch;print(os.path.abspath(torch.__file__)[:-11])'`/lib:$LD_LIBRARY_PATH
-          sphinx-build -M html source build
+        run: sphinx-build -M html source build
 
       # Deploys the generated documentation to GitHub Pages
       - name: Deploy
