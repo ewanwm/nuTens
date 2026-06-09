@@ -303,67 +303,67 @@ void initTensor(py::module &m_nuTens)
     // maffs
     m_tensor.def("matmul", &Tensor::matmul, 
         "Matrix multiplication",
-        py::arg("t1"), py::arg("t2")
+        py::arg("tensor_1"), py::arg("tensor_2")
     );
     m_tensor.def("outer", &Tensor::outer, 
         "Tensor outer product",
-        py::arg("t1"), py::arg("t2")
+        py::arg("tensor_1"), py::arg("tensor_2")
     );
     m_tensor.def("mul", &Tensor::mul, 
         "Element-wise multiplication",
-        py::arg("t1"), py::arg("t2")
+        py::arg("tensor_1"), py::arg("tensor_2")
     );
     m_tensor.def("add", &Tensor::add, 
         "Element-wise addition",
-        py::arg("t1"), py::arg("t2")
+        py::arg("tensor_1"), py::arg("tensor_2")
     );
     m_tensor.def("div", &Tensor::div, 
         "Element-wise division",
-        py::arg("t1"), py::arg("t2")
+        py::arg("tensor_1"), py::arg("tensor_2")
     );
     m_tensor.def("pow", py::overload_cast<const Tensor &, float>(&Tensor::pow), 
         "Raise to scalar power",
-        py::arg("t1"), py::arg("power")
+        py::arg("tensor_1"), py::arg("power")
     );
     m_tensor.def("pow", py::overload_cast<const Tensor &, std::complex<float>>(&Tensor::pow), 
         "Raise to scalar power",
-        py::arg("t1"), py::arg("power")
+        py::arg("tensor_1"), py::arg("power")
     );
     m_tensor.def("exp", &Tensor::exp, 
         "Take element-wise exponential of a tensor",
-        py::arg("t1")
+        py::arg("tensor_1")
     );
     m_tensor.def("transpose", &Tensor::transpose, 
         "Get the matrix transpose",
-        py::arg("t1"), py::arg("index_1"), py::arg("index_2")
+        py::arg("tensor_1"), py::arg("index_1"), py::arg("index_2")
     );
     m_tensor.def("scale", py::overload_cast<const Tensor &, float>(&Tensor::scale), 
         "Scalar multiplication",
-        py::arg("t1"), py::arg("scalar")
+        py::arg("tensor_1"), py::arg("scalar")
     );
     m_tensor.def("scale", py::overload_cast<const Tensor &, std::complex<float>>(&Tensor::scale),
         "Scalar multiplication",
-        py::arg("t1"), py::arg("scalar")
+        py::arg("tensor_1"), py::arg("scalar")
     );
     m_tensor.def("sin", &Tensor::sin, 
         "Element-wise trigonometric sine function",
-        py::arg("t1")
+        py::arg("tensor_1")
     );
     m_tensor.def("cos", &Tensor::cos, 
         "Element-wise trigonometric cosine function",
-        py::arg("t1")
+        py::arg("tensor_1")
     );
     m_tensor.def("sum", py::overload_cast<const Tensor &>(&Tensor::sum), 
         "Get the sum of all values in a tensor",
-        py::arg("t1")
+        py::arg("tensor_1")
     );
     m_tensor.def("sum", py::overload_cast<const Tensor &, const std::vector<long int> &>(&Tensor::sum),
         "Get the sum over particular dimensions",
-        py::arg("t1"), py::arg("dimensions")
+        py::arg("tensor_1"), py::arg("dimensions")
     );
     m_tensor.def("cumsum", py::overload_cast<const Tensor &, int>(&Tensor::cumsum),
         "Get the cumulative sum over particular dimensions",
-        py::arg("t1"), py::arg("dimensions")
+        py::arg("tensor_1"), py::arg("dimensions")
     );
     // m_tensor.def("eig", &Tensor::eig. "calculate eigenvalues") <- Will need to define some additional fn to return
     // tuple of values
@@ -541,13 +541,13 @@ void initTesting(py::module &m_nuTens)
     auto m_testing = m_nuTens.def_submodule("testing",
         "Some helpful utilities to use when writing python tests for your code"
     )
-    .def("nufast_probability_matter", [](double s12sq, double s13sq, double s23sq, double delta, double dm21, double dm31, double L, double E, double rho, double Ye, double Nnewton) 
+    .def("nufast_probability_matter", [](double s12sq, double s13sq, double s23sq, double delta, double dm21, double dm31, double baseline, double energy, double rho, double electronDensity, double Nnewton) 
         {
             // the probabilities as a raw c array
             double probs_returned[3][3];
 
             // get the probabilities
-            Probability_Matter_LBL(s12sq, s13sq, s23sq, delta, dm21, dm31, L, E, rho, Ye, Nnewton, &probs_returned);
+            Probability_Matter_LBL(s12sq, s13sq, s23sq, delta, dm21, dm31, baseline, energy, rho, electronDensity, Nnewton, &probs_returned);
 
             // turn them into a vector so they can be returned as a numpy array
             std::vector<std::vector<double>> ret = {
@@ -570,11 +570,11 @@ void initTesting(py::module &m_nuTens)
         .def("set_params", &testing::TwoFlavourBarger::setParams, 
             py::arg("m1"), py::arg("m2"), py::arg("theta"), py::arg("baseline"), py::arg("density") = (float)-999.9, py::arg("anti_neutrino") = false
         )
-        .def("lv", &testing::TwoFlavourBarger::lv,
+        .def("l_vac", &testing::TwoFlavourBarger::lVac,
             "Calculates the vacuum oscillation length",
             py::arg("energy")
         )
-        .def("lm", &testing::TwoFlavourBarger::lm,
+        .def("l_matter", &testing::TwoFlavourBarger::lMatter,
             "Calculates the matter oscillation length"
         )
         .def("calculate_effective_angle", &testing::TwoFlavourBarger::calculateEffectiveAngle,
