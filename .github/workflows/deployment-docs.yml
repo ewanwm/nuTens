@@ -49,14 +49,12 @@ jobs:
 
       - name: Build and install nuTens
         run: pip install --verbose ..[docs]
-      
-      # Need to set the library path so that torch can find itself (:
-      - name: Set LD_LIBRARY_PATH
-        run: export LD_LIBRARY_PATH=`python3 -c 'import os;import torch;print(os.path.abspath(torch.__file__)[:-11])'`/lib:$LD_LIBRARY_PATH
 
       # make stub files
       - name: Make stubs
         run: |
+          # Need to set the library path so that torch can find itself (:
+          export LD_LIBRARY_PATH=`python3 -c 'import os;import torch;print(os.path.abspath(torch.__file__)[:-11])'`/lib:$LD_LIBRARY_PATH
           pybind11-stubgen --enum-class-locations "scalar_type:nuTens.dtype" --enum-class-locations "device_type:nuTens.dtype" -o stubs nuTens
           mv stubs/nuTens/_pyNuTens/*.pyi python/nuTens/
 
@@ -79,7 +77,10 @@ jobs:
 
       # Now build the sphinx docs
       - name: Build Sphinx files
-        run: sphinx-build -M html source build
+        run: |
+          # Need to set the library path so that torch can find itself (:
+          export LD_LIBRARY_PATH=`python3 -c 'import os;import torch;print(os.path.abspath(torch.__file__)[:-11])'`/lib:$LD_LIBRARY_PATH
+          sphinx-build -M html source build
 
       # Deploys the generated documentation to GitHub Pages
       - name: Deploy
