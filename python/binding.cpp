@@ -531,7 +531,7 @@ void initUnits(py::module &m_nuTens)
     m_units.attr("GeV") = py::float_(units::GeV);
 
     m_units.attr("cm") = py::float_(units::cm);
-    m_units.attr("m_nuTens")  = py::float_(units::m);
+    m_units.attr("m")  = py::float_(units::m);
     m_units.attr("km") = py::float_(units::km);
     
 }
