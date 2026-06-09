@@ -30,27 +30,27 @@ namespace py = pybind11;
 
 using namespace nuTens;
 
-void initDtypes(py::module & /*m*/);
-void initTensor(py::module & /*m*/);
-void initPropagator(py::module & /*m*/);
-void initUnits(py::module & /*m*/);
-void initTesting(py::module & /*m*/);
+void initDtypes(py::module & /*m_nuTens*/);
+void initTensor(py::module & /*m_nuTens*/);
+void initPropagator(py::module & /*m_nuTens*/);
+void initUnits(py::module & /*m_nuTens*/);
+void initTesting(py::module & /*m_nuTens*/);
 
 // initialise the top level module "_pyNuTens"
 // NOLINTNEXTLINE
-PYBIND11_MODULE(_pyNuTens, m)
+PYBIND11_MODULE(_pyNuTens, m_nuTens)
 {
-    m.doc() = "Library to calculate neutrino oscillations";
-    initDtypes(m);
-    initUnits(m);
-    initTensor(m);
-    initPropagator(m);
-    initTesting(m);
+    m_nuTens.doc() = "Library to calculate neutrino oscillations";
+    initDtypes(m_nuTens);
+    initUnits(m_nuTens);
+    initTensor(m_nuTens);
+    initPropagator(m_nuTens);
+    initTesting(m_nuTens);
 
 #ifdef VERSION_INFO
-     m.attr("__version__") = Py_STRINGIFY(VERSION_INFO);
+     m_nuTens.attr("__version__") = Py_STRINGIFY(VERSION_INFO);
 #else
-     m.attr("__version__") = "dev";
+     m_nuTens.attr("__version__") = "dev";
 #endif
 }
 
@@ -107,13 +107,14 @@ py::buffer_info tensorToNumpy(const Tensor &tensor){
     );
 }
 
-void initTensor(py::module &m)
+void initTensor(py::module &m_nuTens)
 {
-    auto m_tensor = m.def_submodule("tensor");
+    auto m_tensor = m_nuTens.def_submodule("tensor");
 
     py::class_<Tensor>(m_tensor, "Tensor", py::buffer_protocol())
         .def(py::init()) // <- default constructor
-        .def(py::init<std::vector<float>, dtypes::scalarType, dtypes::deviceType, bool>())
+        .def(py::init<std::vector<float>, dtypes::scalarType, dtypes::deviceType, bool>(),
+            py::arg("values"), py::arg("dtype") = dtypes::scalarType::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
 
         // property setters
         .def("dtype", &Tensor::dType, py::return_value_policy::reference, 
@@ -368,9 +369,9 @@ void initTensor(py::module &m)
     // tuple of values
 }
 
-void initPropagator(py::module &m)
+void initPropagator(py::module &m_nuTens)
 {
-    auto m_propagator = m.def_submodule("propagator");
+    auto m_propagator = m_nuTens.def_submodule("propagator");
 
     py::class_<BaseMatterSolver, std::shared_ptr<BaseMatterSolver>>(m_propagator, "BaseMatterSolver")
         .def("set_mixing_matrix", &BaseMatterSolver::setMixingMatrix,
@@ -500,9 +501,9 @@ void initPropagator(py::module &m)
 
 }
 
-void initDtypes(py::module &m)
+void initDtypes(py::module &m_nuTens)
 {
-    auto m_dtypes = m.def_submodule("dtype",
+    auto m_dtypes = m_nuTens.def_submodule("dtype",
         "This module defines various data types used in nuTens");
 
     py::native_enum<dtypes::scalarType>(m_dtypes, "scalar_type", "enum.Enum")
@@ -520,9 +521,9 @@ void initDtypes(py::module &m)
     ;
 }
 
-void initUnits(py::module &m)
+void initUnits(py::module &m_nuTens)
 {
-    auto m_units = m.def_submodule("units",
+    auto m_units = m_nuTens.def_submodule("units",
         "Defines some helpful units, which are really just conversion factors to eV");
 
     m_units.attr("eV")  = py::float_(units::eV);
@@ -535,9 +536,9 @@ void initUnits(py::module &m)
     
 }
 
-void initTesting(py::module &m)
+void initTesting(py::module &m_nuTens)
 {
-    auto m_testing = m.def_submodule("testing",
+    auto m_testing = m_nuTens.def_submodule("testing",
         "Some helpful utilities to use when writing python tests for your code"
     )
     .def("nufast_probability_matter", [](double s12sq, double s13sq, double s23sq, double delta, double dm21, double dm31, double L, double E, double rho, double Ye, double Nnewton) 
@@ -581,7 +582,7 @@ void initTesting(py::module &m)
             py::arg("energy")
         )
         .def("calculate_effective_dm2", &testing::TwoFlavourBarger::calculateEffectiveDm2,
-            "Calculates the effective delta m^2 in matter",
+            "Calculates the effective delta m_nuTens^2 in matter",
             py::arg("energy")
         )
         .def("get_PMNS_element", &testing::TwoFlavourBarger::getPMNSelement,
@@ -612,7 +613,7 @@ void initTesting(py::module &m)
             py::arg("energy")
         )
         .def("calculate_effective_m2", &testing::ThreeFlavourBarger::calculateEffectiveM2,
-            "Calculates the effective hamiltonian eigenvalues (the M^2) in matter",
+            "Calculates the effective hamiltonian eigenvalues (the m_nuTens^2) in matter",
             py::arg("energy"), py::arg("index")
         )
         .def("get_hamiltonian_element", &testing::ThreeFlavourBarger::getHamiltonianElement,

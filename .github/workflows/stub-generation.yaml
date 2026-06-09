@@ -20,6 +20,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
         
       - name: Install dependencies
         run: |
@@ -49,7 +50,7 @@ jobs:
           # Need to set the library path so that torch can find itself (:
           export LD_LIBRARY_PATH=`python3 -c 'import os;import torch;print(os.path.abspath(torch.__file__)[:-11])'`/lib:$LD_LIBRARY_PATH
           pybind11-stubgen --enum-class-locations "scalar_type:nuTens.dtype" --enum-class-locations "device_type:nuTens.dtype" -o stubs nuTens
-          mv stubs/nuTens/_pyNuTens/*.pyi ../python/nuTens/
+          mv stubs/nuTens/_pyNuTens/*.pyi python/nuTens/
 
       # commit the stub files to the repository
       - uses: EndBug/add-and-commit@v10 # You can change this to use a specific version.
@@ -57,5 +58,5 @@ jobs:
           add: 'python/nuTens/*.pyi'
           author_name: ewanwm
           author_email: e.w.miller@imperial.ac.uk
-          message: 'Commit python stubs (from Github Action: "Documentation - GitHub Pages Deploy Action")'
+          message: 'Commit python stubs (from Github Action: "Generate Python Stubs")'
           push: true
