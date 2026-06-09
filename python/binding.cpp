@@ -113,7 +113,8 @@ void initTensor(py::module &m)
 
     py::class_<Tensor>(m_tensor, "Tensor", py::buffer_protocol())
         .def(py::init()) // <- default constructor
-        .def(py::init<std::vector<float>, dtypes::scalarType, dtypes::deviceType, bool>())
+        .def(py::init<std::vector<float>, dtypes::scalarType, dtypes::deviceType, bool>(),
+            py::arg("values"), py::arg("dtype") = dtypes::scalarType::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
 
         // property setters
         .def("dtype", &Tensor::dType, py::return_value_policy::reference, 
