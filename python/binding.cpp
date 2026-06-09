@@ -263,19 +263,19 @@ void initTensor(py::module &m)
         // Tensor creation functions
         .def_static("eye", &Tensor::eye, 
             "Create a tensor initialised with an identity matrix",
-            py::arg("n"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("n"), py::arg("dtype") = dtypes::scalarType::kFloat, py::arg("device") = dtypes::deviceType::kCPU, py::arg("requires_grad") = true)
         .def_static("rand", &Tensor::rand, 
             "Create a tensor initialised with random values",
-            py::arg("shape"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("shape"), py::arg("dtype") = dtypes::scalarType::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
         .def_static("diag", &Tensor::diag, 
             "Create a tensor with specified values along the diagonal",
             py::arg("diagonal"))
         .def_static("ones", &Tensor::ones, 
             "Create a tensor initialised with ones",
-            py::arg("shape"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("shape"), py::arg("dtype") = dtypes::scalarType::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
         .def_static("zeros", &Tensor::zeros, 
             "Create a tensor initialised with zeros",
-            py::arg("shape"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("shape"), py::arg("dtype") = dtypes::scalarType::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
 
         .doc() = 
             "Tensor defines a basic interface for creating and manipulating tensors."
