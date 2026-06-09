@@ -4,6 +4,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <pybind11/numpy.h>
+#include <pybind11/native_enum.h>
 
 #include <vector>
 #include <iostream>
@@ -29,9 +30,9 @@ namespace py = pybind11;
 
 using namespace nuTens;
 
+void initDtypes(py::module & /*m*/);
 void initTensor(py::module & /*m*/);
 void initPropagator(py::module & /*m*/);
-void initDtypes(py::module & /*m*/);
 void initUnits(py::module & /*m*/);
 void initTesting(py::module & /*m*/);
 
@@ -262,19 +263,19 @@ void initTensor(py::module &m)
         // Tensor creation functions
         .def_static("eye", &Tensor::eye, 
             "Create a tensor initialised with an identity matrix",
-            py::arg("n"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("n"), py::arg("dtype") = dtypes::scalarType::kFloat, py::arg("device") = dtypes::deviceType::kCPU, py::arg("requires_grad") = true)
         .def_static("rand", &Tensor::rand, 
             "Create a tensor initialised with random values",
-            py::arg("shape"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("shape"), py::arg("dtype") = dtypes::scalarType::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
         .def_static("diag", &Tensor::diag, 
             "Create a tensor with specified values along the diagonal",
             py::arg("diagonal"))
         .def_static("ones", &Tensor::ones, 
             "Create a tensor initialised with ones",
-            py::arg("shape"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("shape"), py::arg("dtype") = dtypes::scalarType::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
         .def_static("zeros", &Tensor::zeros, 
             "Create a tensor initialised with zeros",
-            py::arg("shape"), py::arg("dtype") = dtypes::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
+            py::arg("shape"), py::arg("dtype") = dtypes::scalarType::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
 
         .doc() = 
             "Tensor defines a basic interface for creating and manipulating tensors."
@@ -369,7 +370,30 @@ void initTensor(py::module &m)
 
 void initPropagator(py::module &m)
 {
-     auto m_propagator = m.def_submodule("propagator");
+    auto m_propagator = m.def_submodule("propagator");
+
+    py::class_<BaseMatterSolver, std::shared_ptr<BaseMatterSolver>>(m_propagator, "BaseMatterSolver")
+        .def("set_mixing_matrix", &BaseMatterSolver::setMixingMatrix,
+            "Set the mixing matrix that the solver should use",
+            py::arg("new_matrix")
+        )
+        .def("set_energies", &BaseMatterSolver::setEnergies,
+            "Set the neutrino energies",
+            py::arg("new_energies")
+        )
+        .def("set_masses", &BaseMatterSolver::setMasses,
+            "Set the neutrino masses the solver should use",
+            py::arg("new_masses")
+        )
+        .def("calculate_eigenvalues", &BaseMatterSolver::calculateEigenvalues,
+            "calculate the eigenvalues of the Hamiltonian",
+            py::arg("eigenvector_out"), py::arg("eigenvalue_out")
+        )
+        .def("set_antineutrino", (&BaseMatterSolver::setAntiNeutrino),
+            "Set whether the solver should calculate values for anti-neutrinos",
+            py::arg("new_value")
+        )
+        ;
 
     py::class_<Propagator>(m_propagator, "Propagator")
         .def(py::init<int, float, bool>(), 
@@ -445,29 +469,6 @@ void initPropagator(py::module &m)
         .def("get_energies", &DPpropagator::getEnergies)
         ;
 
-    py::class_<BaseMatterSolver, std::shared_ptr<BaseMatterSolver>>(m_propagator, "BaseMatterSolver")
-        .def("set_mixing_matrix", &BaseMatterSolver::setMixingMatrix,
-            "Set the mixing matrix that the solver should use",
-            py::arg("new_matrix")
-        )
-        .def("set_energies", &BaseMatterSolver::setEnergies,
-            "Set the neutrino energies",
-            py::arg("new_energies")
-        )
-        .def("set_masses", &BaseMatterSolver::setMasses,
-            "Set the neutrino masses the solver should use",
-            py::arg("new_masses")
-        )
-        .def("calculate_eigenvalues", &BaseMatterSolver::calculateEigenvalues,
-            "calculate the eigenvalues of the Hamiltonian",
-            py::arg("eigenvector_out"), py::arg("eigenvalue_out")
-        )
-        .def("set_antineutrino", (&BaseMatterSolver::setAntiNeutrino),
-            "Set whether the solver should calculate values for anti-neutrinos",
-            py::arg("new_value")
-        )
-        ;
-
      py::class_<ConstDensityMatterSolver, std::shared_ptr<ConstDensityMatterSolver>, BaseMatterSolver>(
         m_propagator, "ConstDensitySolver")
         .def(py::init<int, float, bool>(), 
@@ -504,16 +505,18 @@ void initDtypes(py::module &m)
     auto m_dtypes = m.def_submodule("dtype",
         "This module defines various data types used in nuTens");
 
-    py::enum_<dtypes::scalarType>(m_dtypes, "scalar_type")
+    py::native_enum<dtypes::scalarType>(m_dtypes, "scalar_type", "enum.Enum")
         .value("float", dtypes::scalarType::kFloat)
         .value("double", dtypes::scalarType::kDouble)
         .value("complex_float", dtypes::scalarType::kComplexFloat)
         .value("complex_double", dtypes::scalarType::kComplexDouble)
+        .finalize()
     ;
 
-    py::enum_<dtypes::deviceType>(m_dtypes, "device_type")
+    py::native_enum<dtypes::deviceType>(m_dtypes, "device_type", "enum.Enum")
         .value("cpu", dtypes::deviceType::kCPU)
         .value("gpu", dtypes::deviceType::kGPU)
+        .finalize()
     ;
 }
 
