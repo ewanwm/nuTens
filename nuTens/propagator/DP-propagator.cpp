@@ -116,8 +116,8 @@ Tensor DPpropagator::calculateProbs()
     // Get the kinematic terms //
     // ----------------------- //
 
-    Tensor D21 = Dlambda21 * _baseline * 2.0 * M_PI / (_energies * antinuFactor * 4.0);
-    Tensor D32 = Dlambda32 * _baseline * 2.0 * M_PI / (_energies * antinuFactor * 4.0);
+    Tensor D21 = Dlambda21 * _baseline * constants::twoPi / (_energies * antinuFactor * 4.0);
+    Tensor D32 = Dlambda32 * _baseline * constants::twoPi / (_energies * antinuFactor * 4.0);
 
     Tensor sinD21 = Tensor::sin(D21);
     Tensor sinD31 = Tensor::sin(D32 + D21);
