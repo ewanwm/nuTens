@@ -61,7 +61,7 @@ jobs:
       # commit the stub files to the repository
       - uses: EndBug/add-and-commit@v10 # You can change this to use a specific version.
         with:
-          add: '../python/nuTens/*.pyi'
+          add: 'python/nuTens/*.pyi'
           author_name: ewanwm
           author_email: e.w.miller@imperial.ac.uk
           message: 'Commit python stubs (from Github Action: "Documentation - GitHub Pages Deploy Action")'
