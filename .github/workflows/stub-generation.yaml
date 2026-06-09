@@ -19,6 +19,7 @@ jobs:
       # Checks-out repository
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           ref: ${{ github.event.pull_request.head.ref }}
         
       - name: Install dependencies
