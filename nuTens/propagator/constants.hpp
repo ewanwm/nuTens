@@ -5,16 +5,11 @@
 
 #include <nuTens/propagator/units.hpp>
 
-namespace nuTens
-{
-
-namespace constants
+namespace nuTens::constants
 {
 
 static constexpr double Groot2 =
     0.76294e-4 * (units::eV * units::eV) /
     units::GeV; //!< sqrt(2)*G_fermi in (eV^2-cm^3)/(mole-GeV) used in calculating matter hamiltonian
 
-}
-
-} // namespace nuTens
+} // namespace nuTens::constants

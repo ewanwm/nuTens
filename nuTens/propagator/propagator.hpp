@@ -79,7 +79,7 @@ class Propagator
                             .requiresGrad(false);
         _weightArgDenom =
             Tensor::scale(Tensor::scale(_energies, 2.0),
-                          std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline * 2.0f * (float)M_PI));
+                          std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline * 2.0F * (float)M_PI));
 
         if (_matterSolver)
         {
