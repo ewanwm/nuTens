@@ -4,6 +4,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <pybind11/numpy.h>
+#include <pybind11/native_enum.h>
 
 #include <vector>
 #include <iostream>
@@ -504,16 +505,18 @@ void initDtypes(py::module &m)
     auto m_dtypes = m.def_submodule("dtype",
         "This module defines various data types used in nuTens");
 
-    py::enum_<dtypes::scalarType>(m_dtypes, "scalar_type")
+    py::native_enum<dtypes::scalarType>(m_dtypes, "scalar_type", "enum.Enum")
         .value("float", dtypes::scalarType::kFloat)
         .value("double", dtypes::scalarType::kDouble)
         .value("complex_float", dtypes::scalarType::kComplexFloat)
         .value("complex_double", dtypes::scalarType::kComplexDouble)
+        .finalize()
     ;
 
-    py::enum_<dtypes::deviceType>(m_dtypes, "device_type")
+    py::native_enum<dtypes::deviceType>(m_dtypes, "device_type", "enum.Enum")
         .value("cpu", dtypes::deviceType::kCPU)
         .value("gpu", dtypes::deviceType::kGPU)
+        .finalize()
     ;
 }
 
