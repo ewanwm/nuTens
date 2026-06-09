@@ -30,9 +30,9 @@ namespace py = pybind11;
 
 using namespace nuTens;
 
+void initDtypes(py::module & /*m*/);
 void initTensor(py::module & /*m*/);
 void initPropagator(py::module & /*m*/);
-void initDtypes(py::module & /*m*/);
 void initUnits(py::module & /*m*/);
 void initTesting(py::module & /*m*/);
 
