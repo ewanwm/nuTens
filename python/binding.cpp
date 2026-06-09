@@ -370,7 +370,30 @@ void initTensor(py::module &m)
 
 void initPropagator(py::module &m)
 {
-     auto m_propagator = m.def_submodule("propagator");
+    auto m_propagator = m.def_submodule("propagator");
+
+    py::class_<BaseMatterSolver, std::shared_ptr<BaseMatterSolver>>(m_propagator, "BaseMatterSolver")
+        .def("set_mixing_matrix", &BaseMatterSolver::setMixingMatrix,
+            "Set the mixing matrix that the solver should use",
+            py::arg("new_matrix")
+        )
+        .def("set_energies", &BaseMatterSolver::setEnergies,
+            "Set the neutrino energies",
+            py::arg("new_energies")
+        )
+        .def("set_masses", &BaseMatterSolver::setMasses,
+            "Set the neutrino masses the solver should use",
+            py::arg("new_masses")
+        )
+        .def("calculate_eigenvalues", &BaseMatterSolver::calculateEigenvalues,
+            "calculate the eigenvalues of the Hamiltonian",
+            py::arg("eigenvector_out"), py::arg("eigenvalue_out")
+        )
+        .def("set_antineutrino", (&BaseMatterSolver::setAntiNeutrino),
+            "Set whether the solver should calculate values for anti-neutrinos",
+            py::arg("new_value")
+        )
+        ;
 
     py::class_<Propagator>(m_propagator, "Propagator")
         .def(py::init<int, float, bool>(), 
@@ -444,29 +467,6 @@ void initPropagator(py::module &m)
         .def("get_deltamsq21", &DPpropagator::getDmsp21)
         .def("get_deltamsq31", &DPpropagator::getDmsq31)
         .def("get_energies", &DPpropagator::getEnergies)
-        ;
-
-    py::class_<BaseMatterSolver, std::shared_ptr<BaseMatterSolver>>(m_propagator, "BaseMatterSolver")
-        .def("set_mixing_matrix", &BaseMatterSolver::setMixingMatrix,
-            "Set the mixing matrix that the solver should use",
-            py::arg("new_matrix")
-        )
-        .def("set_energies", &BaseMatterSolver::setEnergies,
-            "Set the neutrino energies",
-            py::arg("new_energies")
-        )
-        .def("set_masses", &BaseMatterSolver::setMasses,
-            "Set the neutrino masses the solver should use",
-            py::arg("new_masses")
-        )
-        .def("calculate_eigenvalues", &BaseMatterSolver::calculateEigenvalues,
-            "calculate the eigenvalues of the Hamiltonian",
-            py::arg("eigenvector_out"), py::arg("eigenvalue_out")
-        )
-        .def("set_antineutrino", (&BaseMatterSolver::setAntiNeutrino),
-            "Set whether the solver should calculate values for anti-neutrinos",
-            py::arg("new_value")
-        )
         ;
 
      py::class_<ConstDensityMatterSolver, std::shared_ptr<ConstDensityMatterSolver>, BaseMatterSolver>(
