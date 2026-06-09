@@ -187,9 +187,9 @@ class Tensor
 
     /// @brief Get the transpose of a tensor
     /// @arg tensor The tensor
-    /// @arg dim1 The first dimension to swap
-    /// @arg dim2 The second dimension to swap
-    static Tensor transpose(const Tensor &tensor, int dim1, int dim2);
+    /// @arg dim0 The first dimension to swap
+    /// @arg dim1 The second dimension to swap
+    static Tensor transpose(const Tensor &tensor, int dim0, int dim1);
 
     /// @brief Scale a matrix by some scalar
     /// @arg scalar The scalar
@@ -242,9 +242,9 @@ class Tensor
     void exp_();
 
     /// @brief Inline transpose
-    /// @arg dim1 The first dimension to swap
-    /// @arg dim2 The second dimension to swap
-    void transpose_(int dim1, int dim2);
+    /// @arg dim0 The first dimension to swap
+    /// @arg dim1 The second dimension to swap
+    void transpose_(int dim0, int dim1);
 
     /// @}
 

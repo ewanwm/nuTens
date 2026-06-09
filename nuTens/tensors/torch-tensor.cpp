@@ -276,11 +276,11 @@ Tensor Tensor::exp(const Tensor &tensor)
     return {torch::exp(tensor._tensor)};
 }
 
-Tensor Tensor::transpose(const Tensor &tensor, int dim1, int dim2)
+Tensor Tensor::transpose(const Tensor &tensor, int dim0, int dim1)
 {
     NT_PROFILE();
 
-    return {torch::transpose(tensor._tensor, dim1, dim2)};
+    return {torch::transpose(tensor._tensor, dim0, dim1)};
 }
 
 Tensor Tensor::scale(const Tensor &tensor, float scalar)
@@ -371,11 +371,11 @@ void Tensor::exp_()
     _tensor = torch::exp(_tensor);
 }
 
-void Tensor::transpose_(int dim1, int dim2)
+void Tensor::transpose_(int dim0, int dim1)
 {
     NT_PROFILE();
 
-    _tensor = torch::transpose(_tensor, dim1, dim2);
+    _tensor = torch::transpose(_tensor, dim0, dim1);
 }
 
 void Tensor::eig(const Tensor &tensor, Tensor &eVals, Tensor &eVecs)
