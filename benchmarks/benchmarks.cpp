@@ -1,9 +1,11 @@
 
-#include <benchmark/benchmark.h>
+#include <benchmark/benchmark.h> // NOLINT
 #include <nuTens/propagator/DP-propagator.hpp>
 #include <nuTens/propagator/const-density-solver.hpp>
 #include <nuTens/propagator/pmns-matrix.hpp>
 #include <nuTens/propagator/propagator.hpp>
+#include <nuTens/propagator/units.hpp>
+#include <nuTens/propagator/constants.hpp>
 #include <nuTens/tensors/tensor.hpp>
 
 using namespace nuTens;
@@ -33,7 +35,7 @@ static void batchedOscProbs(Propagator &prop, PMNSmatrix &matrix, AccessedTensor
             /*theta12=*/randomDouble(),
             /*theta13=*/randomDouble(),
             /*theta23=*/randomDouble(),
-            /*deltaCP=*/randomDouble() * 2.0 * M_PI);
+            /*deltaCP=*/randomDouble() * constants::twoPi);
 
         prop.setMixingMatrix(matrix.build());
         prop.setMasses(masses);
@@ -140,7 +142,7 @@ static void BM_DPpropOscillations(benchmark::State &state)
     auto deltaCP = Tensor::zeros({1}).dType(dtypes::kComplexFloat).requiresGrad(false);
 
     // set up the propagator
-    DPpropagator dpProp(3, 295000.0, 2.6, 5);
+    DPpropagator dpProp(/*baseline=*/295 * units::km, /*antiNeutrino=*/false, /*density=*/2.6, /*NRiterations=*/5);
 
     dpProp.setEnergies(energies);
 
