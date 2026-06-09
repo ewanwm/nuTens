@@ -20,9 +20,7 @@
 // just want to use vv simple c++ standard objects so is independent of the
 // rest of the nuTens libraries.
 
-namespace nuTens
-{
-namespace testing
+namespace nuTens::testing
 {
 
 class TwoFlavourBarger
@@ -30,11 +28,11 @@ class TwoFlavourBarger
   public:
     // set the parameters of this propagator
     // negative density values will be interpreted as propagating in vacuum
-    inline void setParams(float m1, float m2, float theta, float baseline, float density = -999.9,
+    inline void setParams(float mass1, float mass2, float theta, float baseline, float density = -999.9,
                           bool antiNeutrino = false)
     {
-        _m1 = m1;
-        _m2 = m2;
+        _mass1 = mass1;
+        _mass2 = mass2;
         _theta = theta;
         _baseline = baseline;
         _density = density;
@@ -42,23 +40,23 @@ class TwoFlavourBarger
     };
 
     // characteristic length in vacuum
-    [[nodiscard]] inline float lv(float energy) const
+    [[nodiscard]] inline float lVac(float energy) const
     {
-        return 4.0 * M_PI * energy / (_m1 * _m1 - _m2 * _m2);
+        return 4.0 * M_PI * energy / (_mass1 * _mass1 - _mass2 * _mass2);
     }
 
     // characteristic length in matter
-    [[nodiscard]] inline float lm() const
+    [[nodiscard]] inline float lMatter() const
     {
-        float lm = 2.0 * M_PI / (nuTens::constants::Groot2 * _density);
+        float lMatter = 2.0 * M_PI / (nuTens::constants::Groot2 * _density);
 
-        // for anti-neutrinos, sign of lm is reversed
+        // for anti-neutrinos, sign of lMatter is reversed
         if (_antiNeutrino)
         {
-            lm *= -1;
+            lMatter *= -1;
         }
 
-        return lm;
+        return lMatter;
     }
 
     // calculate the modified rotation angle
@@ -68,7 +66,7 @@ class TwoFlavourBarger
 
         if (_density > 0.0)
         {
-            ret = std::atan2(std::sin(2.0 * _theta), (std::cos(2.0 * _theta) - lv(energy) / lm())) / 2.0;
+            ret = std::atan2(std::sin(2.0 * _theta), (std::cos(2.0 * _theta) - lVac(energy) / lMatter())) / 2.0;
         }
         else
         {
@@ -85,12 +83,12 @@ class TwoFlavourBarger
 
         if (_density > 0.0)
         {
-            ret = (_m1 * _m1 - _m2 * _m2) * std::sqrt(1.0 - 2.0 * (lv(energy) / lm()) * std::cos(2.0 * _theta) +
-                                                      (lv(energy) / lm()) * (lv(energy) / lm()));
+            ret = (_mass1 * _mass1 - _mass2 * _mass2) * std::sqrt(1.0 - 2.0 * (lVac(energy) / lMatter()) * std::cos(2.0 * _theta) +
+                                                      (lVac(energy) / lMatter()) * (lVac(energy) / lMatter()));
         }
         else
         {
-            ret = (_m1 * _m1 - _m2 * _m2);
+            ret = (_mass1 * _mass1 - _mass2 * _mass2);
         }
 
         return ret;
@@ -189,17 +187,17 @@ class TwoFlavourBarger
 
   private:
     // oscillation parameters
-    float _m1;
-    float _m2;
-    float _theta;
+    float _mass1 = NAN;
+    float _mass2 = NAN;
+    float _theta = NAN;
 
     // characteristic lengths in vacuum and matter
-    float _lv;
-    float _lm;
+    float _lv = NAN;
+    float _lm = NAN;
 
     // other parameters
-    float _baseline;
-    float _density;
+    float _baseline = NAN;
+    float _density = NAN;
 
     // anti-neutrino flag
     bool _antiNeutrino;
@@ -210,12 +208,12 @@ class ThreeFlavourBarger
   public:
     // set the parameters of this propagator
     // negative density values will be interpreted as propagating in vacuum
-    inline void setParams(double m1, double m2, double m3, double theta12, double theta13, double theta23,
+    inline void setParams(double mass1, double mass2, double mass3, double theta12, double theta13, double theta23,
                           double deltaCP, double baseline, double density = -999.9f, bool antiNeutrino = false)
     {
-        _m1 = m1;
-        _m2 = m2;
-        _m3 = m3;
+        _mass1 = mass1;
+        _mass2 = mass2;
+        _mass3 = mass3;
         _theta12 = theta12;
         _theta13 = theta13;
         _theta23 = theta23;
@@ -225,9 +223,9 @@ class ThreeFlavourBarger
         _antiNeutrino = antiNeutrino;
 
         // fill the mass array
-        masses[0] = _m1;
-        masses[1] = _m2;
-        masses[2] = _m3;
+        masses[0] = _mass1;
+        masses[1] = _mass2;
+        masses[2] = _mass3;
 
         // fill the PMNS matrix elements
         pmnsMatrix[0][0] = std::complex<double>(std::cos(theta12) * std::cos(theta13), 0.0);
@@ -254,10 +252,10 @@ class ThreeFlavourBarger
     /// calculate the alpha factor used in the eigenvalue computation
     [[nodiscard]] inline double alpha(float energy) const
     {
-        float dmsq12 = _m1 * _m1 - _m2 * _m2;
-        float dmsq13 = _m1 * _m1 - _m3 * _m3;
+        float dmsq12 = _mass1 * _mass1 - _mass2 * _mass2;
+        float dmsq13 = _mass1 * _mass1 - _mass3 * _mass3;
 
-        double ret;
+        double ret = NAN;
 
         if (_antiNeutrino)
         {
@@ -274,10 +272,10 @@ class ThreeFlavourBarger
     /// calculate the beta factor used in the eigenvalue computation
     [[nodiscard]] inline double beta(float energy) const
     {
-        double dmsq12 = _m1 * _m1 - _m2 * _m2;
-        double dmsq13 = _m1 * _m1 - _m3 * _m3;
+        double dmsq12 = _mass1 * _mass1 - _mass2 * _mass2;
+        double dmsq13 = _mass1 * _mass1 - _mass3 * _mass3;
 
-        double ret;
+        double ret = NAN;
 
         if (_antiNeutrino)
         {
@@ -298,10 +296,10 @@ class ThreeFlavourBarger
     /// calculate the gamma factor used in the eigenvalue computation
     [[nodiscard]] inline double gamma(float energy) const
     {
-        float dmsq12 = _m1 * _m1 - _m2 * _m2;
-        float dmsq13 = _m1 * _m1 - _m3 * _m3;
+        float dmsq12 = _mass1 * _mass1 - _mass2 * _mass2;
+        float dmsq13 = _mass1 * _mass1 - _mass3 * _mass3;
 
-        double ret;
+        double ret = NAN;
         if (_antiNeutrino)
         {
             ret = -2 * constants::Groot2 * energy * _density * dmsq12 * dmsq13 * std::abs(pmnsMatrix[0][0]) *
@@ -331,7 +329,7 @@ class ThreeFlavourBarger
         // calculate the coefficient of the cos term
         float coeff = -(2.0 / 3.0) * std::sqrt(a * a - 3.0 * b);
 
-        return coeff * std::cos((1.0 / 3.0) * (std::acos(arg) + index * 2.0 * M_PI)) + _m1 * _m1 - a / 3.0;
+        return coeff * std::cos((1.0 / 3.0) * (std::acos(arg) + index * 2.0 * M_PI)) + _mass1 * _mass1 - a / 3.0;
     }
 
     /// @brief Calculate an element of the hamiltonian
@@ -339,23 +337,23 @@ class ThreeFlavourBarger
     /// @param k Row
     /// @param j Column
     /// @return Matrix element
-    [[nodiscard]] inline std::complex<double> getHamiltonianElement(float energy, int a, int b) const
+    [[nodiscard]] inline std::complex<double> getHamiltonianElement(float energy, int idx1, int idx2) const
     {
 
         std::complex<double> ret = 0.0;
 
-        if (a == b)
+        if (idx1 == idx2)
         {
-            ret += masses[a] * masses[a] / (2.0 * energy);
+            ret += masses.at(idx1) * masses.at(idx1) / (2.0 * energy);
         }
 
         if (_antiNeutrino)
         {
-            ret += constants::Groot2 * _density * pmnsMatrix[0][b] * std::conj(pmnsMatrix[0][a]);
+            ret += constants::Groot2 * _density * pmnsMatrix[0][idx2] * std::conj(pmnsMatrix[0][idx1]);
         }
         else
         {
-            ret -= constants::Groot2 * _density * pmnsMatrix[0][b] * std::conj(pmnsMatrix[0][a]);
+            ret -= constants::Groot2 * _density * pmnsMatrix[0][idx2] * std::conj(pmnsMatrix[0][idx1]);
         }
 
         return ret;
@@ -366,7 +364,7 @@ class ThreeFlavourBarger
     /// @param a Row
     /// @param b Column
     /// @return Matrix element
-    [[nodiscard]] inline std::complex<double> getTransitionMatrixElement(double energy, int a, int b) const
+    [[nodiscard]] inline std::complex<double> getTransitionMatrixElement(double energy, int idx1, int idx2) const
     {
 
         std::complex<double> ret = 0.0;
@@ -376,12 +374,15 @@ class ThreeFlavourBarger
         if (_density <= 0.0)
         {
 
-            if (a == b)
-                ret = std::exp(-0.5 * std::complex<double>(0.0, 1.0) * masses[a] * masses[a] * _baseline * 2.0 * M_PI /
+            if (idx1 == idx2)
+            {
+                ret = std::exp(-0.5 * std::complex<double>(0.0, 1.0) * masses[idx1] * masses[idx1] * _baseline * 2.0 * M_PI /
                                energy);
-
+            }
             else
+            {
                 ret = 0.0;
+            }
         }
 
         else
@@ -391,9 +392,9 @@ class ThreeFlavourBarger
 
                 std::complex<double> numerator =
                     4.0 * energy * energy *
-                    (getHamiltonianElement(energy, a, 0) * getHamiltonianElement(energy, 0, b) +
-                     getHamiltonianElement(energy, a, 1) * getHamiltonianElement(energy, 1, b) +
-                     getHamiltonianElement(energy, a, 2) * getHamiltonianElement(energy, 2, b));
+                    (getHamiltonianElement(energy, idx1, 0) * getHamiltonianElement(energy, 0, idx2) +
+                     getHamiltonianElement(energy, idx1, 1) * getHamiltonianElement(energy, 1, idx2) +
+                     getHamiltonianElement(energy, idx1, 2) * getHamiltonianElement(energy, 2, idx2));
 
                 std::complex<double> constant = 1.0;
                 std::complex<double> denominator = 1.0;
@@ -402,17 +403,21 @@ class ThreeFlavourBarger
                 {
 
                     if (j == k)
+                    {
                         continue;
+                    }
 
-                    numerator -= 2.0 * energy * getHamiltonianElement(energy, a, b) * calculateEffectiveM2(energy, j);
+                    numerator -= 2.0 * energy * getHamiltonianElement(energy, idx1, idx2) * calculateEffectiveM2(energy, j);
                     denominator *= calculateEffectiveM2(energy, k) - calculateEffectiveM2(energy, j);
                     constant *= calculateEffectiveM2(energy, j);
                 }
 
                 std::complex<double> prod = numerator;
 
-                if (a == b)
+                if (idx1 == idx2)
+                {
                     prod += constant;
+                }
 
                 prod /= denominator;
 
@@ -461,17 +466,17 @@ class ThreeFlavourBarger
 
   private:
     // oscillation parameters
-    double _m1;
-    double _m2;
-    double _m3;
-    double _theta12;
-    double _theta13;
-    double _theta23;
-    double _deltaCP;
+    double _mass1 = NAN;
+    double _mass2 = NAN;
+    double _mass3 = NAN;
+    double _theta12 = NAN;
+    double _theta13 = NAN;
+    double _theta23 = NAN;
+    double _deltaCP = NAN;
 
     // other parameters
-    double _baseline;
-    double _density;
+    double _baseline = NAN;
+    double _density = NAN;
 
     // anti-neutrino flag
     bool _antiNeutrino;
@@ -480,6 +485,4 @@ class ThreeFlavourBarger
     std::array<double, 3> masses;
 };
 
-} // namespace testing
-
-} // namespace nuTens
+} // namespace nuTens::testing

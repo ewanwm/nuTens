@@ -107,9 +107,9 @@ TEST(TwoFlavourBargerPropTest /*unused*/, fixedValuesTest /*unused*/)
     bargerProp.setParams(/*m1=*/0.04, /*m2=*/0.001, /*theta=*/0.24,
                          /*baseline=*/250 * units::km, /*density=*/2.0);
 
-    ASSERT_NEAR(bargerProp.lv(1.0e9), 7.8588934e+12, 1e6) << "vacuum osc length";
+    ASSERT_NEAR(bargerProp.lVac(1.0e9), 7.8588934e+12, 1e6) << "vacuum osc length";
 
-    ASSERT_NEAR(bargerProp.lm(), 4.1177454e+13, 1e6) << "matter osc length";
+    ASSERT_NEAR(bargerProp.lMatter(), 4.1177454e+13, 1e6) << "matter osc length";
 
     ASSERT_NEAR(bargerProp.calculateEffectiveAngle(1.0e9), 0.292848614, 0.00001) << "effective mixing angle";
 
