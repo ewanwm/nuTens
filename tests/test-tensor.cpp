@@ -3,7 +3,7 @@
 #include <nuTens/tensors/tensor.hpp>
 
 #include <complex>
-#include <gtest/gtest.h>
+#include <gtest/gtest.h> // NOLINT
 
 /*
     Do some very basic tests of tensor functionality

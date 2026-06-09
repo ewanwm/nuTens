@@ -600,15 +600,15 @@ void initTesting(py::module &m_nuTens)
         .def("set_params", &testing::ThreeFlavourBarger::setParams, 
             py::arg("m1"), py::arg("m2"), py::arg("m3"), py::arg("theta12"), py::arg("theta13"), py::arg("theta23"), py::arg("deltaCP"), py::arg("baseline"), py::arg("density") = (float)-999.9, py::arg("anti_neutrino") = false
         )
-        .def("alpha", &testing::ThreeFlavourBarger::alpha,
+        .def("alpha", &testing::ThreeFlavourBarger::calculateAlpha,
             "Calculates alpha term used in calculating the mass eigenvalues",
             py::arg("energy")
         )
-        .def("beta", &testing::ThreeFlavourBarger::beta,
+        .def("beta", &testing::ThreeFlavourBarger::calculateBeta,
             "Calculates beta term used in calculating the mass eigenvalues",
             py::arg("energy")
         )
-        .def("gamma", &testing::ThreeFlavourBarger::gamma,
+        .def("gamma", &testing::ThreeFlavourBarger::calculateGamma,
             "Calculates gamma term used in calculating the mass eigenvalues",
             py::arg("energy")
         )

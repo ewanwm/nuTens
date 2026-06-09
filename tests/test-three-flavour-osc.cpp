@@ -1,4 +1,4 @@
-#include <gtest/gtest.h>
+#include <gtest/gtest.h> // NOLINT
 // alias the gtest "testing" namespace
 namespace gtest = ::testing;
 
@@ -54,9 +54,9 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         ThreeFlavourBarger bargerProp{};
         bargerProp.setParams(mass1, mass2, mass3, theta12, theta13, theta23, deltaCP, baseline, density, antiNu);
 
-        NT_INFO("alpha():  {}", bargerProp.alpha(energy));
-        NT_INFO("beta():   {}", bargerProp.beta(energy));
-        NT_INFO("gamma():  {}", bargerProp.gamma(energy));
+        NT_INFO("alpha():  {}", bargerProp.calculateAlpha(energy));
+        NT_INFO("beta():   {}", bargerProp.calculateBeta(energy));
+        NT_INFO("gamma():  {}", bargerProp.calculateGamma(energy));
         NT_INFO("");
 
         // construct the mixing matrix for current theta value
@@ -198,9 +198,9 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         ThreeFlavourBarger bargerProp{};
         bargerProp.setParams(mass1, mass2, mass3, theta12, theta13, theta23, deltaCP, baseline, density = -999.9, antiNu);
 
-        NT_INFO("alpha():  {}", bargerProp.alpha(energy));
-        NT_INFO("beta():   {}", bargerProp.beta(energy));
-        NT_INFO("gamma():  {}", bargerProp.gamma(energy));
+        NT_INFO("alpha():  {}", bargerProp.calculateAlpha(energy));
+        NT_INFO("beta():   {}", bargerProp.calculateBeta(energy));
+        NT_INFO("gamma():  {}", bargerProp.calculateGamma(energy));
         NT_INFO("");
 
         // construct the mixing matrix for current theta value

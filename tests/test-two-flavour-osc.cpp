@@ -1,4 +1,4 @@
-#include <gtest/gtest.h>
+#include <gtest/gtest.h> // NOLINT
 // alias the gtest "testing" namespace
 namespace gtest = ::testing;
 
