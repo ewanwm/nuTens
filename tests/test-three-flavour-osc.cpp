@@ -14,27 +14,31 @@ using namespace nuTens::testing;
 class ThreeFlavourOscillations : public gtest::TestWithParam<float>
 {
   protected:
-    float theta12;
+    // NOLINTBEGIN(cppcoreguidelines-non-private-member-variables-in-classes)
+    float theta12 = NAN;
 
     float theta23 = 0.23 * M_PI;
     float theta13 = 0.13 * M_PI;
     float deltaCP = 0.25 * M_PI;
 
-    float m1 = 0.0;
-    float m2 = 0.008 * units::eV * units::eV;
-    float m3 = 0.01 * units::eV * units::eV;
+    float mass1 = 0.0;
+    float mass2 = 0.008 * units::eV * units::eV;
+    float mass3 = 0.01 * units::eV * units::eV;
 
     float energy = 0.5 * units::GeV;
     float baseline = 295.0 * units::km;
     float density = 2.6;
+
+    float tolerance = 1e-5;
     Tensor masses;
     Tensor energies;
+    // NOLINTEND(cppcoreguidelines-non-private-member-variables-in-classes)
 
     // set up common values to use across tests
     void SetUp()
     {
 
-        masses = Tensor({m1, m2, m3}, dtypes::kComplexDouble).addBatchDim();
+        masses = Tensor({mass1, mass2, mass3}, dtypes::kComplexDouble).addBatchDim();
         energies = Tensor({energy}, dtypes::kComplexDouble).addBatchDim();
     }
 
@@ -42,13 +46,13 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
     {
 
         // get parameterised theta value
-        float theta12 = GetParam();
+        theta12 = GetParam();
 
         NT_INFO("\n#### const density test for theta12 = {} ####", theta12);
 
         // set up the barger propagator
         ThreeFlavourBarger bargerProp{};
-        bargerProp.setParams(m1, m2, m3, theta12, theta13, theta23, deltaCP, baseline, density, antiNu);
+        bargerProp.setParams(mass1, mass2, mass3, theta12, theta13, theta23, deltaCP, baseline, density, antiNu);
 
         NT_INFO("alpha():  {}", bargerProp.alpha(energy));
         NT_INFO("beta():   {}", bargerProp.beta(energy));
@@ -169,17 +173,17 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
                 bargerProp.calculateProb(energy, 2, 2));
         NT_INFO("#########################################################################");
 
-        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 0}), bargerProp.calculateProb(energy, 0, 0), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 1}), bargerProp.calculateProb(energy, 0, 1), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 2}), bargerProp.calculateProb(energy, 0, 2), 1e-5);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 0}), bargerProp.calculateProb(energy, 0, 0), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 1}), bargerProp.calculateProb(energy, 0, 1), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 2}), bargerProp.calculateProb(energy, 0, 2), tolerance);
 
-        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 0}), bargerProp.calculateProb(energy, 1, 0), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 1}), bargerProp.calculateProb(energy, 1, 1), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 2}), bargerProp.calculateProb(energy, 1, 2), 1e-5);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 0}), bargerProp.calculateProb(energy, 1, 0), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 1}), bargerProp.calculateProb(energy, 1, 1), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 2}), bargerProp.calculateProb(energy, 1, 2), tolerance);
 
-        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 0}), bargerProp.calculateProb(energy, 2, 0), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 1}), bargerProp.calculateProb(energy, 2, 1), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 2}), bargerProp.calculateProb(energy, 2, 2), 1e-5);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 0}), bargerProp.calculateProb(energy, 2, 0), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 1}), bargerProp.calculateProb(energy, 2, 1), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 2}), bargerProp.calculateProb(energy, 2, 2), tolerance);
     }
 
     void testVacuum(bool antiNu)
@@ -192,7 +196,7 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
 
         // set up the barger propagator
         ThreeFlavourBarger bargerProp{};
-        bargerProp.setParams(m1, m2, m3, theta12, theta13, theta23, deltaCP, baseline, density = -999.9, antiNu);
+        bargerProp.setParams(mass1, mass2, mass3, theta12, theta13, theta23, deltaCP, baseline, density = -999.9, antiNu);
 
         NT_INFO("alpha():  {}", bargerProp.alpha(energy));
         NT_INFO("beta():   {}", bargerProp.beta(energy));
@@ -242,43 +246,43 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
                 bargerProp.calculateProb(energy, 2, 2));
         NT_INFO("#########################################################################");
 
-        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 0}), bargerProp.calculateProb(energy, 0, 0), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 1}), bargerProp.calculateProb(energy, 0, 1), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 2}), bargerProp.calculateProb(energy, 0, 2), 1e-5);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 0}), bargerProp.calculateProb(energy, 0, 0), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 1}), bargerProp.calculateProb(energy, 0, 1), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 2}), bargerProp.calculateProb(energy, 0, 2), tolerance);
 
-        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 0}), bargerProp.calculateProb(energy, 1, 0), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 1}), bargerProp.calculateProb(energy, 1, 1), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 2}), bargerProp.calculateProb(energy, 1, 2), 1e-5);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 0}), bargerProp.calculateProb(energy, 1, 0), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 1}), bargerProp.calculateProb(energy, 1, 1), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 2}), bargerProp.calculateProb(energy, 1, 2), tolerance);
 
-        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 0}), bargerProp.calculateProb(energy, 2, 0), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 1}), bargerProp.calculateProb(energy, 2, 1), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 2}), bargerProp.calculateProb(energy, 2, 2), 1e-5);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 0}), bargerProp.calculateProb(energy, 2, 0), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 1}), bargerProp.calculateProb(energy, 2, 1), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 2}), bargerProp.calculateProb(energy, 2, 2), tolerance);
     }
 };
 
 // test const density matter oscillations
-TEST_P(ThreeFlavourOscillations, ConstDensityOscProbsNu)
+TEST_P(ThreeFlavourOscillations /*unused*/, ConstDensityOscProbsNu /*unused*/)
 {
 
     testConstDensity(/*antiNu=*/false);
 }
 
 // test const density matter oscillations for anti-neutrinos
-TEST_P(ThreeFlavourOscillations, ConstDensityOscProbsAntiNu)
+TEST_P(ThreeFlavourOscillations /*unused*/, ConstDensityOscProbsAntiNu /*unused*/)
 {
 
     testConstDensity(/*antiNu=*/true);
 }
 
 // test vacuum oscillations
-TEST_P(ThreeFlavourOscillations, VacuumOscProbsNu)
+TEST_P(ThreeFlavourOscillations /*unused*/, VacuumOscProbsNu /*unused*/)
 {
 
     testVacuum(/*antiNu=*/false);
 }
 
 // test const density matter oscillations for anti-neutrinos
-TEST_P(ThreeFlavourOscillations, VacuumOscProbsAntiNu)
+TEST_P(ThreeFlavourOscillations /*unused*/, VacuumOscProbsAntiNu /*unused*/)
 {
 
     testVacuum(/*antiNu=*/true);

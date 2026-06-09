@@ -9,7 +9,7 @@
 using namespace nuTens;
 using namespace nuTens::testing;
 
-TEST(TwoFlavourBargerPropTest, zeroThetaNoOscTest)
+TEST(TwoFlavourBargerPropTest /*unused*/, zeroThetaNoOscTest /*unused*/)
 {
 
     constexpr float baseline = 5.0e12;
@@ -35,7 +35,7 @@ TEST(TwoFlavourBargerPropTest, zeroThetaNoOscTest)
     }
 }
 
-TEST(TwoFlavourBargerPropTest, zeroDmsqNoOscTest)
+TEST(TwoFlavourBargerPropTest /*unused*/, zeroDmsqNoOscTest /*unused*/)
 {
 
     constexpr float baseline = 5.0e12;
@@ -61,7 +61,7 @@ TEST(TwoFlavourBargerPropTest, zeroDmsqNoOscTest)
     }
 }
 
-TEST(TwoFlavourBargerPropTest, fixedValuesTest)
+TEST(TwoFlavourBargerPropTest /*unused*/, fixedValuesTest /*unused*/)
 {
 
     TwoFlavourBarger bargerProp{};

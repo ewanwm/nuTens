@@ -13,7 +13,7 @@
 using namespace nuTens;
 
 // check creation of tensors
-TEST(Tensor, TensorCreationFloat)
+TEST(Tensor /*unused*/, TensorCreationFloat /*unused*/)
 {
 
     Tensor zero = Tensor::zeros({1}, dtypes::kFloat, dtypes::kCPU, false);
@@ -54,7 +54,7 @@ TEST(Tensor, TensorCreationFloat)
 }
 
 // check equality operators
-TEST(Tensor, EqualityOperators)
+TEST(Tensor /*unused*/, EqualityOperators /*unused*/)
 {
 
     Tensor one = Tensor({1.0}, dtypes::kFloat, dtypes::kCPU, false);
@@ -65,7 +65,7 @@ TEST(Tensor, EqualityOperators)
 }
 
 // test manipulation of elements of tensor
-TEST(Tensor, ElementMapipulation)
+TEST(Tensor /*unused*/, ElementMapipulation /*unused*/)
 {
 
     auto tensorFloat = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
@@ -89,7 +89,7 @@ TEST(Tensor, ElementMapipulation)
 }
 
 // check some basic arithmetic
-TEST(Tensor, simpleArithmeticFloat)
+TEST(Tensor /*unused*/, simpleArithmeticFloat /*unused*/)
 {
 
     // test simple addition
@@ -124,7 +124,7 @@ TEST(Tensor, simpleArithmeticFloat)
 }
 
 // check some basic arithmetic
-TEST(Tensor, simpleArithmeticComplexFloat)
+TEST(Tensor /*unused*/, simpleArithmeticComplexFloat /*unused*/)
 {
 
     // test addition for complex value with real component
@@ -152,7 +152,7 @@ TEST(Tensor, simpleArithmeticComplexFloat)
     ASSERT_EQ(Tensor::mul(imag, five).getValue<std::complex<float>>(), std::complex<float>(0.0, 5.0));
 
     // test scaling by real float
-    ASSERT_EQ(Tensor::scale(imag, 1.234f).getValue<std::complex<float>>(), std::complex<float>(0.0, 1.234));
+    ASSERT_EQ(Tensor::scale(imag, 1.234F).getValue<std::complex<float>>(), std::complex<float>(0.0, 1.234));
 
     // test scaling by complex float
     ASSERT_EQ(Tensor::scale(imag, std::complex<float>(1.0, 1.0)).getValue<std::complex<float>>(),
@@ -174,12 +174,12 @@ TEST(Tensor, simpleArithmeticComplexFloat)
     ASSERT_NEAR(imag.abs().getValue<float>(), 1.0, 1e-5);
 }
 
-TEST(Tensor, Summation)
+TEST(Tensor /*unused*/, Summation /*unused*/)
 {
 
     Tensor tensor = Tensor::ones({3, 3}, dtypes::kFloat, dtypes::kCPU, false);
 
-    ASSERT_EQ(tensor.sum(tensor).getValue<float>(), 9.0);
+    ASSERT_EQ(tensor.sum().getValue<float>(), 9.0);
 
     Tensor sum = tensor.sum({1});
 
@@ -194,7 +194,7 @@ TEST(Tensor, Summation)
     ASSERT_EQ(cumsum.getValue<float>({0, 2}), 3.0);
 }
 
-TEST(Tensor, GetVariantValue)
+TEST(Tensor /*unused*/, GetVariantValue /*unused*/)
 {
 
     Tensor floatTensor = Tensor::ones({1}, dtypes::kFloat, dtypes::kCPU);
@@ -215,7 +215,7 @@ TEST(Tensor, GetVariantValue)
 }
 
 // check standard functions of real tensors
-TEST(Tensor, StandardFunctionsFloat)
+TEST(Tensor /*unused*/, StandardFunctionsFloat /*unused*/)
 {
 
     float theta = 1.234;
@@ -227,7 +227,7 @@ TEST(Tensor, StandardFunctionsFloat)
 }
 
 // check inplace functions
-TEST(Tensor, InPlaceMatmul)
+TEST(Tensor /*unused*/, InPlaceMatmul /*unused*/)
 {
 
     // test matrix multiplication
@@ -254,7 +254,7 @@ TEST(Tensor, InPlaceMatmul)
     ASSERT_EQ(tensor.getValue<float>({1, 1}), 11.0);
 }
 
-TEST(Tensor, InPlaceMul)
+TEST(Tensor /*unused*/, InPlaceMul /*unused*/)
 {
 
     // test matrix multiplication
@@ -281,7 +281,7 @@ TEST(Tensor, InPlaceMul)
     ASSERT_EQ(tensor.getValue<float>({1, 1}), 9.0);
 }
 
-TEST(Tensor, InPlaceDiv)
+TEST(Tensor /*unused*/, InPlaceDiv /*unused*/)
 {
 
     // test matrix multiplication
@@ -308,7 +308,7 @@ TEST(Tensor, InPlaceDiv)
     ASSERT_EQ(tensor.getValue<float>({1, 1}), 1.0);
 }
 
-TEST(Tensor, InPlaceScale)
+TEST(Tensor /*unused*/, InPlaceScale /*unused*/)
 {
 
     // test matrix multiplication
@@ -328,7 +328,7 @@ TEST(Tensor, InPlaceScale)
     ASSERT_EQ(tensor.getValue<float>({1, 1}), 8.0);
 }
 
-TEST(Tensor, InPlaceScaleComplex)
+TEST(Tensor /*unused*/, InPlaceScaleComplex /*unused*/)
 {
 
     // test matrix multiplication
@@ -348,7 +348,7 @@ TEST(Tensor, InPlaceScaleComplex)
     ASSERT_EQ(tensor.getValue<std::complex<float>>({1, 1}), std::complex<float>(8.0, 8.0));
 }
 
-TEST(Tensor, InPlacePow)
+TEST(Tensor /*unused*/, InPlacePow /*unused*/)
 {
 
     // test matrix multiplication
@@ -400,7 +400,7 @@ TEST(Tensor /*unused*/, InPlaceExp /*unused*/)
     ASSERT_NEAR(tensor.getValue<float>({1, 1}), std::exp(4.0), 1e-4);
 }
 
-TEST(Tensor, InPlaceTranspose)
+TEST(Tensor /*unused*/, InPlaceTranspose /*unused*/)
 {
 
     // test matrix multiplication
@@ -421,7 +421,7 @@ TEST(Tensor, InPlaceTranspose)
 }
 
 // test matrix operations for real tensor
-TEST(Tensor, MatrixFloat)
+TEST(Tensor /*unused*/, MatrixFloat /*unused*/)
 {
 
     auto tensorFloat = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
@@ -559,7 +559,7 @@ TEST(Tensor /*unused*/, eigvalsh /*unused*/)
     ASSERT_EQ(evals.getValue<float>({1}), 3.0);
 }
 
-TEST(Tensor, AccessedTensor1D)
+TEST(Tensor /*unused*/, AccessedTensor1D /*unused*/)
 {
 
     auto tensor = AccessedTensor<float, 1, dtypes::kCPU>::zeros({3}, false);
@@ -569,7 +569,7 @@ TEST(Tensor, AccessedTensor1D)
     ASSERT_EQ(tensor.getValue(1), 1.0);
 }
 
-TEST(Tensor, AccessedTensor2D)
+TEST(Tensor /*unused*/, AccessedTensor2D /*unused*/)
 {
 
     auto tensor = AccessedTensor<float, 2, dtypes::kCPU>::zeros({3, 3}, false);
@@ -579,7 +579,7 @@ TEST(Tensor, AccessedTensor2D)
     ASSERT_EQ(tensor.getValue(1, 1), 2.0);
 }
 
-TEST(Tensor, AccessedTensor3D)
+TEST(Tensor /*unused*/, AccessedTensor3D /*unused*/)
 {
 
     auto tensor = AccessedTensor<float, 3, dtypes::kCPU>::zeros({3, 3, 3}, false);

@@ -20,16 +20,18 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
 {
 
   protected:
-    float m1 = 0.0 * units::eV;
-    float m2 = 0.008 * units::eV;
-    float m3 = 0.02 * units::eV;
+    // NOLINTBEGIN(cppcoreguidelines-non-private-member-variables-in-classes)
+    float mass1 = 0.0 * units::eV;
+    float mass2 = 0.008 * units::eV;
+    float mass3 = 0.02 * units::eV;
     float dcp = M_PI / 4.0;
     float energy = 0.5 * units::GeV;
     float baseline = 295.0 * units::km;
     float density = 2.6;
+    float tolerance = 1e-5;
 
     // set the tensors we will use to calculate matter eigenvalues
-    Tensor masses = Tensor({m1, m2, m3}, dtypes::kComplexFloat).addBatchDim().requiresGrad(true);
+    Tensor masses = Tensor({mass1, mass2, mass3}, dtypes::kComplexFloat).addBatchDim().requiresGrad(true);
 
     Tensor theta23 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
     Tensor theta13 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
@@ -49,6 +51,8 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
     PMNSmatrix pmns;
 
     ThreeFlavourBarger barger;
+    // NOLINTEND(cppcoreguidelines-non-private-member-variables-in-classes)
+
 
     void SetUp()
     {
@@ -75,7 +79,7 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
         // (allows correct comparison with nufast)
         if (forceLowerOctant)
         {
-            theta = asin(std::abs(sin(theta)));
+            theta = asin(std::abs(static_cast<float>(sin(theta))));
         }
 
         NT_INFO("########## theta = {} ##########", theta);
@@ -84,8 +88,8 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
         theta13.setValue({0}, 0.3 * M_PI);
         theta12.setValue({0}, 0.2 * M_PI);
 
-        dmsq21.setValue({0}, m2 * m2 - m1 * m1);
-        dmsq31.setValue({0}, m3 * m3 - m1 * m1);
+        dmsq21.setValue({0}, mass2 * mass2 - mass1 * mass1);
+        dmsq31.setValue({0}, mass3 * mass3 - mass1 * mass1);
 
         deltaCP.setValue({0}, dcp);
 
@@ -112,7 +116,7 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
         Probability_Matter_LBL(std::sin(theta12.getValue<float>({0})) * std::sin(theta12.getValue<float>({0})),
                                std::sin(theta13.getValue<float>({0})) * std::sin(theta13.getValue<float>({0})),
                                std::sin(theta23.getValue<float>({0})) * std::sin(theta23.getValue<float>({0})),
-                               deltaCP.getValue<float>({0}), m1 * m1 - m2 * m2, m1 * m1 - m3 * m3, baseline / units::km,
+                               deltaCP.getValue<float>({0}), mass1 * mass1 - mass2 * mass2, mass1 * mass1 - mass3 * mass3, baseline / units::km,
                                (0.5 - (float)antineutrino) * 2.0 * energies.getValue<float>() / units::GeV, 1.0,
                                density, 10, &probs_returned);
 
@@ -135,15 +139,15 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
         NT_INFO("[2, 2] :: DP propagator: {:.7f} :: nuFast: {:.7f}", dpProbabilities.getValue<float>({0, 2, 2}),
                 probs_returned[2][2]);
 
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 0}), probs_returned[0][0], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 1}), probs_returned[0][1], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 2}), probs_returned[0][2], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 0}), probs_returned[1][0], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 1}), probs_returned[1][1], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 2}), probs_returned[1][2], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 0}), probs_returned[2][0], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 1}), probs_returned[2][1], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 2}), probs_returned[2][2], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 0}), probs_returned[0][0], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 1}), probs_returned[0][1], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 2}), probs_returned[0][2], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 0}), probs_returned[1][0], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 1}), probs_returned[1][1], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 2}), probs_returned[1][2], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 0}), probs_returned[2][0], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 1}), probs_returned[2][1], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 2}), probs_returned[2][2], tolerance);
     }
 
     /// compare DP propagator oscillation probabilities to the "official" nufast code for vacuum oscillations
@@ -164,7 +168,7 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
         Probability_Vacuum_LBL(std::sin(theta12.getValue<float>({0})) * std::sin(theta12.getValue<float>({0})),
                                std::sin(theta13.getValue<float>({0})) * std::sin(theta13.getValue<float>({0})),
                                std::sin(theta23.getValue<float>({0})) * std::sin(theta23.getValue<float>({0})),
-                               deltaCP.getValue<float>({0}), m1 * m1 - m2 * m2, m1 * m1 - m3 * m3, baseline / units::km,
+                               deltaCP.getValue<float>({0}), mass1 * mass1 - mass2 * mass2, mass1 * mass1 - mass3 * mass3, baseline / units::km,
                                (0.5 - (float)antineutrino) * 2.0 * energies.getValue<float>() / units::GeV,
                                &probs_returned);
 
@@ -187,15 +191,15 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
         NT_INFO("[2, 2] :: DP propagator: {:.7f} :: nuFast: {:.7f}", dpProbabilities.getValue<float>({0, 2, 2}),
                 probs_returned[2][2]);
 
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 0}), probs_returned[0][0], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 1}), probs_returned[0][1], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 2}), probs_returned[0][2], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 0}), probs_returned[1][0], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 1}), probs_returned[1][1], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 2}), probs_returned[1][2], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 0}), probs_returned[2][0], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 1}), probs_returned[2][1], 1e-5);
-        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 2}), probs_returned[2][2], 1e-5);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 0}), probs_returned[0][0], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 1}), probs_returned[0][1], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 0, 2}), probs_returned[0][2], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 0}), probs_returned[1][0], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 1}), probs_returned[1][1], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 1, 2}), probs_returned[1][2], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 0}), probs_returned[2][0], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 1}), probs_returned[2][1], tolerance);
+        ASSERT_NEAR(dpProbabilities.getValue<float>({0, 2, 2}), probs_returned[2][2], tolerance);
     }
 
     /// compare DP propagator oscillation probabilities to the usual propagator
@@ -234,48 +238,48 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
         NT_INFO("[2, 2] :: propagator: {:.7f} :: DP propagator: {:.7f}", probabilities.getValue<float>({0, 2, 2}),
                 dpProbabilities.getValue<float>({0, 2, 2}));
 
-        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 0}), dpProbabilities.getValue<float>({0, 0, 0}), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 1}), dpProbabilities.getValue<float>({0, 0, 1}), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 2}), dpProbabilities.getValue<float>({0, 0, 2}), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 0}), dpProbabilities.getValue<float>({0, 1, 0}), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 1}), dpProbabilities.getValue<float>({0, 1, 1}), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 2}), dpProbabilities.getValue<float>({0, 1, 2}), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 0}), dpProbabilities.getValue<float>({0, 2, 0}), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 1}), dpProbabilities.getValue<float>({0, 2, 1}), 1e-5);
-        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 2}), dpProbabilities.getValue<float>({0, 2, 2}), 1e-5);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 0}), dpProbabilities.getValue<float>({0, 0, 0}), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 1}), dpProbabilities.getValue<float>({0, 0, 1}), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 0, 2}), dpProbabilities.getValue<float>({0, 0, 2}), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 0}), dpProbabilities.getValue<float>({0, 1, 0}), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 1}), dpProbabilities.getValue<float>({0, 1, 1}), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 1, 2}), dpProbabilities.getValue<float>({0, 1, 2}), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 0}), dpProbabilities.getValue<float>({0, 2, 0}), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 1}), dpProbabilities.getValue<float>({0, 2, 1}), tolerance);
+        ASSERT_NEAR(probabilities.getValue<float>({0, 2, 2}), dpProbabilities.getValue<float>({0, 2, 2}), tolerance);
     }
 };
 
 // compare dpPropagator osc probs with Propagator osc probs
-TEST_P(DPpropagatorTest, CompareToPropagator)
+TEST_P(DPpropagatorTest /*unused*/, CompareToPropagator /*unused*/)
 {
 
     comparePropagator(false);
 }
-TEST_P(DPpropagatorTest, CompareToPropagator_antinu)
+TEST_P(DPpropagatorTest /*unused*/, CompareToPropagator_antinu /*unused*/)
 {
 
     comparePropagator(true);
 }
 
 // compare dpPropagator osc probs with nuFast
-TEST_P(DPpropagatorTest, CompareToNuFast)
+TEST_P(DPpropagatorTest /*unused*/, CompareToNuFast /*unused*/)
 {
 
     compareNufast(false);
 }
-TEST_P(DPpropagatorTest, CompareToNuFast_antinu)
+TEST_P(DPpropagatorTest /*unused*/, CompareToNuFast_antinu /*unused*/)
 {
 
     compareNufast(true);
 }
 // compare dpPropagator osc probs with nuFast
-TEST_P(DPpropagatorTest, CompareToNuFastVacuum)
+TEST_P(DPpropagatorTest /*unused*/, CompareToNuFastVacuum /*unused*/)
 {
 
     compareNufastVacuum(false);
 }
-TEST_P(DPpropagatorTest, CompareToNuFastVacuum_antinu)
+TEST_P(DPpropagatorTest /*unused*/, CompareToNuFastVacuum_antinu /*unused*/)
 {
 
     compareNufastVacuum(true);
@@ -283,7 +287,7 @@ TEST_P(DPpropagatorTest, CompareToNuFastVacuum_antinu)
 
 // test that auto diff works and gives same value for both
 // Propagator and DPpropagator
-TEST_P(DPpropagatorTest, autogradTest)
+TEST_P(DPpropagatorTest /*unused*/, autogradTest /*unused*/)
 {
 
     _setParamValues();
@@ -310,7 +314,7 @@ TEST_P(DPpropagatorTest, autogradTest)
     NT_INFO("DPpropagator: d P_(mu->mu) / d theta_23 = {}", theta23.grad().getValue<float>());
 
     // check that the values are close to each other
-    ASSERT_NEAR(pmns.getTheta23Tensor().grad().getValue<float>(), theta23.grad().getValue<float>(), 1e-5);
+    ASSERT_NEAR(pmns.getTheta23Tensor().grad().getValue<float>(), theta23.grad().getValue<float>(), tolerance);
 }
 
 INSTANTIATE_TEST_CASE_P(OscProb, DPpropagatorTest,
