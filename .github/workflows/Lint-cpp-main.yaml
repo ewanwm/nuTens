@@ -44,7 +44,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: "Microsoft"
-          ignore: '.github|_deps|CMakeFiles|spdlog*'
+          ignore: '.github|_deps|CMakeFiles|spdlog*|tests/nuFast.hpp'
           step-summary: true
           files-changed-only: false
           
