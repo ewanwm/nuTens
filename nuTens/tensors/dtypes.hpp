@@ -9,10 +9,7 @@
  * @brief Defines various datatypes used in the project
  */
 
-namespace nuTens
-{
-
-namespace dtypes
+namespace nuTens::dtypes
 {
 
 /// Types of scalar values
@@ -101,5 +98,4 @@ static constexpr deviceType invDeviceTypeMap(c10::DeviceType value, int range = 
 static_assert(invDeviceTypeMap(deviceTypeMap(kCPU)) == kCPU, "should be inverse");
 
 #endif
-} // namespace dtypes
-} // namespace nuTens
+} // namespace nuTens::dtypes

@@ -481,7 +481,7 @@ class Tensor
 
         NT_PROFILE();
 
-        return Tensor(tensor);
+        return {tensor};
     }
 
   protected:
@@ -503,9 +503,9 @@ class Tensor
 
         std::vector<at::indexing::TensorIndex> indicesVec;
         indicesVec.reserve(indices.size());
-        for (const int &i : indices)
+        for (const int &index : indices)
         {
-            indicesVec.push_back(at::indexing::TensorIndex(i));
+            indicesVec.push_back(at::indexing::TensorIndex(index));
         }
 
         return indicesVec;
@@ -519,13 +519,13 @@ class Tensor
         NT_PROFILE();
 
         std::vector<at::indexing::TensorIndex> indicesVec;
-        for (const Tensor::indexType &i : indices)
+        for (const Tensor::indexType &rawIndex : indices)
         {
-            if (const int *index = std::get_if<int>(&i))
+            if (const int *index = std::get_if<int>(&rawIndex))
             {
                 indicesVec.push_back(at::indexing::TensorIndex(*index));
             }
-            else if (const std::string *index = std::get_if<std::string>(&i))
+            else if (const std::string *index = std::get_if<std::string>(&rawIndex))
             {
                 indicesVec.push_back(at::indexing::TensorIndex((*index).c_str()));
             }
@@ -708,7 +708,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
     /// @{
 
     /// @brief Set a value in a 1D tensor
-    void setValue(Tdtype value, int i)
+    void setValue(Tdtype value, int idx1)
     {
 
         NT_PROFILE();
@@ -717,17 +717,17 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         if (Tdevice == dtypes::kGPU)
         {
-            _packedAccessor[i] = value;
+            _packedAccessor[idx1] = value;
         }
 
         else if (Tdevice == dtypes::kCPU)
         {
-            _accessor[i] = value;
+            _accessor[idx1] = value;
         }
     }
 
     /// @brief Set a value in a 2D tensor
-    void setValue(Tdtype value, int i, int j)
+    void setValue(Tdtype value, int idx1, int idx2)
     {
 
         NT_PROFILE();
@@ -736,17 +736,17 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         if (Tdevice == dtypes::kGPU)
         {
-            _packedAccessor[i][j] = value;
+            _packedAccessor[idx1][idx2] = value;
         }
 
         else if (Tdevice == dtypes::kCPU)
         {
-            _accessor[i][j] = value;
+            _accessor[idx1][idx2] = value;
         }
     }
 
     /// @brief Set a value in a 3D tensor
-    void setValue(Tdtype value, int i, int j, int k)
+    void setValue(Tdtype value, int idx1, int idx2, int idx3)
     {
 
         NT_PROFILE();
@@ -755,12 +755,12 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         if (Tdevice == dtypes::kGPU)
         {
-            _packedAccessor[i][j][k] = value;
+            _packedAccessor[idx1][idx2][idx3] = value;
         }
 
         else if (Tdevice == dtypes::kCPU)
         {
-            _accessor[i][j][k] = value;
+            _accessor[idx1][idx2][idx3] = value;
         }
     }
 
@@ -770,7 +770,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
     /// @{
 
     /// @brief Get a value in a 1D tensor
-    Tdtype getValue(int i) const
+    Tdtype getValue(int idx1) const
     {
 
         NT_PROFILE();
@@ -779,17 +779,17 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         if (Tdevice == dtypes::kGPU)
         {
-            return _packedAccessor[i];
+            return _packedAccessor[idx1];
         }
 
         if (Tdevice == dtypes::kCPU)
         {
-            return _accessor[i];
+            return _accessor[idx1];
         }
     }
 
     /// @brief Get a value in a 2D tensor
-    Tdtype getValue(int i, int j) const
+    Tdtype getValue(int idx1, int idx2) const
     {
 
         NT_PROFILE();
@@ -798,17 +798,17 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         if (Tdevice == dtypes::kGPU)
         {
-            return _packedAccessor[i][j];
+            return _packedAccessor[idx1][idx2];
         }
 
         if (Tdevice == dtypes::kCPU)
         {
-            return _accessor[i][j];
+            return _accessor[idx1][idx2];
         }
     }
 
     /// @brief Get a value in a 3D tensor
-    Tdtype getValue(int i, int j, int k) const
+    Tdtype getValue(int idx1, int idx2, int idx3) const
     {
 
         NT_PROFILE();
@@ -817,12 +817,12 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         if (Tdevice == dtypes::kGPU)
         {
-            return _packedAccessor[i][j][k];
+            return _packedAccessor[idx1][idx2][idx3];
         }
 
         if (Tdevice == dtypes::kCPU)
         {
-            return _accessor[i][j][k];
+            return _accessor[idx1][idx2][idx3];
         }
     }
 
