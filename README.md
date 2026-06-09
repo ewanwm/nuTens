@@ -3,7 +3,7 @@
 
 <div align="center">
 
-  <a href="">[![DOI](https://zenodo.org/badge/824239795.svg)](https://doi.org/10.5281/zenodo.15873397)</a>
+  <a href="">[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16989924.svg)](https://doi.org/10.5281/zenodo.16989924)</a>
   <a href="">[![GitHub Release](https://img.shields.io/github/v/release/ewanwm/nuTens?color=blue)](https://github.com/ewanwm/nuTens/releases)</a>
   <a href="">[![PyPI - Version](https://img.shields.io/pypi/v/nuTens?color=blue)](https://pypi.org/project/nuTens/)</a>
   <a href="">[![GitHub License](https://img.shields.io/github/license/ewanwm/nuTens?color=green)](https://github.com/ewanwm/nuTens/blob/main/LICENSE)</a>
