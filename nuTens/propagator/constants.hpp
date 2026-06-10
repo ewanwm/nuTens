@@ -4,7 +4,7 @@
 /// @brief Defines constants to be used across the project
 
 #include <nuTens/propagator/units.hpp>
-#include <math.h>
+#include <cmath>
 
 namespace nuTens::constants
 {
