@@ -2,10 +2,10 @@
 #include <benchmark/benchmark.h> // NOLINT
 #include <nuTens/propagator/DP-propagator.hpp>
 #include <nuTens/propagator/const-density-solver.hpp>
+#include <nuTens/propagator/constants.hpp>
 #include <nuTens/propagator/pmns-matrix.hpp>
 #include <nuTens/propagator/propagator.hpp>
 #include <nuTens/propagator/units.hpp>
-#include <nuTens/propagator/constants.hpp>
 #include <nuTens/tensors/tensor.hpp>
 
 using namespace nuTens;
@@ -158,7 +158,8 @@ static void BM_DPpropOscillations(benchmark::State &state)
     auto deltaCP = Tensor::zeros({1}).dType(dtypes::kComplexFloat).requiresGrad(false);
 
     // set up the propagator
-    DPpropagator dpProp(/*baseline=*/baseline, /*antiNeutrino=*/false, /*density=*/density, /*NRiterations=*/DPpropNRiterations);
+    DPpropagator dpProp(/*baseline=*/baseline, /*antiNeutrino=*/false, /*density=*/density,
+                        /*NRiterations=*/DPpropNRiterations);
 
     dpProp.setEnergies(energies);
 

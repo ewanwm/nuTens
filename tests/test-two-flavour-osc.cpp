@@ -51,7 +51,12 @@ class TwoFlavourOscillations : public gtest::TestWithParam<float>
 
         TwoFlavourBarger<> bargerProp{};
 
-        bargerProp.setMass1(mass1).setMass2(mass2).setTheta(theta).setBaseline(baseline).setDensity(density).setAntiNeutrino(antiNu);
+        bargerProp.setMass1(mass1)
+            .setMass2(mass2)
+            .setTheta(theta)
+            .setBaseline(baseline)
+            .setDensity(density)
+            .setAntiNeutrino(antiNu);
 
         std::cout << "lMatter():   " << bargerProp.lMatter() << std::endl;
         std::cout << "ang:         " << bargerProp.calculateEffectiveAngle(energy) << std::endl;

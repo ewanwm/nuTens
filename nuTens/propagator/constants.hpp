@@ -3,8 +3,8 @@
 /// @file constants.hpp
 /// @brief Defines constants to be used across the project
 
-#include <nuTens/propagator/units.hpp>
 #include <cmath>
+#include <nuTens/propagator/units.hpp>
 
 namespace nuTens::constants
 {

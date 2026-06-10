@@ -198,7 +198,8 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
 
         // set up the barger propagator
         ThreeFlavourBarger<> bargerProp{};
-        bargerProp.setParams(mass1, mass2, mass3, theta12, theta13, theta23, deltaCP, baseline, density = -999.9, antiNu);
+        bargerProp.setParams(mass1, mass2, mass3, theta12, theta13, theta23, deltaCP, baseline, density = -999.9,
+                             antiNu);
 
         NT_INFO("alpha():  {}", bargerProp.calculateAlpha(energy));
         NT_INFO("beta():   {}", bargerProp.calculateBeta(energy));

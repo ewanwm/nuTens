@@ -55,7 +55,6 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
     ThreeFlavourBarger<> barger();
     // NOLINTEND(cppcoreguidelines-non-private-member-variables-in-classes)
 
-
     void SetUp()
     {
 
@@ -118,7 +117,8 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
         Probability_Matter_LBL(std::sin(theta12.getValue<float>({0})) * std::sin(theta12.getValue<float>({0})),
                                std::sin(theta13.getValue<float>({0})) * std::sin(theta13.getValue<float>({0})),
                                std::sin(theta23.getValue<float>({0})) * std::sin(theta23.getValue<float>({0})),
-                               deltaCP.getValue<float>({0}), mass1 * mass1 - mass2 * mass2, mass1 * mass1 - mass3 * mass3, baseline / units::km,
+                               deltaCP.getValue<float>({0}), mass1 * mass1 - mass2 * mass2,
+                               mass1 * mass1 - mass3 * mass3, baseline / units::km,
                                (0.5 - (float)antineutrino) * 2.0 * energies.getValue<float>() / units::GeV, 1.0,
                                density, 10, &probs_returned);
 
@@ -170,7 +170,8 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
         Probability_Vacuum_LBL(std::sin(theta12.getValue<float>({0})) * std::sin(theta12.getValue<float>({0})),
                                std::sin(theta13.getValue<float>({0})) * std::sin(theta13.getValue<float>({0})),
                                std::sin(theta23.getValue<float>({0})) * std::sin(theta23.getValue<float>({0})),
-                               deltaCP.getValue<float>({0}), mass1 * mass1 - mass2 * mass2, mass1 * mass1 - mass3 * mass3, baseline / units::km,
+                               deltaCP.getValue<float>({0}), mass1 * mass1 - mass2 * mass2,
+                               mass1 * mass1 - mass3 * mass3, baseline / units::km,
                                (0.5 - (float)antineutrino) * 2.0 * energies.getValue<float>() / units::GeV,
                                &probs_returned);
 
