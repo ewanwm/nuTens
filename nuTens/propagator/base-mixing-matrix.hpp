@@ -8,11 +8,31 @@ namespace nuTens
 class BaseMixingMatrix
 {
   public:
-    /// @brief Should construct and return the mixing matrix
-    virtual Tensor &build() = 0;
+    /// @brief Get the mixing matrix
+    virtual Tensor &build() 
+    {
+        if (needsRecalculating)
+        {
+            _matrix = _build();
+        }
+
+        return _matrix;
+    };
 
     /// destructor
     virtual ~BaseMixingMatrix() = default;
+
+  protected:
+
+    /// @brief Should construct and return the mixing matrix
+    virtual Tensor _build() = 0;
+    
+    /// flag to set if the matrix needs to be recalculated or if it's fine to 
+    /// just return the cached one
+    bool needsRecalculating = true;
+
+    /// Cached mixing matrix
+    Tensor _matrix;
 };
 
 }; // namespace nuTens
