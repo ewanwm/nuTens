@@ -16,7 +16,7 @@ constexpr float baseline = 295 * units::km;
 constexpr float density = 2.6;
 // uded for setting the scale and position of the energy distribution
 constexpr float energyScale = 1 * units::GeV;
-constexpr float energyOffset = 100 * units.eV;
+constexpr float energyOffset = 100 * units::eV;
 // number of NR iterations to use for the DP propagator
 constexpr int DPpropagatorNRiterations = 5;
 
