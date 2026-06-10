@@ -37,6 +37,14 @@ class Propagator
 
     /// @brief Destructor
     virtual ~Propagator() = default;
+    /// @brief copy constructor
+    Propagator(Propagator const&) = default;
+    /// @brief copy assignment operator
+    Propagator& operator =(Propagator const&) = default;
+    /// @brief move constructor
+    Propagator(Propagator&&) = default;
+    /// @brief move assignment operator
+    Propagator& operator=(Propagator&&) = default;
     
     /// @brief Calculate the oscillation probabilities
     /// @param energies The energies of the neutrinos

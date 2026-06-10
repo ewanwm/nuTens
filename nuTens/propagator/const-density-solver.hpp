@@ -45,7 +45,15 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     };
 
     /// @brief destructor
-    ~ConstDensityMatterSolver() = default;
+    virtual ~ConstDensityMatterSolver() = default;
+    /// @brief copy constructor
+    ConstDensityMatterSolver(ConstDensityMatterSolver const&) = default;
+    /// @brief copy assignment operator
+    ConstDensityMatterSolver& operator =(ConstDensityMatterSolver const&) = default;
+    /// @brief move constructor
+    ConstDensityMatterSolver(ConstDensityMatterSolver&&) = default;
+    /// @brief move assignment operator
+    ConstDensityMatterSolver& operator=(ConstDensityMatterSolver&&) = default;
 
     /// @name Setters
     /// @{
