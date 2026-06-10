@@ -6,7 +6,7 @@
 namespace nuTens
 {
 
-const std::complex<float> imagUnit(0.0, 1.0);
+constexpr std::complex<float> imagUnit(0.0, 1.0);
 
 /// @brief PMNS matrix in the standard parameterisation
 /// Convenient way to construct the matrix

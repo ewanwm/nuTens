@@ -35,6 +35,17 @@ class Propagator
     Propagator(int nGenerations, float baseline, bool antiNeutrino = false)
         : _baseline(baseline), _nGenerations(nGenerations), _antiNeutrino(antiNeutrino) {};
 
+    /// @brief Destructor
+    virtual ~Propagator() = default;
+    /// @brief copy constructor
+    Propagator(Propagator const &) = default;
+    /// @brief copy assignment operator
+    Propagator &operator=(Propagator const &) = default;
+    /// @brief move constructor
+    Propagator(Propagator &&) = default;
+    /// @brief move assignment operator
+    Propagator &operator=(Propagator &&) = default;
+
     /// @brief Calculate the oscillation probabilities
     /// @param energies The energies of the neutrinos
     [[nodiscard]] virtual Tensor calculateProbs();
@@ -79,7 +90,7 @@ class Propagator
                             .requiresGrad(false);
         _weightArgDenom =
             Tensor::scale(Tensor::scale(_energies, 2.0),
-                          std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline * 2.0f * (float)M_PI));
+                          std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline * 2.0F * (float)M_PI));
 
         if (_matterSolver)
         {

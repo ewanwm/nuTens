@@ -39,7 +39,7 @@ class TestTwoFlavourConstMatter:
 
         # set up barger
         barger = TwoFlavourBarger()
-        barger.set_params(m1=0.0, m2=mass_diff, theta=theta, baseline=self.baseline, density=self.density)
+        barger.set_m1(m1=0.0).set_m2(m2=mass_diff).set_theta(theta=theta).set_baseline(baseline=self.baseline).set_density(density=self.density)
         
         pmns, masses = self.setup_tensor_inputs(mass_diff, theta)
 
@@ -87,7 +87,7 @@ class TestTwoFlavourConstMatter:
 
         # set up barger
         barger = TwoFlavourBarger()
-        barger.set_params(m1=0.0, m2=mass_diff, theta=theta, baseline=self.baseline, density=self.density)
+        barger.set_m1(m1=0.0).set_m2(m2=mass_diff).set_theta(theta=theta).set_baseline(baseline=self.baseline).set_density(density=self.density)
         
         pmns, masses = self.setup_tensor_inputs(mass_diff, theta)
 

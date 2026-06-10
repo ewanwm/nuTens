@@ -44,6 +44,17 @@ class ConstDensityMatterSolver : public BaseMatterSolver
         diagMassMatrix = Tensor::zeros({1, nGenerations, nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
     };
 
+    /// @brief destructor
+    virtual ~ConstDensityMatterSolver() = default;
+    /// @brief copy constructor
+    ConstDensityMatterSolver(ConstDensityMatterSolver const &) = default;
+    /// @brief copy assignment operator
+    ConstDensityMatterSolver &operator=(ConstDensityMatterSolver const &) = default;
+    /// @brief move constructor
+    ConstDensityMatterSolver(ConstDensityMatterSolver &&) = default;
+    /// @brief move assignment operator
+    ConstDensityMatterSolver &operator=(ConstDensityMatterSolver &&) = default;
+
     /// @name Setters
     /// @{
 
@@ -78,8 +89,8 @@ class ConstDensityMatterSolver : public BaseMatterSolver
 
         masses = newMasses;
 
-        Tensor m = masses.getValues({0, "..."});
-        Tensor diag = Tensor::scale(Tensor::mul(m, m), 0.5);
+        Tensor massValues = masses.getValues({0, "..."});
+        Tensor diag = Tensor::scale(Tensor::mul(massValues, massValues), 0.5);
 
         // construct the diagonal mass^2 matrix used in the hamiltonian
         diagMassMatrix = Tensor::diag(diag).requiresGrad(false).unsqueeze(0);

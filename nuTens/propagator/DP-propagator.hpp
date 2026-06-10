@@ -146,7 +146,7 @@ class DPpropagator : public Propagator
 
     /// @brief Calculate the oscilaltion probabilities for the current set of parameters
     ///        and energies
-    [[nodiscard]] Tensor calculateProbs();
+    [[nodiscard]] Tensor calculateProbs() override;
 
     // shouldn't try to use a matter solver with this class since it internally
     // handles all matter effects

@@ -26,9 +26,9 @@ Tensor Tensor::eye(int n, dtypes::scalarType type, dtypes::deviceType device, bo
     NT_PROFILE();
 
     return {torch::eye(n, torch::TensorOptions()
-                                    .dtype(dtypes::scalarTypeMap(type))
-                                    .device(dtypes::deviceTypeMap(device))
-                                    .requires_grad(requiresGrad))};
+                              .dtype(dtypes::scalarTypeMap(type))
+                              .device(dtypes::deviceTypeMap(device))
+                              .requires_grad(requiresGrad))};
 }
 
 Tensor Tensor::rand(const std::vector<long int> &shape, dtypes::scalarType type, dtypes::deviceType device,
@@ -37,9 +37,9 @@ Tensor Tensor::rand(const std::vector<long int> &shape, dtypes::scalarType type,
     NT_PROFILE();
 
     return {torch::rand(c10::IntArrayRef(shape), torch::TensorOptions()
-                                                           .dtype(dtypes::scalarTypeMap(type))
-                                                           .device(dtypes::deviceTypeMap(device))
-                                                           .requires_grad(requiresGrad))};
+                                                     .dtype(dtypes::scalarTypeMap(type))
+                                                     .device(dtypes::deviceTypeMap(device))
+                                                     .requires_grad(requiresGrad))};
 }
 
 Tensor Tensor::diag(const Tensor &diag)
@@ -56,9 +56,9 @@ Tensor Tensor::ones(const std::vector<long int> &shape, dtypes::scalarType type,
     NT_PROFILE();
 
     return {torch::ones(c10::IntArrayRef(shape), torch::TensorOptions()
-                                                           .dtype(dtypes::scalarTypeMap(type))
-                                                           .device(dtypes::deviceTypeMap(device))
-                                                           .requires_grad(requiresGrad))};
+                                                     .dtype(dtypes::scalarTypeMap(type))
+                                                     .device(dtypes::deviceTypeMap(device))
+                                                     .requires_grad(requiresGrad))};
 }
 
 Tensor Tensor::zeros(const std::vector<long int> &shape, dtypes::scalarType type, dtypes::deviceType device,
@@ -67,9 +67,9 @@ Tensor Tensor::zeros(const std::vector<long int> &shape, dtypes::scalarType type
     NT_PROFILE();
 
     return {torch::zeros(c10::IntArrayRef(shape), torch::TensorOptions()
-                                                            .dtype(dtypes::scalarTypeMap(type))
-                                                            .device(dtypes::deviceTypeMap(device))
-                                                            .requires_grad(requiresGrad))};
+                                                      .dtype(dtypes::scalarTypeMap(type))
+                                                      .device(dtypes::deviceTypeMap(device))
+                                                      .requires_grad(requiresGrad))};
 }
 
 Tensor &Tensor::dType(dtypes::scalarType type)
@@ -220,148 +220,148 @@ std::vector<int> Tensor::getShape() const
     return ret;
 }
 
-Tensor Tensor::matmul(const Tensor &t1, const Tensor &t2)
+Tensor Tensor::matmul(const Tensor &tensor1, const Tensor &tensor2)
 {
     NT_PROFILE();
 
-    return {torch::matmul(t1._tensor, t2._tensor)};
+    return {torch::matmul(tensor1._tensor, tensor2._tensor)};
 }
 
-Tensor Tensor::outer(const Tensor &t1, const Tensor &t2)
+Tensor Tensor::outer(const Tensor &tensor1, const Tensor &tensor2)
 {
     NT_PROFILE();
 
-    return {torch::outer(t1._tensor, t2._tensor)};
+    return {torch::outer(tensor1._tensor, tensor2._tensor)};
 }
 
-Tensor Tensor::mul(const Tensor &t1, const Tensor &t2)
+Tensor Tensor::mul(const Tensor &tensor1, const Tensor &tensor2)
 {
     NT_PROFILE();
 
-    return {torch::mul(t1._tensor, t2._tensor)};
+    return {torch::mul(tensor1._tensor, tensor2._tensor)};
 }
 
-Tensor Tensor::add(const Tensor &t1, const Tensor &t2)
+Tensor Tensor::add(const Tensor &tensor1, const Tensor &tensor2)
 {
     NT_PROFILE();
 
-    return {torch::add(t1._tensor, t2._tensor)};
+    return {torch::add(tensor1._tensor, tensor2._tensor)};
 }
 
-Tensor Tensor::div(const Tensor &t1, const Tensor &t2)
+Tensor Tensor::div(const Tensor &tensor1, const Tensor &tensor2)
 {
     NT_PROFILE();
 
-    return {torch::div(t1._tensor, t2._tensor)};
+    return {torch::div(tensor1._tensor, tensor2._tensor)};
 }
 
-Tensor Tensor::pow(const Tensor &t, float s)
+Tensor Tensor::pow(const Tensor &tensor, float scalar)
 {
     NT_PROFILE();
 
-    return {torch::pow(t._tensor, s)};
+    return {torch::pow(tensor._tensor, scalar)};
 }
 
-Tensor Tensor::pow(const Tensor &t, std::complex<float> s)
+Tensor Tensor::pow(const Tensor &tensor, std::complex<float> scalar)
 {
     NT_PROFILE();
 
-    return {torch::pow(t._tensor, c10::complex<float>(s.real(), s.imag()))};
+    return {torch::pow(tensor._tensor, c10::complex<float>(scalar.real(), scalar.imag()))};
 }
 
-Tensor Tensor::exp(const Tensor &t)
+Tensor Tensor::exp(const Tensor &tensor)
 {
     NT_PROFILE();
 
-    return {torch::exp(t._tensor)};
+    return {torch::exp(tensor._tensor)};
 }
 
-Tensor Tensor::transpose(const Tensor &t, int dim1, int dim2)
+Tensor Tensor::transpose(const Tensor &tensor, int dim0, int dim1)
 {
     NT_PROFILE();
 
-    return {torch::transpose(t._tensor, dim1, dim2)};
+    return {torch::transpose(tensor._tensor, dim0, dim1)};
 }
 
-Tensor Tensor::scale(const Tensor &t, float s)
+Tensor Tensor::scale(const Tensor &tensor, float scalar)
 {
     NT_PROFILE();
 
-    return {torch::multiply(t._tensor, s)};
+    return {torch::multiply(tensor._tensor, scalar)};
 }
 
-Tensor Tensor::scale(const Tensor &t, double s)
+Tensor Tensor::scale(const Tensor &tensor, double scalar)
 {
     NT_PROFILE();
 
-    return {torch::multiply(t._tensor, s)};
+    return {torch::multiply(tensor._tensor, scalar)};
 }
 
-Tensor Tensor::scale(const Tensor &t, std::complex<float> s)
+Tensor Tensor::scale(const Tensor &tensor, std::complex<float> scalar)
 {
     NT_PROFILE();
 
-    assert(t._dType == dtypes::kComplexFloat | t._dType == dtypes::kComplexDouble);
+    assert(tensor._dType == dtypes::kComplexFloat | tensor._dType == dtypes::kComplexDouble);
 
-    return {torch::multiply(t._tensor, c10::complex<float>(s.real(), s.imag()))};
+    return {torch::multiply(tensor._tensor, c10::complex<float>(scalar.real(), scalar.imag()))};
 }
 
-Tensor Tensor::scale(const Tensor &t, std::complex<double> s)
+Tensor Tensor::scale(const Tensor &tensor, std::complex<double> scalar)
 {
     NT_PROFILE();
 
-    assert(t._dType == dtypes::kComplexFloat | t._dType == dtypes::kComplexDouble);
+    assert(tensor._dType == dtypes::kComplexFloat | tensor._dType == dtypes::kComplexDouble);
 
-    return {torch::multiply(t._tensor, c10::complex<double>(s.real(), s.imag()))};
+    return {torch::multiply(tensor._tensor, c10::complex<double>(scalar.real(), scalar.imag()))};
 }
 
-void Tensor::matmul_(const Tensor &t2)
+void Tensor::matmul_(const Tensor &tensor2)
 {
     NT_PROFILE();
 
-    _tensor = torch::matmul(_tensor, t2._tensor);
+    _tensor = torch::matmul(_tensor, tensor2._tensor);
 }
 
-void Tensor::mul_(const Tensor &t2)
+void Tensor::mul_(const Tensor &tensor2)
 {
     NT_PROFILE();
 
-    _tensor = torch::mul(_tensor, t2._tensor);
+    _tensor = torch::mul(_tensor, tensor2._tensor);
 }
 
-void Tensor::div_(const Tensor &t2)
+void Tensor::div_(const Tensor &tensor2)
 {
     NT_PROFILE();
 
-    _tensor = torch::div(_tensor, t2._tensor);
+    _tensor = torch::div(_tensor, tensor2._tensor);
 }
 
-void Tensor::scale_(float s)
+void Tensor::scale_(float scalar)
 {
     NT_PROFILE();
 
-    _tensor = torch::multiply(_tensor, s);
+    _tensor = torch::multiply(_tensor, scalar);
 }
 
-void Tensor::scale_(std::complex<float> s)
+void Tensor::scale_(std::complex<float> scalar)
 {
     NT_PROFILE();
 
-    _tensor = torch::multiply(_tensor, c10::complex<float>(s.real(), s.imag()));
+    _tensor = torch::multiply(_tensor, c10::complex<float>(scalar.real(), scalar.imag()));
 }
 
-void Tensor::pow_(float s)
+void Tensor::pow_(float scalar)
 {
     NT_PROFILE();
 
-    _tensor = torch::pow(_tensor, s);
+    _tensor = torch::pow(_tensor, scalar);
 }
 
-void Tensor::pow_(std::complex<float> s)
+void Tensor::pow_(std::complex<float> scalar)
 {
     NT_PROFILE();
 
-    _tensor = torch::pow(_tensor, c10::complex<float>(s.real(), s.imag()));
+    _tensor = torch::pow(_tensor, c10::complex<float>(scalar.real(), scalar.imag()));
 }
 
 void Tensor::exp_()
@@ -371,43 +371,43 @@ void Tensor::exp_()
     _tensor = torch::exp(_tensor);
 }
 
-void Tensor::transpose_(int dim1, int dim2)
+void Tensor::transpose_(int dim0, int dim1)
 {
     NT_PROFILE();
 
-    _tensor = torch::transpose(_tensor, dim1, dim2);
+    _tensor = torch::transpose(_tensor, dim0, dim1);
 }
 
-void Tensor::eig(const Tensor &t, Tensor &eVals, Tensor &eVecs)
+void Tensor::eig(const Tensor &tensor, Tensor &eVals, Tensor &eVecs)
 {
     NT_PROFILE();
 
-    auto ret = torch::linalg_eig(t._tensor);
+    auto ret = torch::linalg_eig(tensor._tensor);
     eVals.setTensor(std::get<0>(ret));
     eVecs.setTensor(std::get<1>(ret));
 }
 
-void Tensor::eigh(const Tensor &t, Tensor &eVals, Tensor &eVecs)
+void Tensor::eigh(const Tensor &tensor, Tensor &eVals, Tensor &eVecs)
 {
     NT_PROFILE();
 
-    auto ret = torch::linalg_eigh(t._tensor);
+    auto ret = torch::linalg_eigh(tensor._tensor);
     eVals.setTensor(std::get<0>(ret));
     eVecs.setTensor(std::get<1>(ret));
 }
 
-void Tensor::eigvals(const Tensor &t, Tensor &eVals)
+void Tensor::eigvals(const Tensor &tensor, Tensor &eVals)
 {
     NT_PROFILE();
 
-    eVals.setTensor(torch::linalg_eigvals(t._tensor));
+    eVals.setTensor(torch::linalg_eigvals(tensor._tensor));
 }
 
-void Tensor::eigvalsh(const Tensor &t, Tensor &eVals)
+void Tensor::eigvalsh(const Tensor &tensor, Tensor &eVals)
 {
     NT_PROFILE();
 
-    eVals.setTensor(torch::linalg_eigvalsh(t._tensor));
+    eVals.setTensor(torch::linalg_eigvalsh(tensor._tensor));
 }
 
 Tensor Tensor::real() const
@@ -562,18 +562,18 @@ Tensor Tensor::grad() const
     return {_tensor.grad()};
 }
 
-Tensor Tensor::sin(const Tensor &t)
+Tensor Tensor::sin(const Tensor &tensor)
 {
     NT_PROFILE();
 
-    return {torch::sin(t._tensor)};
+    return {torch::sin(tensor._tensor)};
 }
 
-Tensor Tensor::cos(const Tensor &t)
+Tensor Tensor::cos(const Tensor &tensor)
 {
     NT_PROFILE();
 
-    return {torch::cos(t._tensor)};
+    return {torch::cos(tensor._tensor)};
 }
 
 std::string Tensor::toString() const

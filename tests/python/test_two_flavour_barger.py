@@ -13,7 +13,7 @@ class TestTwoFlavourConstMatter(unittest.TestCase):
         baseline = 500.0 * nt.units.km
         barger = TwoFlavourBarger()
 
-        barger.set_params(m1=0.0, m2=0.005, theta=0.0, baseline=baseline)
+        barger.set_m1(m1=0.0).set_m2(m2=0.005).set_theta(theta=0.0).set_baseline(baseline=baseline)
         energies = np.logspace(0.0, 2.0, 100 ) * nt.units.GeV
 
         for energy in energies:
@@ -36,7 +36,7 @@ class TestTwoFlavourConstMatter(unittest.TestCase):
 
         # check that we get no vacuum oscillations when theta == 0 for a range of
         # energies
-        barger.set_params(m1=0.01, m2=0.01, theta=m.pi/2.0, baseline=baseline)
+        barger.set_m1(m1=0.01).set_m2(m2=0.01).set_theta(theta=m.pi/2.0).set_baseline(baseline=baseline)
         energies = np.logspace(0.0, 2.0, 100 ) * nt.units.GeV
 
         for energy in energies:
@@ -61,7 +61,7 @@ class TestVacuumOscProbs(unittest.TestCase):
     barger = TwoFlavourBarger()
     energy = 3.0
 
-    barger.set_params(m1=1.0, m2=2.0, theta=m.pi / 8.0, baseline=4.0)
+    barger.set_m1(m1=1.0).set_m2(m2=2.0).set_theta(theta=m.pi / 8.0).set_baseline(baseline=4.0)
 
     def test_survuval(self):
         self.assertAlmostEqual(self.barger.calculate_prob(self.energy, 0, 0), 0.64596329086, 6,
@@ -96,15 +96,14 @@ class TestVacuumOscProbs(unittest.TestCase):
 
     energy = 1.0 * nt.units.GeV
     barger = TwoFlavourBarger()
-    barger.set_params(m1=0.04 * nt.units.eV, m2=0.001 * nt.units.eV, theta=0.24,
-                        baseline=250.0 * nt.units.km, density=2.0)
+    barger.set_m1(m1=0.04 * nt.units.eV).set_m2(m2=0.001 * nt.units.eV).set_theta(theta=0.24).set_baseline(baseline=250.0 * nt.units.km).set_density(density=2.0)
     
     def test_vacuum_osc_length(self):
-        self.assertAlmostEqual(self.barger.lv(self.energy), 7.8588934e+12, -6,
+        self.assertAlmostEqual(self.barger.l_vac(self.energy), 7.8588934e+12, -6,
                                f"bad vacuum osc length")
     
     def test_matter_osc_length(self):
-        self.assertAlmostEqual(self.barger.lm(), 4.1177454e+13, -6,
+        self.assertAlmostEqual(self.barger.l_matter(), 4.1177454e+13, -6,
                                f"bad matter osc length")
     
     def test_effective_mixing_angle(self):

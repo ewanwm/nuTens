@@ -56,15 +56,25 @@ class TwoFlavourBarger:
         """
         Calculates the effective i,j-th element of the mizing matrix for a given energy
         """
-    def lm(self) -> float:
+    def l_matter(self) -> float:
         """
         Calculates the matter oscillation length
         """
-    def lv(self, energy: typing.SupportsFloat | typing.SupportsIndex) -> float:
+    def l_vac(self, energy: typing.SupportsFloat | typing.SupportsIndex) -> float:
         """
         Calculates the vacuum oscillation length
         """
-    def set_params(self, m1: typing.SupportsFloat | typing.SupportsIndex, m2: typing.SupportsFloat | typing.SupportsIndex, theta: typing.SupportsFloat | typing.SupportsIndex, baseline: typing.SupportsFloat | typing.SupportsIndex, density: typing.SupportsFloat | typing.SupportsIndex = -999.9000244140625, anti_neutrino: bool = False) -> None:
+    def set_antineutrino(self, antineutrino: bool) -> TwoFlavourBarger:
+        ...
+    def set_baseline(self, baseline: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
+        ...
+    def set_density(self, density: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
+        ...
+    def set_m1(self, m1: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
+        ...
+    def set_m2(self, m2: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
+        ...
+    def set_theta(self, theta: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
         ...
 def nufast_probability_matter(sin_squared_theta12: typing.SupportsFloat | typing.SupportsIndex, sin_squared_theta13: typing.SupportsFloat | typing.SupportsIndex, sin_squared_theta23: typing.SupportsFloat | typing.SupportsIndex, delta_cp: typing.SupportsFloat | typing.SupportsIndex, delta_m_squared_21: typing.SupportsFloat | typing.SupportsIndex, delta_m_squared_31: typing.SupportsFloat | typing.SupportsIndex, baseline: typing.SupportsFloat | typing.SupportsIndex, energy: typing.SupportsFloat | typing.SupportsIndex, rho: typing.SupportsFloat | typing.SupportsIndex, Ye: typing.SupportsFloat | typing.SupportsIndex, N_Newton: typing.SupportsFloat | typing.SupportsIndex) -> list[list[float]]:
     """

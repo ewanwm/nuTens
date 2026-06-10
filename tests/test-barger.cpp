@@ -2,18 +2,21 @@
 #include <nuTens/propagator/units.hpp>
 #include <tests/barger-propagator.hpp>
 
-#include <gtest/gtest.h>
+#include <gtest/gtest.h> // NOLINT
 
 // who tests the testers???
 
+// magic numbers are fine for testing!
+// NOLINTBEGIN(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
 using namespace nuTens;
 using namespace nuTens::testing;
 
-TEST(TwoFlavourBargerPropTest, zeroThetaNoOscTest) {
-  
+TEST(TwoFlavourBargerPropTest /*unused*/, zeroThetaNoOscTest /*unused*/)
+{
+
     constexpr float baseline = 5.0e12;
 
-    TwoFlavourBarger bargerProp{};
+    TwoFlavourBarger<> bargerProp = TwoFlavourBarger<>();
 
     // ##########################################################
     // ## Test vacuum propagations for some fixed param values ##
@@ -21,8 +24,34 @@ TEST(TwoFlavourBargerPropTest, zeroThetaNoOscTest) {
 
     // check that we get no vacuum oscillations when theta == 0 for a range of
     // energies
-    bargerProp.setParams(/*m1=*/1.0, /*m2=*/2.0, /*theta=*/0.0, baseline);
-    
+    bargerProp.setMass1(/*mass1=*/1.0).setMass2(/*mass2=*/2.0).setTheta(/*theta=*/0.0).setBaseline(baseline);
+
+    for (int iEnergy = 1; iEnergy < 100; iEnergy++)
+    {
+        double energy = (double)iEnergy * units::GeV / 10.0;
+
+        EXPECT_EQ(bargerProp.calculateProb(energy, 0, 0), 1.0);
+        EXPECT_EQ(bargerProp.calculateProb(energy, 1, 1), 1.0);
+        EXPECT_EQ(bargerProp.calculateProb(energy, 0, 1), 0.0);
+        EXPECT_EQ(bargerProp.calculateProb(energy, 1, 0), 0.0);
+    }
+}
+
+TEST(TwoFlavourBargerPropTest /*unused*/, zeroDmsqNoOscTest /*unused*/)
+{
+
+    constexpr float baseline = 5.0e12;
+
+    TwoFlavourBarger<> bargerProp = TwoFlavourBarger<>();
+
+    // ##########################################################
+    // ## Test vacuum propagations for some fixed param values ##
+    // ##########################################################
+
+    // check that we get no vacuum oscillations when theta == 0 for a range of
+    // energies
+    bargerProp.setMass1(/*mass1=*/1.0).setMass2(/*mass2=*/1.0).setTheta(/*theta=*/M_PI / 4.0).setBaseline(baseline);
+
     for (int iEnergy = 1; iEnergy < 100; iEnergy++)
     {
         float energy = (float)iEnergy * units::GeV / 10.0;
@@ -34,34 +63,10 @@ TEST(TwoFlavourBargerPropTest, zeroThetaNoOscTest) {
     }
 }
 
-TEST(TwoFlavourBargerPropTest, zeroDmsqNoOscTest) {
-  
-    constexpr float baseline = 5.0e12;
+TEST(TwoFlavourBargerPropTest /*unused*/, fixedValuesTest /*unused*/)
+{
 
-    TwoFlavourBarger bargerProp{};
-
-    // ##########################################################
-    // ## Test vacuum propagations for some fixed param values ##
-    // ##########################################################
-
-    // check that we get no vacuum oscillations when theta == 0 for a range of
-    // energies
-    bargerProp.setParams(/*m1=*/1.0, /*m2=*/1.0, /*theta=*/M_PI / 4.0, baseline);
-    
-    for (int iEnergy = 1; iEnergy < 100; iEnergy++)
-    {
-        float energy = (float)iEnergy * units::GeV / 10.0;
-
-        EXPECT_EQ(bargerProp.calculateProb(energy, 0, 0), 1.0);
-        EXPECT_EQ(bargerProp.calculateProb(energy, 1, 1), 1.0);
-        EXPECT_EQ(bargerProp.calculateProb(energy, 0, 1), 0.0);
-        EXPECT_EQ(bargerProp.calculateProb(energy, 1, 0), 0.0);
-    }
-}
-
-TEST(TwoFlavourBargerPropTest, fixedValuesTest) {
-  
-    TwoFlavourBarger bargerProp{};
+    TwoFlavourBarger<> bargerProp = TwoFlavourBarger<>();
 
     // now check for fixed parameters values against externally calculated values
 
@@ -69,11 +74,13 @@ TEST(TwoFlavourBargerPropTest, fixedValuesTest) {
     // => prob_(alpha != beta) = sin^2(2 theta) * sin^2( 1.27 * dm^2 * L / E [ eV^2 km / GeV] )
     //
     //                         = sin^2(Pi/4) * sin^2( 1.27 * 0.01 * 100 / 1 ) = 0.4561088222
-    // 
+    //
     //    prob_(alpha == beta) =      1 - 0.4561088222 = 0.5438911778
 
-    bargerProp.setParams(/*m1=*/0.0, /*m2=*/0.1, /*theta=*/M_PI / 8.0,
-                         /*baseline=*/100.0 * units::km );
+    bargerProp.setMass1(/*mass1=*/0.0)
+        .setMass2(/*mass2=*/0.1)
+        .setTheta(/*theta=*/M_PI / 8.0)
+        .setBaseline(/*baseline=*/100.0 * units::km);
 
     ASSERT_NEAR(bargerProp.calculateProb(1.0 * units::GeV, 0, 0), 0.5438911778, 1e-3);
 
@@ -83,14 +90,13 @@ TEST(TwoFlavourBargerPropTest, fixedValuesTest) {
 
     ASSERT_NEAR(bargerProp.calculateProb(1.0 * units::GeV, 1, 0), 0.4561088222, 1e-3);
 
-
     // ##############################################################
     // ## Now test matter propagations for some fixed param values ##
     // ##############################################################
 
     // theta = 0.24, m1 = 0.04eV, m2 = 0.001eV, E = 1GeV, L = 250 km, density = 2
-    // lv = 4pi * E / dm^2 = 7.8588934e+12 
-    // lm = 2pi / ( sqrt(2) * G * density ) = 4.1177454e+13 
+    // lv = 4pi * E / dm^2 = 7.8588934e+12
+    // lm = 2pi / ( sqrt(2) * G * density ) = 4.1177454e+13
     // gamma = atan( sin( 2theta ) / (cos( 2theta ) - lv / lm) ) / 2.0
     //       = atan(0.663342 ) / 2 = 0.292848614 rad
     // dM2 = dm^2 * sqrt( 1 - 2 * (lv / lm) * cos(2theta) + (lv / lm)^2)
@@ -102,12 +108,15 @@ TEST(TwoFlavourBargerPropTest, fixedValuesTest) {
     //                         = 0.0517436
     //    prob_(alpha == beta) =      1 - 0.0517436  = 0.9482564
 
-    bargerProp.setParams(/*m1=*/0.04, /*m2=*/0.001, /*theta=*/0.24,
-                         /*baseline=*/250 * units::km, /*density=*/2.0);
+    bargerProp.setMass1(/*mass1=*/0.04)
+        .setMass2(/*mass2=*/0.001)
+        .setTheta(/*theta=*/0.24)
+        .setBaseline(/*baseline=*/250 * units::km)
+        .setDensity(/*density=*/2.0);
 
-    ASSERT_NEAR(bargerProp.lv(1.0e9), 7.8588934e+12, 1e6) << "vacuum osc length";
+    ASSERT_NEAR(bargerProp.lVac(1.0e9), 7.8588934e+12, 1e6) << "vacuum osc length";
 
-    ASSERT_NEAR(bargerProp.lm(), 4.1177454e+13 , 1e6) <<  "matter osc length";
+    ASSERT_NEAR(bargerProp.lMatter(), 4.1177454e+13, 1e6) << "matter osc length";
 
     ASSERT_NEAR(bargerProp.calculateEffectiveAngle(1.0e9), 0.292848614, 0.00001) << "effective mixing angle";
 
@@ -121,3 +130,5 @@ TEST(TwoFlavourBargerPropTest, fixedValuesTest) {
 
     ASSERT_NEAR(bargerProp.calculateProb(1.0e9, 1, 0), 0.0517436, 1e-3) << "probability for alpha == 1, beta == 0";
 }
+
+// NOLINTEND(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)

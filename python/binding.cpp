@@ -82,7 +82,7 @@ py::buffer_info tensorToNumpy(const Tensor &tensor){
 #if USE_PYTORCH
     at::Tensor torchTensor = tensor.getTensor().contiguous();
     void *dataPtr = torchTensor.data_ptr();
-    std::vector<long int> strides = torchTensor.strides().vec();
+    std::vector<long int> strides {torchTensor.strides().vec()};
 
 #else
 
@@ -90,7 +90,7 @@ py::buffer_info tensorToNumpy(const Tensor &tensor){
 
 #endif
 
-    std::vector<int> stridesBytes(0);
+    std::vector<int> stridesBytes {};
 
     // convert strides into bytes
     for(const long int &stride : strides) {
@@ -303,67 +303,67 @@ void initTensor(py::module &m_nuTens)
     // maffs
     m_tensor.def("matmul", &Tensor::matmul, 
         "Matrix multiplication",
-        py::arg("t1"), py::arg("t2")
+        py::arg("tensor_1"), py::arg("tensor_2")
     );
     m_tensor.def("outer", &Tensor::outer, 
         "Tensor outer product",
-        py::arg("t1"), py::arg("t2")
+        py::arg("tensor_1"), py::arg("tensor_2")
     );
     m_tensor.def("mul", &Tensor::mul, 
         "Element-wise multiplication",
-        py::arg("t1"), py::arg("t2")
+        py::arg("tensor_1"), py::arg("tensor_2")
     );
     m_tensor.def("add", &Tensor::add, 
         "Element-wise addition",
-        py::arg("t1"), py::arg("t2")
+        py::arg("tensor_1"), py::arg("tensor_2")
     );
     m_tensor.def("div", &Tensor::div, 
         "Element-wise division",
-        py::arg("t1"), py::arg("t2")
+        py::arg("tensor_1"), py::arg("tensor_2")
     );
     m_tensor.def("pow", py::overload_cast<const Tensor &, float>(&Tensor::pow), 
         "Raise to scalar power",
-        py::arg("t1"), py::arg("power")
+        py::arg("tensor_1"), py::arg("power")
     );
     m_tensor.def("pow", py::overload_cast<const Tensor &, std::complex<float>>(&Tensor::pow), 
         "Raise to scalar power",
-        py::arg("t1"), py::arg("power")
+        py::arg("tensor_1"), py::arg("power")
     );
     m_tensor.def("exp", &Tensor::exp, 
         "Take element-wise exponential of a tensor",
-        py::arg("t1")
+        py::arg("tensor_1")
     );
     m_tensor.def("transpose", &Tensor::transpose, 
         "Get the matrix transpose",
-        py::arg("t1"), py::arg("index_1"), py::arg("index_2")
+        py::arg("tensor_1"), py::arg("index_1"), py::arg("index_2")
     );
     m_tensor.def("scale", py::overload_cast<const Tensor &, float>(&Tensor::scale), 
         "Scalar multiplication",
-        py::arg("t1"), py::arg("scalar")
+        py::arg("tensor_1"), py::arg("scalar")
     );
     m_tensor.def("scale", py::overload_cast<const Tensor &, std::complex<float>>(&Tensor::scale),
         "Scalar multiplication",
-        py::arg("t1"), py::arg("scalar")
+        py::arg("tensor_1"), py::arg("scalar")
     );
     m_tensor.def("sin", &Tensor::sin, 
         "Element-wise trigonometric sine function",
-        py::arg("t1")
+        py::arg("tensor_1")
     );
     m_tensor.def("cos", &Tensor::cos, 
         "Element-wise trigonometric cosine function",
-        py::arg("t1")
+        py::arg("tensor_1")
     );
     m_tensor.def("sum", py::overload_cast<const Tensor &>(&Tensor::sum), 
         "Get the sum of all values in a tensor",
-        py::arg("t1")
+        py::arg("tensor_1")
     );
     m_tensor.def("sum", py::overload_cast<const Tensor &, const std::vector<long int> &>(&Tensor::sum),
         "Get the sum over particular dimensions",
-        py::arg("t1"), py::arg("dimensions")
+        py::arg("tensor_1"), py::arg("dimensions")
     );
     m_tensor.def("cumsum", py::overload_cast<const Tensor &, int>(&Tensor::cumsum),
         "Get the cumulative sum over particular dimensions",
-        py::arg("t1"), py::arg("dimensions")
+        py::arg("tensor_1"), py::arg("dimensions")
     );
     // m_tensor.def("eig", &Tensor::eig. "calculate eigenvalues") <- Will need to define some additional fn to return
     // tuple of values
@@ -541,19 +541,21 @@ void initTesting(py::module &m_nuTens)
     auto m_testing = m_nuTens.def_submodule("testing",
         "Some helpful utilities to use when writing python tests for your code"
     )
-    .def("nufast_probability_matter", [](double s12sq, double s13sq, double s23sq, double delta, double dm21, double dm31, double L, double E, double rho, double Ye, double Nnewton) 
+    .def("nufast_probability_matter", [](double s12sq, double s13sq, double s23sq, double delta, double dm21, double dm31, double baseline, double energy, double rho, double electronDensity, double Nnewton) 
         {
             // the probabilities as a raw c array
             double probs_returned[3][3];
 
             // get the probabilities
-            Probability_Matter_LBL(s12sq, s13sq, s23sq, delta, dm21, dm31, L, E, rho, Ye, Nnewton, &probs_returned);
+            Probability_Matter_LBL(s12sq, s13sq, s23sq, delta, dm21, dm31, baseline, energy, rho, electronDensity, Nnewton, &probs_returned);
 
             // turn them into a vector so they can be returned as a numpy array
-            std::vector<std::vector<double>> ret = {
-                {probs_returned[0][0], probs_returned[0][1], probs_returned[0][2]},
-                {probs_returned[1][0], probs_returned[1][1], probs_returned[1][2]},
-                {probs_returned[2][0], probs_returned[2][1], probs_returned[2][2]}
+            std::vector<std::vector<double>> ret {
+                {
+                    {probs_returned[0][0], probs_returned[0][1], probs_returned[0][2]},
+                    {probs_returned[1][0], probs_returned[1][1], probs_returned[1][2]},
+                    {probs_returned[2][0], probs_returned[2][1], probs_returned[2][2]}
+                }
             };
 
             return ret;
@@ -565,66 +567,81 @@ void initTesting(py::module &m_nuTens)
     )
     ;
 
-    py::class_<testing::TwoFlavourBarger>(m_testing, "TwoFlavourBarger")
+    py::class_<testing::TwoFlavourBarger<>>(m_testing, "TwoFlavourBarger")
         .def(py::init<>())
-        .def("set_params", &testing::TwoFlavourBarger::setParams, 
-            py::arg("m1"), py::arg("m2"), py::arg("theta"), py::arg("baseline"), py::arg("density") = (float)-999.9, py::arg("anti_neutrino") = false
+        .def("set_m1", &testing::TwoFlavourBarger<>::setMass1, 
+            py::arg("m1")
         )
-        .def("lv", &testing::TwoFlavourBarger::lv,
+        .def("set_m2", &testing::TwoFlavourBarger<>::setMass2, 
+            py::arg("m2")
+        )
+        .def("set_theta", &testing::TwoFlavourBarger<>::setTheta, 
+            py::arg("theta")
+        )
+        .def("set_baseline", &testing::TwoFlavourBarger<>::setBaseline, 
+            py::arg("baseline")
+        )
+        .def("set_density", &testing::TwoFlavourBarger<>::setDensity, 
+            py::arg("density")
+        )
+        .def("set_antineutrino", &testing::TwoFlavourBarger<>::setAntiNeutrino, 
+            py::arg("antineutrino")
+        )
+        .def("l_vac", &testing::TwoFlavourBarger<>::lVac,
             "Calculates the vacuum oscillation length",
             py::arg("energy")
         )
-        .def("lm", &testing::TwoFlavourBarger::lm,
+        .def("l_matter", &testing::TwoFlavourBarger<>::lMatter,
             "Calculates the matter oscillation length"
         )
-        .def("calculate_effective_angle", &testing::TwoFlavourBarger::calculateEffectiveAngle,
+        .def("calculate_effective_angle", &testing::TwoFlavourBarger<>::calculateEffectiveAngle,
             "Calculates the effective mixing angle, alpha, in matter",
             py::arg("energy")
         )
-        .def("calculate_effective_dm2", &testing::TwoFlavourBarger::calculateEffectiveDm2,
+        .def("calculate_effective_dm2", &testing::TwoFlavourBarger<>::calculateEffectiveDm2,
             "Calculates the effective delta m_nuTens^2 in matter",
             py::arg("energy")
         )
-        .def("get_PMNS_element", &testing::TwoFlavourBarger::getPMNSelement,
+        .def("get_PMNS_element", &testing::TwoFlavourBarger<>::getPMNSelement,
             "Calculates the effective i,j-th element of the mizing matrix for a given energy",
             py::arg("energy"), py::arg("i"), py::arg("j")
         )
-        .def("calculate_prob", &testing::TwoFlavourBarger::calculateProb,
+        .def("calculate_prob", &testing::TwoFlavourBarger<>::calculateProb,
             "Calculate probability of transitioning from state i to state j for a given energy",
             py::arg("energy"), py::arg("i"), py::arg("j")
         )
     ;
 
-    py::class_<testing::ThreeFlavourBarger>(m_testing, "ThreeFlavourBarger")
+    py::class_<testing::ThreeFlavourBarger<>>(m_testing, "ThreeFlavourBarger")
         .def(py::init<>())
-        .def("set_params", &testing::ThreeFlavourBarger::setParams, 
+        .def("set_params", &testing::ThreeFlavourBarger<>::setParams, 
             py::arg("m1"), py::arg("m2"), py::arg("m3"), py::arg("theta12"), py::arg("theta13"), py::arg("theta23"), py::arg("deltaCP"), py::arg("baseline"), py::arg("density") = (float)-999.9, py::arg("anti_neutrino") = false
         )
-        .def("alpha", &testing::ThreeFlavourBarger::alpha,
+        .def("alpha", &testing::ThreeFlavourBarger<>::calculateAlpha,
             "Calculates alpha term used in calculating the mass eigenvalues",
             py::arg("energy")
         )
-        .def("beta", &testing::ThreeFlavourBarger::beta,
+        .def("beta", &testing::ThreeFlavourBarger<>::calculateBeta,
             "Calculates beta term used in calculating the mass eigenvalues",
             py::arg("energy")
         )
-        .def("gamma", &testing::ThreeFlavourBarger::gamma,
+        .def("gamma", &testing::ThreeFlavourBarger<>::calculateGamma,
             "Calculates gamma term used in calculating the mass eigenvalues",
             py::arg("energy")
         )
-        .def("calculate_effective_m2", &testing::ThreeFlavourBarger::calculateEffectiveM2,
+        .def("calculate_effective_m2", &testing::ThreeFlavourBarger<>::calculateEffectiveM2,
             "Calculates the effective hamiltonian eigenvalues (the m_nuTens^2) in matter",
             py::arg("energy"), py::arg("index")
         )
-        .def("get_hamiltonian_element", &testing::ThreeFlavourBarger::getHamiltonianElement,
+        .def("get_hamiltonian_element", &testing::ThreeFlavourBarger<>::getHamiltonianElement,
             "Calculates an element of the Hamiltonian",
             py::arg("energy"), py::arg("a"), py::arg("b")
         )
-        .def("get_transition_matrix_element", &testing::ThreeFlavourBarger::getTransitionMatrixElement,
+        .def("get_transition_matrix_element", &testing::ThreeFlavourBarger<>::getTransitionMatrixElement,
             "Calculates an element of the transition matrix from one mass eigenstate to another due to the presense of matter",
             py::arg("energy"), py::arg("a"), py::arg("b")
         )
-        .def("calculate_prob", &testing::ThreeFlavourBarger::calculateProb,
+        .def("calculate_prob", &testing::ThreeFlavourBarger<>::calculateProb,
             "Calculate probability of transitioning from state i to state j for a given energy",
             py::arg("energy"), py::arg("i"), py::arg("j")
         )

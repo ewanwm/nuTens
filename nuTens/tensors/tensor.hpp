@@ -58,7 +58,8 @@ class Tensor
     /// @{
 
     /// @brief Default constructor with no initialisation
-    Tensor() : _dType(dtypes::kUninitScalar), _device(dtypes::kUninitDevice) {
+    Tensor() : _dType(dtypes::kUninitScalar), _device(dtypes::kUninitDevice)
+    {
         NT_PROFILE();
     };
 
@@ -147,103 +148,103 @@ class Tensor
     /// @{
 
     /// @brief Multiply two matrices together
-    /// @arg t1 Left hand tensor
-    /// @arg t2 Right hand tensor
-    static Tensor matmul(const Tensor &t1, const Tensor &t2);
+    /// @arg tensor1 Left hand tensor
+    /// @arg tensor2 Right hand tensor
+    static Tensor matmul(const Tensor &tensor1, const Tensor &tensor2);
 
     /// @brief Outer product of two 1D tensors
-    /// @arg t1 Left hand tensor
-    /// @arg t2 Right hand tensor
-    static Tensor outer(const Tensor &t1, const Tensor &t2);
+    /// @arg tensor1 Left hand tensor
+    /// @arg tensor2 Right hand tensor
+    static Tensor outer(const Tensor &tensor1, const Tensor &tensor2);
 
     /// @brief Element-wise multiplication of two tensors
-    /// @arg t1 Left hand tensor
-    /// @arg t2 Right hand tensor
-    static Tensor mul(const Tensor &t1, const Tensor &t2);
+    /// @arg tensor1 Left hand tensor
+    /// @arg tensor2 Right hand tensor
+    static Tensor mul(const Tensor &tensor1, const Tensor &tensor2);
 
     /// @brief Element-wise addition of two tensors
-    /// @arg t1 Left hand tensor
-    /// @arg t2 Right hand tensor
-    static Tensor add(const Tensor &t1, const Tensor &t2);
+    /// @arg tensor1 Left hand tensor
+    /// @arg tensor2 Right hand tensor
+    static Tensor add(const Tensor &tensor1, const Tensor &tensor2);
 
     /// @brief Element-wise division of two tensors
-    /// @arg t1 Numerator
-    /// @arg t2 Denominator
-    static Tensor div(const Tensor &t1, const Tensor &t2);
+    /// @arg tensor1 Numerator
+    /// @arg tensor2 Denominator
+    static Tensor div(const Tensor &tensor1, const Tensor &tensor2);
 
     /// @brief Raise a matrix to a scalar power
-    /// @arg t The tensor
-    /// @arg s The scalar
-    static Tensor pow(const Tensor &t, float s);
+    /// @arg tensor The tensor
+    /// @arg scalar The scalar
+    static Tensor pow(const Tensor &tensor, float scalar);
     /// @brief Raise a matrix to a scalar power
-    /// @arg t The tensor
-    /// @arg s The scalar
-    static Tensor pow(const Tensor &t, std::complex<float> s);
+    /// @arg tensor The tensor
+    /// @arg scalar The scalar
+    static Tensor pow(const Tensor &tensor, std::complex<float> scalar);
 
     /// @brief Element-wise exponential
-    /// @arg t The tensor
-    static Tensor exp(const Tensor &t);
+    /// @arg tensor The tensor
+    static Tensor exp(const Tensor &tensor);
 
     /// @brief Get the transpose of a tensor
-    /// @arg t The tensor
-    /// @arg dim1 The first dimension to swap
-    /// @arg dim2 The second dimension to swap
-    static Tensor transpose(const Tensor &t, int dim1, int dim2);
+    /// @arg tensor The tensor
+    /// @arg dim0 The first dimension to swap
+    /// @arg dim1 The second dimension to swap
+    static Tensor transpose(const Tensor &tensor, int dim0, int dim1);
 
     /// @brief Scale a matrix by some scalar
-    /// @arg s The scalar
-    /// @arg t The tensor
-    static Tensor scale(const Tensor &t, float s);
+    /// @arg scalar The scalar
+    /// @arg tensor The tensor
+    static Tensor scale(const Tensor &tensor, float scalar);
     /// @brief Scale a matrix by some scalar
-    /// @arg s The scalar
-    /// @arg t The tensor
-    static Tensor scale(const Tensor &t, double s);
+    /// @arg scalar The scalar
+    /// @arg tensor The tensor
+    static Tensor scale(const Tensor &tensor, double scalar);
     /// @brief Scale a matrix by some complex scalar
-    /// @arg s The scalar
-    /// @arg t The tensor
-    static Tensor scale(const Tensor &t, std::complex<float> s);
+    /// @arg scalar The scalar
+    /// @arg tensor The tensor
+    static Tensor scale(const Tensor &tensor, std::complex<float> scalar);
     /// @brief Scale a matrix by some complex scalar
-    /// @arg s The scalar
-    /// @arg t The tensor
-    static Tensor scale(const Tensor &t, std::complex<double> s);
+    /// @arg scalar The scalar
+    /// @arg tensor The tensor
+    static Tensor scale(const Tensor &tensor, std::complex<double> scalar);
 
     // ############################################
     // ################ Inlines ###################
     // ############################################
 
     /// @brief Inline matrix multiplication
-    /// @arg t2 Right hand matrix to multiply with this one
-    void matmul_(const Tensor &t2);
+    /// @arg tensor2 Right hand matrix to multiply with this one
+    void matmul_(const Tensor &tensor2);
 
     /// @brief inline element-wise multiplication
-    /// @arg t2 Right hand tensor
-    void mul_(const Tensor &t2);
+    /// @arg tensor2 Right hand tensor
+    void mul_(const Tensor &tensor2);
 
     /// @brief inline element-wise division
-    /// @arg t2 Denominator
-    void div_(const Tensor &t2);
+    /// @arg tensor2 Denominator
+    void div_(const Tensor &tensor2);
 
     /// @brief Inline matrix scaling
-    /// @arg s The scalar
-    void scale_(float s);
+    /// @arg scalar The scalar
+    void scale_(float scalar);
     /// @brief Inline complex matrix scaling
-    /// @arg s The scalar
-    void scale_(std::complex<float> s);
+    /// @arg scalar The scalar
+    void scale_(std::complex<float> scalar);
 
     /// @brief Inline raise to scalar power
-    /// @arg s The scalar
-    void pow_(float s);
+    /// @arg scalar The scalar
+    void pow_(float scalar);
     /// @brief Inline raise to scalar power
-    /// @arg s The scalar
-    void pow_(std::complex<float> s);
+    /// @arg scalar The scalar
+    void pow_(std::complex<float> scalar);
 
     /// @brief Inline element-wise exponential
     void exp_();
 
     /// @brief Inline transpose
-    /// @arg dim1 The first dimension to swap
-    /// @arg dim2 The second dimension to swap
-    void transpose_(int dim1, int dim2);
+    /// @arg dim0 The first dimension to swap
+    /// @arg dim1 The second dimension to swap
+    void transpose_(int dim0, int dim1);
 
     /// @}
 
@@ -253,38 +254,32 @@ class Tensor
     /// @brief Get eigenvalues and vectors of a tensor
     /// ordering of the eigenvalues is not guarenteed for eigh!!! AAARRRGGHHH
     /// @todo: figure out a way to deal with that!
-    /// @arg t The tensor
+    /// @arg tensor The tensor
     /// @param[out] eVals The eigenvalues
     /// @param[out] eVecs The eigenvectors
-    static void eig(const Tensor &t, Tensor &eVals, Tensor &eVecs);
+    static void eig(const Tensor &tensor, Tensor &eVals, Tensor &eVecs);
 
     /// @brief Get eigenvalues and vectors of a hermitian matrix
-    /// @arg t The tensor
+    /// @arg tensor The tensor
     /// @param[out] eVals The eigenvalues
     /// @param[out] eVecs The eigenvectors
     /// This is in general faster and more stable than @ref Tensor::eig
     /// and should be preferred in basically all cases where it can be used
-    static void eigh(const Tensor &t, Tensor &eVals, Tensor &eVecs);
+    static void eigh(const Tensor &tensor, Tensor &eVals, Tensor &eVecs);
 
     /// @brief Get eigenvalues of a tensor
     /// ordering of the eigenvalues is not guarenteed for eigh!!! AAARRRGGHHH
     /// @todo: figure out a way to deal with that!
-    /// @arg t The tensor
+    /// @arg tensor The tensor
     /// @param[out] eVals The eigenvalues
-    static void eigvals(const Tensor &t, Tensor &eVals);
+    static void eigvals(const Tensor &tensor, Tensor &eVals);
 
     /// @brief Get eigenvalues of a hermitian matrix
-    /// @arg t The tensor
+    /// @arg tensor The tensor
     /// @param[out] eVals The eigenvalues
     /// This is in general faster and more stable than @ref Tensor::eigvals
     /// and should be preferred in basically all cases where it can be used
-    static void eigvalsh(const Tensor &t, Tensor &eVals);
-
-    /// @brief Perform QR decomposition on a hermitian matrix
-    /// @arg t The tensor
-    /// @param[out] Q
-    /// @param[out] R
-    static void qr(const Tensor &t, Tensor &Q, Tensor &R);
+    static void eigvalsh(const Tensor &tensor, Tensor &eVals);
 
     /// @}
 
@@ -303,23 +298,23 @@ class Tensor
     [[nodiscard]] Tensor operator/(const Tensor &rhs) const;
     [[nodiscard]] Tensor operator/(double rhs) const;
     [[nodiscard]] Tensor operator-() const;
-    [[nodiscard]] friend Tensor operator*(double lhs, const Tensor &t)
+    [[nodiscard]] friend Tensor operator*(double lhs, const Tensor &tensor)
     {
         NT_PROFILE();
 
-        return {t * lhs};
+        return {tensor * lhs};
     };
-    [[nodiscard]] friend Tensor operator+(double lhs, const Tensor &t)
+    [[nodiscard]] friend Tensor operator+(double lhs, const Tensor &tensor)
     {
         NT_PROFILE();
 
-        return {t + lhs};
+        return {tensor + lhs};
     };
-    [[nodiscard]] friend Tensor operator-(double lhs, const Tensor &t)
+    [[nodiscard]] friend Tensor operator-(double lhs, const Tensor &tensor)
     {
         NT_PROFILE();
 
-        return {-t + lhs};
+        return {-tensor + lhs};
     };
     /// @}
 
@@ -348,22 +343,22 @@ class Tensor
 
     /// @brief Get the cumulative sum over some dimension
     /// @param dim The dimension to sum over
-    static inline Tensor cumsum(const Tensor &t, int dim)
+    static inline Tensor cumsum(const Tensor &tensor, int dim)
     {
-        return t.cumsum(dim);
+        return tensor.cumsum(dim);
     }
 
     /// @brief Get the result of summing this tensor over all dimensions
-    static inline Tensor sum(const Tensor &t)
+    static inline Tensor sum(const Tensor &tensor)
     {
-        return t.sum();
+        return tensor.sum();
     }
 
     /// @brief Get the result of summing this tensor over all dimensions
     /// @param dims The dimensions to sum over
-    static inline Tensor sum(const Tensor &t, const std::vector<long int> &dims)
+    static inline Tensor sum(const Tensor &tensor, const std::vector<long int> &dims)
     {
-        return t.sum(dims);
+        return tensor.sum(dims);
     }
 
     /// @name Gradients
@@ -383,12 +378,12 @@ class Tensor
     /// @{
 
     /// @brief Get element-wise sin of a tensor
-    /// @param t The tensor
-    static Tensor sin(const Tensor &t);
+    /// @param tensor The tensor
+    static Tensor sin(const Tensor &tensor);
 
     /// @brief Get element-wise cosine of a tensor
-    /// @param t The tensor
-    static Tensor cos(const Tensor &t);
+    /// @param tensor The tensor
+    static Tensor cos(const Tensor &tensor);
 
     /// @}
 
@@ -480,7 +475,7 @@ class Tensor
 
         NT_PROFILE();
 
-        return Tensor(tensor);
+        return {tensor};
     }
 
   protected:
@@ -502,9 +497,9 @@ class Tensor
 
         std::vector<at::indexing::TensorIndex> indicesVec;
         indicesVec.reserve(indices.size());
-        for (const int &i : indices)
+        for (const int &index : indices)
         {
-            indicesVec.push_back(at::indexing::TensorIndex(i));
+            indicesVec.push_back(at::indexing::TensorIndex(index));
         }
 
         return indicesVec;
@@ -518,13 +513,13 @@ class Tensor
         NT_PROFILE();
 
         std::vector<at::indexing::TensorIndex> indicesVec;
-        for (const Tensor::indexType &i : indices)
+        for (const Tensor::indexType &rawIndex : indices)
         {
-            if (const int *index = std::get_if<int>(&i))
+            if (const int *index = std::get_if<int>(&rawIndex))
             {
                 indicesVec.push_back(at::indexing::TensorIndex(*index));
             }
-            else if (const std::string *index = std::get_if<std::string>(&i))
+            else if (const std::string *index = std::get_if<std::string>(&rawIndex))
             {
                 indicesVec.push_back(at::indexing::TensorIndex((*index).c_str()));
             }
@@ -538,13 +533,10 @@ class Tensor
     }
 
   private:
-
     /// Construct a nuTens tensor directly from a pytorch tensor
     Tensor(const torch::Tensor &tensor)
-    :
-        _tensor(tensor),
-        _dType(dtypes::invScalarTypeMap(tensor.scalar_type())),
-        _device(dtypes::invDeviceTypeMap(tensor.device().type()))
+        : _tensor(tensor), _dType(dtypes::invScalarTypeMap(tensor.scalar_type())),
+          _device(dtypes::invDeviceTypeMap(tensor.device().type()))
     {
         NT_PROFILE();
     }
@@ -574,7 +566,8 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 {
 
   public:
-    inline AccessedTensor(const Tensor &tensor) : AccessedTensor(tensor.getTensor()) {
+    inline AccessedTensor(const Tensor &tensor) : AccessedTensor(tensor.getTensor())
+    {
         NT_PROFILE();
     };
 
@@ -583,7 +576,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
         : _packedAccessor(tensor.packed_accessor32<Tdtype, TnDims>()), _accessor(tensor.accessor<Tdtype, TnDims>())
     {
         NT_PROFILE();
-        
+
         setTensor(tensor);
     };
 
@@ -709,7 +702,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
     /// @{
 
     /// @brief Set a value in a 1D tensor
-    void setValue(Tdtype value, int i)
+    void setValue(Tdtype value, int idx1)
     {
 
         NT_PROFILE();
@@ -718,17 +711,17 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         if (Tdevice == dtypes::kGPU)
         {
-            _packedAccessor[i] = value;
+            _packedAccessor[idx1] = value;
         }
 
         else if (Tdevice == dtypes::kCPU)
         {
-            _accessor[i] = value;
+            _accessor[idx1] = value;
         }
     }
 
     /// @brief Set a value in a 2D tensor
-    void setValue(Tdtype value, int i, int j)
+    void setValue(Tdtype value, int idx1, int idx2)
     {
 
         NT_PROFILE();
@@ -737,17 +730,17 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         if (Tdevice == dtypes::kGPU)
         {
-            _packedAccessor[i][j] = value;
+            _packedAccessor[idx1][idx2] = value;
         }
 
         else if (Tdevice == dtypes::kCPU)
         {
-            _accessor[i][j] = value;
+            _accessor[idx1][idx2] = value;
         }
     }
 
     /// @brief Set a value in a 3D tensor
-    void setValue(Tdtype value, int i, int j, int k)
+    void setValue(Tdtype value, int idx1, int idx2, int idx3)
     {
 
         NT_PROFILE();
@@ -756,12 +749,12 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         if (Tdevice == dtypes::kGPU)
         {
-            _packedAccessor[i][j][k] = value;
+            _packedAccessor[idx1][idx2][idx3] = value;
         }
 
         else if (Tdevice == dtypes::kCPU)
         {
-            _accessor[i][j][k] = value;
+            _accessor[idx1][idx2][idx3] = value;
         }
     }
 
@@ -771,7 +764,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
     /// @{
 
     /// @brief Get a value in a 1D tensor
-    Tdtype getValue(int i) const
+    Tdtype getValue(int idx1) const
     {
 
         NT_PROFILE();
@@ -780,17 +773,17 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         if (Tdevice == dtypes::kGPU)
         {
-            return _packedAccessor[i];
+            return _packedAccessor[idx1];
         }
 
         if (Tdevice == dtypes::kCPU)
         {
-            return _accessor[i];
+            return _accessor[idx1];
         }
     }
 
     /// @brief Get a value in a 2D tensor
-    Tdtype getValue(int i, int j) const
+    Tdtype getValue(int idx1, int idx2) const
     {
 
         NT_PROFILE();
@@ -799,17 +792,17 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         if (Tdevice == dtypes::kGPU)
         {
-            return _packedAccessor[i][j];
+            return _packedAccessor[idx1][idx2];
         }
 
         if (Tdevice == dtypes::kCPU)
         {
-            return _accessor[i][j];
+            return _accessor[idx1][idx2];
         }
     }
 
     /// @brief Get a value in a 3D tensor
-    Tdtype getValue(int i, int j, int k) const
+    Tdtype getValue(int idx1, int idx2, int idx3) const
     {
 
         NT_PROFILE();
@@ -818,12 +811,12 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         if (Tdevice == dtypes::kGPU)
         {
-            return _packedAccessor[i][j][k];
+            return _packedAccessor[idx1][idx2][idx3];
         }
 
         if (Tdevice == dtypes::kCPU)
         {
-            return _accessor[i][j][k];
+            return _accessor[idx1][idx2][idx3];
         }
     }
 
