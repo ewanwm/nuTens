@@ -6,6 +6,7 @@
 
 // who tests the testers???
 
+// magic numbers are fine for testing!
 // NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers)
 using namespace nuTens;
 using namespace nuTens::testing;
