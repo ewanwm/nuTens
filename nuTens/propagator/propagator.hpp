@@ -35,6 +35,9 @@ class Propagator
     Propagator(int nGenerations, float baseline, bool antiNeutrino = false)
         : _baseline(baseline), _nGenerations(nGenerations), _antiNeutrino(antiNeutrino) {};
 
+    /// @brief Destructor
+    virtual ~Propagator() {};
+    
     /// @brief Calculate the oscillation probabilities
     /// @param energies The energies of the neutrinos
     [[nodiscard]] virtual Tensor calculateProbs();
