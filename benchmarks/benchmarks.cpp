@@ -158,7 +158,7 @@ static void BM_DPpropOscillations(benchmark::State &state)
     auto deltaCP = Tensor::zeros({1}).dType(dtypes::kComplexFloat).requiresGrad(false);
 
     // set up the propagator
-    DPpropagator dpProp(/*baseline=*/baseline, /*antiNeutrino=*/false, /*density=*/density, /*NRiterations=*/DPpropNDiterations);
+    DPpropagator dpProp(/*baseline=*/baseline, /*antiNeutrino=*/false, /*density=*/density, /*NRiterations=*/DPpropNRiterations);
 
     dpProp.setEnergies(energies);
 
