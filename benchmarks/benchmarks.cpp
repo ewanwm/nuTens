@@ -12,6 +12,13 @@ using namespace nuTens;
 
 // the baseline to calculate oscillations at
 constexpr float baseline = 295 * units::km;
+// the electron density to use in calculations
+constexpr float density = 2.6;
+// uded for setting the scale and position of the energy distribution
+constexpr float energyScale = 1 * units::GeV;
+constexpr float energyOffset = 100 * units.eV;
+// number of NR iterations to use for the DP propagator
+constexpr int DPpropagatorNRiterations = 5
 
 // The random seed to use for the RNG
 // want this to be fixed for reproducibility
@@ -26,7 +33,7 @@ double randomDouble()
 /// get random double between 0.0 and 1.0
 float randomFloat()
 {
-    return (float)rand() / (RAND_MAX + 1.);
+    return (float)rand() / (float)(RAND_MAX + 1.);
 }
 
 static void batchedOscProbs(Propagator &prop, PMNSmatrix &matrix, AccessedTensor<float, 2, dtypes::kCPU> &masses,
@@ -63,9 +70,9 @@ static void BM_vacuumOscillations(benchmark::State &state)
 
     // make some random test energies
     Tensor energies =
-        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), 10000.0)
+        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), energyScale)
             .hasBatchDim(true) +
-        Tensor({100.0});
+        Tensor({energyOffset});
 
     energies = energies.hasBatchDim(true);
 
@@ -100,8 +107,8 @@ static void BM_constMatterOscillations(benchmark::State &state)
 
     // make some random test energies
     Tensor energies =
-        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), 10000.0) +
-        Tensor({100.0});
+        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), energyScale) +
+        Tensor({energyOffset});
 
     energies = energies.hasBatchDim(true);
 
@@ -111,7 +118,7 @@ static void BM_constMatterOscillations(benchmark::State &state)
 
     // set up the propagator
     Propagator matterProp(3, baseline);
-    auto matterSolver = std::make_shared<ConstDensityMatterSolver>(3, 2.6);
+    auto matterSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
     matterProp.setMatterSolver(matterSolver);
     matterProp.setEnergies(energies);
 
@@ -138,8 +145,8 @@ static void BM_DPpropOscillations(benchmark::State &state)
 
     // make some random test energies
     Tensor energies =
-        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), 10000.0) +
-        Tensor({100.0});
+        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), energyScale) +
+        Tensor({energyOffset});
 
     energies = energies.hasBatchDim(true);
 
@@ -151,7 +158,7 @@ static void BM_DPpropOscillations(benchmark::State &state)
     auto deltaCP = Tensor::zeros({1}).dType(dtypes::kComplexFloat).requiresGrad(false);
 
     // set up the propagator
-    DPpropagator dpProp(/*baseline=*/baseline, /*antiNeutrino=*/false, /*density=*/2.6, /*NRiterations=*/5);
+    DPpropagator dpProp(/*baseline=*/baseline, /*antiNeutrino=*/false, /*density=*/density, /*NRiterations=*/DPpropNDiterations);
 
     dpProp.setEnergies(energies);
 
@@ -173,7 +180,7 @@ static void BM_DPpropOscillations(benchmark::State &state)
             theta13.setValue(randomDouble(), 0);
             theta12.setValue(randomDouble(), 0);
 
-            deltaCP.setValue({0}, Tensor::scale(Tensor::rand({1}), 2.0 * 3.1415));
+            deltaCP.setValue({0}, Tensor::scale(Tensor::rand({1}), constants::twoPi));
 
             dpProp.setParameters(theta12, theta23, theta13, deltaCP, dmsq21, dmsq31);
 

@@ -44,6 +44,9 @@ class ConstDensityMatterSolver : public BaseMatterSolver
         diagMassMatrix = Tensor::zeros({1, nGenerations, nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
     };
 
+    /// @brief destructor
+    ~ConstDensityMatterSolver() = default;
+
     /// @name Setters
     /// @{
 

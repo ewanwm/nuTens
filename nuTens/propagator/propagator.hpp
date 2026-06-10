@@ -36,7 +36,7 @@ class Propagator
         : _baseline(baseline), _nGenerations(nGenerations), _antiNeutrino(antiNeutrino) {};
 
     /// @brief Destructor
-    virtual ~Propagator() {};
+    virtual ~Propagator() = default;
     
     /// @brief Calculate the oscillation probabilities
     /// @param energies The energies of the neutrinos
