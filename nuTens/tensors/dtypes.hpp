@@ -52,6 +52,10 @@ template <> constexpr scalarType scalarTypeFromRaw<std::complex<double>>()
 
 #if USE_PYTORCH
 
+// need non-constexpr indexing for the code below to work
+// stop the linter screaming about it
+// NOLINTBEGIN(cppcoreguidelines-pro-bounds-constant-array-index)
+
 /// map between the data types used in nuTens and those used by pytorch
 constexpr std::pair<scalarType, c10::ScalarType> scalarTypeMapVals[] = {{kFloat, torch::kFloat},
                                                                         {kDouble, torch::kDouble},
@@ -96,6 +100,8 @@ static constexpr deviceType invDeviceTypeMap(c10::DeviceType value, int range = 
 };
 
 static_assert(invDeviceTypeMap(deviceTypeMap(kCPU)) == kCPU, "should be inverse");
+
+// NOLINTEND(cppcoreguidelines-pro-bounds-constant-array-index)
 
 #endif
 } // namespace nuTens::dtypes
