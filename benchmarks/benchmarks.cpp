@@ -18,7 +18,7 @@ constexpr float density = 2.6;
 constexpr float energyScale = 1 * units::GeV;
 constexpr float energyOffset = 100 * units::eV;
 // number of NR iterations to use for the DP propagator
-constexpr int DPpropagatorNRiterations = 5;
+constexpr int DPpropNRiterations = 5;
 
 // The random seed to use for the RNG
 // want this to be fixed for reproducibility
