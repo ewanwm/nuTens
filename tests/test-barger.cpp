@@ -16,7 +16,7 @@ TEST(TwoFlavourBargerPropTest /*unused*/, zeroThetaNoOscTest /*unused*/)
 
     constexpr float baseline = 5.0e12;
 
-    TwoFlavourBarger<> bargerProp{};
+    TwoFlavourBarger<> bargerProp = TwoFlavourBarger<>();
 
     // ##########################################################
     // ## Test vacuum propagations for some fixed param values ##
@@ -42,7 +42,7 @@ TEST(TwoFlavourBargerPropTest /*unused*/, zeroDmsqNoOscTest /*unused*/)
 
     constexpr float baseline = 5.0e12;
 
-    TwoFlavourBarger<> bargerProp{};
+    TwoFlavourBarger<> bargerProp = TwoFlavourBarger<>();
 
     // ##########################################################
     // ## Test vacuum propagations for some fixed param values ##
@@ -66,7 +66,7 @@ TEST(TwoFlavourBargerPropTest /*unused*/, zeroDmsqNoOscTest /*unused*/)
 TEST(TwoFlavourBargerPropTest /*unused*/, fixedValuesTest /*unused*/)
 {
 
-    TwoFlavourBarger<> bargerProp{};
+    TwoFlavourBarger<> bargerProp = TwoFlavourBarger<>();
 
     // now check for fixed parameters values against externally calculated values
 

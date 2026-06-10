@@ -52,7 +52,7 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
 
     PMNSmatrix pmns;
 
-    ThreeFlavourBarger<> barger;
+    ThreeFlavourBarger<> barger();
     // NOLINTEND(cppcoreguidelines-non-private-member-variables-in-classes)
 
 
