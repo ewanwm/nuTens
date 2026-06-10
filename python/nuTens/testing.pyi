@@ -56,11 +56,11 @@ class TwoFlavourBarger:
         """
         Calculates the effective i,j-th element of the mizing matrix for a given energy
         """
-    def lm(self) -> float:
+    def l_matter(self) -> float:
         """
         Calculates the matter oscillation length
         """
-    def lv(self, energy: typing.SupportsFloat | typing.SupportsIndex) -> float:
+    def l_vac(self, energy: typing.SupportsFloat | typing.SupportsIndex) -> float:
         """
         Calculates the vacuum oscillation length
         """

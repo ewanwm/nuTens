@@ -208,73 +208,73 @@ class Tensor:
         """
         add an extra dimension to this tensor at the specified location
         """
-def add(t1: Tensor, t2: Tensor) -> Tensor:
+def add(tensor_1: Tensor, tensor_2: Tensor) -> Tensor:
     """
     Element-wise addition
     """
-def cos(t1: Tensor) -> Tensor:
+def cos(tensor_1: Tensor) -> Tensor:
     """
     Element-wise trigonometric cosine function
     """
-def cumsum(t1: Tensor, dimensions: typing.SupportsInt | typing.SupportsIndex) -> Tensor:
+def cumsum(tensor_1: Tensor, dimensions: typing.SupportsInt | typing.SupportsIndex) -> Tensor:
     """
     Get the cumulative sum over particular dimensions
     """
-def div(t1: Tensor, t2: Tensor) -> Tensor:
+def div(tensor_1: Tensor, tensor_2: Tensor) -> Tensor:
     """
     Element-wise division
     """
-def exp(t1: Tensor) -> Tensor:
+def exp(tensor_1: Tensor) -> Tensor:
     """
     Take element-wise exponential of a tensor
     """
-def matmul(t1: Tensor, t2: Tensor) -> Tensor:
+def matmul(tensor_1: Tensor, tensor_2: Tensor) -> Tensor:
     """
     Matrix multiplication
     """
-def mul(t1: Tensor, t2: Tensor) -> Tensor:
+def mul(tensor_1: Tensor, tensor_2: Tensor) -> Tensor:
     """
     Element-wise multiplication
     """
-def outer(t1: Tensor, t2: Tensor) -> Tensor:
+def outer(tensor_1: Tensor, tensor_2: Tensor) -> Tensor:
     """
     Tensor outer product
     """
 @typing.overload
-def pow(t1: Tensor, power: typing.SupportsFloat | typing.SupportsIndex) -> Tensor:
+def pow(tensor_1: Tensor, power: typing.SupportsFloat | typing.SupportsIndex) -> Tensor:
     """
     Raise to scalar power
     """
 @typing.overload
-def pow(t1: Tensor, power: typing.SupportsComplex | typing.SupportsFloat | typing.SupportsIndex) -> Tensor:
+def pow(tensor_1: Tensor, power: typing.SupportsComplex | typing.SupportsFloat | typing.SupportsIndex) -> Tensor:
     """
     Raise to scalar power
     """
 @typing.overload
-def scale(t1: Tensor, scalar: typing.SupportsFloat | typing.SupportsIndex) -> Tensor:
+def scale(tensor_1: Tensor, scalar: typing.SupportsFloat | typing.SupportsIndex) -> Tensor:
     """
     Scalar multiplication
     """
 @typing.overload
-def scale(t1: Tensor, scalar: typing.SupportsComplex | typing.SupportsFloat | typing.SupportsIndex) -> Tensor:
+def scale(tensor_1: Tensor, scalar: typing.SupportsComplex | typing.SupportsFloat | typing.SupportsIndex) -> Tensor:
     """
     Scalar multiplication
     """
-def sin(t1: Tensor) -> Tensor:
+def sin(tensor_1: Tensor) -> Tensor:
     """
     Element-wise trigonometric sine function
     """
 @typing.overload
-def sum(t1: Tensor) -> Tensor:
+def sum(tensor_1: Tensor) -> Tensor:
     """
     Get the sum of all values in a tensor
     """
 @typing.overload
-def sum(t1: Tensor, dimensions: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex]) -> Tensor:
+def sum(tensor_1: Tensor, dimensions: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex]) -> Tensor:
     """
     Get the sum over particular dimensions
     """
-def transpose(t1: Tensor, index_1: typing.SupportsInt | typing.SupportsIndex, index_2: typing.SupportsInt | typing.SupportsIndex) -> Tensor:
+def transpose(tensor_1: Tensor, index_1: typing.SupportsInt | typing.SupportsIndex, index_2: typing.SupportsInt | typing.SupportsIndex) -> Tensor:
     """
     Get the matrix transpose
     """
