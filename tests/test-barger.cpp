@@ -7,6 +7,7 @@
 // who tests the testers???
 
 // magic numbers are fine for testing!
+// NOLINTBEGIN(readability-magic-numbers)
 // NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers)
 using namespace nuTens;
 using namespace nuTens::testing;
@@ -126,4 +127,5 @@ TEST(TwoFlavourBargerPropTest /*unused*/, fixedValuesTest /*unused*/)
     ASSERT_NEAR(bargerProp.calculateProb(1.0e9, 1, 0), 0.0517436, 1e-3) << "probability for alpha == 1, beta == 0";
 }
 
+// NOLINTEND(readability-magic-numbers)
 // NOLINTEND(cppcoreguidelines-avoid-magic-numbers)

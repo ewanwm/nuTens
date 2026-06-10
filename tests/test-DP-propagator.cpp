@@ -14,6 +14,7 @@ namespace gtest = ::testing;
 #include <tests/nuFast.hpp>
 
 // magic numbers are fine for testing!
+// NOLINTBEGIN(readability-magic-numbers)
 // NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers)
 using namespace nuTens;
 using namespace nuTens::testing;
@@ -323,4 +324,5 @@ INSTANTIATE_TEST_CASE_P(OscProb, DPpropagatorTest,
                         ::testing::Values(-M_PI, -0.8 * M_PI, -0.5 * M_PI, -0.2 * M_PI, 0.0, 0.3 * M_PI, 0.5 * M_PI,
                                           0.7 * M_PI, M_PI));
 
+// NOLINTEND(readability-magic-numbers)
 // NOLINTEND(cppcoreguidelines-avoid-magic-numbers)

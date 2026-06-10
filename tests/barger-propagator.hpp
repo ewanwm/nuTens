@@ -21,6 +21,7 @@
 // rest of the nuTens libraries.
 
 // NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers)
+// NOLINTBEGIN(readability-magic-numbers)
 namespace nuTens::testing
 {
 
@@ -489,3 +490,4 @@ class ThreeFlavourBarger
 } // namespace nuTens::testing
 
 // NOLINTEND(cppcoreguidelines-avoid-magic-numbers)
+// NOLINTEND(readability-magic-numbers)

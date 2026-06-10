@@ -11,6 +11,7 @@
 */
 
 // magic numbers are fine for testing!
+// NOLINTBEGIN(readability-magic-numbers)
 // NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers)
 using namespace nuTens;
 
@@ -591,4 +592,5 @@ TEST(Tensor /*unused*/, AccessedTensor3D /*unused*/)
     ASSERT_EQ(tensor.getValue(1, 1, 1), 3.0);
 }
 
+// NOLINTEND(readability-magic-numbers)
 // NOLINTEND(cppcoreguidelines-avoid-magic-numbers)
