@@ -281,12 +281,6 @@ class Tensor
     /// and should be preferred in basically all cases where it can be used
     static void eigvalsh(const Tensor &tensor, Tensor &eVals);
 
-    /// @brief Perform QR decomposition on a hermitian matrix
-    /// @arg tensor The tensor
-    /// @param[out] Q
-    /// @param[out] R
-    static void qr(const Tensor &tensor, Tensor &Q, Tensor &R);
-
     /// @}
 
     /// @name Mathematical
