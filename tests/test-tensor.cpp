@@ -10,6 +10,8 @@
     e.g. test that complex matrices work as expected, 1+1 == 2 etc.
 */
 
+// magic numbers are fine for testing!
+// NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers)
 using namespace nuTens;
 
 // check creation of tensors
@@ -588,3 +590,5 @@ TEST(Tensor /*unused*/, AccessedTensor3D /*unused*/)
 
     ASSERT_EQ(tensor.getValue(1, 1, 1), 3.0);
 }
+
+// NOLINTEND(cppcoreguidelines-avoid-magic-numbers)
