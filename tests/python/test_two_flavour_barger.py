@@ -13,7 +13,7 @@ class TestTwoFlavourConstMatter(unittest.TestCase):
         baseline = 500.0 * nt.units.km
         barger = TwoFlavourBarger()
 
-        barger.set_mass1(m1=0.0).set_mass2(m2=0.005).set_theta(theta=0.0).set_baseline(baseline=baseline)
+        barger.set_m1(m1=0.0).set_m2(m2=0.005).set_theta(theta=0.0).set_baseline(baseline=baseline)
         energies = np.logspace(0.0, 2.0, 100 ) * nt.units.GeV
 
         for energy in energies:
@@ -36,7 +36,7 @@ class TestTwoFlavourConstMatter(unittest.TestCase):
 
         # check that we get no vacuum oscillations when theta == 0 for a range of
         # energies
-        barger.set_mass1(m1=0.01).set_mass2(m2=0.01).set_theta(theta=m.pi/2.0).set_baseline(baseline=baseline)
+        barger.set_m1(m1=0.01).set_m2(m2=0.01).set_theta(theta=m.pi/2.0).set_baseline(baseline=baseline)
         energies = np.logspace(0.0, 2.0, 100 ) * nt.units.GeV
 
         for energy in energies:
@@ -61,7 +61,7 @@ class TestVacuumOscProbs(unittest.TestCase):
     barger = TwoFlavourBarger()
     energy = 3.0
 
-    barger.set_mass1(m1=1.0).set_mass2(m2=2.0).set_theta(theta=m.pi / 8.0).set_baseline(baseline=4.0)
+    barger.set_m1(m1=1.0).set_m2(m2=2.0).set_theta(theta=m.pi / 8.0).set_baseline(baseline=4.0)
 
     def test_survuval(self):
         self.assertAlmostEqual(self.barger.calculate_prob(self.energy, 0, 0), 0.64596329086, 6,
@@ -96,7 +96,7 @@ class TestVacuumOscProbs(unittest.TestCase):
 
     energy = 1.0 * nt.units.GeV
     barger = TwoFlavourBarger()
-    barger.set_mass1(m1=0.04 * nt.units.eV).set_mass2(m2=0.001 * nt.units.eV).set_theta(theta=0.24).set_baseline(baseline=250.0 * nt.units.km).set_density(density=2.0)
+    barger.set_m1(m1=0.04 * nt.units.eV).set_m2(m2=0.001 * nt.units.eV).set_theta(theta=0.24).set_baseline(baseline=250.0 * nt.units.km).set_density(density=2.0)
     
     def test_vacuum_osc_length(self):
         self.assertAlmostEqual(self.barger.l_vac(self.energy), 7.8588934e+12, -6,
