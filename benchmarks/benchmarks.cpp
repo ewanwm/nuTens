@@ -10,6 +10,9 @@
 
 using namespace nuTens;
 
+// the baseline to calculate oscillations at
+constexpr float baseline = 295 * units::km;
+
 // The random seed to use for the RNG
 // want this to be fixed for reproducibility
 const int randSeed = 123;
@@ -18,6 +21,12 @@ const int randSeed = 123;
 double randomDouble()
 {
     return (double)rand() / (RAND_MAX + 1.);
+}
+
+/// get random double between 0.0 and 1.0
+float randomFloat()
+{
+    return (float)rand() / (RAND_MAX + 1.);
 }
 
 static void batchedOscProbs(Propagator &prop, PMNSmatrix &matrix, AccessedTensor<float, 2, dtypes::kCPU> &masses,
@@ -32,10 +41,10 @@ static void batchedOscProbs(Propagator &prop, PMNSmatrix &matrix, AccessedTensor
         masses.setValue(randomDouble(), 0, 2);
 
         matrix.setParameterValues(
-            /*theta12=*/randomDouble(),
-            /*theta13=*/randomDouble(),
-            /*theta23=*/randomDouble(),
-            /*deltaCP=*/randomDouble() * constants::twoPi);
+            /*theta12=*/randomFloat(),
+            /*theta13=*/randomFloat(),
+            /*theta23=*/randomFloat(),
+            /*deltaCP=*/randomFloat() * constants::twoPi);
 
         prop.setMixingMatrix(matrix.build());
         prop.setMasses(masses);
@@ -65,7 +74,7 @@ static void BM_vacuumOscillations(benchmark::State &state)
     PMNSmatrix PMNS;
 
     // set up the propagator
-    Propagator vacuumProp(3, 295000.0);
+    Propagator vacuumProp(3, baseline);
     vacuumProp.setEnergies(energies);
 
     // seed the random number generator for the energies
@@ -101,7 +110,7 @@ static void BM_constMatterOscillations(benchmark::State &state)
     PMNSmatrix PMNS;
 
     // set up the propagator
-    Propagator matterProp(3, 295000.0);
+    Propagator matterProp(3, baseline);
     auto matterSolver = std::make_shared<ConstDensityMatterSolver>(3, 2.6);
     matterProp.setMatterSolver(matterSolver);
     matterProp.setEnergies(energies);
@@ -142,7 +151,7 @@ static void BM_DPpropOscillations(benchmark::State &state)
     auto deltaCP = Tensor::zeros({1}).dType(dtypes::kComplexFloat).requiresGrad(false);
 
     // set up the propagator
-    DPpropagator dpProp(/*baseline=*/295 * units::km, /*antiNeutrino=*/false, /*density=*/2.6, /*NRiterations=*/5);
+    DPpropagator dpProp(/*baseline=*/baseline, /*antiNeutrino=*/false, /*density=*/2.6, /*NRiterations=*/5);
 
     dpProp.setEnergies(energies);
 
