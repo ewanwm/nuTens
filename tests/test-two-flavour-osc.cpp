@@ -16,7 +16,7 @@ class TwoFlavourOscillations : public gtest::TestWithParam<float>
 {
   protected:
     // NOLINTBEGIN(cppcoreguidelines-non-private-member-variables-in-classes)
-    float theta;
+    float theta = NAN;
 
     float mass1 = 0.0;
     float mass2 = 0.008 * units::eV * units::eV;
