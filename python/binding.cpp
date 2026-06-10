@@ -567,66 +567,66 @@ void initTesting(py::module &m_nuTens)
     )
     ;
 
-    py::class_<testing::TwoFlavourBarger>(m_testing, "TwoFlavourBarger")
+    py::class_<testing::TwoFlavourBarger<>>(m_testing, "TwoFlavourBarger")
         .def(py::init<>())
-        .def("set_params", &testing::TwoFlavourBarger::setParams, 
+        .def("set_params", &testing::TwoFlavourBarger<>::setParams, 
             py::arg("m1"), py::arg("m2"), py::arg("theta"), py::arg("baseline"), py::arg("density") = (float)-999.9, py::arg("anti_neutrino") = false
         )
-        .def("l_vac", &testing::TwoFlavourBarger::lVac,
+        .def("l_vac", &testing::TwoFlavourBarger<>::lVac,
             "Calculates the vacuum oscillation length",
             py::arg("energy")
         )
-        .def("l_matter", &testing::TwoFlavourBarger::lMatter,
+        .def("l_matter", &testing::TwoFlavourBarger<>::lMatter,
             "Calculates the matter oscillation length"
         )
-        .def("calculate_effective_angle", &testing::TwoFlavourBarger::calculateEffectiveAngle,
+        .def("calculate_effective_angle", &testing::TwoFlavourBarger<>::calculateEffectiveAngle,
             "Calculates the effective mixing angle, alpha, in matter",
             py::arg("energy")
         )
-        .def("calculate_effective_dm2", &testing::TwoFlavourBarger::calculateEffectiveDm2,
+        .def("calculate_effective_dm2", &testing::TwoFlavourBarger<>::calculateEffectiveDm2,
             "Calculates the effective delta m_nuTens^2 in matter",
             py::arg("energy")
         )
-        .def("get_PMNS_element", &testing::TwoFlavourBarger::getPMNSelement,
+        .def("get_PMNS_element", &testing::TwoFlavourBarger<>::getPMNSelement,
             "Calculates the effective i,j-th element of the mizing matrix for a given energy",
             py::arg("energy"), py::arg("i"), py::arg("j")
         )
-        .def("calculate_prob", &testing::TwoFlavourBarger::calculateProb,
+        .def("calculate_prob", &testing::TwoFlavourBarger<>::calculateProb,
             "Calculate probability of transitioning from state i to state j for a given energy",
             py::arg("energy"), py::arg("i"), py::arg("j")
         )
     ;
 
-    py::class_<testing::ThreeFlavourBarger>(m_testing, "ThreeFlavourBarger")
+    py::class_<testing::ThreeFlavourBarger<>>(m_testing, "ThreeFlavourBarger")
         .def(py::init<>())
-        .def("set_params", &testing::ThreeFlavourBarger::setParams, 
+        .def("set_params", &testing::ThreeFlavourBarger<>::setParams, 
             py::arg("m1"), py::arg("m2"), py::arg("m3"), py::arg("theta12"), py::arg("theta13"), py::arg("theta23"), py::arg("deltaCP"), py::arg("baseline"), py::arg("density") = (float)-999.9, py::arg("anti_neutrino") = false
         )
-        .def("alpha", &testing::ThreeFlavourBarger::calculateAlpha,
+        .def("alpha", &testing::ThreeFlavourBarger<>::calculateAlpha,
             "Calculates alpha term used in calculating the mass eigenvalues",
             py::arg("energy")
         )
-        .def("beta", &testing::ThreeFlavourBarger::calculateBeta,
+        .def("beta", &testing::ThreeFlavourBarger<>::calculateBeta,
             "Calculates beta term used in calculating the mass eigenvalues",
             py::arg("energy")
         )
-        .def("gamma", &testing::ThreeFlavourBarger::calculateGamma,
+        .def("gamma", &testing::ThreeFlavourBarger<>::calculateGamma,
             "Calculates gamma term used in calculating the mass eigenvalues",
             py::arg("energy")
         )
-        .def("calculate_effective_m2", &testing::ThreeFlavourBarger::calculateEffectiveM2,
+        .def("calculate_effective_m2", &testing::ThreeFlavourBarger<>::calculateEffectiveM2,
             "Calculates the effective hamiltonian eigenvalues (the m_nuTens^2) in matter",
             py::arg("energy"), py::arg("index")
         )
-        .def("get_hamiltonian_element", &testing::ThreeFlavourBarger::getHamiltonianElement,
+        .def("get_hamiltonian_element", &testing::ThreeFlavourBarger<>::getHamiltonianElement,
             "Calculates an element of the Hamiltonian",
             py::arg("energy"), py::arg("a"), py::arg("b")
         )
-        .def("get_transition_matrix_element", &testing::ThreeFlavourBarger::getTransitionMatrixElement,
+        .def("get_transition_matrix_element", &testing::ThreeFlavourBarger<>::getTransitionMatrixElement,
             "Calculates an element of the transition matrix from one mass eigenstate to another due to the presense of matter",
             py::arg("energy"), py::arg("a"), py::arg("b")
         )
-        .def("calculate_prob", &testing::ThreeFlavourBarger::calculateProb,
+        .def("calculate_prob", &testing::ThreeFlavourBarger<>::calculateProb,
             "Calculate probability of transitioning from state i to state j for a given energy",
             py::arg("energy"), py::arg("i"), py::arg("j")
         )

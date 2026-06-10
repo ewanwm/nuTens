@@ -16,7 +16,7 @@ TEST(TwoFlavourBargerPropTest /*unused*/, zeroThetaNoOscTest /*unused*/)
 
     constexpr float baseline = 5.0e12;
 
-    TwoFlavourBarger bargerProp{};
+    TwoFlavourBarger<> bargerProp{};
 
     // ##########################################################
     // ## Test vacuum propagations for some fixed param values ##
@@ -28,7 +28,7 @@ TEST(TwoFlavourBargerPropTest /*unused*/, zeroThetaNoOscTest /*unused*/)
 
     for (int iEnergy = 1; iEnergy < 100; iEnergy++)
     {
-        float energy = (float)iEnergy * units::GeV / 10.0;
+        double energy = (double)iEnergy * units::GeV / 10.0;
 
         EXPECT_EQ(bargerProp.calculateProb(energy, 0, 0), 1.0);
         EXPECT_EQ(bargerProp.calculateProb(energy, 1, 1), 1.0);
@@ -42,7 +42,7 @@ TEST(TwoFlavourBargerPropTest /*unused*/, zeroDmsqNoOscTest /*unused*/)
 
     constexpr float baseline = 5.0e12;
 
-    TwoFlavourBarger bargerProp{};
+    TwoFlavourBarger<> bargerProp{};
 
     // ##########################################################
     // ## Test vacuum propagations for some fixed param values ##
@@ -66,7 +66,7 @@ TEST(TwoFlavourBargerPropTest /*unused*/, zeroDmsqNoOscTest /*unused*/)
 TEST(TwoFlavourBargerPropTest /*unused*/, fixedValuesTest /*unused*/)
 {
 
-    TwoFlavourBarger bargerProp{};
+    TwoFlavourBarger<> bargerProp{};
 
     // now check for fixed parameters values against externally calculated values
 

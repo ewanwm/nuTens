@@ -49,7 +49,7 @@ class TwoFlavourOscillations : public gtest::TestWithParam<float>
         Propagator tensorPropagator(2, baseline);
         auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(2, density);
 
-        TwoFlavourBarger bargerProp{};
+        TwoFlavourBarger<> bargerProp{};
 
         bargerProp.setParams(mass1, mass2, theta, baseline, density, antiNu);
 
@@ -147,7 +147,7 @@ TEST_P(TwoFlavourOscillations /*unused*/, VacuumOscProbs /*unused*/)
     tensorPropagator.setMasses(masses);
 
     // will use this for baseline for comparisons
-    TwoFlavourBarger bargerProp{};
+    TwoFlavourBarger<> bargerProp{};
 
     bargerProp.setParams(mass1, mass2, theta, baseline);
 

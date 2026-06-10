@@ -53,7 +53,7 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         NT_INFO("\n#### const density test for theta12 = {} ####", theta12);
 
         // set up the barger propagator
-        ThreeFlavourBarger bargerProp{};
+        ThreeFlavourBarger<> bargerProp{};
         bargerProp.setParams(mass1, mass2, mass3, theta12, theta13, theta23, deltaCP, baseline, density, antiNu);
 
         NT_INFO("alpha():  {}", bargerProp.calculateAlpha(energy));
@@ -197,7 +197,7 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         NT_INFO("\n#### vacuum test for theta12 = {} ####", theta12);
 
         // set up the barger propagator
-        ThreeFlavourBarger bargerProp{};
+        ThreeFlavourBarger<> bargerProp{};
         bargerProp.setParams(mass1, mass2, mass3, theta12, theta13, theta23, deltaCP, baseline, density = -999.9, antiNu);
 
         NT_INFO("alpha():  {}", bargerProp.calculateAlpha(energy));
