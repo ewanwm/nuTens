@@ -201,7 +201,7 @@ class TwoFlavourBarger
     float _density = NAN;
 
     // anti-neutrino flag
-    bool _antiNeutrino;
+    bool _antiNeutrino = false;
 };
 
 class ThreeFlavourBarger
@@ -377,7 +377,7 @@ class ThreeFlavourBarger
 
             if (idx1 == idx2)
             {
-                ret = std::exp(-0.5 * std::complex<double>(0.0, 1.0) * masses[idx1] * masses[idx1] * _baseline * constants::twoPi /
+                ret = std::exp(-0.5 * std::complex<double>(0.0, 1.0) * masses.at(idx1) * masses.at(idx1) * _baseline * constants::twoPi /
                                energy);
             }
             else

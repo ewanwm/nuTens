@@ -81,7 +81,7 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
         // (allows correct comparison with nufast)
         if (forceLowerOctant)
         {
-            theta = asin(std::abs(static_cast<float>(sin(theta))));
+            theta = std::asin(std::abs(std::sin(theta)));
         }
 
         NT_INFO("########## theta = {} ##########", theta);
