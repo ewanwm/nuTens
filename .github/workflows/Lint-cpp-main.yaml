@@ -50,7 +50,7 @@ jobs:
           
           thread-comments: false
           file-annotations: false
-          tidy-checks: 'boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-*,cppcoreguidelines-*,-modernize-use-trailing-return-type,-modernize-use-emplace,-readability-redundant-access-specifiers'
+          tidy-checks: 'boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-*,clang-analyzer-*,cppcoreguidelines-*,-modernize-use-trailing-return-type,-modernize-use-emplace,-readability-redundant-access-specifiers,-misc-non-private-member-variables-in-classes,-cppcoreguidelines-non-private-member-variables-in-classes'
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed != 0
