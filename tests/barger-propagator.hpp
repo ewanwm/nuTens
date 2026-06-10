@@ -480,10 +480,18 @@ class ThreeFlavourBarger
     double _density = NAN;
 
     // anti-neutrino flag
-    bool _antiNeutrino;
+    bool _antiNeutrino = false;
 
-    std::array<std::array<std::complex<double>, 3>, 3> pmnsMatrix;
-    std::array<double, 3> masses;
+    std::array<std::array<std::complex<double>, 3>, 3> pmnsMatrix {
+        {
+            {0.0, 0.0, 0.0}, 
+            {0.0, 0.0, 0.0}, 
+            {0.0, 0.0, 0.0}
+        }
+    };
+    std::array<double, 3> masses {
+        {0.0, 0.0, 0.0}
+    };
 };
 
 } // namespace nuTens::testing
