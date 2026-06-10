@@ -82,7 +82,7 @@ py::buffer_info tensorToNumpy(const Tensor &tensor){
 #if USE_PYTORCH
     at::Tensor torchTensor = tensor.getTensor().contiguous();
     void *dataPtr = torchTensor.data_ptr();
-    std::vector<long int> strides = torchTensor.strides().vec();
+    std::vector<long int> strides {torchTensor.strides().vec()};
 
 #else
 
@@ -90,7 +90,7 @@ py::buffer_info tensorToNumpy(const Tensor &tensor){
 
 #endif
 
-    std::vector<int> stridesBytes(0);
+    std::vector<int> stridesBytes {};
 
     // convert strides into bytes
     for(const long int &stride : strides) {
@@ -550,10 +550,12 @@ void initTesting(py::module &m_nuTens)
             Probability_Matter_LBL(s12sq, s13sq, s23sq, delta, dm21, dm31, baseline, energy, rho, electronDensity, Nnewton, &probs_returned);
 
             // turn them into a vector so they can be returned as a numpy array
-            std::vector<std::vector<double>> ret = {
-                {probs_returned[0][0], probs_returned[0][1], probs_returned[0][2]},
-                {probs_returned[1][0], probs_returned[1][1], probs_returned[1][2]},
-                {probs_returned[2][0], probs_returned[2][1], probs_returned[2][2]}
+            std::vector<std::vector<double>> ret {
+                {
+                    {probs_returned[0][0], probs_returned[0][1], probs_returned[0][2]},
+                    {probs_returned[1][0], probs_returned[1][1], probs_returned[1][2]},
+                    {probs_returned[2][0], probs_returned[2][1], probs_returned[2][2]}
+                }
             };
 
             return ret;
