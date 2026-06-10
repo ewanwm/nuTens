@@ -35,3 +35,5 @@ html_theme_options = {
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+
+python_use_unqualified_type_names = True
