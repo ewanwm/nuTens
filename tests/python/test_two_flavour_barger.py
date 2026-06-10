@@ -61,7 +61,7 @@ class TestVacuumOscProbs(unittest.TestCase):
     barger = TwoFlavourBarger()
     energy = 3.0
 
-    barger.set_params(m1=1.0, m2=2.0, theta=m.pi / 8.0, baseline=4.0)
+    barger.set_mass1(m1=1.0).set_mass2(m2=2.0).set_theta(theta=m.pi / 8.0).set_baseline(baseline=4.0)
 
     def test_survuval(self):
         self.assertAlmostEqual(self.barger.calculate_prob(self.energy, 0, 0), 0.64596329086, 6,
@@ -96,8 +96,7 @@ class TestVacuumOscProbs(unittest.TestCase):
 
     energy = 1.0 * nt.units.GeV
     barger = TwoFlavourBarger()
-    barger.set_params(m1=0.04 * nt.units.eV, m2=0.001 * nt.units.eV, theta=0.24,
-                        baseline=250.0 * nt.units.km, density=2.0)
+    barger.set_mass1(m1=0.04 * nt.units.eV).set_mass2(m2=0.001 * nt.units.eV).set_theta(theta=0.24).set_baseline(baseline=250.0 * nt.units.km).set_density(density=2.0)
     
     def test_vacuum_osc_length(self):
         self.assertAlmostEqual(self.barger.l_vac(self.energy), 7.8588934e+12, -6,
