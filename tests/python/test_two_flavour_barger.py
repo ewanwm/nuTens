@@ -13,7 +13,7 @@ class TestTwoFlavourConstMatter(unittest.TestCase):
         baseline = 500.0 * nt.units.km
         barger = TwoFlavourBarger()
 
-        barger.set_params(m1=0.0, m2=0.005, theta=0.0, baseline=baseline)
+        barger.set_mass1(m1=0.0).set_mass2(m2=0.005).set_theta(theta=0.0).set_baseline(baseline=baseline)
         energies = np.logspace(0.0, 2.0, 100 ) * nt.units.GeV
 
         for energy in energies:
@@ -36,7 +36,7 @@ class TestTwoFlavourConstMatter(unittest.TestCase):
 
         # check that we get no vacuum oscillations when theta == 0 for a range of
         # energies
-        barger.set_params(m1=0.01, m2=0.01, theta=m.pi/2.0, baseline=baseline)
+        barger.set_mass1(m1=0.01).set_mass2(m2=0.01).set_theta(theta=m.pi/2.0).set_baseline(baseline=baseline)
         energies = np.logspace(0.0, 2.0, 100 ) * nt.units.GeV
 
         for energy in energies:
