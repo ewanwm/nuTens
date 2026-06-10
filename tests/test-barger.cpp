@@ -24,7 +24,7 @@ TEST(TwoFlavourBargerPropTest /*unused*/, zeroThetaNoOscTest /*unused*/)
 
     // check that we get no vacuum oscillations when theta == 0 for a range of
     // energies
-    bargerProp.setParams(/*mass1=*/1.0, /*mass2=*/2.0, /*theta=*/0.0, baseline);
+    bargerProp.setMass1(/*mass1=*/1.0).setMass2(/*mass2=*/2.0).setTheta(/*theta=*/0.0).setBaseline(baseline);
 
     for (int iEnergy = 1; iEnergy < 100; iEnergy++)
     {
@@ -50,7 +50,7 @@ TEST(TwoFlavourBargerPropTest /*unused*/, zeroDmsqNoOscTest /*unused*/)
 
     // check that we get no vacuum oscillations when theta == 0 for a range of
     // energies
-    bargerProp.setParams(/*mass1=*/1.0, /*mass2=*/1.0, /*theta=*/M_PI / 4.0, baseline);
+    bargerProp.setMass1(/*mass1=*/1.0).setMass2(/*mass2=*/1.0).setTheta(/*theta=*/M_PI / 4.0).setBaseline(baseline);
 
     for (int iEnergy = 1; iEnergy < 100; iEnergy++)
     {
@@ -77,8 +77,7 @@ TEST(TwoFlavourBargerPropTest /*unused*/, fixedValuesTest /*unused*/)
     //
     //    prob_(alpha == beta) =      1 - 0.4561088222 = 0.5438911778
 
-    bargerProp.setParams(/*mass1=*/0.0, /*mass2=*/0.1, /*theta=*/M_PI / 8.0,
-                         /*baseline=*/100.0 * units::km);
+    bargerProp.setMass1(/*mass1=*/0.0).setMass2(/*mass2=*/0.1).setTheta(/*theta=*/M_PI / 8.0).setBaseline(/*baseline=*/100.0 * units::km);
 
     ASSERT_NEAR(bargerProp.calculateProb(1.0 * units::GeV, 0, 0), 0.5438911778, 1e-3);
 
@@ -106,8 +105,7 @@ TEST(TwoFlavourBargerPropTest /*unused*/, fixedValuesTest /*unused*/)
     //                         = 0.0517436
     //    prob_(alpha == beta) =      1 - 0.0517436  = 0.9482564
 
-    bargerProp.setParams(/*mass1=*/0.04, /*mass2=*/0.001, /*theta=*/0.24,
-                         /*baseline=*/250 * units::km, /*density=*/2.0);
+    bargerProp.setMass1(/*mass1=*/0.04).setMass2(/*mass2=*/0.001).setTheta(/*theta=*/0.24).setBaseline(/*baseline=*/250 * units::km).setDensity(/*density=*/2.0);
 
     ASSERT_NEAR(bargerProp.lVac(1.0e9), 7.8588934e+12, 1e6) << "vacuum osc length";
 

@@ -51,7 +51,7 @@ class TwoFlavourOscillations : public gtest::TestWithParam<float>
 
         TwoFlavourBarger<> bargerProp{};
 
-        bargerProp.setParams(mass1, mass2, theta, baseline, density, antiNu);
+        bargerProp.setMass1(mass1).setMass2(mass2).setTheta(theta).setBaseline(baseline).setDensity(density).setAntiNeutrino(antiNu);
 
         std::cout << "lMatter():   " << bargerProp.lMatter() << std::endl;
         std::cout << "ang:         " << bargerProp.calculateEffectiveAngle(energy) << std::endl;
@@ -149,7 +149,7 @@ TEST_P(TwoFlavourOscillations /*unused*/, VacuumOscProbs /*unused*/)
     // will use this for baseline for comparisons
     TwoFlavourBarger<> bargerProp{};
 
-    bargerProp.setParams(mass1, mass2, theta, baseline);
+    bargerProp.setMass1(mass1).setMass2(mass2).setTheta(theta).setBaseline(baseline);
 
     // construct the mixing matrix for current theta value
     Tensor PMNS = Tensor::ones({1, 2, 2}, dtypes::kComplexFloat).requiresGrad(false);

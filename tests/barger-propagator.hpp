@@ -28,18 +28,39 @@ template <typename T = float>
 class TwoFlavourBarger
 {
   public:
-    // set the parameters of this propagator
-    // negative density values will be interpreted as propagating in vacuum
-    inline void setParams(T mass1, T mass2, T theta, T baseline, T density = -999.9,
-                          bool antiNeutrino = false)
+
+    /// @{ Set parameters of the propagator
+    inline TwoFlavourBarger &setMass1(T mass1) 
     {
         _mass1 = mass1;
+        return *this;
+    }
+    inline TwoFlavourBarger &setMass2(T mass2) 
+    {
         _mass2 = mass2;
+        return *this;
+    }
+    inline TwoFlavourBarger &setTheta(T theta) 
+    {
         _theta = theta;
+        return *this;
+    }
+    inline TwoFlavourBarger &setBaseline(T baseline) 
+    {
         _baseline = baseline;
+        return *this;
+    }
+    inline TwoFlavourBarger &setDensity(T density) 
+    {
         _density = density;
+        return *this;
+    }
+    inline TwoFlavourBarger &setAntiNeutrino(bool antiNeutrino) 
+    {
         _antiNeutrino = antiNeutrino;
-    };
+        return *this;
+    }
+    /// @}
 
     // characteristic length in vacuum
     [[nodiscard]] inline T lVac(T energy) const
