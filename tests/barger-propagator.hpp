@@ -20,8 +20,7 @@
 // just want to use vv simple c++ standard objects so is independent of the
 // rest of the nuTens libraries.
 
-// NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers)
-// NOLINTBEGIN(readability-magic-numbers)
+// NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 namespace nuTens::testing
 {
 
@@ -489,5 +488,4 @@ class ThreeFlavourBarger
 
 } // namespace nuTens::testing
 
-// NOLINTEND(cppcoreguidelines-avoid-magic-numbers)
-// NOLINTEND(readability-magic-numbers)
+// NOLINTEND(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)

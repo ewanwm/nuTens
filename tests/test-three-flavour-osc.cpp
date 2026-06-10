@@ -12,8 +12,7 @@ using namespace nuTens;
 using namespace nuTens::testing;
 
 // magic numbers are fine for testing!
-// NOLINTBEGIN(readability-magic-numbers)
-// NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers)
+// NOLINTBEGIN(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
 class ThreeFlavourOscillations : public gtest::TestWithParam<float>
 {
   protected:
@@ -295,5 +294,4 @@ INSTANTIATE_TEST_CASE_P(OscProb, ThreeFlavourOscillations,
                         ::testing::Values(-M_PI, -0.8 * M_PI, -0.6 * M_PI, -0.4 * M_PI, -0.2 * M_PI, 0.0, 0.2 * M_PI,
                                           0.4 * M_PI, 0.6 * M_PI, 0.8 * M_PI, M_PI));
 
-// NOLINTEND(readability-magic-numbers)
-// NOLINTEND(cppcoreguidelines-avoid-magic-numbers)
+// NOLINTEND(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)

@@ -6,8 +6,7 @@ namespace gtest = ::testing;
 #include <nuTens/propagator/pmns-matrix.hpp>
 
 // magic numbers are fine for testing!
-// NOLINTBEGIN(readability-magic-numbers)
-// NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers)
+// NOLINTBEGIN(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
 using namespace nuTens;
 
 class PMNSmatrixTest : public gtest::TestWithParam<float>
@@ -102,5 +101,4 @@ TEST_F(PMNSmatrixTest /*unused*/, FixedValuesTest_Ut3 /*unused*/)
     ASSERT_EQ(matrixTensor.getValue<float>({0, 2, 2}), std::cos(theta23) * std::cos(theta13));
 }
 
-// NOLINTEND(readability-magic-numbers)
-// NOLINTEND(cppcoreguidelines-avoid-magic-numbers)
+// NOLINTEND(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
