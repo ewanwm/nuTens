@@ -100,11 +100,11 @@ class TestVacuumOscProbs(unittest.TestCase):
                         baseline=250.0 * nt.units.km, density=2.0)
     
     def test_vacuum_osc_length(self):
-        self.assertAlmostEqual(self.barger.lv(self.energy), 7.8588934e+12, -6,
+        self.assertAlmostEqual(self.barger.l_vac(self.energy), 7.8588934e+12, -6,
                                f"bad vacuum osc length")
     
     def test_matter_osc_length(self):
-        self.assertAlmostEqual(self.barger.lm(), 4.1177454e+13, -6,
+        self.assertAlmostEqual(self.barger.l_matter(), 4.1177454e+13, -6,
                                f"bad matter osc length")
     
     def test_effective_mixing_angle(self):
