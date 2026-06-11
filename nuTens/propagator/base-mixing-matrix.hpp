@@ -9,7 +9,7 @@ class BaseMixingMatrix
 {
   public:
     /// @brief Get the mixing matrix
-    virtual Tensor &build() 
+    virtual Tensor &build()
     {
         if (_needsRecalculating)
         {
@@ -22,15 +22,25 @@ class BaseMixingMatrix
         return _matrix;
     };
 
-    /// destructor
+    /// @brief Constructor
+    BaseMixingMatrix() = default;
+
+    /// @brief Destructor
     virtual ~BaseMixingMatrix() = default;
+    /// @brief copy constructor
+    BaseMixingMatrix(BaseMixingMatrix const &) = default;
+    /// @brief copy assignment operator
+    BaseMixingMatrix &operator=(BaseMixingMatrix const &) = default;
+    /// @brief move constructor
+    BaseMixingMatrix(BaseMixingMatrix &&) = default;
+    /// @brief move assignment operator
+    BaseMixingMatrix &operator=(BaseMixingMatrix &&) = default;
 
   protected:
-
     /// @brief Should construct and return the mixing matrix
     virtual Tensor _build() = 0;
-    
-    /// flag to set if the matrix needs to be recalculated or if it's fine to 
+
+    /// flag to set if the matrix needs to be recalculated or if it's fine to
     /// just return the cached one
     bool _needsRecalculating = true;
 

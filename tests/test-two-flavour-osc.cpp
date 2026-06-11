@@ -38,6 +38,9 @@ class TwoFlavourOscillations : public gtest::TestWithParam<float>
         energies.setValue({0, 0}, energy);
     }
 
+    // cognitive complexity is heavily inflated by the gtest macros
+    // but they don't actually decrease readability
+    // NOLINTBEGIN(readability-function-cognitive-complexity)
     void testConstDensity(bool antiNu)
     {
 
@@ -49,6 +52,9 @@ class TwoFlavourOscillations : public gtest::TestWithParam<float>
         Propagator tensorPropagator(2, baseline);
         auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(2, density);
 
+        // linter seems to struggle with recogising this type and thinks it is an int
+        // and always thinks it is uninitialised
+        // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
         TwoFlavourBarger<> bargerProp{};
 
         bargerProp.setMass1(mass1)
@@ -95,15 +101,6 @@ class TwoFlavourOscillations : public gtest::TestWithParam<float>
 
         // now check the actual mixing matrix entries
         Tensor PMNSeff = Tensor::matmul(PMNS, eigenVecs);
-        std::cout << "effective PMNS: " << std::endl;
-        std::cout << "[0,0] :: tensor solver: " << PMNSeff.getValue<float>({0, 0, 0})
-                  << " :: barger: " << bargerProp.getPMNSelement(energy, 0, 0) << std::endl;
-        std::cout << "[0,1] :: tensor solver: " << PMNSeff.getValue<float>({0, 0, 1})
-                  << " :: barger: " << bargerProp.getPMNSelement(energy, 0, 1) << std::endl;
-        std::cout << "[1,0] :: tensor solver: " << PMNSeff.getValue<float>({0, 1, 0})
-                  << " :: barger: " << bargerProp.getPMNSelement(energy, 1, 0) << std::endl;
-        std::cout << "[1,1] :: tensor solver: " << PMNSeff.getValue<float>({0, 1, 1})
-                  << " :: barger: " << bargerProp.getPMNSelement(energy, 1, 1) << std::endl;
 
         ASSERT_NEAR(std::abs(PMNSeff.getValue<float>({0, 0, 0})), std::abs(bargerProp.getPMNSelement(energy, 0, 0)),
                     tolerance);
@@ -118,15 +115,6 @@ class TwoFlavourOscillations : public gtest::TestWithParam<float>
                     tolerance);
 
         Tensor probabilities = tensorPropagator.calculateProbs();
-        std::cout << "Oscillation probabilities:" << std::endl;
-        std::cout << "[0,0] :: tensor solver: " << probabilities.getValue<float>({0, 0, 0})
-                  << " :: barger: " << bargerProp.calculateProb(energy, 0, 0) << std::endl;
-        std::cout << "[0,1] :: tensor solver: " << probabilities.getValue<float>({0, 0, 1})
-                  << " :: barger: " << bargerProp.calculateProb(energy, 0, 1) << std::endl;
-        std::cout << "[1,0] :: tensor solver: " << probabilities.getValue<float>({0, 1, 0})
-                  << " :: barger: " << bargerProp.calculateProb(energy, 1, 0) << std::endl;
-        std::cout << "[1,1] :: tensor solver: " << probabilities.getValue<float>({0, 1, 1})
-                  << " :: barger: " << bargerProp.calculateProb(energy, 1, 1) << std::endl;
 
         ASSERT_NEAR(probabilities.getValue<float>({0, 0, 0}), bargerProp.calculateProb(energy, 0, 0), tolerance);
 
@@ -136,6 +124,7 @@ class TwoFlavourOscillations : public gtest::TestWithParam<float>
 
         ASSERT_NEAR(probabilities.getValue<float>({0, 1, 0}), bargerProp.calculateProb(energy, 1, 0), tolerance);
     }
+    // NOLINTEND(readability-function-cognitive-complexity)
 };
 
 // test that Propagator gives expected oscillation probabilites for a range
@@ -152,6 +141,10 @@ TEST_P(TwoFlavourOscillations /*unused*/, VacuumOscProbs /*unused*/)
     tensorPropagator.setMasses(masses);
 
     // will use this for baseline for comparisons
+
+    // linter seems to struggle with recogising this type and thinks it is an int
+    // and always thinks it is uninitialised
+    // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
     TwoFlavourBarger<> bargerProp{};
 
     bargerProp.setMass1(mass1).setMass2(mass2).setTheta(theta).setBaseline(baseline);

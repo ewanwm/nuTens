@@ -82,7 +82,11 @@ py::buffer_info tensorToNumpy(const Tensor &tensor){
 #if USE_PYTORCH
     at::Tensor torchTensor = tensor.getTensor().contiguous();
     void *dataPtr = torchTensor.data_ptr();
-    std::vector<long int> strides {torchTensor.strides().vec()};
+
+    // linter seems to struggle with recogising this type and thinks it is an int
+    // and always thinks it is uninitialised
+    // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
+    std::vector<long int> strides = torchTensor.strides().vec();
 
 #else
 
@@ -90,7 +94,10 @@ py::buffer_info tensorToNumpy(const Tensor &tensor){
 
 #endif
 
-    std::vector<int> stridesBytes {};
+    // linter seems to struggle with recogising this type and thinks it is an int
+    // and always thinks it is uninitialised
+    // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
+    std::vector<int> stridesBytes = {};
 
     // convert strides into bytes
     for(const long int &stride : strides) {
@@ -541,15 +548,19 @@ void initTesting(py::module &m_nuTens)
     auto m_testing = m_nuTens.def_submodule("testing",
         "Some helpful utilities to use when writing python tests for your code"
     )
-    .def("nufast_probability_matter", [](double s12sq, double s13sq, double s23sq, double delta, double dm21, double dm31, double baseline, double energy, double rho, double electronDensity, double Nnewton) 
+    .def("nufast_probability_matter", [](double s12sq, double s13sq, double s23sq, double delta, double dm21, double dm31, double baseline, double energy, double rho, double electronDensity, int Nnewton) 
         {
             // the probabilities as a raw c array
-            double probs_returned[3][3];
+            double probs_returned[3][3]; // NOLINT(cppcoreguidelines-avoid-c-arrays,modernize-avoid-c-arrays)
 
             // get the probabilities
             Probability_Matter_LBL(s12sq, s13sq, s23sq, delta, dm21, dm31, baseline, energy, rho, electronDensity, Nnewton, &probs_returned);
 
-            // turn them into a vector so they can be returned as a numpy array
+            // turn them into a vector so they can be returned as a numpy 
+            
+            // linter seems to struggle with recogising this type and thinks it is an int
+            // and always thinks it is uninitialised
+            // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
             std::vector<std::vector<double>> ret {
                 {
                     {probs_returned[0][0], probs_returned[0][1], probs_returned[0][2]},
@@ -614,9 +625,37 @@ void initTesting(py::module &m_nuTens)
 
     py::class_<testing::ThreeFlavourBarger<>>(m_testing, "ThreeFlavourBarger")
         .def(py::init<>())
-        .def("set_params", &testing::ThreeFlavourBarger<>::setParams, 
-            py::arg("m1"), py::arg("m2"), py::arg("m3"), py::arg("theta12"), py::arg("theta13"), py::arg("theta23"), py::arg("deltaCP"), py::arg("baseline"), py::arg("density") = (float)-999.9, py::arg("anti_neutrino") = false
+        .def("set_m1", &testing::ThreeFlavourBarger<>::setMass1, 
+            py::arg("m1")
         )
+        .def("set_m2", &testing::ThreeFlavourBarger<>::setMass2, 
+            py::arg("m2")
+        )
+        .def("set_m3", &testing::ThreeFlavourBarger<>::setMass3, 
+            py::arg("m3")
+        )
+        .def("set_theta12", &testing::ThreeFlavourBarger<>::setTheta12, 
+            py::arg("theta12")
+        )
+        .def("set_theta13", &testing::ThreeFlavourBarger<>::setTheta13, 
+            py::arg("theta13")
+        )
+        .def("set_theta23", &testing::ThreeFlavourBarger<>::setTheta23, 
+            py::arg("theta23")
+        )
+        .def("set_deltacp", &testing::ThreeFlavourBarger<>::setDeltaCP, 
+            py::arg("deltacp")
+        )
+        .def("set_baseline", &testing::ThreeFlavourBarger<>::setBaseline, 
+            py::arg("baseline")
+        )
+        .def("set_density", &testing::ThreeFlavourBarger<>::setDensity, 
+            py::arg("density")
+        )
+        .def("set_antineutrino", &testing::ThreeFlavourBarger<>::setAntiNeutrino, 
+            py::arg("antineutrino")
+        )
+
         .def("alpha", &testing::ThreeFlavourBarger<>::calculateAlpha,
             "Calculates alpha term used in calculating the mass eigenvalues",
             py::arg("energy")

@@ -228,48 +228,109 @@ template <typename T = float> class TwoFlavourBarger
 template <typename T = float> class ThreeFlavourBarger
 {
   public:
-    // set the parameters of this propagator
-    // negative density values will be interpreted as propagating in vacuum
-    inline void setParams(T mass1, T mass2, T mass3, T theta12, T theta13, T theta23, T deltaCP, T baseline,
-                          T density = -999.9, bool antiNeutrino = false)
+    /// @{ set the parameters of this propagator
+
+    inline ThreeFlavourBarger &setMass1(T mass1)
     {
         _mass1 = mass1;
-        _mass2 = mass2;
-        _mass3 = mass3;
-        _theta12 = theta12;
-        _theta13 = theta13;
-        _theta23 = theta23;
-        _deltaCP = deltaCP;
-        _baseline = baseline;
-        _density = density;
-        _antiNeutrino = antiNeutrino;
 
         // fill the mass array
         masses[0] = _mass1;
+        return *this;
+    }
+    inline ThreeFlavourBarger &setMass2(T mass2)
+    {
+        _mass2 = mass2;
+
+        // fill the mass array
         masses[1] = _mass2;
+        return *this;
+    }
+    inline ThreeFlavourBarger &setMass3(T mass3)
+    {
+        _mass3 = mass3;
+
+        // fill the mass array
         masses[2] = _mass3;
+        return *this;
+    }
+    inline ThreeFlavourBarger &setTheta12(T theta12)
+    {
+        _theta12 = theta12;
+
+        // update the matrix
+        calculatePMNS();
+        return *this;
+    }
+    inline ThreeFlavourBarger &setTheta13(T theta13)
+    {
+        _theta13 = theta13;
+
+        // update the matrix
+        calculatePMNS();
+        return *this;
+    }
+    inline ThreeFlavourBarger &setTheta23(T theta23)
+    {
+        _theta23 = theta23;
+
+        // update the matrix
+        calculatePMNS();
+        return *this;
+    }
+    inline ThreeFlavourBarger &setDeltaCP(T deltaCP)
+    {
+        _deltaCP = deltaCP;
+
+        // update the matrix
+        calculatePMNS();
+        return *this;
+    }
+    inline ThreeFlavourBarger &setBaseline(T baseline)
+    {
+        _baseline = baseline;
+        return *this;
+    }
+    /// negative density values will be interpreted as propagating in vacuum
+    inline ThreeFlavourBarger &setDensity(T density)
+    {
+        _density = density;
+        return *this;
+    }
+    inline ThreeFlavourBarger &setAntiNeutrino(bool antiNeutrino)
+    {
+        _antiNeutrino = antiNeutrino;
+        return *this;
+    }
+    /// @}
+
+    /// Update the internal PMNS matrix and return it
+    inline const std::array<std::array<std::complex<T>, 3>, 3> &calculatePMNS()
+    {
 
         // fill the PMNS matrix elements
-        pmnsMatrix[0][0] = std::complex<T>(std::cos(theta12) * std::cos(theta13), 0.0);
-        pmnsMatrix[0][1] = std::complex<T>(std::sin(theta12) * std::cos(theta13), 0.0);
-        pmnsMatrix[0][2] = std::sin(theta13) * std::exp(std::complex<T>(0.0, -1.0) * deltaCP);
+        pmnsMatrix[0][0] = std::complex<T>(std::cos(_theta12) * std::cos(_theta13), 0.0);
+        pmnsMatrix[0][1] = std::complex<T>(std::sin(_theta12) * std::cos(_theta13), 0.0);
+        pmnsMatrix[0][2] = std::sin(_theta13) * std::exp(std::complex<T>(0.0, -1.0) * _deltaCP);
 
-        pmnsMatrix[1][0] = -std::sin(theta12) * std::cos(theta23) - std::cos(theta12) * std::sin(theta23) *
-                                                                        std::sin(theta13) *
-                                                                        std::exp(std::complex<T>(0.0, 1.0) * deltaCP);
-        pmnsMatrix[1][1] = std::cos(theta12) * std::cos(theta23) - std::sin(theta12) * std::sin(theta23) *
-                                                                       std::sin(theta13) *
-                                                                       std::exp(std::complex<T>(0.0, 1.0) * deltaCP);
-        pmnsMatrix[1][2] = std::complex<T>(std::sin(theta23) * std::cos(theta13), 0.0);
+        pmnsMatrix[1][0] =
+            -std::sin(_theta12) * std::cos(_theta23) - std::cos(_theta12) * std::sin(_theta23) * std::sin(_theta13) *
+                                                           std::exp(std::complex<T>(0.0, 1.0) * _deltaCP);
+        pmnsMatrix[1][1] = std::cos(_theta12) * std::cos(_theta23) - std::sin(_theta12) * std::sin(_theta23) *
+                                                                         std::sin(_theta13) *
+                                                                         std::exp(std::complex<T>(0.0, 1.0) * _deltaCP);
+        pmnsMatrix[1][2] = std::complex<T>(std::sin(_theta23) * std::cos(_theta13), 0.0);
 
-        pmnsMatrix[2][0] = std::sin(theta12) * std::sin(theta23) - std::cos(theta12) * std::cos(theta23) *
-                                                                       std::sin(theta13) *
-                                                                       std::exp(std::complex<T>(0.0, 1.0) * deltaCP);
-        pmnsMatrix[2][1] = -std::cos(theta12) * std::sin(theta23) - std::sin(theta12) * std::cos(theta23) *
-                                                                        std::sin(theta13) *
-                                                                        std::exp(std::complex<T>(0.0, 1.0) * deltaCP);
-        pmnsMatrix[2][2] = std::complex<T>(std::cos(theta23) * std::cos(theta13), 0.0);
-    };
+        pmnsMatrix[2][0] = std::sin(_theta12) * std::sin(_theta23) - std::cos(_theta12) * std::cos(_theta23) *
+                                                                         std::sin(_theta13) *
+                                                                         std::exp(std::complex<T>(0.0, 1.0) * _deltaCP);
+        pmnsMatrix[2][1] =
+            -std::cos(_theta12) * std::sin(_theta23) - std::sin(_theta12) * std::cos(_theta23) * std::sin(_theta13) *
+                                                           std::exp(std::complex<T>(0.0, 1.0) * _deltaCP);
+        pmnsMatrix[2][2] = std::complex<T>(std::cos(_theta23) * std::cos(_theta13), 0.0);
+
+        return pmnsMatrix;
+    }
 
     /// calculate the alpha factor used in the eigenvalue computation
     [[nodiscard]] inline T calculateAlpha(T energy) const
@@ -352,7 +413,7 @@ template <typename T = float> class ThreeFlavourBarger
         // calculate the coefficient of the cos term
         T coeff = -(2.0 / 3.0) * std::sqrt(alpha * alpha - 3.0 * beta);
 
-        return coeff * std::cos((1.0 / 3.0) * (std::acos(arg) + index * constants::twoPi)) + _mass1 * _mass1 -
+        return coeff * std::cos((1.0 / 3.0) * (std::acos(arg) - index * constants::twoPi)) + _mass1 * _mass1 -
                alpha / 3.0;
     }
 

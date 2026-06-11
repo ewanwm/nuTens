@@ -95,10 +95,9 @@ class ProfileWriter
 
     /// @brief Set up the session
     /// @param[in] name The name of the timer
-    /// @param[in] filePath The destination of the output file
-    void beginSession(const std::string &name, const std::string &filePath = "results.json")
+    void beginSession(const std::string &name)
     {
-        _outputStream.open(filePath);
+        _outputStream.open(name + "-profile.json");
         writeHeader();
         _name = name;
     }
@@ -181,7 +180,7 @@ class InstrumentationTimer
     /// @brief Construct an InstrumentationTimer object and start the clock
     /// @param[in] name The name of the profile. Typically use __PRETTY_FUNCTION__ so it's clear which part of the code
     /// is being profiled.
-    InstrumentationTimer(std::string name) : _name(std::move(name)), _stopped(false)
+    InstrumentationTimer(std::string name) : _name(std::move(name))
     {
         _startTimepoint = std::chrono::high_resolution_clock::now();
     }
@@ -195,7 +194,15 @@ class InstrumentationTimer
         }
     }
 
-    InstrumentationTimer(const InstrumentationTimer &) = delete;
+    /// @brief copy constructor
+    InstrumentationTimer(InstrumentationTimer const &) = delete;
+    /// @brief copy assignment operator
+    InstrumentationTimer &operator=(InstrumentationTimer const &) = delete;
+    /// @brief move constructor
+    InstrumentationTimer(InstrumentationTimer &&) = delete;
+    /// @brief move assignment operator
+    InstrumentationTimer &operator=(InstrumentationTimer &&) = default;
+
     /// @brief Stop the timer and write out the profile result using the ProfileWriter
     void stop()
     {
@@ -215,7 +222,7 @@ class InstrumentationTimer
   private:
     std::string _name;
     std::chrono::time_point<std::chrono::high_resolution_clock> _startTimepoint;
-    bool _stopped;
+    bool _stopped{false};
 };
 
 /// @brief Begin a profiling session
@@ -224,8 +231,7 @@ class InstrumentationTimer
 /// @param[in] sessionName The name of the session
 #ifdef USE_PROFILING
 // NOLINTNEXTLINE
-#define NT_PROFILE_BEGINSESSION(sessionName)                                                                           \
-    ProfileWriter::get().beginSession(sessionName, std::string(sessionName) + "-profile.json")
+#define NT_PROFILE_BEGINSESSION(sessionName) ProfileWriter::get().beginSession(sessionName)
 #else
 #define NT_PROFILE_BEGINSESSION(sessionName)
 #endif

@@ -30,9 +30,9 @@ jobs:
         
       - name: Configure CMake
         # Configure CMake so we can get a compile_commands.json so that clang-tidy won't be angry about missing headers any more
-        run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DNT_ENABLE_BENCHMARKING=OFF -DNT_COMPILE_TESTS=OFF -DCMAKE_PREFIX_PATH=`python3 -c 'import torch;print(torch.utils.cmake_prefix_path)'` -B ${{github.workspace}} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        run: cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DNT_ENABLE_BENCHMARKING=ON -DNT_COMPILE_TESTS=ON -DCMAKE_PREFIX_PATH=`python3 -c 'import torch;print(torch.utils.cmake_prefix_path)'` -B ${{github.workspace}} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
       
-      ## horrible little hack to put spdlog include files somewhere that clang-tidy can find them
+      ## horrible little hack to put include files somewhere that clang-tidy can find them
       ## it doesn't seem to like headers included by cpm
       - name: Move spdlog
         run: |
@@ -46,7 +46,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: "Microsoft"
-          ignore: '.github|_deps|CMakeFiles|spdlog*'
+          ignore-format: python/binding.cpp
+          ignore: '.github|_deps|CMakeFiles|spdlog*|gtest*'
           tidy-review: true
           step-summary: true
           files-changed-only: true

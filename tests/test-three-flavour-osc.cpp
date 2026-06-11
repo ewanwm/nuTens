@@ -44,7 +44,74 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         energies = Tensor({energy}, dtypes::kComplexDouble).addBatchDim();
     }
 
-    void testConstDensity(bool antiNu)
+    // cognitive complexity is heavily inflated by the gtest macros
+    // but they don't actually decrease readability
+    // NOLINTBEGIN(readability-function-cognitive-complexity)
+    void testConstDensityEvals(bool antiNu)
+    {
+
+        // get parameterised theta value
+        theta12 = GetParam();
+
+        // set up the barger propagator
+
+        // linter seems to struggle with recogising this type and thinks it is an int
+        // and always thinks it is uninitialised
+        // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
+        ThreeFlavourBarger<> bargerProp{};
+        bargerProp.setMass1(mass1)
+            .setMass2(mass2)
+            .setMass3(mass3)
+            .setTheta12(theta12)
+            .setTheta13(theta13)
+            .setTheta23(theta23)
+            .setDeltaCP(deltaCP)
+            .setBaseline(baseline)
+            .setDensity(density)
+            .setAntiNeutrino(antiNu);
+
+        // construct the mixing matrix for current theta value
+        PMNSmatrix pmns;
+        pmns.setParameterValues(theta12, theta13, theta23, deltaCP);
+        Tensor pmnsTensor = pmns.build();
+
+        // set up the matter solver
+        Propagator tensorPropagator(3, baseline);
+        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
+
+        // set up the propagator
+        tensorPropagator.setMatterSolver(tensorSolver);
+        tensorPropagator.setMixingMatrix(pmns.build());
+        tensorPropagator.setMasses(masses);
+        tensorPropagator.setAntiNeutrino(antiNu);
+        tensorPropagator.setEnergies(energies);
+
+        Tensor eigenVals;
+        Tensor eigenVecs;
+
+        tensorSolver->calculateEigenvalues(eigenVecs, eigenVals);
+
+        // first check that the effective dM^2 from the tensor solver is what we
+        // expect
+        auto calcV1 = eigenVals.getValue<float>({0, 0}) * 2.0 * energy;
+        auto calcV2 = eigenVals.getValue<float>({0, 1}) * 2.0 * energy;
+        auto calcV3 = eigenVals.getValue<float>({0, 2}) * 2.0 * energy;
+
+        // Compare effective masses from both methods
+        NT_INFO("M1: tensor solver: {:.7f} :: barger: {:.7f}", calcV1, bargerProp.calculateEffectiveM2(energy, 0));
+        NT_INFO("M2: tensor solver: {:.7f} :: barger: {:.7f}", calcV2, bargerProp.calculateEffectiveM2(energy, 1));
+        NT_INFO("M3: tensor solver: {:.7f} :: barger: {:.7f}", calcV3, bargerProp.calculateEffectiveM2(energy, 2));
+
+        // Effective dM^2's
+        ASSERT_NEAR(calcV2 - calcV1,
+                    bargerProp.calculateEffectiveM2(energy, 1) - bargerProp.calculateEffectiveM2(energy, 0), tolerance);
+        ASSERT_NEAR(calcV3 - calcV2,
+                    bargerProp.calculateEffectiveM2(energy, 2) - bargerProp.calculateEffectiveM2(energy, 1), tolerance);
+        ASSERT_NEAR(calcV3 - calcV1,
+                    bargerProp.calculateEffectiveM2(energy, 2) - bargerProp.calculateEffectiveM2(energy, 0), tolerance);
+    }
+
+    void testConstDensityHamiltonian(bool antiNu)
     {
 
         // get parameterised theta value
@@ -53,8 +120,110 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         NT_INFO("\n#### const density test for theta12 = {} ####", theta12);
 
         // set up the barger propagator
+
+        // linter seems to struggle with recogising this type and thinks it is an int
+        // and always thinks it is uninitialised
+        // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
         ThreeFlavourBarger<> bargerProp{};
-        bargerProp.setParams(mass1, mass2, mass3, theta12, theta13, theta23, deltaCP, baseline, density, antiNu);
+        bargerProp.setMass1(mass1)
+            .setMass2(mass2)
+            .setMass3(mass3)
+            .setTheta12(theta12)
+            .setTheta13(theta13)
+            .setTheta23(theta23)
+            .setDeltaCP(deltaCP)
+            .setBaseline(baseline)
+            .setDensity(density)
+            .setAntiNeutrino(antiNu);
+
+        // construct the mixing matrix for current theta value
+        PMNSmatrix pmns;
+        pmns.setParameterValues(theta12, theta13, theta23, deltaCP);
+        Tensor pmnsTensor = pmns.build();
+
+        // set up the matter solver
+        Propagator tensorPropagator(3, baseline);
+        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
+
+        // set up the propagator
+        tensorPropagator.setMatterSolver(tensorSolver);
+        tensorPropagator.setMixingMatrix(pmns.build());
+        tensorPropagator.setMasses(masses);
+        tensorPropagator.setAntiNeutrino(antiNu);
+        tensorPropagator.setEnergies(energies);
+
+        // compare the hamiltonians from both methods
+        Tensor hamiltonianTensor = tensorSolver->getHamiltonian();
+        ASSERT_NEAR(hamiltonianTensor.real().getValue<float>({0, 0, 0}),
+                    bargerProp.getHamiltonianElement(energy, 0, 0).real(), tolerance);
+        ASSERT_NEAR(hamiltonianTensor.imag().getValue<float>({0, 0, 0}),
+                    bargerProp.getHamiltonianElement(energy, 0, 0).imag(), tolerance);
+
+        ASSERT_NEAR(hamiltonianTensor.real().getValue<float>({0, 0, 1}),
+                    bargerProp.getHamiltonianElement(energy, 0, 1).real(), tolerance);
+        ASSERT_NEAR(hamiltonianTensor.imag().getValue<float>({0, 0, 1}),
+                    bargerProp.getHamiltonianElement(energy, 0, 1).imag(), tolerance);
+
+        ASSERT_NEAR(hamiltonianTensor.real().getValue<float>({0, 0, 2}),
+                    bargerProp.getHamiltonianElement(energy, 0, 2).real(), tolerance);
+        ASSERT_NEAR(hamiltonianTensor.imag().getValue<float>({0, 0, 2}),
+                    bargerProp.getHamiltonianElement(energy, 0, 2).imag(), tolerance);
+
+        ASSERT_NEAR(hamiltonianTensor.real().getValue<float>({0, 1, 0}),
+                    bargerProp.getHamiltonianElement(energy, 1, 0).real(), tolerance);
+        ASSERT_NEAR(hamiltonianTensor.imag().getValue<float>({0, 1, 0}),
+                    bargerProp.getHamiltonianElement(energy, 1, 0).imag(), tolerance);
+
+        ASSERT_NEAR(hamiltonianTensor.real().getValue<float>({0, 1, 1}),
+                    bargerProp.getHamiltonianElement(energy, 1, 1).real(), tolerance);
+        ASSERT_NEAR(hamiltonianTensor.imag().getValue<float>({0, 1, 1}),
+                    bargerProp.getHamiltonianElement(energy, 1, 1).imag(), tolerance);
+
+        ASSERT_NEAR(hamiltonianTensor.real().getValue<float>({0, 1, 2}),
+                    bargerProp.getHamiltonianElement(energy, 1, 2).real(), tolerance);
+        ASSERT_NEAR(hamiltonianTensor.imag().getValue<float>({0, 1, 2}),
+                    bargerProp.getHamiltonianElement(energy, 1, 2).imag(), tolerance);
+
+        ASSERT_NEAR(hamiltonianTensor.real().getValue<float>({0, 2, 0}),
+                    bargerProp.getHamiltonianElement(energy, 2, 0).real(), tolerance);
+        ASSERT_NEAR(hamiltonianTensor.imag().getValue<float>({0, 2, 0}),
+                    bargerProp.getHamiltonianElement(energy, 2, 0).imag(), tolerance);
+
+        ASSERT_NEAR(hamiltonianTensor.real().getValue<float>({0, 2, 1}),
+                    bargerProp.getHamiltonianElement(energy, 2, 1).real(), tolerance);
+        ASSERT_NEAR(hamiltonianTensor.imag().getValue<float>({0, 2, 1}),
+                    bargerProp.getHamiltonianElement(energy, 2, 1).imag(), tolerance);
+
+        ASSERT_NEAR(hamiltonianTensor.real().getValue<float>({0, 2, 2}),
+                    bargerProp.getHamiltonianElement(energy, 2, 2).real(), tolerance);
+        ASSERT_NEAR(hamiltonianTensor.imag().getValue<float>({0, 2, 2}),
+                    bargerProp.getHamiltonianElement(energy, 2, 2).imag(), tolerance);
+    }
+
+    void testConstDensityOscillations(bool antiNu)
+    {
+
+        // get parameterised theta value
+        theta12 = GetParam();
+
+        NT_INFO("\n#### const density test for theta12 = {} ####", theta12);
+
+        // set up the barger propagator
+
+        // linter seems to struggle with recogising this type and thinks it is an int
+        // and always thinks it is uninitialised
+        // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
+        ThreeFlavourBarger<> bargerProp{};
+        bargerProp.setMass1(mass1)
+            .setMass2(mass2)
+            .setMass3(mass3)
+            .setTheta12(theta12)
+            .setTheta13(theta13)
+            .setTheta23(theta23)
+            .setDeltaCP(deltaCP)
+            .setBaseline(baseline)
+            .setDensity(density)
+            .setAntiNeutrino(antiNu);
 
         NT_INFO("alpha():  {}", bargerProp.calculateAlpha(energy));
         NT_INFO("beta():   {}", bargerProp.calculateBeta(energy));
@@ -80,100 +249,8 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         tensorPropagator.setAntiNeutrino(antiNu);
         tensorPropagator.setEnergies(energies);
 
-        Tensor eigenVals;
-        Tensor eigenVecs;
-
-        tensorSolver->calculateEigenvalues(eigenVecs, eigenVals);
-
-        // first check that the effective dM^2 from the tensor solver is what we
-        // expect
-        auto calcV1 = eigenVals.getValue<float>({0, 0}) * 2.0 * energy;
-        auto calcV2 = eigenVals.getValue<float>({0, 1}) * 2.0 * energy;
-        auto calcV3 = eigenVals.getValue<float>({0, 2}) * 2.0 * energy;
-
-        // print out the effective masses from both methods
-        NT_INFO("Effective masses:");
-        NT_INFO("M1: tensor solver: {:.7f} :: barger: {:.7f}", calcV1, bargerProp.calculateEffectiveM2(energy, 0));
-        NT_INFO("M2: tensor solver: {:.7f} :: barger: {:.7f}", calcV2, bargerProp.calculateEffectiveM2(energy, 1));
-        NT_INFO("M3: tensor solver: {:.7f} :: barger: {:.7f}", calcV3, bargerProp.calculateEffectiveM2(energy, 2));
-        NT_INFO("");
-        NT_INFO("Effective dM^2's:");
-        NT_INFO("dM^2_21: tensor solver: {:.7f} :: barger: {:.7f}", calcV2 - calcV1,
-                bargerProp.calculateEffectiveM2(energy, 1) - bargerProp.calculateEffectiveM2(energy, 0));
-        NT_INFO("dM^2_32: tensor solver: {:.7f} :: barger: {:.7f}", calcV3 - calcV2,
-                bargerProp.calculateEffectiveM2(energy, 2) - bargerProp.calculateEffectiveM2(energy, 1));
-        NT_INFO("dM^2_31: tensor solver: {:.7f} :: barger: {:.7f}", calcV3 - calcV1,
-                bargerProp.calculateEffectiveM2(energy, 2) - bargerProp.calculateEffectiveM2(energy, 0));
-
-        // print out the hamiltonians from both methods
-        Tensor hamiltonianTensor = tensorSolver->getHamiltonian();
-        NT_INFO("#########################################################################");
-        NT_INFO("Hamiltonian:");
-        NT_INFO(
-            "[0,0] :: tensor solver ({}, {}i) :: barger ({}, {}i)", hamiltonianTensor.real().getValue<float>({0, 0, 0}),
-            hamiltonianTensor.imag().getValue<float>({0, 0, 0}), bargerProp.getHamiltonianElement(energy, 0, 0).real(),
-            bargerProp.getHamiltonianElement(energy, 0, 0).imag());
-        NT_INFO(
-            "[0,1] :: tensor solver ({}, {}i) :: barger ({}, {}i)", hamiltonianTensor.real().getValue<float>({0, 0, 1}),
-            hamiltonianTensor.imag().getValue<float>({0, 0, 1}), bargerProp.getHamiltonianElement(energy, 0, 1).real(),
-            bargerProp.getHamiltonianElement(energy, 0, 1).imag());
-        NT_INFO(
-            "[0,2] :: tensor solver ({}, {}i) :: barger ({}, {}i)", hamiltonianTensor.real().getValue<float>({0, 0, 2}),
-            hamiltonianTensor.imag().getValue<float>({0, 0, 2}), bargerProp.getHamiltonianElement(energy, 0, 2).real(),
-            bargerProp.getHamiltonianElement(energy, 0, 2).imag());
-        NT_INFO("");
-        NT_INFO(
-            "[1,0] :: tensor solver ({}, {}i) :: barger ({}, {}i)", hamiltonianTensor.real().getValue<float>({0, 1, 0}),
-            hamiltonianTensor.imag().getValue<float>({0, 1, 0}), bargerProp.getHamiltonianElement(energy, 1, 0).real(),
-            bargerProp.getHamiltonianElement(energy, 1, 0).imag());
-        NT_INFO(
-            "[1,1] :: tensor solver ({}, {}i) :: barger ({}, {}i)", hamiltonianTensor.real().getValue<float>({0, 1, 1}),
-            hamiltonianTensor.imag().getValue<float>({0, 1, 1}), bargerProp.getHamiltonianElement(energy, 1, 1).real(),
-            bargerProp.getHamiltonianElement(energy, 1, 1).imag());
-        NT_INFO(
-            "[1,2] :: tensor solver ({}, {}i) :: barger ({}, {}i)", hamiltonianTensor.real().getValue<float>({0, 1, 2}),
-            hamiltonianTensor.imag().getValue<float>({0, 1, 2}), bargerProp.getHamiltonianElement(energy, 1, 2).real(),
-            bargerProp.getHamiltonianElement(energy, 1, 2).imag());
-        NT_INFO("");
-        NT_INFO(
-            "[2,0] :: tensor solver ({}, {}i) :: barger ({}, {}i)", hamiltonianTensor.real().getValue<float>({0, 2, 0}),
-            hamiltonianTensor.imag().getValue<float>({0, 2, 0}), bargerProp.getHamiltonianElement(energy, 2, 0).real(),
-            bargerProp.getHamiltonianElement(energy, 2, 0).imag());
-        NT_INFO(
-            "[2,1] :: tensor solver ({}, {}i) :: barger ({}, {}i)", hamiltonianTensor.real().getValue<float>({0, 2, 1}),
-            hamiltonianTensor.imag().getValue<float>({0, 2, 1}), bargerProp.getHamiltonianElement(energy, 2, 1).real(),
-            bargerProp.getHamiltonianElement(energy, 2, 1).imag());
-        NT_INFO(
-            "[2,2] :: tensor solver ({}, {}i) :: barger ({}, {}i)", hamiltonianTensor.real().getValue<float>({0, 2, 2}),
-            hamiltonianTensor.imag().getValue<float>({0, 2, 2}), bargerProp.getHamiltonianElement(energy, 2, 2).real(),
-            bargerProp.getHamiltonianElement(energy, 2, 2).imag());
-        NT_INFO("#########################################################################");
-
         // print put the probabilities obtained via both methods
         Tensor probabilities = tensorPropagator.calculateProbs();
-        NT_INFO("#########################################################################");
-        NT_INFO("Oscillation probabilities:");
-        NT_INFO("[0,0] :: tensor solver {:.4f} :: barger {:.4f}", probabilities.getValue<float>({0, 0, 0}),
-                bargerProp.calculateProb(energy, 0, 0));
-        NT_INFO("[0,1] :: tensor solver {:.4f} :: barger {:.4f}", probabilities.getValue<float>({0, 0, 1}),
-                bargerProp.calculateProb(energy, 0, 1));
-        NT_INFO("[0,2] :: tensor solver {:.4f} :: barger {:.4f}", probabilities.getValue<float>({0, 0, 2}),
-                bargerProp.calculateProb(energy, 0, 2));
-        NT_INFO("");
-        NT_INFO("[1,0] :: tensor solver {:.4f} :: barger {:.4f}", probabilities.getValue<float>({0, 1, 0}),
-                bargerProp.calculateProb(energy, 1, 0));
-        NT_INFO("[1,1] :: tensor solver {:.4f} :: barger {:.4f}", probabilities.getValue<float>({0, 1, 1}),
-                bargerProp.calculateProb(energy, 1, 1));
-        NT_INFO("[1,2] :: tensor solver {:.4f} :: barger {:.4f}", probabilities.getValue<float>({0, 1, 2}),
-                bargerProp.calculateProb(energy, 1, 2));
-        NT_INFO("");
-        NT_INFO("[2,0] :: tensor solver {:.4f} :: barger {:.4f}", probabilities.getValue<float>({0, 2, 0}),
-                bargerProp.calculateProb(energy, 2, 0));
-        NT_INFO("[2,1] :: tensor solver {:.4f} :: barger {:.4f}", probabilities.getValue<float>({0, 2, 1}),
-                bargerProp.calculateProb(energy, 2, 1));
-        NT_INFO("[2,2] :: tensor solver {:.4f} :: barger {:.4f}", probabilities.getValue<float>({0, 2, 2}),
-                bargerProp.calculateProb(energy, 2, 2));
-        NT_INFO("#########################################################################");
 
         ASSERT_NEAR(probabilities.getValue<float>({0, 0, 0}), bargerProp.calculateProb(energy, 0, 0), tolerance);
         ASSERT_NEAR(probabilities.getValue<float>({0, 0, 1}), bargerProp.calculateProb(energy, 0, 1), tolerance);
@@ -197,9 +274,21 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         NT_INFO("\n#### vacuum test for theta12 = {} ####", theta12);
 
         // set up the barger propagator
+
+        // linter seems to struggle with recogising this type and thinks it is an int
+        // and always thinks it is uninitialised
+        // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
         ThreeFlavourBarger<> bargerProp{};
-        bargerProp.setParams(mass1, mass2, mass3, theta12, theta13, theta23, deltaCP, baseline, density = -999.9,
-                             antiNu);
+        bargerProp.setMass1(mass1)
+            .setMass2(mass2)
+            .setMass3(mass3)
+            .setTheta12(theta12)
+            .setTheta13(theta13)
+            .setTheta23(theta23)
+            .setDeltaCP(deltaCP)
+            .setBaseline(baseline)
+            .setDensity(density = -999.9)
+            .setAntiNeutrino(antiNu);
 
         NT_INFO("alpha():  {}", bargerProp.calculateAlpha(energy));
         NT_INFO("beta():   {}", bargerProp.calculateBeta(energy));
@@ -261,20 +350,49 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         ASSERT_NEAR(probabilities.getValue<float>({0, 2, 1}), bargerProp.calculateProb(energy, 2, 1), tolerance);
         ASSERT_NEAR(probabilities.getValue<float>({0, 2, 2}), bargerProp.calculateProb(energy, 2, 2), tolerance);
     }
+    // NOLINTEND(readability-function-cognitive-complexity)
 };
+
+// test const density matter oscillations
+TEST_P(ThreeFlavourOscillations /*unused*/, ConstDensityEigenvaluesNu /*unused*/)
+{
+
+    testConstDensityEvals(/*antiNu=*/false);
+}
+
+// test const density matter oscillations for anti-neutrinos
+TEST_P(ThreeFlavourOscillations /*unused*/, ConstDensityEigenvaluesAntiNu /*unused*/)
+{
+
+    testConstDensityEvals(/*antiNu=*/true);
+}
+
+// test const density matter oscillations
+TEST_P(ThreeFlavourOscillations /*unused*/, ConstDensityHamiltonianNu /*unused*/)
+{
+
+    testConstDensityHamiltonian(/*antiNu=*/false);
+}
+
+// test const density matter oscillations for anti-neutrinos
+TEST_P(ThreeFlavourOscillations /*unused*/, ConstDensityHamiltonianAntiiNu /*unused*/)
+{
+
+    testConstDensityHamiltonian(/*antiNu=*/true);
+}
 
 // test const density matter oscillations
 TEST_P(ThreeFlavourOscillations /*unused*/, ConstDensityOscProbsNu /*unused*/)
 {
 
-    testConstDensity(/*antiNu=*/false);
+    testConstDensityOscillations(/*antiNu=*/false);
 }
 
 // test const density matter oscillations for anti-neutrinos
 TEST_P(ThreeFlavourOscillations /*unused*/, ConstDensityOscProbsAntiNu /*unused*/)
 {
 
-    testConstDensity(/*antiNu=*/true);
+    testConstDensityOscillations(/*antiNu=*/true);
 }
 
 // test vacuum oscillations

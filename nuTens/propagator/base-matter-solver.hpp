@@ -18,7 +18,16 @@ class BaseMatterSolver
     {
     }
 
-    ~BaseMatterSolver() {};
+    /// @brief Destructor
+    virtual ~BaseMatterSolver() = default;
+    /// @brief copy constructor
+    BaseMatterSolver(BaseMatterSolver const &) = default;
+    /// @brief copy assignment operator
+    BaseMatterSolver &operator=(BaseMatterSolver const &) = default;
+    /// @brief move constructor
+    BaseMatterSolver(BaseMatterSolver &&) = default;
+    /// @brief move assignment operator
+    BaseMatterSolver &operator=(BaseMatterSolver &&) = default;
 
     /// @name Setters
     /// @{
