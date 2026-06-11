@@ -22,8 +22,19 @@ class BaseMixingMatrix
         return _matrix;
     };
 
-    /// destructor
+    /// @brief Constructor
+    BaseMixingMatrix() = default;
+
+    /// @brief Destructor
     virtual ~BaseMixingMatrix() = default;
+    /// @brief copy constructor
+    BaseMixingMatrix(BaseMixingMatrix const &) = default;
+    /// @brief copy assignment operator
+    BaseMixingMatrix &operator=(BaseMixingMatrix const &) = default;
+    /// @brief move constructor
+    BaseMixingMatrix(BaseMixingMatrix &&) = default;
+    /// @brief move assignment operator
+    BaseMixingMatrix &operator=(BaseMixingMatrix &&) = default;
 
   protected:
 
