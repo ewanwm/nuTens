@@ -76,7 +76,7 @@ class TwoFlavourBarger:
         ...
     def set_theta(self, theta: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
         ...
-def nufast_probability_matter(sin_squared_theta12: typing.SupportsFloat | typing.SupportsIndex, sin_squared_theta13: typing.SupportsFloat | typing.SupportsIndex, sin_squared_theta23: typing.SupportsFloat | typing.SupportsIndex, delta_cp: typing.SupportsFloat | typing.SupportsIndex, delta_m_squared_21: typing.SupportsFloat | typing.SupportsIndex, delta_m_squared_31: typing.SupportsFloat | typing.SupportsIndex, baseline: typing.SupportsFloat | typing.SupportsIndex, energy: typing.SupportsFloat | typing.SupportsIndex, rho: typing.SupportsFloat | typing.SupportsIndex, Ye: typing.SupportsFloat | typing.SupportsIndex, N_Newton: typing.SupportsFloat | typing.SupportsIndex) -> list[list[float]]:
+def nufast_probability_matter(sin_squared_theta12: typing.SupportsFloat | typing.SupportsIndex, sin_squared_theta13: typing.SupportsFloat | typing.SupportsIndex, sin_squared_theta23: typing.SupportsFloat | typing.SupportsIndex, delta_cp: typing.SupportsFloat | typing.SupportsIndex, delta_m_squared_21: typing.SupportsFloat | typing.SupportsIndex, delta_m_squared_31: typing.SupportsFloat | typing.SupportsIndex, baseline: typing.SupportsFloat | typing.SupportsIndex, energy: typing.SupportsFloat | typing.SupportsIndex, rho: typing.SupportsFloat | typing.SupportsIndex, Ye: typing.SupportsFloat | typing.SupportsIndex, N_Newton: typing.SupportsInt | typing.SupportsIndex) -> list[list[float]]:
     """
     Calculates the oscillation probabilities using nufast
     """
