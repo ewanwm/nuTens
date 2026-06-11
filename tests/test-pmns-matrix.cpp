@@ -34,6 +34,20 @@ class PMNSmatrixTest : public gtest::TestWithParam<float>
     }
 };
 
+TEST_F(PMNSmatrixTest /*unused*/, CachingSameResultTest /*unused*/)
+{
+
+    PMNSmatrix cacheMatrix;
+    cacheMatrix.setParameterValues(theta12, theta13, theta23, deltaCP);
+
+    // copy resulting tensor
+    Tensor cachedMatrixTensor = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    cachedMatrixTensor.setValue({"..."}, cacheMatrix.build());
+
+    // make sure we get the same result again without changing parameter values
+    ASSERT_EQ(cachedMatrixTensor, cacheMatrix.build());
+}
+
 TEST_F(PMNSmatrixTest /*unused*/, FixedValuesTest_Ue1 /*unused*/)
 {
 
