@@ -33,7 +33,7 @@ double randomDouble()
 /// get random double between 0.0 and 1.0
 float randomFloat()
 {
-    return (float)rand() / (float)(RAND_MAX + 1.);
+    return (float)rand() / ((float)RAND_MAX + 1.F);
 }
 
 static void batchedOscProbs(Propagator &prop, PMNSmatrix &matrix, AccessedTensor<float, 2, dtypes::kCPU> &masses,
@@ -51,7 +51,7 @@ static void batchedOscProbs(Propagator &prop, PMNSmatrix &matrix, AccessedTensor
             /*theta12=*/randomFloat(),
             /*theta13=*/randomFloat(),
             /*theta23=*/randomFloat(),
-            /*deltaCP=*/randomFloat() * constants::twoPi);
+            /*deltaCP=*/randomFloat() * (float)constants::twoPi);
 
         prop.setMixingMatrix(matrix.build());
         prop.setMasses(masses);
