@@ -20,7 +20,7 @@ class DPpropagator : public Propagator
 
   public:
     DPpropagator(float baseline, bool antiNeutrino, float density, int NRiterations)
-        : Propagator(3, baseline, antiNeutrino), NRiterations(NRiterations), _density(density) {};
+        : Propagator(3, baseline, antiNeutrino), NRiterations(NRiterations), _density(density){};
 
     /// @{Setters
 
@@ -140,6 +140,12 @@ class DPpropagator : public Propagator
         NT_PROFILE();
 
         return _energies;
+    }
+    const float &getDensity()
+    {
+        NT_PROFILE();
+
+        return _density;
     }
 
     /// @}

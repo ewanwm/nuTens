@@ -99,6 +99,18 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
                                 theta23.getValue<float>({0}), deltaCP.getValue<float>({0}));
     }
 
+    void testParameterSetting()
+    {
+        dpPropagator.setBaseline(0.1);
+        dpPropagator.setDensity(0.2);
+
+        // need this to move above float values into coresponding tensors
+        (void)dpPropagator.calculateProbs();
+
+        ASSERT_EQ(dpPropagator.getBaseline(), 0.1);
+        ASSERT_EQ(dpPropagator.getDensity(), 0.2);
+    }
+
     /// compare DP propagator oscillation probabilities to the "official" nufast code
     void compareNufast(bool antineutrino)
     {
