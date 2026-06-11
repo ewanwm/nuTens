@@ -82,7 +82,11 @@ py::buffer_info tensorToNumpy(const Tensor &tensor){
 #if USE_PYTORCH
     at::Tensor torchTensor = tensor.getTensor().contiguous();
     void *dataPtr = torchTensor.data_ptr();
-    std::vector<long int> strides {torchTensor.strides().vec()};
+
+    // linter seems to struggle with recogising this type and thinks it is an int
+    // and always thinks it is uninitialised
+    // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
+    std::vector<long int> strides = torchTensor.strides().vec();
 
 #else
 
@@ -90,7 +94,10 @@ py::buffer_info tensorToNumpy(const Tensor &tensor){
 
 #endif
 
-    std::vector<int> stridesBytes {};
+    // linter seems to struggle with recogising this type and thinks it is an int
+    // and always thinks it is uninitialised
+    // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
+    std::vector<int> stridesBytes = {};
 
     // convert strides into bytes
     for(const long int &stride : strides) {
@@ -541,15 +548,19 @@ void initTesting(py::module &m_nuTens)
     auto m_testing = m_nuTens.def_submodule("testing",
         "Some helpful utilities to use when writing python tests for your code"
     )
-    .def("nufast_probability_matter", [](double s12sq, double s13sq, double s23sq, double delta, double dm21, double dm31, double baseline, double energy, double rho, double electronDensity, double Nnewton) 
+    .def("nufast_probability_matter", [](double s12sq, double s13sq, double s23sq, double delta, double dm21, double dm31, double baseline, double energy, double rho, double electronDensity, int Nnewton) 
         {
             // the probabilities as a raw c array
-            double probs_returned[3][3];
+            double probs_returned[3][3]; // NOLINT(cppcoreguidelines-avoid-c-arrays,modernize-avoid-c-arrays)
 
             // get the probabilities
             Probability_Matter_LBL(s12sq, s13sq, s23sq, delta, dm21, dm31, baseline, energy, rho, electronDensity, Nnewton, &probs_returned);
 
-            // turn them into a vector so they can be returned as a numpy array
+            // turn them into a vector so they can be returned as a numpy 
+            
+            // linter seems to struggle with recogising this type and thinks it is an int
+            // and always thinks it is uninitialised
+            // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
             std::vector<std::vector<double>> ret {
                 {
                     {probs_returned[0][0], probs_returned[0][1], probs_returned[0][2]},

@@ -4,4 +4,5 @@ repos:
     hooks:
     - id: clang-format
       args: [--style=Microsoft]
+      exclude: "python/binding.cpp"
       
