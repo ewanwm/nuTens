@@ -16,7 +16,10 @@ TEST(TwoFlavourBargerPropTest /*unused*/, zeroThetaNoOscTest /*unused*/)
 
     constexpr float baseline = 5.0e12;
 
-    TwoFlavourBarger<> bargerProp = TwoFlavourBarger<>();
+    // linter seems to struggle with recogising this type and thinks it is an int
+    // and always thinks it is uninitialised
+    // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
+    TwoFlavourBarger<> bargerProp{};
 
     // ##########################################################
     // ## Test vacuum propagations for some fixed param values ##
@@ -42,7 +45,10 @@ TEST(TwoFlavourBargerPropTest /*unused*/, zeroDmsqNoOscTest /*unused*/)
 
     constexpr float baseline = 5.0e12;
 
-    TwoFlavourBarger<> bargerProp = TwoFlavourBarger<>();
+    // linter seems to struggle with recogising this type and thinks it is an int
+    // and always thinks it is uninitialised
+    // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
+    TwoFlavourBarger<> bargerProp{};
 
     // ##########################################################
     // ## Test vacuum propagations for some fixed param values ##
@@ -66,7 +72,10 @@ TEST(TwoFlavourBargerPropTest /*unused*/, zeroDmsqNoOscTest /*unused*/)
 TEST(TwoFlavourBargerPropTest /*unused*/, fixedValuesTest /*unused*/)
 {
 
-    TwoFlavourBarger<> bargerProp = TwoFlavourBarger<>();
+    // linter seems to struggle with recogising this type and thinks it is an int
+    // and always thinks it is uninitialised
+    // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
+    TwoFlavourBarger<> bargerProp{};
 
     // now check for fixed parameters values against externally calculated values
 

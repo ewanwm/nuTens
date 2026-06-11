@@ -49,6 +49,9 @@ class TwoFlavourOscillations : public gtest::TestWithParam<float>
         Propagator tensorPropagator(2, baseline);
         auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(2, density);
 
+        // linter seems to struggle with recogising this type and thinks it is an int
+        // and always thinks it is uninitialised
+        // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
         TwoFlavourBarger<> bargerProp{};
 
         bargerProp.setMass1(mass1)
@@ -152,6 +155,10 @@ TEST_P(TwoFlavourOscillations /*unused*/, VacuumOscProbs /*unused*/)
     tensorPropagator.setMasses(masses);
 
     // will use this for baseline for comparisons
+
+    // linter seems to struggle with recogising this type and thinks it is an int
+    // and always thinks it is uninitialised
+    // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
     TwoFlavourBarger<> bargerProp{};
 
     bargerProp.setMass1(mass1).setMass2(mass2).setTheta(theta).setBaseline(baseline);
