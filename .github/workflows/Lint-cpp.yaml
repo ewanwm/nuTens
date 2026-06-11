@@ -46,6 +46,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: "Microsoft"
+          ignore-format: python/binding.cpp
           ignore: '.github|_deps|CMakeFiles|spdlog*|gtest*'
           tidy-review: true
           step-summary: true
