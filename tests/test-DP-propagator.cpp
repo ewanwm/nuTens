@@ -100,6 +100,10 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
     }
 
     /// compare DP propagator oscillation probabilities to the "official" nufast code
+
+    // cognitive complexity is heavily inflated by the gtest macros
+    // but they don't actually decrease readability
+    // NOLINTBEGIN(readability-function-cognitive-complexity)
     void compareNufast(bool antineutrino)
     {
 
@@ -251,6 +255,7 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
         ASSERT_NEAR(probabilities.getValue<float>({0, 2, 1}), dpProbabilities.getValue<float>({0, 2, 1}), tolerance);
         ASSERT_NEAR(probabilities.getValue<float>({0, 2, 2}), dpProbabilities.getValue<float>({0, 2, 2}), tolerance);
     }
+    // NOLINTEND(readability-function-cognitive-complexity)
 };
 
 // compare dpPropagator osc probs with Propagator osc probs

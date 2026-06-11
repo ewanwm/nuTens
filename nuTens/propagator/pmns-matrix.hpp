@@ -65,9 +65,7 @@ class PMNSmatrix : public BaseMixingMatrix
     }
     /// @}
 
-
   protected:
-    
     inline Tensor _build() override
     {
         NT_PROFILE();
