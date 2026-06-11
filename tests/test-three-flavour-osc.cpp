@@ -59,7 +59,16 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         // and always thinks it is uninitialised
         // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
         ThreeFlavourBarger<> bargerProp{};
-        bargerProp.setParams(mass1, mass2, mass3, theta12, theta13, theta23, deltaCP, baseline, density, antiNu);
+        bargerProp.setMass1(mass1)
+            .setMass2(mass2)
+            .setMass3(mass3)
+            .setTheta12(theta12)
+            .setTheta13(theta13)
+            .setTheta23(theta23)
+            .setDeltaCP(deltaCP)
+            .setBaseline(baseline)
+            .setDensity(density)
+            .setAntiNeutrino(antiNu);
 
         // construct the mixing matrix for current theta value
         PMNSmatrix pmns;
@@ -116,7 +125,16 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         // and always thinks it is uninitialised
         // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
         ThreeFlavourBarger<> bargerProp{};
-        bargerProp.setParams(mass1, mass2, mass3, theta12, theta13, theta23, deltaCP, baseline, density, antiNu);
+        bargerProp.setMass1(mass1)
+            .setMass2(mass2)
+            .setMass3(mass3)
+            .setTheta12(theta12)
+            .setTheta13(theta13)
+            .setTheta23(theta23)
+            .setDeltaCP(deltaCP)
+            .setBaseline(baseline)
+            .setDensity(density)
+            .setAntiNeutrino(antiNu);
 
         // construct the mixing matrix for current theta value
         PMNSmatrix pmns;
@@ -196,7 +214,16 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         // and always thinks it is uninitialised
         // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
         ThreeFlavourBarger<> bargerProp{};
-        bargerProp.setParams(mass1, mass2, mass3, theta12, theta13, theta23, deltaCP, baseline, density, antiNu);
+        bargerProp.setMass1(mass1)
+            .setMass2(mass2)
+            .setMass3(mass3)
+            .setTheta12(theta12)
+            .setTheta13(theta13)
+            .setTheta23(theta23)
+            .setDeltaCP(deltaCP)
+            .setBaseline(baseline)
+            .setDensity(density)
+            .setAntiNeutrino(antiNu);
 
         NT_INFO("alpha():  {}", bargerProp.calculateAlpha(energy));
         NT_INFO("beta():   {}", bargerProp.calculateBeta(energy));
@@ -252,8 +279,16 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         // and always thinks it is uninitialised
         // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
         ThreeFlavourBarger<> bargerProp{};
-        bargerProp.setParams(mass1, mass2, mass3, theta12, theta13, theta23, deltaCP, baseline, density = -999.9,
-                             antiNu);
+        bargerProp.setMass1(mass1)
+            .setMass2(mass2)
+            .setMass3(mass3)
+            .setTheta12(theta12)
+            .setTheta13(theta13)
+            .setTheta23(theta23)
+            .setDeltaCP(deltaCP)
+            .setBaseline(baseline)
+            .setDensity(density = -999.9)
+            .setAntiNeutrino(antiNu);
 
         NT_INFO("alpha():  {}", bargerProp.calculateAlpha(energy));
         NT_INFO("beta():   {}", bargerProp.calculateBeta(energy));

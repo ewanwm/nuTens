@@ -625,9 +625,37 @@ void initTesting(py::module &m_nuTens)
 
     py::class_<testing::ThreeFlavourBarger<>>(m_testing, "ThreeFlavourBarger")
         .def(py::init<>())
-        .def("set_params", &testing::ThreeFlavourBarger<>::setParams, 
-            py::arg("m1"), py::arg("m2"), py::arg("m3"), py::arg("theta12"), py::arg("theta13"), py::arg("theta23"), py::arg("deltaCP"), py::arg("baseline"), py::arg("density") = (float)-999.9, py::arg("anti_neutrino") = false
+        .def("set_m1", &testing::ThreeFlavourBarger<>::setMass1, 
+            py::arg("m1")
         )
+        .def("set_m2", &testing::ThreeFlavourBarger<>::setMass2, 
+            py::arg("m2")
+        )
+        .def("set_m3", &testing::ThreeFlavourBarger<>::setMass3, 
+            py::arg("m3")
+        )
+        .def("set_theta12", &testing::ThreeFlavourBarger<>::setTheta12, 
+            py::arg("theta12")
+        )
+        .def("set_theta13", &testing::ThreeFlavourBarger<>::setTheta13, 
+            py::arg("theta13")
+        )
+        .def("set_theta23", &testing::ThreeFlavourBarger<>::setTheta23, 
+            py::arg("theta23")
+        )
+        .def("set_deltacp", &testing::ThreeFlavourBarger<>::setDeltaCP, 
+            py::arg("deltacp")
+        )
+        .def("set_baseline", &testing::ThreeFlavourBarger<>::setBaseline, 
+            py::arg("baseline")
+        )
+        .def("set_density", &testing::ThreeFlavourBarger<>::setDensity, 
+            py::arg("density")
+        )
+        .def("set_antineutrino", &testing::ThreeFlavourBarger<>::setAntiNeutrino, 
+            py::arg("antineutrino")
+        )
+
         .def("alpha", &testing::ThreeFlavourBarger<>::calculateAlpha,
             "Calculates alpha term used in calculating the mass eigenvalues",
             py::arg("energy")

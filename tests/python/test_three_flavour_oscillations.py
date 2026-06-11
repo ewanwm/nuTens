@@ -47,7 +47,7 @@ class TestTwoFlavourConstMatter:
 
         # set up barger
         barger = ThreeFlavourBarger()
-        barger.set_params(self.m1, self.m2, self.m3, theta12, theta13, theta23, self.deltaCP, self.baseline, self.density)
+        barger.set_m1(self.m1).set_m2(self.m2).set_m3(self.m3).set_theta12(theta12).set_theta13(theta13).set_theta23(theta23).set_deltacp(self.deltaCP).set_baseline(self.baseline).set_density(self.density)
         
         pmns, masses = self.setup_tensor_inputs(theta12, theta13, theta23)
 
