@@ -23,36 +23,6 @@ class PMNSmatrix : public BaseMixingMatrix
         _mat3 = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat).requiresGrad(false);
     }
 
-    inline Tensor &build() override
-    {
-        NT_PROFILE();
-
-        _mat1.setValue({0, 0, 0}, 1.0);
-        _mat1.setValue({0, 1, 1}, Tensor::cos(_theta23));
-        _mat1.setValue({0, 1, 2}, Tensor::sin(_theta23));
-        _mat1.setValue({0, 2, 1}, -Tensor::sin(_theta23));
-        _mat1.setValue({0, 2, 2}, Tensor::cos(_theta23));
-        _mat1.requiresGrad(true);
-
-        _mat2.setValue({0, 1, 1}, 1.0);
-        _mat2.setValue({0, 0, 0}, Tensor::cos(_theta13));
-        _mat2.setValue({0, 0, 2}, Tensor::mul(Tensor::sin(_theta13), Tensor::exp(Tensor::scale(_deltaCP, -imagUnit))));
-        _mat2.setValue({0, 2, 0}, -Tensor::mul(Tensor::sin(_theta13), Tensor::exp(Tensor::scale(_deltaCP, imagUnit))));
-        _mat2.setValue({0, 2, 2}, Tensor::cos(_theta13));
-        _mat2.requiresGrad(true);
-
-        _mat3.setValue({0, 2, 2}, 1.0);
-        _mat3.setValue({0, 0, 0}, Tensor::cos(_theta12));
-        _mat3.setValue({0, 0, 1}, Tensor::sin(_theta12));
-        _mat3.setValue({0, 1, 0}, -Tensor::sin(_theta12));
-        _mat3.setValue({0, 1, 1}, Tensor::cos(_theta12));
-        _mat3.requiresGrad(true);
-
-        // Build PMNS
-        _matrix = Tensor::matmul(_mat1, Tensor::matmul(_mat2, _mat3));
-        return _matrix;
-    }
-
     inline void setParameterValues(float theta12, float theta13, float theta23, float deltaCP)
     {
         NT_PROFILE();
@@ -71,6 +41,9 @@ class PMNSmatrix : public BaseMixingMatrix
         _theta13.requiresGrad(true);
         _theta23.requiresGrad(true);
         _deltaCP.requiresGrad(true);
+
+        // set the dirty flag
+        _needsRecalculating = true;
     }
 
     /// @{Setters
@@ -92,6 +65,35 @@ class PMNSmatrix : public BaseMixingMatrix
     }
     /// @}
 
+
+  protected:
+    
+    inline Tensor _build() override
+    {
+        NT_PROFILE();
+
+        _mat1.setValue({0, 0, 0}, 1.0);
+        _mat1.setValue({0, 1, 1}, Tensor::cos(_theta23));
+        _mat1.setValue({0, 1, 2}, Tensor::sin(_theta23));
+        _mat1.setValue({0, 2, 1}, -Tensor::sin(_theta23));
+        _mat1.setValue({0, 2, 2}, Tensor::cos(_theta23));
+
+        _mat2.setValue({0, 1, 1}, 1.0);
+        _mat2.setValue({0, 0, 0}, Tensor::cos(_theta13));
+        _mat2.setValue({0, 0, 2}, Tensor::mul(Tensor::sin(_theta13), Tensor::exp(Tensor::scale(_deltaCP, -imagUnit))));
+        _mat2.setValue({0, 2, 0}, -Tensor::mul(Tensor::sin(_theta13), Tensor::exp(Tensor::scale(_deltaCP, imagUnit))));
+        _mat2.setValue({0, 2, 2}, Tensor::cos(_theta13));
+
+        _mat3.setValue({0, 2, 2}, 1.0);
+        _mat3.setValue({0, 0, 0}, Tensor::cos(_theta12));
+        _mat3.setValue({0, 0, 1}, Tensor::sin(_theta12));
+        _mat3.setValue({0, 1, 0}, -Tensor::sin(_theta12));
+        _mat3.setValue({0, 1, 1}, Tensor::cos(_theta12));
+
+        // Build PMNS
+        return Tensor::matmul(_mat1, Tensor::matmul(_mat2, _mat3));
+    }
+
   private:
     // the mixing parameters
     AccessedTensor<float, 1, dtypes::kCPU> _theta12 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, true);
@@ -103,9 +105,6 @@ class PMNSmatrix : public BaseMixingMatrix
     Tensor _mat1;
     Tensor _mat2;
     Tensor _mat3;
-
-    // the actual matrix
-    Tensor _matrix;
 };
 
 }; // namespace nuTens
