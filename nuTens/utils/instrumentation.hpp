@@ -95,10 +95,9 @@ class ProfileWriter
 
     /// @brief Set up the session
     /// @param[in] name The name of the timer
-    /// @param[in] filePath The destination of the output file
-    void beginSession(const std::string &name, const std::string &filePath = "results.json")
+    void beginSession(const std::string &name)
     {
-        _outputStream.open(filePath);
+        _outputStream.open(name + "-profile.json");
         writeHeader();
         _name = name;
     }
@@ -232,8 +231,7 @@ class InstrumentationTimer
 /// @param[in] sessionName The name of the session
 #ifdef USE_PROFILING
 // NOLINTNEXTLINE
-#define NT_PROFILE_BEGINSESSION(sessionName)                                                                           \
-    ProfileWriter::get().beginSession(sessionName, std::string(sessionName) + "-profile.json")
+#define NT_PROFILE_BEGINSESSION(sessionName) ProfileWriter::get().beginSession(sessionName)
 #else
 #define NT_PROFILE_BEGINSESSION(sessionName)
 #endif
