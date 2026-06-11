@@ -181,7 +181,7 @@ class InstrumentationTimer
     /// @brief Construct an InstrumentationTimer object and start the clock
     /// @param[in] name The name of the profile. Typically use __PRETTY_FUNCTION__ so it's clear which part of the code
     /// is being profiled.
-    InstrumentationTimer(std::string name) : _name(std::move(name)), _stopped(false)
+    InstrumentationTimer(std::string name) : _name(std::move(name))
     {
         _startTimepoint = std::chrono::high_resolution_clock::now();
     }
