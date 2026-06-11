@@ -137,14 +137,38 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMixingMatrix5buildEv">
-<span id="_CPPv3N6nuTens16BaseMixingMatrix5buildEv"></span><span id="_CPPv2N6nuTens16BaseMixingMatrix5buildEv"></span><span id="nuTens::BaseMixingMatrix::build"></span><span class="target" id="classnuTens_1_1BaseMixingMatrix_1aa3c2a7084c0498f770565265d03aedba"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">build</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><br /></dt>
-<dd><p>Should construct and return the mixing matrix. </p>
+<span id="_CPPv3N6nuTens16BaseMixingMatrix5buildEv"></span><span id="_CPPv2N6nuTens16BaseMixingMatrix5buildEv"></span><span id="nuTens::BaseMixingMatrix::build"></span><span class="target" id="classnuTens_1_1BaseMixingMatrix_1a52a024fdb31a32630dca5996eb34aa5e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">build</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Get the mixing matrix. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMixingMatrixD0Ev">
 <span id="_CPPv3N6nuTens16BaseMixingMatrixD0Ev"></span><span id="_CPPv2N6nuTens16BaseMixingMatrixD0Ev"></span><span id="nuTens::BaseMixingMatrix::~BaseMixingMatrix"></span><span class="target" id="classnuTens_1_1BaseMixingMatrix_1a15980929d2a687a31be74d55d9dcadf8"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~BaseMixingMatrix</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><br /></dt>
 <dd><p>destructor </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-functions">Protected Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMixingMatrix6_buildEv">
+<span id="_CPPv3N6nuTens16BaseMixingMatrix6_buildEv"></span><span id="_CPPv2N6nuTens16BaseMixingMatrix6_buildEv"></span><span id="nuTens::BaseMixingMatrix::_build"></span><span class="target" id="classnuTens_1_1BaseMixingMatrix_1aaaf04dff110a58af6643248c3afedf0c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_build</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N6nuTens16BaseMixingMatrix6_buildEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Should construct and return the mixing matrix. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMixingMatrix19_needsRecalculatingE">
+<span id="_CPPv3N6nuTens16BaseMixingMatrix19_needsRecalculatingE"></span><span id="_CPPv2N6nuTens16BaseMixingMatrix19_needsRecalculatingE"></span><span id="nuTens::BaseMixingMatrix::_needsRecalculating__b"></span><span class="target" id="classnuTens_1_1BaseMixingMatrix_1ae3eaa3f1302497f80969bd4ebbc75f1a"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_needsRecalculating</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N6nuTens16BaseMixingMatrix19_needsRecalculatingE" title="Link to this definition"></a><br /></dt>
+<dd><p>flag to set if the matrix needs to be recalculated or if it’s fine to just return the cached one </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMixingMatrix7_matrixE">
+<span id="_CPPv3N6nuTens16BaseMixingMatrix7_matrixE"></span><span id="_CPPv2N6nuTens16BaseMixingMatrix7_matrixE"></span><span id="nuTens::BaseMixingMatrix::_matrix__Tensor"></span><span class="target" id="classnuTens_1_1BaseMixingMatrix_1a1fb9e295ae62b0315042f699a089097b"></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_matrix</span></span></span><a class="headerlink" href="#_CPPv4N6nuTens16BaseMixingMatrix7_matrixE" title="Link to this definition"></a><br /></dt>
+<dd><p>Cached mixing matrix. </p>
 </dd></dl>
 
 </div>
