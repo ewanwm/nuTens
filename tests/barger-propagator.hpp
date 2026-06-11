@@ -352,7 +352,7 @@ template <typename T = float> class ThreeFlavourBarger
         // calculate the coefficient of the cos term
         T coeff = -(2.0 / 3.0) * std::sqrt(alpha * alpha - 3.0 * beta);
 
-        return coeff * std::cos((1.0 / 3.0) * (std::acos(arg) + index * constants::twoPi)) + _mass1 * _mass1 -
+        return coeff * std::cos((1.0 / 3.0) * (std::acos(arg) - index * constants::twoPi)) + _mass1 * _mass1 -
                alpha / 3.0;
     }
 
