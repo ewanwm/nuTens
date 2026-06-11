@@ -44,6 +44,9 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         energies = Tensor({energy}, dtypes::kComplexDouble).addBatchDim();
     }
 
+    // cognitive complexity is heavily inflated by the gtest macros
+    // but they don't actually decrease readability
+    // NOLINTBEGIN(readability-function-cognitive-complexity)
     void testConstDensityEvals(bool antiNu)
     {
 
@@ -312,6 +315,7 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         ASSERT_NEAR(probabilities.getValue<float>({0, 2, 1}), bargerProp.calculateProb(energy, 2, 1), tolerance);
         ASSERT_NEAR(probabilities.getValue<float>({0, 2, 2}), bargerProp.calculateProb(energy, 2, 2), tolerance);
     }
+    // NOLINTEND(readability-function-cognitive-complexity)
 };
 
 // test const density matter oscillations
