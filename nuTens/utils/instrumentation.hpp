@@ -195,7 +195,15 @@ class InstrumentationTimer
         }
     }
 
-    InstrumentationTimer(const InstrumentationTimer &) = delete;
+    /// @brief copy constructor
+    InstrumentationTimer(InstrumentationTimer const &) = delete;
+    /// @brief copy assignment operator
+    InstrumentationTimer &operator=(InstrumentationTimer const &) = delete;
+    /// @brief move constructor
+    InstrumentationTimer(InstrumentationTimer &&) = delete;
+    /// @brief move assignment operator
+    InstrumentationTimer &operator=(InstrumentationTimer &&) = default;
+
     /// @brief Stop the timer and write out the profile result using the ProfileWriter
     void stop()
     {
@@ -215,7 +223,7 @@ class InstrumentationTimer
   private:
     std::string _name;
     std::chrono::time_point<std::chrono::high_resolution_clock> _startTimepoint;
-    bool _stopped;
+    bool _stopped{false};
 };
 
 /// @brief Begin a profiling session
