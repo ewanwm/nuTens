@@ -11,9 +11,12 @@ class BaseMixingMatrix
     /// @brief Get the mixing matrix
     virtual Tensor &build() 
     {
-        if (needsRecalculating)
+        if (_needsRecalculating)
         {
             _matrix = _build();
+
+            // clear the dirty flag
+            _needsRecalculating = false;
         }
 
         return _matrix;
@@ -29,7 +32,7 @@ class BaseMixingMatrix
     
     /// flag to set if the matrix needs to be recalculated or if it's fine to 
     /// just return the cached one
-    bool needsRecalculating = true;
+    bool _needsRecalculating = true;
 
     /// Cached mixing matrix
     Tensor _matrix;
