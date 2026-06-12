@@ -448,11 +448,15 @@ void initPropagator(py::module &m_nuTens)
 
 
     py::class_<DPpropagator, Propagator>(m_propagator, "DPpropagator")
-        .def(py::init<float, bool, float, int>(), 
-            py::arg("baseline"), py::arg("anti_neutrino")=false, py::arg("density"), py::arg("NR_iterations"))
+        .def(py::init<int>(), 
+            py::arg("NR_iterations"))
         .def("set_parameters", &DPpropagator::setParameters,
             "set the parameters for the oscillation calculations",
             py::arg("new_theta12"), py::arg("new_theta23"), py::arg("new_theta13"), py::arg("new_deltaCP"), py::arg("new_deltamsq21"), py::arg("new_deltamsq31"), py::arg("sin_squared_thetas") = false
+        )
+        .def("set_antineutrino", &DPpropagator::setAntiNeutrino,
+            "set whether to calculate anti-neutrino probabilities",
+            py::arg("new_value")
         )
         .def("set_baseline", &DPpropagator::setBaseline,
             "set the baseline",
