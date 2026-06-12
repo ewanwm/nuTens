@@ -80,9 +80,11 @@ Tensor DPpropagator::calculateProbs()
     // ---------------------------------------------------------------------------- //
     Tensor Bmatter = dmsq21 * dmsq31 + Amatter * See; // Bmatter is only needed for N_Newton >= 1
     for (int i = 0; i < NRiterations; i++)
+    {
         lambda3 = (lambda3 * lambda3 * (lambda3 + lambda3 - Atotal) + Cmatter) /
                   (lambda3 * ((lambda3 - Atotal) * 2.0 + lambda3) +
                    Bmatter); // this strange form prefers additions to multiplications
+    }
 
     // ------------------- //
     // Get  Delta lambda's //
