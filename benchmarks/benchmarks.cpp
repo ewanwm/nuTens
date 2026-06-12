@@ -145,7 +145,7 @@ static void BM_DPpropOscillations(benchmark::State &state)
 
     // make some random test energies
     Tensor energies =
-        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), energyScale) +
+        Tensor::scale(Tensor::rand({state.range(0)}).dType(dtypes::kComplexFloat).requiresGrad(false), energyScale) +
         Tensor({energyOffset});
 
     energies = energies.hasBatchDim(true);
