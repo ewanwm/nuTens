@@ -47,8 +47,8 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
     Propagator tensorPropagator = Propagator(3, baseline);
     std::shared_ptr<ConstDensityMatterSolver> tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
 
-    DPpropagator dpPropagator = DPpropagator(baseline, false, density, 10);
-    DPpropagator dpPropagatorVac = DPpropagator(baseline, false, 0.0, 10);
+    DPpropagator dpPropagator = DPpropagator(10).setBaseline(baseline).setAntiNeutrino(false).setDensity(density);
+    DPpropagator dpPropagatorVac = DPpropagator(10).setBaseline(baseline).setAntiNeutrino(false).setDensity(0.0);
 
     PMNSmatrix pmns;
 

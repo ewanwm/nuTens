@@ -19,71 +19,121 @@ class DPpropagator : public Propagator
     };
 
   public:
-    DPpropagator(float baseline, bool antiNeutrino, float density, int NRiterations)
-        : Propagator(3, baseline, antiNeutrino), NRiterations(NRiterations), _density(density) {};
+    DPpropagator(int NRiterations) : Propagator(3), NRiterations(NRiterations){};
 
     /// @{Setters
 
-    inline void setBaseline(float newBaseline) override
+    inline DPpropagator &setBaseline(float newBaseline)
     {
         NT_PROFILE();
 
         _baseline = newBaseline;
+        return *this;
     }
-    inline void setDensity(float newDensity)
+    inline DPpropagator &setDensity(float newDensity)
     {
         NT_PROFILE();
 
         _density = newDensity;
+        return *this;
     }
-    inline void setTheta12(Tensor &newTheta12)
+    inline DPpropagator &setTheta12(Tensor &newTheta12)
     {
         NT_PROFILE();
 
         theta12 = newTheta12;
+        return *this;
     }
-    inline void setTheta23(Tensor &newTheta23)
+    inline DPpropagator &setTheta23(Tensor &newTheta23)
     {
         NT_PROFILE();
 
         theta23 = newTheta23;
+        return *this;
     }
-    inline void setTheta13(Tensor &newTheta13)
+    inline DPpropagator &setTheta13(Tensor &newTheta13)
     {
         NT_PROFILE();
 
         theta13 = newTheta13;
+        return *this;
     }
-    inline void setDeltaCP(Tensor &newDeltaCP)
+    inline DPpropagator &setDeltaCP(Tensor &newDeltaCP)
     {
         NT_PROFILE();
 
         deltaCP = newDeltaCP;
+        return *this;
     }
-    inline void setDmsp21(Tensor &newDmsq21)
+    inline DPpropagator &setDmsp21(Tensor &newDmsq21)
     {
         NT_PROFILE();
 
         dmsq21 = newDmsq21;
+        return *this;
     }
-    inline void setDmsq31(Tensor &newDmsq31)
+    inline DPpropagator &setDmsq31(Tensor &newDmsq31)
     {
         NT_PROFILE();
 
         dmsq31 = newDmsq31;
+        return *this;
+    }
+    inline DPpropagator &setAntiNeutrino(bool newValue)
+    {
+        NT_PROFILE();
+
+        _antiNeutrino = newValue;
+        return *this;
+    }
+    /// If true, the \theta_{ij}'s you provide will be interpreted as \sin^2(\theta_{ij}).
+    /// This will shortcut some of the computations performed by this propagator
+    /// and speed up calculation time.
+    inline DPpropagator &setSinSquaredThetas(bool newValue)
+    {
+        NT_PROFILE();
+
+        interpretSinSquaredThetas = newValue;
+        return *this;
     }
 
+    /// @brief Set all parameters at once
+    /// @param newTheta12 New \theta_{12}
+    /// @param newTheta23 New \theta_{23}
+    /// @param newTheta13 New \theta_{13}
+    /// @param newDeltaCP New \delta_{cp}
+    /// @param newDmsq21  New \Delta m^2_{21}
+    /// @param newDmsq31  New \Delta m^2_{31}
+    /// @param sinSquaredThetas If true, the \theta_{ij}'s will be interpreted as \sin^2(\theta_{ij}) values
+    ///                         This will shortcut some of the computations performed by this propagator
+    ///                         and speed up calculation time
     inline void setParameters(Tensor &newTheta12, Tensor &newTheta23, Tensor &newTheta13, Tensor &newDeltaCP,
-                              Tensor &newDmsq21, Tensor &newDmsq31)
+                              Tensor &newDmsq21, Tensor &newDmsq31, bool sinSquaredThetas = false)
     {
         NT_PROFILE();
 
-        theta12 = newTheta12;
-        theta23 = newTheta23;
-        theta13 = newTheta13;
         deltaCP = newDeltaCP;
         dmsq21 = newDmsq21;
         dmsq31 = newDmsq31;
+
+        interpretSinSquaredThetas = sinSquaredThetas;
+
+        // if user has provided sin^2(theta_ij) values, we just use those, otherwise
+        // we need to calculate them
+        if (interpretSinSquaredThetas)
+        {
+
+            sinSqTheta12 = newTheta12;
+            sinSqTheta13 = newTheta13;
+            sinSqTheta23 = newTheta23;
+        }
+        else
+        {
+
+            theta12 = newTheta12;
+            theta13 = newTheta13;
+            theta23 = newTheta23;
+        }
     }
 
     /// @brief Set the neutrino energies
@@ -172,13 +222,21 @@ class DPpropagator : public Propagator
     Tensor theta13 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
     Tensor theta23 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
 
+    Tensor sinSqTheta12 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    Tensor sinSqTheta13 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    Tensor sinSqTheta23 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
+
     Tensor deltaCP = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
 
     Tensor dmsq21 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
     Tensor dmsq31 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
 
     int NRiterations;
-    float _density;
+    float _density{0.0};
+
+    // whether to interpret user specified \theta_{ij} values as \sin^2(\theta_{ij})
+    // allowing shortcut in calculations
+    bool interpretSinSquaredThetas = false;
 };
 
 }; // namespace nuTens

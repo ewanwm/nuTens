@@ -31,9 +31,14 @@ class Propagator
     /// @brief Constructor
     /// @param nGenerations The number of generations the propagator should
     /// expect
+    Propagator(int nGenerations) : _nGenerations(nGenerations){};
+
+    /// @brief Constructor
+    /// @param nGenerations The number of generations the propagator should
+    /// expect
     /// @param baseline The baseline to propagate over
     Propagator(int nGenerations, float baseline, bool antiNeutrino = false)
-        : _baseline(baseline), _nGenerations(nGenerations), _antiNeutrino(antiNeutrino) {};
+        : _baseline(baseline), _nGenerations(nGenerations), _antiNeutrino(antiNeutrino){};
 
     /// @brief Destructor
     virtual ~Propagator() = default;
@@ -55,7 +60,7 @@ class Propagator
 
     /// @brief Set whether we are dealing with anti-neutrinos
     /// @param newValue
-    virtual inline void setAntiNeutrino(bool newValue)
+    inline void setAntiNeutrino(bool newValue)
     {
         NT_PROFILE();
 
@@ -151,7 +156,7 @@ class Propagator
 
     /// @brief Set the baseline
     /// @param newBaseline new value
-    virtual inline void setBaseline(float newBaseline)
+    inline void setBaseline(float newBaseline)
     {
 
         NT_PROFILE();
