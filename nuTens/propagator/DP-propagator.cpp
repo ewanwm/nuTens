@@ -11,10 +11,10 @@ Tensor DPpropagator::calculateProbs()
     // --------------------------------------------------------------------- //
     // First calculate useful simple functions of the oscillation parameters //
     // --------------------------------------------------------------------- //
-    Tensor one = Tensor::ones({1}).requiresGrad(false);
+    const Tensor one = Tensor::ones({1}).requiresGrad(false);
 
     // need to calculate the sin^2(theta)'s if not provided by user
-    if(!interpretSinSquaredThetas) 
+    if (!interpretSinSquaredThetas)
     {
         sinSqTheta12 = Tensor::pow(Tensor::sin(theta12), 2.0);
         sinSqTheta13 = Tensor::pow(Tensor::sin(theta13), 2.0);
@@ -29,7 +29,7 @@ Tensor DPpropagator::calculateProbs()
     Tensor cosDeltaCP = Tensor::cos(deltaCP);
 
     // Ueisq's
-    Tensor Ue2sq = Tensor::mul(cosSqTheta13, sinSqTheta12);
+    Tensor Ue2sq = cosSqTheta13 * sinSqTheta12;
     Tensor Ue3sq = sinSqTheta13;
 
     // if user wants to interpret theta_ij's as sin^2(theta_ij) we use the "normal" nufast method
@@ -37,12 +37,14 @@ Tensor DPpropagator::calculateProbs()
     // Otherwise we calculate performing the trig functions which is slower but allows any octant
     Tensor Jrr;
 
-    if(interpretSinSquaredThetas) {
+    if (interpretSinSquaredThetas)
+    {
         Jrr = Tensor::pow(cosSqTheta12 * cosSqTheta23 * sinSqTheta13 * sinSqTheta12 * sinSqTheta23, 0.5);
     }
-    else {
+    else
+    {
         Jrr = Tensor::cos(theta12) * Tensor::cos(theta23) * Tensor::sin(theta13) * Tensor::sin(theta12) *
-                    Tensor::sin(theta23);
+              Tensor::sin(theta23);
     }
 
     // Umisq's, Utisq's and Jvac
@@ -52,40 +54,42 @@ Tensor DPpropagator::calculateProbs()
     Tensor Amatter = _energies * (antinuFactor * _density * constants::Groot2 * 2.0);
     Tensor Dmsqee = -dmsq31 + sinSqTheta12 * dmsq21;
 
-    // calculate A, B, C, See, Tee, and part of Tmm
+    // calculate Atotal, Bmatter, Cmatter, See, Tee, and part of Tmm
     Tensor Araw = -dmsq21 - dmsq31;
-    Tensor A = Araw + Amatter;
+    Tensor Atotal = Araw + Amatter;
 
-    Tensor See  = Araw + dmsq21 * Ue2sq + dmsq31 * Ue3sq;
-    Tensor Tee  = dmsq21 * dmsq31 * (one - Ue3sq - Ue2sq);
+    Tensor See = Araw + dmsq21 * Ue2sq + dmsq31 * Ue3sq;
+    Tensor Tee = dmsq21 * dmsq31 * (one - Ue3sq - Ue2sq);
 
-    Tensor Smm = A + dmsq21 * Um2sq + dmsq31 * Um3sq;
-    Tensor Tmm = dmsq21 * dmsq31 * (one - Um3sq - Um2sq) + Amatter * (See + Smm - A);
-    
-    Tensor C = Amatter * Tee;
+    Tensor Smm = Atotal + dmsq21 * Um2sq + dmsq31 * Um3sq;
+    Tensor Tmm = dmsq21 * dmsq31 * (one - Um3sq - Um2sq) + Amatter * (See + Smm - Atotal);
+
+    Tensor Cmatter = Amatter * Tee;
 
     // ---------------------------------- //
     // Get lambda3 from lambda+ of MP/DMP //
     // ---------------------------------- //
     Tensor xmat = Amatter / Dmsqee;
     Tensor tmp = one - xmat;
-    Tensor lambda3 = -dmsq31 + Dmsqee * (xmat - 1 + Tensor::pow(tmp * tmp + sinSqTheta13 * xmat * 4.0, 0.5)) * 0.5;
+    // NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+    Tensor lambda3{-dmsq31 + Dmsqee * (xmat - 1 + Tensor::pow(tmp * tmp + sinSqTheta13 * xmat * 4.0, 0.5)) * 0.5};
+    // NOLINTEND(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 
     // ---------------------------------------------------------------------------- //
-    // Newton iterations to improve lambda3 arbitrarily, if needed, (B needed here) //
+    // Newton iterations to improve lambda3 arbitrarily, if needed, (Bmatter needed here) //
     // ---------------------------------------------------------------------------- //
-    Tensor B = dmsq21 * dmsq31 + Amatter * See; // B is only needed for N_Newton >= 1
+    Tensor Bmatter = dmsq21 * dmsq31 + Amatter * See; // Bmatter is only needed for N_Newton >= 1
     for (int i = 0; i < NRiterations; i++)
-        lambda3 =
-            (lambda3 * lambda3 * (lambda3 + lambda3 - A) + C) /
-            (lambda3 * ((lambda3 - A) * 2.0 + lambda3) + B); // this strange form prefers additions to multiplications
+        lambda3 = (lambda3 * lambda3 * (lambda3 + lambda3 - Atotal) + Cmatter) /
+                  (lambda3 * ((lambda3 - Atotal) * 2.0 + lambda3) +
+                   Bmatter); // this strange form prefers additions to multiplications
 
     // ------------------- //
     // Get  Delta lambda's //
     // ------------------- //
-    tmp = A - lambda3;
-    Tensor Dlambda21 = Tensor::pow(tmp * tmp - C * 4.0 / lambda3, 0.5);
-    Tensor lambda2 = (A - lambda3 + Dlambda21) * 0.5;
+    tmp = Atotal - lambda3;
+    Tensor Dlambda21 = Tensor::pow(tmp * tmp - Cmatter * 4.0 / lambda3, 0.5);
+    Tensor lambda2 = (Atotal - lambda3 + Dlambda21) * 0.5;
     Tensor Dlambda32 = lambda3 - lambda2;
     Tensor Dlambda31 = Dlambda32 + Dlambda21;
 
@@ -163,9 +167,8 @@ Tensor DPpropagator::calculateProbs()
 
     probsRet.setValue({"...", 2, 0}, (one - Pee - Pme_CPC - Pme_CPV)); // Pte
     probsRet.setValue({"...", 2, 1}, (one - Pme_CPC + Pme_CPV - Pmm)); // Ptm
-    probsRet.setValue(
-        {"...", 2, 2},
-        (one - (one - Pee - Pme_CPC + Pme_CPV) - (one - Pme_CPC - Pme_CPV - Pmm))); // Ptt
+    probsRet.setValue({"...", 2, 2},
+                      (Pee + 2.0 * Pme_CPC - one + Pmm)); // Ptt
 
     return probsRet;
 }
