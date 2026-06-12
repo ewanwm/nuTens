@@ -39,7 +39,7 @@ class ConstDensitySolver(BaseMatterSolver):
         Set the density that the solver should use
         """
 class DPpropagator(Propagator):
-    def __init__(self, baseline: typing.SupportsFloat | typing.SupportsIndex, anti_neutrino: bool = False, density: typing.SupportsFloat | typing.SupportsIndex, NR_iterations: typing.SupportsInt | typing.SupportsIndex) -> None:
+    def __init__(self, NR_iterations: typing.SupportsInt | typing.SupportsIndex) -> None:
         ...
     def calculate_probs(self) -> nuTens._pyNuTens.tensor.Tensor:
         ...
@@ -57,11 +57,15 @@ class DPpropagator(Propagator):
         ...
     def get_theta23(self) -> nuTens._pyNuTens.tensor.Tensor:
         ...
-    def set_baseline(self, new_baseline: typing.SupportsFloat | typing.SupportsIndex) -> None:
+    def set_antineutrino(self, new_value: bool) -> DPpropagator:
+        """
+        set whether to calculate anti-neutrino probabilities
+        """
+    def set_baseline(self, new_baseline: typing.SupportsFloat | typing.SupportsIndex) -> DPpropagator:
         """
         set the baseline
         """
-    def set_density(self, new_density: typing.SupportsFloat | typing.SupportsIndex) -> None:
+    def set_density(self, new_density: typing.SupportsFloat | typing.SupportsIndex) -> DPpropagator:
         """
         set the density
         """
@@ -73,7 +77,7 @@ class DPpropagator(Propagator):
         """
         set the parameters for the oscillation calculations
         """
-    def set_sin_squared_thetas(self, new_value: bool) -> None:
+    def set_sin_squared_thetas(self, new_value: bool) -> DPpropagator:
         """
         If `True`, the provided theta_ij values will be interpreted as sin^2(theta_ij) meaning that some of the computation can be shortcut and the probability calculation will be sped up. Note however that this will force the thetas to be in the lower octant (which is probably fine for most applications)
         """
