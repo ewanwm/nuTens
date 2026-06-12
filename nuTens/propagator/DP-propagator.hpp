@@ -232,7 +232,7 @@ class DPpropagator : public Propagator
     Tensor dmsq31 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
 
     int NRiterations;
-    float _density;
+    float _density{0.0};
 
     // whether to interpret user specified \theta_{ij} values as \sin^2(\theta_{ij})
     // allowing shortcut in calculations
