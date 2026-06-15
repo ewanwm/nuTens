@@ -510,14 +510,14 @@ void initPropagator(py::module &m_nuTens)
      py::class_<PMNSmatrix, std::shared_ptr<PMNSmatrix>, BaseMixingMatrix>(
         m_propagator, "PMNSmatrix")
         .def(py::init<>())
-        .def("set_theta_12", (&PMNSmatrix::setTheta12), py::arg("theta_12"))
-        .def("set_theta_13", (&PMNSmatrix::setTheta13), py::arg("theta_13"))
-        .def("set_theta_23", (&PMNSmatrix::setTheta23), py::arg("theta_23"))
-        .def("set_delta_cp", (&PMNSmatrix::setDeltaCP), py::arg("delta_cp"))
-        .def("get_theta_12_tensor", (&PMNSmatrix::getTheta12Tensor), py::return_value_policy::reference)
-        .def("get_theta_13_tensor", (&PMNSmatrix::getTheta13Tensor), py::return_value_policy::reference)
-        .def("get_theta_23_tensor", (&PMNSmatrix::getTheta23Tensor), py::return_value_policy::reference)
-        .def("get_delta_cp_tensor", (&PMNSmatrix::getDeltaCPTensor), py::return_value_policy::reference)
+        .def("set_theta12", (&PMNSmatrix::setTheta12), py::arg("theta_12"))
+        .def("set_theta13", (&PMNSmatrix::setTheta13), py::arg("theta_13"))
+        .def("set_theta23", (&PMNSmatrix::setTheta23), py::arg("theta_23"))
+        .def("set_deltacp", (&PMNSmatrix::setDeltaCP), py::arg("delta_cp"))
+        .def("get_theta12_tensor", (&PMNSmatrix::getTheta12Tensor), py::return_value_policy::reference)
+        .def("get_theta13_tensor", (&PMNSmatrix::getTheta13Tensor), py::return_value_policy::reference)
+        .def("get_theta23_tensor", (&PMNSmatrix::getTheta23Tensor), py::return_value_policy::reference)
+        .def("get_deltacp_tensor", (&PMNSmatrix::getDeltaCPTensor), py::return_value_policy::reference)
         ;
 
 }

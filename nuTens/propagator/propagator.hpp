@@ -93,10 +93,20 @@ class Propagator
         NT_PROFILE();
         _matterSolver = newSolver;
 
-        _matterSolver->setEnergies(_energies);
-        _matterSolver->setMasses(_masses);
+        if (_energiesInitialised)
+        {
+            _matterSolver->setEnergies(_energies);
+        }
+
+        if (_massesInitialised)
+        {
+            _matterSolver->setMasses(_masses);
+        }
+        if (_mixingMatrixInitialised)
+        {
+            _matterSolver->setMixingMatrix(_mixingMatrix);
+        }
         _matterSolver->setAntiNeutrino(_antiNeutrino);
-        _matterSolver->setMixingMatrix(_mixingMatrix);
 
         return *this;
     }
@@ -111,6 +121,8 @@ class Propagator
         NT_PROFILE();
 
         _energies = newEnergies;
+        _energiesInitialised = true;
+
         _weightMatrix = Tensor::ones({_energies.getBatchDim(), _nGenerations, _nGenerations}, dtypes::kComplexFloat)
                             .requiresGrad(false);
 
@@ -133,7 +145,9 @@ class Propagator
         NT_PROFILE();
 
         _masses = newMasses;
-        if (_matterSolver != nullptr)
+        _massesInitialised = true;
+
+        if (_matterSolver)
         {
             _matterSolver->setMasses(newMasses);
         }
@@ -147,7 +161,9 @@ class Propagator
     {
         NT_PROFILE();
         _mixingMatrix = newMatrix;
-        if (_matterSolver != nullptr)
+        _mixingMatrixInitialised = true;
+
+        if (_matterSolver)
         {
             _matterSolver->setMixingMatrix(newMatrix);
         }
@@ -187,8 +203,16 @@ class Propagator
     Tensor _mixingMatrix;
     Tensor _masses;
     Tensor _energies;
+
+    // flags to keep track of which tensors have been set by user
+    /// @todo could just have an "initialised" flag in tensor class to keep track of this in more general way
+    bool _mixingMatrixInitialised{false};
+    bool _massesInitialised{false};
+    bool _energiesInitialised{false};
+
     Tensor _weightMatrix;
     Tensor _weightArgDenom;
+
     int _nGenerations;
     float _baseline{NAN};
     bool _antiNeutrino{false};
