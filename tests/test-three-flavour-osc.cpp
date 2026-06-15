@@ -72,7 +72,7 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
 
         // construct the mixing matrix for current theta value
         PMNSmatrix pmns;
-        pmns.setParameterValues(theta12, theta13, theta23, deltaCP);
+        pmns.setTheta12(theta12).setTheta13(theta13).setTheta23(theta23).setDeltaCP(deltaCP);
         Tensor pmnsTensor = pmns.build();
 
         // set up the matter solver
@@ -139,7 +139,7 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
 
         // construct the mixing matrix for current theta value
         PMNSmatrix pmns;
-        pmns.setParameterValues(theta12, theta13, theta23, deltaCP);
+        pmns.setTheta12(theta12).setTheta13(theta13).setTheta23(theta23).setDeltaCP(deltaCP);
         Tensor pmnsTensor = pmns.build();
 
         // set up the matter solver
@@ -234,7 +234,7 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
 
         // construct the mixing matrix for current theta value
         PMNSmatrix pmns;
-        pmns.setParameterValues(theta12, theta13, theta23, deltaCP);
+        pmns.setTheta12(theta12).setTheta13(theta13).setTheta23(theta23).setDeltaCP(deltaCP);
         Tensor pmnsTensor = pmns.build();
 
         NT_INFO("Re[PMNS]:\n{}", pmns.build().real().toString());
@@ -300,7 +300,7 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
 
         // construct the mixing matrix for current theta value
         PMNSmatrix pmns;
-        pmns.setParameterValues(theta12, theta13, theta23, deltaCP);
+        pmns.setTheta12(theta12).setTheta13(theta13).setTheta23(theta23).setDeltaCP(deltaCP);
         Tensor pmnsTensor = pmns.build();
 
         NT_INFO("Re[PMNS]:\n{}", pmns.build().real().toString());

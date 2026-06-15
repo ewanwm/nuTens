@@ -47,11 +47,10 @@ static void batchedOscProbs(Propagator &prop, PMNSmatrix &matrix, AccessedTensor
         masses.setValue(randomDouble(), 0, 1);
         masses.setValue(randomDouble(), 0, 2);
 
-        matrix.setParameterValues(
-            /*theta12=*/randomFloat(),
-            /*theta13=*/randomFloat(),
-            /*theta23=*/randomFloat(),
-            /*deltaCP=*/randomFloat() * (float)constants::twoPi);
+        matrix.setTheta12(randomFloat())
+            .setTheta13(randomFloat())
+            .setTheta23(randomFloat())
+            .setDeltaCP(randomFloat() * (float)constants::twoPi);
 
         prop.setMixingMatrix(matrix.build());
         prop.setMasses(masses);
