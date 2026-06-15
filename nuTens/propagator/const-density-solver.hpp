@@ -42,7 +42,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     };
 
     /// @brief destructor
-    virtual ~ConstDensityMatterSolver() override = default;
+    ~ConstDensityMatterSolver() override = default;
     /// @brief copy constructor
     ConstDensityMatterSolver(ConstDensityMatterSolver const &) = default;
     /// @brief copy assignment operator

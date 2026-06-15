@@ -25,7 +25,7 @@ class PMNSmatrixTest : public gtest::TestWithParam<float>
     // NOLINTEND(cppcoreguidelines-non-private-member-variables-in-classes)
 
     // set up common values to use across tests
-    void SetUp()
+    void SetUp() override
     {
 
         matrix.setTheta12(theta12).setTheta13(theta13).setTheta23(theta23).setDeltaCP(deltaCP);
