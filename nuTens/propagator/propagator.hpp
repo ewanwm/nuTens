@@ -27,6 +27,25 @@ class Propagator
      * (The specifics of this interface may change in the future)
      */
 
+    struct MassSqTensor : public nuTens::Tensor
+    {
+        /*!
+         * @struct MassSqTensor
+         * @brief Holds squared mass values
+         */
+        MassSqTensor() = default;
+        explicit MassSqTensor(const nuTens::Tensor &tensor) : Tensor(tensor){};
+    };
+    struct MixingMatrixTensor : public nuTens::Tensor
+    {
+        /*!
+         * @struct MixingMatrixTensor
+         * @brief Holds mixing matrix
+         */
+        MixingMatrixTensor() = default;
+        explicit MixingMatrixTensor(const nuTens::Tensor &tensor) : Tensor(tensor){};
+    };
+
   public:
     /// @brief Constructor
     /// @param nGenerations The number of generations the propagator should
@@ -181,7 +200,7 @@ class Propagator
   private:
     // For calculating with alternate masses and mixing matrix, e.g. if using effective
     // values from massSolver
-    [[nodiscard]] Tensor _calculateProbs(const Tensor &masses, const Tensor &mixingMatrix);
+    [[nodiscard]] Tensor _calculateProbs(const MassSqTensor &masses, const MixingMatrixTensor &mixingMatrix);
 
   protected:
     Tensor _mixingMatrix;
@@ -190,8 +209,8 @@ class Propagator
     Tensor _weightMatrix;
     Tensor _weightArgDenom;
     int _nGenerations;
-    float _baseline;
-    bool _antiNeutrino;
+    float _baseline{NAN};
+    bool _antiNeutrino{false};
 
     std::shared_ptr<BaseMatterSolver> _matterSolver;
 };
