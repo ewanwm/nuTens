@@ -404,8 +404,8 @@ void initPropagator(py::module &m_nuTens)
         ;
 
     py::class_<Propagator>(m_propagator, "Propagator")
-        .def(py::init<int, float, bool>(), 
-            py::arg("n_generations"), py::arg("baseline"), py::arg("anti_neutrino")=false)
+        .def(py::init<int>(), 
+            py::arg("n_generations"))
         .def("calculate_probabilities", &Propagator::calculateProbs,
             "Calculate the oscillation probabilities for neutrinos of specified energies"
         )
@@ -424,14 +424,6 @@ void initPropagator(py::module &m_nuTens)
         .def("set_mixing_matrix", py::overload_cast<Tensor &>(&Propagator::setMixingMatrix),
             "Set the mixing matrix that the propagator should use",
             py::arg("new_matrix")
-        )
-        .def("set_mixing_matrix", py::overload_cast<const std::vector<int> &, float>(&Propagator::setMixingMatrix),
-            "Set a particular value within the mixing matrix used by the propagator",
-            py::arg("indices"), py::arg("value")
-        )
-        .def("set_mixing_matrix", py::overload_cast<const std::vector<int> &, std::complex<float>>(&Propagator::setMixingMatrix),
-            "Set the mixing matrix that the propagator should use",
-            py::arg("indices"), py::arg("value")
         )
         .def("set_baseline", (&Propagator::setBaseline),
             "Set the baseline that the propagator should use",
@@ -487,10 +479,22 @@ void initPropagator(py::module &m_nuTens)
 
      py::class_<ConstDensityMatterSolver, std::shared_ptr<ConstDensityMatterSolver>, BaseMatterSolver>(
         m_propagator, "ConstDensitySolver")
-        .def(py::init<int, float, bool>(), 
-            py::arg("n_generations"), py::arg("density"), py::arg("anti_neutrino")=false)
+        .def(py::init<int>(), 
+            py::arg("n_generations"))
         .def("set_density", (&ConstDensityMatterSolver::setDensity),
             "Set the density that the solver should use",
+            py::arg("new_value")
+        )
+        .def("set_antineutrino", (&ConstDensityMatterSolver::setAntiNeutrino),
+            "Set the density that the solver should use",
+            py::arg("new_value")
+        )
+        .def("set_mixing_matrix", (&ConstDensityMatterSolver::setMixingMatrix),
+            "Set the mixing that the solver should use",
+            py::arg("new_value")
+        )
+        .def("set_masses", (&ConstDensityMatterSolver::setMasses),
+            "Set the neutrino masses that the solver should use",
             py::arg("new_value")
         )
         .def("get_density", (&ConstDensityMatterSolver::getDensity),
@@ -506,12 +510,14 @@ void initPropagator(py::module &m_nuTens)
      py::class_<PMNSmatrix, std::shared_ptr<PMNSmatrix>, BaseMixingMatrix>(
         m_propagator, "PMNSmatrix")
         .def(py::init<>())
-        .def("set_parameter_values", (&PMNSmatrix::setParameterValues),
-            py::arg("theta_12"), py::arg("theta_13"), py::arg("theta_23"), py::arg("delta_cp"))
-        .def("get_theta_12_tensor", (&PMNSmatrix::getTheta12Tensor), py::return_value_policy::reference)
-        .def("get_theta_13_tensor", (&PMNSmatrix::getTheta13Tensor), py::return_value_policy::reference)
-        .def("get_theta_23_tensor", (&PMNSmatrix::getTheta23Tensor), py::return_value_policy::reference)
-        .def("get_delta_cp_tensor", (&PMNSmatrix::getDeltaCPTensor), py::return_value_policy::reference)
+        .def("set_theta12", (&PMNSmatrix::setTheta12), py::arg("theta_12"))
+        .def("set_theta13", (&PMNSmatrix::setTheta13), py::arg("theta_13"))
+        .def("set_theta23", (&PMNSmatrix::setTheta23), py::arg("theta_23"))
+        .def("set_deltacp", (&PMNSmatrix::setDeltaCP), py::arg("delta_cp"))
+        .def("get_theta12_tensor", (&PMNSmatrix::getTheta12Tensor), py::return_value_policy::reference)
+        .def("get_theta13_tensor", (&PMNSmatrix::getTheta13Tensor), py::return_value_policy::reference)
+        .def("get_theta23_tensor", (&PMNSmatrix::getTheta23Tensor), py::return_value_policy::reference)
+        .def("get_deltacp_tensor", (&PMNSmatrix::getDeltaCPTensor), py::return_value_policy::reference)
         ;
 
 }

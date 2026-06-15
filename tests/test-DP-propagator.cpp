@@ -44,8 +44,8 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
 
     Tensor energies = Tensor::ones({1, 1}, dtypes::kComplexFloat).requiresGrad(false).hasBatchDim(true);
 
-    Propagator tensorPropagator = Propagator(3, baseline);
-    std::shared_ptr<ConstDensityMatterSolver> tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
+    Propagator tensorPropagator = Propagator(3).setBaseline(baseline);
+    std::shared_ptr<ConstDensityMatterSolver> tensorSolver = std::make_shared<ConstDensityMatterSolver>(3);
 
     DPpropagator dpPropagator = DPpropagator(10).setBaseline(baseline).setAntiNeutrino(false).setDensity(density);
     DPpropagator dpPropagatorVac = DPpropagator(10).setBaseline(baseline).setAntiNeutrino(false).setDensity(0.0);
@@ -59,6 +59,7 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
     {
 
         energies.setValue({0, 0}, energy);
+        tensorSolver->setDensity(density);
 
         tensorPropagator.setMatterSolver(tensorSolver);
         tensorPropagator.setMasses(masses);
@@ -95,8 +96,10 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
         deltaCP.setValue({0}, dcp);
 
         // calculate new values of the mixing matrix
-        pmns.setParameterValues(theta12.getValue<float>({0}), theta13.getValue<float>({0}),
-                                theta23.getValue<float>({0}), deltaCP.getValue<float>({0}));
+        pmns.setTheta12(theta12.getValue<float>({0}))
+            .setTheta13(theta13.getValue<float>({0}))
+            .setTheta23(theta23.getValue<float>({0}))
+            .setDeltaCP(deltaCP.getValue<float>({0}));
     }
 
     /// compare DP propagator oscillation probabilities to the "official" nufast code

@@ -44,7 +44,7 @@ class TestTwoFlavourConstMatter:
         pmns, masses = self.setup_tensor_inputs(mass_diff, theta)
 
         # set up tensor solver
-        tensor_solver = ConstDensitySolver(2, self.density)
+        tensor_solver = ConstDensitySolver(2).set_density(self.density)
         tensor_solver.set_mixing_matrix(pmns)
         tensor_solver.set_masses(masses)
         tensor_solver.set_energies(self.energy_tensor)
@@ -92,8 +92,8 @@ class TestTwoFlavourConstMatter:
         pmns, masses = self.setup_tensor_inputs(mass_diff, theta)
 
         # set up tensor solver
-        propagator = nt.propagator.Propagator(2, self.baseline)
-        matter_solver = ConstDensitySolver(2, self.density)
+        propagator = nt.propagator.Propagator(2).set_baseline(self.baseline)
+        matter_solver = ConstDensitySolver(2).set_density(self.density)
         
         propagator.set_matter_solver(matter_solver)
         propagator.set_mixing_matrix(pmns)

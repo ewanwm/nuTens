@@ -47,11 +47,10 @@ static void batchedOscProbs(Propagator &prop, PMNSmatrix &matrix, AccessedTensor
         masses.setValue(randomDouble(), 0, 1);
         masses.setValue(randomDouble(), 0, 2);
 
-        matrix.setParameterValues(
-            /*theta12=*/randomFloat(),
-            /*theta13=*/randomFloat(),
-            /*theta23=*/randomFloat(),
-            /*deltaCP=*/randomFloat() * (float)constants::twoPi);
+        matrix.setTheta12(randomFloat())
+            .setTheta13(randomFloat())
+            .setTheta23(randomFloat())
+            .setDeltaCP(randomFloat() * (float)constants::twoPi);
 
         prop.setMixingMatrix(matrix.build());
         prop.setMasses(masses);
@@ -81,7 +80,7 @@ static void BM_vacuumOscillations(benchmark::State &state)
     PMNSmatrix PMNS;
 
     // set up the propagator
-    Propagator vacuumProp(3, baseline);
+    Propagator vacuumProp = Propagator(3).setBaseline(baseline);
     vacuumProp.setEnergies(energies);
 
     // seed the random number generator for the energies
@@ -117,8 +116,9 @@ static void BM_constMatterOscillations(benchmark::State &state)
     PMNSmatrix PMNS;
 
     // set up the propagator
-    Propagator matterProp(3, baseline);
-    auto matterSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
+    Propagator matterProp = Propagator(3).setBaseline(baseline);
+    auto matterSolver = std::make_shared<ConstDensityMatterSolver>(3);
+    matterSolver->setDensity(density);
     matterProp.setMatterSolver(matterSolver);
     matterProp.setEnergies(energies);
 

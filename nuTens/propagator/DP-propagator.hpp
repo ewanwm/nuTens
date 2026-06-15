@@ -138,11 +138,13 @@ class DPpropagator : public Propagator
 
     /// @brief Set the neutrino energies
     /// @param newEnergies The neutrino energies
-    inline void setEnergies(Tensor &newEnergies) override
+    inline DPpropagator &setEnergies(Tensor &newEnergies) override
     {
         NT_PROFILE();
 
         _energies = newEnergies;
+
+        return *this;
     }
 
     /// @}

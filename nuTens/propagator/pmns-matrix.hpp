@@ -23,27 +23,68 @@ class PMNSmatrix : public BaseMixingMatrix
         _mat3 = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat).requiresGrad(false);
     }
 
-    inline void setParameterValues(float theta12, float theta13, float theta23, float deltaCP)
+    inline PMNSmatrix &setTheta12(float theta12)
     {
         NT_PROFILE();
 
         _theta12.requiresGrad(false);
-        _theta13.requiresGrad(false);
-        _theta23.requiresGrad(false);
-        _deltaCP.requiresGrad(false);
 
         _theta12.setValue(theta12, 0);
-        _theta13.setValue(theta13, 0);
-        _theta23.setValue(theta23, 0);
-        _deltaCP.setValue({0}, deltaCP);
 
         _theta12.requiresGrad(true);
+
+        // set the dirty flag
+        _needsRecalculating = true;
+
+        return *this;
+    }
+
+    inline PMNSmatrix &setTheta13(float theta13)
+    {
+        NT_PROFILE();
+
+        _theta13.requiresGrad(false);
+
+        _theta13.setValue(theta13, 0);
+
         _theta13.requiresGrad(true);
+
+        // set the dirty flag
+        _needsRecalculating = true;
+
+        return *this;
+    }
+
+    inline PMNSmatrix &setTheta23(float theta23)
+    {
+        NT_PROFILE();
+
+        _theta23.requiresGrad(false);
+
+        _theta23.setValue(theta23, 0);
+
         _theta23.requiresGrad(true);
+
+        // set the dirty flag
+        _needsRecalculating = true;
+
+        return *this;
+    }
+
+    inline PMNSmatrix &setDeltaCP(float deltaCP)
+    {
+        NT_PROFILE();
+
+        _deltaCP.requiresGrad(false);
+
+        _deltaCP.setValue({0}, deltaCP);
+
         _deltaCP.requiresGrad(true);
 
         // set the dirty flag
         _needsRecalculating = true;
+
+        return *this;
     }
 
     /// @{Setters
