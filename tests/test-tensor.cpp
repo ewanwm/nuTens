@@ -108,7 +108,7 @@ TEST(Tensor /*unused*/, simpleArithmeticFloat /*unused*/)
 
     // test sqrt
     Tensor four = Tensor({4.0}, dtypes::kFloat, dtypes::kCPU, false);
-    ASSERT_EQ(Tensor::pow(four, 0.5).getValue<float>(), 2.0);
+    ASSERT_EQ(Tensor::sqrt(four).getValue<float>(), 2.0);
 
     // test scaling by float
     ASSERT_NEAR((one * 1.234).getValue<float>(), 1.234, 1e-6);
@@ -135,7 +135,7 @@ TEST(Tensor /*unused*/, simpleArithmeticComplexFloat /*unused*/)
     ASSERT_EQ((one - one).getValue<std::complex<float>>(), std::complex<float>(0.0, 0.0));
 
     // check that sqrt -1 = i
-    ASSERT_EQ((Tensor::pow(-one, 0.5)).getValue<std::complex<float>>(), std::complex<float>(0.0, -1.0));
+    ASSERT_EQ((Tensor::sqrt(-one)).getValue<std::complex<float>>(), std::complex<float>(0.0, -1.0));
 
     // imag unit to use in testing
     Tensor imag = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
