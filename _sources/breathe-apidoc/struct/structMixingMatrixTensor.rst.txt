@@ -1,0 +1,5 @@
+Struct MixingMatrixTensor
+=========================
+
+.. doxygenstruct:: MixingMatrixTensor
+   :members:

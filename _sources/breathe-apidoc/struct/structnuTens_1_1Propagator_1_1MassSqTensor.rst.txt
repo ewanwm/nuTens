@@ -1,0 +1,5 @@
+Struct nuTens::Propagator::MassSqTensor
+=======================================
+
+.. doxygenstruct:: nuTens::Propagator::MassSqTensor
+   :members:

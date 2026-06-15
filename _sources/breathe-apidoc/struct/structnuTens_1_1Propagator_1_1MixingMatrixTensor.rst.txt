@@ -1,0 +1,5 @@
+Struct nuTens::Propagator::MixingMatrixTensor
+=============================================
+
+.. doxygenstruct:: nuTens::Propagator::MixingMatrixTensor
+   :members:
