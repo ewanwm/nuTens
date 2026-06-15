@@ -36,16 +36,13 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// @brief Constructor
     /// @arg nGenerations The number of neutrino generations this propagator
     /// should expect
-    /// @arg density The electron density of the material to propagate in
-    /// @arg antiNeutrino True if we are calculating effects for anti-neutrinos
-    ConstDensityMatterSolver(int nGenerations, float density, bool antiNeutrino = false)
-        : BaseMatterSolver(nGenerations, antiNeutrino), density(density)
+    ConstDensityMatterSolver(int nGenerations) : BaseMatterSolver(nGenerations, false)
     {
         diagMassMatrix = Tensor::zeros({1, nGenerations, nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
     };
 
     /// @brief destructor
-    virtual ~ConstDensityMatterSolver() = default;
+    virtual ~ConstDensityMatterSolver() override = default;
     /// @brief copy constructor
     ConstDensityMatterSolver(ConstDensityMatterSolver const &) = default;
     /// @brief copy assignment operator
@@ -60,29 +57,29 @@ class ConstDensityMatterSolver : public BaseMatterSolver
 
     /// @brief Set whether we are dealing with anti-neutrinos
     /// @param newValue
-    inline void setAntiNeutrino(bool newValue) override
+    inline ConstDensityMatterSolver &setAntiNeutrino(bool newValue) override
     {
         NT_PROFILE();
 
         BaseMatterSolver::setAntiNeutrino(newValue);
 
-        buildElectronOuterProduct();
+        return *this;
     }
 
     /// @brief Set a new mixing matrix for this solver
     /// @param newMatrix The new matrix to set
-    inline void setMixingMatrix(const Tensor &newMatrix) override
+    inline ConstDensityMatterSolver &setMixingMatrix(const Tensor &newMatrix) override
     {
         NT_PROFILE();
 
         mixingMatrix = newMatrix;
 
-        buildElectronOuterProduct();
+        return *this;
     };
 
     /// @brief Set new mass eigenvalues for this solver
     /// @param newMasses The new masses
-    inline void setMasses(const Tensor &newMasses) override
+    inline ConstDensityMatterSolver &setMasses(const Tensor &newMasses) override
     {
         assert((newMasses.getNdim() == 2));
         NT_PROFILE();
@@ -94,11 +91,13 @@ class ConstDensityMatterSolver : public BaseMatterSolver
 
         // construct the diagonal mass^2 matrix used in the hamiltonian
         diagMassMatrix = Tensor::diag(diag).requiresGrad(false).unsqueeze(0);
+
+        return *this;
     }
 
     /// @brief set a new density
     /// @param newDensity the new value
-    inline void setDensity(float newDensity)
+    inline ConstDensityMatterSolver &setDensity(float newDensity)
     {
         /// @todo super inefficient to recalculate this here and also in
         /// setMixingMatrix. Would be good to have some _valuesChanged flag that causes
@@ -110,7 +109,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
 
         density = newDensity;
 
-        buildElectronOuterProduct();
+        return *this;
     }
 
     /// @}
@@ -130,11 +129,11 @@ class ConstDensityMatterSolver : public BaseMatterSolver
 
     /// construct the outer product of the electron row of the mixing matrix, used in building the hamiltonian, and
     /// return a copy of it potentially useful for debugging
-    Tensor getElectronOuterProduct();
+    [[nodiscard]] Tensor getElectronOuterProduct();
 
     /// construct the hamiltonian and return a copy of it
     /// potentially useful for debugging
-    Tensor getHamiltonian();
+    [[nodiscard]] Tensor getHamiltonian();
 
   private:
     /// @brief construct the outer product of the electron neutrino row of the mixing
@@ -146,7 +145,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
 
     Tensor diagMassMatrix;
     Tensor electronOuter;
-    float density;
+    float density{NAN};
 };
 
 }; // namespace nuTens

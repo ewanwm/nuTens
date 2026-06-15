@@ -77,7 +77,8 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
 
         // set up the matter solver
         Propagator tensorPropagator(3, baseline);
-        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
+        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3);
+        tensorSolver->setDensity(density);
 
         // set up the propagator
         tensorPropagator.setMatterSolver(tensorSolver);
@@ -143,7 +144,8 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
 
         // set up the matter solver
         Propagator tensorPropagator(3, baseline);
-        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
+        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3);
+        tensorSolver->setDensity(density);
 
         // set up the propagator
         tensorPropagator.setMatterSolver(tensorSolver);
@@ -240,7 +242,8 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
 
         // set up the matter solver
         Propagator tensorPropagator(3, baseline);
-        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
+        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3);
+        tensorSolver->setDensity(density);
 
         // set up the propagator
         tensorPropagator.setMatterSolver(tensorSolver);

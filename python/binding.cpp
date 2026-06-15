@@ -487,10 +487,22 @@ void initPropagator(py::module &m_nuTens)
 
      py::class_<ConstDensityMatterSolver, std::shared_ptr<ConstDensityMatterSolver>, BaseMatterSolver>(
         m_propagator, "ConstDensitySolver")
-        .def(py::init<int, float, bool>(), 
-            py::arg("n_generations"), py::arg("density"), py::arg("anti_neutrino")=false)
+        .def(py::init<int>(), 
+            py::arg("n_generations"))
         .def("set_density", (&ConstDensityMatterSolver::setDensity),
             "Set the density that the solver should use",
+            py::arg("new_value")
+        )
+        .def("set_antineutrino", (&ConstDensityMatterSolver::setAntiNeutrino),
+            "Set the density that the solver should use",
+            py::arg("new_value")
+        )
+        .def("set_mixing_matrix", (&ConstDensityMatterSolver::setMixingMatrix),
+            "Set the mixing that the solver should use",
+            py::arg("new_value")
+        )
+        .def("set_masses", (&ConstDensityMatterSolver::setMasses),
+            "Set the neutrino masses that the solver should use",
             py::arg("new_value")
         )
         .def("get_density", (&ConstDensityMatterSolver::getDensity),

@@ -45,7 +45,7 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
     Tensor energies = Tensor::ones({1, 1}, dtypes::kComplexFloat).requiresGrad(false).hasBatchDim(true);
 
     Propagator tensorPropagator = Propagator(3, baseline);
-    std::shared_ptr<ConstDensityMatterSolver> tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
+    std::shared_ptr<ConstDensityMatterSolver> tensorSolver = std::make_shared<ConstDensityMatterSolver>(3);
 
     DPpropagator dpPropagator = DPpropagator(10).setBaseline(baseline).setAntiNeutrino(false).setDensity(density);
     DPpropagator dpPropagatorVac = DPpropagator(10).setBaseline(baseline).setAntiNeutrino(false).setDensity(0.0);
@@ -59,6 +59,7 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
     {
 
         energies.setValue({0, 0}, energy);
+        tensorSolver->setDensity(density);
 
         tensorPropagator.setMatterSolver(tensorSolver);
         tensorPropagator.setMasses(masses);

@@ -50,7 +50,8 @@ class TwoFlavourOscillations : public gtest::TestWithParam<float>
         std::cout << "\n#### const density test for theta = " << theta << " ####" << std::endl;
 
         Propagator tensorPropagator(2, baseline);
-        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(2, density);
+        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(2);
+        tensorSolver->setDensity(density);
 
         // linter seems to struggle with recogising this type and thinks it is an int
         // and always thinks it is uninitialised
