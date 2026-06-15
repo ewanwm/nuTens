@@ -404,8 +404,8 @@ void initPropagator(py::module &m_nuTens)
         ;
 
     py::class_<Propagator>(m_propagator, "Propagator")
-        .def(py::init<int, float, bool>(), 
-            py::arg("n_generations"), py::arg("baseline"), py::arg("anti_neutrino")=false)
+        .def(py::init<int>(), 
+            py::arg("n_generations"))
         .def("calculate_probabilities", &Propagator::calculateProbs,
             "Calculate the oscillation probabilities for neutrinos of specified energies"
         )
@@ -424,14 +424,6 @@ void initPropagator(py::module &m_nuTens)
         .def("set_mixing_matrix", py::overload_cast<Tensor &>(&Propagator::setMixingMatrix),
             "Set the mixing matrix that the propagator should use",
             py::arg("new_matrix")
-        )
-        .def("set_mixing_matrix", py::overload_cast<const std::vector<int> &, float>(&Propagator::setMixingMatrix),
-            "Set a particular value within the mixing matrix used by the propagator",
-            py::arg("indices"), py::arg("value")
-        )
-        .def("set_mixing_matrix", py::overload_cast<const std::vector<int> &, std::complex<float>>(&Propagator::setMixingMatrix),
-            "Set the mixing matrix that the propagator should use",
-            py::arg("indices"), py::arg("value")
         )
         .def("set_baseline", (&Propagator::setBaseline),
             "Set the baseline that the propagator should use",

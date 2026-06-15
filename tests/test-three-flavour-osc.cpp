@@ -76,7 +76,7 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         Tensor pmnsTensor = pmns.build();
 
         // set up the matter solver
-        Propagator tensorPropagator(3, baseline);
+        Propagator tensorPropagator = Propagator(3).setBaseline(baseline);
         auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3);
         tensorSolver->setDensity(density);
 
@@ -143,7 +143,7 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         Tensor pmnsTensor = pmns.build();
 
         // set up the matter solver
-        Propagator tensorPropagator(3, baseline);
+        Propagator tensorPropagator = Propagator(3).setBaseline(baseline);
         auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3);
         tensorSolver->setDensity(density);
 
@@ -241,7 +241,7 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         NT_INFO("Im[PMNS]:\n{}", pmns.build().imag().toString());
 
         // set up the matter solver
-        Propagator tensorPropagator(3, baseline);
+        Propagator tensorPropagator = Propagator(3).setBaseline(baseline);
         auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3);
         tensorSolver->setDensity(density);
 
@@ -307,7 +307,7 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         NT_INFO("Im[PMNS]:\n{}", pmns.build().imag().toString());
 
         // set up the matter solver
-        Propagator tensorPropagator(3, baseline);
+        Propagator tensorPropagator = Propagator(3).setBaseline(baseline);
 
         // set up the propagator
         tensorPropagator.setMixingMatrix(pmns.build());

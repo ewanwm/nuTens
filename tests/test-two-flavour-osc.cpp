@@ -49,7 +49,7 @@ class TwoFlavourOscillations : public gtest::TestWithParam<float>
 
         std::cout << "\n#### const density test for theta = " << theta << " ####" << std::endl;
 
-        Propagator tensorPropagator(2, baseline);
+        Propagator tensorPropagator = Propagator(2).setBaseline(baseline);
         auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(2);
         tensorSolver->setDensity(density);
 
@@ -138,7 +138,7 @@ TEST_P(TwoFlavourOscillations /*unused*/, VacuumOscProbs /*unused*/)
 
     std::cout << "\n#### vacuum test for theta = " << theta << " ####" << std::endl;
 
-    Propagator tensorPropagator(2, baseline);
+    Propagator tensorPropagator = Propagator(2).setBaseline(baseline);
     tensorPropagator.setMasses(masses);
 
     // will use this for baseline for comparisons

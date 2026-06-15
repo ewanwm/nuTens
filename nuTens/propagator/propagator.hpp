@@ -52,13 +52,6 @@ class Propagator
     /// expect
     Propagator(int nGenerations) : _nGenerations(nGenerations){};
 
-    /// @brief Constructor
-    /// @param nGenerations The number of generations the propagator should
-    /// expect
-    /// @param baseline The baseline to propagate over
-    Propagator(int nGenerations, float baseline, bool antiNeutrino = false)
-        : _baseline(baseline), _nGenerations(nGenerations), _antiNeutrino(antiNeutrino){};
-
     /// @brief Destructor
     virtual ~Propagator() = default;
     /// @brief copy constructor
@@ -79,7 +72,7 @@ class Propagator
 
     /// @brief Set whether we are dealing with anti-neutrinos
     /// @param newValue
-    inline void setAntiNeutrino(bool newValue)
+    inline Propagator &setAntiNeutrino(bool newValue)
     {
         NT_PROFILE();
 
@@ -89,15 +82,23 @@ class Propagator
         {
             _matterSolver->setAntiNeutrino(newValue);
         }
+
+        return *this;
     }
 
     /// @brief Set a matter solver to use to deal with matter effects
     /// @param newSolver A derivative of BaseMatterSolver
-    /// @warning Should be called *before* setMixingMatrix and setMasses
-    virtual inline void setMatterSolver(const std::shared_ptr<BaseMatterSolver> &newSolver)
+    virtual inline Propagator &setMatterSolver(const std::shared_ptr<BaseMatterSolver> &newSolver)
     {
         NT_PROFILE();
         _matterSolver = newSolver;
+
+        _matterSolver->setEnergies(_energies);
+        _matterSolver->setMasses(_masses);
+        _matterSolver->setAntiNeutrino(_antiNeutrino);
+        _matterSolver->setMixingMatrix(_mixingMatrix);
+
+        return *this;
     }
 
     /// \todo Should add a check to tensors supplied to the setters to see how
@@ -105,7 +106,7 @@ class Propagator
 
     /// @brief Set the neutrino energies
     /// @param newEnergies The neutrino energies
-    virtual void setEnergies(Tensor &newEnergies)
+    virtual Propagator &setEnergies(Tensor &newEnergies)
     {
         NT_PROFILE();
 
@@ -117,6 +118,8 @@ class Propagator
         {
             _matterSolver->setEnergies(newEnergies);
         }
+
+        return *this;
     }
 
     /// @brief Set the masses corresponding to the vacuum hamiltonian eigenstates
@@ -125,7 +128,7 @@ class Propagator
     /// dimension can (and probably should) be 1 and it will be broadcast to
     /// match the batch dimension of the energies supplied to calculateProbs().
     /// So dimension should be {1, nGenerations}.
-    virtual void setMasses(Tensor &newMasses)
+    virtual inline Propagator &setMasses(Tensor &newMasses)
     {
         NT_PROFILE();
 
@@ -134,11 +137,13 @@ class Propagator
         {
             _matterSolver->setMasses(newMasses);
         }
+
+        return *this;
     }
 
     /// @brief Set a whole new mixing matrix
     /// @param newMatrix The new matrix to use
-    virtual inline void setMixingMatrix(Tensor &newMatrix)
+    virtual inline Propagator &setMixingMatrix(Tensor &newMatrix)
     {
         NT_PROFILE();
         _mixingMatrix = newMatrix;
@@ -146,38 +151,20 @@ class Propagator
         {
             _matterSolver->setMixingMatrix(newMatrix);
         }
-    }
 
-    /// \todo add setMixingMatrix(const std::vector<int> &indices, float value) methods
-    /// to BaseMatterSolver? maybe have these setters in a base class of both
-    /// Propagator and BaseMatterSolver ??
-
-    /// @brief Set a single element of the mixing matrix
-    /// @param indices The index of the value to set
-    /// @param value The new value
-    inline void setMixingMatrix(const std::vector<int> &indices, float value)
-    {
-        NT_PROFILE();
-        _mixingMatrix.setValue(indices, value);
-    }
-
-    /// @brief Set a single element of the mixing matrix
-    /// @param indices The index of the value to set
-    /// @param value The new value
-    inline void setMixingMatrix(const std::vector<int> &indices, std::complex<float> value)
-    {
-        NT_PROFILE();
-        _mixingMatrix.setValue(indices, value);
+        return *this;
     }
 
     /// @brief Set the baseline
     /// @param newBaseline new value
-    inline void setBaseline(float newBaseline)
+    inline Propagator &setBaseline(float newBaseline)
     {
 
         NT_PROFILE();
 
         _baseline = newBaseline;
+
+        return *this;
     }
 
     /// @}

@@ -80,7 +80,7 @@ static void BM_vacuumOscillations(benchmark::State &state)
     PMNSmatrix PMNS;
 
     // set up the propagator
-    Propagator vacuumProp(3, baseline);
+    Propagator vacuumProp = Propagator(3).setBaseline(baseline);
     vacuumProp.setEnergies(energies);
 
     // seed the random number generator for the energies
@@ -116,7 +116,7 @@ static void BM_constMatterOscillations(benchmark::State &state)
     PMNSmatrix PMNS;
 
     // set up the propagator
-    Propagator matterProp(3, baseline);
+    Propagator matterProp = Propagator(3).setBaseline(baseline);
     auto matterSolver = std::make_shared<ConstDensityMatterSolver>(3);
     matterSolver->setDensity(density);
     matterProp.setMatterSolver(matterSolver);
