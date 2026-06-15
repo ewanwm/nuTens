@@ -36,6 +36,10 @@ Tensor Propagator::_calculateProbs(const Propagator::MassSqTensor &massesSq,
 {
     NT_PROFILE();
 
+    _weightArgDenom =
+        Tensor::scale(Tensor::scale(_energies, 2.0),
+                      std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline * 2.0F * (float)M_PI));
+
     // basically exp { - i m^2 L / 2 E }
     Tensor weightVector = Tensor::exp(Tensor::div(massesSq, _weightArgDenom));
 
