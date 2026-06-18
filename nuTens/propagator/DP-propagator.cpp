@@ -154,8 +154,6 @@ Tensor DPpropagator::calculateProbs()
 
     Tensor Pee = one - (Ve2sq * Ve1sq * sinsqD21_2 + Ve3sq * Ve1sq * sinsqD31_2 + Ve3sq * Ve2sq * sinsqD32_2) * 2.0;
 
-    Tensor probsRet = Tensor::zeros({_energies.getShape()[0], 3, 3}).requiresGrad(false);
-
     // ---------------------------- //
     // Assign all the probabilities //
     // ---------------------------- //
