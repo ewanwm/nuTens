@@ -181,6 +181,12 @@ class Tensor
     /// @arg tensor The tensor
     /// @arg scalar The scalar
     static Tensor pow(const Tensor &tensor, std::complex<float> scalar);
+    /// @brief Element wise square, slightly faster than pow(tensor, 2.0)
+    /// @arg tensor The tensor
+    static inline Tensor square(const Tensor &tensor)
+    {
+        return tensor * tensor;
+    }
 
     /// @brief Get element-wise square root of tensor
     /// @arg tensor The tensor

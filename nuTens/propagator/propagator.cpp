@@ -67,5 +67,5 @@ Tensor Propagator::_calculateProbs(const Propagator::MassSqTensor &massesSq,
 
     Tensor sqrtProbabilities = Tensor::matmul(matrixA, matrixB);
 
-    return Tensor::pow(sqrtProbabilities.abs(), 2);
+    return Tensor::square(sqrtProbabilities.abs());
 }

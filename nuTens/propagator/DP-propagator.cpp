@@ -16,9 +16,9 @@ Tensor DPpropagator::calculateProbs()
     // need to calculate the sin^2(theta)'s if not provided by user
     if (!interpretSinSquaredThetas)
     {
-        sinSqTheta12 = Tensor::pow(Tensor::sin(theta12), 2.0);
-        sinSqTheta13 = Tensor::pow(Tensor::sin(theta13), 2.0);
-        sinSqTheta23 = Tensor::pow(Tensor::sin(theta23), 2.0);
+        sinSqTheta12 = Tensor::square(Tensor::sin(theta12));
+        sinSqTheta13 = Tensor::square(Tensor::sin(theta13));
+        sinSqTheta23 = Tensor::square(Tensor::sin(theta23));
     }
 
     Tensor cosSqTheta12 = one - sinSqTheta12;
