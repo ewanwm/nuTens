@@ -19,7 +19,6 @@ class DPpropagator : public Propagator
     };
 
   public:
-
     DPpropagator(int NRiterations) : Propagator(3), NRiterations(NRiterations){};
 
     /// @{Setters
