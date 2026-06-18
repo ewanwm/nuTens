@@ -900,8 +900,12 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK6nuTens6Tensor8getShapeEv">
-<span id="_CPPv3NK6nuTens6Tensor8getShapeEv"></span><span id="_CPPv2NK6nuTens6Tensor8getShapeEv"></span><span id="nuTens::Tensor::getShapeC"></span><span class="target" id="classnuTens_1_1Tensor_1aacded5eb407c8e510f09dd3be3c83025"></span><a class="reference internal" href="../namespace/namespacestd.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getShape</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor8getShapeEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3NK6nuTens6Tensor8getShapeEv"></span><span id="_CPPv2NK6nuTens6Tensor8getShapeEv"></span><span id="nuTens::Tensor::getShapeC"></span><span class="target" id="classnuTens_1_1Tensor_1aa8cea72ea5164b8e890940aaa18c80fa"></span><a class="reference internal" href="../namespace/namespacestd.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getShape</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK6nuTens6Tensor8getShapeEv" title="Link to this definition"></a><br /></dt>
 <dd><p>Get the shape of the tensor. </p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This can be somewhat slow, you should avoid using it in any performance critical loops </p>
+</div>
 </dd></dl>
 
 </div>
