@@ -1,0 +1,59 @@
+#include <tests/test-propagator.hpp>
+
+using namespace nuTens;
+
+// magic numbers are fine for testing!
+// NOLINTBEGIN(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
+
+// cognitive complexity is heavily inflated by the gtest macros
+// but they don't actually decrease readability
+// NOLINTBEGIN(readability-function-cognitive-complexity)
+
+TEST(Propagator /*unused*/, InitialisationOrderMatterSolverFirst /*unused*/)
+{
+    // check that order of initialisation of matter solver and parameters doesn't matter
+
+    Tensor energies = Tensor::ones({1, 10});
+    Tensor masses = Tensor::ones({1, 3});
+    Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor mixingMatrix = Tensor::diag(diagonal);
+
+    Propagator matterSolverFirst(/*nGenerations=*/3);
+    auto matterSolver1 = std::make_shared<ConstDensityMatterSolver>(3);
+
+    // try setting the matter solver before setting all parameters
+    matterSolverFirst.setMatterSolver(matterSolver1);
+    matterSolverFirst.setEnergies(energies);
+    matterSolverFirst.setMasses(masses);
+    matterSolverFirst.setMixingMatrix(mixingMatrix);
+
+    ASSERT_EQ(matterSolver1->getEnergies(), energies);
+    ASSERT_EQ(matterSolver1->getMasses(), masses);
+    ASSERT_EQ(matterSolver1->getMixingMatrix(), mixingMatrix);
+}
+
+TEST(Propagator /*unused*/, InitialisationOrderMatterSolverAfter /*unused*/)
+{
+    // check that order of initialisation of matter solver and parameters doesn't matter
+
+    Tensor energies = Tensor::ones({1, 10});
+    Tensor masses = Tensor::ones({1, 3});
+    Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor mixingMatrix = Tensor::diag(diagonal);
+
+    // now try setting the matter solver after setting all parameters
+    Propagator matterSolverAfter(/*nGenerations=*/3);
+    auto matterSolver2 = std::make_shared<ConstDensityMatterSolver>(3);
+    matterSolverAfter.setEnergies(energies);
+    matterSolverAfter.setMasses(masses);
+    matterSolverAfter.setMixingMatrix(mixingMatrix);
+    matterSolverAfter.setMatterSolver(matterSolver2);
+
+    ASSERT_EQ(matterSolver2->getEnergies(), energies);
+    ASSERT_EQ(matterSolver2->getMasses(), masses);
+    ASSERT_EQ(matterSolver2->getMixingMatrix(), mixingMatrix);
+}
+
+// NOLINTEND(readability-function-cognitive-complexity)
+
+// NOLINTEND(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
