@@ -9,6 +9,10 @@ using namespace nuTens;
 // magic numbers are fine for testing!
 // NOLINTBEGIN(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
 
+// cognitive complexity is heavily inflated by the gtest macros
+// but they don't actually decrease readability
+// NOLINTBEGIN(readability-function-cognitive-complexity)
+
 template <typename T> void testTensorCreation(const dtypes::scalarType dtype, const dtypes::deviceType deviceType)
 {
     Tensor zero = Tensor::zeros({1}, dtype, deviceType, false);
@@ -253,5 +257,7 @@ void testDerivativesStandardFunctions(const dtypes::scalarType dtype, const dtyp
     ASSERT_EQ(2.0 * tensor, tensor.grad());
     tensor.zeroGrad();
 }
+
+// NOLINTEND(readability-function-cognitive-complexity)
 
 // NOLINTEND(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
