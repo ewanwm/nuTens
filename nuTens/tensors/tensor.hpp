@@ -459,7 +459,8 @@ class Tensor
     [[nodiscard]] bool getHasBatchDim() const;
 
     /// @brief Get the shape of the tensor
-    [[nodiscard]] std::vector<int> getShape() const;
+    /// @warning This can be somewhat slow, you should avoid using it in any performance critical loops
+    [[nodiscard]] std::vector<long int> getShape() const;
 
     /// Get the name of the backend library used to deal with tensors
     static std::string getTensorLibrary();
