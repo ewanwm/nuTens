@@ -1,11 +1,4 @@
-#include <gtest/gtest.h> // NOLINT
-// alias the gtest "testing" namespace
-namespace gtest = ::testing;
-
-#include <nuTens/propagator/const-density-solver.hpp>
-#include <nuTens/propagator/propagator.hpp>
-#include <nuTens/tensors/tensor.hpp>
-#include <tests/barger-propagator.hpp>
+#include <tests/test-two-flavour-osc.hpp>
 
 using namespace nuTens;
 using namespace nuTens::testing;

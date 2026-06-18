@@ -1,9 +1,5 @@
 
-#include <nuTens/tensors/dtypes.hpp>
-#include <nuTens/tensors/tensor.hpp>
-
-#include <complex>
-#include <gtest/gtest.h> // NOLINT
+#include <tests/test-tensor.hpp>
 
 /*
     Do some very basic tests of tensor functionality
@@ -15,44 +11,24 @@
 using namespace nuTens;
 
 // check creation of tensors
-TEST(Tensor /*unused*/, TensorCreationFloat /*unused*/)
+TEST(Tensor /*unused*/, TensorCreationFloatCPU /*unused*/)
 {
+    testTensorCreation<float>(dtypes::kFloat, dtypes::kCPU);
+}
 
-    Tensor zero = Tensor::zeros({1}, dtypes::kFloat, dtypes::kCPU, false);
-    std::cout << "zero tensor: " << zero << std::endl;
-    ASSERT_EQ(zero.getValue<float>(), 0.0);
+TEST(Tensor /*unused*/, TensorCreationDoubleCPU /*unused*/)
+{
+    testTensorCreation<double>(dtypes::kDouble, dtypes::kCPU);
+}
 
-    Tensor one = Tensor::ones({1}, dtypes::kFloat, dtypes::kCPU, false);
-    std::cout << "one tensor: " << one << std::endl;
-    ASSERT_EQ(one.getValue<float>(), 1.0);
+TEST(Tensor /*unused*/, TensorCreationComplexFloatCPU /*unused*/)
+{
+    testTensorCreation<std::complex<float>>(dtypes::kComplexFloat, dtypes::kCPU);
+}
 
-    Tensor three = Tensor({3.0}, dtypes::kFloat, dtypes::kCPU, false);
-    ASSERT_EQ(three.getValue<float>(), 3.0);
-
-    Tensor rand = Tensor::rand({1}, dtypes::kFloat, dtypes::kCPU, false);
-    ASSERT_LE(rand.getValue<float>(), 1.0);
-    ASSERT_GE(rand.getValue<float>(), 0.0);
-
-    Tensor diagonal = Tensor({0.0, 1.0, 2.0}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor diagTensor = Tensor::diag(diagonal);
-    std::cout << "diagonal tensor: \n" << diagTensor << std::endl;
-    ASSERT_EQ(diagTensor.getValue<float>({0, 0}), 0.0);
-    ASSERT_EQ(diagTensor.getValue<float>({1, 1}), 1.0);
-    ASSERT_EQ(diagTensor.getValue<float>({2, 2}), 2.0);
-
-    ASSERT_EQ(diagTensor.getValue<float>({0, 1}), 0.0);
-    ASSERT_EQ(diagTensor.getValue<float>({0, 2}), 0.0);
-    ASSERT_EQ(diagTensor.getValue<float>({1, 0}), 0.0);
-    ASSERT_EQ(diagTensor.getValue<float>({1, 2}), 0.0);
-    ASSERT_EQ(diagTensor.getValue<float>({2, 0}), 0.0);
-    ASSERT_EQ(diagTensor.getValue<float>({2, 1}), 0.0);
-
-    Tensor eye = Tensor::eye(2, dtypes::kFloat, dtypes::kCPU, false);
-    std::cout << "identity tensor: " << eye << std::endl;
-    ASSERT_EQ(eye.getValue<float>({0, 0}), 1.0);
-    ASSERT_EQ(eye.getValue<float>({1, 1}), 1.0);
-    ASSERT_EQ(eye.getValue<float>({0, 1}), 0.0);
-    ASSERT_EQ(eye.getValue<float>({1, 0}), 0.0);
+TEST(Tensor /*unused*/, TensorCreationComplexDoubleCPU /*unused*/)
+{
+    testTensorCreation<std::complex<double>>(dtypes::kComplexDouble, dtypes::kCPU);
 }
 
 // check equality operators
@@ -93,87 +69,24 @@ TEST(Tensor /*unused*/, ElementMapipulation /*unused*/)
 // check some basic arithmetic
 TEST(Tensor /*unused*/, simpleArithmeticFloat /*unused*/)
 {
+    testArithmeticFloatType<float>(dtypes::kFloat);
+}
 
-    // test simple addition
-    Tensor one = Tensor::ones({1}, dtypes::kFloat, dtypes::kCPU, false);
-    ASSERT_EQ((one + one).getValue<float>(), 2.0);
-    ASSERT_EQ((one - one).getValue<float>(), 0.0);
-
-    // test multiplication of tensors
-    Tensor ten = Tensor({10.0}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor five = Tensor({5.0}, dtypes::kFloat, dtypes::kCPU, false);
-    ASSERT_EQ((ten / five).getValue<float>(), 2.0);
-    ASSERT_EQ((ten * five).getValue<float>(), 50.0);
-    ASSERT_EQ(Tensor::pow(ten, 2.0).getValue<float>(), 100.0);
-
-    // test sqrt
-    Tensor four = Tensor({4.0}, dtypes::kFloat, dtypes::kCPU, false);
-    ASSERT_EQ(Tensor::sqrt(four).getValue<float>(), 2.0);
-
-    // test scaling by float
-    ASSERT_NEAR((one * 1.234).getValue<float>(), 1.234, 1e-6);
-    ASSERT_NEAR((one / 2.0).getValue<float>(), 0.5, 1e-6);
-    ASSERT_NEAR((1.234 * one).getValue<float>(), 1.234, 1e-6);
-
-    // addition of float
-    ASSERT_EQ((one + 1.0).getValue<float>(), 2.0);
-    ASSERT_EQ((one - 1.0).getValue<float>(), 0.0);
-    ASSERT_EQ((1.0 + one).getValue<float>(), 2.0);
-    ASSERT_EQ((1.0 - one).getValue<float>(), 0.0);
-
-    // negation
-    ASSERT_EQ((-one).getValue<float>(), -1.0);
+TEST(Tensor /*unused*/, simpleArithmeticDouble /*unused*/)
+{
+    testArithmeticFloatType<double>(dtypes::kDouble);
 }
 
 // check some basic arithmetic
 TEST(Tensor /*unused*/, simpleArithmeticComplexFloat /*unused*/)
 {
+    testArithmeticComplexType<float>(dtypes::kComplexFloat);
+}
 
-    // test addition for complex value with real component
-    Tensor one = Tensor::ones({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
-    ASSERT_EQ((one + one).getValue<std::complex<float>>(), std::complex<float>(2.0, 0.0));
-    ASSERT_EQ((one - one).getValue<std::complex<float>>(), std::complex<float>(0.0, 0.0));
-
-    // check that sqrt -1 = i
-    ASSERT_EQ((Tensor::sqrt(-one)).getValue<std::complex<float>>(), std::complex<float>(0.0, -1.0));
-
-    // imag unit to use in testing
-    Tensor imag = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
-    imag.setValue({0}, std::complex<float>(0.0, 1.0));
-
-    // check that i^2 = -1
-    ASSERT_EQ((Tensor::pow(imag, 2.0)).getValue<std::complex<float>>(), std::complex<float>(-1.0, 0.0));
-
-    // test addition
-    ASSERT_EQ((one + imag).getValue<std::complex<float>>(), std::complex<float>(1.0, 1.0));
-
-    // test multiplication by real scalar
-    Tensor ten = Tensor({10.0}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor five = Tensor({5.0}, dtypes::kFloat, dtypes::kCPU, false);
-    ASSERT_EQ(Tensor::div(imag, five).getValue<std::complex<float>>(), std::complex<float>(0.0, 0.2));
-    ASSERT_EQ(Tensor::mul(imag, five).getValue<std::complex<float>>(), std::complex<float>(0.0, 5.0));
-
-    // test scaling by real float
-    ASSERT_EQ(Tensor::scale(imag, 1.234F).getValue<std::complex<float>>(), std::complex<float>(0.0, 1.234));
-
-    // test scaling by complex float
-    ASSERT_EQ(Tensor::scale(imag, std::complex<float>(1.0, 1.0)).getValue<std::complex<float>>(),
-              std::complex<float>(-1.0, 1.0));
-
-    // test complex operations
-    ASSERT_EQ(imag.imag().getValue<float>(), 1.0);
-    ASSERT_EQ(imag.real().getValue<float>(), 0.0);
-    ASSERT_EQ((one + imag).conj(), (one - imag));
-
-    // proof of eulers identity
-    Tensor euler = Tensor({static_cast<float>(std::exp(1.0))}, dtypes::kComplexFloat, dtypes::kCPU, false);
-    std::complex<float> testVal = Tensor::pow(euler, std::complex<float>(0.0, M_PI)).getValue<std::complex<float>>();
-    ASSERT_NEAR(testVal.real(), -1.0, 1e-6);
-    ASSERT_NEAR(testVal.imag(), 0.0, 1e-6);
-
-    // other complex operations
-    ASSERT_NEAR(imag.angle().getValue<float>(), M_PI / 2.0, 1e-5);
-    ASSERT_NEAR(imag.abs().getValue<float>(), 1.0, 1e-5);
+// check some basic arithmetic
+TEST(Tensor /*unused*/, simpleArithmeticComplexDouble /*unused*/)
+{
+    testArithmeticComplexType<double>(dtypes::kComplexDouble);
 }
 
 TEST(Tensor /*unused*/, Summation /*unused*/)
@@ -589,6 +502,105 @@ TEST(Tensor /*unused*/, AccessedTensor3D /*unused*/)
     tensor.setValue(3.0, 1, 1, 1);
 
     ASSERT_EQ(tensor.getValue(1, 1, 1), 3.0);
+}
+
+// Test arithmetic overrides
+TEST(Tensor /*unused*/, addOverride /*unused*/)
+{
+
+    Tensor one = Tensor::ones({2}, dtypes::kFloat, dtypes::kCPU, false);
+
+    ASSERT_EQ((one + one), Tensor::add(one, one));
+}
+
+TEST(Tensor /*unused*/, multiplyOverride /*unused*/)
+{
+
+    Tensor two = Tensor({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+
+    ASSERT_EQ((two * two), Tensor::mul(two, two));
+}
+
+TEST(Tensor /*unused*/, scaleOverride /*unused*/)
+{
+
+    Tensor two = Tensor({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+
+    ASSERT_EQ((two * 2.0), Tensor::scale(two, 2.0));
+}
+
+TEST(Tensor /*unused*/, divOverride /*unused*/)
+{
+
+    Tensor one = Tensor::ones({2}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor two = Tensor({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
+
+    ASSERT_EQ((one / two), Tensor::div(one, two));
+}
+
+TEST(Tensor /*unused*/, batchDim /*unused*/)
+{
+
+    Tensor tensor = Tensor::ones({3, 3, 3, 3}, dtypes::kFloat, dtypes::kCPU, false);
+
+    ASSERT_TRUE(!tensor.getHasBatchDim());
+
+    tensor.addBatchDim();
+
+    ASSERT_TRUE(tensor.getHasBatchDim());
+    ASSERT_EQ(tensor.getNdim(), 5);
+
+    // doing again should have no effect
+    tensor.addBatchDim();
+
+    ASSERT_TRUE(tensor.getHasBatchDim());
+    ASSERT_EQ(tensor.getNdim(), 5);
+}
+
+// test basic derivatives
+TEST(Tensor /*unused*/, testDerivativesBasicScalarFloat /*unused*/)
+{
+    testDerivativesBasicScalarReal<float>(dtypes::kFloat, dtypes::kCPU);
+}
+TEST(Tensor /*unused*/, testDerivativesBasicScalarDouble /*unused*/)
+{
+    testDerivativesBasicScalarReal<double>(dtypes::kDouble, dtypes::kCPU);
+}
+TEST(Tensor /*unused*/, testDerivativesBasicScalarComplexFloat /*unused*/)
+{
+    testDerivativesBasicScalarComplex<float>(dtypes::kComplexFloat, dtypes::kCPU);
+}
+TEST(Tensor /*unused*/, testDerivativesBasicScalarComplexDouble /*unused*/)
+{
+    testDerivativesBasicScalarComplex<double>(dtypes::kComplexDouble, dtypes::kCPU);
+}
+
+// test basic tensor derivatives
+TEST(Tensor /*unused*/, testDerivativesBasicTensorFloat /*unused*/)
+{
+    testDerivativesBasicTensorReal<float>(dtypes::kFloat, dtypes::kCPU);
+}
+TEST(Tensor /*unused*/, testDerivativesBasicTensorDouble /*unused*/)
+{
+    testDerivativesBasicTensorReal<double>(dtypes::kDouble, dtypes::kCPU);
+}
+TEST(Tensor /*unused*/, testDerivativesBasicTensorComplexFloat /*unused*/)
+{
+    testDerivativesBasicTensorComplex<float>(dtypes::kComplexFloat, dtypes::kCPU);
+}
+TEST(Tensor /*unused*/, testDerivativesBasicTensorComplexDouble /*unused*/)
+{
+    testDerivativesBasicTensorComplex<double>(dtypes::kComplexDouble, dtypes::kCPU);
+}
+
+// test derivatives of some standard functions
+TEST(Tensor /*unused*/, testDerivativesStandardFunctionsFloat /*unused*/)
+{
+    testDerivativesStandardFunctions(dtypes::kFloat, dtypes::kCPU);
+}
+TEST(Tensor /*unused*/, testDerivativesStandardFunctionsTensorDouble /*unused*/)
+{
+    testDerivativesStandardFunctions(dtypes::kDouble, dtypes::kCPU);
 }
 
 // NOLINTEND(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
