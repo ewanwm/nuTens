@@ -26,7 +26,8 @@ Tensor Tensor::TensorComplex(const std::vector<std::complex<float>> &values, dty
 {
     NT_PROFILE();
 
-    std::vector<c10::complex<float>> c10Values(values.size());
+    std::vector<c10::complex<float>> c10Values;
+    c10Values.reserve(values.size());
     for (const auto &value : values)
     {
         c10Values.push_back(c10::complex<float>(value.real(), value.imag()));
@@ -229,16 +230,11 @@ bool Tensor::getHasBatchDim() const
     return _hasBatchDim;
 }
 
-std::vector<int> Tensor::getShape() const
+std::vector<long int> Tensor::getShape() const
 {
     NT_PROFILE();
 
-    std::vector<int> ret(getNdim());
-    for (size_t i = 0; i < getNdim(); i++)
-    {
-        ret[i] = _tensor.sizes()[i];
-    }
-    return ret;
+    return _tensor.sizes().vec();
 }
 
 Tensor Tensor::matmul(const Tensor &tensor1, const Tensor &tensor2)
