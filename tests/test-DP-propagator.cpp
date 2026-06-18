@@ -89,6 +89,18 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
             .setDeltaCP(deltaCP.getValue<float>({0}));
     }
 
+    void testParameterSetting()
+    {
+        dpPropagator.setBaseline(0.1);
+        dpPropagator.setDensity(0.2);
+
+        // need this to move above float values into coresponding tensors
+        (void)dpPropagator.calculateProbs();
+
+        ASSERT_EQ(dpPropagator.getBaseline(), 0.1);
+        ASSERT_EQ(dpPropagator.getDensity(), 0.2);
+    }
+
     /// compare DP propagator oscillation probabilities to the "official" nufast code
 
     // cognitive complexity is heavily inflated by the gtest macros

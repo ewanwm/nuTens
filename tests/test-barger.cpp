@@ -7,6 +7,28 @@
 using namespace nuTens;
 using namespace nuTens::testing;
 
+TEST(TwoFlavourBargerPropTest /*unused*/, antiNuLmatter /*unused*/)
+{
+
+    // linter seems to struggle with recogising this type and thinks it is an int
+    // and always thinks it is uninitialised
+    // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
+    TwoFlavourBarger<> bargerProp{};
+
+    bargerProp.setMass1(/*mass1=*/0.04)
+        .setMass2(/*mass2=*/0.001)
+        .setTheta(/*theta=*/0.24)
+        .setBaseline(/*baseline=*/250 * units::km)
+        .setDensity(/*density=*/2.0)
+        .setAntiNeutrino(/*antiNeutrino=*/false);
+
+    float lMatter = bargerProp.lMatter();
+
+    bargerProp.setAntiNeutrino(/*antiNeutrino=*/true);
+
+    ASSERT_EQ(bargerProp.lMatter(), -lMatter);
+}
+
 TEST(TwoFlavourBargerPropTest /*unused*/, zeroThetaNoOscTest /*unused*/)
 {
 
