@@ -1,9 +1,4 @@
-#include <gtest/gtest.h> // NOLINT
-// alias the gtest "testing" namespace
-namespace gtest = ::testing;
-
-#include <iostream>
-#include <nuTens/propagator/pmns-matrix.hpp>
+#include <tests/test-pmns-matrix.hpp>
 
 // magic numbers are fine for testing!
 // NOLINTBEGIN(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
@@ -25,10 +20,10 @@ class PMNSmatrixTest : public gtest::TestWithParam<float>
     // NOLINTEND(cppcoreguidelines-non-private-member-variables-in-classes)
 
     // set up common values to use across tests
-    void SetUp()
+    void SetUp() override
     {
 
-        matrix.setParameterValues(theta12, theta13, theta23, deltaCP);
+        matrix.setTheta12(theta12).setTheta13(theta13).setTheta23(theta23).setDeltaCP(deltaCP);
 
         matrixTensor = matrix.build();
     }
@@ -38,7 +33,7 @@ TEST_F(PMNSmatrixTest /*unused*/, CachingSameResultTest /*unused*/)
 {
 
     PMNSmatrix cacheMatrix;
-    cacheMatrix.setParameterValues(theta12, theta13, theta23, deltaCP);
+    cacheMatrix.setTheta12(theta12).setTheta13(theta13).setTheta23(theta23).setDeltaCP(deltaCP);
 
     // copy resulting tensor
     Tensor cachedMatrixTensor = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat, dtypes::kCPU, false);

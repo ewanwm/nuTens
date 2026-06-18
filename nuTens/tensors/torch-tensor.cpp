@@ -11,7 +11,7 @@ std::string Tensor::getTensorLibrary()
 // LCOV_EXCL_STOP
 
 Tensor::Tensor(const std::vector<float> &values, dtypes::scalarType type, dtypes::deviceType device, bool requiresGrad)
-    : _dType(type), _device(device)
+    : _dType(type), _device(device), _requiresGrad(requiresGrad)
 {
     NT_PROFILE();
 
@@ -19,6 +19,23 @@ Tensor::Tensor(const std::vector<float> &values, dtypes::scalarType type, dtypes
                                         .dtype(dtypes::scalarTypeMap(type))
                                         .device(dtypes::deviceTypeMap(device))
                                         .requires_grad(requiresGrad));
+}
+
+Tensor Tensor::TensorComplex(const std::vector<std::complex<float>> &values, dtypes::scalarType type,
+                             dtypes::deviceType device, bool requiresGrad)
+{
+    NT_PROFILE();
+
+    std::vector<c10::complex<float>> c10Values(values.size());
+    for (const auto &value : values)
+    {
+        c10Values.push_back(c10::complex<float>(value.real(), value.imag()));
+    }
+
+    return {torch::tensor(c10Values, torch::TensorOptions()
+                                         .dtype(dtypes::scalarTypeMap(type))
+                                         .device(dtypes::deviceTypeMap(device))
+                                         .requires_grad(requiresGrad))};
 }
 
 Tensor Tensor::eye(int n, dtypes::scalarType type, dtypes::deviceType device, bool requiresGrad)
@@ -95,6 +112,7 @@ Tensor &Tensor::requiresGrad(bool reqGrad)
     NT_PROFILE();
 
     _tensor = _tensor.set_requires_grad(reqGrad);
+    _requiresGrad = reqGrad;
     return *this;
 }
 
@@ -145,11 +163,14 @@ Tensor::variantType Tensor::getVariantValue(const std::vector<int> &indices) con
     case dtypes::kComplexDouble:
         return (std::complex<double>)_tensor.index(convertIndices(indices)).item<c10::complex<double>>();
 
+    // in theory this is not reachable so exclude it from code coverage
+    // LCOV_EXCL_START
     default:
         NT_ERROR("Invalid dtype has been set for this tensor: {}", _dType);
         NT_ERROR("{}:{}", __FILE__, __LINE__);
         throw;
     }
+    // LCOV_EXCL_STOP
 }
 
 void Tensor::setValue(const std::vector<Tensor::indexType> &indices, const Tensor &value)
@@ -262,11 +283,36 @@ Tensor Tensor::pow(const Tensor &tensor, float scalar)
     return {torch::pow(tensor._tensor, scalar)};
 }
 
+Tensor Tensor::pow(const Tensor &tensor, double scalar)
+{
+    NT_PROFILE();
+
+    return {torch::pow(tensor._tensor, scalar)};
+}
+
 Tensor Tensor::pow(const Tensor &tensor, std::complex<float> scalar)
 {
     NT_PROFILE();
 
+    assert(tensor._dType == dtypes::kComplexFloat | tensor._dType == dtypes::kComplexDouble);
+
     return {torch::pow(tensor._tensor, c10::complex<float>(scalar.real(), scalar.imag()))};
+}
+
+Tensor Tensor::pow(const Tensor &tensor, std::complex<double> scalar)
+{
+    NT_PROFILE();
+
+    assert(tensor._dType == dtypes::kComplexFloat | tensor._dType == dtypes::kComplexDouble);
+
+    return {torch::pow(tensor._tensor, c10::complex<double>(scalar.real(), scalar.imag()))};
+}
+
+Tensor Tensor::sqrt(const Tensor &tensor)
+{
+    NT_PROFILE();
+
+    return {torch::sqrt(tensor._tensor)};
 }
 
 Tensor Tensor::exp(const Tensor &tensor)
@@ -555,9 +601,21 @@ void Tensor::backward() const
     _tensor.backward();
 }
 
+void Tensor::zeroGrad()
+{
+    NT_PROFILE();
+
+    _tensor.grad().zero_();
+}
+
 Tensor Tensor::grad() const
 {
     NT_PROFILE();
+
+    if (!_requiresGrad)
+    {
+        throw std::runtime_error("Trying to access gradient of a Tensor that does not have requiresGrad!!!");
+    }
 
     return {_tensor.grad()};
 }

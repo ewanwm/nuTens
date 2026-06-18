@@ -100,6 +100,7 @@ class ProfileWriter
         _outputStream.open(name + "-profile.json");
         writeHeader();
         _name = name;
+        _profileCount = 0;
     }
 
     /// @brief Close the session and clean up
@@ -115,15 +116,15 @@ class ProfileWriter
     /// @param[in] result The result to write
     void writeProfile(const ProfileResult &result)
     {
-        if (_profileCount++ > 1)
+        if (_profileCount++ > 0)
         {
-            _outputStream << ",";
+            _outputStream << ",\n";
         }
 
         std::string name = result.name;
         std::replace(name.begin(), name.end(), '"', '\'');
 
-        _outputStream << "{";
+        _outputStream << "\t\t{";
         _outputStream << R"("cat":"function",)";
         _outputStream << "\"dur\":" << (result.end - result.start) << ',';
         _outputStream << R"("name":")" << name << "\",";
@@ -139,14 +140,14 @@ class ProfileWriter
     /// @brief Write the file header
     void writeHeader()
     {
-        _outputStream << R"({"otherData": {},"traceEvents":[)";
+        _outputStream << "{\n\t\"otherData\": {},\n\t\"traceEvents\":\n\t[\n";
         _outputStream.flush();
     }
 
     /// @brief Write the file footer
     void writeFooter()
     {
-        _outputStream << "]}";
+        _outputStream << "\n\t]\n}";
         _outputStream.flush();
     }
 

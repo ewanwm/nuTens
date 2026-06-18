@@ -32,7 +32,7 @@ class TestTwoFlavourConstMatter:
     def setup_tensor_inputs(self, theta12:float, theta13:float, theta23:float) -> typing.Tuple[Tensor]:
         
         pmns = PMNSmatrix()
-        pmns.set_parameter_values(theta12, theta13, theta23, self.deltaCP)
+        pmns.set_theta12(theta12).set_theta13(theta13).set_theta23(theta23).set_deltacp(self.deltaCP)
 
         masses = Tensor([self.m1, self.m2, self.m3], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False).add_batch_dim()
 
@@ -52,8 +52,8 @@ class TestTwoFlavourConstMatter:
         pmns, masses = self.setup_tensor_inputs(theta12, theta13, theta23)
 
         # set up tensor solver
-        propagator = nt.propagator.Propagator(3, self.baseline)
-        matter_solver = ConstDensitySolver(3, self.density)
+        propagator = nt.propagator.Propagator(3).set_baseline(self.baseline)
+        matter_solver = ConstDensitySolver(3).set_density(self.density)
         
         propagator.set_matter_solver(matter_solver)
         propagator.set_mixing_matrix(pmns)

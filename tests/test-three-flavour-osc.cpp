@@ -1,12 +1,4 @@
-#include <gtest/gtest.h> // NOLINT
-// alias the gtest "testing" namespace
-namespace gtest = ::testing;
-
-#include <nuTens/propagator/const-density-solver.hpp>
-#include <nuTens/propagator/pmns-matrix.hpp>
-#include <nuTens/propagator/propagator.hpp>
-#include <nuTens/tensors/tensor.hpp>
-#include <tests/barger-propagator.hpp>
+#include <tests/test-three-flavour-osc.hpp>
 
 using namespace nuTens;
 using namespace nuTens::testing;
@@ -72,12 +64,13 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
 
         // construct the mixing matrix for current theta value
         PMNSmatrix pmns;
-        pmns.setParameterValues(theta12, theta13, theta23, deltaCP);
+        pmns.setTheta12(theta12).setTheta13(theta13).setTheta23(theta23).setDeltaCP(deltaCP);
         Tensor pmnsTensor = pmns.build();
 
         // set up the matter solver
-        Propagator tensorPropagator(3, baseline);
-        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
+        Propagator tensorPropagator = Propagator(3).setBaseline(baseline);
+        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3);
+        tensorSolver->setDensity(density);
 
         // set up the propagator
         tensorPropagator.setMatterSolver(tensorSolver);
@@ -138,12 +131,13 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
 
         // construct the mixing matrix for current theta value
         PMNSmatrix pmns;
-        pmns.setParameterValues(theta12, theta13, theta23, deltaCP);
+        pmns.setTheta12(theta12).setTheta13(theta13).setTheta23(theta23).setDeltaCP(deltaCP);
         Tensor pmnsTensor = pmns.build();
 
         // set up the matter solver
-        Propagator tensorPropagator(3, baseline);
-        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
+        Propagator tensorPropagator = Propagator(3).setBaseline(baseline);
+        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3);
+        tensorSolver->setDensity(density);
 
         // set up the propagator
         tensorPropagator.setMatterSolver(tensorSolver);
@@ -232,15 +226,16 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
 
         // construct the mixing matrix for current theta value
         PMNSmatrix pmns;
-        pmns.setParameterValues(theta12, theta13, theta23, deltaCP);
+        pmns.setTheta12(theta12).setTheta13(theta13).setTheta23(theta23).setDeltaCP(deltaCP);
         Tensor pmnsTensor = pmns.build();
 
         NT_INFO("Re[PMNS]:\n{}", pmns.build().real().toString());
         NT_INFO("Im[PMNS]:\n{}", pmns.build().imag().toString());
 
         // set up the matter solver
-        Propagator tensorPropagator(3, baseline);
-        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
+        Propagator tensorPropagator = Propagator(3).setBaseline(baseline);
+        auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3);
+        tensorSolver->setDensity(density);
 
         // set up the propagator
         tensorPropagator.setMatterSolver(tensorSolver);
@@ -297,14 +292,14 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
 
         // construct the mixing matrix for current theta value
         PMNSmatrix pmns;
-        pmns.setParameterValues(theta12, theta13, theta23, deltaCP);
+        pmns.setTheta12(theta12).setTheta13(theta13).setTheta23(theta23).setDeltaCP(deltaCP);
         Tensor pmnsTensor = pmns.build();
 
         NT_INFO("Re[PMNS]:\n{}", pmns.build().real().toString());
         NT_INFO("Im[PMNS]:\n{}", pmns.build().imag().toString());
 
         // set up the matter solver
-        Propagator tensorPropagator(3, baseline);
+        Propagator tensorPropagator = Propagator(3).setBaseline(baseline);
 
         // set up the propagator
         tensorPropagator.setMixingMatrix(pmns.build());

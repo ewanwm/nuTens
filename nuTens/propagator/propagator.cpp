@@ -7,6 +7,8 @@ Tensor Propagator::calculateProbs()
     NT_PROFILE();
 
     Tensor ret;
+    Propagator::MassSqTensor massesSq;
+    Propagator::MixingMatrixTensor mixingMatrix;
 
     // if a matter solver was specified, use effective values for masses and mixing
     // matrix, otherwise just use the "raw" ones
@@ -16,23 +18,27 @@ Tensor Propagator::calculateProbs()
         Tensor eigenVecs = Tensor::zeros({1, _nGenerations, _nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
 
         _matterSolver->calculateEigenvalues(eigenVecs, eigenVals);
-        Tensor effectiveMassesSq = Tensor::mul(eigenVals, Tensor::scale(_energies, 2.0));
-        Tensor effectiveMixingMatrix = Tensor::matmul(_mixingMatrix, eigenVecs);
-
-        ret = _calculateProbs(effectiveMassesSq, effectiveMixingMatrix);
+        massesSq = Propagator::MassSqTensor(eigenVals * _energies * 2.0);
+        mixingMatrix = Propagator::MixingMatrixTensor(Tensor::matmul(_mixingMatrix, eigenVecs));
     }
 
     else
     {
-        ret = _calculateProbs(Tensor::mul(_masses, _masses), _mixingMatrix);
+        massesSq = Propagator::MassSqTensor(_masses * _masses);
+        mixingMatrix = Propagator::MixingMatrixTensor(_mixingMatrix);
     }
 
-    return ret;
+    return _calculateProbs(massesSq, mixingMatrix);
 }
 
-Tensor Propagator::_calculateProbs(const Tensor &massesSq, const Tensor &mixingMatrix)
+Tensor Propagator::_calculateProbs(const Propagator::MassSqTensor &massesSq,
+                                   const Propagator::MixingMatrixTensor &mixingMatrix)
 {
     NT_PROFILE();
+
+    _weightArgDenom =
+        Tensor::scale(Tensor::scale(_energies, 2.0),
+                      std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline * 2.0F * (float)M_PI));
 
     // basically exp { - i m^2 L / 2 E }
     Tensor weightVector = Tensor::exp(Tensor::div(massesSq, _weightArgDenom));
@@ -61,5 +67,5 @@ Tensor Propagator::_calculateProbs(const Tensor &massesSq, const Tensor &mixingM
 
     Tensor sqrtProbabilities = Tensor::matmul(matrixA, matrixB);
 
-    return Tensor::pow(sqrtProbabilities.abs(), 2);
+    return Tensor::square(sqrtProbabilities.abs());
 }

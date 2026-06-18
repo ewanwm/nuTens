@@ -1,17 +1,4 @@
-#include <gtest/gtest.h> // NOLINT
-// alias the gtest "testing" namespace
-namespace gtest = ::testing;
-
-#include <nuTens/propagator/DP-propagator.hpp>
-#include <nuTens/propagator/const-density-solver.hpp>
-#include <nuTens/propagator/pmns-matrix.hpp>
-#include <nuTens/propagator/propagator.hpp>
-#include <nuTens/tensors/tensor.hpp>
-#include <nuTens/utils/logging.hpp>
-#include <tests/barger-propagator.hpp>
-
-// nuFast c++ implementation
-#include <tests/nuFast.hpp>
+#include <tests/test-DP-propagator.hpp>
 
 // magic numbers are fine for testing!
 // NOLINTBEGIN(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
@@ -44,11 +31,11 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
 
     Tensor energies = Tensor::ones({1, 1}, dtypes::kComplexFloat).requiresGrad(false).hasBatchDim(true);
 
-    Propagator tensorPropagator = Propagator(3, baseline);
-    std::shared_ptr<ConstDensityMatterSolver> tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
+    Propagator tensorPropagator = Propagator(3).setBaseline(baseline);
+    std::shared_ptr<ConstDensityMatterSolver> tensorSolver = std::make_shared<ConstDensityMatterSolver>(3);
 
-    DPpropagator dpPropagator = DPpropagator(baseline, false, density, 10);
-    DPpropagator dpPropagatorVac = DPpropagator(baseline, false, 0.0, 10);
+    DPpropagator dpPropagator = DPpropagator(10).setBaseline(baseline).setAntiNeutrino(false).setDensity(density);
+    DPpropagator dpPropagatorVac = DPpropagator(10).setBaseline(baseline).setAntiNeutrino(false).setDensity(0.0);
 
     PMNSmatrix pmns;
 
@@ -59,6 +46,7 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
     {
 
         energies.setValue({0, 0}, energy);
+        tensorSolver->setDensity(density);
 
         tensorPropagator.setMatterSolver(tensorSolver);
         tensorPropagator.setMasses(masses);
@@ -95,8 +83,10 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
         deltaCP.setValue({0}, dcp);
 
         // calculate new values of the mixing matrix
-        pmns.setParameterValues(theta12.getValue<float>({0}), theta13.getValue<float>({0}),
-                                theta23.getValue<float>({0}), deltaCP.getValue<float>({0}));
+        pmns.setTheta12(theta12.getValue<float>({0}))
+            .setTheta13(theta13.getValue<float>({0}))
+            .setTheta23(theta23.getValue<float>({0}))
+            .setDeltaCP(deltaCP.getValue<float>({0}));
     }
 
     void testParameterSetting()
@@ -112,6 +102,10 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
     }
 
     /// compare DP propagator oscillation probabilities to the "official" nufast code
+
+    // cognitive complexity is heavily inflated by the gtest macros
+    // but they don't actually decrease readability
+    // NOLINTBEGIN(readability-function-cognitive-complexity)
     void compareNufast(bool antineutrino)
     {
 
@@ -263,6 +257,7 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
         ASSERT_NEAR(probabilities.getValue<float>({0, 2, 1}), dpProbabilities.getValue<float>({0, 2, 1}), tolerance);
         ASSERT_NEAR(probabilities.getValue<float>({0, 2, 2}), dpProbabilities.getValue<float>({0, 2, 2}), tolerance);
     }
+    // NOLINTEND(readability-function-cognitive-complexity)
 };
 
 // compare dpPropagator osc probs with Propagator osc probs

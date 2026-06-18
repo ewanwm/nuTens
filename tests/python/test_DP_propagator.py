@@ -35,7 +35,7 @@ class TestDPpropagator:
         theta23_tensor = Tensor([theta23], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
 
         # set up DPpropagator
-        dp_propagator = DPpropagator(self.baseline, False, self.density, 10)
+        dp_propagator = DPpropagator(10).set_baseline(self.baseline).set_antineutrino(False).set_density(self.density)
         dp_propagator.set_energies(self.energy)
         dp_propagator.set_parameters(
             self.theta12, theta23_tensor, self.theta13, 

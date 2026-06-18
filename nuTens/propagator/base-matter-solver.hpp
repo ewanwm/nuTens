@@ -34,26 +34,28 @@ class BaseMatterSolver
 
     /// @brief Set a new mixing matrix for this solver
     /// @param newMatrix The new matrix to set
-    virtual inline void setMixingMatrix(const Tensor &newMatrix)
+    virtual inline BaseMatterSolver &setMixingMatrix(const Tensor &newMatrix)
     {
         NT_PROFILE();
 
         mixingMatrix = newMatrix;
+
+        return *this;
     }
 
     /// @brief Set new mass eigenvalues for this solver
     /// @param newMasses The new masses
-    virtual inline void setMasses(const Tensor &newMasses)
+    virtual inline BaseMatterSolver &setMasses(const Tensor &newMasses)
     {
         assert((newMasses.getNdim() == 2));
         NT_PROFILE();
 
         masses = newMasses;
+
+        return *this;
     }
 
-    virtual void calculateEigenvalues(Tensor &eigenvectors, Tensor &eigenvalues) = 0;
-
-    inline virtual void setEnergies(const Tensor &newEnergies)
+    inline virtual BaseMatterSolver &setEnergies(const Tensor &newEnergies)
     {
 
         assert((newEnergies.getNdim() == 2));
@@ -66,18 +68,24 @@ class BaseMatterSolver
 
         hamiltonian = Tensor::zeros({energies.getBatchDim(), nGenerations, nGenerations}, dtypes::kComplexFloat)
                           .requiresGrad(false);
+
+        return *this;
     }
 
     /// @brief Set whether we are dealing with anti-neutrinos
     /// @param newValue
-    virtual inline void setAntiNeutrino(bool newValue)
+    virtual inline BaseMatterSolver &setAntiNeutrino(bool newValue)
     {
         NT_PROFILE();
 
         antiNeutrino = newValue;
+
+        return *this;
     }
 
     /// @}
+
+    virtual void calculateEigenvalues(Tensor &eigenvectors, Tensor &eigenvalues) = 0;
 
   protected:
     bool antiNeutrino;

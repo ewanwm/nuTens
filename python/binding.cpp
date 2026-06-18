@@ -404,8 +404,8 @@ void initPropagator(py::module &m_nuTens)
         ;
 
     py::class_<Propagator>(m_propagator, "Propagator")
-        .def(py::init<int, float, bool>(), 
-            py::arg("n_generations"), py::arg("baseline"), py::arg("anti_neutrino")=false)
+        .def(py::init<int>(), 
+            py::arg("n_generations"))
         .def("calculate_probabilities", &Propagator::calculateProbs,
             "Calculate the oscillation probabilities for neutrinos of specified energies"
         )
@@ -425,14 +425,6 @@ void initPropagator(py::module &m_nuTens)
             "Set the mixing matrix that the propagator should use",
             py::arg("new_matrix")
         )
-        .def("set_mixing_matrix", py::overload_cast<const std::vector<int> &, float>(&Propagator::setMixingMatrix),
-            "Set a particular value within the mixing matrix used by the propagator",
-            py::arg("indices"), py::arg("value")
-        )
-        .def("set_mixing_matrix", py::overload_cast<const std::vector<int> &, std::complex<float>>(&Propagator::setMixingMatrix),
-            "Set the mixing matrix that the propagator should use",
-            py::arg("indices"), py::arg("value")
-        )
         .def("set_baseline", (&Propagator::setBaseline),
             "Set the baseline that the propagator should use",
             py::arg("new_value")
@@ -448,11 +440,15 @@ void initPropagator(py::module &m_nuTens)
 
 
     py::class_<DPpropagator, Propagator>(m_propagator, "DPpropagator")
-        .def(py::init<float, bool, float, int>(), 
-            py::arg("baseline"), py::arg("anti_neutrino")=false, py::arg("density"), py::arg("NR_iterations"))
+        .def(py::init<int>(), 
+            py::arg("NR_iterations"))
         .def("set_parameters", &DPpropagator::setParameters,
             "set the parameters for the oscillation calculations",
-            py::arg("new_theta12"), py::arg("new_theta23"), py::arg("new_theta13"), py::arg("new_deltaCP"), py::arg("new_deltamsq21"), py::arg("new_deltamsq31")
+            py::arg("new_theta12"), py::arg("new_theta23"), py::arg("new_theta13"), py::arg("new_deltaCP"), py::arg("new_deltamsq21"), py::arg("new_deltamsq31"), py::arg("sin_squared_thetas") = false
+        )
+        .def("set_antineutrino", &DPpropagator::setAntiNeutrino,
+            "set whether to calculate anti-neutrino probabilities",
+            py::arg("new_value")
         )
         .def("set_baseline", &DPpropagator::setBaseline,
             "set the baseline",
@@ -465,6 +461,10 @@ void initPropagator(py::module &m_nuTens)
         .def("set_energies", &DPpropagator::setEnergies,
             "set the neutrino energies",
             py::arg("new_energies")
+        )
+        .def("set_sin_squared_thetas", &DPpropagator::setSinSquaredThetas,
+            "If `True`, the provided theta_ij values will be interpreted as sin^2(theta_ij) meaning that some of the computation can be shortcut and the probability calculation will be sped up. Note however that this will force the thetas to be in the lower octant (which is probably fine for most applications)",
+            py::arg("new_value")
         )
         .def("calculate_probs", &DPpropagator::calculateProbs
         )
@@ -479,10 +479,22 @@ void initPropagator(py::module &m_nuTens)
 
      py::class_<ConstDensityMatterSolver, std::shared_ptr<ConstDensityMatterSolver>, BaseMatterSolver>(
         m_propagator, "ConstDensitySolver")
-        .def(py::init<int, float, bool>(), 
-            py::arg("n_generations"), py::arg("density"), py::arg("anti_neutrino")=false)
+        .def(py::init<int>(), 
+            py::arg("n_generations"))
         .def("set_density", (&ConstDensityMatterSolver::setDensity),
             "Set the density that the solver should use",
+            py::arg("new_value")
+        )
+        .def("set_antineutrino", (&ConstDensityMatterSolver::setAntiNeutrino),
+            "Set the density that the solver should use",
+            py::arg("new_value")
+        )
+        .def("set_mixing_matrix", (&ConstDensityMatterSolver::setMixingMatrix),
+            "Set the mixing that the solver should use",
+            py::arg("new_value")
+        )
+        .def("set_masses", (&ConstDensityMatterSolver::setMasses),
+            "Set the neutrino masses that the solver should use",
             py::arg("new_value")
         )
         .def("get_density", (&ConstDensityMatterSolver::getDensity),
@@ -498,12 +510,14 @@ void initPropagator(py::module &m_nuTens)
      py::class_<PMNSmatrix, std::shared_ptr<PMNSmatrix>, BaseMixingMatrix>(
         m_propagator, "PMNSmatrix")
         .def(py::init<>())
-        .def("set_parameter_values", (&PMNSmatrix::setParameterValues),
-            py::arg("theta_12"), py::arg("theta_13"), py::arg("theta_23"), py::arg("delta_cp"))
-        .def("get_theta_12_tensor", (&PMNSmatrix::getTheta12Tensor), py::return_value_policy::reference)
-        .def("get_theta_13_tensor", (&PMNSmatrix::getTheta13Tensor), py::return_value_policy::reference)
-        .def("get_theta_23_tensor", (&PMNSmatrix::getTheta23Tensor), py::return_value_policy::reference)
-        .def("get_delta_cp_tensor", (&PMNSmatrix::getDeltaCPTensor), py::return_value_policy::reference)
+        .def("set_theta12", (&PMNSmatrix::setTheta12), py::arg("theta_12"))
+        .def("set_theta13", (&PMNSmatrix::setTheta13), py::arg("theta_13"))
+        .def("set_theta23", (&PMNSmatrix::setTheta23), py::arg("theta_23"))
+        .def("set_deltacp", (&PMNSmatrix::setDeltaCP), py::arg("delta_cp"))
+        .def("get_theta12_tensor", (&PMNSmatrix::getTheta12Tensor), py::return_value_policy::reference)
+        .def("get_theta13_tensor", (&PMNSmatrix::getTheta13Tensor), py::return_value_policy::reference)
+        .def("get_theta23_tensor", (&PMNSmatrix::getTheta23Tensor), py::return_value_policy::reference)
+        .def("get_deltacp_tensor", (&PMNSmatrix::getDeltaCPTensor), py::return_value_policy::reference)
         ;
 
 }

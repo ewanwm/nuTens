@@ -47,11 +47,10 @@ static void batchedOscProbs(Propagator &prop, PMNSmatrix &matrix, AccessedTensor
         masses.setValue(randomDouble(), 0, 1);
         masses.setValue(randomDouble(), 0, 2);
 
-        matrix.setParameterValues(
-            /*theta12=*/randomFloat(),
-            /*theta13=*/randomFloat(),
-            /*theta23=*/randomFloat(),
-            /*deltaCP=*/randomFloat() * (float)constants::twoPi);
+        matrix.setTheta12(randomFloat())
+            .setTheta13(randomFloat())
+            .setTheta23(randomFloat())
+            .setDeltaCP(randomFloat() * (float)constants::twoPi);
 
         prop.setMixingMatrix(matrix.build());
         prop.setMasses(masses);
@@ -81,7 +80,7 @@ static void BM_vacuumOscillations(benchmark::State &state)
     PMNSmatrix PMNS;
 
     // set up the propagator
-    Propagator vacuumProp(3, baseline);
+    Propagator vacuumProp = Propagator(3).setBaseline(baseline);
     vacuumProp.setEnergies(energies);
 
     // seed the random number generator for the energies
@@ -117,8 +116,9 @@ static void BM_constMatterOscillations(benchmark::State &state)
     PMNSmatrix PMNS;
 
     // set up the propagator
-    Propagator matterProp(3, baseline);
-    auto matterSolver = std::make_shared<ConstDensityMatterSolver>(3, density);
+    Propagator matterProp = Propagator(3).setBaseline(baseline);
+    auto matterSolver = std::make_shared<ConstDensityMatterSolver>(3);
+    matterSolver->setDensity(density);
     matterProp.setMatterSolver(matterSolver);
     matterProp.setEnergies(energies);
 
@@ -145,21 +145,23 @@ static void BM_DPpropOscillations(benchmark::State &state)
 
     // make some random test energies
     Tensor energies =
-        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), energyScale) +
+        Tensor::scale(Tensor::rand({state.range(0)}).dType(dtypes::kComplexFloat).requiresGrad(false), energyScale) +
         Tensor({energyOffset});
 
     energies = energies.hasBatchDim(true);
 
     auto dmsq21 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
     auto dmsq31 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
-    auto theta23 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
-    auto theta13 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
-    auto theta12 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto sinSqTheta23 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto sinSqTheta13 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto sinSqTheta12 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
     auto deltaCP = Tensor::zeros({1}).dType(dtypes::kComplexFloat).requiresGrad(false);
 
     // set up the propagator
-    DPpropagator dpProp(/*baseline=*/baseline, /*antiNeutrino=*/false, /*density=*/density,
-                        /*NRiterations=*/DPpropNRiterations);
+    DPpropagator dpProp = DPpropagator(/*NRiterations=*/DPpropNRiterations)
+                              .setBaseline(baseline)
+                              .setAntiNeutrino(false)
+                              .setDensity(density);
 
     dpProp.setEnergies(energies);
 
@@ -177,13 +179,13 @@ static void BM_DPpropOscillations(benchmark::State &state)
             dmsq21.setValue(randomDouble(), 0);
             dmsq31.setValue(randomDouble(), 0);
 
-            theta23.setValue(randomDouble(), 0);
-            theta13.setValue(randomDouble(), 0);
-            theta12.setValue(randomDouble(), 0);
+            sinSqTheta23.setValue(randomDouble(), 0);
+            sinSqTheta13.setValue(randomDouble(), 0);
+            sinSqTheta12.setValue(randomDouble(), 0);
 
             deltaCP.setValue({0}, Tensor::scale(Tensor::rand({1}), constants::twoPi));
 
-            dpProp.setParameters(theta12, theta23, theta13, deltaCP, dmsq21, dmsq31);
+            dpProp.setParameters(sinSqTheta12, sinSqTheta23, sinSqTheta13, deltaCP, dmsq21, dmsq31, true);
 
             // calculate the osc probabilities
             // static_cast<void> to discard the return value that we're not supposed to discard :)

@@ -19,7 +19,7 @@ foreach(TESTNAME
     test-DP-propagator
 )
 
-    add_executable("${TESTNAME}" "${TESTNAME}.cpp")
+    add_executable("${TESTNAME}" "${TESTNAME}.cpp" "${TESTNAME}.hpp")
     
     IF(NT_USE_PCH)
         target_precompile_headers("${TESTNAME}" REUSE_FROM nuTens-pch)

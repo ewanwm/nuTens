@@ -27,13 +27,30 @@ class Propagator
      * (The specifics of this interface may change in the future)
      */
 
+    struct MassSqTensor : public nuTens::Tensor
+    {
+        /*!
+         * @struct MassSqTensor
+         * @brief Holds squared mass values
+         */
+        MassSqTensor() = default;
+        explicit MassSqTensor(const nuTens::Tensor &tensor) : Tensor(tensor){};
+    };
+    struct MixingMatrixTensor : public nuTens::Tensor
+    {
+        /*!
+         * @struct MixingMatrixTensor
+         * @brief Holds mixing matrix
+         */
+        MixingMatrixTensor() = default;
+        explicit MixingMatrixTensor(const nuTens::Tensor &tensor) : Tensor(tensor){};
+    };
+
   public:
     /// @brief Constructor
     /// @param nGenerations The number of generations the propagator should
     /// expect
-    /// @param baseline The baseline to propagate over
-    Propagator(int nGenerations, float baseline, bool antiNeutrino = false)
-        : _baseline(baseline), _nGenerations(nGenerations), _antiNeutrino(antiNeutrino) {};
+    Propagator(int nGenerations) : _nGenerations(nGenerations){};
 
     /// @brief Destructor
     virtual ~Propagator() = default;
@@ -55,7 +72,7 @@ class Propagator
 
     /// @brief Set whether we are dealing with anti-neutrinos
     /// @param newValue
-    virtual inline void setAntiNeutrino(bool newValue)
+    inline Propagator &setAntiNeutrino(bool newValue)
     {
         NT_PROFILE();
 
@@ -65,15 +82,33 @@ class Propagator
         {
             _matterSolver->setAntiNeutrino(newValue);
         }
+
+        return *this;
     }
 
     /// @brief Set a matter solver to use to deal with matter effects
     /// @param newSolver A derivative of BaseMatterSolver
-    /// @warning Should be called *before* setMixingMatrix and setMasses
-    virtual inline void setMatterSolver(const std::shared_ptr<BaseMatterSolver> &newSolver)
+    virtual inline Propagator &setMatterSolver(const std::shared_ptr<BaseMatterSolver> &newSolver)
     {
         NT_PROFILE();
         _matterSolver = newSolver;
+
+        if (_energiesInitialised)
+        {
+            _matterSolver->setEnergies(_energies);
+        }
+
+        if (_massesInitialised)
+        {
+            _matterSolver->setMasses(_masses);
+        }
+        if (_mixingMatrixInitialised)
+        {
+            _matterSolver->setMixingMatrix(_mixingMatrix);
+        }
+        _matterSolver->setAntiNeutrino(_antiNeutrino);
+
+        return *this;
     }
 
     /// \todo Should add a check to tensors supplied to the setters to see how
@@ -81,21 +116,22 @@ class Propagator
 
     /// @brief Set the neutrino energies
     /// @param newEnergies The neutrino energies
-    virtual void setEnergies(Tensor &newEnergies)
+    virtual Propagator &setEnergies(Tensor &newEnergies)
     {
         NT_PROFILE();
 
         _energies = newEnergies;
+        _energiesInitialised = true;
+
         _weightMatrix = Tensor::ones({_energies.getBatchDim(), _nGenerations, _nGenerations}, dtypes::kComplexFloat)
                             .requiresGrad(false);
-        _weightArgDenom =
-            Tensor::scale(Tensor::scale(_energies, 2.0),
-                          std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline * 2.0F * (float)M_PI));
 
         if (_matterSolver)
         {
             _matterSolver->setEnergies(newEnergies);
         }
+
+        return *this;
     }
 
     /// @brief Set the masses corresponding to the vacuum hamiltonian eigenstates
@@ -104,62 +140,47 @@ class Propagator
     /// dimension can (and probably should) be 1 and it will be broadcast to
     /// match the batch dimension of the energies supplied to calculateProbs().
     /// So dimension should be {1, nGenerations}.
-    virtual void setMasses(Tensor &newMasses)
+    virtual inline Propagator &setMasses(Tensor &newMasses)
     {
         NT_PROFILE();
 
         _masses = newMasses;
-        if (_matterSolver != nullptr)
+        _massesInitialised = true;
+
+        if (_matterSolver)
         {
             _matterSolver->setMasses(newMasses);
         }
+
+        return *this;
     }
 
     /// @brief Set a whole new mixing matrix
     /// @param newMatrix The new matrix to use
-    virtual inline void setMixingMatrix(Tensor &newMatrix)
+    virtual inline Propagator &setMixingMatrix(Tensor &newMatrix)
     {
         NT_PROFILE();
         _mixingMatrix = newMatrix;
-        if (_matterSolver != nullptr)
+        _mixingMatrixInitialised = true;
+
+        if (_matterSolver)
         {
             _matterSolver->setMixingMatrix(newMatrix);
         }
-    }
 
-    /// \todo add setMixingMatrix(const std::vector<int> &indices, float value) methods
-    /// to BaseMatterSolver? maybe have these setters in a base class of both
-    /// Propagator and BaseMatterSolver ??
-
-    /// @brief Set a single element of the mixing matrix
-    /// @param indices The index of the value to set
-    /// @param value The new value
-    inline void setMixingMatrix(const std::vector<int> &indices, float value)
-    {
-        NT_PROFILE();
-        _mixingMatrix.setValue(indices, value);
-    }
-
-    /// @brief Set a single element of the mixing matrix
-    /// @param indices The index of the value to set
-    /// @param value The new value
-    inline void setMixingMatrix(const std::vector<int> &indices, std::complex<float> value)
-    {
-        NT_PROFILE();
-        _mixingMatrix.setValue(indices, value);
+        return *this;
     }
 
     /// @brief Set the baseline
     /// @param newBaseline new value
-    virtual inline void setBaseline(float newBaseline)
+    inline Propagator &setBaseline(float newBaseline)
     {
 
         NT_PROFILE();
 
         _baseline = newBaseline;
 
-        _weightArgDenom = Tensor::scale(Tensor::scale(_energies, 2.0),
-                                        std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline));
+        return *this;
     }
 
     /// @}
@@ -176,17 +197,25 @@ class Propagator
   private:
     // For calculating with alternate masses and mixing matrix, e.g. if using effective
     // values from massSolver
-    [[nodiscard]] Tensor _calculateProbs(const Tensor &masses, const Tensor &mixingMatrix);
+    [[nodiscard]] Tensor _calculateProbs(const MassSqTensor &masses, const MixingMatrixTensor &mixingMatrix);
 
   protected:
     Tensor _mixingMatrix;
     Tensor _masses;
     Tensor _energies;
+
+    // flags to keep track of which tensors have been set by user
+    /// @todo could just have an "initialised" flag in tensor class to keep track of this in more general way
+    bool _mixingMatrixInitialised{false};
+    bool _massesInitialised{false};
+    bool _energiesInitialised{false};
+
     Tensor _weightMatrix;
     Tensor _weightArgDenom;
+
     int _nGenerations;
-    float _baseline;
-    bool _antiNeutrino;
+    float _baseline{NAN};
+    bool _antiNeutrino{false};
 
     std::shared_ptr<BaseMatterSolver> _matterSolver;
 };
