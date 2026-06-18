@@ -194,7 +194,7 @@ class DPpropagator : public Propagator
 
         return _energies;
     }
-    const float &getDensity() const
+    [[nodiscard]] const float &getDensity() const
     {
         NT_PROFILE();
 
