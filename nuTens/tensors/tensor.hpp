@@ -58,7 +58,7 @@ class Tensor
     /// @{
 
     /// @brief Default constructor with no initialisation
-    Tensor() : _dType(dtypes::kUninitScalar), _device(dtypes::kUninitDevice)
+    Tensor() : _dType(dtypes::kUninitScalar), _device(dtypes::kUninitDevice), _requiresGrad(false)
     {
         NT_PROFILE();
     };
@@ -67,6 +67,14 @@ class Tensor
     /// @arg values The values to include in the tensor
     Tensor(const std::vector<float> &values, dtypes::scalarType type = dtypes::kFloat,
            dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
+
+    /// @brief Construct a 1-d array with specified complex values
+    /// @arg values The values to include in the tensor
+    /// @warning This can be quite slow due to internal conversions between complex types. Avoid using it for anything
+    /// performance critical!!!
+    static Tensor TensorComplex(const std::vector<std::complex<float>> &values,
+                                dtypes::scalarType type = dtypes::kComplexFloat,
+                                dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
 
     /// @brief Construct an identity tensor (has to be a 2d square tensor)
     /// @arg n The size of one of the sides of the tensor
@@ -131,7 +139,7 @@ class Tensor
     /// @brief Whether the tensor requires a gradient
     [[nodiscard]] inline bool getRequiresGrad() const
     {
-        return _tensor.requires_grad();
+        return _requiresGrad;
     };
     ///@}
 
@@ -180,7 +188,16 @@ class Tensor
     /// @brief Raise a matrix to a scalar power
     /// @arg tensor The tensor
     /// @arg scalar The scalar
+    static Tensor pow(const Tensor &tensor, double scalar);
+    /// @brief Raise a matrix to a scalar power
+    /// @arg tensor The tensor
+    /// @arg scalar The scalar
     static Tensor pow(const Tensor &tensor, std::complex<float> scalar);
+    /// @brief Raise a matrix to a scalar power
+    /// @arg tensor The tensor
+    /// @arg scalar The scalar
+    static Tensor pow(const Tensor &tensor, std::complex<double> scalar);
+
     /// @brief Element wise square, slightly faster than pow(tensor, 2.0)
     /// @arg tensor The tensor
     static inline Tensor square(const Tensor &tensor)
@@ -379,6 +396,11 @@ class Tensor
     /// Those can then be accessed using gradient()
     void backward() const;
 
+    /// @brief Set the accumulated gradient for this tensor to zero
+    /// @warning This should be done any time you reuse a leaf tensor to calculate another gradient. Otherwise you will
+    /// get the sum of all accumulated gradients
+    void zeroGrad();
+
     /// @brief Return a tensor containing the accumulated gradients calculated
     /// for this tensor after calling backward()
     [[nodiscard]] Tensor grad() const;
@@ -446,6 +468,7 @@ class Tensor
     bool _hasBatchDim = false;
     dtypes::scalarType _dType;
     dtypes::deviceType _device;
+    bool _requiresGrad;
 
     // ###################################################
     // ########## Tensor library specific stuff ##########
@@ -498,6 +521,7 @@ class Tensor
         _tensor = tensor;
         _dType = dtypes::invScalarTypeMap(tensor.scalar_type());
         _device = dtypes::invDeviceTypeMap(tensor.device().type());
+        _requiresGrad = tensor.requires_grad();
     }
 
     /// Utility function to convert from a vector of ints to a vector of a10 tensor indices, which is needed for
@@ -547,7 +571,7 @@ class Tensor
     /// Construct a nuTens tensor directly from a pytorch tensor
     Tensor(const torch::Tensor &tensor)
         : _tensor(tensor), _dType(dtypes::invScalarTypeMap(tensor.scalar_type())),
-          _device(dtypes::invDeviceTypeMap(tensor.device().type()))
+          _device(dtypes::invDeviceTypeMap(tensor.device().type())), _requiresGrad(tensor.requires_grad())
     {
         NT_PROFILE();
     }
@@ -639,6 +663,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
         ret._device = Tdevice;
+        ret._requiresGrad = requiresGrad;
 
         return ret;
     }
@@ -661,6 +686,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
         ret._device = Tdevice;
+        ret._requiresGrad = requiresGrad;
 
         return ret;
     }
@@ -683,6 +709,8 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
         ret._device = Tdevice;
+        ret._requiresGrad = requiresGrad;
+
         return ret;
     }
 
@@ -706,6 +734,8 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
         ret._device = Tdevice;
+        ret._requiresGrad = requiresGrad;
+
         return ret;
     }
 
