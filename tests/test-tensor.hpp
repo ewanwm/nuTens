@@ -19,6 +19,10 @@ template <typename T> void testTensorCreation(const dtypes::scalarType dtype, co
     std::cout << "zero tensor: " << zero << std::endl;
     ASSERT_EQ(zero.getValue<T>(), T(0.0));
 
+    std::vector<long int> shape = zero.getShape();
+    ASSERT_EQ(shape.size(), 1);
+    ASSERT_EQ(shape[0], 1);
+
     // test making tensor using setter functions
     Tensor zeroSetters = Tensor::zeros({1}).dType(dtype).device(deviceType).requiresGrad(false);
     ASSERT_EQ(zeroSetters.getValue<T>(), T(0.0));
@@ -109,7 +113,8 @@ template <typename T> void testArithmeticComplexType(const dtypes::scalarType dt
     ASSERT_EQ((one - one).getValue<complexType>(), complexType(0.0, 0.0));
 
     // check that sqrt -1 = i
-    ASSERT_EQ((Tensor::pow(-one, 0.5)).getValue<complexType>(), complexType(0.0, -1.0));
+    Tensor sqrtNegOneTensor = Tensor::pow(-one, T(0.5));
+    ASSERT_EQ(sqrtNegOneTensor.getValue<complexType>(), complexType(0.0, -1.0));
 
     // imag unit to use in testing
     Tensor imag = Tensor::zeros({1}, dtype, dtypes::kCPU, false);
