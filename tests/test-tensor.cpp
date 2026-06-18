@@ -24,6 +24,12 @@ TEST(Tensor /*unused*/, TensorCreationDoubleCPU /*unused*/)
 TEST(Tensor /*unused*/, TensorCreationComplexFloatCPU /*unused*/)
 {
     testTensorCreation<std::complex<float>>(dtypes::kComplexFloat, dtypes::kCPU);
+
+    // test the dedicated complex tensor builder function
+    Tensor complex =
+        Tensor::TensorComplex({std::complex<float>(1.234, 5.678)}, dtypes::kComplexFloat, dtypes::kCPU, false);
+
+    ASSERT_EQ(complex.getValue<std::complex<float>>(), std::complex<float>(1.234, 5.678));
 }
 
 TEST(Tensor /*unused*/, TensorCreationComplexDoubleCPU /*unused*/)
