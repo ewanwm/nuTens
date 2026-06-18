@@ -75,6 +75,9 @@ template <typename T> void testArithmeticFloatType(const dtypes::scalarType dtyp
     ASSERT_EQ((one + one).getValue<T>(), 2.0);
     ASSERT_EQ((one - one).getValue<T>(), 0.0);
 
+    ASSERT_EQ(Tensor::add(one, one).getValue<T>(), 2.0);
+    ASSERT_EQ(Tensor::add(one, -one).getValue<T>(), 0.0);
+
     // test multiplication of tensors
     Tensor ten = Tensor({10.0}, dtype, dtypes::kCPU, false);
     Tensor five = Tensor({5.0}, dtype, dtypes::kCPU, false);

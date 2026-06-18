@@ -559,10 +559,13 @@ class Tensor
             {
                 indicesVec.push_back(at::indexing::TensorIndex((*index).c_str()));
             }
+            // in theory this is not reachable so exclude it from code coverage
+            // LCOV_EXCL_START
             else
             {
                 throw std::runtime_error("Unsupported index type");
             }
+            // LCOV_EXCL_STOP
         }
 
         return indicesVec;
