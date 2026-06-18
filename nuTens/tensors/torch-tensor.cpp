@@ -163,14 +163,14 @@ Tensor::variantType Tensor::getVariantValue(const std::vector<int> &indices) con
     case dtypes::kComplexDouble:
         return (std::complex<double>)_tensor.index(convertIndices(indices)).item<c10::complex<double>>();
 
+    // in theory this is not reachable so exclude it from code coverage
+    // LCOV_EXCL_START
     default:
-        // in theory this is not reachable so exclude it from code coverage
-        // LCOV_EXCL_START
         NT_ERROR("Invalid dtype has been set for this tensor: {}", _dType);
         NT_ERROR("{}:{}", __FILE__, __LINE__);
         throw;
-        // LCOV_EXCL_STOP
     }
+    // LCOV_EXCL_STOP
 }
 
 void Tensor::setValue(const std::vector<Tensor::indexType> &indices, const Tensor &value)
