@@ -142,7 +142,7 @@ template <typename T> void testArithmeticComplexType(const dtypes::scalarType dt
     ASSERT_EQ((one + imag).conj(), (one - imag));
 
     // proof of eulers identity
-    Tensor euler = Tensor({static_cast<T>(std::exp(T(1.0)))}, dtype, dtypes::kCPU, false);
+    Tensor euler = Tensor({std::exp(1.0)}, dtype, dtypes::kCPU, false);
     Tensor exp = Tensor::pow(euler, complexType(0.0, M_PI));
     complexType testVal = exp.getValue<complexType>();
     ASSERT_NEAR(testVal.real(), -1.0, 1e-6);
