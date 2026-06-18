@@ -31,16 +31,15 @@ template <typename T> void testTensorCreation(const dtypes::scalarType dtype, co
     ASSERT_EQ(three.getValue<T>(), T(3.0));
 
     Tensor rand = Tensor::rand({1}, dtype, deviceType, false);
+
+    float randUpperLimit = 1.0;
     if ((dtype == dtypes::kComplexDouble) || (dtype == dtypes::kComplexFloat))
     {
-        ASSERT_LE(rand.abs().getValue<float>(), 2.0);
-        ASSERT_GE(rand.abs().getValue<float>(), 0.0);
+        randUpperLimit = 2.0;
     }
-    else
-    {
-        ASSERT_LE(rand.getValue<float>(), 1.0);
-        ASSERT_GE(rand.getValue<float>(), 0.0);
-    }
+
+    ASSERT_LE(rand.abs().getValue<float>(), randUpperLimit);
+    ASSERT_GE(rand.abs().getValue<float>(), 0.0);
 
     Tensor diagonal = Tensor({0.0, 1.0, 2.0}, dtype, deviceType, false);
     Tensor diagTensor = Tensor::diag(diagonal);
