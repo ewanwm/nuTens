@@ -143,6 +143,7 @@ class DPpropagator : public Propagator
         NT_PROFILE();
 
         _energies = newEnergies;
+        probsRet = Tensor::zeros({_energies.getShape()[0], 3, 3}).requiresGrad(false);
 
         return *this;
     }
@@ -232,6 +233,8 @@ class DPpropagator : public Propagator
 
     Tensor dmsq21 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
     Tensor dmsq31 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
+
+    Tensor probsRet = Tensor::zeros({1});
 
     int NRiterations;
     float _density{0.0};
