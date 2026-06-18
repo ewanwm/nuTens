@@ -269,6 +269,13 @@ Tensor Tensor::pow(const Tensor &tensor, std::complex<float> scalar)
     return {torch::pow(tensor._tensor, c10::complex<float>(scalar.real(), scalar.imag()))};
 }
 
+Tensor Tensor::sqrt(const Tensor &tensor)
+{
+    NT_PROFILE();
+
+    return {torch::sqrt(tensor._tensor)};
+}
+
 Tensor Tensor::exp(const Tensor &tensor)
 {
     NT_PROFILE();

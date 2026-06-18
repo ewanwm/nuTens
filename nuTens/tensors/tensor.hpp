@@ -176,10 +176,15 @@ class Tensor
     /// @arg tensor The tensor
     /// @arg scalar The scalar
     static Tensor pow(const Tensor &tensor, float scalar);
+
     /// @brief Raise a matrix to a scalar power
     /// @arg tensor The tensor
     /// @arg scalar The scalar
     static Tensor pow(const Tensor &tensor, std::complex<float> scalar);
+
+    /// @brief Get element-wise square root of tensor
+    /// @arg tensor The tensor
+    static Tensor sqrt(const Tensor &tensor);
 
     /// @brief Element-wise exponential
     /// @arg tensor The tensor

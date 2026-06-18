@@ -39,7 +39,7 @@ Tensor DPpropagator::calculateProbs()
 
     if (interpretSinSquaredThetas)
     {
-        Jrr = Tensor::pow(cosSqTheta12 * cosSqTheta23 * sinSqTheta13 * sinSqTheta12 * sinSqTheta23, 0.5);
+        Jrr = Tensor::sqrt(cosSqTheta12 * cosSqTheta23 * sinSqTheta13 * sinSqTheta12 * sinSqTheta23);
     }
     else
     {
@@ -72,7 +72,7 @@ Tensor DPpropagator::calculateProbs()
     Tensor xmat = Amatter / Dmsqee;
     Tensor tmp = one - xmat;
     // NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-    Tensor lambda3{-dmsq31 + Dmsqee * (xmat - 1 + Tensor::pow(tmp * tmp + sinSqTheta13 * xmat * 4.0, 0.5)) * 0.5};
+    Tensor lambda3{-dmsq31 + Dmsqee * (xmat - 1 + Tensor::sqrt(tmp * tmp + sinSqTheta13 * xmat * 4.0)) * 0.5};
     // NOLINTEND(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 
     // ---------------------------------------------------------------------------- //
@@ -90,7 +90,7 @@ Tensor DPpropagator::calculateProbs()
     // Get  Delta lambda's //
     // ------------------- //
     tmp = Atotal - lambda3;
-    Tensor Dlambda21 = Tensor::pow(tmp * tmp - Cmatter * 4.0 / lambda3, 0.5);
+    Tensor Dlambda21 = Tensor::sqrt(tmp * tmp - Cmatter * 4.0 / lambda3);
     Tensor lambda2 = (Atotal - lambda3 + Dlambda21) * 0.5;
     Tensor Dlambda32 = lambda3 - lambda2;
     Tensor Dlambda31 = Dlambda32 + Dlambda21;
