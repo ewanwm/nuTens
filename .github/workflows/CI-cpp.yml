@@ -23,27 +23,55 @@ jobs:
             cpp_compiler: g++
             c_compiler: gcc
             build_type: Release
+            python-version: 3.9
             
           - OS: ubuntu-22.04
             cpp_compiler: g++
             c_compiler: gcc
             build_type: Debug
+            python-version: 3.9
             
           - OS: ubuntu-22.04
             cpp_compiler: clang++
             c_compiler: clang
             build_type: Release
+            python-version: 3.9
             
           - OS: ubuntu-22.04
             cpp_compiler: clang++
             c_compiler: clang
             build_type: Debug
+            python-version: 3.9
+            
+          - OS: ubuntu-24.04
+            cpp_compiler: g++
+            c_compiler: gcc
+            build_type: Release
+            python-version: 3.9
+            
+          - OS: ubuntu-24.04
+            cpp_compiler: g++
+            c_compiler: gcc
+            build_type: Debug
+            python-version: 3.9
+            
+          - OS: ubuntu-24.04
+            cpp_compiler: clang++
+            c_compiler: clang
+            build_type: Release
+            python-version: 3.9
+            
+          - OS: ubuntu-24.04
+            cpp_compiler: clang++
+            c_compiler: clang
+            build_type: Debug
+            python-version: 3.9
             
           #- OS: windows-latest
           #  cpp_compiler: cl
           #  c_compiler: cl
              
-    name: Build & Test ${{ matrix.os }} ${{ matrix.c_compiler }} ${{ matrix.build_type }}
+    name: Build & Test ${{ matrix.os }} ${{ matrix.c_compiler }} ${{ matrix.build_type }} Python ${{ matrix.python-version }}
 
     runs-on: ${{ matrix.os }}
     
@@ -56,6 +84,12 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
 
     - name: Install Protoc Windows
       if: ${{ startsWith(matrix.OS, 'windows') }}
