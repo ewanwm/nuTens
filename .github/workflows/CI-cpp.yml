@@ -23,49 +23,49 @@ jobs:
             cpp_compiler: g++
             c_compiler: gcc
             build_type: Release
-            python-version: 3.9
+            python-version: 3.10
             
           - OS: ubuntu-22.04
             cpp_compiler: g++
             c_compiler: gcc
             build_type: Debug
-            python-version: 3.9
+            python-version: 3.10
             
           - OS: ubuntu-22.04
             cpp_compiler: clang++
             c_compiler: clang
             build_type: Release
-            python-version: 3.9
+            python-version: 3.10
             
           - OS: ubuntu-22.04
             cpp_compiler: clang++
             c_compiler: clang
             build_type: Debug
-            python-version: 3.9
+            python-version: 3.10
             
           - OS: ubuntu-24.04
             cpp_compiler: g++
             c_compiler: gcc
             build_type: Release
-            python-version: 3.9
+            python-version: 3.10
             
           - OS: ubuntu-24.04
             cpp_compiler: g++
             c_compiler: gcc
             build_type: Debug
-            python-version: 3.9
+            python-version: 3.10
             
           - OS: ubuntu-24.04
             cpp_compiler: clang++
             c_compiler: clang
             build_type: Release
-            python-version: 3.9
+            python-version: 3.10
             
           - OS: ubuntu-24.04
             cpp_compiler: clang++
             c_compiler: clang
             build_type: Debug
-            python-version: 3.9
+            python-version: 3.10
             
           #- OS: windows-latest
           #  cpp_compiler: cl
