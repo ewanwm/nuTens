@@ -25,11 +25,13 @@ TEST(Propagator /*unused*/, InitialisationOrderMatterSolverFirst /*unused*/)
     matterSolverFirst.setMatterSolver(matterSolver1);
     matterSolverFirst.setEnergies(energies);
     matterSolverFirst.setMasses(masses);
+    matterSolverFirst.setAntiNeutrino(true);
     matterSolverFirst.setMixingMatrix(mixingMatrix);
 
     ASSERT_EQ(matterSolver1->getEnergies(), energies);
     ASSERT_EQ(matterSolver1->getMasses(), masses);
     ASSERT_EQ(matterSolver1->getMixingMatrix(), mixingMatrix);
+    ASSERT_EQ(matterSolver1->getAntiNeutrino(), true);
 }
 
 TEST(Propagator /*unused*/, InitialisationOrderMatterSolverAfter /*unused*/)
@@ -47,11 +49,13 @@ TEST(Propagator /*unused*/, InitialisationOrderMatterSolverAfter /*unused*/)
     matterSolverAfter.setEnergies(energies);
     matterSolverAfter.setMasses(masses);
     matterSolverAfter.setMixingMatrix(mixingMatrix);
+    matterSolverAfter.setAntiNeutrino(true);
     matterSolverAfter.setMatterSolver(matterSolver2);
 
     ASSERT_EQ(matterSolver2->getEnergies(), energies);
     ASSERT_EQ(matterSolver2->getMasses(), masses);
     ASSERT_EQ(matterSolver2->getMixingMatrix(), mixingMatrix);
+    ASSERT_EQ(matterSolver2->getAntiNeutrino(), true);
 }
 
 // NOLINTEND(readability-function-cognitive-complexity)
