@@ -141,7 +141,9 @@ jobs:
       # only need to do this for one combination of OS and compiler
       if: ${{ matrix.OS == 'ubuntu-22.04' && matrix.c_compiler == 'gcc' && matrix.build_type == 'Debug' }}
       working-directory: ${{github.workspace}}/build
-      run: gcovr --json -o nuTens_coverage.json -r .. -f "../nuTens/*"
+      run: |
+        pip install gcovr
+        gcovr --json -o nuTens_coverage.json -r .. -f "../nuTens/*"
       
     - name: Upload coverage reports to Codecov
       # only need to do this for one combination of OS and compiler
