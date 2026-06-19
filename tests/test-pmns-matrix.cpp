@@ -40,7 +40,8 @@ TEST_F(PMNSmatrixTest /*unused*/, CachingSameResultTest /*unused*/)
     cachedMatrixTensor.setValue({"..."}, cacheMatrix.build());
 
     // make sure we get the same result again without changing parameter values
-    ASSERT_EQ(cachedMatrixTensor, cacheMatrix.build());
+    Tensor newMatrix = cacheMatrix.build();
+    ASSERT_EQ(newMatrix, cachedMatrixTensor);
 }
 
 TEST_F(PMNSmatrixTest /*unused*/, FixedValuesTest_Ue1 /*unused*/)

@@ -85,6 +85,42 @@ class BaseMatterSolver
 
     /// @}
 
+    /// @{getters
+
+    /// @brief Get the current mixing matrix for this solver
+    virtual inline const Tensor &getMixingMatrix()
+    {
+        NT_PROFILE();
+
+        return mixingMatrix;
+    }
+
+    /// @brief Get the current mass eigenvalues for this solver
+    virtual inline const Tensor &getMasses()
+    {
+        NT_PROFILE();
+
+        return masses;
+    }
+
+    inline virtual const Tensor &getEnergies()
+    {
+
+        NT_PROFILE();
+
+        return energies;
+    }
+
+    /// @brief Get whether we are dealing with anti-neutrinos
+    virtual inline bool getAntiNeutrino()
+    {
+        NT_PROFILE();
+
+        return antiNeutrino;
+    }
+
+    /// @}
+
     virtual void calculateEigenvalues(Tensor &eigenvectors, Tensor &eigenvalues) = 0;
 
   protected:

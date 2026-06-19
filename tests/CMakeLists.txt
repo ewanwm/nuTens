@@ -16,6 +16,7 @@ foreach(TESTNAME
     test-two-flavour-osc
     test-three-flavour-osc
     test-pmns-matrix
+    test-propagator
     test-DP-propagator
 )
 
