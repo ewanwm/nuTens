@@ -1,6 +1,4 @@
 numpy
-matplotlib
-gcovr
 
---find-links https://download.pytorch.org/whl/torch_stable.html
-torch==2.0.1+cpu.cxx11.abi
+--index-url https://download.pytorch.org/whl/cpu/
+torch==2.8.0+cpu
