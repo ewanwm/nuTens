@@ -62,7 +62,7 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
     ThreeFlavourBarger<> barger();
     // NOLINTEND(cppcoreguidelines-non-private-member-variables-in-classes)
 
-    void SetUp()
+    void SetUp() override
     {
 
         energies.setValue({0, 0}, energy);
