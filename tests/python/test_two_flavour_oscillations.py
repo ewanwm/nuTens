@@ -50,9 +50,7 @@ class TestTwoFlavourConstMatter:
         tensor_solver.set_energies(self.energy_tensor)
 
         # calculate the evals + evecs to print for help when debugging
-        evecs = nt.tensor.Tensor()
-        evals = nt.tensor.Tensor()
-        tensor_solver.calculate_eigenvalues(evecs, evals)
+        evecs, evals = tensor_solver.calculate_eigenvalues()
 
         tensor_effective_pmns = matmul(pmns, evecs)
 
@@ -102,9 +100,7 @@ class TestTwoFlavourConstMatter:
 
         # calculate the evals + evecs + effective PMNS to print 
         # for help when debugging
-        evecs = nt.tensor.Tensor()
-        evals = nt.tensor.Tensor()
-        matter_solver.calculate_eigenvalues(evecs, evals)
+        evecs, evals = matter_solver.calculate_eigenvalues()
         tensor_effective_pmns = matmul(pmns, evecs)
 
         tensor_osc_probs = propagator.calculate_probabilities()

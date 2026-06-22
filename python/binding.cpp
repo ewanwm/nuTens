@@ -394,7 +394,7 @@ void initPropagator(py::module &m_nuTens)
             py::arg("new_masses")
         )
         .def("calculate_eigenvalues", 
-            [](BaseMatterSolver &self, Tensor&eigenvecs, Tensor& eigenvals)
+            [](BaseMatterSolver &self) -> std::vector<Tensor>
             {
                 BaseMatterSolver::EigenvecTensor tmpEvec;
                 BaseMatterSolver::EigenvalTensor tmpEval;
@@ -404,11 +404,9 @@ void initPropagator(py::module &m_nuTens)
                     tmpEval
                 );
 
-                eigenvecs = tmpEvec;
-                eigenvals = tmpEval;
+                return {tmpEvec, tmpEval};
             },
-            "calculate the eigenvalues of the Hamiltonian - somewhat slow, should only be used for testing",
-            py::arg("eigenvector_out"), py::arg("eigenvalue_out")
+            "calculate the eigenvalues of the Hamiltonian. Returns tuple containing <eigenvectors, eigenvalues>"
         )
         .def("set_antineutrino", (&BaseMatterSolver::setAntiNeutrino),
             "Set whether the solver should calculate values for anti-neutrinos",
