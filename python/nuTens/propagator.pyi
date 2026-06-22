@@ -82,9 +82,9 @@ class DPpropagator(Propagator):
         """
         set the density
         """
-    def set_dmsq21(self, dmsq_31: nuTens._pyNuTens.tensor.Tensor) -> DPpropagator:
+    def set_dmsq21(self, dmsq_21: nuTens._pyNuTens.tensor.Tensor) -> DPpropagator:
         ...
-    def set_dmsq31(self, dmsq_21: nuTens._pyNuTens.tensor.Tensor) -> DPpropagator:
+    def set_dmsq31(self, dmsq_31: nuTens._pyNuTens.tensor.Tensor) -> DPpropagator:
         ...
     def set_energies(self, new_energies: nuTens._pyNuTens.tensor.Tensor) -> DPpropagator:
         """
