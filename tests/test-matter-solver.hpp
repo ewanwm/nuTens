@@ -19,5 +19,8 @@ class DummyMatterSolver : public BaseMatterSolver
   public:
     DummyMatterSolver(int nGenerations, bool antiNeutrino) : BaseMatterSolver(nGenerations, antiNeutrino){};
 
+    // exclude this as it's not really real code
+    // GCOVR_EXCL_START
     void calculateEigenvalues(Tensor &eigenvectors, Tensor &eigenvalues) override{};
+    // GCOVR_EXCL_STOP
 };
