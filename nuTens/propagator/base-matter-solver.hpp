@@ -95,8 +95,6 @@ class BaseMatterSolver
         NT_PROFILE();
 
         energies = newEnergies;
-        energiesRed = energies.getValues({"..."});
-        energiesRed.unsqueeze(-1);
 
         hamiltonian = Tensor::zeros({energies.getBatchDim(), nGenerations, nGenerations}, dtypes::kComplexFloat)
                           .requiresGrad(false);
@@ -159,7 +157,6 @@ class BaseMatterSolver
     bool antiNeutrino;
     int nGenerations;
     Tensor energies;
-    Tensor energiesRed;
     Tensor hamiltonian;
     Tensor mixingMatrix;
     Tensor masses;
