@@ -16,7 +16,7 @@ TEST(Propagator /*unused*/, InitialisationOrderMatterSolverFirst /*unused*/)
     Tensor energies = Tensor::ones({1, 10});
     Tensor masses = Tensor::ones({1, 3});
     Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor mixingMatrix = Tensor::diag(diagonal);
+    Tensor mixingMatrix = Tensor::diag(diagonal).unsqueeze(0);
 
     Propagator matterSolverFirst(/*nGenerations=*/3);
     auto matterSolver1 = std::make_shared<ConstDensityMatterSolver>(3);
@@ -41,7 +41,7 @@ TEST(Propagator /*unused*/, InitialisationOrderMatterSolverAfter /*unused*/)
     Tensor energies = Tensor::ones({1, 10});
     Tensor masses = Tensor::ones({1, 3});
     Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor mixingMatrix = Tensor::diag(diagonal);
+    Tensor mixingMatrix = Tensor::diag(diagonal).unsqueeze(0);
 
     // now try setting the matter solver after setting all parameters
     Propagator matterSolverAfter(/*nGenerations=*/3);
@@ -56,6 +56,21 @@ TEST(Propagator /*unused*/, InitialisationOrderMatterSolverAfter /*unused*/)
     ASSERT_EQ(matterSolver2->getMasses(), masses);
     ASSERT_EQ(matterSolver2->getMixingMatrix(), mixingMatrix);
     ASSERT_EQ(matterSolver2->getAntiNeutrino(), true);
+}
+
+TEST(Propagator /*unused*/, SetterErrors)
+{
+
+    Tensor badEnergies = Tensor::ones({10}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor badMasses = Tensor::ones({3}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor badMixingMatrix = Tensor::diag(diagonal);
+
+    Propagator propagator = Propagator(/*nGenerations=*/3);
+
+    EXPECT_THROW(propagator.setMasses(badMasses), std::invalid_argument);
+    EXPECT_THROW(propagator.setEnergies(badEnergies), std::invalid_argument);
+    EXPECT_THROW(propagator.setMixingMatrix(badMixingMatrix), std::invalid_argument);
 }
 
 // NOLINTEND(readability-function-cognitive-complexity)

@@ -38,6 +38,12 @@ class BaseMatterSolver
     {
         NT_PROFILE();
 
+        if (newMatrix.getNdim() != 3)
+        {
+            throw std::invalid_argument(
+                "Mixing Matrix tensor must be 3 dimensional (n_batches, n_generations, n_generations)");
+        }
+
         mixingMatrix = newMatrix;
 
         return *this;
@@ -47,8 +53,12 @@ class BaseMatterSolver
     /// @param newMasses The new masses
     virtual inline BaseMatterSolver &setMasses(const Tensor &newMasses)
     {
-        assert((newMasses.getNdim() == 2));
         NT_PROFILE();
+
+        if (newMasses.getNdim() != 2)
+        {
+            throw std::invalid_argument("Mass tensor must be 2 dimensional (n_batches, n_generations)");
+        }
 
         masses = newMasses;
 
@@ -58,7 +68,10 @@ class BaseMatterSolver
     inline virtual BaseMatterSolver &setEnergies(const Tensor &newEnergies)
     {
 
-        assert((newEnergies.getNdim() == 2));
+        if (newEnergies.getNdim() != 2)
+        {
+            throw std::invalid_argument("Energy tensor must be 2 dimensional (1, n_energies)");
+        }
 
         NT_PROFILE();
 
