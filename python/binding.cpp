@@ -457,8 +457,8 @@ void initPropagator(py::module &m_nuTens)
         .def("set_theta13", (&DPpropagator::setTheta13), py::arg("theta_13"))
         .def("set_theta23", (&DPpropagator::setTheta23), py::arg("theta_23"))
         .def("set_deltacp", (&DPpropagator::setDeltaCP), py::arg("delta_cp"))
-        .def("set_dmsq31", (&DPpropagator::setDmsq21), py::arg("dmsq_21"))
-        .def("set_dmsq21", (&DPpropagator::setDmsq31), py::arg("dmsq_31"))
+        .def("set_dmsq31", (&DPpropagator::setDmsq31), py::arg("dmsq_31"))
+        .def("set_dmsq21", (&DPpropagator::setDmsq21), py::arg("dmsq_21"))
         .def("set_antineutrino", &DPpropagator::setAntiNeutrino,
             "set whether to calculate anti-neutrino probabilities",
             py::arg("new_value")
