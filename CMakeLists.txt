@@ -100,6 +100,7 @@ endif()
 # Need to add some special compile flags to check the code test coverage 
 if(NT_TEST_COVERAGE)
     message("Adding flags to check test coverage")
+    add_compile_options("--O0")
     add_compile_options("--coverage")
     add_link_options("--coverage")
 else()
