@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Struct MassSqTensor &mdash; nuTens  documentation</title>
+  <title>Struct nuTens::BaseMatterSolver::EigenvecTensor &mdash; nuTens  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
@@ -20,8 +20,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Struct MixingMatrixTensor" href="structMixingMatrixTensor.html" />
-    <link rel="prev" title="Struct EigenvecTensor" href="structEigenvecTensor.html" /> 
+    <link rel="next" title="Struct nuTens::DPpropagator::fail" href="structnuTens_1_1DPpropagator_1_1fail.html" />
+    <link rel="prev" title="Struct nuTens::BaseMatterSolver::EigenvalTensor" href="structnuTens_1_1BaseMatterSolver_1_1EigenvalTensor.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -62,14 +62,14 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../structlist.html">Struct list</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="structEigenvalTensor.html">Struct EigenvalTensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="structEigenvecTensor.html">Struct EigenvecTensor</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Struct MassSqTensor</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv412MassSqTensor"><code class="docutils literal notranslate"><span class="pre">MassSqTensor</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="structMassSqTensor.html">Struct MassSqTensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="structMixingMatrixTensor.html">Struct MixingMatrixTensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="structProfileResult.html">Struct ProfileResult</a></li>
 <li class="toctree-l3"><a class="reference internal" href="structnuTens_1_1BaseMatterSolver_1_1EigenvalTensor.html">Struct nuTens::BaseMatterSolver::EigenvalTensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="structnuTens_1_1BaseMatterSolver_1_1EigenvecTensor.html">Struct nuTens::BaseMatterSolver::EigenvecTensor</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Struct nuTens::BaseMatterSolver::EigenvecTensor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N6nuTens16BaseMatterSolver14EigenvecTensorE"><code class="docutils literal notranslate"><span class="pre">nuTens::BaseMatterSolver::EigenvecTensor</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="structnuTens_1_1DPpropagator_1_1fail.html">Struct nuTens::DPpropagator::fail</a></li>
 <li class="toctree-l3"><a class="reference internal" href="structnuTens_1_1Propagator_1_1MassSqTensor.html">Struct nuTens::Propagator::MassSqTensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="structnuTens_1_1Propagator_1_1MixingMatrixTensor.html">Struct nuTens::Propagator::MixingMatrixTensor</a></li>
@@ -105,9 +105,9 @@
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../cpp-api.html">c++ API</a></li>
           <li class="breadcrumb-item"><a href="../structlist.html">Struct list</a></li>
-      <li class="breadcrumb-item active">Struct MassSqTensor</li>
+      <li class="breadcrumb-item active">Struct nuTens::BaseMatterSolver::EigenvecTensor</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/breathe-apidoc/struct/structMassSqTensor.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/breathe-apidoc/struct/structnuTens_1_1BaseMatterSolver_1_1EigenvecTensor.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -115,12 +115,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="struct-masssqtensor">
-<h1>Struct MassSqTensor<a class="headerlink" href="#struct-masssqtensor" title="Link to this heading"></a></h1>
+  <section id="struct-nutens-basemattersolver-eigenvectensor">
+<h1>Struct nuTens::BaseMatterSolver::EigenvecTensor<a class="headerlink" href="#struct-nutens-basemattersolver-eigenvectensor" title="Link to this heading"></a></h1>
 <dl class="cpp struct">
-<dt class="sig sig-object cpp" id="_CPPv412MassSqTensor">
-<span id="_CPPv312MassSqTensor"></span><span id="_CPPv212MassSqTensor"></span><span id="MassSqTensor"></span><span class="target" id="structMassSqTensor"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MassSqTensor</span></span></span><a class="headerlink" href="#_CPPv412MassSqTensor" title="Link to this definition"></a><br /></dt>
-<dd><p>Holds squared mass values. </p>
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMatterSolver14EigenvecTensorE">
+<span id="_CPPv3N6nuTens16BaseMatterSolver14EigenvecTensorE"></span><span id="_CPPv2N6nuTens16BaseMatterSolver14EigenvecTensorE"></span><span id="nuTens::BaseMatterSolver::EigenvecTensor"></span><span class="target" id="structnuTens_1_1BaseMatterSolver_1_1EigenvecTensor"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EigenvecTensor</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="../file/DP-propagator_8hpp.html#_CPPv46nuTens" title="nuTens"><span class="n"><span class="pre">nuTens</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMatterSolver14EigenvecTensor14EigenvecTensorEv">
+<span id="_CPPv3N6nuTens16BaseMatterSolver14EigenvecTensor14EigenvecTensorEv"></span><span id="_CPPv2N6nuTens16BaseMatterSolver14EigenvecTensor14EigenvecTensorEv"></span><span id="nuTens::BaseMatterSolver::EigenvecTensor::EigenvecTensor"></span><span class="target" id="structnuTens_1_1BaseMatterSolver_1_1EigenvecTensor_1a9ccc41e5af8929bd06bb43e404d79c29"></span><span class="sig-name descname"><span class="n"><span class="pre">EigenvecTensor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens16BaseMatterSolver14EigenvecTensor14EigenvecTensorERKN6nuTens6TensorE">
+<span id="_CPPv3N6nuTens16BaseMatterSolver14EigenvecTensor14EigenvecTensorERKN6nuTens6TensorE"></span><span id="_CPPv2N6nuTens16BaseMatterSolver14EigenvecTensor14EigenvecTensorERKN6nuTens6TensorE"></span><span id="nuTens::BaseMatterSolver::EigenvecTensor::EigenvecTensor__nuTens::TensorCR"></span><span class="target" id="structnuTens_1_1BaseMatterSolver_1_1EigenvecTensor_1aacccd7e3e7d77044fd7d9cd3aeffc5b8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EigenvecTensor</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../file/DP-propagator_8hpp.html#_CPPv46nuTens" title="nuTens"><span class="n"><span class="pre">nuTens</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tensor</span></span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+</div>
 </dd></dl>
 
 </section>
@@ -129,8 +141,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="structEigenvecTensor.html" class="btn btn-neutral float-left" title="Struct EigenvecTensor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="structMixingMatrixTensor.html" class="btn btn-neutral float-right" title="Struct MixingMatrixTensor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="structnuTens_1_1BaseMatterSolver_1_1EigenvalTensor.html" class="btn btn-neutral float-left" title="Struct nuTens::BaseMatterSolver::EigenvalTensor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="structnuTens_1_1DPpropagator_1_1fail.html" class="btn btn-neutral float-right" title="Struct nuTens::DPpropagator::fail" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

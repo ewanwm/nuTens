@@ -1,0 +1,5 @@
+Struct nuTens::BaseMatterSolver::EigenvalTensor
+===============================================
+
+.. doxygenstruct:: nuTens::BaseMatterSolver::EigenvalTensor
+   :members:
