@@ -38,21 +38,6 @@ TEST(BaseMatterSolver /*unused*/, SetterErrors)
     EXPECT_THROW(matterSolver.setMixingMatrix(badMixingMatrix), std::invalid_argument);
 }
 
-TEST(BaseMatterSolver /*unused*/, SetterErrors)
-{
-
-    Tensor badEnergies = Tensor::ones({10}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor badMasses = Tensor::ones({3}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor badMixingMatrix = Tensor::diag(diagonal);
-
-    DummyMatterSolver matterSolver = DummyMatterSolver(3, false);
-
-    EXPECT_THROW(matterSolver.setMasses(badMasses), std::invalid_argument);
-    EXPECT_THROW(matterSolver.setEnergies(badEnergies), std::invalid_argument);
-    EXPECT_THROW(matterSolver.setMixingMatrix(badMixingMatrix), std::invalid_argument);
-}
-
 TEST(ConstDensityMatterSolver /*unused*/, SetterErrors)
 {
 
