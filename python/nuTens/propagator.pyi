@@ -3,9 +3,9 @@ import nuTens._pyNuTens.tensor
 import typing
 __all__: list[str] = ['BaseMatterSolver', 'BaseMixingMatrix', 'ConstDensitySolver', 'DPpropagator', 'PMNSmatrix', 'Propagator']
 class BaseMatterSolver:
-    def calculate_eigenvalues(self, eigenvector_out: nuTens._pyNuTens.tensor.Tensor, eigenvalue_out: nuTens._pyNuTens.tensor.Tensor) -> None:
+    def calculate_eigenvalues(self) -> list[nuTens._pyNuTens.tensor.Tensor]:
         """
-        calculate the eigenvalues of the Hamiltonian - somewhat slow, should only be used for testing
+        calculate the eigenvalues of the Hamiltonian. Returns tuple containing <eigenvectors, eigenvalues>
         """
     def set_antineutrino(self, new_value: bool) -> BaseMatterSolver:
         """
