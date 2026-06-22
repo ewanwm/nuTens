@@ -46,7 +46,7 @@ TEST(ConstDensityMatterSolver /*unused*/, SetterErrors)
     Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor badMixingMatrix = Tensor::diag(diagonal);
 
-    ConstDensityMatterSolver matterSolver = ConstDensityMatterSolver(3, false);
+    ConstDensityMatterSolver matterSolver = ConstDensityMatterSolver(3);
 
     EXPECT_THROW(matterSolver.setMasses(badMasses), std::invalid_argument);
     EXPECT_THROW(matterSolver.setEnergies(badEnergies), std::invalid_argument);
