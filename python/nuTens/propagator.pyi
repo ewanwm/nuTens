@@ -5,7 +5,7 @@ __all__: list[str] = ['BaseMatterSolver', 'BaseMixingMatrix', 'ConstDensitySolve
 class BaseMatterSolver:
     def calculate_eigenvalues(self, eigenvector_out: nuTens._pyNuTens.tensor.Tensor, eigenvalue_out: nuTens._pyNuTens.tensor.Tensor) -> None:
         """
-        calculate the eigenvalues of the Hamiltonian
+        calculate the eigenvalues of the Hamiltonian - somewhat slow, should only be used for testing
         """
     def set_antineutrino(self, new_value: bool) -> BaseMatterSolver:
         """
