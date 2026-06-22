@@ -76,22 +76,30 @@ class DPpropagator(Propagator):
         """
         set the baseline
         """
+    def set_deltacp(self, delta_cp: nuTens._pyNuTens.tensor.Tensor) -> DPpropagator:
+        ...
     def set_density(self, new_density: typing.SupportsFloat | typing.SupportsIndex) -> DPpropagator:
         """
         set the density
         """
+    def set_dmsq21(self, dmsq_21: nuTens._pyNuTens.tensor.Tensor) -> DPpropagator:
+        ...
+    def set_dmsq31(self, dmsq_31: nuTens._pyNuTens.tensor.Tensor) -> DPpropagator:
+        ...
     def set_energies(self, new_energies: nuTens._pyNuTens.tensor.Tensor) -> DPpropagator:
         """
         set the neutrino energies
-        """
-    def set_parameters(self, new_theta12: nuTens._pyNuTens.tensor.Tensor, new_theta23: nuTens._pyNuTens.tensor.Tensor, new_theta13: nuTens._pyNuTens.tensor.Tensor, new_deltaCP: nuTens._pyNuTens.tensor.Tensor, new_deltamsq21: nuTens._pyNuTens.tensor.Tensor, new_deltamsq31: nuTens._pyNuTens.tensor.Tensor, sin_squared_thetas: bool = False) -> None:
-        """
-        set the parameters for the oscillation calculations
         """
     def set_sin_squared_thetas(self, new_value: bool) -> DPpropagator:
         """
         If `True`, the provided theta_ij values will be interpreted as sin^2(theta_ij) meaning that some of the computation can be shortcut and the probability calculation will be sped up. Note however that this will force the thetas to be in the lower octant (which is probably fine for most applications)
         """
+    def set_theta12(self, theta_12: nuTens._pyNuTens.tensor.Tensor) -> DPpropagator:
+        ...
+    def set_theta13(self, theta_13: nuTens._pyNuTens.tensor.Tensor) -> DPpropagator:
+        ...
+    def set_theta23(self, theta_23: nuTens._pyNuTens.tensor.Tensor) -> DPpropagator:
+        ...
 class PMNSmatrix(BaseMixingMatrix):
     def __init__(self) -> None:
         ...

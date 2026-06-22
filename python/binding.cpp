@@ -453,10 +453,12 @@ void initPropagator(py::module &m_nuTens)
     py::class_<DPpropagator, Propagator>(m_propagator, "DPpropagator")
         .def(py::init<int>(), 
             py::arg("NR_iterations"))
-        .def("set_parameters", &DPpropagator::setParameters,
-            "set the parameters for the oscillation calculations",
-            py::arg("new_theta12"), py::arg("new_theta23"), py::arg("new_theta13"), py::arg("new_deltaCP"), py::arg("new_deltamsq21"), py::arg("new_deltamsq31"), py::arg("sin_squared_thetas") = false
-        )
+        .def("set_theta12", (&DPpropagator::setTheta12), py::arg("theta_12"))
+        .def("set_theta13", (&DPpropagator::setTheta13), py::arg("theta_13"))
+        .def("set_theta23", (&DPpropagator::setTheta23), py::arg("theta_23"))
+        .def("set_deltacp", (&DPpropagator::setDeltaCP), py::arg("delta_cp"))
+        .def("set_dmsq31", (&DPpropagator::setDmsq31), py::arg("dmsq_31"))
+        .def("set_dmsq21", (&DPpropagator::setDmsq21), py::arg("dmsq_21"))
         .def("set_antineutrino", &DPpropagator::setAntiNeutrino,
             "set whether to calculate anti-neutrino probabilities",
             py::arg("new_value")
