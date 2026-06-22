@@ -4,7 +4,7 @@ name = "nuTens"
 description="Library to calculate neutrino oscillation probabilities in a fast, flexible, and differentiable way"
 readme = "README.md"
 authors = [
-  { name = "Ewan Miller", email = "emiller@ifae.es" },
+  { name = "Ewan Miller", email = "e.w.miller@imperial.ac.uk" },
 ]
 requires-python = ">=3.9"
 license = {file="LICENSE"}
