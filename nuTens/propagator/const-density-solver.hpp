@@ -72,6 +72,12 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     {
         NT_PROFILE();
 
+        if (newMatrix.getNdim() != 3)
+        {
+            throw std::invalid_argument(
+                "Mixing Matrix tensor must be 3 dimensional (n_batches, n_generations, n_generations)");
+        }
+
         mixingMatrix = newMatrix;
 
         return *this;
@@ -81,8 +87,12 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// @param newMasses The new masses
     inline ConstDensityMatterSolver &setMasses(const Tensor &newMasses) override
     {
-        assert((newMasses.getNdim() == 2));
         NT_PROFILE();
+
+        if (newMasses.getNdim() != 2)
+        {
+            throw std::invalid_argument("Mass tensor must be 2 dimensional (n_batches, n_generations)");
+        }
 
         masses = newMasses;
 

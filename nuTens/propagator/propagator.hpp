@@ -120,6 +120,11 @@ class Propagator
     {
         NT_PROFILE();
 
+        if (newEnergies.getNdim() != 2)
+        {
+            throw std::invalid_argument("Energy tensor must be 2 dimensional (1, n_energies)");
+        }
+
         _energies = newEnergies;
         _energiesInitialised = true;
 
@@ -144,6 +149,11 @@ class Propagator
     {
         NT_PROFILE();
 
+        if (newMasses.getNdim() != 2)
+        {
+            throw std::invalid_argument("Mass tensor must be 2 dimensional (n_batches, n_generations)");
+        }
+
         _masses = newMasses;
         _massesInitialised = true;
 
@@ -160,6 +170,13 @@ class Propagator
     virtual inline Propagator &setMixingMatrix(Tensor &newMatrix)
     {
         NT_PROFILE();
+
+        if (newMatrix.getNdim() != 3)
+        {
+            throw std::invalid_argument(
+                "Mixing Matrix tensor must be 3 dimensional (n_batches, n_generations, n_generations)");
+        }
+
         _mixingMatrix = newMatrix;
         _mixingMatrixInitialised = true;
 
