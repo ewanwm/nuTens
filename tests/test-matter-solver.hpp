@@ -1,0 +1,26 @@
+#pragma once
+
+#include <gtest/gtest.h> // NOLINT
+// alias the gtest "testing" namespace
+namespace gtest = ::testing;
+
+#include <iostream>
+#include <nuTens/propagator/base-matter-solver.hpp>
+#include <nuTens/propagator/const-density-solver.hpp>
+#include <nuTens/tensors/dtypes.hpp>
+#include <nuTens/tensors/tensor.hpp>
+
+using namespace nuTens;
+
+/// BaseMatterSolver dummy implementation so we can test the base
+/// class methods
+class DummyMatterSolver : public BaseMatterSolver
+{
+  public:
+    DummyMatterSolver(int nGenerations, bool antiNeutrino) : BaseMatterSolver(nGenerations, antiNeutrino){};
+
+    // exclude this as it's not really real code
+    // GCOVR_EXCL_START
+    void calculateEigenvalues(EigenvecTensor &eigenvectors, EigenvalTensor &eigenvalues) override{};
+    // GCOVR_EXCL_STOP
+};

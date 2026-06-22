@@ -2,7 +2,7 @@
 
 using namespace nuTens;
 
-void ConstDensityMatterSolver::calculateEigenvalues(Tensor &eigenvectors, Tensor &eigenvalues)
+void ConstDensityMatterSolver::calculateEigenvalues(EigenvecTensor &eigenvectors, EigenvalTensor &eigenvalues)
 {
     NT_PROFILE();
 

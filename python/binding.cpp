@@ -393,9 +393,20 @@ void initPropagator(py::module &m_nuTens)
             "Set the neutrino masses the solver should use",
             py::arg("new_masses")
         )
-        .def("calculate_eigenvalues", &BaseMatterSolver::calculateEigenvalues,
-            "calculate the eigenvalues of the Hamiltonian",
-            py::arg("eigenvector_out"), py::arg("eigenvalue_out")
+        .def("calculate_eigenvalues", 
+            [](BaseMatterSolver &self) -> std::vector<Tensor>
+            {
+                BaseMatterSolver::EigenvecTensor tmpEvec;
+                BaseMatterSolver::EigenvalTensor tmpEval;
+                
+                self.calculateEigenvalues(
+                    tmpEvec,
+                    tmpEval
+                );
+
+                return {tmpEvec, tmpEval};
+            },
+            "calculate the eigenvalues of the Hamiltonian. Returns tuple containing <eigenvectors, eigenvalues>"
         )
         .def("set_antineutrino", (&BaseMatterSolver::setAntiNeutrino),
             "Set whether the solver should calculate values for anti-neutrinos",

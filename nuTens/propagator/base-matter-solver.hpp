@@ -14,6 +14,25 @@ class BaseMatterSolver
     /// @brief Abstract base class for matter effect solvers
 
   public:
+    struct EigenvecTensor : public nuTens::Tensor
+    {
+        /*!
+         * @struct EigenvecTensor
+         * @brief Holds matter solver eigenvectors
+         */
+        EigenvecTensor() = default;
+        explicit EigenvecTensor(const nuTens::Tensor &tensor) : Tensor(tensor){};
+    };
+    struct EigenvalTensor : public nuTens::Tensor
+    {
+        /*!
+         * @struct EigenvalTensor
+         * @brief Holds matter solver eigenvalues
+         */
+        EigenvalTensor() = default;
+        explicit EigenvalTensor(const nuTens::Tensor &tensor) : Tensor(tensor){};
+    };
+
     BaseMatterSolver(int nGenerations, bool antiNeutrino) : antiNeutrino(antiNeutrino), nGenerations(nGenerations)
     {
     }
@@ -134,7 +153,7 @@ class BaseMatterSolver
 
     /// @}
 
-    virtual void calculateEigenvalues(Tensor &eigenvectors, Tensor &eigenvalues) = 0;
+    virtual void calculateEigenvalues(EigenvecTensor &eigenvectors, EigenvalTensor &eigenvalues) = 0;
 
   protected:
     bool antiNeutrino;

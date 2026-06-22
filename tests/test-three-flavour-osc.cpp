@@ -79,8 +79,8 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<float>
         tensorPropagator.setAntiNeutrino(antiNu);
         tensorPropagator.setEnergies(energies);
 
-        Tensor eigenVals;
-        Tensor eigenVecs;
+        BaseMatterSolver::EigenvalTensor eigenVals;
+        BaseMatterSolver::EigenvecTensor eigenVecs;
 
         tensorSolver->calculateEigenvalues(eigenVecs, eigenVals);
 

@@ -13,6 +13,7 @@ include(GoogleTest)
 foreach(TESTNAME 
     test-barger 
     test-tensor
+    test-matter-solver
     test-two-flavour-osc
     test-three-flavour-osc
     test-pmns-matrix

@@ -135,7 +135,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// mixing matrix
     /// @param[out] eigenvectors The returned eigenvectors
     /// @param[out] eigenvalues The corresponding eigenvalues
-    void calculateEigenvalues(Tensor &eigenvectors, Tensor &eigenvalues) override;
+    void calculateEigenvalues(EigenvecTensor &eigenvectors, EigenvalTensor &eigenvalues) override;
 
     /// construct the outer product of the electron row of the mixing matrix, used in building the hamiltonian, and
     /// return a copy of it potentially useful for debugging

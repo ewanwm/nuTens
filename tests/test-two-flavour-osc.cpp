@@ -78,8 +78,8 @@ class TwoFlavourOscillations : public gtest::TestWithParam<float>
 
         tensorPropagator.setEnergies(energies);
 
-        Tensor eigenVals;
-        Tensor eigenVecs;
+        BaseMatterSolver::EigenvalTensor eigenVals;
+        BaseMatterSolver::EigenvecTensor eigenVecs;
 
         tensorSolver->calculateEigenvalues(eigenVecs, eigenVals);
 

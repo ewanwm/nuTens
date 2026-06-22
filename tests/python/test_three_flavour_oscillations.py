@@ -62,9 +62,7 @@ class TestTwoFlavourConstMatter:
 
         # calculate the evals + evecs + effective PMNS to print 
         # for help when debugging
-        evecs = nt.tensor.Tensor()
-        evals = nt.tensor.Tensor()
-        matter_solver.calculate_eigenvalues(evecs, evals)
+        evecs, evals = matter_solver.calculate_eigenvalues()
 
         tensor_osc_probs = propagator.calculate_probabilities()
 
