@@ -89,14 +89,12 @@ class BaseMatterSolver
 
         if (newEnergies.getNdim() != 2)
         {
-            throw std::invalid_argument("Energy tensor must be 2 dimensional (1, n_energies)");
+            throw std::invalid_argument("Energy tensor must be 2 dimensional (n_energies, 1)");
         }
 
         NT_PROFILE();
 
         energies = newEnergies;
-        energiesRed = energies.getValues({"..."});
-        energiesRed.unsqueeze(-1);
 
         hamiltonian = Tensor::zeros({energies.getBatchDim(), nGenerations, nGenerations}, dtypes::kComplexFloat)
                           .requiresGrad(false);
@@ -159,7 +157,6 @@ class BaseMatterSolver
     bool antiNeutrino;
     int nGenerations;
     Tensor energies;
-    Tensor energiesRed;
     Tensor hamiltonian;
     Tensor mixingMatrix;
     Tensor masses;

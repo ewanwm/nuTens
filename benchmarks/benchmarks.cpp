@@ -69,11 +69,8 @@ static void BM_vacuumOscillations(benchmark::State &state)
 
     // make some random test energies
     Tensor energies =
-        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), energyScale)
-            .hasBatchDim(true) +
+        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), energyScale) +
         Tensor({energyOffset});
-
-    energies = energies.hasBatchDim(true);
 
     // set up the inputs
     auto masses = AccessedTensor<float, 2, dtypes::kCPU>::zeros({1, 3});
@@ -108,8 +105,6 @@ static void BM_constMatterOscillations(benchmark::State &state)
     Tensor energies =
         Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), energyScale) +
         Tensor({energyOffset});
-
-    energies = energies.hasBatchDim(true);
 
     // set up the inputs
     auto masses = AccessedTensor<float, 2, dtypes::kCPU>::zeros({1, 3});
@@ -147,8 +142,6 @@ static void BM_DPpropOscillations(benchmark::State &state)
     Tensor energies =
         Tensor::scale(Tensor::rand({state.range(0)}).dType(dtypes::kComplexFloat).requiresGrad(false), energyScale) +
         Tensor({energyOffset});
-
-    energies = energies.hasBatchDim(true);
 
     auto dmsq21 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
     auto dmsq31 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);

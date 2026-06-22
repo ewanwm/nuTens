@@ -16,6 +16,8 @@ void ConstDensityMatterSolver::buildHamiltonian()
 
     NT_PROFILE();
 
+    Tensor energiesRed = energies.getValues({"..."}).unsqueeze(-1);
+
     hamiltonian.setValue({"..."}, (Tensor::div(diagMassMatrix, energiesRed) - getElectronOuterProduct()));
 }
 

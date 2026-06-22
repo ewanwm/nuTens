@@ -13,7 +13,7 @@ TEST(Propagator /*unused*/, InitialisationOrderMatterSolverFirst /*unused*/)
 {
     // check that order of initialisation of matter solver and parameters doesn't matter
 
-    Tensor energies = Tensor::ones({1, 10});
+    Tensor energies = Tensor::ones({10, 1});
     Tensor masses = Tensor::ones({1, 3});
     Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor mixingMatrix = Tensor::diag(diagonal).unsqueeze(0);
@@ -38,7 +38,7 @@ TEST(Propagator /*unused*/, InitialisationOrderMatterSolverAfter /*unused*/)
 {
     // check that order of initialisation of matter solver and parameters doesn't matter
 
-    Tensor energies = Tensor::ones({1, 10});
+    Tensor energies = Tensor::ones({10, 1});
     Tensor masses = Tensor::ones({1, 3});
     Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor mixingMatrix = Tensor::diag(diagonal).unsqueeze(0);

@@ -5,7 +5,7 @@
 TEST(BaseMatterSolver /*unused*/, SettersGetters)
 {
 
-    Tensor energies = Tensor::ones({1, 10}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor energies = Tensor::ones({10, 1}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor masses = Tensor::ones({1, 3}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor mixingMatrix = Tensor::diag(diagonal).unsqueeze(0);
