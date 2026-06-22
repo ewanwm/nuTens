@@ -14,8 +14,10 @@ Tensor Propagator::calculateProbs()
     // matrix, otherwise just use the "raw" ones
     if (_matterSolver)
     {
-        Tensor eigenVals = Tensor::zeros({1, _nGenerations, _nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
-        Tensor eigenVecs = Tensor::zeros({1, _nGenerations, _nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
+        BaseMatterSolver::EigenvalTensor eigenVals(
+            Tensor::zeros({1, _nGenerations, _nGenerations}, dtypes::kComplexFloat).requiresGrad(false));
+        BaseMatterSolver::EigenvecTensor eigenVecs(
+            Tensor::zeros({1, _nGenerations, _nGenerations}, dtypes::kComplexFloat).requiresGrad(false));
 
         _matterSolver->calculateEigenvalues(eigenVecs, eigenVals);
         massesSq = Propagator::MassSqTensor(eigenVals * _energies * 2.0);

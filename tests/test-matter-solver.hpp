@@ -21,6 +21,6 @@ class DummyMatterSolver : public BaseMatterSolver
 
     // exclude this as it's not really real code
     // GCOVR_EXCL_START
-    void calculateEigenvalues(Tensor &eigenvectors, Tensor &eigenvalues) override{};
+    void calculateEigenvalues(EigenvecTensor &eigenvectors, EigenvalTensor &eigenvalues) override{};
     // GCOVR_EXCL_STOP
 };
