@@ -65,7 +65,7 @@ class DPpropagator : public Propagator
         deltaCP = newDeltaCP;
         return *this;
     }
-    inline DPpropagator &setDmsp21(Tensor &newDmsq21)
+    inline DPpropagator &setDmsq21(Tensor &newDmsq21)
     {
         NT_PROFILE();
 
@@ -95,45 +95,6 @@ class DPpropagator : public Propagator
 
         interpretSinSquaredThetas = newValue;
         return *this;
-    }
-
-    /// @brief Set all parameters at once
-    /// @param newTheta12 New \theta_{12}
-    /// @param newTheta23 New \theta_{23}
-    /// @param newTheta13 New \theta_{13}
-    /// @param newDeltaCP New \delta_{cp}
-    /// @param newDmsq21  New \Delta m^2_{21}
-    /// @param newDmsq31  New \Delta m^2_{31}
-    /// @param sinSquaredThetas If true, the \theta_{ij}'s will be interpreted as \sin^2(\theta_{ij}) values
-    ///                         This will shortcut some of the computations performed by this propagator
-    ///                         and speed up calculation time
-    inline void setParameters(Tensor &newTheta12, Tensor &newTheta23, Tensor &newTheta13, Tensor &newDeltaCP,
-                              Tensor &newDmsq21, Tensor &newDmsq31, bool sinSquaredThetas = false)
-    {
-        NT_PROFILE();
-
-        deltaCP = newDeltaCP;
-        dmsq21 = newDmsq21;
-        dmsq31 = newDmsq31;
-
-        interpretSinSquaredThetas = sinSquaredThetas;
-
-        // if user has provided sin^2(theta_ij) values, we just use those, otherwise
-        // we need to calculate them
-        if (interpretSinSquaredThetas)
-        {
-
-            sinSqTheta12 = newTheta12;
-            sinSqTheta13 = newTheta13;
-            sinSqTheta23 = newTheta23;
-        }
-        else
-        {
-
-            theta12 = newTheta12;
-            theta13 = newTheta13;
-            theta23 = newTheta23;
-        }
     }
 
     /// @brief Set the neutrino energies

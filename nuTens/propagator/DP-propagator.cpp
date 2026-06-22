@@ -13,8 +13,15 @@ Tensor DPpropagator::calculateProbs()
     // --------------------------------------------------------------------- //
     const Tensor one = Tensor::ones({1}).requiresGrad(false);
 
-    // need to calculate the sin^2(theta)'s if not provided by user
-    if (!interpretSinSquaredThetas)
+    // if user has provided sin^2(theta_ij) values, we just use those, otherwise
+    // we need to calculate them
+    if (interpretSinSquaredThetas)
+    {
+        sinSqTheta12 = theta12;
+        sinSqTheta13 = theta13;
+        sinSqTheta23 = theta23;
+    }
+    else
     {
         sinSqTheta12 = Tensor::square(Tensor::sin(theta12));
         sinSqTheta13 = Tensor::square(Tensor::sin(theta13));

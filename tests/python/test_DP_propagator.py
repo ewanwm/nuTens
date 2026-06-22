@@ -37,9 +37,7 @@ class TestDPpropagator:
         # set up DPpropagator
         dp_propagator = DPpropagator(10).set_baseline(self.baseline).set_antineutrino(False).set_density(self.density)
         dp_propagator.set_energies(self.energy)
-        dp_propagator.set_parameters(
-            self.theta12, theta23_tensor, self.theta13, 
-            self.dcp, self.dmsq21, self.dmsq31)
+        dp_propagator.set_theta12(self.theta12).set_theta23(theta23_tensor).set_theta13(self.theta13).set_deltacp(self.dcp).set_dmsq21(self.dmsq21).set_dmsq31(self.dmsq31)
         
         print("theta12: ", self.theta12.to_string())
         print("theta13: ", self.theta13.to_string())

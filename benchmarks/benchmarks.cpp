@@ -165,6 +165,14 @@ static void BM_DPpropOscillations(benchmark::State &state)
 
     dpProp.setEnergies(energies);
 
+    dpProp.setSinSquaredThetas(true);
+    dpProp.setTheta12(sinSqTheta12)
+        .setTheta23(sinSqTheta23)
+        .setTheta13(sinSqTheta13)
+        .setDeltaCP(deltaCP)
+        .setDmsq21(dmsq21)
+        .setDmsq31(dmsq31);
+
     // seed the random number generator for the energies
     std::srand(randSeed);
 
@@ -184,8 +192,6 @@ static void BM_DPpropOscillations(benchmark::State &state)
             sinSqTheta12.setValue(randomDouble(), 0);
 
             deltaCP.setValue({0}, Tensor::scale(Tensor::rand({1}), constants::twoPi));
-
-            dpProp.setParameters(sinSqTheta12, sinSqTheta23, sinSqTheta13, deltaCP, dmsq21, dmsq31, true);
 
             // calculate the osc probabilities
             // static_cast<void> to discard the return value that we're not supposed to discard :)

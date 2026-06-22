@@ -20,7 +20,7 @@ class DummyMatterSolver : public BaseMatterSolver
     DummyMatterSolver(int nGenerations, bool antiNeutrino) : BaseMatterSolver(nGenerations, antiNeutrino){};
 
     // exclude this as it's not really real code
-    // GCOVR_EXCL_START
+    // LCOV_EXCL_START
     void calculateEigenvalues(EigenvecTensor &eigenvectors, EigenvalTensor &eigenvalues) override{};
-    // GCOVR_EXCL_STOP
+    // LCOV_EXCL_STOP
 };
