@@ -635,12 +635,12 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
   private:
     AccessedTensor(const torch::Tensor &tensor)
-        : _packedAccessor(tensor.packed_accessor32<Tdtype, TnDims>()), _accessor(tensor.accessor<Tdtype, TnDims>()),
-          _initialised(true)
+        : _packedAccessor(tensor.packed_accessor32<Tdtype, TnDims>()), _accessor(tensor.accessor<Tdtype, TnDims>())
     {
         NT_PROFILE();
 
         setTensor(tensor);
+        _initialised = true;
     };
 
   public:
