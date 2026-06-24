@@ -159,6 +159,10 @@ class Tensor:
         """
         Get imaginary part of a complex tensor
         """
+    def is_initialised(self) -> bool:
+        """
+        Check if this tensor has been initialised yet
+        """
     def numpy(self) -> numpy.ndarray:
         """
         Get a numpy array with the contents of the tensor

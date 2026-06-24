@@ -93,16 +93,16 @@ class Propagator
         NT_PROFILE();
         _matterSolver = newSolver;
 
-        if (_energiesInitialised)
+        if (_energies.isInitialised())
         {
             _matterSolver->setEnergies(_energies);
         }
 
-        if (_massesInitialised)
+        if (_masses.isInitialised())
         {
             _matterSolver->setMasses(_masses);
         }
-        if (_mixingMatrixInitialised)
+        if (_mixingMatrix.isInitialised())
         {
             _matterSolver->setMixingMatrix(_mixingMatrix);
         }
@@ -126,7 +126,6 @@ class Propagator
         }
 
         _energies = newEnergies;
-        _energiesInitialised = true;
 
         _weightMatrix = Tensor::ones({_energies.getBatchDim(), _nGenerations, _nGenerations}, dtypes::kComplexFloat)
                             .requiresGrad(false);
@@ -155,7 +154,6 @@ class Propagator
         }
 
         _masses = newMasses;
-        _massesInitialised = true;
 
         if (_matterSolver)
         {
@@ -178,7 +176,6 @@ class Propagator
         }
 
         _mixingMatrix = newMatrix;
-        _mixingMatrixInitialised = true;
 
         if (_matterSolver)
         {
@@ -220,12 +217,6 @@ class Propagator
     Tensor _mixingMatrix;
     Tensor _masses;
     Tensor _energies;
-
-    // flags to keep track of which tensors have been set by user
-    /// @todo could just have an "initialised" flag in tensor class to keep track of this in more general way
-    bool _mixingMatrixInitialised{false};
-    bool _massesInitialised{false};
-    bool _energiesInitialised{false};
 
     Tensor _weightMatrix;
     Tensor _weightArgDenom;

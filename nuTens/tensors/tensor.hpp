@@ -58,7 +58,7 @@ class Tensor
     /// @{
 
     /// @brief Default constructor with no initialisation
-    Tensor() : _dType(dtypes::kUninitScalar), _device(dtypes::kUninitDevice), _requiresGrad(false)
+    Tensor() : _dType(dtypes::kUninitScalar), _device(dtypes::kUninitDevice)
     {
         NT_PROFILE();
     };
@@ -66,7 +66,7 @@ class Tensor
     /// @brief Construct a 1-d array with specified values
     /// @arg values The values to include in the tensor
     Tensor(const std::vector<float> &values, dtypes::scalarType type = dtypes::kFloat,
-           dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
+           dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = false);
 
     /// @brief Construct a 1-d array with specified complex values
     /// @arg values The values to include in the tensor
@@ -74,19 +74,19 @@ class Tensor
     /// performance critical!!!
     static Tensor TensorComplex(const std::vector<std::complex<float>> &values,
                                 dtypes::scalarType type = dtypes::kComplexFloat,
-                                dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
+                                dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = false);
 
     /// @brief Construct an identity tensor (has to be a 2d square tensor)
     /// @arg n The size of one of the sides of the tensor
     /// @arg type The data type of the tensor
     static Tensor eye(int n, dtypes::scalarType type = dtypes::kFloat, dtypes::deviceType device = dtypes::kCPU,
-                      bool requiresGrad = true);
+                      bool requiresGrad = false);
 
     /// @brief Construct a tensor with entries randomly initialised in the range [0, 1]
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
     static Tensor rand(const std::vector<long int> &shape, dtypes::scalarType type = dtypes::kFloat,
-                       dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
+                       dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = false);
 
     /// @brief Construct a tensor diag values along the diagonal, and zero elsewhere
     /// @arg diag A 1-d tensor which represents the desired diagonal values
@@ -96,13 +96,13 @@ class Tensor
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
     static Tensor ones(const std::vector<long int> &shape, dtypes::scalarType type = dtypes::kFloat,
-                       dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
+                       dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = false);
 
     /// @brief Construct a tensor with zeros
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
     static Tensor zeros(const std::vector<long int> &shape, dtypes::scalarType type = dtypes::kFloat,
-                        dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
+                        dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = false);
 
     /// @}
 
@@ -129,18 +129,31 @@ class Tensor
     /// @brief The underlying data type of this tensor
     [[nodiscard]] inline dtypes::scalarType getDType() const
     {
+        NT_PROFILE();
+
         return _dType;
     };
     /// @brief The device that this tensor lives on
     [[nodiscard]] inline dtypes::deviceType getDevice() const
     {
+        NT_PROFILE();
+
         return _device;
     };
     /// @brief Whether the tensor requires a gradient
     [[nodiscard]] inline bool getRequiresGrad() const
     {
+        NT_PROFILE();
+
         return _requiresGrad;
     };
+    /// @brief Check if tensor has been initialised
+    [[nodiscard]] inline bool isInitialised() const
+    {
+        NT_PROFILE();
+
+        return _initialised;
+    }
     ///@}
 
     /// @brief If the tensor does not already have a batch dimension (as set by hasBatchDim()) this will add one
@@ -202,6 +215,8 @@ class Tensor
     /// @arg tensor The tensor
     static inline Tensor square(const Tensor &tensor)
     {
+        NT_PROFILE();
+
         return tensor * tensor;
     }
 
@@ -240,36 +255,36 @@ class Tensor
     // ################ Inlines ###################
     // ############################################
 
-    /// @brief Inline matrix multiplication
+    /// @brief Inplace matrix multiplication
     /// @arg tensor2 Right hand matrix to multiply with this one
     void matmul_(const Tensor &tensor2);
 
-    /// @brief inline element-wise multiplication
+    /// @brief Inplace element-wise multiplication
     /// @arg tensor2 Right hand tensor
     void mul_(const Tensor &tensor2);
 
-    /// @brief inline element-wise division
+    /// @brief Inplace element-wise division
     /// @arg tensor2 Denominator
     void div_(const Tensor &tensor2);
 
-    /// @brief Inline matrix scaling
+    /// @brief Inplace matrix scaling
     /// @arg scalar The scalar
     void scale_(float scalar);
-    /// @brief Inline complex matrix scaling
+    /// @brief Inplace complex matrix scaling
     /// @arg scalar The scalar
     void scale_(std::complex<float> scalar);
 
-    /// @brief Inline raise to scalar power
+    /// @brief Inplace raise to scalar power
     /// @arg scalar The scalar
     void pow_(float scalar);
-    /// @brief Inline raise to scalar power
+    /// @brief Inplace raise to scalar power
     /// @arg scalar The scalar
     void pow_(std::complex<float> scalar);
 
-    /// @brief Inline element-wise exponential
+    /// @brief Inplace element-wise exponential
     void exp_();
 
-    /// @brief Inline transpose
+    /// @brief Inplace transpose
     /// @arg dim0 The first dimension to swap
     /// @arg dim1 The second dimension to swap
     void transpose_(int dim0, int dim1);
@@ -373,12 +388,16 @@ class Tensor
     /// @param dim The dimension to sum over
     static inline Tensor cumsum(const Tensor &tensor, int dim)
     {
+        NT_PROFILE();
+
         return tensor.cumsum(dim);
     }
 
     /// @brief Get the result of summing this tensor over all dimensions
     static inline Tensor sum(const Tensor &tensor)
     {
+        NT_PROFILE();
+
         return tensor.sum();
     }
 
@@ -386,6 +405,8 @@ class Tensor
     /// @param dims The dimensions to sum over
     static inline Tensor sum(const Tensor &tensor, const std::vector<long int> &dims)
     {
+        NT_PROFILE();
+
         return tensor.sum(dims);
     }
 
@@ -467,9 +488,10 @@ class Tensor
 
   protected:
     bool _hasBatchDim = false;
+    bool _requiresGrad = false;
+    bool _initialised = false;
     dtypes::scalarType _dType;
     dtypes::deviceType _device;
-    bool _requiresGrad;
 
     // ###################################################
     // ########## Tensor library specific stuff ##########
@@ -571,11 +593,12 @@ class Tensor
         return indicesVec;
     }
 
-  private:
+  protected:
     /// Construct a nuTens tensor directly from a pytorch tensor
     Tensor(const torch::Tensor &tensor)
         : _tensor(tensor), _dType(dtypes::invScalarTypeMap(tensor.scalar_type())),
-          _device(dtypes::invDeviceTypeMap(tensor.device().type())), _requiresGrad(tensor.requires_grad())
+          _device(dtypes::invDeviceTypeMap(tensor.device().type())), _requiresGrad(tensor.requires_grad()),
+          _initialised(true)
     {
         NT_PROFILE();
     }
@@ -612,11 +635,10 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
   private:
     AccessedTensor(const torch::Tensor &tensor)
-        : _packedAccessor(tensor.packed_accessor32<Tdtype, TnDims>()), _accessor(tensor.accessor<Tdtype, TnDims>())
+        : Tensor(tensor), _packedAccessor(tensor.packed_accessor32<Tdtype, TnDims>()),
+          _accessor(tensor.accessor<Tdtype, TnDims>())
     {
         NT_PROFILE();
-
-        setTensor(tensor);
     };
 
   public:
@@ -639,6 +661,8 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
     /// @brief Set whether or not the first dimension should be interpreted as a batch dimension
     inline AccessedTensor &hasBatchDim(bool hasBatchDim)
     {
+        NT_PROFILE();
+
         _hasBatchDim = hasBatchDim;
         return *this;
     };
@@ -654,7 +678,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
     /// @brief Construct an identity tensor (has to be a 2d square tensor)
     /// @arg n The size of one of the sides of the tensor
     /// @arg type The data type of the tensor
-    static AccessedTensor eye(bool requiresGrad = true)
+    static AccessedTensor eye(bool requiresGrad = false)
     {
 
         NT_PROFILE();
@@ -665,17 +689,13 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
                                    .device(dtypes::deviceTypeMap(Tdevice))
                                    .requires_grad(requiresGrad)));
 
-        ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
-        ret._device = Tdevice;
-        ret._requiresGrad = requiresGrad;
-
         return ret;
     }
 
     /// @brief Construct a tensor with entries randomly initialised in the range [0, 1]
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
-    static AccessedTensor rand(const std::vector<long int> &shape, bool requiresGrad = true)
+    static AccessedTensor rand(const std::vector<long int> &shape, bool requiresGrad = false)
     {
 
         NT_PROFILE();
@@ -688,17 +708,13 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
                                                      .device(dtypes::deviceTypeMap(Tdevice))
                                                      .requires_grad(requiresGrad)));
 
-        ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
-        ret._device = Tdevice;
-        ret._requiresGrad = requiresGrad;
-
         return ret;
     }
 
     /// @brief Construct a tensor with ones
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
-    static AccessedTensor ones(const std::vector<long int> &shape, bool requiresGrad = true)
+    static AccessedTensor ones(const std::vector<long int> &shape, bool requiresGrad = false)
     {
 
         NT_PROFILE();
@@ -711,17 +727,13 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
                                                      .device(dtypes::deviceTypeMap(Tdevice))
                                                      .requires_grad(requiresGrad)));
 
-        ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
-        ret._device = Tdevice;
-        ret._requiresGrad = requiresGrad;
-
         return ret;
     }
 
     /// @brief Construct a tensor with zeros
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
-    static AccessedTensor zeros(const std::vector<long int> &shape, bool requiresGrad = true)
+    static AccessedTensor zeros(const std::vector<long int> &shape, bool requiresGrad = false)
     {
 
         NT_PROFILE();
@@ -735,10 +747,6 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
                                                       .requires_grad(requiresGrad));
 
         AccessedTensor<Tdtype, TnDims, Tdevice> ret(zeros);
-
-        ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
-        ret._device = Tdevice;
-        ret._requiresGrad = requiresGrad;
 
         return ret;
     }

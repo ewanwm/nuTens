@@ -15,6 +15,12 @@ using namespace nuTens;
 
 template <typename T> void testTensorCreation(const dtypes::scalarType dtype, const dtypes::deviceType deviceType)
 {
+    Tensor uninit;
+    ASSERT_FALSE(uninit.isInitialised());
+
+    uninit = Tensor::zeros({10}, dtype, deviceType, false);
+    ASSERT_TRUE(uninit.isInitialised());
+
     Tensor zero = Tensor::zeros({1}, dtype, deviceType, false);
     std::cout << "zero tensor: " << zero << std::endl;
     ASSERT_EQ(zero.getValue<T>(), T(0.0));
