@@ -593,7 +593,7 @@ class Tensor
         return indicesVec;
     }
 
-  private:
+  protected:
     /// Construct a nuTens tensor directly from a pytorch tensor
     Tensor(const torch::Tensor &tensor)
         : _tensor(tensor), _dType(dtypes::invScalarTypeMap(tensor.scalar_type())),
@@ -635,12 +635,10 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
   private:
     AccessedTensor(const torch::Tensor &tensor)
-        : _packedAccessor(tensor.packed_accessor32<Tdtype, TnDims>()), _accessor(tensor.accessor<Tdtype, TnDims>())
+        : Tensor(tensor), _packedAccessor(tensor.packed_accessor32<Tdtype, TnDims>()),
+          _accessor(tensor.accessor<Tdtype, TnDims>())
     {
         NT_PROFILE();
-
-        setTensor(tensor);
-        _initialised = true;
     };
 
   public:
@@ -691,10 +689,6 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
                                    .device(dtypes::deviceTypeMap(Tdevice))
                                    .requires_grad(requiresGrad)));
 
-        ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
-        ret._device = Tdevice;
-        ret._requiresGrad = requiresGrad;
-
         return ret;
     }
 
@@ -714,10 +708,6 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
                                                      .device(dtypes::deviceTypeMap(Tdevice))
                                                      .requires_grad(requiresGrad)));
 
-        ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
-        ret._device = Tdevice;
-        ret._requiresGrad = requiresGrad;
-
         return ret;
     }
 
@@ -736,10 +726,6 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
                                                      .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
                                                      .device(dtypes::deviceTypeMap(Tdevice))
                                                      .requires_grad(requiresGrad)));
-
-        ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
-        ret._device = Tdevice;
-        ret._requiresGrad = requiresGrad;
 
         return ret;
     }
@@ -761,10 +747,6 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
                                                       .requires_grad(requiresGrad));
 
         AccessedTensor<Tdtype, TnDims, Tdevice> ret(zeros);
-
-        ret._dType = dtypes::scalarTypeFromRaw<Tdtype>();
-        ret._device = Tdevice;
-        ret._requiresGrad = requiresGrad;
 
         return ret;
     }
