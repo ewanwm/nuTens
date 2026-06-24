@@ -66,7 +66,7 @@ class Tensor
     /// @brief Construct a 1-d array with specified values
     /// @arg values The values to include in the tensor
     Tensor(const std::vector<float> &values, dtypes::scalarType type = dtypes::kFloat,
-           dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
+           dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = false);
 
     /// @brief Construct a 1-d array with specified complex values
     /// @arg values The values to include in the tensor
@@ -74,19 +74,19 @@ class Tensor
     /// performance critical!!!
     static Tensor TensorComplex(const std::vector<std::complex<float>> &values,
                                 dtypes::scalarType type = dtypes::kComplexFloat,
-                                dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
+                                dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = false);
 
     /// @brief Construct an identity tensor (has to be a 2d square tensor)
     /// @arg n The size of one of the sides of the tensor
     /// @arg type The data type of the tensor
     static Tensor eye(int n, dtypes::scalarType type = dtypes::kFloat, dtypes::deviceType device = dtypes::kCPU,
-                      bool requiresGrad = true);
+                      bool requiresGrad = false);
 
     /// @brief Construct a tensor with entries randomly initialised in the range [0, 1]
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
     static Tensor rand(const std::vector<long int> &shape, dtypes::scalarType type = dtypes::kFloat,
-                       dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
+                       dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = false);
 
     /// @brief Construct a tensor diag values along the diagonal, and zero elsewhere
     /// @arg diag A 1-d tensor which represents the desired diagonal values
@@ -96,13 +96,13 @@ class Tensor
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
     static Tensor ones(const std::vector<long int> &shape, dtypes::scalarType type = dtypes::kFloat,
-                       dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
+                       dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = false);
 
     /// @brief Construct a tensor with zeros
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
     static Tensor zeros(const std::vector<long int> &shape, dtypes::scalarType type = dtypes::kFloat,
-                        dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = true);
+                        dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = false);
 
     /// @}
 
@@ -654,7 +654,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
     /// @brief Construct an identity tensor (has to be a 2d square tensor)
     /// @arg n The size of one of the sides of the tensor
     /// @arg type The data type of the tensor
-    static AccessedTensor eye(bool requiresGrad = true)
+    static AccessedTensor eye(bool requiresGrad = false)
     {
 
         NT_PROFILE();
@@ -675,7 +675,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
     /// @brief Construct a tensor with entries randomly initialised in the range [0, 1]
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
-    static AccessedTensor rand(const std::vector<long int> &shape, bool requiresGrad = true)
+    static AccessedTensor rand(const std::vector<long int> &shape, bool requiresGrad = false)
     {
 
         NT_PROFILE();
@@ -698,7 +698,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
     /// @brief Construct a tensor with ones
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
-    static AccessedTensor ones(const std::vector<long int> &shape, bool requiresGrad = true)
+    static AccessedTensor ones(const std::vector<long int> &shape, bool requiresGrad = false)
     {
 
         NT_PROFILE();
@@ -721,7 +721,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
     /// @brief Construct a tensor with zeros
     /// @arg shape The desired shape of the intitalised tensor
     /// @arg type The data type of the tensor
-    static AccessedTensor zeros(const std::vector<long int> &shape, bool requiresGrad = true)
+    static AccessedTensor zeros(const std::vector<long int> &shape, bool requiresGrad = false)
     {
 
         NT_PROFILE();
