@@ -185,6 +185,7 @@ void initTensor(py::module &m_nuTens)
         .def("get_dtype", &Tensor::getDType, "Get the type of the data contained within this tensor")
         .def("get_device", &Tensor::getDevice, "Get the device that this tensor lives on")
         .def("get_requires_grad", &Tensor::getRequiresGrad, "Get whether or not this tensor will collect gradients")
+        .def("is_initialised", &Tensor::isInitialised, "Check if this tensor has been initialised yet")
 
         // complex number stuff
         .def("real", &Tensor::real, "Get real part of a complex tensor")
