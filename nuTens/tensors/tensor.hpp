@@ -58,7 +58,7 @@ class Tensor
     /// @{
 
     /// @brief Default constructor with no initialisation
-    Tensor() : _dType(dtypes::kUninitScalar), _device(dtypes::kUninitDevice), _requiresGrad(false), _initialised(false)
+    Tensor() : _dType(dtypes::kUninitScalar), _device(dtypes::kUninitDevice)
     {
         NT_PROFILE();
     };
