@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Class Tensor &mdash; nuTens  documentation</title>
+  <title>Class nuTens::NoGrad &mdash; nuTens  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
@@ -20,8 +20,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Class nuTens::BaseMatterSolver" href="classnuTens_1_1BaseMatterSolver.html" />
-    <link rel="prev" title="Class Propagator" href="classPropagator.html" /> 
+    <link rel="next" title="Class nuTens::PMNSmatrix" href="classnuTens_1_1PMNSmatrix.html" />
+    <link rel="prev" title="Class nuTens::DPpropagator" href="classnuTens_1_1DPpropagator.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -60,15 +60,15 @@
 <li class="toctree-l3"><a class="reference internal" href="classBaseMatterSolver.html">Class BaseMatterSolver</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classConstDensityMatterSolver.html">Class ConstDensityMatterSolver</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classPropagator.html">Class Propagator</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Class Tensor</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv46Tensor"><code class="docutils literal notranslate"><span class="pre">Tensor</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="classTensor.html">Class Tensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1BaseMatterSolver.html">Class nuTens::BaseMatterSolver</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1BaseMixingMatrix.html">Class nuTens::BaseMixingMatrix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1ConstDensityMatterSolver.html">Class nuTens::ConstDensityMatterSolver</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1DPpropagator.html">Class nuTens::DPpropagator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1NoGrad.html">Class nuTens::NoGrad</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Class nuTens::NoGrad</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N6nuTens6NoGradE"><code class="docutils literal notranslate"><span class="pre">nuTens::NoGrad</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1PMNSmatrix.html">Class nuTens::PMNSmatrix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1Propagator.html">Class nuTens::Propagator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classnuTens_1_1Tensor.html">Class nuTens::Tensor</a></li>
@@ -107,9 +107,9 @@
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../cpp-api.html">c++ API</a></li>
           <li class="breadcrumb-item"><a href="../classlist.html">Class list</a></li>
-      <li class="breadcrumb-item active">Class Tensor</li>
+      <li class="breadcrumb-item active">Class nuTens::NoGrad</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/breathe-apidoc/class/classTensor.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/breathe-apidoc/class/classnuTens_1_1NoGrad.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -117,20 +117,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="class-tensor">
-<h1>Class Tensor<a class="headerlink" href="#class-tensor" title="Link to this heading"></a></h1>
+  <section id="class-nutens-nograd">
+<h1>Class nuTens::NoGrad<a class="headerlink" href="#class-nutens-nograd" title="Link to this heading"></a></h1>
 <dl class="cpp class">
-<dt class="sig sig-object cpp" id="_CPPv46Tensor">
-<span id="_CPPv36Tensor"></span><span id="_CPPv26Tensor"></span><span id="Tensor"></span><span class="target" id="classTensor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#_CPPv46Tensor" title="Link to this definition"></a><br /></dt>
-<dd><p>Basic tensor class. </p>
-<p>Tensor defines a basic interface for creating and manipulating tensors. To create tensors you should use the Constructors. These can be used on their own or chained together with the Setters to create the desired tensor.</p>
-<p>For example <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ones</span><span class="p">({</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">}).</span><span class="n">dType</span><span class="p">(</span><span class="n">dtypes</span><span class="o">::</span><span class="n">kFloat</span><span class="p">).</span><span class="n">device</span><span class="p">(</span><span class="n">dtypes</span><span class="o">::</span><span class="n">kGPU</span><span class="p">);</span>
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6NoGradE">
+<span id="_CPPv3N6nuTens6NoGradE"></span><span id="_CPPv2N6nuTens6NoGradE"></span><span id="nuTens::NoGrad"></span><span class="target" id="classnuTens_1_1NoGrad"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NoGrad</span></span></span><a class="headerlink" href="#_CPPv4N6nuTens6NoGradE" title="Link to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6NoGrad6NoGradEv">
+<span id="_CPPv3N6nuTens6NoGrad6NoGradEv"></span><span id="_CPPv2N6nuTens6NoGrad6NoGradEv"></span><span id="nuTens::NoGrad::NoGrad"></span><span class="target" id="classnuTens_1_1NoGrad_1a58e010c5ab5de73b343492780da3064c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NoGrad</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6NoGrad6NoGradEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Disable autograd calculations within some scope, improving performance where you are not interested in calculating gradients Instantiate at the start of the scope where you want to disable gradient calculations like so. </p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/tensors/tensor.hpp&gt;</span>
+<span class="p">...</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="n">noGrad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nuTens</span><span class="o">::</span><span class="n">NoGrad</span><span class="p">();</span>
+<span class="w">      </span><span class="p">...</span>
+<span class="w">      </span><span class="o">&lt;</span><span class="w"> </span><span class="n">speedy</span><span class="w"> </span><span class="n">non</span><span class="w"> </span><span class="n">differentiated</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="w">      </span><span class="p">...</span>
+<span class="w">  </span><span class="p">}</span>
 </pre></div>
 </div>
- will get you a 3x3 tensor of floats that lives on the GPU. This is equivalent to <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ones</span><span class="p">({</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">},</span><span class="w"> </span><span class="n">dtypes</span><span class="o">::</span><span class="n">kFloat</span><span class="p">,</span><span class="w"> </span><span class="n">dtypes</span><span class="o">::</span><span class="n">kGPU</span><span class="p">);</span>
-</pre></div>
+</dd></dl>
+
 </div>
-</p>
 </dd></dl>
 
 </section>
@@ -139,8 +149,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="classPropagator.html" class="btn btn-neutral float-left" title="Class Propagator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="classnuTens_1_1BaseMatterSolver.html" class="btn btn-neutral float-right" title="Class nuTens::BaseMatterSolver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="classnuTens_1_1DPpropagator.html" class="btn btn-neutral float-left" title="Class nuTens::DPpropagator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classnuTens_1_1PMNSmatrix.html" class="btn btn-neutral float-right" title="Class nuTens::PMNSmatrix" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

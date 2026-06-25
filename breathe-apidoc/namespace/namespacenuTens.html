@@ -624,6 +624,30 @@
 </dd></dl>
 
 <dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6NoGradE">
+<span id="_CPPv3N6nuTens6NoGradE"></span><span id="_CPPv2N6nuTens6NoGradE"></span><span id="nuTens::NoGrad"></span><span class="target" id="classnuTens_1_1NoGrad"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NoGrad</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6NoGrad6NoGradEv">
+<span id="_CPPv3N6nuTens6NoGrad6NoGradEv"></span><span id="_CPPv2N6nuTens6NoGrad6NoGradEv"></span><span id="nuTens::NoGrad::NoGrad"></span><span class="target" id="classnuTens_1_1NoGrad_1a58e010c5ab5de73b343492780da3064c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NoGrad</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Disable autograd calculations within some scope, improving performance where you are not interested in calculating gradients Instantiate at the start of the scope where you want to disable gradient calculations like so. </p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/tensors/tensor.hpp&gt;</span>
+<span class="p">...</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="n">noGrad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nuTens</span><span class="o">::</span><span class="n">NoGrad</span><span class="p">();</span>
+<span class="w">      </span><span class="p">...</span>
+<span class="w">      </span><span class="o">&lt;</span><span class="w"> </span><span class="n">speedy</span><span class="w"> </span><span class="n">non</span><span class="w"> </span><span class="n">differentiated</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="w">      </span><span class="p">...</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens10PMNSmatrixE">
 <span id="_CPPv3N6nuTens10PMNSmatrixE"></span><span id="_CPPv2N6nuTens10PMNSmatrixE"></span><span id="nuTens::PMNSmatrix"></span><span class="target" id="classnuTens_1_1PMNSmatrix"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PMNSmatrix</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="../file/DP-propagator_8hpp.html#_CPPv46nuTens" title="nuTens"><span class="n"><span class="pre">nuTens</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../class/classnuTens_1_1BaseMixingMatrix.html#_CPPv4N6nuTens16BaseMixingMatrixE" title="nuTens::BaseMixingMatrix"><span class="n"><span class="pre">BaseMixingMatrix</span></span></a><br /></dt>
 <dd><div class="docutils container">

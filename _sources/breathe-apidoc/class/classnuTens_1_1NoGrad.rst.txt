@@ -1,0 +1,5 @@
+Class nuTens::NoGrad
+====================
+
+.. doxygenclass:: nuTens::NoGrad
+   :members:
