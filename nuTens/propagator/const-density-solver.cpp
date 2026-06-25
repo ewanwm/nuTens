@@ -46,18 +46,16 @@ void ConstDensityMatterSolver::buildElectronOuterProduct()
 
     NT_PROFILE();
 
+    Tensor electronRow = mixingMatrix.getValues({0, 0, "..."});
+
     if (antiNeutrino)
     {
-        electronOuter = Tensor::scale(
-            Tensor::outer(mixingMatrix.getValues({0, 0, "..."}).conj(), mixingMatrix.getValues({0, 0, "..."})),
-            -nuTens::constants::Groot2 * density);
+        electronOuter = -nuTens::constants::Groot2 * density * Tensor::outer(electronRow.conj(), electronRow);
     }
 
     else
     {
-        electronOuter = Tensor::scale(
-            Tensor::outer(mixingMatrix.getValues({0, 0, "..."}).conj(), mixingMatrix.getValues({0, 0, "..."})),
-            nuTens::constants::Groot2 * density);
+        electronOuter = nuTens::constants::Groot2 * density * Tensor::outer(electronRow.conj(), electronRow);
     }
 
     electronOuter.unsqueeze(0);
