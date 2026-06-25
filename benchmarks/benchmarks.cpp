@@ -61,12 +61,8 @@ static void batchedOscProbs(Propagator &prop, PMNSmatrix &matrix, AccessedTensor
     }
 }
 
-static void BM_vacuumOscillations(benchmark::State &state)
+static void propagatorBenchmark(benchmark::State &state, bool inMatter)
 {
-
-    NT_PROFILE_BEGINSESSION("Benchmark-vacuum-oscillations");
-    NT_PROFILE();
-
     // make some random test energies
     Tensor energies =
         Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), energyScale) +
@@ -77,8 +73,15 @@ static void BM_vacuumOscillations(benchmark::State &state)
     PMNSmatrix PMNS;
 
     // set up the propagator
-    Propagator vacuumProp = Propagator(3).setBaseline(baseline);
-    vacuumProp.setEnergies(energies);
+    Propagator prop = Propagator(3).setBaseline(baseline);
+    prop.setEnergies(energies);
+
+    if (inMatter)
+    {
+        auto matterSolver = std::make_shared<ConstDensityMatterSolver>(3);
+        matterSolver->setDensity(density);
+        prop.setMatterSolver(matterSolver);
+    }
 
     // seed the random number generator for the energies
     std::srand(randSeed);
@@ -88,56 +91,12 @@ static void BM_vacuumOscillations(benchmark::State &state)
     for (auto _ : state)
     {
         // This code gets timed
-        batchedOscProbs(vacuumProp, PMNS, masses, state.range(1));
+        batchedOscProbs(prop, PMNS, masses, state.range(1));
     }
-
-    NT_PROFILE_ENDSESSION();
 }
 
-static void BM_constMatterOscillations(benchmark::State &state)
+static void DPpropagatorBenchmark(benchmark::State &state)
 {
-
-    NT_PROFILE_BEGINSESSION("Benchmark-const-density-oscillations");
-
-    NT_PROFILE();
-
-    // make some random test energies
-    Tensor energies =
-        Tensor::scale(Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false), energyScale) +
-        Tensor({energyOffset});
-
-    // set up the inputs
-    auto masses = AccessedTensor<float, 2, dtypes::kCPU>::zeros({1, 3});
-    PMNSmatrix PMNS;
-
-    // set up the propagator
-    Propagator matterProp = Propagator(3).setBaseline(baseline);
-    auto matterSolver = std::make_shared<ConstDensityMatterSolver>(3);
-    matterSolver->setDensity(density);
-    matterProp.setMatterSolver(matterSolver);
-    matterProp.setEnergies(energies);
-
-    // seed the random number generator for the energies
-    std::srand(randSeed);
-
-    // linter gets angry about this as _ is never used :)))
-    // NOLINTNEXTLINE
-    for (auto _ : state)
-    {
-        // This code gets timed
-        batchedOscProbs(matterProp, PMNS, masses, state.range(1));
-    }
-
-    NT_PROFILE_ENDSESSION();
-}
-
-static void BM_DPpropOscillations(benchmark::State &state)
-{
-
-    NT_PROFILE_BEGINSESSION("Benchmark-DP-propagator");
-
-    NT_PROFILE();
-
     // make some random test energies
     Tensor energies =
         Tensor::scale(Tensor::rand({state.range(0)}).dType(dtypes::kComplexFloat).requiresGrad(false), energyScale) +
@@ -191,20 +150,107 @@ static void BM_DPpropOscillations(benchmark::State &state)
             static_cast<void>(dpProp.calculateProbs().sum());
         }
     }
+}
+
+static void BM_vacuumOscillations(benchmark::State &state)
+{
+
+    NT_PROFILE_BEGINSESSION("Benchmark-vacuum-oscillations");
+    NT_PROFILE();
+
+    propagatorBenchmark(state, /*inMatter=*/false);
+
     NT_PROFILE_ENDSESSION();
+}
+
+static void BM_constMatterOscillations(benchmark::State &state)
+{
+
+    NT_PROFILE_BEGINSESSION("Benchmark-const-density-oscillations");
+
+    NT_PROFILE();
+
+    propagatorBenchmark(state, /*inMatter=*/true);
+
+    NT_PROFILE_ENDSESSION();
+}
+
+static void BM_vacuumOscillationsNoGrad(benchmark::State &state)
+{
+
+    NT_PROFILE_BEGINSESSION("Benchmark-vacuum-oscillations-noGrad");
+    NT_PROFILE();
+
+    // disable gradient calculations
+    auto noGradGuard = NoGrad();
+
+    propagatorBenchmark(state, /*inMatter=*/false);
+
+    NT_PROFILE_ENDSESSION();
+}
+
+static void BM_constMatterOscillationsNoGrad(benchmark::State &state)
+{
+
+    NT_PROFILE_BEGINSESSION("Benchmark-const-density-oscillations-noGrad");
+
+    NT_PROFILE();
+
+    // disable gradient calculations
+    auto noGradGuard = NoGrad();
+
+    propagatorBenchmark(state, /*inMatter=*/true);
+
+    NT_PROFILE_ENDSESSION();
+}
+
+static void BM_DPpropOscillations(benchmark::State &state)
+{
+
+    NT_PROFILE_BEGINSESSION("Benchmark-DP-propagator");
+
+    NT_PROFILE();
+
+    DPpropagatorBenchmark(state)
+
+        NT_PROFILE_ENDSESSION();
+}
+
+static void BM_DPpropOscillationsNoGrad(benchmark::State &state)
+{
+
+    NT_PROFILE_BEGINSESSION("Benchmark-DP-propagator-noGrad");
+
+    NT_PROFILE();
+
+    // disable gradient calculations
+    auto noGradGuard = NoGrad();
+
+    DPpropagatorBenchmark(state)
+
+        NT_PROFILE_ENDSESSION();
 }
 
 // Register the function as a benchmark
 // NOLINTNEXTLINE
-BENCHMARK(BM_vacuumOscillations)->Name("Vacuum Oscillations")->Args({1 << 10, 1 << 10});
+BENCHMARK(BM_vacuumOscillations)->Name("Vacuum Oscillations")->Args({1 << 12, 1 << 12});
 
-// Register the function as a benchmark
 // NOLINTNEXTLINE
-BENCHMARK(BM_constMatterOscillations)->Name("Const Density Oscillations")->Args({1 << 10, 1 << 10});
+BENCHMARK(BM_vacuumOscillationsNoGrad)->Name("Vacuum Oscillations noGrad")->Args({1 << 12, 1 << 12});
 
-// Register the function as a benchmark
 // NOLINTNEXTLINE
-BENCHMARK(BM_DPpropOscillations)->Name("DP Propagator Const Density Oscillations")->Args({1 << 10, 1 << 10});
+BENCHMARK(BM_constMatterOscillations)->Name("Const Density Oscillations")->Args({1 << 12, 1 << 12});
+
+// NOLINTNEXTLINE
+BENCHMARK(BM_constMatterOscillationsNoGrad)->Name("Const Density Oscillations noGrad")->Args({1 << 12, 1 << 12});
+
+// NOLINTNEXTLINE
+BENCHMARK(BM_DPpropOscillations)->Name("DP Propagator Const Density Oscillations")->Args({1 << 12, 1 << 12});
+
+// NOLINTNEXTLINE
+BENCHMARK(BM_DPpropOscillationsNoGrad)
+    ->Name("DP Propagator Const Density Oscillations noGrad")
+    ->Args({1 << 12, 1 << 12});
 
 // Run the benchmark
 // NOLINTNEXTLINE
