@@ -28,6 +28,33 @@ jobs:
       with:
         name: python-package-distributions
         path: dist/*.tar.gz
+  
+  ## one day we will buld wheels and upload them to pypi... but it is not this day
+  ## when that day comes, the below might be useful
+
+  build_wheel:
+  
+    permissions:
+      contents: write
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+
+    secrets: inherit
+    
+    strategy: 
+      fail-fast: false
+      matrix:
+        include:
+          - build_type: cpu
+            platform: ubuntu-latest
+          
+          - build_type: cuda
+            platform: ubuntu-latest
+
+    # ./ At start of reusable workflow indicates to use the one in current repo i.e. the from the current branch
+    uses: ./.github/workflows/pypi-distribution-reusable.yaml
+    with:
+      platform: ${{ matrix.platform }}
+      build_type: ${{ matrix.build_type }}
 
   publish-to-testpypi:
     name: Publish Python 🐍 distribution 📦 to TestPyPI
@@ -75,32 +102,3 @@ jobs:
         path: dist/
     - name: Publish distribution 📦 to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
-      
-
-    ## one day we will buld wheels and upload them to pypi... but it is not this day
-    ## when that day comes, the below might be useful
-
-    ##pypi_distribution:
-    
-    ##permissions:
-    ##  contents: write
-    ##  id-token: write  # IMPORTANT: mandatory for trusted publishing
-
-    ## secrets: inherit
-      
-    ##strategy: 
-    ##  fail-fast: false
-    ##  matrix:
-    ##    include:
-    ##      - build_type: cpu
-    ##        platform: ubuntu-latest
-            
-    ##      - build_type: cuda
-    ##        platform: ubuntu-latest
-
-    ## ./ At start of reusable workflow indicates to use the one in current repo i.e. the from the current branch
-    ## uses: ./.github/workflows/pypi-distribution-reusable.yaml
-    ## with:
-    ##  platform: ${{ matrix.platform }}
-    ##  build_type: ${{ matrix.build_type }}
-      
