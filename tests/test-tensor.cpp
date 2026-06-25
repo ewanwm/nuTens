@@ -563,6 +563,11 @@ TEST(Tensor /*unused*/, batchDim /*unused*/)
     ASSERT_EQ(tensor.getNdim(), 5);
 }
 
+// test NoGrad guard
+TEST(Tensor /*unused*/, testNoGrad /*unused*/)
+{
+    testNoGrad<float>(dtypes::kFloat, dtypes::kCPU);
+}
 // test basic derivatives
 TEST(Tensor /*unused*/, testDerivativesBasicScalarFloat /*unused*/)
 {

@@ -166,6 +166,18 @@ template <typename T> void testArithmeticComplexType(const dtypes::scalarType dt
     ASSERT_NEAR(imag.abs().getValue<T>(), 1.0, 1e-5);
 }
 
+template <typename T> void testNoGrad(const dtypes::scalarType dtype, const dtypes::deviceType deviceType)
+{
+
+    auto noGradGuard = NoGrad();
+
+    T grad = 1.234;
+    Tensor one = Tensor::ones({1}, dtype, deviceType, true);
+    Tensor result = one * grad;
+
+    EXPECT_ANY_THROW(result.backward());
+}
+
 template <typename T>
 void testDerivativesBasicScalarReal(const dtypes::scalarType dtype, const dtypes::deviceType deviceType)
 {
