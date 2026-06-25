@@ -233,24 +233,24 @@ static void BM_DPpropOscillationsNoGrad(benchmark::State &state)
 
 // Register the function as a benchmark
 // NOLINTNEXTLINE
-BENCHMARK(BM_vacuumOscillations)->Name("Vacuum Oscillations")->Args({1 << 12, 1 << 12});
+BENCHMARK(BM_vacuumOscillations)->Name("Vacuum Oscillations")->Args({1 << 10, 1 << 10});
 
 // NOLINTNEXTLINE
-BENCHMARK(BM_vacuumOscillationsNoGrad)->Name("Vacuum Oscillations noGrad")->Args({1 << 12, 1 << 12});
+BENCHMARK(BM_vacuumOscillationsNoGrad)->Name("Vacuum Oscillations noGrad")->Args({1 << 10, 1 << 10});
 
 // NOLINTNEXTLINE
-BENCHMARK(BM_constMatterOscillations)->Name("Const Density Oscillations")->Args({1 << 12, 1 << 12});
+BENCHMARK(BM_constMatterOscillations)->Name("Const Density Oscillations")->Args({1 << 10, 1 << 10});
 
 // NOLINTNEXTLINE
-BENCHMARK(BM_constMatterOscillationsNoGrad)->Name("Const Density Oscillations noGrad")->Args({1 << 12, 1 << 12});
+BENCHMARK(BM_constMatterOscillationsNoGrad)->Name("Const Density Oscillations noGrad")->Args({1 << 10, 1 << 10});
 
 // NOLINTNEXTLINE
-BENCHMARK(BM_DPpropOscillations)->Name("DP Propagator Const Density Oscillations")->Args({1 << 12, 1 << 12});
+BENCHMARK(BM_DPpropOscillations)->Name("DP Propagator Const Density Oscillations")->Args({1 << 10, 1 << 10});
 
 // NOLINTNEXTLINE
 BENCHMARK(BM_DPpropOscillationsNoGrad)
     ->Name("DP Propagator Const Density Oscillations noGrad")
-    ->Args({1 << 12, 1 << 12});
+    ->Args({1 << 10, 1 << 10});
 
 // Run the benchmark
 // NOLINTNEXTLINE
