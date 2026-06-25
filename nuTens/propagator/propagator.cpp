@@ -14,14 +14,9 @@ Tensor Propagator::calculateProbs()
     // matrix, otherwise just use the "raw" ones
     if (_matterSolver)
     {
-        BaseMatterSolver::EigenvalTensor eigenVals(
-            Tensor::zeros({1, _nGenerations, _nGenerations}, dtypes::kComplexFloat).requiresGrad(false));
-        BaseMatterSolver::EigenvecTensor eigenVecs(
-            Tensor::zeros({1, _nGenerations, _nGenerations}, dtypes::kComplexFloat).requiresGrad(false));
-
-        _matterSolver->calculateEigenvalues(eigenVecs, eigenVals);
-        massesSq = Propagator::MassSqTensor(eigenVals * _energies * 2.0);
-        mixingMatrix = Propagator::MixingMatrixTensor(Tensor::matmul(_mixingMatrix, eigenVecs));
+        _matterSolver->calculateEigenvalues(_eigenVecs, _eigenVals);
+        massesSq = Propagator::MassSqTensor(_eigenVals * _energies * 2.0);
+        mixingMatrix = Propagator::MixingMatrixTensor(Tensor::matmul(_mixingMatrix, _eigenVecs));
     }
 
     else

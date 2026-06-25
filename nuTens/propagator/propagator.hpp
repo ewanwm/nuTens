@@ -50,7 +50,13 @@ class Propagator
     /// @brief Constructor
     /// @param nGenerations The number of generations the propagator should
     /// expect
-    Propagator(int nGenerations) : _nGenerations(nGenerations){};
+    Propagator(int nGenerations) : _nGenerations(nGenerations)
+    {
+        BaseMatterSolver::EigenvalTensor eigenVals(
+            Tensor::zeros({1, _nGenerations}, dtypes::kComplexFloat).requiresGrad(false));
+        BaseMatterSolver::EigenvecTensor eigenVecs(
+            Tensor::zeros({1, _nGenerations, _nGenerations}, dtypes::kComplexFloat).requiresGrad(false));
+    };
 
     /// @brief Destructor
     virtual ~Propagator() = default;
@@ -220,6 +226,9 @@ class Propagator
 
     Tensor _weightMatrix;
     Tensor _weightArgDenom;
+
+    BaseMatterSolver::EigenvalTensor _eigenVals;
+    BaseMatterSolver::EigenvecTensor _eigenVecs;
 
     int _nGenerations;
     float _baseline{NAN};
