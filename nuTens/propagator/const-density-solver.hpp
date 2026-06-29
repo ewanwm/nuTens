@@ -36,7 +36,8 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// @brief Constructor
     /// @arg nGenerations The number of neutrino generations this propagator
     /// should expect
-    ConstDensityMatterSolver(int nGenerations) : BaseMatterSolver(nGenerations, false)
+    ConstDensityMatterSolver(int nGenerations, dtypes::deviceType device = dtypes::kCPU)
+        : BaseMatterSolver(nGenerations, false, device)
     {
         diagMassMatrix = Tensor::zeros({1, nGenerations, nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
     };
@@ -78,6 +79,13 @@ class ConstDensityMatterSolver : public BaseMatterSolver
                 "Mixing Matrix tensor must be 3 dimensional (n_batches, n_generations, n_generations)");
         }
 
+        if (newMatrix.getDevice() != _device)
+        {
+            NT_WARN(__FILE__, __LINE__,
+                    "mixing matrix tensor is on a different device from matter solver, this will likely cause you "
+                    "problems!!");
+        }
+
         mixingMatrix = newMatrix;
 
         return *this;
@@ -94,9 +102,15 @@ class ConstDensityMatterSolver : public BaseMatterSolver
             throw std::invalid_argument("Mass tensor must be 2 dimensional (n_batches, n_generations)");
         }
 
+        if (newMasses.getDevice() != _device)
+        {
+            NT_WARN(__FILE__, __LINE__,
+                    "mass tensor is on a different device from matter solver, this will likely cause you problems!!");
+        }
+
         masses = newMasses;
 
-        Tensor massValues = masses.getValues({0, "..."});
+        Tensor massValues = masses.getValues({0, "..."}).device(_device);
         Tensor diag = Tensor::scale(Tensor::mul(massValues, massValues), 0.5);
 
         // construct the diagonal mass^2 matrix used in the hamiltonian
