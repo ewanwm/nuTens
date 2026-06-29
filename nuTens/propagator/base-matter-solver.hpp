@@ -33,7 +33,8 @@ class BaseMatterSolver
         explicit EigenvalTensor(const nuTens::Tensor &tensor) : Tensor(tensor){};
     };
 
-    BaseMatterSolver(int nGenerations, bool antiNeutrino) : antiNeutrino(antiNeutrino), nGenerations(nGenerations)
+    BaseMatterSolver(int nGenerations, bool antiNeutrino, dtypes::deviceType device)
+        : antiNeutrino(antiNeutrino), nGenerations(nGenerations), _device(device)
     {
     }
 
@@ -63,6 +64,13 @@ class BaseMatterSolver
                 "Mixing Matrix tensor must be 3 dimensional (n_batches, n_generations, n_generations)");
         }
 
+        if (newMatrix.getDevice() != _device)
+        {
+            NT_WARN(__FILE__, __LINE__,
+                    "mixing matrix tensor is on a different device from matter solver, this will likely cause you "
+                    "problems!!");
+        }
+
         mixingMatrix = newMatrix;
 
         return *this;
@@ -79,11 +87,19 @@ class BaseMatterSolver
             throw std::invalid_argument("Mass tensor must be 2 dimensional (n_batches, n_generations)");
         }
 
+        if (newMasses.getDevice() != _device)
+        {
+            NT_WARN(__FILE__, __LINE__,
+                    "mass tensor is on a different device from matter solver, this will likely cause you problems!!");
+        }
+
         masses = newMasses;
 
         return *this;
     }
 
+    /// @brief set new neutrino energies
+    /// @param newEnergies new energy values
     inline virtual BaseMatterSolver &setEnergies(const Tensor &newEnergies)
     {
 
@@ -92,11 +108,18 @@ class BaseMatterSolver
             throw std::invalid_argument("Energy tensor must be 2 dimensional (n_energies, 1)");
         }
 
+        if (newEnergies.getDevice() != _device)
+        {
+            NT_WARN(__FILE__, __LINE__,
+                    "energy tensor is on a different device from matter solver, this will likely cause you problems!!");
+        }
+
         NT_PROFILE();
 
         energies = newEnergies;
 
         hamiltonian = Tensor::zeros({energies.getBatchDim(), nGenerations, nGenerations}, dtypes::kComplexFloat)
+                          .device(_device)
                           .requiresGrad(false);
 
         return *this;
@@ -156,6 +179,7 @@ class BaseMatterSolver
   protected:
     bool antiNeutrino;
     int nGenerations;
+    dtypes::deviceType _device;
     Tensor energies;
     Tensor hamiltonian;
     Tensor mixingMatrix;
