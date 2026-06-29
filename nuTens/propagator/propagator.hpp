@@ -50,13 +50,8 @@ class Propagator
     /// @brief Constructor
     /// @param nGenerations The number of generations the propagator should
     /// expect
-    Propagator(int nGenerations) : _nGenerations(nGenerations)
-    {
-        BaseMatterSolver::EigenvalTensor eigenVals(
-            Tensor::zeros({1, _nGenerations}, dtypes::kComplexFloat).requiresGrad(false));
-        BaseMatterSolver::EigenvecTensor eigenVecs(
-            Tensor::zeros({1, _nGenerations, _nGenerations}, dtypes::kComplexFloat).requiresGrad(false));
-    };
+    Propagator(int nGenerations, dtypes::deviceType device = dtypes::kCPU)
+        : _nGenerations(nGenerations), _device(device){};
 
     /// @brief Destructor
     virtual ~Propagator() = default;
@@ -131,9 +126,16 @@ class Propagator
             throw std::invalid_argument("Energy tensor must be 2 dimensional (n_energies, 1)");
         }
 
+        if (newEnergies.getDevice() != _device)
+        {
+            NT_WARN(__FILE__, __LINE__,
+                    "energy tensor is on a different device from propagator, this will likely cause you problems!!");
+        }
+
         _energies = newEnergies;
 
         _weightMatrix = Tensor::ones({_energies.getBatchDim(), _nGenerations, _nGenerations}, dtypes::kComplexFloat)
+                            .device(_device)
                             .requiresGrad(false);
 
         if (_matterSolver)
@@ -159,6 +161,12 @@ class Propagator
             throw std::invalid_argument("Mass tensor must be 2 dimensional (n_batches, n_generations)");
         }
 
+        if (newMasses.getDevice() != _device)
+        {
+            NT_WARN(__FILE__, __LINE__,
+                    "mass tensor is on a different device from propagator, this will likely cause you problems!!");
+        }
+
         _masses = newMasses;
 
         if (_matterSolver)
@@ -179,6 +187,13 @@ class Propagator
         {
             throw std::invalid_argument(
                 "Mixing Matrix tensor must be 3 dimensional (n_batches, n_generations, n_generations)");
+        }
+
+        if (newMatrix.getDevice() != _device)
+        {
+            NT_WARN(
+                __FILE__, __LINE__,
+                "mixing matrix tensor is on a different device from propagator, this will likely cause you problems!!");
         }
 
         _mixingMatrix = newMatrix;
@@ -233,6 +248,8 @@ class Propagator
     int _nGenerations;
     float _baseline{NAN};
     bool _antiNeutrino{false};
+
+    dtypes::deviceType _device;
 
     std::shared_ptr<BaseMatterSolver> _matterSolver;
 };
