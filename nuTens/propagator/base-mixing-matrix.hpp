@@ -23,7 +23,7 @@ class BaseMixingMatrix
     };
 
     /// @brief Constructor
-    BaseMixingMatrix() = default;
+    BaseMixingMatrix(dtypes::deviceType device = dtypes::kCPU) : _device(device){};
 
     /// @brief Destructor
     virtual ~BaseMixingMatrix() = default;
@@ -43,6 +43,9 @@ class BaseMixingMatrix
     /// flag to set if the matrix needs to be recalculated or if it's fine to
     /// just return the cached one
     bool _needsRecalculating = true;
+
+    /// The device that this object lives on
+    dtypes::deviceType _device;
 
     /// Cached mixing matrix
     Tensor _matrix;
