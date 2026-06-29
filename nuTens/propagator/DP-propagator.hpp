@@ -19,7 +19,8 @@ class DPpropagator : public Propagator
     };
 
   public:
-    DPpropagator(int NRiterations) : Propagator(3), NRiterations(NRiterations){};
+    DPpropagator(int NRiterations, dtypes::deviceType device = dtypes::kCPU)
+        : Propagator(3, device), NRiterations(NRiterations){};
 
     /// @{Setters
 
@@ -104,7 +105,7 @@ class DPpropagator : public Propagator
         NT_PROFILE();
 
         _energies = newEnergies;
-        probsRet = Tensor::zeros({_energies.getShape()[0], 3, 3}).requiresGrad(false);
+        probsRet = Tensor::zeros({_energies.getShape()[0], 3, 3}).requiresGrad(false).device(_device);
 
         return *this;
     }
@@ -188,20 +189,20 @@ class DPpropagator : public Propagator
     };
 
   private:
-    Tensor theta12 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
-    Tensor theta13 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
-    Tensor theta23 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    Tensor theta12 = Tensor::zeros({1}, dtypes::kComplexFloat, _device, false);
+    Tensor theta13 = Tensor::zeros({1}, dtypes::kComplexFloat, _device, false);
+    Tensor theta23 = Tensor::zeros({1}, dtypes::kComplexFloat, _device, false);
 
-    Tensor sinSqTheta12 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
-    Tensor sinSqTheta13 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
-    Tensor sinSqTheta23 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    Tensor sinSqTheta12 = Tensor::zeros({1}, dtypes::kComplexFloat, _device, false);
+    Tensor sinSqTheta13 = Tensor::zeros({1}, dtypes::kComplexFloat, _device, false);
+    Tensor sinSqTheta23 = Tensor::zeros({1}, dtypes::kComplexFloat, _device, false);
 
-    Tensor deltaCP = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    Tensor deltaCP = Tensor::zeros({1}, dtypes::kComplexFloat, _device, false);
 
-    Tensor dmsq21 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
-    Tensor dmsq31 = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    Tensor dmsq21 = Tensor::zeros({1}, dtypes::kComplexFloat, _device, false);
+    Tensor dmsq31 = Tensor::zeros({1}, dtypes::kComplexFloat, _device, false);
 
-    Tensor probsRet = Tensor::zeros({1});
+    Tensor probsRet = Tensor::zeros({1}, dtypes::kFloat, _device, false);
 
     int NRiterations;
     float _density{0.0};

@@ -11,7 +11,7 @@ Tensor DPpropagator::calculateProbs()
     // --------------------------------------------------------------------- //
     // First calculate useful simple functions of the oscillation parameters //
     // --------------------------------------------------------------------- //
-    const Tensor one = Tensor::ones({1}).requiresGrad(false);
+    const Tensor one = Tensor::ones({1}).requiresGrad(false).device(_device);
 
     // if user has provided sin^2(theta_ij) values, we just use those, otherwise
     // we need to calculate them
@@ -126,6 +126,8 @@ Tensor DPpropagator::calculateProbs()
     Tensor Vt3sq = one - Vm3sq - Ve3sq;
     Tensor Vt2sq = one - Vm2sq - Ve2sq;
     Tensor Vt1sq = one - Vm1sq - Ve1sq;
+
+    /// @todo after here we have eigenvals and eigenvecs, could just use regular propagator methods to get osc probs!!!
 
     // ----------------------- //
     // Get the kinematic terms //
