@@ -1,5 +1,6 @@
 
 add_executable(benchmarks benchmarks.cpp)
+add_executable(benchmarks-gpu benchmarks-gpu.cpp)
 
 if(NT_ENABLE_GPU_BENCHMARKING)
     target_compile_definitions(benchmarks PUBLIC BENCHMARK_GPU)
@@ -14,3 +15,5 @@ target_link_libraries(benchmarks benchmark::benchmark benchmark::benchmark_main 
 if (NT_USE_TORCH)
     target_compile_definitions(benchmarks PUBLIC USE_PYTORCH)
 endif()
+
+target_link_libraries(benchmarks-gpu benchmark::benchmark benchmark::benchmark_main tensor propagator )

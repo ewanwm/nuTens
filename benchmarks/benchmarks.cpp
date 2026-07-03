@@ -8,6 +8,10 @@
 #include <nuTens/propagator/units.hpp>
 #include <nuTens/tensors/tensor.hpp>
 
+#if USE_TORCH
+#include <nuTens/propagator/precompiled-DP-propagator.hpp>
+#endif
+
 using namespace nuTens;
 
 // the baseline to calculate oscillations at
@@ -405,6 +409,102 @@ BENCHMARK(BM_DPpropOscillationsGPU)->Name("DP Propagator Const Density Oscillati
 
 // NOLINTNEXTLINE
 BENCHMARK(BM_DPpropOscillationsNoGradGPU)->Name("DP Propagator Const Density Oscillations noGrad GPU")->Args(range);
+
+#endif
+
+#if USE_TORCH
+
+static void PrecompiledDPpropagatorBenchmark(benchmark::State &state)
+{
+    // make some random test energies
+    Tensor energies =
+        Tensor::scale(Tensor::rand({state.range(0)}).dType(dtypes::kComplexFloat).requiresGrad(false), energyScale) +
+        Tensor({energyOffset});
+
+    auto dmsq21 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto dmsq31 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto sinSqTheta23 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto sinSqTheta13 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto sinSqTheta12 = AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, false);
+    auto deltaCP = Tensor::zeros({1}).dType(dtypes::kComplexFloat).requiresGrad(false);
+
+    // set up the propagator
+    PrecompiledDPpropagator dpProp = PrecompiledDPpropagator(/*NRiterations=*/DPpropNRiterations);
+    dpProp.setBaseline(baseline);
+    dpProp.setAntiNeutrino(false);
+    dpProp.setDensity(density);
+
+    dpProp.setEnergies(energies);
+
+    dpProp.setSinSquaredThetas(true);
+    dpProp.setTheta12(sinSqTheta12);
+    dpProp.setTheta23(sinSqTheta23);
+    dpProp.setTheta13(sinSqTheta13);
+    dpProp.setDeltaCP(deltaCP);
+    dpProp.setDmsq21(dmsq21);
+    dpProp.setDmsq31(dmsq31);
+
+    // seed the random number generator for the energies
+    std::srand(randSeed);
+
+    // linter gets angry about this as _ is never used :)))
+    // NOLINTNEXTLINE
+    for (auto _ : state)
+    {
+        // This code gets timed
+        for (int _ = 0; _ < state.range(1); _++)
+        {
+            // set random values of the oscillation parameters
+            dmsq21.setValue(randomDouble(), 0);
+            dmsq31.setValue(randomDouble(), 0);
+
+            sinSqTheta23.setValue(randomDouble(), 0);
+            sinSqTheta13.setValue(randomDouble(), 0);
+            sinSqTheta12.setValue(randomDouble(), 0);
+
+            deltaCP.setValue({0}, Tensor::scale(Tensor::rand({1}), constants::twoPi));
+
+            // calculate the osc probabilities
+            // static_cast<void> to discard the return value that we're not supposed to discard :)
+            static_cast<void>(dpProp.calculateProbs().sum());
+        }
+    }
+}
+
+static void BM_torchDPpropOscillations(benchmark::State &state)
+{
+
+    NT_PROFILE_BEGINSESSION("Benchmark-DP-propagator");
+
+    NT_PROFILE();
+
+    PrecompiledDPpropagatorBenchmark(state)
+
+        NT_PROFILE_ENDSESSION();
+}
+
+static void BM_torchDPpropOscillationsNoGrad(benchmark::State &state)
+{
+
+    NT_PROFILE_BEGINSESSION("Benchmark-DP-propagator-noGrad");
+
+    NT_PROFILE();
+
+    // disable gradient calculations
+    auto noGradGuard = NoGrad();
+
+    PrecompiledDPpropagatorBenchmark(state)
+
+        NT_PROFILE_ENDSESSION();
+}
+
+// NOLINTNEXTLINE
+BENCHMARK(BM_torchDPpropOscillations)->Name("torch DP Propagator Const Density Oscillations")->Args({1 << 8, 1 << 8});
+
+// NOLINTNEXTLINE
+BENCHMARK(BM_torchDPpropOscillationsNoGrad)
+    ->Name("torchDP Propagator Const Density Oscillations noGrad")
+    ->Args({1 << 8, 1 << 8});
 
 #endif
 
