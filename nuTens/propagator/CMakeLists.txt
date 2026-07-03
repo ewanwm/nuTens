@@ -15,6 +15,9 @@ set(
 )
 
 if(NT_USE_TORCH)
+    execute_process(
+        COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/precompiled-DP-propagator.py
+    )
     list(APPEND FILES precompiled-DP-propagator.hpp)
 endif()
 
