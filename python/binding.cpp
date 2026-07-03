@@ -198,6 +198,7 @@ void initTensor(py::module &m_nuTens)
         .def("backward", &Tensor::backward, py::call_guard<py::gil_scoped_release>(),
             "Do the backward propagation from this tensor")
         .def("grad", &Tensor::grad, "Get the accumulated gradient stored in this tensor after calling backward()")
+        .def("zero_grad", &Tensor::zeroGrad, "Zero out the accumulated gradient for this tensor")
 
         // operator overloads
         .def(py::self + py::self)
