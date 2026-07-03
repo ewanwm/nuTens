@@ -212,6 +212,10 @@ class Tensor:
         """
         add an extra dimension to this tensor at the specified location
         """
+    def zero_grad(self) -> None:
+        """
+        Zero out the accumulated gradient for this tensor
+        """
 def add(tensor_1: Tensor, tensor_2: Tensor) -> Tensor:
     """
     Element-wise addition
