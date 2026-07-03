@@ -89,6 +89,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.to_string"><code class="docutils literal notranslate"><span class="pre">Tensor.to_string()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.torch_tensor"><code class="docutils literal notranslate"><span class="pre">Tensor.torch_tensor()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.unsqueeze"><code class="docutils literal notranslate"><span class="pre">Tensor.unsqueeze()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.zero_grad"><code class="docutils literal notranslate"><span class="pre">Tensor.zero_grad()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nuTens.tensor.Tensor.zeros"><code class="docutils literal notranslate"><span class="pre">Tensor.zeros()</span></code></a></li>
 </ul>
 </li>
@@ -362,6 +363,12 @@ Alternatively you can chain together multiple property setters.</p>
 <dt class="sig sig-object py" id="nuTens.tensor.Tensor.unsqueeze">
 <span class="sig-name descname"><span class="pre">unsqueeze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.unsqueeze" title="Link to this definition"></a></dt>
 <dd><p>add an extra dimension to this tensor at the specified location</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nuTens.tensor.Tensor.zero_grad">
+<span class="sig-name descname"><span class="pre">zero_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens._pyNuTens.tensor.Tensor"><span class="pre">Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.zero_grad" title="Link to this definition"></a></dt>
+<dd><p>Zero out the accumulated gradient for this tensor</p>
 </dd></dl>
 
 <dl class="py method">
