@@ -594,7 +594,7 @@ void Tensor::backward() const
 {
     NT_PROFILE();
 
-    _tensor.backward();
+    _tensor.backward({}, /*keep_graph=*/true);
 }
 
 void Tensor::zeroGrad()
