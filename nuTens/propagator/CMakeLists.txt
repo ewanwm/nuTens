@@ -5,13 +5,22 @@ add_library( units units.hpp)
 set_target_properties(constants PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(units PROPERTIES LINKER_LANGUAGE CXX)
 
-add_library(
-    propagator
+set(
+    FILES 
     propagator.hpp propagator.cpp 
     const-density-solver.hpp const-density-solver.cpp
     base-mixing-matrix.hpp
     pmns-matrix.hpp
     DP-propagator.hpp DP-propagator.cpp
+)
+
+if(NT_USE_TORCH)
+    list(APPEND FILES precompiled-DP-propagator.hpp)
+endif()
+
+add_library(
+    propagator
+    ${FILES}
 )
 
 target_link_libraries(

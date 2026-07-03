@@ -167,7 +167,7 @@ class DPpropagator : public Propagator
 
     /// @brief Calculate the oscilaltion probabilities for the current set of parameters
     ///        and energies
-    [[nodiscard]] Tensor calculateProbs() override;
+    [[nodiscard]] virtual Tensor calculateProbs() override;
 
     // shouldn't try to use a matter solver with this class since it internally
     // handles all matter effects
@@ -188,7 +188,7 @@ class DPpropagator : public Propagator
         static_assert(fail<T>::value, "do not use for DP propagator");
     };
 
-  private:
+  protected:
     Tensor theta12 = Tensor::zeros({1}, dtypes::kComplexFloat, _device, false);
     Tensor theta13 = Tensor::zeros({1}, dtypes::kComplexFloat, _device, false);
     Tensor theta23 = Tensor::zeros({1}, dtypes::kComplexFloat, _device, false);

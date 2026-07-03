@@ -10,3 +10,7 @@ if(NT_USE_PCH)
 endif()
 
 target_link_libraries(benchmarks benchmark::benchmark benchmark::benchmark_main tensor propagator )
+
+if (NT_USE_TORCH)
+    target_compile_definitions(benchmarks PUBLIC USE_PYTORCH)
+endif()
