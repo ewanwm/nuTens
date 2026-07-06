@@ -68,6 +68,9 @@ class Tensor
     Tensor(const std::vector<float> &values, dtypes::scalarType type = dtypes::kFloat,
            dtypes::deviceType device = dtypes::kCPU, bool requiresGrad = false);
 
+    /// @brief Destructor
+    virtual ~Tensor() = default;
+
     /// @brief Construct a 1-d array with specified complex values
     /// @arg values The values to include in the tensor
     /// @warning This can be quite slow due to internal conversions between complex types. Avoid using it for anything
@@ -585,7 +588,7 @@ class Tensor
             // LCOV_EXCL_START
             else
             {
-                throw std::runtime_error("Unsupported index type");
+                throw std::invalid_argument("Unsupported index type");
             }
             // LCOV_EXCL_STOP
         }
@@ -645,6 +648,8 @@ class NoGrad
 /// @tparam Tdtype The data type the tensor will hold.
 /// @tparam TnDims The number of dimensions of the tensor
 /// @tparam Tdevice The device the tensor will live on
+/// @tparam TdimChecking Enables checks of number of dimensions in passed index vectors when calling setValues and
+/// getValues. turning this on is safer but comes with some performance overhead, so is disabled by defualt
 ///
 /// AccessedTensors are designed to be used for fast direct access to
 /// the individual values of the underlying tensor. This speed comes at
@@ -654,7 +659,8 @@ class NoGrad
 /// You should only use these when you intend to directly manipulate the
 /// entries of the tensor. e.g. to set parameter values, or energy values
 /// at the start of a computational chain.
-template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class AccessedTensor : public Tensor
+template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice, bool TdimChecking = false>
+class AccessedTensor : public Tensor
 {
 
   public:
@@ -710,7 +716,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         NT_PROFILE();
 
-        AccessedTensor<Tdtype, TnDims, Tdevice> ret(
+        AccessedTensor<Tdtype, TnDims, Tdevice, TdimChecking> ret(
             torch::eye(TnDims, torch::TensorOptions()
                                    .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
                                    .device(dtypes::deviceTypeMap(Tdevice))
@@ -729,7 +735,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         assert((shape.size() == TnDims) && "dimensions in shape must match templated TnDims");
 
-        AccessedTensor<Tdtype, TnDims, Tdevice> ret(
+        AccessedTensor<Tdtype, TnDims, Tdevice, TdimChecking> ret(
             torch::rand(c10::IntArrayRef(shape), torch::TensorOptions()
                                                      .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
                                                      .device(dtypes::deviceTypeMap(Tdevice))
@@ -748,7 +754,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
         assert((shape.size() == TnDims) && "dimensions in shape must match templated TnDims");
 
-        AccessedTensor<Tdtype, TnDims, Tdevice> ret(
+        AccessedTensor<Tdtype, TnDims, Tdevice, TdimChecking> ret(
             torch::ones(c10::IntArrayRef(shape), torch::TensorOptions()
                                                      .dtype(dtypes::scalarTypeMap(dtypes::scalarTypeFromRaw<Tdtype>()))
                                                      .device(dtypes::deviceTypeMap(Tdevice))
@@ -773,7 +779,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
                                                       .device(dtypes::deviceTypeMap(Tdevice))
                                                       .requires_grad(requiresGrad));
 
-        AccessedTensor<Tdtype, TnDims, Tdevice> ret(zeros);
+        AccessedTensor<Tdtype, TnDims, Tdevice, TdimChecking> ret(zeros);
 
         return ret;
     }
@@ -783,6 +789,15 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
     void setValue(const std::vector<int> &indices, Tdtype value) override
     {
+        NT_PROFILE();
+
+        if constexpr (TdimChecking)
+        {
+            if (indices.size() != TnDims)
+            {
+                throw std::invalid_argument("Wrong number of indices for tensor!");
+            }
+        }
 
         if constexpr (TnDims == 1)
         {
@@ -798,7 +813,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
         }
         else
         {
-            throw std::runtime_error("Wrong number of indices for Tensor");
+            throw std::invalid_argument("Wrong number of indices for Tensor");
         }
     }
 
@@ -808,9 +823,19 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
     /// @{
     template <typename TgetterDtype> inline TgetterDtype getValue(const std::vector<int> &indices)
     {
+        NT_PROFILE();
+
+        if constexpr (TdimChecking)
+        {
+            if (indices.size() != TnDims)
+            {
+                throw std::invalid_argument("Wrong number of indices for tensor!");
+            }
+        }
+
         if constexpr (!std::is_same<TgetterDtype, Tdtype>::value)
         {
-            throw std::runtime_error("Wrong return type specified!");
+            throw std::invalid_argument("Wrong return type specified!");
         }
 
         if constexpr (TnDims == 1)
@@ -827,7 +852,7 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
         }
         else
         {
-            throw std::runtime_error("Wrong number of indices for Tensor");
+            throw std::invalid_argument("Wrong number of indices for Tensor");
         }
     }
 

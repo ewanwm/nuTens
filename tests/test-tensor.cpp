@@ -511,6 +511,18 @@ TEST(Tensor /*unused*/, AccessedTensor3D /*unused*/)
     ASSERT_EQ(tensor.getValue<float>({1, 1, 1}), 3.0F);
 }
 
+TEST(Tensor /*unused*/, AccessedTensorDimCheck /*unused*/)
+{
+
+    auto tensor1D = AccessedTensor<float, 1, dtypes::kCPU, true>::zeros({3}, false);
+    auto tensor2D = AccessedTensor<float, 2, dtypes::kCPU, true>::zeros({3, 3}, false);
+    auto tensor3D = AccessedTensor<float, 3, dtypes::kCPU, true>::zeros({3, 3, 3}, false);
+
+    EXPECT_THROW(tensor1D.setValue({1, 1}, 1.23), std::invalid_argument);
+    EXPECT_THROW(tensor2D.setValue({1, 1, 1}, 1.23), std::invalid_argument);
+    EXPECT_THROW(tensor3D.setValue({1, 1, 1, 1}, 1.23), std::invalid_argument);
+}
+
 // Test arithmetic overrides
 TEST(Tensor /*unused*/, addOverride /*unused*/)
 {
