@@ -241,48 +241,6 @@ One particularly important option to be aware of here is <code class="docutils l
 <section id="for-developers">
 <h3>For Developers<a class="headerlink" href="#for-developers" title="Link to this heading"></a></h3>
 <p>These options are a bit more “advanced” and probably only of interest to anyone actually writing nuTens library code.</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Option</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Default</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>NT_TORCH_FROM_SCRATCH</p></td>
-<td><p>If it is not found, torch will be compiled from scratch using CPM (very slow but maybe useful for debugging builds)</p></td>
-<td><p>OFF</p></td>
-</tr>
-<tr class="row-odd"><td><p>NT_ENABLE_BENCHMARKING</p></td>
-<td><p>Whether or not to compile benchmark executables</p></td>
-<td><p>OFF</p></td>
-</tr>
-<tr class="row-even"><td><p>NT_BUILD_TIMING</p></td>
-<td><p>Whether or not to time the build process</p></td>
-<td><p>OFF</p></td>
-</tr>
-<tr class="row-odd"><td><p>NT_LOG_LEVEL</p></td>
-<td><p>Set the log level to one of &lt;SILENT ERROR WARNING INFO DEBUG TRACE&gt;</p></td>
-<td><p>INFO</p></td>
-</tr>
-<tr class="row-even"><td><p>NT_PROFILING</p></td>
-<td><p>Enable profiling (see <a class="reference internal" href="development.html#profiling"><span class="std std-ref">Profiling 📊</span></a>)</p></td>
-<td><p>OFF</p></td>
-</tr>
-<tr class="row-odd"><td><p>NT_TEST_COVERAGE</p></td>
-<td><p>Add flags to allow checking of test coverage</p></td>
-<td><p>OFF</p></td>
-</tr>
-<tr class="row-even"><td><p>NT_USE_PCH</p></td>
-<td><p>Use precompiled headers to speed up the build process</p></td>
-<td><p>OFF</p></td>
-</tr>
-<tr class="row-odd"><td><p>BUILD_SHARED_LIBS</p></td>
-<td><p>Whether or not to build shared libraries or static (not compatible with NT_ENABLE_PYTHON which requires static libraries. If both are specified BUILD SHARED_LIBS will be set to OFF)</p></td>
-<td><p>ON</p></td>
-</tr>
-</tbody>
-</table>
 </section>
 </section>
 <section id="building-against-nutens">
