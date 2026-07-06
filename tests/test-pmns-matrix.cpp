@@ -31,10 +31,10 @@ class PMNSmatrixTest : public gtest::TestWithParam<float>
 
 TEST_F(PMNSmatrixTest /*unused*/, testParameterSetting /*unused*/)
 {
-    ASSERT_EQ(theta12, matrix.getTheta12Tensor.getValue<float>());
-    ASSERT_EQ(theta13, matrix.getTheta13Tensor.getValue<float>());
-    ASSERT_EQ(theta23, matrix.getTheta23Tensor.getValue<float>());
-    ASSERT_EQ(deltaCP, matrix.getDeltaCPTensor.getValue<float>());
+    ASSERT_EQ(theta12, matrix.getTheta12Tensor().getValue<float>());
+    ASSERT_EQ(theta13, matrix.getTheta13Tensor().getValue<float>());
+    ASSERT_EQ(theta23, matrix.getTheta23Tensor().getValue<float>());
+    ASSERT_EQ(deltaCP, matrix.getDeltaCPTensor().getValue<float>());
 }
 
 TEST_F(PMNSmatrixTest /*unused*/, CachingSameResultTest /*unused*/)
