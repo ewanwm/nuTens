@@ -455,10 +455,10 @@ class Tensor
     /// @arg indices The indices of the value to set
     /// @arg value The value to set it to
     void setValue(const std::vector<indexType> &indices, const Tensor &value);
-    void setValue(const std::vector<int> &indices, float value);
-    void setValue(const std::vector<int> &indices, double value);
-    void setValue(const std::vector<int> &indices, std::complex<float> value);
-    void setValue(const std::vector<int> &indices, std::complex<double> value);
+    virtual void setValue(const std::vector<int> &indices, float value);
+    virtual void setValue(const std::vector<int> &indices, double value);
+    virtual void setValue(const std::vector<int> &indices, std::complex<float> value);
+    virtual void setValue(const std::vector<int> &indices, std::complex<double> value);
 
     /// @brief Get the value at a certain entry in the tensor
     /// @param indices The index of the entry to get
@@ -676,9 +676,6 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
     /// dtype for accessedtensor is fixed at compile time
     inline AccessedTensor &dType(dtypes::scalarType type) = delete;
 
-    /// device for accessedtensor is fixed at compile time
-    inline AccessedTensor &device(dtypes::deviceType device) = delete;
-
     /// @brief Set whether the tensor requires a gradient
     inline AccessedTensor &requiresGrad(bool reqGrad)
     {
@@ -784,60 +781,24 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
     /// @name Value Setters
     /// @{
 
-    /// @brief Set a value in a 1D tensor
-    void setValue(Tdtype value, int idx1)
+    void setValue(const std::vector<int> &indices, Tdtype value) override
     {
 
-        NT_PROFILE();
-
-        static_assert(TnDims == 1, "wrong number of indices");
-
-        if (Tdevice == dtypes::kGPU)
+        if constexpr (TnDims == 1)
         {
-            _packedAccessor[idx1] = value;
+            setValue1D(value, indices[0]);
         }
-
-        else if (Tdevice == dtypes::kCPU)
+        else if constexpr (TnDims == 2)
         {
-            _accessor[idx1] = value;
+            setValue2D(value, indices[0], indices[1]);
         }
-    }
-
-    /// @brief Set a value in a 2D tensor
-    void setValue(Tdtype value, int idx1, int idx2)
-    {
-
-        NT_PROFILE();
-
-        static_assert(TnDims == 2, "wrong number of indices");
-
-        if (Tdevice == dtypes::kGPU)
+        else if constexpr (TnDims == 3)
         {
-            _packedAccessor[idx1][idx2] = value;
+            setValue3D(value, indices[0], indices[1], indices[2]);
         }
-
-        else if (Tdevice == dtypes::kCPU)
+        else
         {
-            _accessor[idx1][idx2] = value;
-        }
-    }
-
-    /// @brief Set a value in a 3D tensor
-    void setValue(Tdtype value, int idx1, int idx2, int idx3)
-    {
-
-        NT_PROFILE();
-
-        static_assert(TnDims == 3, "wrong number of indices");
-
-        if (Tdevice == dtypes::kGPU)
-        {
-            _packedAccessor[idx1][idx2][idx3] = value;
-        }
-
-        else if (Tdevice == dtypes::kCPU)
-        {
-            _accessor[idx1][idx2][idx3] = value;
+            throw std::runtime_error("Wrong number of indices for Tensor");
         }
     }
 
@@ -845,6 +806,30 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
 
     /// @name Value Getters
     /// @{
+    template <typename TgetterDtype> inline TgetterDtype getValue(const std::vector<int> &indices)
+    {
+        if constexpr (!std::is_same<TgetterDtype, Tdtype>::value)
+        {
+            throw std::runtime_error("Wrong return type specified!");
+        }
+
+        if constexpr (TnDims == 1)
+        {
+            return getValue(indices[0]);
+        }
+        else if constexpr (TnDims == 2)
+        {
+            return getValue(indices[0], indices[1]);
+        }
+        else if constexpr (TnDims == 3)
+        {
+            return getValue(indices[0], indices[1], indices[2]);
+        }
+        else
+        {
+            throw std::runtime_error("Wrong number of indices for Tensor");
+        }
+    }
 
     /// @brief Get a value in a 1D tensor
     Tdtype getValue(int idx1) const
@@ -908,6 +893,63 @@ template <typename Tdtype, int TnDims, dtypes::deviceType Tdevice> class Accesse
     // only support up to 3D for now, should be enough for us
 
   private:
+    /// @brief Set a value in a 1D tensor
+    void setValue1D(Tdtype value, int idx1)
+    {
+
+        NT_PROFILE();
+
+        static_assert(TnDims == 1, "wrong number of indices");
+
+        if (Tdevice == dtypes::kGPU)
+        {
+            _packedAccessor[idx1] = value;
+        }
+
+        else if (Tdevice == dtypes::kCPU)
+        {
+            _accessor[idx1] = value;
+        }
+    }
+
+    /// @brief Set a value in a 2D tensor
+    void setValue2D(Tdtype value, int idx1, int idx2)
+    {
+
+        NT_PROFILE();
+
+        static_assert(TnDims == 2, "wrong number of indices");
+
+        if (Tdevice == dtypes::kGPU)
+        {
+            _packedAccessor[idx1][idx2] = value;
+        }
+
+        else if (Tdevice == dtypes::kCPU)
+        {
+            _accessor[idx1][idx2] = value;
+        }
+    }
+
+    /// @brief Set a value in a 3D tensor
+    void setValue3D(Tdtype value, int idx1, int idx2, int idx3)
+    {
+
+        NT_PROFILE();
+
+        static_assert(TnDims == 3, "wrong number of indices");
+
+        if (Tdevice == dtypes::kGPU)
+        {
+            _packedAccessor[idx1][idx2][idx3] = value;
+        }
+
+        else if (Tdevice == dtypes::kCPU)
+        {
+            _accessor[idx1][idx2][idx3] = value;
+        }
+    }
+
     torch::TensorAccessor<Tdtype, TnDims> _accessor;
     torch::PackedTensorAccessor32<Tdtype, TnDims> _packedAccessor;
 };

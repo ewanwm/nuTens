@@ -29,7 +29,7 @@ class PMNSmatrix : public BaseMixingMatrix
 
         _theta12.requiresGrad(false);
 
-        _theta12.setValue(theta12, 0);
+        _theta12.setValue({0}, theta12);
 
         _theta12.requiresGrad(true);
 
@@ -45,7 +45,7 @@ class PMNSmatrix : public BaseMixingMatrix
 
         _theta13.requiresGrad(false);
 
-        _theta13.setValue(theta13, 0);
+        _theta13.setValue({0}, theta13);
 
         _theta13.requiresGrad(true);
 
@@ -61,7 +61,7 @@ class PMNSmatrix : public BaseMixingMatrix
 
         _theta23.requiresGrad(false);
 
-        _theta23.setValue(theta23, 0);
+        _theta23.setValue({0}, theta23);
 
         _theta23.requiresGrad(true);
 
