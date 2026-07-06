@@ -11,6 +11,8 @@ namespace gtest = ::testing;
 #include <nuTens/tensors/tensor.hpp>
 #include <nuTens/utils/logging.hpp>
 #include <tests/barger-propagator.hpp>
+#include <tests/printing.hpp>
+#include <tests/utils.hpp>
 
 // nuFast c++ implementation
 #include <tests/nuFast.hpp>
@@ -20,7 +22,7 @@ using namespace nuTens::testing;
 
 // magic numbers are fine for testing!
 // NOLINTBEGIN(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
-class DPpropagatorTest : public gtest::TestWithParam<float>
+class DPpropagatorTest : public gtest::TestWithParam<std::tuple<float, dtypes::deviceType>>
 {
 
   protected:
@@ -35,27 +37,29 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
     float tolerance = 1e-5;
 
     // set the tensors we will use to calculate matter eigenvalues
-    Tensor masses = Tensor({mass1, mass2, mass3}, dtypes::kComplexFloat).addBatchDim().requiresGrad(true);
+    Tensor masses;
 
     float theta23;
 
     float theta13 = 0.3 * M_PI;
     float theta12 = 0.2 * M_PI;
 
-    Tensor theta23tensor = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
-    Tensor theta13tensor = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
-    Tensor theta12tensor = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
-    Tensor deltaCPtensor = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
-    Tensor dmsq21tensor = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
-    Tensor dmsq31tensor = Tensor::zeros({1}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    dtypes::deviceType device;
 
-    Tensor energies = Tensor::ones({1, 1}, dtypes::kComplexFloat).requiresGrad(false).hasBatchDim(true);
+    Tensor theta23tensor;
+    Tensor theta13tensor;
+    Tensor theta12tensor;
+    Tensor deltaCPtensor;
+    Tensor dmsq21tensor;
+    Tensor dmsq31tensor;
 
-    Propagator tensorPropagator = Propagator(3).setBaseline(baseline);
-    std::shared_ptr<ConstDensityMatterSolver> tensorSolver = std::make_shared<ConstDensityMatterSolver>(3);
+    Tensor energies;
 
-    DPpropagator dpPropagator = DPpropagator(10).setBaseline(baseline).setAntiNeutrino(false).setDensity(density);
-    DPpropagator dpPropagatorVac = DPpropagator(10).setBaseline(baseline).setAntiNeutrino(false).setDensity(0.0);
+    Propagator tensorPropagator = Propagator(1);
+    std::shared_ptr<ConstDensityMatterSolver> tensorSolver;
+
+    DPpropagator dpPropagator = DPpropagator(1);
+    DPpropagator dpPropagatorVac = DPpropagator(1);
 
     PMNSmatrix pmns;
 
@@ -65,7 +69,32 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
     void SetUp() override
     {
 
+        device = std::get<1>(GetParam());
+        // skip if no GPU available
+        skipGPU(device);
+
+        // set up propagators
+        tensorPropagator = Propagator(3, device).setBaseline(baseline);
+        tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, device);
+
+        dpPropagator = DPpropagator(10, device).setBaseline(baseline).setAntiNeutrino(false).setDensity(density);
+        dpPropagatorVac = DPpropagator(10, device).setBaseline(baseline).setAntiNeutrino(false).setDensity(0.0);
+
+        pmns = PMNSmatrix(device);
+
+        // set up tensor values
+        energies = Tensor::ones({1, 1}, dtypes::kComplexFloat).requiresGrad(false).hasBatchDim(true).device(device);
         energies.setValue({0, 0}, energy);
+
+        theta23tensor = Tensor::zeros({1}, dtypes::kComplexFloat, device, false);
+        theta13tensor = Tensor::zeros({1}, dtypes::kComplexFloat, device, false);
+        theta12tensor = Tensor::zeros({1}, dtypes::kComplexFloat, device, false);
+        deltaCPtensor = Tensor::zeros({1}, dtypes::kComplexFloat, device, false);
+        dmsq21tensor = Tensor::zeros({1}, dtypes::kComplexFloat, device, false);
+        dmsq31tensor = Tensor::zeros({1}, dtypes::kComplexFloat, device, false);
+
+        masses = Tensor({mass1, mass2, mass3}, dtypes::kComplexFloat).addBatchDim().requiresGrad(true).device(device);
+
         tensorSolver->setDensity(density);
 
         tensorPropagator.setMatterSolver(tensorSolver);
@@ -92,7 +121,7 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
     void _setParamValues(bool forceLowerOctant, bool interpretSinSquaredThetas)
     {
         // get parameterised theta value
-        float theta = GetParam();
+        float theta = std::get<0>(GetParam());
 
         // allow user to force theta to be in lower octant
         // (allows correct comparison with nufast)
@@ -293,6 +322,38 @@ class DPpropagatorTest : public gtest::TestWithParam<float>
         ASSERT_NEAR(probabilities.getValue<float>({0, 2, 0}), dpProbabilities.getValue<float>({0, 2, 0}), tolerance);
         ASSERT_NEAR(probabilities.getValue<float>({0, 2, 1}), dpProbabilities.getValue<float>({0, 2, 1}), tolerance);
         ASSERT_NEAR(probabilities.getValue<float>({0, 2, 2}), dpProbabilities.getValue<float>({0, 2, 2}), tolerance);
+    }
+
+    /// compare gradient from DPpropagator to regular Propagator
+    void autogradTest()
+    {
+        _setParamValues(/*forceLowerOctant=*/false, /*interpretSinSquaredThetas=*/false);
+
+        theta23tensor.requiresGrad(true);
+
+        Tensor pmnsTensor = pmns.build().device(device);
+
+        tensorPropagator.setMixingMatrix(pmnsTensor);
+
+        // get Propagator probabilities
+        Tensor probabilities = tensorPropagator.calculateProbs();
+        Tensor muSurvivalProb = probabilities.getValues({0, 1, 1}).device(device);
+
+        muSurvivalProb.backward();
+
+        NT_INFO("Propagator:   d P_(mu->mu) / d theta_23 = {}", pmns.getTheta23Tensor().grad().getValue<float>());
+
+        // get DPpropagator probabilities
+        Tensor dpProbabilities = dpPropagator.calculateProbs();
+        Tensor dpMuSurvivalProb = dpProbabilities.getValues({0, 1, 1});
+
+        dpMuSurvivalProb.backward();
+
+        NT_INFO("DPpropagator: d P_(mu->mu) / d theta_23 = {}", theta23tensor.grad().getValue<float>());
+
+        // check that the values are close to each other
+        ASSERT_NEAR(pmns.getTheta23Tensor().grad().getValue<float>(), theta23tensor.grad().getValue<float>(),
+                    tolerance);
     }
     // NOLINTEND(readability-function-cognitive-complexity)
 };
