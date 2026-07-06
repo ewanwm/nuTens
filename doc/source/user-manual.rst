@@ -20,6 +20,11 @@ Accessed Tensors
 
 .. _batched-oscillation-calculations:
 
+GPU
+^^^
+
+.. _gpu:
+
 Batching Oscillation calculations
 ---------------------------------
 

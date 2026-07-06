@@ -145,18 +145,20 @@ For Developers
 
 These options are a bit more "advanced" and probably only of interest to anyone actually writing nuTens library code.
 
-======================  =====================================================================================================================================================================================   =======
-Option                  Description                                                                                                                                                                             Default
-======================  =====================================================================================================================================================================================   =======
-NT_TORCH_FROM_SCRATCH   If it is not found, torch will be compiled from scratch using CPM (very slow but maybe useful for debugging builds)                                                                      OFF
-NT_ENABLE_BENCHMARKING  Whether or not to compile benchmark executables                                                                                                                                         OFF
-NT_BUILD_TIMING         Whether or not to time the build process                                                                                                                                                OFF
-NT_LOG_LEVEL            Set the log level to one of <SILENT ERROR WARNING INFO DEBUG TRACE>                                                                                                                     INFO
-NT_PROFILING            Enable profiling (see :ref:`profiling`)                                                                                                                                                 OFF
-NT_TEST_COVERAGE        Add flags to allow checking of test coverage                                                                                                                                            OFF
-NT_USE_PCH              Use precompiled headers to speed up the build process                                                                                                                                   OFF
-BUILD_SHARED_LIBS       Whether or not to build shared libraries or static (not compatible with NT_ENABLE_PYTHON which requires static libraries. If both are specified BUILD SHARED_LIBS will be set to OFF)   ON
-======================  =====================================================================================================================================================================================   =======
+=========================  =====================================================================================================================================================================================================   =======
+Option                     Description                                                                                                                                                                                             Default
+=========================  =====================================================================================================================================================================================================   =======
+NT_TORCH_FROM_SCRATCH      If it is not found, torch will be compiled from scratch using CPM (very slow but maybe useful for debugging builds)                                                                                     OFF
+NT_ENABLE_BENCHMARKING     Whether or not to compile benchmark executables                                                                                                                                                         OFF
+NT_ENABLE_GPUBENCHMARKING  Whether or not to compile benchmarks for GPU - disabled by default since if no GPU is available, gtest will try to run them and break meaning benchmark data can't be collected                         OFF
+NT_BUILD_TIMING            Whether or not to time the build process                                                                                                                                                                OFF
+NT_LOG_LEVEL               Set the log level to one of <SILENT ERROR WARNING INFO DEBUG TRACE>                                                                                                                                     INFO
+NT_PROFILING               Enable profiling (see :ref:`profiling`)                                                                                                                                                                 OFF
+NT_TEST_COVERAGE           Add flags to allow checking of test coverage                                                                                                                                                            OFF
+NT_USE_PCH                 Use precompiled headers to speed up the build process                                                                                                                                                   OFF
+BUILD_SHARED_LIBS          Whether or not to build shared libraries or static (not compatible with NT_ENABLE_PYTHON which requires static libraries. If both are specified BUILD SHARED_LIBS will be set to OFF)                   ON
+NT_COMPILE_GPU_TESTS       Whether or not to compile tests using GPU bound tensors - Note if this is on and no is GPU available then these tests are skipped, so it is on by default but you can disable if you run into problems  ON
+=========================  ======================================================================================================================================================================================================  =======
 
 Building Against nuTens
 -----------------------
