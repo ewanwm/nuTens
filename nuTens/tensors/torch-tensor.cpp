@@ -90,6 +90,11 @@ Tensor Tensor::zeros(const std::vector<long int> &shape, dtypes::scalarType type
                                                       .requires_grad(requiresGrad))};
 }
 
+bool Tensor::gpuAvailable()
+{
+    return torch::cuda::is_available();
+}
+
 Tensor &Tensor::dType(dtypes::scalarType type)
 {
     NT_PROFILE();
@@ -102,6 +107,11 @@ Tensor &Tensor::dType(dtypes::scalarType type)
 Tensor &Tensor::device(dtypes::deviceType device)
 {
     NT_PROFILE();
+
+    if ((device == dtypes::kGPU) && !gpuAvailable())
+    {
+        throw std::runtime_error("trying to move tensor to GPU but none ara available!!");
+    }
 
     _tensor = _tensor.to(dtypes::deviceTypeMap(device));
     _device = device;

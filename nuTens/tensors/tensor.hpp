@@ -117,6 +117,9 @@ class Tensor
 
     /// @}
 
+    /// @brief Check if there is a gpu available to use
+    static bool gpuAvailable();
+
     /// @name Setters
     /// @{
     /// @brief Set the underlying data type of this tensor
