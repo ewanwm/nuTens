@@ -518,6 +518,11 @@ TEST(Tensor /*unused*/, AccessedTensorDimCheck /*unused*/)
     auto tensor2D = AccessedTensor<float, 2, dtypes::kCPU, true>::zeros({3, 3}, false);
     auto tensor3D = AccessedTensor<float, 3, dtypes::kCPU, true>::zeros({3, 3, 3}, false);
 
+    // check it works with correct num of dimensions
+    tensor1D.setValue({1}, 1.23);
+    ASSERT_EQ(tensor1D.getValue(1), 1.23F);
+
+    // check it doesn't work with wrong number of dimensions
     EXPECT_THROW(tensor1D.setValue({1, 1}, 1.23), std::invalid_argument);
     EXPECT_THROW(tensor2D.setValue({1, 1, 1}, 1.23), std::invalid_argument);
     EXPECT_THROW(tensor3D.setValue({1, 1, 1, 1}, 1.23), std::invalid_argument);
