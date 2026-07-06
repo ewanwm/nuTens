@@ -3,6 +3,8 @@ enable_testing()
 add_library(
     test-utils 
     barger-propagator.hpp
+    printing.hpp
+    utils.hpp
 )
 
 target_link_libraries(test-utils PUBLIC constants m)
@@ -34,6 +36,10 @@ foreach(TESTNAME
         m 
         GTest::gtest_main
     )
+
+    if(NT_COMPILE_GPU_TESTS)
+        target_compile_definitions("${TESTNAME}" PUBLIC COMPILE_GPU_TESTS)
+    endif()
     
     target_include_directories("${TESTNAME}" PUBLIC "${PROJECT_SOURCE_DIR}")
     

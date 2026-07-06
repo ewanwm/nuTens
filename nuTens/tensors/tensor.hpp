@@ -117,6 +117,9 @@ class Tensor
 
     /// @}
 
+    /// @brief Check if there is a gpu available to use
+    static bool gpuAvailable();
+
     /// @name Setters
     /// @{
     /// @brief Set the underlying data type of this tensor
@@ -872,12 +875,12 @@ class AccessedTensor : public Tensor
 
         static_assert(TnDims == 1, "wrong number of indices");
 
-        if (Tdevice == dtypes::kGPU)
+        if constexpr (Tdevice == dtypes::kGPU)
         {
             return _packedAccessor[idx1];
         }
 
-        if (Tdevice == dtypes::kCPU)
+        if constexpr (Tdevice == dtypes::kCPU)
         {
             return _accessor[idx1];
         }
@@ -891,12 +894,12 @@ class AccessedTensor : public Tensor
 
         static_assert(TnDims == 2, "wrong number of indices");
 
-        if (Tdevice == dtypes::kGPU)
+        if constexpr (Tdevice == dtypes::kGPU)
         {
             return _packedAccessor[idx1][idx2];
         }
 
-        if (Tdevice == dtypes::kCPU)
+        if constexpr (Tdevice == dtypes::kCPU)
         {
             return _accessor[idx1][idx2];
         }
@@ -910,12 +913,12 @@ class AccessedTensor : public Tensor
 
         static_assert(TnDims == 3, "wrong number of indices");
 
-        if (Tdevice == dtypes::kGPU)
+        if constexpr (Tdevice == dtypes::kGPU)
         {
             return _packedAccessor[idx1][idx2][idx3];
         }
 
-        if (Tdevice == dtypes::kCPU)
+        if constexpr (Tdevice == dtypes::kCPU)
         {
             return _accessor[idx1][idx2][idx3];
         }
@@ -934,12 +937,12 @@ class AccessedTensor : public Tensor
 
         static_assert(TnDims == 1, "wrong number of indices");
 
-        if (Tdevice == dtypes::kGPU)
+        if constexpr (Tdevice == dtypes::kGPU)
         {
             _packedAccessor[idx1] = value;
         }
 
-        else if (Tdevice == dtypes::kCPU)
+        else if constexpr (Tdevice == dtypes::kCPU)
         {
             _accessor[idx1] = value;
         }
@@ -953,12 +956,12 @@ class AccessedTensor : public Tensor
 
         static_assert(TnDims == 2, "wrong number of indices");
 
-        if (Tdevice == dtypes::kGPU)
+        if constexpr (Tdevice == dtypes::kGPU)
         {
             _packedAccessor[idx1][idx2] = value;
         }
 
-        else if (Tdevice == dtypes::kCPU)
+        else if constexpr (Tdevice == dtypes::kCPU)
         {
             _accessor[idx1][idx2] = value;
         }
@@ -972,12 +975,12 @@ class AccessedTensor : public Tensor
 
         static_assert(TnDims == 3, "wrong number of indices");
 
-        if (Tdevice == dtypes::kGPU)
+        if constexpr (Tdevice == dtypes::kGPU)
         {
             _packedAccessor[idx1][idx2][idx3] = value;
         }
 
-        else if (Tdevice == dtypes::kCPU)
+        else if constexpr (Tdevice == dtypes::kCPU)
         {
             _accessor[idx1][idx2][idx3] = value;
         }

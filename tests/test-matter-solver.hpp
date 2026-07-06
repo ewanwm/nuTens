@@ -17,7 +17,8 @@ using namespace nuTens;
 class DummyMatterSolver : public BaseMatterSolver
 {
   public:
-    DummyMatterSolver(int nGenerations, bool antiNeutrino) : BaseMatterSolver(nGenerations, antiNeutrino){};
+    DummyMatterSolver(int nGenerations, bool antiNeutrino, dtypes::deviceType device = dtypes::kCPU)
+        : BaseMatterSolver(nGenerations, antiNeutrino, device){};
 
     // exclude this as it's not really real code
     // LCOV_EXCL_START
