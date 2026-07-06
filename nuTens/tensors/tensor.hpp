@@ -70,6 +70,14 @@ class Tensor
 
     /// @brief Destructor
     virtual ~Tensor() = default;
+    /// @brief copy constructor
+    Tensor(Tensor const &) = default;
+    /// @brief copy assignment operator
+    Tensor &operator=(Tensor const &) = default;
+    /// @brief move constructor
+    Tensor(Tensor &&) = default;
+    /// @brief move assignment operator
+    Tensor &operator=(Tensor &&) = default;
 
     /// @brief Construct a 1-d array with specified complex values
     /// @arg values The values to include in the tensor
