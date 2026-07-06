@@ -118,7 +118,7 @@ void initTensor(py::module &m_nuTens)
 {
     auto m_tensor = m_nuTens.def_submodule("tensor");
 
-    m_tensor.def("gpu_available", &Tensor::gpuAvailable, "Returns true if there is an available GPU, False if not")
+    m_tensor.def("gpu_available", &Tensor::gpuAvailable, "Returns true if there is an available GPU, False if not");
 
     py::class_<Tensor>(m_tensor, "Tensor", py::buffer_protocol())
         .def(py::init()) // <- default constructor
