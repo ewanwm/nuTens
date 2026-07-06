@@ -8,35 +8,35 @@
 
 namespace nuTens::dtypes
 {
-void PrintTo(const deviceType &device, std::ostream *os)
+void PrintTo(const deviceType &device, std::ostream *oStream)
 {
     if (device == kCPU)
     {
-        *os << "CPU";
+        *oStream << "CPU";
     }
     else if (device == kGPU)
     {
-        *os << "GPU";
+        *oStream << "GPU";
     }
 }
 
-void PrintTo(const scalarType &dtype, std::ostream *os)
+void PrintTo(const scalarType &dtype, std::ostream *oStream)
 {
     if (dtype == kFloat)
     {
-        *os << "Float";
+        *oStream << "Float";
     }
     else if (dtype == kDouble)
     {
-        *os << "Double";
+        *oStream << "Double";
     }
     else if (dtype == kComplexFloat)
     {
-        *os << "Complex Float";
+        *oStream << "Complex Float";
     }
     else if (dtype == kComplexDouble)
     {
-        *os << "Complex Double";
+        *oStream << "Complex Double";
     }
 }
 } // namespace nuTens::dtypes

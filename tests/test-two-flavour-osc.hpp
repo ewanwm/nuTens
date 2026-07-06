@@ -34,7 +34,7 @@ class TwoFlavourOscillations : public gtest::TestWithParam<std::tuple<float, dty
     // NOLINTEND(cppcoreguidelines-non-private-member-variables-in-classes)
 
     // set up common values to use across tests
-    void SetUp()
+    void SetUp() override
     {
 
         dtypes::deviceType device = std::get<1>(GetParam());
