@@ -4,6 +4,8 @@
 /// provides utility functions for nicely printing nuTens classes
 /// within the gtest framework
 
+#include <nuTens/tensors/dtypes.hpp>
+
 namespace nuTens::dtypes
 {
 void PrintTo(const deviceType &device, std::ostream *os)
