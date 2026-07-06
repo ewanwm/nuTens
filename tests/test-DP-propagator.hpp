@@ -71,7 +71,7 @@ class DPpropagatorTest : public gtest::TestWithParam<std::tuple<float, dtypes::d
 
         device = std::get<1>(GetParam());
         // skip if no GPU available
-        skipGPU(device);
+        SKIP_GPU(device);
 
         // set up propagators
         tensorPropagator = Propagator(3, device).setBaseline(baseline);

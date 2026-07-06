@@ -46,7 +46,7 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<std::tuple<float, d
         dtypes::deviceType device = std::get<1>(GetParam());
 
         // skip GPU tests if no GPU available
-        skipGPU(device);
+        SKIP_GPU(device);
 
         masses = Tensor({mass1, mass2, mass3}, dtypes::kComplexDouble).addBatchDim().device(device);
         energies = Tensor({energy}, dtypes::kComplexDouble).addBatchDim().device(device);

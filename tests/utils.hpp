@@ -10,12 +10,10 @@ namespace gtest = ::testing;
 namespace nuTens::testing
 {
 
-inline void skipGPU(const dtypes::deviceType &device)
-{
-    if (!Tensor::gpuAvailable() && device == dtypes::kGPU)
-    {
-        GTEST_SKIP() << "No GPU available. SKIPPING!";
+#define SKIP_GPU(device)                                                                                               \
+    if (!Tensor::gpuAvailable() && device == dtypes::kGPU)                                                             \
+    {                                                                                                                  \
+        GTEST_SKIP() << "No GPU available. SKIPPING!";                                                                 \
     }
-}
 
 } // end namespace nuTens::testing

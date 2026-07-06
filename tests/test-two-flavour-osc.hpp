@@ -39,7 +39,7 @@ class TwoFlavourOscillations : public gtest::TestWithParam<std::tuple<float, dty
 
         dtypes::deviceType device = std::get<1>(GetParam());
         // skip if no GPU available
-        skipGPU(device);
+        SKIP_GPU(device);
 
         masses = Tensor({mass1, mass2}, dtypes::kComplexFloat).addBatchDim().device(device);
 
