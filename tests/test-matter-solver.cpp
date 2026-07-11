@@ -53,4 +53,33 @@ TEST(ConstDensityMatterSolver /*unused*/, SetterErrors)
     EXPECT_THROW(matterSolver.setMixingMatrix(badMixingMatrix), std::invalid_argument);
 }
 
+TEST(ConstDensityMatterSolver /*unused*/, invalidConfigErrors)
+{
+
+    Tensor energies = Tensor::ones({10, 1}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor masses = Tensor::ones({1, 3}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor mixingMatrix = Tensor::diag(diagonal).unsqueeze(0);
+
+    ConstDensityMatterSolver matterSolver = ConstDensityMatterSolver(3);
+
+    nuTens::BaseMatterSolver::EigenvalTensor dummyEvals;
+    nuTens::BaseMatterSolver::EigenvecTensor dummyEvecs;
+
+    EXPECT_THROW(matterSolver.calculateEigenvalues(dummyEvecs, dummyEvals), std::runtime_error);
+
+    matterSolver.setEnergies(energies);
+
+    EXPECT_THROW(matterSolver.calculateEigenvalues(dummyEvecs, dummyEvals), std::runtime_error);
+    
+    matterSolver.setMasses(masses); 
+
+    EXPECT_THROW(matterSolver.calculateEigenvalues(dummyEvecs, dummyEvals), std::runtime_error);
+
+    matterSolver.setMixingMatrix(mixingMatrix);
+
+    EXPECT_NO_THROW(matterSolver.calculateEigenvalues(dummyEvecs, dummyEvals));
+}
+
+
 // NOLINTEND(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
