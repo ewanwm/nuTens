@@ -93,10 +93,12 @@ option(BUILD_SHARED_LIBS "Build using shared libs" ON)
 ## to build the python library we require to build with the pic flag
 if(NT_ENABLE_PYTHON)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
 
     ## for now we also need to build with static libs
     message(WARNING "BUILD_SHARED_LIBS cannot be used when building python interface, setting BUILD_SHARED_LIBS=OFF")
     set(BUILD_SHARED_LIBS OFF)
+    set(SPDLOG_BUILD_SHARED OFF)
 endif()
 
 # Need to add some special compile flags to check the code test coverage 
