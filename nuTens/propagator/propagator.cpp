@@ -6,6 +6,19 @@ Tensor Propagator::calculateProbs()
 {
     NT_PROFILE();
 
+    if (!_masses.isInitialised())
+    {
+        throw std::runtime_error("No masses set for propagator!!!");
+    }
+    if (!_energies.isInitialised())
+    {
+        throw std::runtime_error("No energies set for propagator!!!");
+    }
+    if (!_mixingMatrix.isInitialised())
+    {
+        throw std::runtime_error("No mixing matrix set for propagator!!!");
+    }
+
     Tensor ret;
     Propagator::MassSqTensor massesSq;
     Propagator::MixingMatrixTensor mixingMatrix;
