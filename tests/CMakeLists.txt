@@ -10,6 +10,8 @@ set_target_properties(test-utils PROPERTIES LINKER_LANGUAGE CXX)
 
 if(NT_COMPILE_TESTS)
 
+include(GoogleTest)
+
 foreach(TESTNAME 
     test-barger 
     test-tensor
@@ -66,5 +68,5 @@ foreach(TESTNAME
     if (NT_ENABLE_PYTHON)
         install( DIRECTORY python DESTINATION ./tests )
     endif()
-    
+
 endif()
