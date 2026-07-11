@@ -4,7 +4,11 @@
 ########################
 add_library(nt-logging STATIC logging.hpp)
 target_link_libraries(nt-logging PRIVATE spdlog)
-target_link_libraries(nt-logging PRIVATE spdlog::spdlog $<$<BOOL:${MINGW}>:ws2_32>)
+target_include_directories(nt-logging
+                           PUBLIC
+                            $<BUILD_INTERFACE:${spdlog_SOURCE_DIR}/include>
+                            $<INSTALL_INTERFACE:include>
+                           )
 
 set_target_properties(nt-logging PROPERTIES LINKER_LANGUAGE CXX)
 
