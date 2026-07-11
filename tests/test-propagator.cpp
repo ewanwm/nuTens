@@ -73,6 +73,31 @@ TEST(Propagator /*unused*/, SetterErrors)
     EXPECT_THROW(propagator.setMixingMatrix(badMixingMatrix), std::invalid_argument);
 }
 
+TEST(Propagator /*unused*/, invalidConfigErrors)
+{
+
+    Tensor masses = Tensor::ones({1, 3});
+    Tensor energies = Tensor::ones({10, 1});
+    Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor mixingMatrix = Tensor::diag(diagonal).unsqueeze(0);
+
+    Propagator propagator = Propagator(/*nGenerations=*/3);
+
+    EXPECT_THROW(propagator.calculateProbs(), std::runtime_error);
+
+    propagator.setMasses(masses);
+
+    EXPECT_THROW(propagator.calculateProbs(), std::runtime_error);
+
+    propagator.setEnergies(energies);
+
+    EXPECT_THROW(propagator.calculateProbs(), std::runtime_error);
+
+    propagator.setMixingMatrix(mixingMatrix);
+
+    EXPECT_NO_THROW(propagator.calculateProbs());
+}
+
 // NOLINTEND(readability-function-cognitive-complexity)
 
 // NOLINTEND(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
