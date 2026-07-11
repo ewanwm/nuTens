@@ -63,5 +63,8 @@ foreach(TESTNAME
 
     endforeach()
 
-    install( DIRECTORY python DESTINATION ./tests )
+    if (NT_ENABLE_PYTHON)
+        install( DIRECTORY python DESTINATION ./tests )
+    endif()
+    
 endif()
