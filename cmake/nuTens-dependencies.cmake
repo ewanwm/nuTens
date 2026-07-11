@@ -82,7 +82,8 @@ CPMFindPackage(
 
 # ==== google tests ====
 if(NT_COMPILE_TESTS)
-    CPMAddPackage(
+    CPMFindPackage(
+        NAME googletest
         GITHUB_REPOSITORY "google/googletest"
         VERSION 1.17.0
         OPTIONS 
