@@ -84,7 +84,7 @@ install(FILES ${HEADERS} DESTINATION include/utils)
 
 ## install libraries to the "lib" directory
 install(
-    TARGETS instrumentation nt-logging tensor-backend
+    TARGETS instrumentation nt-logging tensor-backend spdlog
     DESTINATION lib
     EXPORT nuTens-targets
 )
