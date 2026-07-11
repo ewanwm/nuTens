@@ -1,5 +1,3 @@
-enable_testing()
-
 add_library(
     test-utils 
     barger-propagator.hpp
@@ -9,6 +7,8 @@ add_library(
 
 target_link_libraries(test-utils PUBLIC constants m)
 set_target_properties(test-utils PROPERTIES LINKER_LANGUAGE CXX)
+
+if(NT_COMPILE_TESTS)
 
 include(GoogleTest)
 
@@ -45,6 +45,10 @@ foreach(TESTNAME
     
     gtest_discover_tests("${TESTNAME}")
 
-endforeach()
+    endforeach()
 
-install( DIRECTORY python DESTINATION ./tests )
+    if (NT_ENABLE_PYTHON)
+        install( DIRECTORY python DESTINATION ./tests )
+    endif()
+
+endif()
