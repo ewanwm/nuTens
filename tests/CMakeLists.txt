@@ -45,24 +45,6 @@ foreach(TESTNAME
     
     gtest_discover_tests("${TESTNAME}")
 
-        add_executable("${TESTNAME}" "${TESTNAME}.cpp")
-        
-        IF(NT_USE_PCH)
-            target_precompile_headers("${TESTNAME}" REUSE_FROM nuTens-pch)
-        ENDIF()
-
-        target_link_libraries(
-            "${TESTNAME}" PUBLIC 
-            nuTens 
-            test-utils 
-            m 
-            GTest::gtest_main
-        )
-        
-        target_include_directories("${TESTNAME}" PUBLIC "${PROJECT_SOURCE_DIR}")
-        
-        gtest_discover_tests("${TESTNAME}")
-
     endforeach()
 
     if (NT_ENABLE_PYTHON)
