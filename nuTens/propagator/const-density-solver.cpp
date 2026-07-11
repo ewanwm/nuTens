@@ -16,6 +16,15 @@ void ConstDensityMatterSolver::buildHamiltonian()
 
     NT_PROFILE();
 
+    if (!energies.isInitialised())
+    {
+        throw std::runtime_error("No energies set for matter solver!!");
+    }
+    if (!masses.isInitialised())
+    {
+        throw std::runtime_error("No masses set for matter solver!!");
+    }
+
     Tensor energiesRed = energies.getValues({"..."}).unsqueeze(-1);
 
     hamiltonian.setValue({"..."}, (Tensor::div(diagMassMatrix, energiesRed) - getElectronOuterProduct()));
@@ -45,6 +54,11 @@ void ConstDensityMatterSolver::buildElectronOuterProduct()
 {
 
     NT_PROFILE();
+
+    if (!mixingMatrix.isInitialised())
+    {
+        throw std::runtime_error("No mixing matrix set for matter solver!!");
+    }
 
     Tensor electronRow = mixingMatrix.getValues({0, 0, "..."});
 
