@@ -74,10 +74,12 @@ message("Torch cxx flags: ${TORCH_CXX_FLAGS}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
 
 ## ==== spdlog ====
-CPMFindPackage(
+## must be AddPackage not FindPackage as it needs to be compiled as part of nuTens
+## not externally
+CPMAddPackage(
     NAME spdlog
     GITHUB_REPOSITORY gabime/spdlog
-    VERSION 1.8.2
+    VERSION 1.17.0
 )
 
 # ==== google tests ====

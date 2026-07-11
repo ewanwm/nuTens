@@ -73,7 +73,7 @@ py::buffer_info tensorToNumpy(const Tensor &tensor){
          break;
 
      default:
-         NT_ERROR("Invalid dtype has been set for this tensor: {}", tensor.getDType());
+         NT_ERROR("Invalid dtype has been set for this tensor: {}", (int)tensor.getDType());
          NT_ERROR("{}:{}", __FILE__, __LINE__);
          throw;
     }
