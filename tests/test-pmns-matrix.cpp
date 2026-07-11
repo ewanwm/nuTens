@@ -37,6 +37,60 @@ TEST_F(PMNSmatrixTest /*unused*/, testParameterSetting /*unused*/)
     ASSERT_EQ(deltaCP, matrix.getDeltaCPTensor().getValue<float>());
 }
 
+TEST_F(PMNSmatrixTest /*unused*/, testGPU /*unused*/)
+{
+
+    // skip this test if there is no GPU available
+    SKIP_GPU(dtypes::kGPU);
+
+    PMNSmatrix matrixGPU =
+        PMNSmatrix(dtypes::kGPU).setTheta12(theta12).setTheta13(theta13).setTheta23(theta23).setDeltaCP(deltaCP);
+
+    Tensor matrixTensorGPU = matrixGPU.build();
+
+    ASSERT_NEAR(matrixTensorGPU.real().getValue<double>({0, 0, 0}), matrixTensor.real().getValue<double>({0, 0, 0}),
+                1e-5);
+    ASSERT_NEAR(matrixTensorGPU.real().getValue<double>({0, 0, 1}), matrixTensor.real().getValue<double>({0, 0, 1}),
+                1e-5);
+    ASSERT_NEAR(matrixTensorGPU.real().getValue<double>({0, 0, 2}), matrixTensor.real().getValue<double>({0, 0, 2}),
+                1e-5);
+
+    ASSERT_NEAR(matrixTensorGPU.real().getValue<double>({0, 1, 0}), matrixTensor.real().getValue<double>({0, 1, 0}),
+                1e-5);
+    ASSERT_NEAR(matrixTensorGPU.real().getValue<double>({0, 1, 1}), matrixTensor.real().getValue<double>({0, 1, 1}),
+                1e-5);
+    ASSERT_NEAR(matrixTensorGPU.real().getValue<double>({0, 1, 2}), matrixTensor.real().getValue<double>({0, 1, 2}),
+                1e-5);
+
+    ASSERT_NEAR(matrixTensorGPU.real().getValue<double>({0, 2, 0}), matrixTensor.real().getValue<double>({0, 2, 0}),
+                1e-5);
+    ASSERT_NEAR(matrixTensorGPU.real().getValue<double>({0, 2, 1}), matrixTensor.real().getValue<double>({0, 2, 1}),
+                1e-5);
+    ASSERT_NEAR(matrixTensorGPU.real().getValue<double>({0, 2, 2}), matrixTensor.real().getValue<double>({0, 2, 2}),
+                1e-5);
+
+    ASSERT_NEAR(matrixTensorGPU.imag().getValue<double>({0, 0, 0}), matrixTensor.imag().getValue<double>({0, 0, 0}),
+                1e-5);
+    ASSERT_NEAR(matrixTensorGPU.imag().getValue<double>({0, 0, 1}), matrixTensor.imag().getValue<double>({0, 0, 1}),
+                1e-5);
+    ASSERT_NEAR(matrixTensorGPU.imag().getValue<double>({0, 0, 2}), matrixTensor.imag().getValue<double>({0, 0, 2}),
+                1e-5);
+
+    ASSERT_NEAR(matrixTensorGPU.imag().getValue<double>({0, 1, 0}), matrixTensor.imag().getValue<double>({0, 1, 0}),
+                1e-5);
+    ASSERT_NEAR(matrixTensorGPU.imag().getValue<double>({0, 1, 1}), matrixTensor.imag().getValue<double>({0, 1, 1}),
+                1e-5);
+    ASSERT_NEAR(matrixTensorGPU.imag().getValue<double>({0, 1, 2}), matrixTensor.imag().getValue<double>({0, 1, 2}),
+                1e-5);
+
+    ASSERT_NEAR(matrixTensorGPU.imag().getValue<double>({0, 2, 0}), matrixTensor.imag().getValue<double>({0, 2, 0}),
+                1e-5);
+    ASSERT_NEAR(matrixTensorGPU.imag().getValue<double>({0, 2, 1}), matrixTensor.imag().getValue<double>({0, 2, 1}),
+                1e-5);
+    ASSERT_NEAR(matrixTensorGPU.imag().getValue<double>({0, 2, 2}), matrixTensor.imag().getValue<double>({0, 2, 2}),
+                1e-5);
+}
+
 TEST_F(PMNSmatrixTest /*unused*/, CachingSameResultTest /*unused*/)
 {
 
