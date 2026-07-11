@@ -4,11 +4,7 @@
 ########################
 add_library(nt-logging STATIC logging.hpp)
 target_link_libraries(nt-logging PRIVATE spdlog)
-target_include_directories(nt-logging
-                           PUBLIC
-                            $<BUILD_INTERFACE:${spdlog_SOURCE_DIR}/include>
-                            $<INSTALL_INTERFACE:include>
-                           )
+target_link_libraries(nt-logging PRIVATE spdlog::spdlog $<$<BOOL:${MINGW}>:ws2_32>)
 
 set_target_properties(nt-logging PROPERTIES LINKER_LANGUAGE CXX)
 
@@ -88,7 +84,7 @@ install(FILES ${HEADERS} DESTINATION include/utils)
 
 ## install libraries to the "lib" directory
 install(
-    TARGETS instrumentation nt-logging tensor-backend spdlog
+    TARGETS instrumentation nt-logging tensor-backend
     DESTINATION lib
     EXPORT nuTens-targets
 )
