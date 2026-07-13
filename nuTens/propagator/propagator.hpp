@@ -126,7 +126,7 @@ class Propagator
             throw std::invalid_argument("Energy tensor must be 2 dimensional (n_energies, 1)");
         }
 
-        if ((newEnergies.getDType() != dtypes::kComplexDouble) && (newEnergies.getDType() != dtypes::kComplexFloat) )
+        if ((newEnergies.getDType() != dtypes::kComplexDouble) && (newEnergies.getDType() != dtypes::kComplexFloat))
         {
             throw std::invalid_argument("Energy tensor must have complex type");
         }
@@ -174,7 +174,8 @@ class Propagator
 
         if (newMasses.getShape()[1] != _nGenerations)
         {
-            throw std::invalid_argument("Mass tensor shape has wrong number of generations. Shape should be (n_batches, n_generations)");
+            throw std::invalid_argument(
+                "Mass tensor shape has wrong number of generations. Shape should be (n_batches, n_generations)");
         }
 
         _masses = newMasses;
@@ -208,9 +209,7 @@ class Propagator
 
         if ((newMatrix.getShape()[1] != _nGenerations) || (newMatrix.getShape()[2] != _nGenerations))
         {
-            throw std::invalid_argument(
-                "Bad mixing matrix shape!!"
-            );
+            throw std::invalid_argument("Bad mixing matrix shape!!");
         }
 
         _mixingMatrix = newMatrix;
