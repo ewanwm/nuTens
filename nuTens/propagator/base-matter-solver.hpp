@@ -73,9 +73,7 @@ class BaseMatterSolver
 
         if ((newMatrix.getShape()[1] != nGenerations) || (newMatrix.getShape()[2] != nGenerations))
         {
-            throw std::invalid_argument(
-                "Bad mixing matrix shape!!"
-            );
+            throw std::invalid_argument("Bad mixing matrix shape!!");
         }
 
         mixingMatrix = newMatrix;
@@ -102,7 +100,8 @@ class BaseMatterSolver
 
         if (newMasses.getShape()[1] != nGenerations)
         {
-            throw std::invalid_argument("Mass tensor shape has wrong number of generations. Shape should be (n_batches, n_generations)");
+            throw std::invalid_argument(
+                "Mass tensor shape has wrong number of generations. Shape should be (n_batches, n_generations)");
         }
 
         masses = newMasses;
