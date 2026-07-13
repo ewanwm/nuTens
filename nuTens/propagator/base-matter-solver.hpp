@@ -71,6 +71,13 @@ class BaseMatterSolver
                     "problems!!");
         }
 
+        if ((newMatrix.getShape()[1] != nGenerations) || (newMatrix.getShape()[2] != nGenerations))
+        {
+            throw std::invalid_argument(
+                "Bad mixing matrix shape!!"
+            );
+        }
+
         mixingMatrix = newMatrix;
 
         return *this;
@@ -93,6 +100,11 @@ class BaseMatterSolver
                     "mass tensor is on a different device from matter solver, this will likely cause you problems!!");
         }
 
+        if (newMasses.getShape()[1] != nGenerations)
+        {
+            throw std::invalid_argument("Mass tensor shape has wrong number of generations. Shape should be (n_batches, n_generations)");
+        }
+
         masses = newMasses;
 
         return *this;
@@ -102,6 +114,8 @@ class BaseMatterSolver
     /// @param newEnergies new energy values
     inline virtual BaseMatterSolver &setEnergies(const Tensor &newEnergies)
     {
+
+        NT_PROFILE();
 
         if (newEnergies.getNdim() != 2)
         {
@@ -113,8 +127,6 @@ class BaseMatterSolver
             NT_WARN(__FILE__, __LINE__,
                     "energy tensor is on a different device from matter solver, this will likely cause you problems!!");
         }
-
-        NT_PROFILE();
 
         energies = newEnergies;
 
