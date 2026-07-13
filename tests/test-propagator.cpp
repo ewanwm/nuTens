@@ -13,7 +13,7 @@ TEST(Propagator /*unused*/, InitialisationOrderMatterSolverFirst /*unused*/)
 {
     // check that order of initialisation of matter solver and parameters doesn't matter
 
-    Tensor energies = Tensor::ones({10, 1});
+    Tensor energies = Tensor::ones({10, 1}, dtypes::kComplexFloat);
     Tensor masses = Tensor::ones({1, 3});
     Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor mixingMatrix = Tensor::diag(diagonal).unsqueeze(0);
@@ -38,7 +38,7 @@ TEST(Propagator /*unused*/, InitialisationOrderMatterSolverAfter /*unused*/)
 {
     // check that order of initialisation of matter solver and parameters doesn't matter
 
-    Tensor energies = Tensor::ones({10, 1});
+    Tensor energies = Tensor::ones({10, 1}, dtypes::kComplexFloat);
     Tensor masses = Tensor::ones({1, 3});
     Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor mixingMatrix = Tensor::diag(diagonal).unsqueeze(0);
@@ -61,16 +61,50 @@ TEST(Propagator /*unused*/, InitialisationOrderMatterSolverAfter /*unused*/)
 TEST(Propagator /*unused*/, SetterErrors)
 {
 
-    Tensor badEnergies = Tensor::ones({10}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor badMasses = Tensor::ones({3}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor badEnergiesWrongSize = Tensor::ones({10}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    Tensor badEnergiesWrongType = Tensor::ones({1, 10}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor badMassesWrongSize = Tensor::ones({3}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor badMassesWrongShape = Tensor::ones({1, 4}, dtypes::kFloat, dtypes::kCPU, false);
+
     Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor badMixingMatrix = Tensor::diag(diagonal);
+    Tensor badMixingMatrixWrongSize = Tensor::diag(diagonal);
+
+    diagonal = Tensor({1.0, 1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor badMixingMatrixWrongShape = Tensor::diag(diagonal).unsqueeze(0);
 
     Propagator propagator = Propagator(/*nGenerations=*/3);
 
-    EXPECT_THROW(propagator.setMasses(badMasses), std::invalid_argument);
-    EXPECT_THROW(propagator.setEnergies(badEnergies), std::invalid_argument);
-    EXPECT_THROW(propagator.setMixingMatrix(badMixingMatrix), std::invalid_argument);
+    EXPECT_THROW(propagator.setMasses(badMassesWrongSize), std::invalid_argument);
+    EXPECT_THROW(propagator.setMasses(badMassesWrongShape), std::invalid_argument);
+    EXPECT_THROW(propagator.setEnergies(badEnergiesWrongSize), std::invalid_argument);
+    EXPECT_THROW(propagator.setEnergies(badEnergiesWrongType), std::invalid_argument);
+    EXPECT_THROW(propagator.setMixingMatrix(badMixingMatrixWrongSize), std::invalid_argument);
+    EXPECT_THROW(propagator.setMixingMatrix(badMixingMatrixWrongShape), std::invalid_argument);
+}
+
+TEST(Propagator /*unused*/, invalidConfigErrors)
+{
+
+    Tensor masses = Tensor::ones({1, 3});
+    Tensor energies = Tensor::ones({10, 1}, dtypes::kComplexFloat);
+    Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    Tensor mixingMatrix = Tensor::diag(diagonal).unsqueeze(0);
+
+    Propagator propagator = Propagator(/*nGenerations=*/3);
+
+    EXPECT_THROW((void)propagator.calculateProbs(), std::runtime_error);
+
+    propagator.setMasses(masses);
+
+    EXPECT_THROW((void)propagator.calculateProbs(), std::runtime_error);
+
+    propagator.setEnergies(energies);
+
+    EXPECT_THROW((void)propagator.calculateProbs(), std::runtime_error);
+
+    propagator.setMixingMatrix(mixingMatrix);
+
+    EXPECT_NO_THROW((void)propagator.calculateProbs());
 }
 
 // NOLINTEND(readability-function-cognitive-complexity)

@@ -73,20 +73,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     {
         NT_PROFILE();
 
-        if (newMatrix.getNdim() != 3)
-        {
-            throw std::invalid_argument(
-                "Mixing Matrix tensor must be 3 dimensional (n_batches, n_generations, n_generations)");
-        }
-
-        if (newMatrix.getDevice() != _device)
-        {
-            NT_WARN(__FILE__, __LINE__,
-                    "mixing matrix tensor is on a different device from matter solver, this will likely cause you "
-                    "problems!!");
-        }
-
-        mixingMatrix = newMatrix;
+        BaseMatterSolver::setMixingMatrix(newMatrix);
 
         return *this;
     };
@@ -97,24 +84,26 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     {
         NT_PROFILE();
 
-        if (newMasses.getNdim() != 2)
-        {
-            throw std::invalid_argument("Mass tensor must be 2 dimensional (n_batches, n_generations)");
-        }
+        BaseMatterSolver::setMasses(newMasses);
 
-        if (newMasses.getDevice() != _device)
-        {
-            NT_WARN(__FILE__, __LINE__,
-                    "mass tensor is on a different device from matter solver, this will likely cause you problems!!");
-        }
-
-        masses = newMasses;
-
+        /// @todo move to hamiltonian builder function!!!!!!
+        /// right now if user changes masses after setting it will not take effect!!!
         Tensor massValues = masses.getValues({0, "..."}).device(_device);
         Tensor diag = Tensor::scale(Tensor::mul(massValues, massValues), 0.5);
 
         // construct the diagonal mass^2 matrix used in the hamiltonian
         diagMassMatrix = Tensor::diag(diag).requiresGrad(false).unsqueeze(0);
+
+        return *this;
+    }
+
+    /// @brief Set new neutrino energies for this solver
+    /// @param newMasses The new energies
+    inline ConstDensityMatterSolver &setEnergies(const Tensor &newEnergies) override
+    {
+        NT_PROFILE();
+
+        BaseMatterSolver::setEnergies(newEnergies);
 
         return *this;
     }
