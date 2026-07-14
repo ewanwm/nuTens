@@ -2,6 +2,10 @@
 
 // magic numbers are fine for testing!
 // NOLINTBEGIN(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
+
+// cognitive complexity is heavily inflated by the gtest macros
+// but they don't actually decrease readability
+// NOLINTBEGIN(readability-function-cognitive-complexity)
 using namespace nuTens;
 
 class PMNSmatrixTest : public gtest::TestWithParam<float>
@@ -176,3 +180,5 @@ TEST_F(PMNSmatrixTest /*unused*/, FixedValuesTest_Ut3 /*unused*/)
 }
 
 // NOLINTEND(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
+
+// NOLINTEND(readability-function-cognitive-complexity)
