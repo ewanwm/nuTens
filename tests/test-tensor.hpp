@@ -13,6 +13,26 @@ using namespace nuTens;
 // but they don't actually decrease readability
 // NOLINTBEGIN(readability-function-cognitive-complexity)
 
+template <typename T>
+void testElementManipulation(const dtypes::scalarType &dtype, const dtypes::deviceType &deviceType)
+{
+
+    auto tensorFloat = Tensor::zeros({2, 2}, dtype, deviceType, false);
+
+    tensorFloat.setValue({0, 0}, (T)0.0);
+    tensorFloat.setValue({0, 1}, (T)1.0);
+
+    tensorFloat.setValue({1, 0}, (T)2.0);
+    tensorFloat.setValue({1, 1}, (T)3.0);
+
+    std::cout << "Test matrix: \n" << tensorFloat << std::endl;
+
+    // test slicing
+    Tensor slice = tensorFloat.getValues({1, "..."});
+    ASSERT_EQ(slice.getValue<T>({0}), 2.0);
+    ASSERT_EQ(slice.getValue<T>({1}), 3.0);
+}
+
 template <typename T> void testTensorCreation(const dtypes::scalarType dtype, const dtypes::deviceType deviceType)
 {
     Tensor uninit;
@@ -73,11 +93,114 @@ template <typename T> void testTensorCreation(const dtypes::scalarType dtype, co
     ASSERT_EQ(eye.getValue<T>({1, 0}), T(0.0));
 }
 
-template <typename T> void testArithmeticFloatType(const dtypes::scalarType dtype)
+template <typename T> void testComplexTensorCreation(dtypes::scalarType dtype, dtypes::deviceType deviceType)
+{
+
+    // test the dedicated complex tensor builder function
+    Tensor complex = Tensor::TensorComplex({T(1.234, 5.678)}, dtype, deviceType, false);
+
+    ASSERT_EQ(complex.getValue<T>(), T(1.234, 5.678));
+}
+
+void testEqualityOperators(dtypes::scalarType dtype, dtypes::deviceType deviceType)
+{
+    Tensor one = Tensor({1.0}, dtype, deviceType, false);
+    Tensor two = Tensor({2.0}, dtype, deviceType, false);
+
+    ASSERT_TRUE(one == one);
+    ASSERT_TRUE(one != two);
+}
+
+template <typename T> void testStandardFunctions(dtypes::scalarType dtype, dtypes::deviceType deviceType)
+{
+    float theta = 1.234;
+    Tensor thetaTensor = Tensor({theta}, dtype, deviceType, false);
+
+    ASSERT_EQ(Tensor::sin(thetaTensor).getValue<float>(), std::sin(theta));
+    ASSERT_EQ(Tensor::cos(thetaTensor).getValue<float>(), std::cos(theta));
+    ASSERT_EQ(Tensor::exp(thetaTensor).getValue<float>(), std::exp(theta));
+}
+
+template <typename T> void testSummation(const dtypes::scalarType dtype, dtypes::deviceType deviceType)
+{
+
+    Tensor tensor = Tensor::ones({3, 3}, dtype, deviceType, false);
+
+    ASSERT_EQ(tensor.sum().getValue<T>(), 9.0);
+
+    Tensor sum = tensor.sum({1});
+
+    ASSERT_EQ(sum.getValue<T>({0}), 3.0);
+    ASSERT_EQ(sum.getValue<T>({1}), 3.0);
+    ASSERT_EQ(sum.getValue<T>({2}), 3.0);
+
+    Tensor cumsum = tensor.cumsum(1);
+
+    ASSERT_EQ(cumsum.getValue<T>({0, 0}), 1.0);
+    ASSERT_EQ(cumsum.getValue<T>({0, 1}), 2.0);
+    ASSERT_EQ(cumsum.getValue<T>({0, 2}), 3.0);
+}
+
+template <typename T> void testMatrixOperations(dtypes::scalarType dtype, dtypes::deviceType deviceType)
+{
+    auto tensorFloat = Tensor::zeros({2, 2}, dtype, deviceType, false);
+    auto eye = Tensor::eye(2, dtype, deviceType, false);
+
+    tensorFloat.setValue({0, 0}, 0.0);
+    tensorFloat.setValue({0, 1}, 1.0);
+
+    tensorFloat.setValue({1, 0}, 2.0);
+    tensorFloat.setValue({1, 1}, 3.0);
+
+    std::cout << "Test matrix: \n" << tensorFloat << std::endl;
+
+    // test matrix multiplication
+    Tensor squared = Tensor::matmul(tensorFloat, tensorFloat);
+    ASSERT_EQ(squared.getValue<T>({0, 0}), 2.0);
+    ASSERT_EQ(squared.getValue<T>({0, 1}), 3.0);
+    ASSERT_EQ(squared.getValue<T>({1, 0}), 6.0);
+    ASSERT_EQ(squared.getValue<T>({1, 1}), 11.0);
+
+    // test multiplication by identity matrix
+    ASSERT_EQ(Tensor::matmul(eye, tensorFloat).getValue<T>({0, 0}), 0.0);
+    ASSERT_EQ(Tensor::matmul(eye, tensorFloat).getValue<T>({0, 1}), 1.0);
+    ASSERT_EQ(Tensor::matmul(eye, tensorFloat).getValue<T>({1, 0}), 2.0);
+    ASSERT_EQ(Tensor::matmul(eye, tensorFloat).getValue<T>({1, 1}), 3.0);
+
+    // test matrix addition
+    ASSERT_EQ((tensorFloat + tensorFloat).getValue<T>({0, 0}), 0.0);
+    ASSERT_EQ((tensorFloat + tensorFloat).getValue<T>({0, 1}), 2.0);
+    ASSERT_EQ((tensorFloat + tensorFloat).getValue<T>({1, 0}), 4.0);
+    ASSERT_EQ((tensorFloat + tensorFloat).getValue<T>({1, 1}), 6.0);
+
+    // test transpose
+    ASSERT_EQ((Tensor::transpose(tensorFloat, 0, 1)).getValue<T>({0, 0}), 0.0);
+    ASSERT_EQ((Tensor::transpose(tensorFloat, 0, 1)).getValue<T>({1, 0}), 1.0);
+    ASSERT_EQ((Tensor::transpose(tensorFloat, 0, 1)).getValue<T>({0, 1}), 2.0);
+    ASSERT_EQ((Tensor::transpose(tensorFloat, 0, 1)).getValue<T>({1, 1}), 3.0);
+
+    // test outer product of two vectors
+    Tensor vec1 = Tensor::zeros({2}, dtype, deviceType, false);
+    Tensor vec2 = Tensor::zeros({2}, dtype, deviceType, false);
+
+    vec1.setValue({0}, 1.0);
+    vec1.setValue({1}, 2.0);
+    vec2.setValue({0}, 3.0);
+    vec2.setValue({1}, 4.0);
+
+    Tensor outer = Tensor::outer(vec1, vec2);
+
+    ASSERT_EQ(outer.getValue<T>({0, 0}), 3.0);
+    ASSERT_EQ(outer.getValue<T>({0, 1}), 4.0);
+    ASSERT_EQ(outer.getValue<T>({1, 0}), 6.0);
+    ASSERT_EQ(outer.getValue<T>({1, 1}), 8.0);
+}
+
+template <typename T> void testArithmeticFloatType(const dtypes::scalarType dtype, dtypes::deviceType deviceType)
 {
 
     // test simple addition
-    Tensor one = Tensor::ones({1}, dtype, dtypes::kCPU, false);
+    Tensor one = Tensor::ones({1}, dtype, deviceType, false);
     ASSERT_EQ((one + one).getValue<T>(), 2.0);
     ASSERT_EQ((one - one).getValue<T>(), 0.0);
 
@@ -85,14 +208,14 @@ template <typename T> void testArithmeticFloatType(const dtypes::scalarType dtyp
     ASSERT_EQ(Tensor::add(one, -one).getValue<T>(), 0.0);
 
     // test multiplication of tensors
-    Tensor ten = Tensor({10.0}, dtype, dtypes::kCPU, false);
-    Tensor five = Tensor({5.0}, dtype, dtypes::kCPU, false);
+    Tensor ten = Tensor({10.0}, dtype, deviceType, false);
+    Tensor five = Tensor({5.0}, dtype, deviceType, false);
     ASSERT_EQ((ten / five).getValue<T>(), 2.0);
     ASSERT_EQ((ten * five).getValue<T>(), 50.0);
     ASSERT_EQ(Tensor::square(ten).getValue<T>(), 100.0);
 
     // test sqrt
-    Tensor four = Tensor({4.0}, dtype, dtypes::kCPU, false);
+    Tensor four = Tensor({4.0}, dtype, deviceType, false);
     ASSERT_EQ(Tensor::sqrt(four).getValue<T>(), 2.0);
 
     // test scaling by float
@@ -125,7 +248,7 @@ template <typename T> void testArithmeticFloatType(const dtypes::scalarType dtyp
     ASSERT_EQ((-one).getValue<T>(), -1.0);
 }
 
-template <typename T> void testArithmeticComplexType(const dtypes::scalarType dtype)
+template <typename T> void testArithmeticComplexType(const dtypes::scalarType dtype, dtypes::deviceType deviceType)
 {
 
     // the complex type used for this test
@@ -133,7 +256,7 @@ template <typename T> void testArithmeticComplexType(const dtypes::scalarType dt
     Tensor testTensor;
 
     // test addition for complex value with real component
-    Tensor one = Tensor::ones({1}, dtype, dtypes::kCPU, false);
+    Tensor one = Tensor::ones({1}, dtype, deviceType, false);
     ASSERT_EQ((one + one).getValue<complexType>(), complexType(2.0, 0.0));
     ASSERT_EQ((one - one).getValue<complexType>(), complexType(0.0, 0.0));
 
@@ -142,7 +265,7 @@ template <typename T> void testArithmeticComplexType(const dtypes::scalarType dt
     ASSERT_EQ(sqrtNegOneTensor.getValue<complexType>(), complexType(0.0, -1.0));
 
     // imag unit to use in testing
-    Tensor imag = Tensor::zeros({1}, dtype, dtypes::kCPU, false);
+    Tensor imag = Tensor::zeros({1}, dtype, deviceType, false);
     imag.setValue({0}, complexType(0.0, 1.0));
 
     // check that i^2 = -1
@@ -154,8 +277,8 @@ template <typename T> void testArithmeticComplexType(const dtypes::scalarType dt
     ASSERT_EQ(testTensor.getValue<complexType>(), complexType(1.0, 1.0));
 
     // test multiplication by real scalar
-    Tensor ten = Tensor({10.0}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor five = Tensor({5.0}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor ten = Tensor({10.0}, dtypes::kFloat, deviceType, false);
+    Tensor five = Tensor({5.0}, dtypes::kFloat, deviceType, false);
     ASSERT_EQ(Tensor::div(imag, five).getValue<complexType>(), complexType(0.0, 0.2));
     ASSERT_EQ(Tensor::mul(imag, five).getValue<complexType>(), complexType(0.0, 5.0));
     testTensor = Tensor::div(imag, complexType(5.0, 0.0));
@@ -175,7 +298,7 @@ template <typename T> void testArithmeticComplexType(const dtypes::scalarType dt
     ASSERT_EQ((one + imag).conj(), (one - imag));
 
     // proof of eulers identity
-    Tensor euler = Tensor({std::exp(1.0F)}, dtype, dtypes::kCPU, false);
+    Tensor euler = Tensor({std::exp(1.0F)}, dtype, deviceType, false);
     Tensor exp = Tensor::pow(euler, complexType(0.0, M_PI));
     complexType testVal = exp.getValue<complexType>();
     ASSERT_NEAR(testVal.real(), -1.0, 1e-6);
@@ -301,6 +424,84 @@ void testDerivativesStandardFunctions(const dtypes::scalarType dtype, const dtyp
 
     ASSERT_EQ(2.0 * tensor, tensor.grad());
     tensor.zeroGrad();
+}
+
+// get eigenvalues of matrix
+// ------
+// | 2 1 |
+// | 1 2 |
+// ------
+// which are 1 and 3
+// with eigenvectors
+// v_1 = [1, -1]
+// v_3 = [1, 1 ]
+
+template <typename T> void testEig(dtypes::scalarType dtype, dtypes::deviceType deviceType)
+{
+    Tensor evals = Tensor::zeros({2}, dtype, deviceType, false);
+    Tensor evecs = Tensor::zeros({2, 2}, dtype, deviceType, false);
+    Tensor mat = Tensor::ones({2, 2}, dtype, deviceType, false);
+    mat.setValue({0, 0}, 2.0);
+    mat.setValue({0, 1}, 1.0);
+    mat.setValue({1, 0}, 1.0);
+    mat.setValue({1, 1}, 2.0);
+
+    Tensor::eig(mat, evals, evecs);
+
+    ASSERT_EQ(evals.getValue<T>({0}), 3.0);
+    ASSERT_EQ(evals.getValue<T>({1}), 1.0);
+
+    ASSERT_EQ(evecs.getValue<T>({0, 0}), evecs.getValue<T>({1, 0}));
+    ASSERT_EQ(evecs.getValue<T>({0, 1}), -evecs.getValue<T>({1, 1}));
+}
+
+template <typename T> void testEigh(dtypes::scalarType dtype, dtypes::deviceType deviceType)
+{
+    Tensor evals = Tensor::zeros({2}, dtype, deviceType, false);
+    Tensor evecs = Tensor::zeros({2, 2}, dtype, deviceType, false);
+    Tensor mat = Tensor::ones({2, 2}, dtype, deviceType, false);
+    mat.setValue({0, 0}, 2.0);
+    mat.setValue({0, 1}, 1.0);
+    mat.setValue({1, 0}, 1.0);
+    mat.setValue({1, 1}, 2.0);
+
+    Tensor::eigh(mat, evals, evecs);
+
+    ASSERT_EQ(evals.getValue<T>({0}), 1.0);
+    ASSERT_EQ(evals.getValue<T>({1}), 3.0);
+
+    ASSERT_EQ(evecs.getValue<T>({0, 0}), -evecs.getValue<T>({1, 0}));
+    ASSERT_EQ(evecs.getValue<T>({0, 1}), evecs.getValue<T>({1, 1}));
+}
+
+template <typename T> void testEigVals(dtypes::scalarType dtype, dtypes::deviceType deviceType)
+{
+    Tensor evals = Tensor::zeros({2}, dtype, deviceType, false);
+    Tensor mat = Tensor::ones({2, 2}, dtype, deviceType, false);
+    mat.setValue({0, 0}, 2.0);
+    mat.setValue({0, 1}, 1.0);
+    mat.setValue({1, 0}, 1.0);
+    mat.setValue({1, 1}, 2.0);
+
+    Tensor::eigvals(mat, evals);
+
+    ASSERT_EQ(evals.getValue<T>({0}), 3.0);
+    ASSERT_EQ(evals.getValue<T>({1}), 1.0);
+}
+
+template <typename T> void testEigValsh(dtypes::scalarType dtype, dtypes::deviceType deviceType)
+{
+    Tensor evals = Tensor::zeros({2}, dtype, deviceType, false);
+    Tensor mat = Tensor::ones({2, 2}, dtype, deviceType, false);
+    mat.setValue({0, 0}, 2.0);
+    mat.setValue({0, 1}, 1.0);
+    mat.setValue({1, 0}, 1.0);
+    mat.setValue({1, 1}, 2.0);
+
+    Tensor::eigvalsh(mat, evals);
+
+    ASSERT_EQ(evals.getValue<T>({0}), 1.0);
+    ASSERT_EQ(evals.getValue<T>({1}), 3.0);
 }
 
 // NOLINTEND(readability-function-cognitive-complexity)
