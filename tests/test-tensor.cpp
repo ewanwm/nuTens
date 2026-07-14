@@ -37,17 +37,17 @@ TEST(Tensor /*unused*/, ComplexTensorCreationComplexFloatCPU /*unused*/)
 }
 
 // check equality operators
-TEST(Tensor /*unused*/, EqualityOperators /*unused*/)
+TEST(Tensor /*unused*/, EqualityOperatorsFloatCPU /*unused*/)
 {
     testEqualityOperators(dtypes::kFloat, dtypes::kCPU);
 }
 
 // test manipulation of elements of tensor
-TEST(Tensor /*unused*/, ElementMapipulationFloat /*unused*/)
+TEST(Tensor /*unused*/, ElementMapipulationFloatCPU /*unused*/)
 {
     testElementManipulation<float>(dtypes::kFloat, dtypes::kCPU);
 }
-TEST(Tensor /*unused*/, ElementMapipulationDouble /*unused*/)
+TEST(Tensor /*unused*/, ElementMapipulationDoubleCPU /*unused*/)
 {
     testElementManipulation<double>(dtypes::kDouble, dtypes::kCPU);
 }
@@ -121,6 +121,127 @@ TEST(Tensor /*unused*/, AccessedTensor1D /*unused*/)
 
     ASSERT_EQ(tensor.getValue(1), 1.0F);
     ASSERT_EQ(tensor.getValue<float>({1}), 1.0F);
+}
+
+// check creation of tensors
+TEST(Tensor /*unused*/, TensorCreationFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testTensorCreation<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, TensorCreationDoubleGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testTensorCreation<double>(dtypes::kDouble, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, TensorCreationComplexFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testTensorCreation<std::complex<float>>(dtypes::kComplexFloat, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, TensorCreationComplexDoubleGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testTensorCreation<std::complex<double>>(dtypes::kComplexDouble, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, ComplexTensorCreationComplexFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testComplexTensorCreation<std::complex<float>>(dtypes::kComplexFloat, dtypes::kGPU);
+}
+
+// check equality operators
+TEST(Tensor /*unused*/, EqualityOperatorsFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testEqualityOperators(dtypes::kFloat, dtypes::kGPU);
+}
+
+// test manipulation of elements of tensor
+TEST(Tensor /*unused*/, ElementMapipulationFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testElementManipulation<float>(dtypes::kFloat, dtypes::kGPU);
+}
+TEST(Tensor /*unused*/, ElementMapipulationDoubleGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testElementManipulation<double>(dtypes::kDouble, dtypes::kGPU);
+}
+
+// check some basic arithmetic
+TEST(Tensor /*unused*/, simpleArithmeticFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testArithmeticFloatType<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, simpleArithmeticDoubleGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testArithmeticFloatType<double>(dtypes::kDouble, dtypes::kGPU);
+}
+
+// check some basic arithmetic
+TEST(Tensor /*unused*/, simpleArithmeticComplexFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testArithmeticComplexType<float>(dtypes::kComplexFloat, dtypes::kGPU);
+}
+
+// check some basic arithmetic
+TEST(Tensor /*unused*/, simpleArithmeticComplexDoubleGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testArithmeticComplexType<double>(dtypes::kComplexDouble, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, SummationFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testSummation<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+// check standard functions of real tensors
+TEST(Tensor /*unused*/, StandardFunctionsFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testStandardFunctions<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+// test matrix operations for real tensor
+TEST(Tensor /*unused*/, MatrixFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testMatrixOperations<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, eigFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testEig<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, eighFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testEigh<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, eigvalsFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testEigVals<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, eigvalshFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testEigValsh<float>(dtypes::kFloat, dtypes::kGPU);
 }
 
 TEST(Tensor /*unused*/, AccessedTensor2D /*unused*/)

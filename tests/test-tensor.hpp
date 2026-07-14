@@ -1,5 +1,6 @@
 #include <nuTens/tensors/dtypes.hpp>
 #include <nuTens/tensors/tensor.hpp>
+#include <tests/utils.hpp>
 
 #include <complex>
 #include <gtest/gtest.h>
@@ -261,8 +262,9 @@ template <typename T> void testArithmeticComplexType(const dtypes::scalarType dt
     ASSERT_EQ((one - one).getValue<complexType>(), complexType(0.0, 0.0));
 
     // check that sqrt -1 = i
-    Tensor sqrtNegOneTensor = Tensor::pow(-one, T(0.5));
-    ASSERT_EQ(sqrtNegOneTensor.getValue<complexType>(), complexType(0.0, -1.0));
+    Tensor sqrtNegOneTensor = Tensor::sqrt(-one);
+    ASSERT_NEAR(sqrtNegOneTensor.real().getValue<T>(), 0.0, 1e-6);
+    ASSERT_NEAR(sqrtNegOneTensor.imag().getValue<T>(), -1.0, 1e-6);
 
     // imag unit to use in testing
     Tensor imag = Tensor::zeros({1}, dtype, deviceType, false);
