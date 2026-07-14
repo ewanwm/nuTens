@@ -18,12 +18,12 @@ Indexing
 Accessed Tensors
 ^^^^^^^^^^^^^^^^
 
-.. _batched-oscillation-calculations:
+.. _gpu:
 
 GPU
-^^^
+---
 
-.. _gpu:
+.. _batched-oscillation-calculations:
 
 Batching Oscillation calculations
 ---------------------------------
