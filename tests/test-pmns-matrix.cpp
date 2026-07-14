@@ -37,6 +37,7 @@ TEST_F(PMNSmatrixTest /*unused*/, testParameterSetting /*unused*/)
     ASSERT_EQ(deltaCP, matrix.getDeltaCPTensor().getValue<float>());
 }
 
+#if COMPILE_GPU_TESTS
 TEST_F(PMNSmatrixTest /*unused*/, testGPU /*unused*/)
 {
 
@@ -90,6 +91,7 @@ TEST_F(PMNSmatrixTest /*unused*/, testGPU /*unused*/)
     ASSERT_NEAR(matrixTensorGPU.imag().getValue<double>({0, 2, 2}), matrixTensor.imag().getValue<double>({0, 2, 2}),
                 1e-5);
 }
+#endif
 
 TEST_F(PMNSmatrixTest /*unused*/, CachingSameResultTest /*unused*/)
 {

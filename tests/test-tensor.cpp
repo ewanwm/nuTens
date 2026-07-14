@@ -123,6 +123,8 @@ TEST(Tensor /*unused*/, AccessedTensor1D /*unused*/)
     ASSERT_EQ(tensor.getValue<float>({1}), 1.0F);
 }
 
+#if COMPILE_GPU_TESTS
+
 // check creation of tensors
 TEST(Tensor /*unused*/, TensorCreationFloatGPU /*unused*/)
 {
@@ -243,6 +245,8 @@ TEST(Tensor /*unused*/, eigvalshFloatGPU /*unused*/)
     SKIP_GPU(dtypes::kGPU)
     testEigValsh<float>(dtypes::kFloat, dtypes::kGPU);
 }
+
+#endif
 
 TEST(Tensor /*unused*/, AccessedTensor2D /*unused*/)
 {
