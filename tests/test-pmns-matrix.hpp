@@ -6,3 +6,4 @@ namespace gtest = ::testing;
 
 #include <iostream>
 #include <nuTens/propagator/pmns-matrix.hpp>
+#include <tests/utils.hpp>

@@ -24,12 +24,6 @@ TEST(Tensor /*unused*/, TensorCreationDoubleCPU /*unused*/)
 TEST(Tensor /*unused*/, TensorCreationComplexFloatCPU /*unused*/)
 {
     testTensorCreation<std::complex<float>>(dtypes::kComplexFloat, dtypes::kCPU);
-
-    // test the dedicated complex tensor builder function
-    Tensor complex =
-        Tensor::TensorComplex({std::complex<float>(1.234, 5.678)}, dtypes::kComplexFloat, dtypes::kCPU, false);
-
-    ASSERT_EQ(complex.getValue<std::complex<float>>(), std::complex<float>(1.234, 5.678));
 }
 
 TEST(Tensor /*unused*/, TensorCreationComplexDoubleCPU /*unused*/)
@@ -37,447 +31,85 @@ TEST(Tensor /*unused*/, TensorCreationComplexDoubleCPU /*unused*/)
     testTensorCreation<std::complex<double>>(dtypes::kComplexDouble, dtypes::kCPU);
 }
 
-// check equality operators
-TEST(Tensor /*unused*/, EqualityOperators /*unused*/)
+TEST(Tensor /*unused*/, ComplexTensorCreationComplexFloatCPU /*unused*/)
 {
+    testComplexTensorCreation<std::complex<float>>(dtypes::kComplexFloat, dtypes::kCPU);
+}
 
-    Tensor one = Tensor({1.0}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor two = Tensor({2.0}, dtypes::kFloat, dtypes::kCPU, false);
-
-    ASSERT_TRUE(one == one);
-    ASSERT_TRUE(one != two);
+// check equality operators
+TEST(Tensor /*unused*/, EqualityOperatorsFloatCPU /*unused*/)
+{
+    testEqualityOperators(dtypes::kFloat, dtypes::kCPU);
 }
 
 // test manipulation of elements of tensor
-TEST(Tensor /*unused*/, ElementMapipulation /*unused*/)
+TEST(Tensor /*unused*/, ElementMapipulationFloatCPU /*unused*/)
 {
-
-    auto tensorFloat = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-
-    tensorFloat.setValue({0, 0}, 0.0);
-    tensorFloat.setValue({0, 1}, 1.0);
-
-    tensorFloat.setValue({1, 0}, 2.0);
-    tensorFloat.setValue({1, 1}, 3.0);
-
-    std::cout << "Test matrix: \n" << tensorFloat << std::endl;
-
-    // test slicing
-    Tensor slice = tensorFloat.getValues({1, "..."});
-    ASSERT_EQ(slice.getValue<float>({0}), 2.0);
-    ASSERT_EQ(slice.getValue<float>({1}), 3.0);
-
-    tensorFloat.dType(dtypes::kDouble);
-    ASSERT_EQ(tensorFloat.getValue<double>({0, 0}), 0.0);
-    ASSERT_EQ(tensorFloat.getValue<double>({0, 1}), 1.0);
+    testElementManipulation<float>(dtypes::kFloat, dtypes::kCPU);
+}
+TEST(Tensor /*unused*/, ElementMapipulationDoubleCPU /*unused*/)
+{
+    testElementManipulation<double>(dtypes::kDouble, dtypes::kCPU);
 }
 
 // check some basic arithmetic
-TEST(Tensor /*unused*/, simpleArithmeticFloat /*unused*/)
+TEST(Tensor /*unused*/, simpleArithmeticFloatCPU /*unused*/)
 {
-    testArithmeticFloatType<float>(dtypes::kFloat);
+    testArithmeticFloatType<float>(dtypes::kFloat, dtypes::kCPU);
 }
 
-TEST(Tensor /*unused*/, simpleArithmeticDouble /*unused*/)
+TEST(Tensor /*unused*/, simpleArithmeticDoubleCPU /*unused*/)
 {
-    testArithmeticFloatType<double>(dtypes::kDouble);
-}
-
-// check some basic arithmetic
-TEST(Tensor /*unused*/, simpleArithmeticComplexFloat /*unused*/)
-{
-    testArithmeticComplexType<float>(dtypes::kComplexFloat);
+    testArithmeticFloatType<double>(dtypes::kDouble, dtypes::kCPU);
 }
 
 // check some basic arithmetic
-TEST(Tensor /*unused*/, simpleArithmeticComplexDouble /*unused*/)
+TEST(Tensor /*unused*/, simpleArithmeticComplexFloatCPU /*unused*/)
 {
-    testArithmeticComplexType<double>(dtypes::kComplexDouble);
+    testArithmeticComplexType<float>(dtypes::kComplexFloat, dtypes::kCPU);
 }
 
-TEST(Tensor /*unused*/, Summation /*unused*/)
+// check some basic arithmetic
+TEST(Tensor /*unused*/, simpleArithmeticComplexDoubleCPU /*unused*/)
 {
-
-    Tensor tensor = Tensor::ones({3, 3}, dtypes::kFloat, dtypes::kCPU, false);
-
-    ASSERT_EQ(tensor.sum().getValue<float>(), 9.0);
-
-    Tensor sum = tensor.sum({1});
-
-    ASSERT_EQ(sum.getValue<float>({0}), 3.0);
-    ASSERT_EQ(sum.getValue<float>({1}), 3.0);
-    ASSERT_EQ(sum.getValue<float>({2}), 3.0);
-
-    Tensor cumsum = tensor.cumsum(1);
-
-    ASSERT_EQ(cumsum.getValue<float>({0, 0}), 1.0);
-    ASSERT_EQ(cumsum.getValue<float>({0, 1}), 2.0);
-    ASSERT_EQ(cumsum.getValue<float>({0, 2}), 3.0);
+    testArithmeticComplexType<double>(dtypes::kComplexDouble, dtypes::kCPU);
 }
 
-TEST(Tensor /*unused*/, GetVariantValue /*unused*/)
+TEST(Tensor /*unused*/, SummationFloatCPU /*unused*/)
 {
-
-    Tensor floatTensor = Tensor::ones({1}, dtypes::kFloat, dtypes::kCPU);
-    auto variantFloat = floatTensor.getVariantValue({0});
-    ASSERT_TRUE(std::holds_alternative<float>(variantFloat));
-
-    Tensor doubleTensor = Tensor::ones({1}, dtypes::kDouble, dtypes::kCPU);
-    auto variantDouble = doubleTensor.getVariantValue({0});
-    ASSERT_TRUE(std::holds_alternative<double>(variantDouble));
-
-    Tensor complexFloatTensor = Tensor::ones({1}, dtypes::kComplexFloat, dtypes::kCPU);
-    auto variantComplexFloat = complexFloatTensor.getVariantValue({0});
-    ASSERT_TRUE(std::holds_alternative<std::complex<float>>(variantComplexFloat));
-
-    Tensor complexDoubleTensor = Tensor::ones({1}, dtypes::kComplexDouble, dtypes::kCPU);
-    auto variantComplexDouble = complexDoubleTensor.getVariantValue({0});
-    ASSERT_TRUE(std::holds_alternative<std::complex<double>>(variantComplexDouble));
+    testSummation<float>(dtypes::kFloat, dtypes::kCPU);
 }
 
 // check standard functions of real tensors
-TEST(Tensor /*unused*/, StandardFunctionsFloat /*unused*/)
+TEST(Tensor /*unused*/, StandardFunctionsFloatCPU /*unused*/)
 {
-
-    float theta = 1.234;
-    Tensor thetaTensor = Tensor({theta}, dtypes::kComplexFloat, dtypes::kCPU, false);
-
-    ASSERT_EQ(Tensor::sin(thetaTensor).getValue<float>(), std::sin(theta));
-    ASSERT_EQ(Tensor::cos(thetaTensor).getValue<float>(), std::cos(theta));
-    ASSERT_EQ(Tensor::exp(thetaTensor).getValue<float>(), std::exp(theta));
-}
-
-// check inplace functions
-TEST(Tensor /*unused*/, InPlaceMatmul /*unused*/)
-{
-
-    // test matrix multiplication
-    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    tensor.setValue({0, 0}, 0.0);
-    tensor.setValue({0, 1}, 1.0);
-
-    tensor.setValue({1, 0}, 2.0);
-    tensor.setValue({1, 1}, 3.0);
-
-    Tensor otherTensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    otherTensor.setValue({0, 0}, 0.0);
-    otherTensor.setValue({0, 1}, 1.0);
-
-    otherTensor.setValue({1, 0}, 2.0);
-    otherTensor.setValue({1, 1}, 3.0);
-
-    tensor.matmul_(otherTensor);
-
-    // test matrix multiplication
-    ASSERT_EQ(tensor.getValue<float>({0, 0}), 2.0);
-    ASSERT_EQ(tensor.getValue<float>({0, 1}), 3.0);
-    ASSERT_EQ(tensor.getValue<float>({1, 0}), 6.0);
-    ASSERT_EQ(tensor.getValue<float>({1, 1}), 11.0);
-}
-
-TEST(Tensor /*unused*/, InPlaceMul /*unused*/)
-{
-
-    // test matrix multiplication
-    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    tensor.setValue({0, 0}, 0.0);
-    tensor.setValue({0, 1}, 1.0);
-
-    tensor.setValue({1, 0}, 2.0);
-    tensor.setValue({1, 1}, 3.0);
-
-    Tensor otherTensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    otherTensor.setValue({0, 0}, 0.0);
-    otherTensor.setValue({0, 1}, 1.0);
-
-    otherTensor.setValue({1, 0}, 2.0);
-    otherTensor.setValue({1, 1}, 3.0);
-
-    tensor.mul_(otherTensor);
-
-    // test matrix multiplication
-    ASSERT_EQ(tensor.getValue<float>({0, 0}), 0.0);
-    ASSERT_EQ(tensor.getValue<float>({0, 1}), 1.0);
-    ASSERT_EQ(tensor.getValue<float>({1, 0}), 4.0);
-    ASSERT_EQ(tensor.getValue<float>({1, 1}), 9.0);
-}
-
-TEST(Tensor /*unused*/, InPlaceDiv /*unused*/)
-{
-
-    // test matrix multiplication
-    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    tensor.setValue({0, 0}, 1.0);
-    tensor.setValue({0, 1}, 2.0);
-
-    tensor.setValue({1, 0}, 3.0);
-    tensor.setValue({1, 1}, 4.0);
-
-    Tensor otherTensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    otherTensor.setValue({0, 0}, 1.0);
-    otherTensor.setValue({0, 1}, 2.0);
-
-    otherTensor.setValue({1, 0}, 3.0);
-    otherTensor.setValue({1, 1}, 4.0);
-
-    tensor.div_(otherTensor);
-
-    // test matrix multiplication
-    ASSERT_EQ(tensor.getValue<float>({0, 0}), 1.0);
-    ASSERT_EQ(tensor.getValue<float>({0, 1}), 1.0);
-    ASSERT_EQ(tensor.getValue<float>({1, 0}), 1.0);
-    ASSERT_EQ(tensor.getValue<float>({1, 1}), 1.0);
-}
-
-TEST(Tensor /*unused*/, InPlaceScale /*unused*/)
-{
-
-    // test matrix multiplication
-    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    tensor.setValue({0, 0}, 1.0);
-    tensor.setValue({0, 1}, 2.0);
-
-    tensor.setValue({1, 0}, 3.0);
-    tensor.setValue({1, 1}, 4.0);
-
-    tensor.scale_(2.0);
-
-    // test matrix multiplication
-    ASSERT_EQ(tensor.getValue<float>({0, 0}), 2.0);
-    ASSERT_EQ(tensor.getValue<float>({0, 1}), 4.0);
-    ASSERT_EQ(tensor.getValue<float>({1, 0}), 6.0);
-    ASSERT_EQ(tensor.getValue<float>({1, 1}), 8.0);
-}
-
-TEST(Tensor /*unused*/, InPlaceScaleComplex /*unused*/)
-{
-
-    // test matrix multiplication
-    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    tensor.setValue({0, 0}, 1.0);
-    tensor.setValue({0, 1}, 2.0);
-
-    tensor.setValue({1, 0}, 3.0);
-    tensor.setValue({1, 1}, 4.0);
-
-    tensor.scale_(std::complex<float>(2.0, 2.0));
-
-    // test matrix multiplication
-    ASSERT_EQ(tensor.getValue<std::complex<float>>({0, 0}), std::complex<float>(2.0, 2.0));
-    ASSERT_EQ(tensor.getValue<std::complex<float>>({0, 1}), std::complex<float>(4.0, 4.0));
-    ASSERT_EQ(tensor.getValue<std::complex<float>>({1, 0}), std::complex<float>(6.0, 6.0));
-    ASSERT_EQ(tensor.getValue<std::complex<float>>({1, 1}), std::complex<float>(8.0, 8.0));
-}
-
-TEST(Tensor /*unused*/, InPlacePow /*unused*/)
-{
-
-    // test matrix multiplication
-    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    tensor.setValue({0, 0}, 1.0);
-    tensor.setValue({0, 1}, 2.0);
-
-    tensor.setValue({1, 0}, 3.0);
-    tensor.setValue({1, 1}, 4.0);
-
-    tensor.pow_(2.0);
-
-    // test matrix multiplication
-    ASSERT_EQ(tensor.getValue<float>({0, 0}), 1.0);
-    ASSERT_EQ(tensor.getValue<float>({0, 1}), 4.0);
-    ASSERT_EQ(tensor.getValue<float>({1, 0}), 9.0);
-    ASSERT_EQ(tensor.getValue<float>({1, 1}), 16.0);
-}
-
-TEST(Tensor /*unused*/, InPlaceComplexPow /*unused*/)
-{
-
-    // proof of eulers identity
-    Tensor euler = Tensor({static_cast<float>(std::exp(1.0))}, dtypes::kComplexFloat, dtypes::kCPU, false);
-    euler.pow_(std::complex<float>(0.0, M_PI));
-
-    std::complex<float> testVal = euler.getValue<std::complex<float>>();
-    ASSERT_NEAR(testVal.real(), -1.0, 1e-6);
-    ASSERT_NEAR(testVal.imag(), 0.0, 1e-6);
-}
-
-TEST(Tensor /*unused*/, InPlaceExp /*unused*/)
-{
-
-    // test matrix multiplication
-    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    tensor.setValue({0, 0}, 1.0);
-    tensor.setValue({0, 1}, 2.0);
-
-    tensor.setValue({1, 0}, 3.0);
-    tensor.setValue({1, 1}, 4.0);
-
-    tensor.exp_();
-
-    // test matrix multiplication
-    ASSERT_NEAR(tensor.getValue<float>({0, 0}), std::exp(1.0), 1e-4);
-    ASSERT_NEAR(tensor.getValue<float>({0, 1}), std::exp(2.0), 1e-4);
-    ASSERT_NEAR(tensor.getValue<float>({1, 0}), std::exp(3.0), 1e-4);
-    ASSERT_NEAR(tensor.getValue<float>({1, 1}), std::exp(4.0), 1e-4);
-}
-
-TEST(Tensor /*unused*/, InPlaceTranspose /*unused*/)
-{
-
-    // test matrix multiplication
-    Tensor tensor = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    tensor.setValue({0, 0}, 1.0);
-    tensor.setValue({0, 1}, 2.0);
-
-    tensor.setValue({1, 0}, 3.0);
-    tensor.setValue({1, 1}, 4.0);
-
-    tensor.transpose_(0, 1);
-
-    // test matrix multiplication
-    ASSERT_EQ(tensor.getValue<float>({0, 0}), 1.0);
-    ASSERT_EQ(tensor.getValue<float>({0, 1}), 3.0);
-    ASSERT_EQ(tensor.getValue<float>({1, 0}), 2.0);
-    ASSERT_EQ(tensor.getValue<float>({1, 1}), 4.0);
+    testStandardFunctions<float>(dtypes::kFloat, dtypes::kCPU);
 }
 
 // test matrix operations for real tensor
-TEST(Tensor /*unused*/, MatrixFloat /*unused*/)
+TEST(Tensor /*unused*/, MatrixFloatCPU /*unused*/)
 {
-
-    auto tensorFloat = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    auto eye = Tensor::eye(2, dtypes::kFloat, dtypes::kCPU, false);
-
-    tensorFloat.setValue({0, 0}, 0.0);
-    tensorFloat.setValue({0, 1}, 1.0);
-
-    tensorFloat.setValue({1, 0}, 2.0);
-    tensorFloat.setValue({1, 1}, 3.0);
-
-    std::cout << "Test matrix: \n" << tensorFloat << std::endl;
-
-    // test matrix multiplication
-    Tensor squared = Tensor::matmul(tensorFloat, tensorFloat);
-    ASSERT_EQ(squared.getValue<float>({0, 0}), 2.0);
-    ASSERT_EQ(squared.getValue<float>({0, 1}), 3.0);
-    ASSERT_EQ(squared.getValue<float>({1, 0}), 6.0);
-    ASSERT_EQ(squared.getValue<float>({1, 1}), 11.0);
-
-    // test multiplication by identity matrix
-    ASSERT_EQ(Tensor::matmul(eye, tensorFloat).getValue<float>({0, 0}), 0.0);
-    ASSERT_EQ(Tensor::matmul(eye, tensorFloat).getValue<float>({0, 1}), 1.0);
-    ASSERT_EQ(Tensor::matmul(eye, tensorFloat).getValue<float>({1, 0}), 2.0);
-    ASSERT_EQ(Tensor::matmul(eye, tensorFloat).getValue<float>({1, 1}), 3.0);
-
-    // test matrix addition
-    ASSERT_EQ((tensorFloat + tensorFloat).getValue<float>({0, 0}), 0.0);
-    ASSERT_EQ((tensorFloat + tensorFloat).getValue<float>({0, 1}), 2.0);
-    ASSERT_EQ((tensorFloat + tensorFloat).getValue<float>({1, 0}), 4.0);
-    ASSERT_EQ((tensorFloat + tensorFloat).getValue<float>({1, 1}), 6.0);
-
-    // test transpose
-    ASSERT_EQ((Tensor::transpose(tensorFloat, 0, 1)).getValue<float>({0, 0}), 0.0);
-    ASSERT_EQ((Tensor::transpose(tensorFloat, 0, 1)).getValue<float>({1, 0}), 1.0);
-    ASSERT_EQ((Tensor::transpose(tensorFloat, 0, 1)).getValue<float>({0, 1}), 2.0);
-    ASSERT_EQ((Tensor::transpose(tensorFloat, 0, 1)).getValue<float>({1, 1}), 3.0);
-
-    // test outer product of two vectors
-    Tensor vec1 = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor vec2 = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
-
-    vec1.setValue({0}, 1.0);
-    vec1.setValue({1}, 2.0);
-    vec2.setValue({0}, 3.0);
-    vec2.setValue({1}, 4.0);
-
-    Tensor outer = Tensor::outer(vec1, vec2);
-
-    ASSERT_EQ(outer.getValue<float>({0, 0}), 3.0);
-    ASSERT_EQ(outer.getValue<float>({0, 1}), 4.0);
-    ASSERT_EQ(outer.getValue<float>({1, 0}), 6.0);
-    ASSERT_EQ(outer.getValue<float>({1, 1}), 8.0);
+    testMatrixOperations<float>(dtypes::kFloat, dtypes::kCPU);
 }
 
-// get eigenvalues of matrix
-// ------
-// | 2 1 |
-// | 1 2 |
-// ------
-// which are 1 and 3
-// with eigenvectors
-// v_1 = [1, -1]
-// v_3 = [1, 1 ]
-
-TEST(Tensor /*unused*/, eig /*unused*/)
+TEST(Tensor /*unused*/, eigFloatCPU /*unused*/)
 {
-
-    Tensor evals = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor evecs = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor mat = Tensor::ones({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    mat.setValue({0, 0}, 2.0);
-    mat.setValue({0, 1}, 1.0);
-    mat.setValue({1, 0}, 1.0);
-    mat.setValue({1, 1}, 2.0);
-
-    Tensor::eig(mat, evals, evecs);
-
-    ASSERT_EQ(evals.getValue<float>({0}), 3.0);
-    ASSERT_EQ(evals.getValue<float>({1}), 1.0);
-
-    ASSERT_EQ(evecs.getValue<float>({0, 0}), evecs.getValue<float>({1, 0}));
-    ASSERT_EQ(evecs.getValue<float>({0, 1}), -evecs.getValue<float>({1, 1}));
+    testEig<float>(dtypes::kFloat, dtypes::kCPU);
 }
 
-TEST(Tensor /*unused*/, eigh /*unused*/)
+TEST(Tensor /*unused*/, eighFloatCPU /*unused*/)
 {
-
-    Tensor evals = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor evecs = Tensor::zeros({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor mat = Tensor::ones({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    mat.setValue({0, 0}, 2.0);
-    mat.setValue({0, 1}, 1.0);
-    mat.setValue({1, 0}, 1.0);
-    mat.setValue({1, 1}, 2.0);
-
-    Tensor::eigh(mat, evals, evecs);
-
-    ASSERT_EQ(evals.getValue<float>({0}), 1.0);
-    ASSERT_EQ(evals.getValue<float>({1}), 3.0);
-
-    ASSERT_EQ(evecs.getValue<float>({0, 0}), -evecs.getValue<float>({1, 0}));
-    ASSERT_EQ(evecs.getValue<float>({0, 1}), evecs.getValue<float>({1, 1}));
+    testEigh<float>(dtypes::kFloat, dtypes::kCPU);
 }
 
-TEST(Tensor /*unused*/, eigvals /*unused*/)
+TEST(Tensor /*unused*/, eigvalsFloatCPU /*unused*/)
 {
-
-    Tensor evals = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor mat = Tensor::ones({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    mat.setValue({0, 0}, 2.0);
-    mat.setValue({0, 1}, 1.0);
-    mat.setValue({1, 0}, 1.0);
-    mat.setValue({1, 1}, 2.0);
-
-    Tensor::eigvals(mat, evals);
-
-    ASSERT_EQ(evals.getValue<float>({0}), 3.0);
-    ASSERT_EQ(evals.getValue<float>({1}), 1.0);
+    testEigVals<float>(dtypes::kFloat, dtypes::kCPU);
 }
 
-TEST(Tensor /*unused*/, eigvalsh /*unused*/)
+TEST(Tensor /*unused*/, eigvalshFloatCPU /*unused*/)
 {
-
-    Tensor evals = Tensor::zeros({2}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor mat = Tensor::ones({2, 2}, dtypes::kFloat, dtypes::kCPU, false);
-    mat.setValue({0, 0}, 2.0);
-    mat.setValue({0, 1}, 1.0);
-    mat.setValue({1, 0}, 1.0);
-    mat.setValue({1, 1}, 2.0);
-
-    Tensor::eigvalsh(mat, evals);
-
-    ASSERT_EQ(evals.getValue<float>({0}), 1.0);
-    ASSERT_EQ(evals.getValue<float>({1}), 3.0);
+    testEigValsh<float>(dtypes::kFloat, dtypes::kCPU);
 }
 
 TEST(Tensor /*unused*/, AccessedTensor1D /*unused*/)
@@ -490,6 +122,131 @@ TEST(Tensor /*unused*/, AccessedTensor1D /*unused*/)
     ASSERT_EQ(tensor.getValue(1), 1.0F);
     ASSERT_EQ(tensor.getValue<float>({1}), 1.0F);
 }
+
+#if COMPILE_GPU_TESTS
+
+// check creation of tensors
+TEST(Tensor /*unused*/, TensorCreationFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testTensorCreation<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, TensorCreationDoubleGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testTensorCreation<double>(dtypes::kDouble, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, TensorCreationComplexFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testTensorCreation<std::complex<float>>(dtypes::kComplexFloat, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, TensorCreationComplexDoubleGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testTensorCreation<std::complex<double>>(dtypes::kComplexDouble, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, ComplexTensorCreationComplexFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testComplexTensorCreation<std::complex<float>>(dtypes::kComplexFloat, dtypes::kGPU);
+}
+
+// check equality operators
+TEST(Tensor /*unused*/, EqualityOperatorsFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testEqualityOperators(dtypes::kFloat, dtypes::kGPU);
+}
+
+// test manipulation of elements of tensor
+TEST(Tensor /*unused*/, ElementMapipulationFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testElementManipulation<float>(dtypes::kFloat, dtypes::kGPU);
+}
+TEST(Tensor /*unused*/, ElementMapipulationDoubleGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testElementManipulation<double>(dtypes::kDouble, dtypes::kGPU);
+}
+
+// check some basic arithmetic
+TEST(Tensor /*unused*/, simpleArithmeticFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testArithmeticFloatType<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, simpleArithmeticDoubleGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testArithmeticFloatType<double>(dtypes::kDouble, dtypes::kGPU);
+}
+
+// check some basic arithmetic
+TEST(Tensor /*unused*/, simpleArithmeticComplexFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testArithmeticComplexType<float>(dtypes::kComplexFloat, dtypes::kGPU);
+}
+
+// check some basic arithmetic
+TEST(Tensor /*unused*/, simpleArithmeticComplexDoubleGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testArithmeticComplexType<double>(dtypes::kComplexDouble, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, SummationFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testSummation<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+// check standard functions of real tensors
+TEST(Tensor /*unused*/, StandardFunctionsFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testStandardFunctions<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+// test matrix operations for real tensor
+TEST(Tensor /*unused*/, MatrixFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testMatrixOperations<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, eigFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testEig<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, eighFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testEigh<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, eigvalsFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testEigVals<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+TEST(Tensor /*unused*/, eigvalshFloatGPU /*unused*/)
+{
+    SKIP_GPU(dtypes::kGPU)
+    testEigValsh<float>(dtypes::kFloat, dtypes::kGPU);
+}
+
+#endif
 
 TEST(Tensor /*unused*/, AccessedTensor2D /*unused*/)
 {
@@ -630,6 +387,26 @@ TEST(Tensor /*unused*/, testDerivativesStandardFunctionsFloat /*unused*/)
 TEST(Tensor /*unused*/, testDerivativesStandardFunctionsTensorDouble /*unused*/)
 {
     testDerivativesStandardFunctions(dtypes::kDouble, dtypes::kCPU);
+}
+
+TEST(Tensor /*unused*/, GetVariantValue /*unused*/)
+{
+
+    Tensor floatTensor = Tensor::ones({1}, dtypes::kFloat, dtypes::kCPU);
+    auto variantFloat = floatTensor.getVariantValue({0});
+    ASSERT_TRUE(std::holds_alternative<float>(variantFloat));
+
+    Tensor doubleTensor = Tensor::ones({1}, dtypes::kDouble, dtypes::kCPU);
+    auto variantDouble = doubleTensor.getVariantValue({0});
+    ASSERT_TRUE(std::holds_alternative<double>(variantDouble));
+
+    Tensor complexFloatTensor = Tensor::ones({1}, dtypes::kComplexFloat, dtypes::kCPU);
+    auto variantComplexFloat = complexFloatTensor.getVariantValue({0});
+    ASSERT_TRUE(std::holds_alternative<std::complex<float>>(variantComplexFloat));
+
+    Tensor complexDoubleTensor = Tensor::ones({1}, dtypes::kComplexDouble, dtypes::kCPU);
+    auto variantComplexDouble = complexDoubleTensor.getVariantValue({0});
+    ASSERT_TRUE(std::holds_alternative<std::complex<double>>(variantComplexDouble));
 }
 
 // NOLINTEND(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
