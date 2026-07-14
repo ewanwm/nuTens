@@ -30,7 +30,7 @@ foreach(TESTNAME
     ENDIF()
 
     target_link_libraries(
-        "${TESTNAME}" PUBLIC 
+        "${TESTNAME}" PRIVATE
         nuTens 
         test-utils 
         m 
@@ -40,8 +40,6 @@ foreach(TESTNAME
     if(NT_COMPILE_GPU_TESTS)
         target_compile_definitions("${TESTNAME}" PUBLIC COMPILE_GPU_TESTS)
     endif()
-    
-    target_include_directories("${TESTNAME}" PUBLIC "${PROJECT_SOURCE_DIR}")
     
     gtest_discover_tests("${TESTNAME}")
 
