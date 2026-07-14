@@ -403,7 +403,7 @@ Tensor Tensor::div(const Tensor &tensor, float scalar)
 {
     NT_PROFILE();
 
-    return {torch::multiply(tensor._tensor, scalar)};
+    return {torch::div(tensor._tensor, scalar)};
 }
 
 Tensor Tensor::div(const Tensor &tensor, double scalar)
