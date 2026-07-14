@@ -367,6 +367,70 @@ Tensor Tensor::scale(const Tensor &tensor, std::complex<double> scalar)
     return {torch::multiply(tensor._tensor, c10::complex<double>(scalar.real(), scalar.imag()))};
 }
 
+Tensor Tensor::add(const Tensor &tensor, float scalar)
+{
+    NT_PROFILE();
+
+    return {torch::add(tensor._tensor, scalar)};
+}
+
+Tensor Tensor::add(const Tensor &tensor, double scalar)
+{
+    NT_PROFILE();
+
+    return {torch::add(tensor._tensor, scalar)};
+}
+
+Tensor Tensor::add(const Tensor &tensor, std::complex<float> scalar)
+{
+    NT_PROFILE();
+
+    assert(tensor._dType == dtypes::kComplexFloat | tensor._dType == dtypes::kComplexDouble);
+
+    return {torch::add(tensor._tensor, c10::complex<float>(scalar.real(), scalar.imag()))};
+}
+
+Tensor Tensor::add(const Tensor &tensor, std::complex<double> scalar)
+{
+    NT_PROFILE();
+
+    assert(tensor._dType == dtypes::kComplexFloat | tensor._dType == dtypes::kComplexDouble);
+
+    return {torch::add(tensor._tensor, c10::complex<double>(scalar.real(), scalar.imag()))};
+}
+
+Tensor Tensor::div(const Tensor &tensor, float scalar)
+{
+    NT_PROFILE();
+
+    return {torch::div(tensor._tensor, scalar)};
+}
+
+Tensor Tensor::div(const Tensor &tensor, double scalar)
+{
+    NT_PROFILE();
+
+    return {torch::div(tensor._tensor, scalar)};
+}
+
+Tensor Tensor::div(const Tensor &tensor, std::complex<float> scalar)
+{
+    NT_PROFILE();
+
+    assert(tensor._dType == dtypes::kComplexFloat | tensor._dType == dtypes::kComplexDouble);
+
+    return {torch::div(tensor._tensor, c10::complex<float>(scalar.real(), scalar.imag()))};
+}
+
+Tensor Tensor::div(const Tensor &tensor, std::complex<double> scalar)
+{
+    NT_PROFILE();
+
+    assert(tensor._dType == dtypes::kComplexFloat | tensor._dType == dtypes::kComplexDouble);
+
+    return {torch::div(tensor._tensor, c10::complex<double>(scalar.real(), scalar.imag()))};
+}
+
 void Tensor::matmul_(const Tensor &tensor2)
 {
     NT_PROFILE();
@@ -516,67 +580,11 @@ bool Tensor::operator!=(const Tensor &rhs) const
     return !at::equal(_tensor, rhs._tensor);
 }
 
-Tensor Tensor::operator+(const Tensor &rhs) const
-{
-    NT_PROFILE();
-
-    return {_tensor + rhs._tensor};
-}
-
-Tensor Tensor::operator+(double rhs) const
-{
-    NT_PROFILE();
-
-    return {_tensor + rhs};
-}
-
-Tensor Tensor::operator-(const Tensor &rhs) const
-{
-    NT_PROFILE();
-
-    return {_tensor - rhs._tensor};
-}
-
-Tensor Tensor::operator-(double rhs) const
-{
-    NT_PROFILE();
-
-    return {_tensor - rhs};
-}
-
 Tensor Tensor::operator-() const
 {
     NT_PROFILE();
 
     return {-_tensor};
-}
-
-Tensor Tensor::operator*(const Tensor &rhs) const
-{
-    NT_PROFILE();
-
-    return {_tensor * rhs._tensor};
-}
-
-Tensor Tensor::operator*(double rhs) const
-{
-    NT_PROFILE();
-
-    return {_tensor * rhs};
-}
-
-Tensor Tensor::operator/(const Tensor &rhs) const
-{
-    NT_PROFILE();
-
-    return {_tensor / rhs._tensor};
-}
-
-Tensor Tensor::operator/(double rhs) const
-{
-    NT_PROFILE();
-
-    return {_tensor / rhs};
 }
 
 Tensor Tensor::cumsum(int dim) const

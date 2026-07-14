@@ -96,15 +96,30 @@ template <typename T> void testArithmeticFloatType(const dtypes::scalarType dtyp
     ASSERT_EQ(Tensor::sqrt(four).getValue<T>(), 2.0);
 
     // test scaling by float
-    ASSERT_NEAR((one * 1.234).getValue<T>(), 1.234, 1e-6);
-    ASSERT_NEAR((one / 2.0).getValue<T>(), 0.5, 1e-6);
-    ASSERT_NEAR((1.234 * one).getValue<T>(), 1.234, 1e-6);
+    Tensor val = (one * (T)1.234);
+    ASSERT_NEAR(val.getValue<T>(), 1.234, 1e-6);
+    val = (one / (T)2.0);
+    ASSERT_NEAR(val.getValue<T>(), 0.5, 1e-6);
+    val = ((T)1.234 * one);
+    ASSERT_NEAR(val.getValue<T>(), 1.234, 1e-6);
+
+    // test dividing bt float
+    val = Tensor::div(ten, (T)5.0);
+    ASSERT_EQ(val.getValue<T>(), 2.0);
+    val = (ten / (T)5.0);
+    ASSERT_EQ(val.getValue<T>(), 2.0);
 
     // addition of float
-    ASSERT_EQ((one + 1.0).getValue<T>(), 2.0);
-    ASSERT_EQ((one - 1.0).getValue<T>(), 0.0);
-    ASSERT_EQ((1.0 + one).getValue<T>(), 2.0);
-    ASSERT_EQ((1.0 - one).getValue<T>(), 0.0);
+    val = Tensor::add(one, (T)1.0);
+    ASSERT_EQ(val.getValue<T>(), 2.0);
+    val = (one + (T)1.0);
+    ASSERT_EQ(val.getValue<T>(), 2.0);
+    val = (one - (T)1.0);
+    ASSERT_EQ(val.getValue<T>(), 0.0);
+    val = ((T)1.0 + one);
+    ASSERT_EQ(val.getValue<T>(), 2.0);
+    val = ((T)1.0 - one);
+    ASSERT_EQ(val.getValue<T>(), 0.0);
 
     // negation
     ASSERT_EQ((-one).getValue<T>(), -1.0);
@@ -115,6 +130,7 @@ template <typename T> void testArithmeticComplexType(const dtypes::scalarType dt
 
     // the complex type used for this test
     typedef std::complex<T> complexType;
+    Tensor testTensor;
 
     // test addition for complex value with real component
     Tensor one = Tensor::ones({1}, dtype, dtypes::kCPU, false);
@@ -134,12 +150,16 @@ template <typename T> void testArithmeticComplexType(const dtypes::scalarType dt
 
     // test addition
     ASSERT_EQ((one + imag).getValue<complexType>(), complexType(1.0, 1.0));
+    testTensor = (one + complexType(0.0, 1.0));
+    ASSERT_EQ(testTensor.getValue<complexType>(), complexType(1.0, 1.0));
 
     // test multiplication by real scalar
     Tensor ten = Tensor({10.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor five = Tensor({5.0}, dtypes::kFloat, dtypes::kCPU, false);
     ASSERT_EQ(Tensor::div(imag, five).getValue<complexType>(), complexType(0.0, 0.2));
     ASSERT_EQ(Tensor::mul(imag, five).getValue<complexType>(), complexType(0.0, 5.0));
+    testTensor = Tensor::div(imag, complexType(5.0, 0.0));
+    ASSERT_EQ(testTensor.getValue<complexType>(), complexType(0.0, 0.2));
 
     // test scaling by real float
     Tensor scaled = Tensor::scale(imag, (T)1.234);

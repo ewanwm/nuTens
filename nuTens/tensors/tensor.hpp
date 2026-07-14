@@ -202,10 +202,44 @@ class Tensor
     /// @arg tensor2 Right hand tensor
     static Tensor add(const Tensor &tensor1, const Tensor &tensor2);
 
+    /// @brief Add a scalar tp a tensor
+    /// @arg scalar The scalar
+    /// @arg tensor The tensor
+    static Tensor add(const Tensor &tensor, float scalar);
+    /// @brief Add a scalar tp a tensor
+    /// @arg scalar The scalar
+    /// @arg tensor The tensor
+    static Tensor add(const Tensor &tensor, double scalar);
+    /// @brief Add a scalar tp a tensor
+    /// @arg scalar The scalar
+    /// @arg tensor The tensor
+    static Tensor add(const Tensor &tensor, std::complex<float> scalar);
+    /// @brief Add a scalar tp a tensor
+    /// @arg scalar The scalar
+    /// @arg tensor The tensor
+    static Tensor add(const Tensor &tensor, std::complex<double> scalar);
+
     /// @brief Element-wise division of two tensors
     /// @arg tensor1 Numerator
     /// @arg tensor2 Denominator
     static Tensor div(const Tensor &tensor1, const Tensor &tensor2);
+
+    /// @brief divide a tensor by a scalar
+    /// @arg scalar The scalar
+    /// @arg tensor The tensor
+    static Tensor div(const Tensor &tensor, float scalar);
+    /// @brief divide a tensor by a scalar
+    /// @arg scalar The scalar
+    /// @arg tensor The tensor
+    static Tensor div(const Tensor &tensor, double scalar);
+    /// @brief divide a tensor by a scalar
+    /// @arg scalar The scalar
+    /// @arg tensor The tensor
+    static Tensor div(const Tensor &tensor, std::complex<float> scalar);
+    /// @brief divide a tensor by a scalar
+    /// @arg scalar The scalar
+    /// @arg tensor The tensor
+    static Tensor div(const Tensor &tensor, std::complex<double> scalar);
 
     /// @brief Raise a matrix to a scalar power
     /// @arg tensor The tensor
@@ -271,37 +305,37 @@ class Tensor
 
     /// @brief Inplace matrix multiplication
     /// @arg tensor2 Right hand matrix to multiply with this one
-    void matmul_(const Tensor &tensor2);
+    [[deprecated("Inplace operations will be removed in a future release")]] void matmul_(const Tensor &tensor2);
 
     /// @brief Inplace element-wise multiplication
     /// @arg tensor2 Right hand tensor
-    void mul_(const Tensor &tensor2);
+    [[deprecated("Inplace operations will be removed in a future release")]] void mul_(const Tensor &tensor2);
 
     /// @brief Inplace element-wise division
     /// @arg tensor2 Denominator
-    void div_(const Tensor &tensor2);
+    [[deprecated("Inplace operations will be removed in a future release")]] void div_(const Tensor &tensor2);
 
     /// @brief Inplace matrix scaling
     /// @arg scalar The scalar
-    void scale_(float scalar);
+    [[deprecated("Inplace operations will be removed in a future release")]] void scale_(float scalar);
     /// @brief Inplace complex matrix scaling
     /// @arg scalar The scalar
-    void scale_(std::complex<float> scalar);
+    [[deprecated("Inplace operations will be removed in a future release")]] void scale_(std::complex<float> scalar);
 
     /// @brief Inplace raise to scalar power
     /// @arg scalar The scalar
-    void pow_(float scalar);
+    [[deprecated("Inplace operations will be removed in a future release")]] void pow_(float scalar);
     /// @brief Inplace raise to scalar power
     /// @arg scalar The scalar
-    void pow_(std::complex<float> scalar);
+    [[deprecated("Inplace operations will be removed in a future release")]] void pow_(std::complex<float> scalar);
 
     /// @brief Inplace element-wise exponential
-    void exp_();
+    [[deprecated("Inplace operations will be removed in a future release")]] void exp_();
 
     /// @brief Inplace transpose
     /// @arg dim0 The first dimension to swap
     /// @arg dim1 The second dimension to swap
-    void transpose_(int dim0, int dim1);
+    [[deprecated("Inplace operations will be removed in a future release")]] void transpose_(int dim0, int dim1);
 
     /// @}
 
@@ -346,28 +380,56 @@ class Tensor
     /// @{
     [[nodiscard]] bool operator==(const Tensor &rhs) const;
     [[nodiscard]] bool operator!=(const Tensor &rhs) const;
-    [[nodiscard]] Tensor operator+(const Tensor &rhs) const;
-    [[nodiscard]] Tensor operator-(const Tensor &rhs) const;
-    [[nodiscard]] Tensor operator+(double rhs) const;
-    [[nodiscard]] Tensor operator-(double rhs) const;
-    [[nodiscard]] Tensor operator*(const Tensor &rhs) const;
-    [[nodiscard]] Tensor operator*(double rhs) const;
-    [[nodiscard]] Tensor operator/(const Tensor &rhs) const;
-    [[nodiscard]] Tensor operator/(double rhs) const;
+
+    template <typename T>
+    using notTensor = typename std::enable_if<!static_cast<bool>(std::is_convertible<T, Tensor>::value), T>::type;
+
+    template <typename T> [[nodiscard]] inline Tensor operator+(const T &rhs) const
+    {
+        return Tensor::add(*this, rhs);
+    }
+
+    template <typename T> [[nodiscard]] inline Tensor operator-(const T &rhs) const
+    {
+        return Tensor::add(*this, -rhs);
+    };
+
+    template <typename T, notTensor<T> * = nullptr> [[nodiscard]] inline Tensor operator*(const T &rhs) const
+    {
+        return Tensor::scale(*this, rhs);
+    };
+    // need to call mul() instead of scale() for tensor input
+    template <typename T, typename std::enable_if<std::is_convertible<T, Tensor>::value, T>::type * = nullptr>
+    [[nodiscard]] inline Tensor operator*(const T &rhs) const
+    {
+        return Tensor::mul(*this, rhs);
+    };
+
+    template <typename T> [[nodiscard]] inline Tensor operator/(const T &rhs) const
+    {
+        return Tensor::div(*this, rhs);
+    };
+
     [[nodiscard]] Tensor operator-() const;
-    [[nodiscard]] friend Tensor operator*(double lhs, const Tensor &tensor)
+
+    template <typename T, notTensor<T> * = nullptr>
+    [[nodiscard]] inline friend Tensor operator*(const T &lhs, const Tensor &tensor)
     {
         NT_PROFILE();
 
         return {tensor * lhs};
     };
-    [[nodiscard]] friend Tensor operator+(double lhs, const Tensor &tensor)
+
+    template <typename T, notTensor<T> * = nullptr>
+    [[nodiscard]] inline friend Tensor operator+(const T &lhs, const Tensor &tensor)
     {
         NT_PROFILE();
 
         return {tensor + lhs};
     };
-    [[nodiscard]] friend Tensor operator-(double lhs, const Tensor &tensor)
+
+    template <typename T, notTensor<T> * = nullptr>
+    [[nodiscard]] inline friend Tensor operator-(const T lhs, const Tensor &tensor)
     {
         NT_PROFILE();
 
