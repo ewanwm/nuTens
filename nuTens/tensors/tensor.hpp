@@ -382,7 +382,7 @@ class Tensor
     [[nodiscard]] bool operator!=(const Tensor &rhs) const;
 
     template <typename T>
-    using notTensor = typename std::enable_if<false == std::is_convertible<T, Tensor>::value, T>::type;
+    using notTensor = typename std::enable_if<!static_cast<bool>(std::is_convertible<T, Tensor>::value), T>::type;
 
     template <typename T> [[nodiscard]] inline Tensor operator+(const T &rhs) const
     {
