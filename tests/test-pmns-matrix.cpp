@@ -1,11 +1,12 @@
 #include <tests/test-pmns-matrix.hpp>
 
-// magic numbers are fine for testing!
-// NOLINTBEGIN(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
-
 // cognitive complexity is heavily inflated by the gtest macros
 // but they don't actually decrease readability
 // NOLINTBEGIN(readability-function-cognitive-complexity)
+
+// magic numbers are fine for testing!
+// NOLINTBEGIN(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
+
 using namespace nuTens;
 
 class PMNSmatrixTest : public gtest::TestWithParam<float>
