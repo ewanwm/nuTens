@@ -324,11 +324,11 @@ void initTensor(py::module &m_nuTens)
         "Element-wise multiplication",
         py::arg("tensor_1"), py::arg("tensor_2")
     );
-    m_tensor.def("add", &Tensor::add, 
+    m_tensor.def("add", py::overload_cast<const Tensor &, const Tensor &>(&Tensor::add), 
         "Element-wise addition",
         py::arg("tensor_1"), py::arg("tensor_2")
     );
-    m_tensor.def("div", &Tensor::div, 
+    m_tensor.def("div", py::overload_cast<const Tensor &, const Tensor &>(&Tensor::div), 
         "Element-wise division",
         py::arg("tensor_1"), py::arg("tensor_2")
     );

@@ -79,7 +79,7 @@ Tensor DPpropagator::calculateProbs()
     Tensor xmat = Amatter / Dmsqee;
     Tensor tmp = one - xmat;
     // NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-    Tensor lambda3{-dmsq31 + Dmsqee * (xmat - 1 + Tensor::sqrt(tmp * tmp + sinSqTheta13 * xmat * 4.0)) * 0.5};
+    Tensor lambda3{-dmsq31 + Dmsqee * (xmat - 1.0 + Tensor::sqrt(tmp * tmp + sinSqTheta13 * xmat * 4.0)) * 0.5};
     // NOLINTEND(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 
     // ---------------------------------------------------------------------------- //
