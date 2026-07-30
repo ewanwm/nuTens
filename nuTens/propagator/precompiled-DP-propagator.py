@@ -1,6 +1,7 @@
 import torch
 import math as m
 import os
+import sys
 
 GROOT2 = 0.76294e-4 
 TWOPI = 2.0 * m.pi
@@ -221,7 +222,7 @@ with torch.no_grad():
             exported,
             # [Optional] Specify the generated shared library path. If not specified,
             # the generated artifact is stored in your system temp directory.
-            package_path=os.path.join(os.getcwd(), f"precompiledDPpropagator-{device}.pt2"),
+            package_path=os.path.join(sys.argv[1], f"precompiledDPpropagator-{device}.pt2") ,
             # [Optional] Specify Inductor configs
             # This specific max_autotune option will turn on more extensive kernel autotuning for
             # better performance.
