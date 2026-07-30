@@ -1,6 +1,5 @@
 
 add_executable(benchmarks benchmarks.cpp)
-add_executable(benchmarks-gpu benchmarks-gpu.cpp)
 
 if(NT_ENABLE_GPU_BENCHMARKING)
     target_compile_definitions(benchmarks PUBLIC BENCHMARK_GPU)
