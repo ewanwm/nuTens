@@ -1,5 +1,7 @@
 from __future__ import annotations
+import nuTens._pyNuTens.dtype
 import nuTens._pyNuTens.tensor
+import nuTens.dtype
 import typing
 __all__: list[str] = ['BaseMatterSolver', 'BaseMixingMatrix', 'ConstDensitySolver', 'DPpropagator', 'PMNSmatrix', 'Propagator']
 class BaseMatterSolver:
@@ -27,7 +29,7 @@ class BaseMixingMatrix:
     def build(self) -> nuTens._pyNuTens.tensor.Tensor:
         ...
 class ConstDensitySolver(BaseMatterSolver):
-    def __init__(self, n_generations: typing.SupportsInt | typing.SupportsIndex) -> None:
+    def __init__(self, n_generations: typing.SupportsInt | typing.SupportsIndex, device: nuTens._pyNuTens.dtype.device_type = nuTens.dtype.device_type.cpu) -> None:
         ...
     def get_density(self) -> float:
         """
@@ -50,7 +52,7 @@ class ConstDensitySolver(BaseMatterSolver):
         Set the mixing that the solver should use
         """
 class DPpropagator(Propagator):
-    def __init__(self, NR_iterations: typing.SupportsInt | typing.SupportsIndex) -> None:
+    def __init__(self, NR_iterations: typing.SupportsInt | typing.SupportsIndex, device: nuTens._pyNuTens.dtype.device_type = nuTens.dtype.device_type.cpu) -> None:
         ...
     def calculate_probs(self) -> nuTens._pyNuTens.tensor.Tensor:
         ...
@@ -101,7 +103,11 @@ class DPpropagator(Propagator):
     def set_theta23(self, theta_23: nuTens._pyNuTens.tensor.Tensor) -> DPpropagator:
         ...
 class PMNSmatrix(BaseMixingMatrix):
+    @typing.overload
     def __init__(self) -> None:
+        ...
+    @typing.overload
+    def __init__(self, device: nuTens._pyNuTens.dtype.device_type) -> None:
         ...
     def get_deltacp_tensor(self) -> nuTens._pyNuTens.tensor.Tensor:
         ...
@@ -120,7 +126,7 @@ class PMNSmatrix(BaseMixingMatrix):
     def set_theta23(self, theta_23: typing.SupportsFloat | typing.SupportsIndex) -> PMNSmatrix:
         ...
 class Propagator:
-    def __init__(self, n_generations: typing.SupportsInt | typing.SupportsIndex) -> None:
+    def __init__(self, n_generations: typing.SupportsInt | typing.SupportsIndex, device: nuTens._pyNuTens.dtype.device_type = nuTens.dtype.device_type.cpu) -> None:
         ...
     def calculate_probabilities(self) -> nuTens._pyNuTens.tensor.Tensor:
         """

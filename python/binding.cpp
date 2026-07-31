@@ -419,8 +419,8 @@ void initPropagator(py::module &m_nuTens)
         ;
 
     py::class_<Propagator>(m_propagator, "Propagator")
-        .def(py::init<int>(), 
-            py::arg("n_generations"))
+        .def(py::init<int, dtypes::deviceType>(), 
+            py::arg("n_generations"), py::arg("device") = dtypes::kCPU)
         .def("calculate_probabilities", &Propagator::calculateProbs,
             "Calculate the oscillation probabilities for neutrinos of specified energies"
         )
@@ -455,8 +455,8 @@ void initPropagator(py::module &m_nuTens)
 
 
     py::class_<DPpropagator, Propagator>(m_propagator, "DPpropagator")
-        .def(py::init<int>(), 
-            py::arg("NR_iterations"))
+        .def(py::init<int, dtypes::deviceType>(), 
+            py::arg("NR_iterations"), py::arg("device") = dtypes::kCPU)
         .def("set_theta12", (&DPpropagator::setTheta12), py::arg("theta_12"))
         .def("set_theta13", (&DPpropagator::setTheta13), py::arg("theta_13"))
         .def("set_theta23", (&DPpropagator::setTheta23), py::arg("theta_23"))
@@ -496,8 +496,8 @@ void initPropagator(py::module &m_nuTens)
 
      py::class_<ConstDensityMatterSolver, std::shared_ptr<ConstDensityMatterSolver>, BaseMatterSolver>(
         m_propagator, "ConstDensitySolver")
-        .def(py::init<int>(), 
-            py::arg("n_generations"))
+        .def(py::init<int, dtypes::deviceType>(), 
+            py::arg("n_generations"), py::arg("device") = dtypes::kCPU)
         .def("set_density", (&ConstDensityMatterSolver::setDensity),
             "Set the density that the solver should use",
             py::arg("new_value")
@@ -527,6 +527,7 @@ void initPropagator(py::module &m_nuTens)
      py::class_<PMNSmatrix, std::shared_ptr<PMNSmatrix>, BaseMixingMatrix>(
         m_propagator, "PMNSmatrix")
         .def(py::init<>())
+        .def(py::init<dtypes::deviceType>(), py::arg("device"))
         .def("set_theta12", (&PMNSmatrix::setTheta12), py::arg("theta_12"))
         .def("set_theta13", (&PMNSmatrix::setTheta13), py::arg("theta_13"))
         .def("set_theta23", (&PMNSmatrix::setTheta23), py::arg("theta_23"))
