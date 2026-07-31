@@ -7,6 +7,7 @@ namespace gtest = ::testing;
 #include <nuTens/propagator/DP-propagator.hpp>
 #include <nuTens/propagator/const-density-solver.hpp>
 #include <nuTens/propagator/pmns-matrix.hpp>
+#include <nuTens/propagator/precompiled-DP-propagator.hpp>
 #include <nuTens/propagator/propagator.hpp>
 #include <nuTens/tensors/tensor.hpp>
 #include <nuTens/utils/logging.hpp>
@@ -22,7 +23,8 @@ using namespace nuTens::testing;
 
 // magic numbers are fine for testing!
 // NOLINTBEGIN(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
-class DPpropagatorTest : public gtest::TestWithParam<std::tuple<float, dtypes::deviceType>>
+template <typename TDPpropagator>
+class DPpropagatorTester : public gtest::TestWithParam<std::tuple<float, dtypes::deviceType>>
 {
 
   protected:
@@ -58,8 +60,8 @@ class DPpropagatorTest : public gtest::TestWithParam<std::tuple<float, dtypes::d
     Propagator tensorPropagator = Propagator(1);
     std::shared_ptr<ConstDensityMatterSolver> tensorSolver;
 
-    DPpropagator dpPropagator = DPpropagator(1);
-    DPpropagator dpPropagatorVac = DPpropagator(1);
+    TDPpropagator dpPropagator = TDPpropagator(1);
+    TDPpropagator dpPropagatorVac = TDPpropagator(1);
 
     PMNSmatrix pmns;
 
@@ -77,8 +79,15 @@ class DPpropagatorTest : public gtest::TestWithParam<std::tuple<float, dtypes::d
         tensorPropagator = Propagator(3, device).setBaseline(baseline);
         tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, device);
 
-        dpPropagator = DPpropagator(10, device).setBaseline(baseline).setAntiNeutrino(false).setDensity(density);
-        dpPropagatorVac = DPpropagator(10, device).setBaseline(baseline).setAntiNeutrino(false).setDensity(0.0);
+        dpPropagator = TDPpropagator(10, device);
+        dpPropagator.setBaseline(baseline);
+        dpPropagator.setAntiNeutrino(false);
+        dpPropagator.setDensity(density);
+
+        dpPropagatorVac = TDPpropagator(10, device);
+        dpPropagatorVac.setBaseline(baseline);
+        dpPropagatorVac.setAntiNeutrino(false);
+        dpPropagatorVac.setDensity(0.0);
 
         pmns = PMNSmatrix(device);
 
@@ -324,7 +333,7 @@ class DPpropagatorTest : public gtest::TestWithParam<std::tuple<float, dtypes::d
         ASSERT_NEAR(probabilities.getValue<float>({0, 2, 2}), dpProbabilities.getValue<float>({0, 2, 2}), tolerance);
     }
 
-    /// compare gradient from DPpropagator to regular Propagator
+    /// compare gradient from TDPpropagator to regular Propagator
     void autogradTest()
     {
         _setParamValues(/*forceLowerOctant=*/false, /*interpretSinSquaredThetas=*/false);
@@ -343,7 +352,7 @@ class DPpropagatorTest : public gtest::TestWithParam<std::tuple<float, dtypes::d
 
         NT_INFO("Propagator:   d P_(mu->mu) / d theta_23 = {}", pmns.getTheta23Tensor().grad().getValue<float>());
 
-        // get DPpropagator probabilities
+        // get TDPpropagator probabilities
         Tensor dpProbabilities = dpPropagator.calculateProbs();
         Tensor dpMuSurvivalProb = dpProbabilities.getValues({0, 1, 1});
 
