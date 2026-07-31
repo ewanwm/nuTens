@@ -5,6 +5,26 @@ add_library( units units.hpp)
 set_target_properties(constants PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(units PROPERTIES LINKER_LANGUAGE CXX)
 
+function( add_resource input target)
+    string( MAKE_C_IDENTIFIER ${input} input_identifier )
+    set( output "${input_identifier}.o" )
+    set( ${input}_object ${output} PARENT_SCOPE)
+
+    add_custom_command(
+        PRE_BUILD
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${output}
+        COMMAND ${CMAKE_LINKER} --relocatable --format binary --output ${output} ${input}
+        DEPENDS ${input}
+    )
+
+    add_library( ${target} OBJECT IMPORTED )
+    
+    set_target_properties( ${target} PROPERTIES
+        IMPORTED_OBJECTS "${CMAKE_CURRENT_BINARY_DIR}/${output}"
+    )
+
+endfunction()
+
 set(
     FILES 
     propagator.hpp propagator.cpp 
@@ -15,8 +35,11 @@ set(
 )
 
 if(NT_USE_TORCH)
-    execute_process(
-        COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/precompiled-DP-propagator.py
+    add_custom_command(
+        PRE_BUILD
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/precompiledDPpropagator-cpu.pt2
+        COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/precompiled-DP-propagator.py ${CMAKE_CURRENT_BINARY_DIR}
+        DEPENDS precompiled-DP-propagator.py
     )
     list(APPEND FILES precompiled-DP-propagator.hpp)
 endif()
@@ -25,6 +48,10 @@ add_library(
     propagator
     ${FILES}
 )
+
+add_resource(precompiledDPpropagator-cpu.pt2 precompDPpropCPU)
+message(${precompiledDPpropagator-cpu.pt2_object})
+target_link_libraries(propagator PRIVATE precompDPpropCPU)
 
 target_link_libraries(
     propagator PRIVATE
