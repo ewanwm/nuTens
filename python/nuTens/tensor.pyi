@@ -4,7 +4,7 @@ import nuTens._pyNuTens.dtype
 import nuTens.dtype
 import torch
 import typing
-__all__: list[str] = ['Tensor', 'add', 'cos', 'cumsum', 'div', 'exp', 'gpu_available', 'matmul', 'mul', 'outer', 'pow', 'scale', 'sin', 'sum', 'transpose']
+__all__: list[str] = ['Tensor', 'add', 'cos', 'cumsum', 'div', 'exp', 'gpu_available', 'log', 'matmul', 'mul', 'outer', 'pow', 'scale', 'sin', 'sum', 'transpose']
 class Tensor:
     """
     Tensor defines a basic interface for creating and manipulating tensors.To create tensors you should use the static constructor methods.
@@ -239,6 +239,10 @@ def exp(tensor_1: Tensor) -> Tensor:
 def gpu_available() -> bool:
     """
     Returns true if there is an available GPU, False if not
+    """
+def log(tensor_1: Tensor) -> Tensor:
+    """
+    Take element-wise natural log of a tensor
     """
 def matmul(tensor_1: Tensor, tensor_2: Tensor) -> Tensor:
     """
