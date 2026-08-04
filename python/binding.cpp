@@ -344,6 +344,10 @@ void initTensor(py::module &m_nuTens)
         "Take element-wise exponential of a tensor",
         py::arg("tensor_1")
     );
+    m_tensor.def("log", &Tensor::log, 
+        "Take element-wise natural log of a tensor",
+        py::arg("tensor_1")
+    );
     m_tensor.def("transpose", &Tensor::transpose, 
         "Get the matrix transpose",
         py::arg("tensor_1"), py::arg("index_1"), py::arg("index_2")
