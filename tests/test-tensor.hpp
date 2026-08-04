@@ -1,3 +1,4 @@
+#include <nuTens/tensors/autograd.hpp>
 #include <nuTens/tensors/dtypes.hpp>
 #include <nuTens/tensors/tensor.hpp>
 #include <tests/utils.hpp>
@@ -322,6 +323,7 @@ template <typename T> void testNoGrad(const dtypes::scalarType dtype, const dtyp
     Tensor result = one * grad;
 
     EXPECT_ANY_THROW(result.backward());
+    EXPECT_ANY_THROW(grad(result, one));
 }
 
 template <typename T>
@@ -334,6 +336,7 @@ void testDerivativesBasicScalarReal(const dtypes::scalarType dtype, const dtypes
     result.backward();
 
     ASSERT_EQ(one.grad().getValue<T>(), grad);
+    ASSERT_EQ(autograd::grad(result, one), one.grad());
 }
 
 template <typename T>
@@ -394,6 +397,7 @@ void testDerivativesBasicTensorComplex(const dtypes::scalarType dtype, const dty
     Tensor gradTensor = one.grad();
 
     ASSERT_EQ(gradTensor.conj(), grad);
+    ASSERT_EQ(grad(result, one).conj(), grad);
 
     // test derivative of imaginary part of product
     one = Tensor::ones({1}, dtype, deviceType, true);
@@ -403,6 +407,7 @@ void testDerivativesBasicTensorComplex(const dtypes::scalarType dtype, const dty
     gradTensor = one.grad();
 
     ASSERT_EQ(Tensor::scale(gradTensor.conj(), complexType(0.0, 1.0)), grad);
+    ASSERT_EQ(Tensor::scale(grad(result, one).conj(), complexType(0.0, 1.0)), grad);
 }
 
 void testDerivativesStandardFunctions(const dtypes::scalarType dtype, const dtypes::deviceType deviceType)
@@ -414,18 +419,21 @@ void testDerivativesStandardFunctions(const dtypes::scalarType dtype, const dtyp
     exp.backward();
 
     ASSERT_EQ(Tensor::exp(tensor), tensor.grad());
+    ASSERT_EQ(Tensor::exp(tensor), grad(exp, tensor));
     tensor.zeroGrad();
 
     Tensor cos = Tensor::cos(tensor);
     cos.backward();
 
     ASSERT_EQ(-Tensor::sin(tensor), tensor.grad());
+    ASSERT_EQ(-Tensor::sin(tensor), grad(cos, tensor));
     tensor.zeroGrad();
 
     Tensor square = Tensor::square(tensor);
     square.backward();
 
     ASSERT_EQ(2.0 * tensor, tensor.grad());
+    ASSERT_EQ(2.0 * tensor, grad(square, tensor));
     tensor.zeroGrad();
 }
 
