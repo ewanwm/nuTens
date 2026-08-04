@@ -13,6 +13,7 @@
 #include <nuTens/propagator/const-density-solver.hpp>
 #include <nuTens/propagator/propagator.hpp>
 #include <nuTens/propagator/units.hpp>
+#include <nuTens/tensors/autograd.hpp>
 #include <nuTens/tensors/dtypes.hpp>
 #include <nuTens/tensors/tensor.hpp>
 #include <tests/barger-propagator.hpp>
@@ -32,6 +33,7 @@ using namespace nuTens;
 
 void initDtypes(py::module & /*m_nuTens*/);
 void initTensor(py::module & /*m_nuTens*/);
+void initAutograd(py::module & /*m_nuTens*/);
 void initPropagator(py::module & /*m_nuTens*/);
 void initUnits(py::module & /*m_nuTens*/);
 void initTesting(py::module & /*m_nuTens*/);
@@ -43,6 +45,7 @@ PYBIND11_MODULE(_pyNuTens, m_nuTens)
     m_nuTens.doc() = "Library to calculate neutrino oscillations";
     initDtypes(m_nuTens);
     initUnits(m_nuTens);
+    initTensor(m_nuTens);
     initTensor(m_nuTens);
     initPropagator(m_nuTens);
     initTesting(m_nuTens);
@@ -382,6 +385,17 @@ void initTensor(py::module &m_nuTens)
     );
     // m_tensor.def("eig", &Tensor::eig. "calculate eigenvalues") <- Will need to define some additional fn to return
     // tuple of values
+}
+
+void initAutograd(py::module &m_nuTens)
+{
+    auto m_autograd = m_nuTens.def_submodule("autograd");
+
+    m_autograd.def("grad", &autograd::grad, py::call_guard<py::gil_scoped_release>(),
+        "Get the gradient of a value with respect to some leaf tensor",
+        py::arg("value"), py::arg("leaf")
+    );
+
 }
 
 void initPropagator(py::module &m_nuTens)
