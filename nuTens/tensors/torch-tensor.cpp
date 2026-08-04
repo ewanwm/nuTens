@@ -328,6 +328,13 @@ Tensor Tensor::exp(const Tensor &tensor)
     return {torch::exp(tensor._tensor)};
 }
 
+Tensor Tensor::log(const Tensor &tensor)
+{
+    NT_PROFILE();
+
+    return {torch::log(tensor._tensor)};
+}
+
 Tensor Tensor::transpose(const Tensor &tensor, int dim0, int dim1)
 {
     NT_PROFILE();

@@ -120,6 +120,7 @@ template <typename T> void testStandardFunctions(dtypes::scalarType dtype, dtype
     ASSERT_EQ(Tensor::sin(thetaTensor).getValue<float>(), std::sin(theta));
     ASSERT_EQ(Tensor::cos(thetaTensor).getValue<float>(), std::cos(theta));
     ASSERT_EQ(Tensor::exp(thetaTensor).getValue<float>(), std::exp(theta));
+    ASSERT_EQ(Tensor::log(thetaTensor).getValue<float>(), std::log(theta));
 }
 
 template <typename T> void testSummation(const dtypes::scalarType dtype, dtypes::deviceType deviceType)

@@ -8,4 +8,4 @@ from . import tensor
 from . import testing
 from . import units
 __all__: list[str] = ['dtype', 'propagator', 'tensor', 'testing', 'units']
-__version__: str = '0.6.0'
+__version__: str = '0.6.1'

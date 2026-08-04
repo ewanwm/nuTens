@@ -276,6 +276,10 @@ class Tensor
     /// @arg tensor The tensor
     static Tensor exp(const Tensor &tensor);
 
+    /// @brief Element-wise natural logarithm
+    /// @arg tensor The tensor
+    static Tensor log(const Tensor &tensor);
+
     /// @brief Get the transpose of a tensor
     /// @arg tensor The tensor
     /// @arg dim0 The first dimension to swap
