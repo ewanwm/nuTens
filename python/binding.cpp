@@ -46,7 +46,7 @@ PYBIND11_MODULE(_pyNuTens, m_nuTens)
     initDtypes(m_nuTens);
     initUnits(m_nuTens);
     initTensor(m_nuTens);
-    initTensor(m_nuTens);
+    initAutograd(m_nuTens);
     initPropagator(m_nuTens);
     initTesting(m_nuTens);
 
