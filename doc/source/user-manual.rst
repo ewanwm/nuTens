@@ -101,6 +101,8 @@ This can then be accessed via the `grad()` method.
 
 e.g.
 
+.. tabs::
+
     .. code-tab:: c++
 
         #include <nuTens/tensors/tensor.hpp>
@@ -141,6 +143,8 @@ The `autograd::grad()` method can be used to calculate the derivative of one ten
 
 e.g.
 
+.. tabs::
+
     .. code-tab:: c++
 
         #include <nuTens/tensors/tensor.hpp>
@@ -177,6 +181,8 @@ Higher Order Derivatives
 
 e.g.
 
+.. tabs::
+
     .. code-tab:: c++
 
         #include <nuTens/tensors/tensor.hpp>
@@ -206,4 +212,46 @@ e.g.
         # get the gradient
         gradient = autograd.grad(output, input)
         second_deriv = autograd.grad(gradient, input)
+
+Disabling Autograd calculations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you are not interested in computing gradients, you may wish to disable the automatic differentiation machinery as it can incur performance penalties.
+This can be done with the NoGrad guard class.
+
+You can disable autograd related computations in a specific scope like:
+
+.. tabs::
+
+    .. code-tab:: c++
+
+        #include <nuTens/tensors/tensor.hpp>
+        #include <nuTens/tensors/autograd.hpp>
+
+        {
+            // while this object exists, i.e. within the current scope
+            // no computations related to automatic differentiation will be performed 
+            auto noGrad = autograd::NoGrad();
+
+            // ... Do some computation ...
         
+        }
+
+        // now autodiff will be re-enabled
+    
+    .. code-tab:: py
+
+        from nuTens.tensor import Tensor
+        from nuTens import autograd
+
+        def foo():
+            
+            # while this object exists, i.e. within the current scope
+            # no computations related to automatic differentiation will be performed 
+            noGrad = autograd.NoGrad()
+
+            # ... Do some computation ...
+        
+        }
+
+        # now autodiff will be re-enabled
