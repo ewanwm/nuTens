@@ -65,6 +65,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#gpu">GPU</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#batching-oscillation-calculations">Batching Oscillation calculations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#denton-parke-propagator">Denton-Parke Propagator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#automatic-differentiation">Automatic Differentiation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-backward">Using Backward()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-autograd-module">Using Autograd Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#higher-order-derivatives">Higher Order Derivatives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#disabling-autograd-calculations">Disabling Autograd calculations</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cpp-api.html">c++ API</a></li>
@@ -172,6 +179,154 @@ It leverages the <a class="reference external" href="https://www.ams.org/journal
 </pre></div>
 </div>
 </div></div>
+</section>
+<section id="automatic-differentiation">
+<span id="autograd"></span><h2>Automatic Differentiation<a class="headerlink" href="#automatic-differentiation" title="Link to this heading"></a></h2>
+<section id="using-backward">
+<h3>Using Backward()<a class="headerlink" href="#using-backward" title="Link to this heading"></a></h3>
+<p>Calling <cite>backward()</cite> on an endpoint tensor in a computation will do backpropagation through the computation graph and populate the gradient attribute of all tensors which habe the attribute <cite>requiresGrad == true</cite>.
+This can then be accessed via the <cite>grad()</cite> method.</p>
+<p>e.g.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-Qysr" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Qysr" name="Qysr" role="tab" tabindex="0">C++</button><button aria-controls="panel-1-UHl0aG9u" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="-1">Python</button></div><div aria-labelledby="tab-1-Qysr" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-Qysr" name="Qysr" role="tabpanel" tabindex="0"><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/tensors/tensor.hpp&gt;</span>
+
+<span class="c1">// set up the input tensor</span>
+<span class="n">Tensor</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Tensor</span><span class="o">::</span><span class="n">ones</span><span class="p">({</span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="n">dtypes</span><span class="o">::</span><span class="n">kFloat</span><span class="p">,</span><span class="w"> </span><span class="n">dtypes</span><span class="o">::</span><span class="n">kCPU</span><span class="p">,</span><span class="w"> </span><span class="cm">/*requiresGrad=*/</span><span class="nb">true</span><span class="p">);</span>
+
+<span class="c1">// perform some computation</span>
+<span class="n">Tensor</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Tensor</span><span class="o">::</span><span class="n">exp</span><span class="p">(</span><span class="n">input</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">3.0</span><span class="p">);</span>
+
+<span class="c1">// perform backpropagation</span>
+<span class="n">output</span><span class="p">.</span><span class="n">backward</span><span class="p">();</span>
+
+<span class="c1">// get the accumulated gradient from the input tensor</span>
+<span class="n">Tensor</span><span class="w"> </span><span class="n">gradient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">grad</span><span class="p">();</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nuTens.tensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span>
+
+<span class="c1"># set up the input tensor</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># perform some computation</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="nb">input</span> <span class="o">*</span> <span class="mf">3.0</span><span class="p">)</span>
+
+<span class="c1"># perform backpropagation</span>
+<span class="n">output</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+
+<span class="c1"># get the accumulated gradient from the input tensor</span>
+<span class="n">gradient</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">grad</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="using-autograd-module">
+<h3>Using Autograd Module<a class="headerlink" href="#using-autograd-module" title="Link to this heading"></a></h3>
+<p>The <cite>autograd::grad()</cite> method can be used to calculate the derivative of one tensor with respect to another.</p>
+<p>e.g.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-Qysr" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Qysr" name="Qysr" role="tab" tabindex="0">C++</button><button aria-controls="panel-2-UHl0aG9u" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="-1">Python</button></div><div aria-labelledby="tab-2-Qysr" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-Qysr" name="Qysr" role="tabpanel" tabindex="0"><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/tensors/tensor.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/tensors/autograd.hpp&gt;</span>
+
+<span class="c1">// set up the input tensor</span>
+<span class="n">Tensor</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Tensor</span><span class="o">::</span><span class="n">ones</span><span class="p">({</span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="n">dtypes</span><span class="o">::</span><span class="n">kFloat</span><span class="p">,</span><span class="w"> </span><span class="n">dtypes</span><span class="o">::</span><span class="n">kCPU</span><span class="p">,</span><span class="w"> </span><span class="cm">/*requiresGrad=*/</span><span class="nb">true</span><span class="p">);</span>
+
+<span class="c1">// perform some computation</span>
+<span class="n">Tensor</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Tensor</span><span class="o">::</span><span class="n">exp</span><span class="p">(</span><span class="n">input</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">3.0</span><span class="p">);</span>
+
+<span class="c1">// get the gradient</span>
+<span class="n">Tensor</span><span class="w"> </span><span class="n">gradient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">autograd</span><span class="o">::</span><span class="n">grad</span><span class="p">(</span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">);</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-2-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nuTens.tensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">nuTens</span><span class="w"> </span><span class="kn">import</span> <span class="n">autograd</span>
+
+<span class="c1"># set up the input tensor</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># perform some computation</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="nb">input</span> <span class="o">*</span> <span class="mf">3.0</span><span class="p">)</span>
+
+<span class="c1"># get the gradient</span>
+<span class="n">gradient</span> <span class="o">=</span> <span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="nb">input</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="higher-order-derivatives">
+<h3>Higher Order Derivatives<a class="headerlink" href="#higher-order-derivatives" title="Link to this heading"></a></h3>
+<p><cite>autograd::grad()</cite> can also be used to calculate higher order Derivatives</p>
+<p>e.g.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-Qysr" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Qysr" name="Qysr" role="tab" tabindex="0">C++</button><button aria-controls="panel-3-UHl0aG9u" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="-1">Python</button></div><div aria-labelledby="tab-3-Qysr" class="sphinx-tabs-panel code-tab group-tab" id="panel-3-Qysr" name="Qysr" role="tabpanel" tabindex="0"><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/tensors/tensor.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/tensors/autograd.hpp&gt;</span>
+
+<span class="c1">// set up the input tensor</span>
+<span class="n">Tensor</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Tensor</span><span class="o">::</span><span class="n">ones</span><span class="p">({</span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="n">dtypes</span><span class="o">::</span><span class="n">kFloat</span><span class="p">,</span><span class="w"> </span><span class="n">dtypes</span><span class="o">::</span><span class="n">kCPU</span><span class="p">,</span><span class="w"> </span><span class="cm">/*requiresGrad=*/</span><span class="nb">true</span><span class="p">);</span>
+
+<span class="c1">// perform some computation</span>
+<span class="n">Tensor</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Tensor</span><span class="o">::</span><span class="n">exp</span><span class="p">(</span><span class="n">input</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">3.0</span><span class="p">);</span>
+
+<span class="c1">// get the gradient</span>
+<span class="n">Tensor</span><span class="w"> </span><span class="n">gradient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">autograd</span><span class="o">::</span><span class="n">grad</span><span class="p">(</span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">);</span>
+<span class="n">Tensor</span><span class="w"> </span><span class="n">secondDeriv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">autograd</span><span class="o">::</span><span class="n">grad</span><span class="p">(</span><span class="n">gradient</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">);</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-3-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-3-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nuTens.tensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">nuTens</span><span class="w"> </span><span class="kn">import</span> <span class="n">autograd</span>
+
+<span class="c1"># set up the input tensor</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># perform some computation</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="nb">input</span> <span class="o">*</span> <span class="mf">3.0</span><span class="p">)</span>
+
+<span class="c1"># get the gradient</span>
+<span class="n">gradient</span> <span class="o">=</span> <span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="nb">input</span><span class="p">)</span>
+<span class="n">second_deriv</span> <span class="o">=</span> <span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">gradient</span><span class="p">,</span> <span class="nb">input</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="disabling-autograd-calculations">
+<h3>Disabling Autograd calculations<a class="headerlink" href="#disabling-autograd-calculations" title="Link to this heading"></a></h3>
+<p>If you are not interested in computing gradients, you may wish to disable the automatic differentiation machinery as it can incur performance penalties.
+This can be done with the NoGrad guard class.</p>
+<p>You can disable autograd related computations in a specific scope like:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-Qysr" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-Qysr" name="Qysr" role="tab" tabindex="0">C++</button><button aria-controls="panel-4-UHl0aG9u" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="-1">Python</button></div><div aria-labelledby="tab-4-Qysr" class="sphinx-tabs-panel code-tab group-tab" id="panel-4-Qysr" name="Qysr" role="tabpanel" tabindex="0"><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/tensors/tensor.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/tensors/autograd.hpp&gt;</span>
+
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// while this object exists, i.e. within the current scope</span>
+<span class="w">    </span><span class="c1">// no computations related to automatic differentiation will be performed</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">noGrad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">autograd</span><span class="o">::</span><span class="n">NoGrad</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// ... Do some computation ...</span>
+
+<span class="p">}</span>
+
+<span class="c1">// now autodiff will be re-enabled</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-4-UHl0aG9u" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-4-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nuTens.tensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">nuTens</span><span class="w"> </span><span class="kn">import</span> <span class="n">autograd</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">():</span>
+
+    <span class="c1"># while this object exists, i.e. within the current scope</span>
+    <span class="c1"># no computations related to automatic differentiation will be performed</span>
+    <span class="n">noGrad</span> <span class="o">=</span> <span class="n">autograd</span><span class="o">.</span><span class="n">NoGrad</span><span class="p">()</span>
+
+    <span class="c1"># ... Do some computation ...</span>
+
+<span class="p">}</span>
+
+<span class="c1"># now autodiff will be re-enabled</span>
+</pre></div>
+</div>
+</div></div>
+</section>
 </section>
 </section>
 

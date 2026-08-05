@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="File DP-propagator.cpp" href="file/DP-propagator_8cpp.html" />
-    <link rel="prev" title="Class nuTens::Tensor" href="class/classnuTens_1_1Tensor.html" /> 
+    <link rel="prev" title="Class nuTens::autograd::NoGrad" href="class/classnuTens_1_1autograd_1_1NoGrad.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -61,6 +61,7 @@
 <li class="toctree-l3"><a class="reference internal" href="file/DP-propagator_8cpp.html">File DP-propagator.cpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="file/DP-propagator_8hpp.html">File DP-propagator.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="file/README_8md.html">File README.md</a></li>
+<li class="toctree-l3"><a class="reference internal" href="file/autograd_8hpp.html">File autograd.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="file/base-matter-solver_8hpp.html">File base-matter-solver.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="file/base-mixing-matrix_8hpp.html">File base-mixing-matrix.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="file/const-density-solver_8cpp.html">File const-density-solver.cpp</a></li>
@@ -75,6 +76,7 @@
 <li class="toctree-l3"><a class="reference internal" href="file/propagator_8hpp.html">File propagator.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="file/tensor_8hpp.html">File tensor.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="file/tf-tensor_8cpp.html">File tf-tensor.cpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="file/torch-autograd_8cpp.html">File torch-autograd.cpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="file/torch-tensor_8cpp.html">File torch-tensor.cpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="file/units_8hpp.html">File units.hpp</a></li>
 </ul>
@@ -173,6 +175,19 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="file/README_8md.html">File README.md</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file/autograd_8hpp.html">File autograd.hpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file/autograd_8hpp.html#_CPPv46nuTens"><code class="docutils literal notranslate"><span class="pre">nuTens</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="file/autograd_8hpp.html#_CPPv4N6nuTens8autogradE"><code class="docutils literal notranslate"><span class="pre">nuTens::autograd</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="file/autograd_8hpp.html#_CPPv4N6nuTens8autograd6NoGradE"><code class="docutils literal notranslate"><span class="pre">nuTens::autograd::NoGrad</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="file/autograd_8hpp.html#_CPPv4N6nuTens8autograd6NoGrad6NoGradEv"><code class="docutils literal notranslate"><span class="pre">NoGrad()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="file/base-matter-solver_8hpp.html">File base-matter-solver.hpp</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="file/base-matter-solver_8hpp.html#_CPPv46nuTens"><code class="docutils literal notranslate"><span class="pre">nuTens</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="file/base-matter-solver_8hpp.html#_CPPv4N6nuTens16BaseMatterSolverE"><code class="docutils literal notranslate"><span class="pre">nuTens::BaseMatterSolver</span></code></a><ul>
@@ -416,10 +431,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="file/tensor_8hpp.html">File tensor.hpp</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="file/tensor_8hpp.html#_CPPv46nuTens"><code class="docutils literal notranslate"><span class="pre">nuTens</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="file/tensor_8hpp.html#_CPPv4N6nuTens6NoGradE"><code class="docutils literal notranslate"><span class="pre">nuTens::NoGrad</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="file/tensor_8hpp.html#_CPPv4N6nuTens6NoGrad6NoGradEv"><code class="docutils literal notranslate"><span class="pre">NoGrad()</span></code></a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="file/tensor_8hpp.html#_CPPv4N6nuTens6TensorE"><code class="docutils literal notranslate"><span class="pre">nuTens::Tensor</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="file/tensor_8hpp.html#_CPPv4I0EN6nuTens6Tensor9notTensorE"><code class="docutils literal notranslate"><span class="pre">notTensor</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="file/tensor_8hpp.html#_CPPv4NK6nuTens6TensoreqERK6Tensor"><code class="docutils literal notranslate"><span class="pre">operator==()</span></code></a></li>
@@ -540,6 +551,16 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="file/tf-tensor_8cpp.html">File tf-tensor.cpp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file/torch-autograd_8cpp.html">File torch-autograd.cpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file/torch-autograd_8cpp.html#_CPPv46nuTens"><code class="docutils literal notranslate"><span class="pre">nuTens</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="file/torch-autograd_8cpp.html#_CPPv4N6nuTens8autogradE"><code class="docutils literal notranslate"><span class="pre">nuTens::autograd</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="file/torch-autograd_8cpp.html#_CPPv4N6nuTens8autograd4gradERKN6nuTens6TensorERKN6nuTens6TensorE"><code class="docutils literal notranslate"><span class="pre">grad()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="file/torch-tensor_8cpp.html">File torch-tensor.cpp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="file/units_8hpp.html">File units.hpp</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="file/units_8hpp.html#_CPPv46nuTens"><code class="docutils literal notranslate"><span class="pre">nuTens</span></code></a><ul>
@@ -564,7 +585,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="class/classnuTens_1_1Tensor.html" class="btn btn-neutral float-left" title="Class nuTens::Tensor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="class/classnuTens_1_1autograd_1_1NoGrad.html" class="btn btn-neutral float-left" title="Class nuTens::autograd::NoGrad" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="file/DP-propagator_8cpp.html" class="btn btn-neutral float-right" title="File DP-propagator.cpp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

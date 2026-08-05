@@ -20,7 +20,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Namespace nuTens::constants" href="namespacenuTens_1_1constants.html" />
+    <link rel="next" title="Namespace nuTens::autograd" href="namespacenuTens_1_1autograd.html" />
     <link rel="prev" title="Namespace ntlogging" href="namespacentlogging.html" /> 
 </head>
 
@@ -64,6 +64,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#_CPPv46nuTens"><code class="docutils literal notranslate"><span class="pre">nuTens</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="namespacenuTens_1_1autograd.html">Namespace nuTens::autograd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="namespacenuTens_1_1constants.html">Namespace nuTens::constants</a></li>
 <li class="toctree-l3"><a class="reference internal" href="namespacenuTens_1_1dtypes.html">Namespace nuTens::dtypes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="namespacenuTens_1_1units.html">Namespace nuTens::units</a></li>
@@ -635,30 +636,6 @@
 <dd class="field-odd"><p><strong>newMasses</strong> – The new masses to use. This tensor is expected to have a batch dimension + 1 more dimensions of size nGenerations. The batch dimension can (and probably should) be 1 and it will be broadcast to match the batch dimension of the energies supplied to <a class="reference internal" href="#classnuTens_1_1DPpropagator_1a1359ad97511d76534dcbba43a6df35ab"><span class="std std-ref">calculateProbs()</span></a>. So dimension should be {1, nGenerations}. </p>
 </dd>
 </dl>
-</dd></dl>
-
-</div>
-</dd></dl>
-
-<dl class="cpp class">
-<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6NoGradE">
-<span id="_CPPv3N6nuTens6NoGradE"></span><span id="_CPPv2N6nuTens6NoGradE"></span><span id="nuTens::NoGrad"></span><span class="target" id="classnuTens_1_1NoGrad"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NoGrad</span></span></span><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6NoGrad6NoGradEv">
-<span id="_CPPv3N6nuTens6NoGrad6NoGradEv"></span><span id="_CPPv2N6nuTens6NoGrad6NoGradEv"></span><span id="nuTens::NoGrad::NoGrad"></span><span class="target" id="classnuTens_1_1NoGrad_1a58e010c5ab5de73b343492780da3064c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NoGrad</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Disable autograd calculations within some scope, improving performance where you are not interested in calculating gradients Instantiate at the start of the scope where you want to disable gradient calculations like so. </p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/tensors/tensor.hpp&gt;</span>
-<span class="p">...</span>
-<span class="w">  </span><span class="p">{</span>
-<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="n">noGrad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nuTens</span><span class="o">::</span><span class="n">NoGrad</span><span class="p">();</span>
-<span class="w">      </span><span class="p">...</span>
-<span class="w">      </span><span class="o">&lt;</span><span class="w"> </span><span class="n">speedy</span><span class="w"> </span><span class="n">non</span><span class="w"> </span><span class="n">differentiated</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="o">&gt;</span>
-<span class="w">      </span><span class="p">...</span>
-<span class="w">  </span><span class="p">}</span>
-</pre></div>
-</div>
 </dd></dl>
 
 </div>
@@ -1841,6 +1818,44 @@
 </dd></dl>
 
 <dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens8autogradE">
+<span id="_CPPv3N6nuTens8autogradE"></span><span id="_CPPv2N6nuTens8autogradE"></span><span id="nuTens::autograd"></span><span class="target" id="namespacenuTens_1_1autograd"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">autograd</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens8autograd4gradERKN6nuTens6TensorERKN6nuTens6TensorE">
+<span id="_CPPv3N6nuTens8autograd4gradERKN6nuTens6TensorERKN6nuTens6TensorE"></span><span id="_CPPv2N6nuTens8autograd4gradERKN6nuTens6TensorERKN6nuTens6TensorE"></span><span id="nuTens::autograd::grad__nuTens::TensorCR.nuTens::TensorCR"></span><span class="target" id="autograd_8hpp_1a157ca4ce2fa9cad68b71b1174aac9f60"></span><a class="reference internal" href="../file/DP-propagator_8hpp.html#_CPPv46nuTens" title="nuTens"><span class="n"><span class="pre">nuTens</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">grad</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../file/DP-propagator_8hpp.html#_CPPv46nuTens" title="nuTens"><span class="n"><span class="pre">nuTens</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">final</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../file/DP-propagator_8hpp.html#_CPPv46nuTens" title="nuTens"><span class="n"><span class="pre">nuTens</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../class/classnuTens_1_1Tensor.html#_CPPv4N6nuTens6TensorE" title="nuTens::Tensor"><span class="n"><span class="pre">Tensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">leaf</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>compute the gradient of “final” with respect to “leaf” </p>
+</dd></dl>
+
+</div>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens8autograd6NoGradE">
+<span id="_CPPv3N6nuTens8autograd6NoGradE"></span><span id="_CPPv2N6nuTens8autograd6NoGradE"></span><span id="nuTens::autograd::NoGrad"></span><span class="target" id="classnuTens_1_1autograd_1_1NoGrad"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NoGrad</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens8autograd6NoGrad6NoGradEv">
+<span id="_CPPv3N6nuTens8autograd6NoGrad6NoGradEv"></span><span id="_CPPv2N6nuTens8autograd6NoGrad6NoGradEv"></span><span id="nuTens::autograd::NoGrad::NoGrad"></span><span class="target" id="classnuTens_1_1autograd_1_1NoGrad_1a07d6a99ec706808362713c1ffd3df027"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NoGrad</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Disable autograd calculations within some scope, improving performance where you are not interested in calculating gradients Instantiate at the start of the scope where you want to disable gradient calculations like so. </p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/tensors/tensor.hpp&gt;</span>
+<span class="p">...</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="n">noGrad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nuTens</span><span class="o">::</span><span class="n">NoGrad</span><span class="p">();</span>
+<span class="w">      </span><span class="p">...</span>
+<span class="w">      </span><span class="o">&lt;</span><span class="w"> </span><span class="n">speedy</span><span class="w"> </span><span class="n">non</span><span class="w"> </span><span class="n">differentiated</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="w">      </span><span class="p">...</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv4N6nuTens9constantsE">
 <span id="_CPPv3N6nuTens9constantsE"></span><span id="_CPPv2N6nuTens9constantsE"></span><span id="nuTens::constants"></span><span class="target" id="namespacenuTens_1_1constants"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">constants</span></span></span><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
@@ -1997,7 +2012,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="namespacentlogging.html" class="btn btn-neutral float-left" title="Namespace ntlogging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="namespacenuTens_1_1constants.html" class="btn btn-neutral float-right" title="Namespace nuTens::constants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="namespacenuTens_1_1autograd.html" class="btn btn-neutral float-right" title="Namespace nuTens::autograd" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

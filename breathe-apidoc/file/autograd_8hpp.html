@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>File README.md &mdash; nuTens  documentation</title>
+  <title>File autograd.hpp &mdash; nuTens  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
@@ -20,8 +20,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="File autograd.hpp" href="autograd_8hpp.html" />
-    <link rel="prev" title="File DP-propagator.hpp" href="DP-propagator_8hpp.html" /> 
+    <link rel="next" title="File base-matter-solver.hpp" href="base-matter-solver_8hpp.html" />
+    <link rel="prev" title="File README.md" href="README_8md.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -60,8 +60,11 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../filelist.html">File list</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="DP-propagator_8cpp.html">File DP-propagator.cpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="DP-propagator_8hpp.html">File DP-propagator.hpp</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">File README.md</a></li>
-<li class="toctree-l3"><a class="reference internal" href="autograd_8hpp.html">File autograd.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README_8md.html">File README.md</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">File autograd.hpp</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv46nuTens"><code class="docutils literal notranslate"><span class="pre">nuTens</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="base-matter-solver_8hpp.html">File base-matter-solver.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="base-mixing-matrix_8hpp.html">File base-mixing-matrix.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="const-density-solver_8cpp.html">File const-density-solver.cpp</a></li>
@@ -113,9 +116,9 @@
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../cpp-api.html">c++ API</a></li>
           <li class="breadcrumb-item"><a href="../filelist.html">File list</a></li>
-      <li class="breadcrumb-item active">File README.md</li>
+      <li class="breadcrumb-item active">File autograd.hpp</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/breathe-apidoc/file/README_8md.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/breathe-apidoc/file/autograd_8hpp.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -123,16 +126,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="file-readme-md">
-<h1>File README.md<a class="headerlink" href="#file-readme-md" title="Link to this heading"></a></h1>
+  <section id="file-autograd-hpp">
+<h1>File autograd.hpp<a class="headerlink" href="#file-autograd-hpp" title="Link to this heading"></a></h1>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv46nuTens">
+<span id="_CPPv36nuTens"></span><span id="_CPPv26nuTens"></span><span id="nuTens"></span><span class="target" id="namespacenuTens"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nuTens</span></span></span><br /></dt>
+<dd><dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens8autogradE">
+<span id="_CPPv3N6nuTens8autogradE"></span><span id="_CPPv2N6nuTens8autogradE"></span><span id="nuTens::autograd"></span><span class="target" id="namespacenuTens_1_1autograd"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">autograd</span></span></span><a class="headerlink" href="#_CPPv4N6nuTens8autogradE" title="Link to this definition"></a><br /></dt>
+<dd><dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens8autograd6NoGradE">
+<span id="_CPPv3N6nuTens8autograd6NoGradE"></span><span id="_CPPv2N6nuTens8autograd6NoGradE"></span><span id="nuTens::autograd::NoGrad"></span><span class="target" id="classnuTens_1_1autograd_1_1NoGrad"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NoGrad</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens8autograd6NoGrad6NoGradEv">
+<span id="_CPPv3N6nuTens8autograd6NoGrad6NoGradEv"></span><span id="_CPPv2N6nuTens8autograd6NoGrad6NoGradEv"></span><span id="nuTens::autograd::NoGrad::NoGrad"></span><span class="target" id="classnuTens_1_1autograd_1_1NoGrad_1a07d6a99ec706808362713c1ffd3df027"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NoGrad</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Disable autograd calculations within some scope, improving performance where you are not interested in calculating gradients Instantiate at the start of the scope where you want to disable gradient calculations like so. </p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;nuTens/tensors/tensor.hpp&gt;</span>
+<span class="p">...</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="n">noGrad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nuTens</span><span class="o">::</span><span class="n">NoGrad</span><span class="p">();</span>
+<span class="w">      </span><span class="p">...</span>
+<span class="w">      </span><span class="o">&lt;</span><span class="w"> </span><span class="n">speedy</span><span class="w"> </span><span class="n">non</span><span class="w"> </span><span class="n">differentiated</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="w">      </span><span class="p">...</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="DP-propagator_8hpp.html" class="btn btn-neutral float-left" title="File DP-propagator.hpp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="autograd_8hpp.html" class="btn btn-neutral float-right" title="File autograd.hpp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="README_8md.html" class="btn btn-neutral float-left" title="File README.md" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="base-matter-solver_8hpp.html" class="btn btn-neutral float-right" title="File base-matter-solver.hpp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
