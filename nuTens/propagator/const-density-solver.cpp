@@ -71,6 +71,4 @@ void ConstDensityMatterSolver::buildElectronOuterProduct()
     {
         electronOuter = nuTens::constants::Groot2 * density * Tensor::outer(electronRow.conj(), electronRow);
     }
-
-    electronOuter.unsqueeze(0);
 }
