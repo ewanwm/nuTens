@@ -116,9 +116,9 @@ class BaseMatterSolver
 
         NT_PROFILE();
 
-        if (newEnergies.getNdim() != 2)
+        if (newEnergies.getNdim() != 1)
         {
-            throw std::invalid_argument("Energy tensor must be 2 dimensional (n_energies, 1)");
+            throw std::invalid_argument("Energy tensor must be 1 dimensional (n_energies)");
         }
 
         if (newEnergies.getDevice() != _device)

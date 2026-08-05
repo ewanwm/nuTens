@@ -140,13 +140,11 @@ Tensor &Tensor::addBatchDim()
     return *this;
 }
 
-Tensor &Tensor::unsqueeze(int index)
+Tensor Tensor::unsqueeze(int index) const
 {
     NT_PROFILE();
 
-    _tensor = torch::unsqueeze(_tensor, index);
-
-    return *this;
+    return {torch::unsqueeze(_tensor, index)};
 }
 
 Tensor Tensor::getValues(const std::vector<Tensor::indexType> &indices) const
