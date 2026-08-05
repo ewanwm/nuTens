@@ -316,7 +316,7 @@ template <typename T> void testArithmeticComplexType(const dtypes::scalarType dt
 template <typename T> void testNoGrad(const dtypes::scalarType dtype, const dtypes::deviceType deviceType)
 {
 
-    auto noGradGuard = NoGrad();
+    auto noGradGuard = autograd::NoGrad();
 
     T grad = 1.234;
     Tensor one = Tensor::ones({1}, dtype, deviceType, true);

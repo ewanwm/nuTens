@@ -689,36 +689,6 @@ class Tensor
 #endif
 };
 
-class NoGrad
-{
-    /*!
-     * @brief Disable autograd calculations within some scope, improving performance where you are not interested in
-     * calculating gradients Instantiate at the start of the scope where you want to disable gradient calculations like
-     * so \code{.cpp} #include <nuTens/tensors/tensor.hpp>
-     * ...
-     *   {
-     *       auto noGrad = nuTens::NoGrad();
-     *       ...
-     *       < speedy non differentiated code >
-     *       ...
-     *   }
-     * \endcode
-     */
-
-  public:
-    NoGrad()
-    {
-#if USE_PYTORCH
-        guard = std::make_unique<c10::InferenceMode>();
-#endif
-    };
-
-  private:
-#if USE_PYTORCH
-    std::unique_ptr<c10::InferenceMode> guard;
-#endif
-};
-
 #if USE_PYTORCH
 /// @brief Tensors are designed to be used when you want to frequently
 ///        access single elements.

@@ -6,6 +6,7 @@
 #include <nuTens/propagator/pmns-matrix.hpp>
 #include <nuTens/propagator/propagator.hpp>
 #include <nuTens/propagator/units.hpp>
+#include <nuTens/tensors/autograd.hpp>
 #include <nuTens/tensors/tensor.hpp>
 
 using namespace nuTens;
@@ -244,7 +245,7 @@ static void BM_vacuumOscillationsNoGrad(benchmark::State &state)
     NT_PROFILE();
 
     // disable gradient calculations
-    auto noGradGuard = NoGrad();
+    auto noGradGuard = autograd::NoGrad();
 
     propagatorBenchmark(state, /*inMatter=*/false);
 
@@ -258,7 +259,7 @@ static void BM_vacuumOscillationsNoGradGPU(benchmark::State &state)
     NT_PROFILE();
 
     // disable gradient calculations
-    auto noGradGuard = NoGrad();
+    auto noGradGuard = autograd::NoGrad();
 
     propagatorBenchmark(state, /*inMatter=*/false, dtypes::kGPU);
 
@@ -273,7 +274,7 @@ static void BM_constMatterOscillationsNoGrad(benchmark::State &state)
     NT_PROFILE();
 
     // disable gradient calculations
-    auto noGradGuard = NoGrad();
+    auto noGradGuard = autograd::NoGrad();
 
     propagatorBenchmark(state, /*inMatter=*/true);
 
@@ -293,7 +294,7 @@ static void BM_constMatterOscillationsNoGradGPU(benchmark::State &state)
     NT_PROFILE();
 
     // disable gradient calculations
-    auto noGradGuard = NoGrad();
+    auto noGradGuard = autograd::NoGrad();
 
     propagatorBenchmark(state, /*inMatter=*/true, /*device=*/dtypes::kGPU);
 
@@ -320,7 +321,7 @@ static void BM_DPpropOscillationsNoGrad(benchmark::State &state)
     NT_PROFILE();
 
     // disable gradient calculations
-    auto noGradGuard = NoGrad();
+    auto noGradGuard = autograd::NoGrad();
 
     DPpropagatorBenchmark(state, dtypes::kCPU);
 
@@ -357,7 +358,7 @@ static void BM_DPpropOscillationsNoGradGPU(benchmark::State &state)
     NT_PROFILE();
 
     // disable gradient calculations
-    auto noGradGuard = NoGrad();
+    auto noGradGuard = autograd::NoGrad();
 
     DPpropagatorBenchmark(state, dtypes::kGPU);
 
