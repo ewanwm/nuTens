@@ -43,8 +43,8 @@ class TwoFlavourOscillations : public gtest::TestWithParam<std::tuple<float, dty
 
         masses = Tensor({mass1, mass2}, dtypes::kComplexFloat).addBatchDim().device(device);
 
-        energies = Tensor::ones({1, 1}, dtypes::kComplexFloat).requiresGrad(false).device(device);
-        energies.setValue({0, 0}, energy);
+        energies = Tensor::ones({1}, dtypes::kComplexFloat).requiresGrad(false).device(device);
+        energies.setValue({0}, energy);
     }
 
     // cognitive complexity is heavily inflated by the gtest macros

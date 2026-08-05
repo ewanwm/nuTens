@@ -83,8 +83,8 @@ class DPpropagatorTest : public gtest::TestWithParam<std::tuple<float, dtypes::d
         pmns = PMNSmatrix(device);
 
         // set up tensor values
-        energies = Tensor::ones({1, 1}, dtypes::kComplexFloat).requiresGrad(false).hasBatchDim(true).device(device);
-        energies.setValue({0, 0}, energy);
+        energies = Tensor::ones({1}, dtypes::kComplexFloat).requiresGrad(false).hasBatchDim(true).device(device);
+        energies.setValue({0}, energy);
 
         theta23tensor = Tensor::zeros({1}, dtypes::kComplexFloat, device, false);
         theta13tensor = Tensor::zeros({1}, dtypes::kComplexFloat, device, false);

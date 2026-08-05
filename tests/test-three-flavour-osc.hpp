@@ -49,7 +49,7 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<std::tuple<float, d
         SKIP_GPU(device);
 
         masses = Tensor({mass1, mass2, mass3}, dtypes::kComplexDouble).addBatchDim().device(device);
-        energies = Tensor({energy}, dtypes::kComplexDouble).addBatchDim().device(device);
+        energies = Tensor({energy}, dtypes::kComplexDouble).device(device);
     }
 
     // cognitive complexity is heavily inflated by the gtest macros

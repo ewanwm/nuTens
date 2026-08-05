@@ -13,7 +13,7 @@ TEST(Propagator /*unused*/, InitialisationOrderMatterSolverFirst /*unused*/)
 {
     // check that order of initialisation of matter solver and parameters doesn't matter
 
-    Tensor energies = Tensor::ones({10, 1}, dtypes::kComplexFloat);
+    Tensor energies = Tensor::ones({10}, dtypes::kComplexFloat);
     Tensor masses = Tensor::ones({1, 3});
     Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor mixingMatrix = Tensor::diag(diagonal).unsqueeze(0);
@@ -38,7 +38,7 @@ TEST(Propagator /*unused*/, InitialisationOrderMatterSolverAfter /*unused*/)
 {
     // check that order of initialisation of matter solver and parameters doesn't matter
 
-    Tensor energies = Tensor::ones({10, 1}, dtypes::kComplexFloat);
+    Tensor energies = Tensor::ones({10}, dtypes::kComplexFloat);
     Tensor masses = Tensor::ones({1, 3});
     Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor mixingMatrix = Tensor::diag(diagonal).unsqueeze(0);
@@ -61,8 +61,8 @@ TEST(Propagator /*unused*/, InitialisationOrderMatterSolverAfter /*unused*/)
 TEST(Propagator /*unused*/, SetterErrors)
 {
 
-    Tensor badEnergiesWrongSize = Tensor::ones({10}, dtypes::kComplexFloat, dtypes::kCPU, false);
-    Tensor badEnergiesWrongType = Tensor::ones({1, 10}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor badEnergiesWrongSize = Tensor::ones({10, 1}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    Tensor badEnergiesWrongType = Tensor::ones({10}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor badMassesWrongSize = Tensor::ones({3}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor badMassesWrongShape = Tensor::ones({1, 4}, dtypes::kFloat, dtypes::kCPU, false);
 
@@ -86,7 +86,7 @@ TEST(Propagator /*unused*/, invalidConfigErrors)
 {
 
     Tensor masses = Tensor::ones({1, 3});
-    Tensor energies = Tensor::ones({10, 1}, dtypes::kComplexFloat);
+    Tensor energies = Tensor::ones({10}, dtypes::kComplexFloat);
     Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kComplexFloat, dtypes::kCPU, false);
     Tensor mixingMatrix = Tensor::diag(diagonal).unsqueeze(0);
 

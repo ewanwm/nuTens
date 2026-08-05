@@ -69,8 +69,7 @@ static void propagatorBenchmark(benchmark::State &state, bool inMatter, dtypes::
 {
     // make some random test energies
     Tensor energies =
-        Tensor::rand({state.range(0), 1}).dType(dtypes::kComplexFloat).requiresGrad(false).device(device) *
-            energyScale +
+        Tensor::rand({state.range(0)}).dType(dtypes::kComplexFloat).requiresGrad(false).device(device) * energyScale +
         energyOffset;
 
     // set up the inputs
