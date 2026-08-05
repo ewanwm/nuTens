@@ -396,6 +396,9 @@ void initAutograd(py::module &m_nuTens)
         py::arg("value"), py::arg("leaf")
     );
 
+    py::class_<autograd::NoGrad>(m_autograd, "NoGrad")
+        .def(py::init<>());
+
 }
 
 void initPropagator(py::module &m_nuTens)
