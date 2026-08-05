@@ -327,6 +327,18 @@ template <typename T> void testNoGrad(const dtypes::scalarType dtype, const dtyp
 }
 
 template <typename T>
+void testAutogradNoRequiresGradFail(const dtypes::scalarType dtype, const dtypes::deviceType deviceType)
+{
+
+    T grad = 1.234;
+    Tensor one = Tensor::ones({1}, dtype, deviceType, false);
+    Tensor result = one * grad;
+
+    EXPECT_ANY_THROW(result.backward());
+    EXPECT_ANY_THROW(autograd::grad(result, one));
+}
+
+template <typename T>
 void testDerivativesBasicScalarReal(const dtypes::scalarType dtype, const dtypes::deviceType deviceType)
 {
 
