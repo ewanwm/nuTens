@@ -28,7 +28,7 @@ class TestDPpropagator:
     theta13 = Tensor([0.3 * m.pi], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
     theta12 = Tensor([0.2 * m.pi], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
     
-    energy = Tensor([0.5 * nt.units.GeV], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False).unsqueeze(0)
+    energy = Tensor([0.5 * nt.units.GeV], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
 
     def test_compare_nufast(self, theta23:float):
 
@@ -62,7 +62,7 @@ class TestDPpropagator:
                 -self.dmsq21.get_value([0]).real,
                 -self.dmsq31.get_value([0]).real,
                 self.baseline / nt.units.km,
-                self.energy.get_value([0,0]).real / nt.units.GeV,
+                self.energy.get_value([0]).real / nt.units.GeV,
                 1.0,
                 self.density,
                 10 
