@@ -30,7 +30,7 @@ target_link_libraries(
 set_target_properties(tensor PROPERTIES LINKER_LANGUAGE CXX)
 
 ## install headers to "include" directory
-set(HEADERS "tensor.hpp dtypes.hpp autograd.hpp")
+set(HEADERS tensor.hpp;dtypes.hpp;autograd.hpp)
 install(FILES ${HEADERS} DESTINATION include/tensor)
 
 ## install libraries to the "lib" directory
