@@ -343,6 +343,11 @@ TEST(Tensor /*unused*/, testNoGrad /*unused*/)
 {
     testNoGrad<float>(dtypes::kFloat, dtypes::kCPU);
 }
+// test that autograd fails if tensor doesnt have requiresGrad
+TEST(Tensor /*unused*/, testAutogradNoRequiresGradFail /*unused*/)
+{
+    testAutogradNoRequiresGradFail<float>(dtypes::kFloat, dtypes::kCPU);
+}
 // test basic derivatives
 TEST(Tensor /*unused*/, testDerivativesBasicScalarFloat /*unused*/)
 {

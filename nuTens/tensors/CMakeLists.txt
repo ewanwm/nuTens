@@ -1,6 +1,11 @@
 
 if(NT_USE_TORCH)
-    add_library(tensor tensor.hpp torch-tensor.cpp dtypes.hpp)
+    add_library(
+        tensor 
+        tensor.hpp torch-tensor.cpp 
+        dtypes.hpp
+        autograd.hpp torch-autograd.cpp
+    )
     target_compile_definitions(tensor PUBLIC USE_PYTORCH)
 endif()
 
@@ -25,7 +30,7 @@ target_link_libraries(
 set_target_properties(tensor PROPERTIES LINKER_LANGUAGE CXX)
 
 ## install headers to "include" directory
-set(HEADERS "tensor.hpp")
+set(HEADERS tensor.hpp;dtypes.hpp;autograd.hpp)
 install(FILES ${HEADERS} DESTINATION include/tensor)
 
 ## install libraries to the "lib" directory
