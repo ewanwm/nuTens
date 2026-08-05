@@ -174,7 +174,7 @@ class Tensor
     Tensor &addBatchDim();
 
     /// @brief add new dimension to the tensor at a particular index
-    Tensor unsqueeze(int index) const;
+    [[nodiscard]] Tensor unsqueeze(int index) const;
 
     /// @name Matrix Arithmetic
     /// Generally there are static functions with the pattern <function>(Mat1,
