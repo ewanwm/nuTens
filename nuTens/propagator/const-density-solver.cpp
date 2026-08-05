@@ -25,7 +25,7 @@ void ConstDensityMatterSolver::buildHamiltonian()
         throw std::runtime_error("No masses set for matter solver!!");
     }
 
-    Tensor energiesRed = energies.getValues({"..."}).unsqueeze(-1);
+    Tensor energiesRed = energies.getValues({"..."}).unsqueeze(-1).unsqueeze(-1);
 
     hamiltonian.setValue({"..."}, (Tensor::div(diagMassMatrix, energiesRed) - getElectronOuterProduct()));
 }
@@ -71,6 +71,4 @@ void ConstDensityMatterSolver::buildElectronOuterProduct()
     {
         electronOuter = nuTens::constants::Groot2 * density * Tensor::outer(electronRow.conj(), electronRow);
     }
-
-    electronOuter.unsqueeze(0);
 }

@@ -5,7 +5,7 @@
 TEST(BaseMatterSolver /*unused*/, SettersGetters)
 {
 
-    Tensor energies = Tensor::ones({10, 1}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor energies = Tensor::ones({10}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor masses = Tensor::ones({1, 3}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor mixingMatrix = Tensor::diag(diagonal).unsqueeze(0);
@@ -25,7 +25,7 @@ TEST(BaseMatterSolver /*unused*/, SettersGetters)
 
 TEST(BaseMatterSolver /*unused*/, SetterErrors)
 {
-    Tensor badEnergies = Tensor::ones({10}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor badEnergies = Tensor::ones({10, 1}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor badMassesWrongSize = Tensor::ones({3}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor badMassesWrongShape = Tensor::ones({1, 4}, dtypes::kFloat, dtypes::kCPU, false);
 
@@ -47,7 +47,7 @@ TEST(BaseMatterSolver /*unused*/, SetterErrors)
 TEST(ConstDensityMatterSolver /*unused*/, SetterErrors)
 {
 
-    Tensor badEnergies = Tensor::ones({10}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor badEnergies = Tensor::ones({10, 1}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor badMasses = Tensor::ones({3}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor badMixingMatrix = Tensor::diag(diagonal);
@@ -62,7 +62,11 @@ TEST(ConstDensityMatterSolver /*unused*/, SetterErrors)
 TEST(ConstDensityMatterSolver /*unused*/, invalidConfigErrors)
 {
 
-    Tensor energies = Tensor::ones({10, 1}, dtypes::kComplexFloat, dtypes::kCPU, false);
+    Tensor energies = Tensor::ones(
+        {
+            10,
+        },
+        dtypes::kComplexFloat, dtypes::kCPU, false);
     Tensor masses = Tensor::ones({1, 2}, dtypes::kComplexFloat, dtypes::kCPU, false);
 
     Tensor mixingMatrix = Tensor::zeros({1, 2, 2}, dtypes::kComplexFloat);

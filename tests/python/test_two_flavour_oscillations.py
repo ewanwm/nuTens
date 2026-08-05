@@ -18,8 +18,8 @@ class TestTwoFlavourConstMatter:
     baseline=295.0 * nt.units.km
     density=2.5    
     energy = 1.0 * nt.units.GeV
-    energy_tensor = Tensor.ones([1, 1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
-    energy_tensor.set_value([0, 0], energy)
+    energy_tensor = Tensor.ones([1], nt.dtype.scalar_type.complex_float, nt.dtype.device_type.cpu, False)
+    energy_tensor.set_value([0], energy)
 
     def setup_tensor_inputs(self, mass_diff:float, theta:float) -> typing.Tuple[Tensor]:
         

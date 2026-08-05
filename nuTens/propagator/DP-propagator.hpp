@@ -104,7 +104,7 @@ class DPpropagator : public Propagator
     {
         NT_PROFILE();
 
-        _energies = newEnergies;
+        Propagator::setEnergies(newEnergies);
         probsRet = Tensor::zeros({_energies.getShape()[0], 3, 3}).requiresGrad(false).device(_device);
 
         return *this;

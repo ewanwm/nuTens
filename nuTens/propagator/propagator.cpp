@@ -28,7 +28,7 @@ Tensor Propagator::calculateProbs()
     if (_matterSolver)
     {
         _matterSolver->calculateEigenvalues(_eigenVecs, _eigenVals);
-        massesSq = Propagator::MassSqTensor(_eigenVals * _energies * 2.0);
+        massesSq = Propagator::MassSqTensor(_eigenVals * _energies.unsqueeze(-1) * 2.0);
         mixingMatrix = Propagator::MixingMatrixTensor(Tensor::matmul(_mixingMatrix, _eigenVecs));
     }
 
@@ -47,7 +47,7 @@ Tensor Propagator::_calculateProbs(const Propagator::MassSqTensor &massesSq,
     NT_PROFILE();
 
     _weightArgDenom =
-        Tensor::scale(Tensor::scale(_energies, 2.0),
+        Tensor::scale(Tensor::scale(_energies.unsqueeze(-1), 2.0),
                       std::complex<float>(1.0) / (std::complex<float>(-1.0J) * _baseline * 2.0F * (float)M_PI));
 
     // basically exp { - i m^2 L / 2 E }
