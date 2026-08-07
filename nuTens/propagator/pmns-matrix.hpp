@@ -13,35 +13,130 @@ constexpr std::complex<float> imagUnit(0.0, 1.0);
 class PMNSmatrix : public BaseMixingMatrix
 {
   public:
-    PMNSmatrix(dtypes::deviceType device = dtypes::kCPU) : BaseMixingMatrix(device)
+    PMNSmatrix(dtypes::deviceType device = dtypes::kCPU, long batchSize = 1) : BaseMixingMatrix(device, batchSize)
     {
         NT_PROFILE();
 
         if (device == dtypes::kCPU)
         {
-            _theta12 = std::make_shared<Tensor>(AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, true));
-            _theta13 = std::make_shared<Tensor>(AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, true));
-            _theta23 = std::make_shared<Tensor>(AccessedTensor<float, 1, dtypes::kCPU>::zeros({1}, true));
+            _theta12 = std::make_shared<Tensor>(AccessedTensor<float, 1, dtypes::kCPU>::zeros({_batchSize}, true));
+            _theta13 = std::make_shared<Tensor>(AccessedTensor<float, 1, dtypes::kCPU>::zeros({_batchSize}, true));
+            _theta23 = std::make_shared<Tensor>(AccessedTensor<float, 1, dtypes::kCPU>::zeros({_batchSize}, true));
         }
         else if (device == dtypes::kGPU)
         {
-            _theta12 =
-                std::make_shared<Tensor>(Tensor::zeros({1}).dType(dtypes::kFloat).device(_device).requiresGrad(true));
-            _theta13 =
-                std::make_shared<Tensor>(Tensor::zeros({1}).dType(dtypes::kFloat).device(_device).requiresGrad(true));
-            _theta23 =
-                std::make_shared<Tensor>(Tensor::zeros({1}).dType(dtypes::kFloat).device(_device).requiresGrad(true));
+            _theta12 = std::make_shared<Tensor>(
+                Tensor::zeros({_batchSize}).dType(dtypes::kFloat).device(_device).requiresGrad(true));
+            _theta13 = std::make_shared<Tensor>(
+                Tensor::zeros({_batchSize}).dType(dtypes::kFloat).device(_device).requiresGrad(true));
+            _theta23 = std::make_shared<Tensor>(
+                Tensor::zeros({_batchSize}).dType(dtypes::kFloat).device(_device).requiresGrad(true));
         }
 
         // set up the three matrices to build the mixing matrix
-        _mat1 = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat).requiresGrad(false).device(_device);
-        _mat2 = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat).requiresGrad(false).device(_device);
-        _mat3 = Tensor::zeros({1, 3, 3}, dtypes::kComplexFloat).requiresGrad(false).device(_device);
+        _mat1 = Tensor::zeros({_batchSize, 3, 3}, dtypes::kComplexFloat).requiresGrad(false).device(_device);
+        _mat2 = Tensor::zeros({_batchSize, 3, 3}, dtypes::kComplexFloat).requiresGrad(false).device(_device);
+        _mat3 = Tensor::zeros({_batchSize, 3, 3}, dtypes::kComplexFloat).requiresGrad(false).device(_device);
+    }
+
+    /// @{ Setters
+    inline PMNSmatrix &setTheta12(const std::vector<float> &theta12)
+    {
+        NT_PROFILE();
+
+        if (theta12.size() != _batchSize)
+        {
+            NT_ERROR("Theta12 vector size does not match batch size!!");
+            throw std::invalid_argument("Bad batching");
+        }
+
+        _theta12->requiresGrad(false);
+
+        _theta12->setValue({"..."}, Tensor(theta12));
+
+        _theta12->requiresGrad(true);
+
+        // set the dirty flag
+        _needsRecalculating = true;
+
+        return *this;
+    }
+
+    inline PMNSmatrix &setTheta13(const std::vector<float> &theta13)
+    {
+        NT_PROFILE();
+
+        if (theta13.size() != _batchSize)
+        {
+            NT_ERROR("Theta13 vector size does not match batch size!!");
+            throw std::invalid_argument("Bad batching");
+        }
+
+        _theta13->requiresGrad(false);
+
+        _theta13->setValue({"..."}, Tensor(theta13));
+
+        _theta13->requiresGrad(true);
+
+        // set the dirty flag
+        _needsRecalculating = true;
+
+        return *this;
+    }
+
+    inline PMNSmatrix &setTheta23(const std::vector<float> &theta23)
+    {
+        NT_PROFILE();
+
+        if (theta23.size() != _batchSize)
+        {
+            NT_ERROR("Theta23 vector size does not match batch size!!");
+            throw std::invalid_argument("Bad batching");
+        }
+
+        _theta23->requiresGrad(false);
+
+        _theta23->setValue({"..."}, Tensor(theta23));
+
+        _theta23->requiresGrad(true);
+
+        // set the dirty flag
+        _needsRecalculating = true;
+
+        return *this;
+    }
+
+    inline PMNSmatrix &setDeltaCP(const std::vector<float> &deltaCP)
+    {
+        NT_PROFILE();
+
+        if (deltaCP.size() != _batchSize)
+        {
+            NT_ERROR("deltaCP vector size does not match batch size!!");
+            throw std::invalid_argument("Bad batching");
+        }
+
+        _deltaCP.requiresGrad(false);
+
+        _deltaCP.setValue({"..."}, Tensor(deltaCP));
+
+        _deltaCP.requiresGrad(true);
+
+        // set the dirty flag
+        _needsRecalculating = true;
+
+        return *this;
     }
 
     inline PMNSmatrix &setTheta12(float theta12)
     {
         NT_PROFILE();
+
+        if (_batchSize != 1)
+        {
+            NT_ERROR("can't set theta12 witch single value, batch size != 1!!");
+            throw std::invalid_argument("Bad batching");
+        }
 
         _theta12->requiresGrad(false);
 
@@ -59,6 +154,12 @@ class PMNSmatrix : public BaseMixingMatrix
     {
         NT_PROFILE();
 
+        if (_batchSize != 1)
+        {
+            NT_ERROR("can't set theta13 witch single value, batch size != 1!!");
+            throw std::invalid_argument("Bad batching");
+        }
+
         _theta13->requiresGrad(false);
 
         _theta13->setValue({0}, theta13);
@@ -74,6 +175,12 @@ class PMNSmatrix : public BaseMixingMatrix
     inline PMNSmatrix &setTheta23(float theta23)
     {
         NT_PROFILE();
+
+        if (_batchSize != 1)
+        {
+            NT_ERROR("can't set theta23 witch single value, batch size != 1!!");
+            throw std::invalid_argument("Bad batching");
+        }
 
         _theta23->requiresGrad(false);
 
@@ -91,6 +198,12 @@ class PMNSmatrix : public BaseMixingMatrix
     {
         NT_PROFILE();
 
+        if (_batchSize != 1)
+        {
+            NT_ERROR("can't set deltaCP witch single value, batch size != 1!!");
+            throw std::invalid_argument("Bad batching");
+        }
+
         _deltaCP.requiresGrad(false);
 
         _deltaCP.setValue({0}, deltaCP);
@@ -102,8 +215,9 @@ class PMNSmatrix : public BaseMixingMatrix
 
         return *this;
     }
+    /// @}
 
-    /// @{Setters
+    /// @{Getters
     inline const Tensor &getTheta12Tensor()
     {
         return *_theta12;
