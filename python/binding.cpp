@@ -549,10 +549,23 @@ void initPropagator(py::module &m_nuTens)
         m_propagator, "PMNSmatrix")
         .def(py::init<>())
         .def(py::init<dtypes::deviceType>(), py::arg("device"))
-        .def("set_theta12", (&PMNSmatrix::setTheta12), py::arg("theta_12"))
-        .def("set_theta13", (&PMNSmatrix::setTheta13), py::arg("theta_13"))
-        .def("set_theta23", (&PMNSmatrix::setTheta23), py::arg("theta_23"))
-        .def("set_deltacp", (&PMNSmatrix::setDeltaCP), py::arg("delta_cp"))
+        .def(py::init<dtypes::deviceType, long>(), py::arg("device"), py::arg("batch_size"))
+        .def("set_theta12", py::overload_cast<const std::vector<float> &>(&PMNSmatrix::setTheta12), 
+            "Set theta12 values, the size of th provided array must match the batch size of the mixing matrix", py::arg("theta_12"))
+        .def("set_theta13", py::overload_cast<const std::vector<float> &>(&PMNSmatrix::setTheta13), 
+            "Set theta13 values, the size of th provided array must match the batch size of the mixing matrix", py::arg("theta_13"))
+        .def("set_theta23", py::overload_cast<const std::vector<float> &>(&PMNSmatrix::setTheta23), 
+            "Set theta23 values, the size of th provided array must match the batch size of the mixing matrix", py::arg("theta_23"))
+        .def("set_deltacp", py::overload_cast<const std::vector<float> &>(&PMNSmatrix::setDeltaCP), 
+            "Set deltaCP values, the size of th provided array must match the batch size of the mixing matrix", py::arg("delta_cp"))
+        .def("set_theta12", py::overload_cast<float>(&PMNSmatrix::setTheta12), 
+            "Set theta12 value, can only use this if the batch size is 1", py::arg("theta_12"))
+        .def("set_theta13", py::overload_cast<float>(&PMNSmatrix::setTheta13), 
+            "Set theta13 value, can only use this if the batch size is 1", py::arg("theta_13"))
+        .def("set_theta23", py::overload_cast<float>(&PMNSmatrix::setTheta23), 
+            "Set theta23 value, can only use this if the batch size is 1", py::arg("theta_23"))
+        .def("set_deltacp", py::overload_cast<float>(&PMNSmatrix::setDeltaCP), 
+            "Set deltaCP value, can only use this if the batch size is 1", py::arg("delta_cp"))
         .def("get_theta12_tensor", (&PMNSmatrix::getTheta12Tensor), py::return_value_policy::reference)
         .def("get_theta13_tensor", (&PMNSmatrix::getTheta13Tensor), py::return_value_policy::reference)
         .def("get_theta23_tensor", (&PMNSmatrix::getTheta23Tensor), py::return_value_policy::reference)
