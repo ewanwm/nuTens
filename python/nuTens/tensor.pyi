@@ -25,6 +25,7 @@ class Tensor:
         tensor = Tensor.ones([3,3]).dtype(dtype.scalar_type.float).device(dtype.device_type.cpu);
     
     """
+    __hash__: typing.ClassVar[None] = None
     @staticmethod
     def diag(diagonal: Tensor) -> Tensor:
         """
@@ -61,6 +62,10 @@ class Tensor:
     @typing.overload
     def __add__(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> Tensor:
         ...
+    def __eq__(self, arg0: Tensor) -> bool:
+        ...
+    def __getstate__(self) -> tuple[torch.Tensor]:
+        ...
     @typing.overload
     def __init__(self) -> None:
         ...
@@ -86,6 +91,8 @@ class Tensor:
     def __repr__(self) -> str:
         ...
     def __rmul__(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> Tensor:
+        ...
+    def __setstate__(self, arg0: tuple) -> None:
         ...
     def __truediv__(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> Tensor:
         ...
