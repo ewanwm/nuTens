@@ -177,7 +177,7 @@ One particularly important option to be aware of here is <code class="docutils l
 </pre></div>
 </div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_PREFIX_PATH=`python3 -c &#39;import torch;print(torch.utils.cmake_prefix_path)&#39;` &lt;path to source code&gt;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cmake -DCMAKE_PREFIX_PATH=`python3 -c 'import torch;print(torch.utils.cmake_prefix_path)'` &lt;path to source code&gt;
 </pre></div>
 </div>
 <p>Now build!</p>
@@ -201,7 +201,7 @@ One particularly important option to be aware of here is <code class="docutils l
 <section id="known-issues">
 <h2>Known Issues<a class="headerlink" href="#known-issues" title="Link to this heading"></a></h2>
 <p>When trying to run using the python interface you may get complaints relating to not being able to locate <cite>libtorch.so</cite> or <cite>libtorch_cpu.so</cite> library files. If so running</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export LD_LIBRARY_PATH=`python3 -c &#39;import os;import torch;print(os.path.abspath(torch.__file__)[:-11])&#39;`/lib:$LD_LIBRARY_PATH
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export LD_LIBRARY_PATH=`python3 -c 'import os;import torch;print(os.path.abspath(torch.__file__)[:-11])'`/lib:$LD_LIBRARY_PATH
 </pre></div>
 </div>
 <p>should allow these files to be found</p>
