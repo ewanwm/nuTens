@@ -206,6 +206,7 @@ void initTensor(py::module &m_nuTens)
         .def("zero_grad", &Tensor::zeroGrad, "Zero out the accumulated gradient for this tensor")
 
         // operator overloads
+        .def(py::self == py::self)
         .def(py::self + py::self)
         .def(py::self + float())
         .def(float() + py::self)
@@ -217,6 +218,26 @@ void initTensor(py::module &m_nuTens)
 
 
 #if USE_PYTORCH
+
+        // pickle and unpickle
+        .def(
+            py::pickle(
+                [](const Tensor &tensor) { 
+                    // __getstate__
+                    /* Return a tuple that fully encodes the state of the object */
+                    return py::make_tuple(tensor.getTensor());
+                },
+                [](py::tuple tuple) { 
+                    // __setstate__
+                    if (tuple.size() != 1)
+                        throw std::runtime_error("Invalid state!");
+
+                    /* Create a new C++ instance */
+                    return Tensor::fromTorchTensor(tuple[0].cast<torch::Tensor>());
+                }
+            )
+        )
+
         .def("torch_tensor", &Tensor::getTensor, py::return_value_policy::reference,
             "Get the pytorch tensor that lives inside this tensor. Only available if using the pytorch backend..."
         )

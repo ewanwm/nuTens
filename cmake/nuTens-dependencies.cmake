@@ -109,6 +109,9 @@ endif()
 # ==== pybind11 ====
 if(NT_ENABLE_PYTHON)
     message("Enabling python")
+    
+    find_package(Python COMPONENTS Interpreter Development)
+
     CPMAddPackage(
         GITHUB_REPOSITORY "pybind/pybind11"
         VERSION 3.0.4 
