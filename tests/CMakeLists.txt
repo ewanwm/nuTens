@@ -25,7 +25,7 @@ if(NT_COMPILE_TESTS)
     endif()
 
     target_link_libraries("${test_name}" PRIVATE nuTens test-utils m
-                                                GTest::gtest_main)
+                                                 GTest::gtest_main)
 
     if(NT_COMPILE_GPU_TESTS)
       target_compile_definitions("${test_name}" PUBLIC COMPILE_GPU_TESTS)
