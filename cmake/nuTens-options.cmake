@@ -109,6 +109,32 @@ foreach(variable_name ${variable_names})
     continue()
   endif()
 
-  message(STATUS "  ${_variableName}=${${_variableName}}")
+  message(STATUS "  ${variable_name}=${${variable_name}}")
 endforeach()
 message(STATUS "  BUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}")
+
+
+# ##############################################################################
+# Now string valued variables ####
+# ##############################################################################
+
+# get the log level specified by the user via -DNT_LOG_LEVEL
+set(NT_LOG_LEVEL
+    "INFO"
+    CACHE STRING "the level of detail to log to the console")
+
+# Convert NT_LOG_LEVEL to all upper case so that we aren't case sensitive to
+# user input
+string(TOUPPER "${NT_LOG_LEVEL}" NT_LOG_LEVEL)
+
+# Check the specified log level is valid
+set(VALID_LOG_OPTIONS SILENT ERROR WARNING INFO DEBUG TRACE)
+list(FIND VALID_LOG_OPTIONS ${NT_LOG_LEVEL} index)
+if(${index} GREATER -1)
+  message(STATUS "Setting log level to ${NT_LOG_LEVEL}")
+else()
+  message(
+    FATAL_ERROR
+      "Invalid log level specified: ${NT_LOG_LEVEL} \n Should be one of: ${VALID_LOG_OPTIONS}"
+  )
+endif()
