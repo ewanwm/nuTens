@@ -1,7 +1,7 @@
 #include <nuTens/tensors/autograd.hpp>
 #include <nuTens/tensors/dtypes.hpp>
 #include <nuTens/tensors/tensor.hpp>
-#include <tests/utils.hpp>
+#include <nuTens/testing/utils.hpp>
 
 #include <complex>
 #include <gtest/gtest.h>
