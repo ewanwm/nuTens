@@ -9,13 +9,13 @@ namespace gtest = ::testing;
 #include <nuTens/propagator/pmns-matrix.hpp>
 #include <nuTens/propagator/propagator.hpp>
 #include <nuTens/tensors/tensor.hpp>
+#include <nuTens/testing/barger-propagator.hpp>
+#include <nuTens/testing/printing.hpp>
+#include <nuTens/testing/utils.hpp>
 #include <nuTens/utils/logging.hpp>
-#include <tests/barger-propagator.hpp>
-#include <tests/printing.hpp>
-#include <tests/utils.hpp>
 
 // nuFast c++ implementation
-#include <tests/nuFast.hpp>
+#include <nuTens/testing/nuFast.hpp>
 
 using namespace nuTens;
 using namespace nuTens::testing;

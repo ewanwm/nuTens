@@ -1,8 +1,3 @@
-add_library(test-utils barger-propagator.hpp printing.hpp utils.hpp)
-
-target_link_libraries(test-utils PUBLIC constants m)
-set_target_properties(test-utils PROPERTIES LINKER_LANGUAGE CXX)
-
 if(NT_COMPILE_TESTS)
 
   include(GoogleTest)
@@ -24,7 +19,7 @@ if(NT_COMPILE_TESTS)
       target_precompile_headers("${test_name}" REUSE_FROM nuTens-pch)
     endif()
 
-    target_link_libraries("${test_name}" PRIVATE nuTens test-utils m
+    target_link_libraries("${test_name}" PRIVATE nuTens::All m
                                                  GTest::gtest_main)
 
     if(NT_COMPILE_GPU_TESTS)

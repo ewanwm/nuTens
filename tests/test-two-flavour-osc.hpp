@@ -7,9 +7,9 @@ namespace gtest = ::testing;
 #include <nuTens/propagator/const-density-solver.hpp>
 #include <nuTens/propagator/propagator.hpp>
 #include <nuTens/tensors/tensor.hpp>
-#include <tests/barger-propagator.hpp>
-#include <tests/printing.hpp>
-#include <tests/utils.hpp>
+#include <nuTens/testing/barger-propagator.hpp>
+#include <nuTens/testing/printing.hpp>
+#include <nuTens/testing/utils.hpp>
 
 using namespace nuTens;
 using namespace nuTens::testing;
