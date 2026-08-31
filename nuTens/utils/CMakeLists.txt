@@ -40,7 +40,6 @@ target_compile_definitions(nt-logging
 add_library(instrumentation instrumentation.hpp)
 set_target_properties(instrumentation PROPERTIES LINKER_LANGUAGE CXX)
 
-option(NT_PROFILING "enable profiling of the code" OFF)
 if(NT_PROFILING)
   target_compile_definitions(instrumentation PUBLIC USE_PROFILING)
 endif()

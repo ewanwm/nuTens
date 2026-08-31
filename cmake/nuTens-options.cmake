@@ -46,6 +46,9 @@ mark_as_advanced(NT_BUILD_TIMING)
 option(NT_USE_PCH "NT_USE_PCH" OFF)
 mark_as_advanced(NT_USE_PCH)
 
+option(NT_PROFILING "enable profiling of the code" OFF)
+mark_as_advanced(NT_PROFILING)
+
 option(BUILD_SHARED_LIBS "Build using shared libs" ON)
 mark_as_advanced(BUILD_SHARED_LIBS)
 
