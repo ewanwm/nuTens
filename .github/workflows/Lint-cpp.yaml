@@ -47,7 +47,7 @@ jobs:
         with:
           style: "Microsoft"
           ignore-format: python/binding.cpp
-          ignore: '.github|_deps|CMakeFiles|spdlog*|gtest*'
+          ignore: '.github|_deps|CMakeFiles|spdlog*|nuTens/testing/nuFast.hpp|gtest*'
           tidy-review: true
           step-summary: true
           files-changed-only: true

@@ -16,8 +16,8 @@
 #include <nuTens/tensors/autograd.hpp>
 #include <nuTens/tensors/dtypes.hpp>
 #include <nuTens/tensors/tensor.hpp>
-#include <tests/barger-propagator.hpp>
-#include <tests/nuFast.hpp>
+#include <nuTens/testing/barger-propagator.hpp>
+#include <nuTens/testing/nuFast.hpp>
 #include <nuTens/propagator/base-mixing-matrix.hpp>
 #include <nuTens/propagator/DP-propagator.hpp>
 #include <nuTens/propagator/pmns-matrix.hpp>
