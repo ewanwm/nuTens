@@ -113,7 +113,6 @@ foreach(variable_name ${variable_names})
 endforeach()
 message(STATUS "  BUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}")
 
-
 # ##############################################################################
 # Now string valued variables ####
 # ##############################################################################
