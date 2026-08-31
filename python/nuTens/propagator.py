@@ -1,2 +1,2 @@
-from ._pyNuTens import propagator
-from ._pyNuTens.propagator import *
+from .pyNuTens import propagator
+from .pyNuTens.propagator import *

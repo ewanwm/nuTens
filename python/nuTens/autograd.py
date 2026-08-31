@@ -1,2 +1,2 @@
-from ._pyNuTens import autograd
-from ._pyNuTens.autograd import *
+from .pyNuTens import autograd
+from .pyNuTens.autograd import *
