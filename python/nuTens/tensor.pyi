@@ -1,7 +1,7 @@
 from __future__ import annotations
 import collections.abc
-import nuTens._pyNuTens.dtype
 import nuTens.dtype
+import nuTens.pyNuTens.dtype
 import torch
 import typing
 __all__: list[str] = ['Tensor', 'add', 'cos', 'cumsum', 'div', 'exp', 'gpu_available', 'log', 'matmul', 'mul', 'outer', 'pow', 'scale', 'sin', 'sum', 'transpose']
@@ -32,7 +32,7 @@ class Tensor:
         Create a tensor with specified values along the diagonal
         """
     @staticmethod
-    def eye(n: typing.SupportsInt | typing.SupportsIndex, dtype: nuTens._pyNuTens.dtype.scalar_type = nuTens.dtype.scalar_type.float, device: nuTens._pyNuTens.dtype.device_type = nuTens.dtype.device_type.cpu, requires_grad: bool = True) -> Tensor:
+    def eye(n: typing.SupportsInt | typing.SupportsIndex, dtype: nuTens.pyNuTens.dtype.scalar_type = nuTens.dtype.scalar_type.float, device: nuTens.pyNuTens.dtype.device_type = nuTens.dtype.device_type.cpu, requires_grad: bool = True) -> Tensor:
         """
         Create a tensor initialised with an identity matrix
         """
@@ -42,17 +42,17 @@ class Tensor:
         construct a nuTens Tensor from a pytorch tensor
         """
     @staticmethod
-    def ones(shape: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], dtype: nuTens._pyNuTens.dtype.scalar_type = nuTens.dtype.scalar_type.float, device: nuTens._pyNuTens.dtype.device_type = nuTens.dtype.device_type.cpu, requires_grad: bool = True) -> Tensor:
+    def ones(shape: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], dtype: nuTens.pyNuTens.dtype.scalar_type = nuTens.dtype.scalar_type.float, device: nuTens.pyNuTens.dtype.device_type = nuTens.dtype.device_type.cpu, requires_grad: bool = True) -> Tensor:
         """
         Create a tensor initialised with ones
         """
     @staticmethod
-    def rand(shape: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], dtype: nuTens._pyNuTens.dtype.scalar_type = nuTens.dtype.scalar_type.float, device: nuTens._pyNuTens.dtype.device_type = nuTens.dtype.device_type.cpu, requires_grad: bool = True) -> Tensor:
+    def rand(shape: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], dtype: nuTens.pyNuTens.dtype.scalar_type = nuTens.dtype.scalar_type.float, device: nuTens.pyNuTens.dtype.device_type = nuTens.dtype.device_type.cpu, requires_grad: bool = True) -> Tensor:
         """
         Create a tensor initialised with random values
         """
     @staticmethod
-    def zeros(shape: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], dtype: nuTens._pyNuTens.dtype.scalar_type = nuTens.dtype.scalar_type.float, device: nuTens._pyNuTens.dtype.device_type = nuTens.dtype.device_type.cpu, requires_grad: bool = True) -> Tensor:
+    def zeros(shape: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], dtype: nuTens.pyNuTens.dtype.scalar_type = nuTens.dtype.scalar_type.float, device: nuTens.pyNuTens.dtype.device_type = nuTens.dtype.device_type.cpu, requires_grad: bool = True) -> Tensor:
         """
         Create a tensor initialised with zeros
         """
@@ -70,7 +70,7 @@ class Tensor:
     def __init__(self) -> None:
         ...
     @typing.overload
-    def __init__(self, values: collections.abc.Sequence[typing.SupportsFloat | typing.SupportsIndex], dtype: nuTens._pyNuTens.dtype.scalar_type = nuTens.dtype.scalar_type.float, device: nuTens._pyNuTens.dtype.device_type = nuTens.dtype.device_type.cpu, requires_grad: bool = True) -> None:
+    def __init__(self, values: collections.abc.Sequence[typing.SupportsFloat | typing.SupportsIndex], dtype: nuTens.pyNuTens.dtype.scalar_type = nuTens.dtype.scalar_type.float, device: nuTens.pyNuTens.dtype.device_type = nuTens.dtype.device_type.cpu, requires_grad: bool = True) -> None:
         ...
     @typing.overload
     def __init__(self, array: typing.Annotated[numpy.typing.ArrayLike, numpy.float32], requires_grad: bool = True) -> None:
@@ -116,19 +116,19 @@ class Tensor:
         """
         Get complex conjugate of a complex tensor
         """
-    def device(self, new_device: nuTens._pyNuTens.dtype.device_type) -> Tensor:
+    def device(self, new_device: nuTens.pyNuTens.dtype.device_type) -> Tensor:
         """
         Set the device that the tensor lives on
         """
-    def dtype(self, new_dtype: nuTens._pyNuTens.dtype.scalar_type) -> Tensor:
+    def dtype(self, new_dtype: nuTens.pyNuTens.dtype.scalar_type) -> Tensor:
         """
         Set the data type of the tensor
         """
-    def get_device(self) -> nuTens._pyNuTens.dtype.device_type:
+    def get_device(self) -> nuTens.pyNuTens.dtype.device_type:
         """
         Get the device that this tensor lives on
         """
-    def get_dtype(self) -> nuTens._pyNuTens.dtype.scalar_type:
+    def get_dtype(self) -> nuTens.pyNuTens.dtype.scalar_type:
         """
         Get the type of the data contained within this tensor
         """
