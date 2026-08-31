@@ -23,35 +23,6 @@ if(NT_PROFILING)
   target_compile_definitions(instrumentation PUBLIC USE_PROFILING)
 endif()
 
-# if user wants to use pch then we use the pch people, especially if developing,
-# might want to use this as including tensor related things can be
-# excruciatingly sloow when building
-if(NT_USE_PCH)
-  message("Using precompiled header")
-
-  file(
-    GENERATE
-    OUTPUT ${PROJECT_BINARY_DIR}/utils/nuTens-pch.cpp
-    CONTENT "")
-
-  add_library(nuTens-pch OBJECT ${PROJECT_BINARY_DIR}/utils/nuTens-pch.cpp)
-  target_include_directories(nuTens-pch PUBLIC "${PROJECT_SOURCE_DIR}")
-
-  set(PCH_LIBS "${PCH_LIBS};nt-logging;instrumentation")
-
-  # the headers included in the PCH will (at some point) depend on which tensor
-  # library is being used
-  if(NT_USE_TORCH)
-    target_compile_definitions(nuTens-pch PUBLIC USE_PYTORCH)
-    set(PCH_LIBS "${PCH_LIBS};${TORCH_LIBRARIES}")
-  endif()
-
-  target_link_libraries(nuTens-pch PUBLIC "${PCH_LIBS}")
-  target_precompile_headers(nuTens-pch PUBLIC nuTens-pch.hpp)
-  set_target_properties(nuTens-pch PROPERTIES LINKER_LANGUAGE CXX)
-
-endif() # end NT_USE_PCH block
-
 # install headers to "include" directory
 set(HEADERS "instrumentation.hpp")
 install(FILES ${HEADERS} DESTINATION include/utils)
