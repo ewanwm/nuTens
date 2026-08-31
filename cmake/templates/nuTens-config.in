@@ -42,11 +42,11 @@ while [[ ${#} -gt 0 ]]; do
       ;;
 
       --libs)
-      echo -n "-L${INSTALL_ROOT}/lib @nuTens_LIB_LIST@"
+      echo -n "-L${INSTALL_ROOT}/lib @NUTENS_LIB_LIST@"
       ;;
 
       --features)
-      echo -n "@nuTens_FEATURES@ "
+      echo -n "@NUTENS_FEATURES@ "
       ;;
 
       --has-feature)
