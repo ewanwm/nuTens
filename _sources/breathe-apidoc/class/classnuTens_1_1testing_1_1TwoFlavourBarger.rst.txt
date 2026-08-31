@@ -1,0 +1,5 @@
+Class nuTens::testing::TwoFlavourBarger
+=======================================
+
+.. doxygenclass:: nuTens::testing::TwoFlavourBarger
+   :members:

@@ -1,0 +1,4 @@
+File barger-propagator.hpp
+==========================
+
+.. doxygenfile:: barger-propagator.hpp

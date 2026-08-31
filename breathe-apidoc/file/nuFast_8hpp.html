@@ -1,0 +1,197 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File nuFast.hpp &mdash; nuTens  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="File nuTens-pch.hpp" href="nuTens-pch_8hpp.html" />
+    <link rel="prev" title="File logging.hpp" href="logging_8hpp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/nuTens-logo-small.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">🚀 Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick-start-guide/quick-start-guide.html">Quick Start Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">📖 References</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../user-manual.html">User Manual 📗</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../cpp-api.html">c++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../classlist.html">Class list</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../filelist.html">File list</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="DP-propagator_8cpp.html">File DP-propagator.cpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DP-propagator_8hpp.html">File DP-propagator.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README_8md.html">File README.md</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autograd_8hpp.html">File autograd.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="barger-propagator_8hpp.html">File barger-propagator.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="base-matter-solver_8hpp.html">File base-matter-solver.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="base-mixing-matrix_8hpp.html">File base-mixing-matrix.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="const-density-solver_8cpp.html">File const-density-solver.cpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="const-density-solver_8hpp.html">File const-density-solver.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="constants_8hpp.html">File constants.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dtypes_8hpp.html">File dtypes.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="instrumentation_8hpp.html">File instrumentation.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logging_8hpp.html">File logging.hpp</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">File nuFast.hpp</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv422Probability_Matter_LBLddddddddddiPAL3E_AL3E_d"><code class="docutils literal notranslate"><span class="pre">Probability_Matter_LBL()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv422Probability_Vacuum_LBLddddddddPAL3E_AL3E_d"><code class="docutils literal notranslate"><span class="pre">Probability_Vacuum_LBL()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv419eVsqkm_to_GeV_over4"><code class="docutils literal notranslate"><span class="pre">eVsqkm_to_GeV_over4</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv48YerhoE2a"><code class="docutils literal notranslate"><span class="pre">YerhoE2a</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="nuTens-pch_8hpp.html">File nuTens-pch.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pmns-matrix_8hpp.html">File pmns-matrix.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="printing_8hpp.html">File printing.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="propagator_8cpp.html">File propagator.cpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="propagator_8hpp.html">File propagator.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tensor_8hpp.html">File tensor.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tf-tensor_8cpp.html">File tf-tensor.cpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch-autograd_8cpp.html">File torch-autograd.cpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="torch-tensor_8cpp.html">File torch-tensor.cpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="units_8hpp.html">File units.hpp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils_8hpp.html">File utils.hpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../namespacelist.html">Namespace list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../structlist.html">Struct list</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../python-api.html">Python API 🐍</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ewanwm/nuTens">GitHub 🔗</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/ewanwm/nuTens/tree/main/examples">Examples 🔗</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">🖥️ For Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html">Testing 🧪</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#profiling">Profiling 📊</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#benchmarking">Benchmarking 📉</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development.html#precompiled-headers">Precompiled Headers 🗿</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">nuTens</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../cpp-api.html">c++ API</a></li>
+          <li class="breadcrumb-item"><a href="../filelist.html">File list</a></li>
+      <li class="breadcrumb-item active">File nuFast.hpp</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/breathe-apidoc/file/nuFast_8hpp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="file-nufast-hpp">
+<h1>File nuFast.hpp<a class="headerlink" href="#file-nufast-hpp" title="Link to this heading"></a></h1>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv422Probability_Matter_LBLddddddddddiPAL3E_AL3E_d">
+<span id="_CPPv322Probability_Matter_LBLddddddddddiPAL3E_AL3E_d"></span><span id="_CPPv222Probability_Matter_LBLddddddddddiPA3_A3_d"></span><span class="target" id="nuFast_8hpp_1a8fc8ae96eb9155042c4f2426b315705e"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Probability_Matter_LBL</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s12sq</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s13sq</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s23sq</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">delta</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Dmsq21</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Dmsq31</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">L</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">E</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rho</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Ye</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">N_Newton</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">probs_returned</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">]</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422Probability_Matter_LBLddddddddddiPAL3E_AL3E_d" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv422Probability_Vacuum_LBLddddddddPAL3E_AL3E_d">
+<span id="_CPPv322Probability_Vacuum_LBLddddddddPAL3E_AL3E_d"></span><span id="_CPPv222Probability_Vacuum_LBLddddddddPA3_A3_d"></span><span class="target" id="nuFast_8hpp_1a6b966e996b281724a2d170ba5c59d7e2"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Probability_Vacuum_LBL</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s12sq</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s13sq</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">s23sq</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">delta</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Dmsq21</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Dmsq31</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">L</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">E</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">probs_returned</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">]</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422Probability_Vacuum_LBLddddddddPAL3E_AL3E_d" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-variables">Variables</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv419eVsqkm_to_GeV_over4">
+<span id="_CPPv319eVsqkm_to_GeV_over4"></span><span id="_CPPv219eVsqkm_to_GeV_over4"></span><span id="eVsqkm_to_GeV_over4__doubleC"></span><span class="target" id="nuFast_8hpp_1a06af825c4fa55921b0c69a1dd63c62fb"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">eVsqkm_to_GeV_over4</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1e-9</span></span><span class="w"> </span><span class="o"><span class="pre">/</span></span><span class="w"> </span><span class="m"><span class="pre">1.97327e-7</span></span><span class="w"> </span><span class="o"><span class="pre">*</span></span><span class="w"> </span><span class="m"><span class="pre">1e3</span></span><span class="w"> </span><span class="o"><span class="pre">/</span></span><span class="w"> </span><span class="m"><span class="pre">4</span></span><a class="headerlink" href="#_CPPv419eVsqkm_to_GeV_over4" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv48YerhoE2a">
+<span id="_CPPv38YerhoE2a"></span><span id="_CPPv28YerhoE2a"></span><span id="YerhoE2a__doubleC"></span><span class="target" id="nuFast_8hpp_1ad67946bf728a4feb732d1354159160c3"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">YerhoE2a</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1.52588e-4</span></span><a class="headerlink" href="#_CPPv48YerhoE2a" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="logging_8hpp.html" class="btn btn-neutral float-left" title="File logging.hpp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nuTens-pch_8hpp.html" class="btn btn-neutral float-right" title="File nuTens-pch.hpp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Ewan Miller.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

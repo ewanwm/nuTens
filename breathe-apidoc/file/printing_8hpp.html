@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>File constants.hpp &mdash; nuTens  documentation</title>
+  <title>File printing.hpp &mdash; nuTens  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
@@ -20,8 +20,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="File dtypes.hpp" href="dtypes_8hpp.html" />
-    <link rel="prev" title="File const-density-solver.hpp" href="const-density-solver_8hpp.html" /> 
+    <link rel="next" title="File propagator.cpp" href="propagator_8cpp.html" />
+    <link rel="prev" title="File pmns-matrix.hpp" href="pmns-matrix_8hpp.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -67,17 +67,17 @@
 <li class="toctree-l3"><a class="reference internal" href="base-mixing-matrix_8hpp.html">File base-mixing-matrix.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="const-density-solver_8cpp.html">File const-density-solver.cpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="const-density-solver_8hpp.html">File const-density-solver.hpp</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">File constants.hpp</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv46nuTens"><code class="docutils literal notranslate"><span class="pre">nuTens</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="constants_8hpp.html">File constants.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dtypes_8hpp.html">File dtypes.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="instrumentation_8hpp.html">File instrumentation.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="logging_8hpp.html">File logging.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nuFast_8hpp.html">File nuFast.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nuTens-pch_8hpp.html">File nuTens-pch.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pmns-matrix_8hpp.html">File pmns-matrix.hpp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="printing_8hpp.html">File printing.hpp</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">File printing.hpp</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv46nuTens"><code class="docutils literal notranslate"><span class="pre">nuTens</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="propagator_8cpp.html">File propagator.cpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="propagator_8hpp.html">File propagator.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tensor_8hpp.html">File tensor.hpp</a></li>
@@ -120,9 +120,9 @@
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../cpp-api.html">c++ API</a></li>
           <li class="breadcrumb-item"><a href="../filelist.html">File list</a></li>
-      <li class="breadcrumb-item active">File constants.hpp</li>
+      <li class="breadcrumb-item active">File printing.hpp</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/breathe-apidoc/file/constants_8hpp.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/breathe-apidoc/file/printing_8hpp.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -130,26 +130,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="file-constants-hpp">
-<h1>File constants.hpp<a class="headerlink" href="#file-constants-hpp" title="Link to this heading"></a></h1>
-<p>Defines constants to be used across the project. </p>
+  <section id="file-printing-hpp">
+<h1>File printing.hpp<a class="headerlink" href="#file-printing-hpp" title="Link to this heading"></a></h1>
+<p>provides utility functions for nicely printing nuTens classes within the gtest framework </p>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv46nuTens">
 <span id="_CPPv36nuTens"></span><span id="_CPPv26nuTens"></span><span id="nuTens"></span><span class="target" id="namespacenuTens"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nuTens</span></span></span><br /></dt>
 <dd><dl class="cpp type">
-<dt class="sig sig-object cpp" id="_CPPv4N6nuTens9constantsE">
-<span id="_CPPv3N6nuTens9constantsE"></span><span id="_CPPv2N6nuTens9constantsE"></span><span id="nuTens::constants"></span><span class="target" id="namespacenuTens_1_1constants"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">constants</span></span></span><a class="headerlink" href="#_CPPv4N6nuTens9constantsE" title="Link to this definition"></a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6dtypesE">
+<span id="_CPPv3N6nuTens6dtypesE"></span><span id="_CPPv2N6nuTens6dtypesE"></span><span id="nuTens::dtypes"></span><span class="target" id="namespacenuTens_1_1dtypes"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dtypes</span></span></span><br /></dt>
 <dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-variables">Variables</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6nuTens9constants6Groot2E">
-<span id="_CPPv3N6nuTens9constants6Groot2E"></span><span id="_CPPv2N6nuTens9constants6Groot2E"></span><span id="nuTens::constants::Groot2__double"></span><span class="target" id="constants_8hpp_1a746be643c9c65fcd42cb28aeb8985941"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Groot2</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0.76294e-4</span></span><span class="w"> </span><span class="o"><span class="pre">*</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="units_8hpp.html#_CPPv4N6nuTens5unitsE" title="nuTens::units"><span class="n"><span class="pre">units</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="units_8hpp.html#_CPPv4N6nuTens5units2eVE" title="nuTens::units::eV"><span class="n"><span class="pre">eV</span></span></a><span class="w"> </span><span class="o"><span class="pre">*</span></span><span class="w"> </span><a class="reference internal" href="units_8hpp.html#_CPPv4N6nuTens5unitsE" title="nuTens::units"><span class="n"><span class="pre">units</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="units_8hpp.html#_CPPv4N6nuTens5units2eVE" title="nuTens::units::eV"><span class="n"><span class="pre">eV</span></span></a><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">/</span></span><span class="w"> </span><a class="reference internal" href="units_8hpp.html#_CPPv4N6nuTens5unitsE" title="nuTens::units"><span class="n"><span class="pre">units</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="units_8hpp.html#_CPPv4N6nuTens5units3GeVE" title="nuTens::units::GeV"><span class="n"><span class="pre">GeV</span></span></a><a class="headerlink" href="#_CPPv4N6nuTens9constants6Groot2E" title="Link to this definition"></a><br /></dt>
-<dd><p>sqrt(2)*G_fermi in (eV^2-cm^3)/(mole-GeV) used in calculating matter hamiltonian </p>
-</dd></dl>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6dtypes7PrintToERK10deviceTypePNSt7ostreamE">
+<span id="_CPPv3N6nuTens6dtypes7PrintToERK10deviceTypePNSt7ostreamE"></span><span id="_CPPv2N6nuTens6dtypes7PrintToERK10deviceTypePNSt7ostreamE"></span><span id="nuTens::dtypes::PrintTo__deviceTypeCR.osP"></span><span class="target" id="printing_8hpp_1af97e966c34935ba45615ecdeca2ef0b8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PrintTo</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10deviceTypeE" title="nuTens::dtypes::deviceType"><span class="n"><span class="pre">deviceType</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">device</span></span>, <a class="reference internal" href="../namespace/namespacestd.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">oStream</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6dtypes7PrintToERK10deviceTypePNSt7ostreamE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
 
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6nuTens9constants5twoPiE">
-<span id="_CPPv3N6nuTens9constants5twoPiE"></span><span id="_CPPv2N6nuTens9constants5twoPiE"></span><span id="nuTens::constants::twoPi__double"></span><span class="target" id="constants_8hpp_1ac701c2ab26c98ee9517b852a80ae2238"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">twoPi</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">2.0</span></span><span class="w"> </span><span class="o"><span class="pre">*</span></span><span class="w"> </span><span class="n"><span class="pre">M_PI</span></span><a class="headerlink" href="#_CPPv4N6nuTens9constants5twoPiE" title="Link to this definition"></a><br /></dt>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens6dtypes7PrintToERK10scalarTypePNSt7ostreamE">
+<span id="_CPPv3N6nuTens6dtypes7PrintToERK10scalarTypePNSt7ostreamE"></span><span id="_CPPv2N6nuTens6dtypes7PrintToERK10scalarTypePNSt7ostreamE"></span><span id="nuTens::dtypes::PrintTo__scalarTypeCR.osP"></span><span class="target" id="printing_8hpp_1a7c8687b4b3d27c81056f20a29cb34343"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PrintTo</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="dtypes_8hpp.html#_CPPv4N6nuTens6dtypes10scalarTypeE" title="nuTens::dtypes::scalarType"><span class="n"><span class="pre">scalarType</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">dtype</span></span>, <a class="reference internal" href="../namespace/namespacestd.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ostream</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">oStream</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6nuTens6dtypes7PrintToERK10scalarTypePNSt7ostreamE" title="Link to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -163,8 +162,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="const-density-solver_8hpp.html" class="btn btn-neutral float-left" title="File const-density-solver.hpp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="dtypes_8hpp.html" class="btn btn-neutral float-right" title="File dtypes.hpp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pmns-matrix_8hpp.html" class="btn btn-neutral float-left" title="File pmns-matrix.hpp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="propagator_8cpp.html" class="btn btn-neutral float-right" title="File propagator.cpp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

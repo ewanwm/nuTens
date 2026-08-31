@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>File constants.hpp &mdash; nuTens  documentation</title>
+  <title>File utils.hpp &mdash; nuTens  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
@@ -20,8 +20,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="File dtypes.hpp" href="dtypes_8hpp.html" />
-    <link rel="prev" title="File const-density-solver.hpp" href="const-density-solver_8hpp.html" /> 
+    <link rel="next" title="Namespace list" href="../namespacelist.html" />
+    <link rel="prev" title="File units.hpp" href="units_8hpp.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -67,10 +67,7 @@
 <li class="toctree-l3"><a class="reference internal" href="base-mixing-matrix_8hpp.html">File base-mixing-matrix.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="const-density-solver_8cpp.html">File const-density-solver.cpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="const-density-solver_8hpp.html">File const-density-solver.hpp</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">File constants.hpp</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv46nuTens"><code class="docutils literal notranslate"><span class="pre">nuTens</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="constants_8hpp.html">File constants.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dtypes_8hpp.html">File dtypes.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="instrumentation_8hpp.html">File instrumentation.hpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="logging_8hpp.html">File logging.hpp</a></li>
@@ -85,7 +82,11 @@
 <li class="toctree-l3"><a class="reference internal" href="torch-autograd_8cpp.html">File torch-autograd.cpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="torch-tensor_8cpp.html">File torch-tensor.cpp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="units_8hpp.html">File units.hpp</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils_8hpp.html">File utils.hpp</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">File utils.hpp</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#c.SKIP_GPU"><code class="docutils literal notranslate"><span class="pre">SKIP_GPU</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv46nuTens"><code class="docutils literal notranslate"><span class="pre">nuTens</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../namespacelist.html">Namespace list</a></li>
@@ -120,9 +121,9 @@
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../cpp-api.html">c++ API</a></li>
           <li class="breadcrumb-item"><a href="../filelist.html">File list</a></li>
-      <li class="breadcrumb-item active">File constants.hpp</li>
+      <li class="breadcrumb-item active">File utils.hpp</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/breathe-apidoc/file/constants_8hpp.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/breathe-apidoc/file/utils_8hpp.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -130,30 +131,32 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="file-constants-hpp">
-<h1>File constants.hpp<a class="headerlink" href="#file-constants-hpp" title="Link to this heading"></a></h1>
-<p>Defines constants to be used across the project. </p>
+  <section id="file-utils-hpp">
+<h1>File utils.hpp<a class="headerlink" href="#file-utils-hpp" title="Link to this heading"></a></h1>
+<p>define some helpful utilities for testing </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.SKIP_GPU">
+<span class="target" id="utils_8hpp_1a066446a33f3b4150f29cd8d4690194bc"></span><span class="sig-name descname"><span class="n"><span class="pre">SKIP_GPU</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">device</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.SKIP_GPU" title="Link to this definition"></a><br /></dt>
+<dd><p>Skips the current test (using GTEST_SKIP()) if the passed device is GPU and no GPU device can be found. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> – <strong>[in]</strong> The device to check </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <dl class="cpp type">
 <dt class="sig sig-object cpp" id="_CPPv46nuTens">
 <span id="_CPPv36nuTens"></span><span id="_CPPv26nuTens"></span><span id="nuTens"></span><span class="target" id="namespacenuTens"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nuTens</span></span></span><br /></dt>
 <dd><dl class="cpp type">
-<dt class="sig sig-object cpp" id="_CPPv4N6nuTens9constantsE">
-<span id="_CPPv3N6nuTens9constantsE"></span><span id="_CPPv2N6nuTens9constantsE"></span><span id="nuTens::constants"></span><span class="target" id="namespacenuTens_1_1constants"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">constants</span></span></span><a class="headerlink" href="#_CPPv4N6nuTens9constantsE" title="Link to this definition"></a><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric" id="breathe-section-title-variables">Variables</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6nuTens9constants6Groot2E">
-<span id="_CPPv3N6nuTens9constants6Groot2E"></span><span id="_CPPv2N6nuTens9constants6Groot2E"></span><span id="nuTens::constants::Groot2__double"></span><span class="target" id="constants_8hpp_1a746be643c9c65fcd42cb28aeb8985941"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Groot2</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0.76294e-4</span></span><span class="w"> </span><span class="o"><span class="pre">*</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="units_8hpp.html#_CPPv4N6nuTens5unitsE" title="nuTens::units"><span class="n"><span class="pre">units</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="units_8hpp.html#_CPPv4N6nuTens5units2eVE" title="nuTens::units::eV"><span class="n"><span class="pre">eV</span></span></a><span class="w"> </span><span class="o"><span class="pre">*</span></span><span class="w"> </span><a class="reference internal" href="units_8hpp.html#_CPPv4N6nuTens5unitsE" title="nuTens::units"><span class="n"><span class="pre">units</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="units_8hpp.html#_CPPv4N6nuTens5units2eVE" title="nuTens::units::eV"><span class="n"><span class="pre">eV</span></span></a><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">/</span></span><span class="w"> </span><a class="reference internal" href="units_8hpp.html#_CPPv4N6nuTens5unitsE" title="nuTens::units"><span class="n"><span class="pre">units</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="units_8hpp.html#_CPPv4N6nuTens5units3GeVE" title="nuTens::units::GeV"><span class="n"><span class="pre">GeV</span></span></a><a class="headerlink" href="#_CPPv4N6nuTens9constants6Groot2E" title="Link to this definition"></a><br /></dt>
-<dd><p>sqrt(2)*G_fermi in (eV^2-cm^3)/(mole-GeV) used in calculating matter hamiltonian </p>
-</dd></dl>
-
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N6nuTens9constants5twoPiE">
-<span id="_CPPv3N6nuTens9constants5twoPiE"></span><span id="_CPPv2N6nuTens9constants5twoPiE"></span><span id="nuTens::constants::twoPi__double"></span><span class="target" id="constants_8hpp_1ac701c2ab26c98ee9517b852a80ae2238"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">twoPi</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">2.0</span></span><span class="w"> </span><span class="o"><span class="pre">*</span></span><span class="w"> </span><span class="n"><span class="pre">M_PI</span></span><a class="headerlink" href="#_CPPv4N6nuTens9constants5twoPiE" title="Link to this definition"></a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6nuTens7testingE">
+<span id="_CPPv3N6nuTens7testingE"></span><span id="_CPPv2N6nuTens7testingE"></span><span id="nuTens::testing"></span><span class="target" id="namespacenuTens_1_1testing"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">testing</span></span></span><br /></dt>
 <dd></dd></dl>
-
-</div>
-</dd></dl>
 
 </dd></dl>
 
@@ -163,8 +166,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="const-density-solver_8hpp.html" class="btn btn-neutral float-left" title="File const-density-solver.hpp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="dtypes_8hpp.html" class="btn btn-neutral float-right" title="File dtypes.hpp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="units_8hpp.html" class="btn btn-neutral float-left" title="File units.hpp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../namespacelist.html" class="btn btn-neutral float-right" title="Namespace list" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
