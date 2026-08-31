@@ -44,20 +44,6 @@ if(NT_PROFILING)
   target_compile_definitions(instrumentation PUBLIC USE_PROFILING)
 endif()
 
-# ##############################################################################
-# set up the backend ######
-# ##############################################################################
-add_library(tensor-backend INTERFACE)
-
-if(NT_USE_TORCH)
-  target_link_libraries(tensor-backend INTERFACE "${TORCH_LIBRARIES}")
-else()
-  message(
-    FATAL_ERROR
-      "No library found to deal with tensors. Currently only pytorch is available, please install this and try again."
-  )
-endif()
-
 # if user wants to use pch then we use the pch people, especially if developing,
 # might want to use this as including tensor related things can be
 # excruciatingly sloow when building
@@ -93,6 +79,6 @@ install(FILES ${HEADERS} DESTINATION include/utils)
 
 # install libraries to the "lib" directory
 install(
-  TARGETS instrumentation nt-logging tensor-backend spdlog
+  TARGETS instrumentation nt-logging spdlog
   DESTINATION lib
   EXPORT nuTens-targets)
