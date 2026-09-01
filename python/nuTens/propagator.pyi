@@ -1,10 +1,11 @@
 from __future__ import annotations
+import collections.abc
 import nuTens.dtype
 import nuTens.pyNuTens.dtype
 import nuTens.pyNuTens.tensor
 import typing
-__all__: list[str] = ['BaseMatterSolver', 'BaseMixingMatrix', 'ConstDensitySolver', 'DPpropagator', 'PMNSmatrix', 'Propagator']
-class BaseMatterSolver:
+__all__: list[str] = ['BaseMatterSolver', 'BaseMixingMatrix', 'ConstDensitySolver', 'DPpropagator', 'ModuleBase', 'PMNSmatrix', 'Propagator']
+class BaseMatterSolver(ModuleBase):
     def calculate_eigenvalues(self) -> list[nuTens.pyNuTens.tensor.Tensor]:
         """
         calculate the eigenvalues of the Hamiltonian. Returns tuple containing <eigenvectors, eigenvalues>
@@ -26,6 +27,15 @@ class BaseMatterSolver:
         Set the mixing matrix that the solver should use
         """
 class BaseMixingMatrix:
+    @typing.overload
+    def __init__(self) -> None:
+        ...
+    @typing.overload
+    def __init__(self, device: nuTens.pyNuTens.dtype.device_type) -> None:
+        ...
+    @typing.overload
+    def __init__(self, device: nuTens.pyNuTens.dtype.device_type, batch_size: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
     def build(self) -> nuTens.pyNuTens.tensor.Tensor:
         ...
 class ConstDensitySolver(BaseMatterSolver):
@@ -102,12 +112,38 @@ class DPpropagator(Propagator):
         ...
     def set_theta23(self, theta_23: nuTens.pyNuTens.tensor.Tensor) -> DPpropagator:
         ...
+class ModuleBase:
+    def __init__(self, batch_size: typing.SupportsInt | typing.SupportsIndex, device: nuTens.pyNuTens.dtype.device_type, name: str) -> None:
+        ...
+    def check_parameter_shape(self, parameter: nuTens.pyNuTens.tensor.Tensor, expected_n_dims: typing.SupportsInt | typing.SupportsIndex, expected_shape: collections.abc.Sequence[typing.SupportsInt | typing.SupportsIndex], ret_batched_param: nuTens.pyNuTens.tensor.Tensor, parameter_name: str) -> None:
+        """
+        Performs a check that the provided parameter has the expected shape and is batched according to expectation from this modules _batchSize attribute
+        """
+    def get_batch_size(self) -> int:
+        """
+        Get the batch size of this module
+        """
+    def get_device(self) -> nuTens.pyNuTens.dtype.device_type:
+        """
+        Get the device that this module lives on
+        """
+    def get_name(self) -> str:
+        """
+        get the name of this module
+        """
+    def set_name(self, name: str) -> None:
+        """
+        set the name of this module
+        """
 class PMNSmatrix(BaseMixingMatrix):
     @typing.overload
     def __init__(self) -> None:
         ...
     @typing.overload
     def __init__(self, device: nuTens.pyNuTens.dtype.device_type) -> None:
+        ...
+    @typing.overload
+    def __init__(self, device: nuTens.pyNuTens.dtype.device_type, batch_size: typing.SupportsInt | typing.SupportsIndex) -> None:
         ...
     def get_deltacp_tensor(self) -> nuTens.pyNuTens.tensor.Tensor:
         ...
@@ -117,15 +153,47 @@ class PMNSmatrix(BaseMixingMatrix):
         ...
     def get_theta23_tensor(self) -> nuTens.pyNuTens.tensor.Tensor:
         ...
+    @typing.overload
+    def set_deltacp(self, delta_cp: collections.abc.Sequence[typing.SupportsFloat | typing.SupportsIndex]) -> PMNSmatrix:
+        """
+        Set deltaCP values, the size of th provided array must match the batch size of the mixing matrix
+        """
+    @typing.overload
     def set_deltacp(self, delta_cp: typing.SupportsFloat | typing.SupportsIndex) -> PMNSmatrix:
-        ...
+        """
+        Set deltaCP value, can only use this if the batch size is 1
+        """
+    @typing.overload
+    def set_theta12(self, theta_12: collections.abc.Sequence[typing.SupportsFloat | typing.SupportsIndex]) -> PMNSmatrix:
+        """
+        Set theta12 values, the size of th provided array must match the batch size of the mixing matrix
+        """
+    @typing.overload
     def set_theta12(self, theta_12: typing.SupportsFloat | typing.SupportsIndex) -> PMNSmatrix:
-        ...
+        """
+        Set theta12 value, can only use this if the batch size is 1
+        """
+    @typing.overload
+    def set_theta13(self, theta_13: collections.abc.Sequence[typing.SupportsFloat | typing.SupportsIndex]) -> PMNSmatrix:
+        """
+        Set theta13 values, the size of th provided array must match the batch size of the mixing matrix
+        """
+    @typing.overload
     def set_theta13(self, theta_13: typing.SupportsFloat | typing.SupportsIndex) -> PMNSmatrix:
-        ...
+        """
+        Set theta13 value, can only use this if the batch size is 1
+        """
+    @typing.overload
+    def set_theta23(self, theta_23: collections.abc.Sequence[typing.SupportsFloat | typing.SupportsIndex]) -> PMNSmatrix:
+        """
+        Set theta23 values, the size of th provided array must match the batch size of the mixing matrix
+        """
+    @typing.overload
     def set_theta23(self, theta_23: typing.SupportsFloat | typing.SupportsIndex) -> PMNSmatrix:
-        ...
-class Propagator:
+        """
+        Set theta23 value, can only use this if the batch size is 1
+        """
+class Propagator(ModuleBase):
     def __init__(self, n_generations: typing.SupportsInt | typing.SupportsIndex, device: nuTens.pyNuTens.dtype.device_type = nuTens.dtype.device_type.cpu) -> None:
         ...
     def calculate_probabilities(self) -> nuTens.pyNuTens.tensor.Tensor:

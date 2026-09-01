@@ -10,6 +10,7 @@
 #include <iostream>
 
 // nuTens stuff
+#include <nuTens/propagator/module-base.hpp>
 #include <nuTens/propagator/const-density-solver.hpp>
 #include <nuTens/propagator/propagator.hpp>
 #include <nuTens/propagator/units.hpp>
@@ -30,6 +31,21 @@
 namespace py = pybind11;
 
 using namespace nuTens;
+
+// define trampoline classes to allow overriding private virtual methods
+
+class PyModuleBase : public ModuleBase
+{
+public:
+    using ModuleBase::setName;
+    using ModuleBase::checkParameterShape;
+};
+
+class PyBaseMixingMatrix : public BaseMixingMatrix {
+public:
+    using BaseMixingMatrix::BaseMixingMatrix;
+    Tensor _build() override { PYBIND11_OVERLOAD_PURE(Tensor, BaseMixingMatrix, _build, "This pure virtual method must be overridden and should return the constructed mixing matrix."); }
+};
 
 void initDtypes(py::module & /*m_nuTens*/);
 void initTensor(py::module & /*m_nuTens*/);
@@ -426,7 +442,30 @@ void initPropagator(py::module &m_nuTens)
 {
     auto m_propagator = m_nuTens.def_submodule("propagator");
 
-    py::class_<BaseMatterSolver, std::shared_ptr<BaseMatterSolver>>(m_propagator, "BaseMatterSolver")
+    py::class_<ModuleBase, std::shared_ptr<ModuleBase>>(m_propagator, "ModuleBase")
+        .def(py::init<long, dtypes::deviceType, const std::string&>(),
+            py::arg("batch_size"), py::arg("device"), py::arg("name")
+        )
+        .def("get_name", &ModuleBase::getName,
+            "get the name of this module"
+        )
+        .def("get_batch_size", &ModuleBase::getBatchSize,
+            "Get the batch size of this module"
+        )
+        .def("get_device", &ModuleBase::getDevice,
+            "Get the device that this module lives on"
+        )
+        .def("set_name", &PyModuleBase::setName,
+            "set the name of this module",
+            py::arg("name")
+        )
+        .def("check_parameter_shape", &PyModuleBase::checkParameterShape,
+            "Performs a check that the provided parameter has the expected shape and is batched according to expectation from this modules _batchSize attribute",
+            py::arg("parameter"), py::arg("expected_n_dims"), py::arg("expected_shape"), py::arg("ret_batched_param"), py::arg("parameter_name")
+        )
+    ;
+
+    py::class_<BaseMatterSolver, std::shared_ptr<BaseMatterSolver>, ModuleBase>(m_propagator, "BaseMatterSolver")
         .def("set_mixing_matrix", &BaseMatterSolver::setMixingMatrix,
             "Set the mixing matrix that the solver should use",
             py::arg("new_matrix")
@@ -460,7 +499,7 @@ void initPropagator(py::module &m_nuTens)
         )
         ;
 
-    py::class_<Propagator>(m_propagator, "Propagator")
+    py::class_<Propagator, std::shared_ptr<Propagator>, ModuleBase>(m_propagator, "Propagator")
         .def(py::init<int, dtypes::deviceType>(), 
             py::arg("n_generations"), py::arg("device") = dtypes::kCPU)
         .def("calculate_probabilities", &Propagator::calculateProbs,
@@ -496,7 +535,7 @@ void initPropagator(py::module &m_nuTens)
         ;
 
 
-    py::class_<DPpropagator, Propagator>(m_propagator, "DPpropagator")
+    py::class_<DPpropagator, std::shared_ptr<DPpropagator>, Propagator>(m_propagator, "DPpropagator")
         .def(py::init<int, dtypes::deviceType>(), 
             py::arg("NR_iterations"), py::arg("device") = dtypes::kCPU)
         .def("set_theta12", (&DPpropagator::setTheta12), py::arg("theta_12"))
@@ -561,8 +600,10 @@ void initPropagator(py::module &m_nuTens)
         )
         ;
 
-
-    py::class_<BaseMixingMatrix, std::shared_ptr<BaseMixingMatrix>>(m_propagator, "BaseMixingMatrix")
+    py::class_<BaseMixingMatrix, std::shared_ptr<BaseMixingMatrix>, PyBaseMixingMatrix>(m_propagator, "BaseMixingMatrix")
+        .def(py::init<>())
+        .def(py::init<dtypes::deviceType>(), py::arg("device"))
+        .def(py::init<dtypes::deviceType, long>(), py::arg("device"), py::arg("batch_size"))
         .def("build", (&BaseMixingMatrix::build))
         ;
 
@@ -570,10 +611,23 @@ void initPropagator(py::module &m_nuTens)
         m_propagator, "PMNSmatrix")
         .def(py::init<>())
         .def(py::init<dtypes::deviceType>(), py::arg("device"))
-        .def("set_theta12", (&PMNSmatrix::setTheta12), py::arg("theta_12"))
-        .def("set_theta13", (&PMNSmatrix::setTheta13), py::arg("theta_13"))
-        .def("set_theta23", (&PMNSmatrix::setTheta23), py::arg("theta_23"))
-        .def("set_deltacp", (&PMNSmatrix::setDeltaCP), py::arg("delta_cp"))
+        .def(py::init<dtypes::deviceType, long>(), py::arg("device"), py::arg("batch_size"))
+        .def("set_theta12", py::overload_cast<const std::vector<float> &>(&PMNSmatrix::setTheta12), 
+            "Set theta12 values, the size of th provided array must match the batch size of the mixing matrix", py::arg("theta_12"))
+        .def("set_theta13", py::overload_cast<const std::vector<float> &>(&PMNSmatrix::setTheta13), 
+            "Set theta13 values, the size of th provided array must match the batch size of the mixing matrix", py::arg("theta_13"))
+        .def("set_theta23", py::overload_cast<const std::vector<float> &>(&PMNSmatrix::setTheta23), 
+            "Set theta23 values, the size of th provided array must match the batch size of the mixing matrix", py::arg("theta_23"))
+        .def("set_deltacp", py::overload_cast<const std::vector<float> &>(&PMNSmatrix::setDeltaCP), 
+            "Set deltaCP values, the size of th provided array must match the batch size of the mixing matrix", py::arg("delta_cp"))
+        .def("set_theta12", py::overload_cast<float>(&PMNSmatrix::setTheta12), 
+            "Set theta12 value, can only use this if the batch size is 1", py::arg("theta_12"))
+        .def("set_theta13", py::overload_cast<float>(&PMNSmatrix::setTheta13), 
+            "Set theta13 value, can only use this if the batch size is 1", py::arg("theta_13"))
+        .def("set_theta23", py::overload_cast<float>(&PMNSmatrix::setTheta23), 
+            "Set theta23 value, can only use this if the batch size is 1", py::arg("theta_23"))
+        .def("set_deltacp", py::overload_cast<float>(&PMNSmatrix::setDeltaCP), 
+            "Set deltaCP value, can only use this if the batch size is 1", py::arg("delta_cp"))
         .def("get_theta12_tensor", (&PMNSmatrix::getTheta12Tensor), py::return_value_policy::reference)
         .def("get_theta13_tensor", (&PMNSmatrix::getTheta13Tensor), py::return_value_policy::reference)
         .def("get_theta23_tensor", (&PMNSmatrix::getTheta23Tensor), py::return_value_policy::reference)
