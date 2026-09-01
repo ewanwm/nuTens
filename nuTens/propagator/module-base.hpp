@@ -72,13 +72,13 @@ class ModuleBase
         bool valid = true;
 
         // get expected shape as a string
-        std::string shapeString = "";
+        std::string shapeString;
         for (const int &dimSize : expectShape)
         {
             shapeString += std::to_string(dimSize) + ", ";
         }
         // get actual shape as a string
-        std::string actualShapeString = "";
+        std::string actualShapeString;
         const auto actualPreRegShape = parameter.getShape();
         for (const int &dimSize : actualPreRegShape)
         {
