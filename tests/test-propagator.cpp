@@ -63,11 +63,11 @@ TEST(Propagator /*unused*/, SetterErrors)
 
     Tensor badEnergiesWrongSize = Tensor::ones({10, 1}, dtypes::kComplexFloat, dtypes::kCPU, false);
     Tensor badEnergiesWrongType = Tensor::ones({10}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor badMassesWrongSize = Tensor::ones({3}, dtypes::kFloat, dtypes::kCPU, false);
+    Tensor badMassesWrongSize = Tensor::ones({1, 1, 3}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor badMassesWrongShape = Tensor::ones({1, 4}, dtypes::kFloat, dtypes::kCPU, false);
 
     Tensor diagonal = Tensor({1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
-    Tensor badMixingMatrixWrongSize = Tensor::diag(diagonal);
+    Tensor badMixingMatrixWrongSize = Tensor::diag(diagonal).unsqueeze(0).unsqueeze(0);
 
     diagonal = Tensor({1.0, 1.0, 1.0, 1.0}, dtypes::kFloat, dtypes::kCPU, false);
     Tensor badMixingMatrixWrongShape = Tensor::diag(diagonal).unsqueeze(0);
