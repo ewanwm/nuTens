@@ -1,2 +1,2 @@
-from ._pyNuTens import testing
-from ._pyNuTens.testing import *
+from .pyNuTens import testing
+from .pyNuTens.testing import *

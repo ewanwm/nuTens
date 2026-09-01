@@ -38,9 +38,9 @@ void initPropagator(py::module & /*m_nuTens*/);
 void initUnits(py::module & /*m_nuTens*/);
 void initTesting(py::module & /*m_nuTens*/);
 
-// initialise the top level module "_pyNuTens"
+// initialise the top level module "pyNuTens"
 // NOLINTNEXTLINE
-PYBIND11_MODULE(_pyNuTens, m_nuTens)
+PYBIND11_MODULE(pyNuTens, m_nuTens)
 {
     m_nuTens.doc() = "Library to calculate neutrino oscillations";
     initDtypes(m_nuTens);

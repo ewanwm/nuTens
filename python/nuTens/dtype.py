@@ -1,2 +1,2 @@
-from ._pyNuTens import dtype
-from ._pyNuTens.dtype import *
+from .pyNuTens import dtype
+from .pyNuTens.dtype import *
