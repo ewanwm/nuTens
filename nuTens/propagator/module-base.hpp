@@ -1,5 +1,7 @@
 #pragma once
 
+#include <utility>
+
 #include <nuTens/tensors/dtypes.hpp>
 #include <nuTens/tensors/tensor.hpp>
 #include <nuTens/utils/instrumentation.hpp>
@@ -22,13 +24,13 @@ class ModuleBase
      */
 
   public:
-    ModuleBase(long batchSize, dtypes::deviceType device, const std::string &name)
-        : _batchSize(batchSize), _device(device), _name(name)
+    ModuleBase(long batchSize, dtypes::deviceType device, std::string name)
+        : _batchSize(batchSize), _device(device), _name(std::move(name))
     {
     }
 
     /// @brief Get the name of this module
-    const inline std::string &getName() const
+    [[nodiscard]] const inline std::string &getName() const
     {
         return _name;
     }
@@ -48,7 +50,7 @@ class ModuleBase
   protected:
     /// @brief Set the name of this module
     /// @param newName
-    inline void setName(const std::string newName)
+    inline void setName(const std::string &newName)
     {
         _name = newName;
     }
@@ -73,14 +75,14 @@ class ModuleBase
 
         // get expected shape as a string
         std::string shapeString;
-        for (const int &dimSize : expectShape)
+        for (const long &dimSize : expectShape)
         {
             shapeString += std::to_string(dimSize) + ", ";
         }
         // get actual shape as a string
         std::string actualShapeString;
         const auto actualPreRegShape = parameter.getShape();
-        for (const int &dimSize : actualPreRegShape)
+        for (const long &dimSize : actualPreRegShape)
         {
             actualShapeString += std::to_string(dimSize) + ", ";
         }
