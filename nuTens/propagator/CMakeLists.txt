@@ -5,6 +5,7 @@ set_target_properties(units PROPERTIES LINKER_LANGUAGE CXX)
 
 add_library(
   propagator
+  module-base.hpp
   propagator.hpp
   propagator.cpp
   const-density-solver.hpp
