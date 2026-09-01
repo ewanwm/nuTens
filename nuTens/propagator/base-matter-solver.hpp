@@ -1,5 +1,6 @@
 #pragma once
 
+#include <nuTens/propagator/module-base.hpp>
 #include <nuTens/tensors/tensor.hpp>
 #include <nuTens/utils/instrumentation.hpp>
 
@@ -8,7 +9,7 @@
 namespace nuTens
 {
 
-class BaseMatterSolver
+class BaseMatterSolver : public ModuleBase
 {
     /// @class BaseMatterSolver
     /// @brief Abstract base class for matter effect solvers
@@ -33,8 +34,8 @@ class BaseMatterSolver
         explicit EigenvalTensor(const nuTens::Tensor &tensor) : Tensor(tensor){};
     };
 
-    BaseMatterSolver(int nGenerations, bool antiNeutrino, dtypes::deviceType device)
-        : antiNeutrino(antiNeutrino), nGenerations(nGenerations), _device(device)
+    BaseMatterSolver(int nGenerations, bool antiNeutrino, dtypes::deviceType device, long batchSize)
+        : antiNeutrino(antiNeutrino), nGenerations(nGenerations), ModuleBase(batchSize, device, "BaseMatterSolver")
     {
     }
 
@@ -58,25 +59,13 @@ class BaseMatterSolver
     {
         NT_PROFILE();
 
-        if (newMatrix.getNdim() != 3)
-        {
-            throw std::invalid_argument(
-                "Mixing Matrix tensor must be 3 dimensional (n_batches, n_generations, n_generations)");
-        }
+        checkParameterShape(newMatrix, 2, {nGenerations, nGenerations}, mixingMatrix, "MixingMatrix");
 
-        if (newMatrix.getDevice() != _device)
+        if (mixingMatrix.getDevice() != getDevice())
         {
-            NT_WARN(__FILE__, __LINE__,
-                    "mixing matrix tensor is on a different device from matter solver, this will likely cause you "
+            NT_WARN("mixing matrix tensor is on a different device from matter solver, this will likely cause you "
                     "problems!!");
         }
-
-        if ((newMatrix.getShape()[1] != nGenerations) || (newMatrix.getShape()[2] != nGenerations))
-        {
-            throw std::invalid_argument("Bad mixing matrix shape!!");
-        }
-
-        mixingMatrix = newMatrix;
 
         return *this;
     }
@@ -87,24 +76,12 @@ class BaseMatterSolver
     {
         NT_PROFILE();
 
-        if (newMasses.getNdim() != 2)
-        {
-            throw std::invalid_argument("Mass tensor must be 2 dimensional (n_batches, n_generations)");
-        }
+        checkParameterShape(newMasses, 1, {nGenerations}, masses, "Masses");
 
-        if (newMasses.getDevice() != _device)
+        if (masses.getDevice() != getDevice())
         {
-            NT_WARN(__FILE__, __LINE__,
-                    "mass tensor is on a different device from matter solver, this will likely cause you problems!!");
+            NT_WARN("mass tensor is on a different device from matter solver, this will likely cause you problems!!");
         }
-
-        if (newMasses.getShape()[1] != nGenerations)
-        {
-            throw std::invalid_argument(
-                "Mass tensor shape has wrong number of generations. Shape should be (n_batches, n_generations)");
-        }
-
-        masses = newMasses;
 
         return *this;
     }
@@ -121,16 +98,15 @@ class BaseMatterSolver
             throw std::invalid_argument("Energy tensor must be 1 dimensional (n_energies)");
         }
 
-        if (newEnergies.getDevice() != _device)
+        if (newEnergies.getDevice() != getDevice())
         {
-            NT_WARN(__FILE__, __LINE__,
-                    "energy tensor is on a different device from matter solver, this will likely cause you problems!!");
+            NT_WARN("energy tensor is on a different device from matter solver, this will likely cause you problems!!");
         }
 
         energies = newEnergies;
 
         hamiltonian = Tensor::zeros({energies.getBatchDim(), nGenerations, nGenerations}, dtypes::kComplexFloat)
-                          .device(_device)
+                          .device(getDevice())
                           .requiresGrad(false);
 
         return *this;
@@ -190,7 +166,6 @@ class BaseMatterSolver
   protected:
     bool antiNeutrino;
     int nGenerations;
-    dtypes::deviceType _device;
     Tensor energies;
     Tensor hamiltonian;
     Tensor mixingMatrix;

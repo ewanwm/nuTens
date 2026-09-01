@@ -11,7 +11,7 @@ Tensor DPpropagator::calculateProbs()
     // --------------------------------------------------------------------- //
     // First calculate useful simple functions of the oscillation parameters //
     // --------------------------------------------------------------------- //
-    const Tensor one = Tensor::ones({1}).requiresGrad(false).device(_device);
+    const Tensor one = Tensor::ones({1}).requiresGrad(false).device(getDevice());
 
     // if user has provided sin^2(theta_ij) values, we just use those, otherwise
     // we need to calculate them

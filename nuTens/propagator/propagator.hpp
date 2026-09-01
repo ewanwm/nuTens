@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <nuTens/propagator/base-matter-solver.hpp>
+#include <nuTens/propagator/module-base.hpp>
 #include <nuTens/tensors/tensor.hpp>
 #include <vector>
 
@@ -10,7 +11,7 @@
 namespace nuTens
 {
 
-class Propagator
+class Propagator : public ModuleBase
 {
     /*!
      * @class Propagator
@@ -50,8 +51,8 @@ class Propagator
     /// @brief Constructor
     /// @param nGenerations The number of generations the propagator should
     /// expect
-    Propagator(int nGenerations, dtypes::deviceType device = dtypes::kCPU)
-        : _nGenerations(nGenerations), _device(device){};
+    Propagator(int nGenerations, dtypes::deviceType device = dtypes::kCPU, long batchSize = 1)
+        : _nGenerations(nGenerations), ModuleBase(batchSize, device, "Propagator"){};
 
     /// @brief Destructor
     virtual ~Propagator() = default;
@@ -131,7 +132,7 @@ class Propagator
             throw std::invalid_argument("Energy tensor must have complex type");
         }
 
-        if (newEnergies.getDevice() != _device)
+        if (newEnergies.getDevice() != getDevice())
         {
             NT_WARN(__FILE__, __LINE__,
                     "energy tensor is on a different device from propagator, this will likely cause you problems!!");
@@ -140,7 +141,7 @@ class Propagator
         _energies = newEnergies;
 
         _weightMatrix = Tensor::ones({_energies.getBatchDim(), _nGenerations, _nGenerations}, dtypes::kComplexFloat)
-                            .device(_device)
+                            .device(getDevice())
                             .requiresGrad(false);
 
         if (_matterSolver)
@@ -161,28 +162,17 @@ class Propagator
     {
         NT_PROFILE();
 
-        if (newMasses.getNdim() != 2)
-        {
-            throw std::invalid_argument("Mass tensor must be 2 dimensional (n_batches, n_generations)");
-        }
+        checkParameterShape(newMasses, 1, {_nGenerations}, _masses, "Masses");
 
-        if (newMasses.getDevice() != _device)
+        if (_masses.getDevice() != getDevice())
         {
             NT_WARN(__FILE__, __LINE__,
                     "mass tensor is on a different device from propagator, this will likely cause you problems!!");
         }
 
-        if (newMasses.getShape()[1] != _nGenerations)
-        {
-            throw std::invalid_argument(
-                "Mass tensor shape has wrong number of generations. Shape should be (n_batches, n_generations)");
-        }
-
-        _masses = newMasses;
-
         if (_matterSolver)
         {
-            _matterSolver->setMasses(newMasses);
+            _matterSolver->setMasses(_masses);
         }
 
         return *this;
@@ -194,29 +184,18 @@ class Propagator
     {
         NT_PROFILE();
 
-        if (newMatrix.getNdim() != 3)
-        {
-            throw std::invalid_argument(
-                "Mixing Matrix tensor must be 3 dimensional (n_batches, n_generations, n_generations)");
-        }
+        checkParameterShape(newMatrix, 2, {_nGenerations, _nGenerations}, _mixingMatrix, "MixingMatrix");
 
-        if (newMatrix.getDevice() != _device)
+        if (_mixingMatrix.getDevice() != getDevice())
         {
             NT_WARN(
                 __FILE__, __LINE__,
                 "mixing matrix tensor is on a different device from propagator, this will likely cause you problems!!");
         }
 
-        if ((newMatrix.getShape()[1] != _nGenerations) || (newMatrix.getShape()[2] != _nGenerations))
-        {
-            throw std::invalid_argument("Bad mixing matrix shape!!");
-        }
-
-        _mixingMatrix = newMatrix;
-
         if (_matterSolver)
         {
-            _matterSolver->setMixingMatrix(newMatrix);
+            _matterSolver->setMixingMatrix(_mixingMatrix);
         }
 
         return *this;
@@ -264,8 +243,6 @@ class Propagator
     int _nGenerations;
     float _baseline{NAN};
     bool _antiNeutrino{false};
-
-    dtypes::deviceType _device;
 
     std::shared_ptr<BaseMatterSolver> _matterSolver;
 };

@@ -36,9 +36,10 @@ class ConstDensityMatterSolver : public BaseMatterSolver
     /// @brief Constructor
     /// @arg nGenerations The number of neutrino generations this propagator
     /// should expect
-    ConstDensityMatterSolver(int nGenerations, dtypes::deviceType device = dtypes::kCPU)
-        : BaseMatterSolver(nGenerations, false, device)
+    ConstDensityMatterSolver(int nGenerations, dtypes::deviceType device = dtypes::kCPU, long batchSize = 1)
+        : BaseMatterSolver(nGenerations, false, device, batchSize)
     {
+        setName("ConstDensityMatterSolver");
         diagMassMatrix = Tensor::zeros({1, nGenerations, nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
     };
 
@@ -88,7 +89,7 @@ class ConstDensityMatterSolver : public BaseMatterSolver
 
         /// @todo move to hamiltonian builder function!!!!!!
         /// right now if user changes masses after setting it will not take effect!!!
-        Tensor massValues = masses.getValues({0, "..."}).device(_device);
+        Tensor massValues = masses.getValues({0, "..."}).device(getDevice());
         Tensor diag = Tensor::scale(Tensor::mul(massValues, massValues), 0.5);
 
         // construct the diagonal mass^2 matrix used in the hamiltonian
