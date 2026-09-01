@@ -1,11 +1,12 @@
 #pragma once
 
+#include <nuTens/propagator/module-base.hpp>
 #include <nuTens/tensors/tensor.hpp>
 
 namespace nuTens
 {
 
-class BaseMixingMatrix
+class BaseMixingMatrix : public ModuleBase
 {
   public:
     /// @brief Get the mixing matrix
@@ -22,7 +23,7 @@ class BaseMixingMatrix
         // batch dim missing
         if (_matrix.getNdim() == 2)
         {
-            if (_batchSize != 1)
+            if (getBatchSize() != 1)
             {
                 NT_ERROR("Your Mixing matrix class can only return a 2D tensor if batch size == 1");
                 throw std::runtime_error("Bad batching");
@@ -39,10 +40,10 @@ class BaseMixingMatrix
             throw std::runtime_error("Bad mixing matrix");
         }
 
-        if (_matrix.getShape()[0] != _batchSize)
+        if (_matrix.getShape()[0] != getBatchSize())
         {
             NT_ERROR("Your mixing matrix class returned a mixing matrix tensor whose batch dim != the batch size");
-            NT_ERROR("Expected ", _batchSize, " but got ", _matrix.getShape()[0]);
+            NT_ERROR("Expected ", getBatchSize(), " but got ", _matrix.getShape()[0]);
             throw std::runtime_error("Bad batching");
         }
 
@@ -53,7 +54,7 @@ class BaseMixingMatrix
 
     /// @brief Constructor
     BaseMixingMatrix(dtypes::deviceType device = dtypes::kCPU, long batchSize = 1)
-        : _device(device), _batchSize(batchSize){};
+        : ModuleBase(batchSize, device, "BaseMixingMatrix"){};
 
     /// @brief Destructor
     virtual ~BaseMixingMatrix() = default;
@@ -66,13 +67,6 @@ class BaseMixingMatrix
     /// @brief move assignment operator
     BaseMixingMatrix &operator=(BaseMixingMatrix &&) = default;
 
-    /// @brief get number of batches
-    /// Value of 0 means the batch size has not yet been initialised
-    [[nodiscard]] inline long getBatchSize() const
-    {
-        return _batchSize;
-    };
-
   protected:
     /// @brief Should construct and return the mixing matrix
     virtual Tensor _build() = 0;
@@ -80,12 +74,6 @@ class BaseMixingMatrix
     /// flag to set if the matrix needs to be recalculated or if it's fine to
     /// just return the cached one
     bool _needsRecalculating = true;
-
-    /// The number of batches of mixing matrix values
-    long _batchSize;
-
-    /// The device that this object lives on
-    dtypes::deviceType _device;
 
     /// Cached mixing matrix
     Tensor _matrix;
