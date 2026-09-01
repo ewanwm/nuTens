@@ -91,4 +91,14 @@ INSTANTIATE_TEST_CASE_P(
 
 #endif
 
+/////////////////////////////////////
+// now non parameterised tests
+/////////////////////////////////////
+
+TEST(ThreeFlavourOscillations /*unused*/, batchedOscProbs /*unused*/)
+{
+
+    testBatching(/*dType=*/dtypes::kFloat, /*deviceType=*/dtypes::kCPU, false);
+}
+
 // NOLINTEND(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
