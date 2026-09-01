@@ -254,34 +254,36 @@ class PMNSmatrix : public BaseMixingMatrix
   private:
     inline void buildMat1()
     {
-        _mat1.setValue({0, 0, 0}, 1.0);
-        _mat1.setValue({0, 1, 1}, Tensor::cos(*_theta23));
-        _mat1.setValue({0, 1, 2}, Tensor::sin(*_theta23));
-        _mat1.setValue({0, 2, 1}, -Tensor::sin(*_theta23));
-        _mat1.setValue({0, 2, 2}, Tensor::cos(*_theta23));
+        _mat1.setValue({"...", 0, 0}, Tensor::ones({getBatchSize()}, dtypes::kFloat, getDevice(), false));
+        _mat1.setValue({"...", 1, 1}, Tensor::cos(*_theta23));
+        _mat1.setValue({"...", 1, 2}, Tensor::sin(*_theta23));
+        _mat1.setValue({"...", 2, 1}, -Tensor::sin(*_theta23));
+        _mat1.setValue({"...", 2, 2}, Tensor::cos(*_theta23));
     }
     inline void buildMat2()
     {
-        _mat2.setValue({0, 1, 1}, 1.0);
-        _mat2.setValue({0, 0, 0}, Tensor::cos(*_theta13));
-        _mat2.setValue({0, 0, 2}, Tensor::mul(Tensor::sin(*_theta13), Tensor::exp(Tensor::scale(_deltaCP, -imagUnit))));
-        _mat2.setValue({0, 2, 0}, -Tensor::mul(Tensor::sin(*_theta13), Tensor::exp(Tensor::scale(_deltaCP, imagUnit))));
-        _mat2.setValue({0, 2, 2}, Tensor::cos(*_theta13));
+        _mat2.setValue({"...", 1, 1}, Tensor::ones({getBatchSize()}, dtypes::kFloat, getDevice(), false));
+        _mat2.setValue({"...", 0, 0}, Tensor::cos(*_theta13));
+        _mat2.setValue({"...", 0, 2},
+                       Tensor::mul(Tensor::sin(*_theta13), Tensor::exp(Tensor::scale(_deltaCP, -imagUnit))));
+        _mat2.setValue({"...", 2, 0},
+                       -Tensor::mul(Tensor::sin(*_theta13), Tensor::exp(Tensor::scale(_deltaCP, imagUnit))));
+        _mat2.setValue({"...", 2, 2}, Tensor::cos(*_theta13));
     }
     inline void buildMat3()
     {
-        _mat3.setValue({0, 2, 2}, 1.0);
-        _mat3.setValue({0, 0, 0}, Tensor::cos(*_theta12));
-        _mat3.setValue({0, 0, 1}, Tensor::sin(*_theta12));
-        _mat3.setValue({0, 1, 0}, -Tensor::sin(*_theta12));
-        _mat3.setValue({0, 1, 1}, Tensor::cos(*_theta12));
+        _mat3.setValue({"...", 2, 2}, Tensor::ones({getBatchSize()}, dtypes::kFloat, getDevice(), false));
+        _mat3.setValue({"...", 0, 0}, Tensor::cos(*_theta12));
+        _mat3.setValue({"...", 0, 1}, Tensor::sin(*_theta12));
+        _mat3.setValue({"...", 1, 0}, -Tensor::sin(*_theta12));
+        _mat3.setValue({"...", 1, 1}, Tensor::cos(*_theta12));
     }
     // the mixing parameters
     std::shared_ptr<Tensor> _theta12;
     std::shared_ptr<Tensor> _theta13;
     std::shared_ptr<Tensor> _theta23;
 
-    Tensor _deltaCP = Tensor::zeros({1}, dtypes::kComplexFloat, getDevice(), true);
+    Tensor _deltaCP = Tensor::zeros({getBatchSize()}, dtypes::kComplexFloat, getDevice(), true);
 
     // the sub-matrices
     Tensor _mat1;
