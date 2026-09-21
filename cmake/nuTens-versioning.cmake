@@ -52,7 +52,7 @@ function(get_version_from_git)
         PARENT_SCOPE)
 
     set(FULL_VERSION
-        "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}+${GIT_COMMIT_SHORT_HASH}"
+        "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}"
         PARENT_SCOPE)
 
   else()
