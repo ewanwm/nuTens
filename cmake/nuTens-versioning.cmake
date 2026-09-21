@@ -7,6 +7,16 @@ endif()
 # function to get the project version from the most recent git tag
 function(get_version_from_git)
 
+  set(PROJECT_VERSION_MAJOR
+      0
+      PARENT_SCOPE)
+  set(PROJECT_VERSION_MINOR
+      0
+      PARENT_SCOPE)
+  set(PROJECT_VERSION_PATCH
+      0
+      PARENT_SCOPE)
+
   # get the most recent git tag
   execute_process(
     COMMAND ${GIT_EXECUTABLE} describe --tags --always
@@ -45,14 +55,14 @@ function(get_version_from_git)
         "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}+${GIT_COMMIT_SHORT_HASH}"
         PARENT_SCOPE)
 
-    set(PROJECT_VERSION
-        "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}"
-        PARENT_SCOPE)
-
   else()
 
     message(WARNING "Tag '${CLEAN_TAG}' does not match semver format")
 
   endif()
+
+    set(PROJECT_VERSION
+        "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}"
+        PARENT_SCOPE)
 
 endfunction()
