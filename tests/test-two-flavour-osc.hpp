@@ -9,7 +9,7 @@ namespace gtest = ::testing;
 #include <nuTens/tensors/tensor.hpp>
 #include <nuTens/testing/barger-propagator.hpp>
 #include <nuTens/testing/printing.hpp>
-#include <nuTens/testing/utils.hpp>
+#include <tests/utils.hpp>
 
 using namespace nuTens;
 using namespace nuTens::testing;

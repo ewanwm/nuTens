@@ -11,8 +11,8 @@ namespace gtest = ::testing;
 #include <nuTens/tensors/tensor.hpp>
 #include <nuTens/testing/barger-propagator.hpp>
 #include <nuTens/testing/printing.hpp>
-#include <nuTens/testing/utils.hpp>
 #include <nuTens/utils/logging.hpp>
+#include <tests/utils.hpp>
 
 // nuFast c++ implementation
 #include <nuTens/testing/nuFast.hpp>
