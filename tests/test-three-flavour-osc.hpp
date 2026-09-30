@@ -368,4 +368,114 @@ class ThreeFlavourOscillations : public gtest::TestWithParam<std::tuple<float, d
     // NOLINTEND(readability-function-cognitive-complexity)
 };
 
+void testBatching(dtypes::scalarType scalarType, dtypes::deviceType deviceType, bool antiNu)
+{
+
+    float theta12 = 0.12 * M_PI;
+    float theta13 = 0.13 * M_PI;
+    float deltaCP = 0.25 * M_PI;
+
+    float mass1 = 0.0;
+    float mass2 = 0.008 * units::eV * units::eV;
+    float mass3 = 0.01 * units::eV * units::eV;
+
+    float energy = 0.5 * units::GeV;
+    float baseline = 295.0 * units::km;
+    float density = 2.6;
+
+    Tensor massTensor = Tensor::zeros({10, 3}, scalarType, deviceType);
+    auto theta23s = std::vector<float>(10);
+    auto theta12s = std::vector<float>(10);
+    auto theta13s = std::vector<float>(10);
+    auto deltaCPs = std::vector<float>(10);
+
+    // linter seems to struggle with recogising this type and thinks it is an int
+    // and always thinks it is uninitialised
+    // NOLINTNEXTLINE(cppcoreguidelines-init-variables)
+    ThreeFlavourBarger<> bargerProp{};
+    bargerProp.setMass1(mass1)
+        .setMass2(mass2)
+        .setMass3(mass3)
+        .setTheta12(theta12)
+        .setTheta13(theta13)
+        .setDeltaCP(deltaCP)
+        .setBaseline(baseline)
+        .setDensity(density)
+        .setAntiNeutrino(antiNu);
+
+    auto bargerProbs = std::array<std::array<std::array<float, 3>, 3>, 10>();
+
+    for (int iTheta = 0; iTheta < 10; iTheta++)
+    {
+        for (int iLep = 0; iLep < 3; iLep++)
+        {
+            for (int jLep = 0; jLep < 3; jLep++)
+            {
+                float theta23 = -M_PI + 2.0 * M_PI * (float)iTheta / (float)10;
+
+                // calculate prob using the barger propagator
+                bargerProp.setTheta23(theta23);
+                bargerProbs[iTheta][iLep][jLep] = bargerProp.calculateProb(energy, iLep, jLep);
+
+                // add the theta value to the list
+                theta23s[iTheta] = theta23;
+
+                // push back other values
+                massTensor.setValue({iTheta, 0}, mass1);
+                massTensor.setValue({iTheta, 1}, mass2);
+                massTensor.setValue({iTheta, 2}, mass3);
+                deltaCPs[iTheta] = deltaCP;
+                theta12s[iTheta] = theta12;
+                theta13s[iTheta] = theta13;
+            }
+        }
+    }
+
+    std::cout << "done with barger" << std::endl;
+
+    // now calculate osc probs using nuTens propagator
+    PMNSmatrix pmns(/*device=*/deviceType, /*batchSize=*/10);
+    std::cout << "created PMNSmatrix" << std::endl;
+    pmns.setTheta12(theta12s).setTheta13(theta13s).setTheta23(theta23s).setDeltaCP(deltaCPs);
+    std::cout << "set PMNSmatrix values" << std::endl;
+    Tensor pmnsTensor = pmns.build();
+
+    std::cout << "got pmns matrix" << std::endl;
+
+    // set up the matter solver
+    Propagator tensorPropagator = Propagator(3, deviceType, /*batchSize=*/10).setBaseline(baseline);
+
+    std::cout << "made propagator" << std::endl;
+
+    auto tensorSolver = std::make_shared<ConstDensityMatterSolver>(3, deviceType, 10);
+
+    std::cout << "made matter solver" << std::endl;
+    tensorSolver->setDensity(density);
+
+    // set up the propagator
+    tensorPropagator.setMatterSolver(tensorSolver);
+    tensorPropagator.setMixingMatrix(pmns.build());
+    std::cout << "set mixing matrix" << std::endl;
+    tensorPropagator.setMasses(massTensor);
+    tensorPropagator.setAntiNeutrino(antiNu);
+
+    auto energies = Tensor({energy}, dtypes::kComplexFloat, deviceType);
+    tensorPropagator.setEnergies(energies);
+
+    auto oscProbs = tensorPropagator.calculateProbs();
+
+    std::cout << "osc probs: " << oscProbs << std::endl;
+
+    for (int iTheta = 0; iTheta < 10; iTheta++)
+    {
+        for (int iLep = 0; iLep < 3; iLep++)
+        {
+            for (int jLep = 0; jLep < 3; jLep++)
+            {
+                ASSERT_NEAR(oscProbs.getValue<float>({iTheta, iLep, jLep}), bargerProbs[iTheta][iLep][jLep], 1e-6);
+            }
+        }
+    }
+}
+
 // NOLINTEND(readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
