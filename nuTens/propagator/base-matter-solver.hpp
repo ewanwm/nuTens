@@ -105,9 +105,10 @@ class BaseMatterSolver : public ModuleBase
 
         energies = newEnergies;
 
-        hamiltonian = Tensor::zeros({energies.getBatchDim(), nGenerations, nGenerations}, dtypes::kComplexFloat)
-                          .device(getDevice())
-                          .requiresGrad(false);
+        hamiltonian =
+            Tensor::zeros({energies.getBatchDim(), getBatchSize(), nGenerations, nGenerations}, dtypes::kComplexFloat)
+                .device(getDevice())
+                .requiresGrad(false);
 
         return *this;
     }

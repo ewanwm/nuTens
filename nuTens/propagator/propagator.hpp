@@ -140,9 +140,10 @@ class Propagator : public ModuleBase
 
         _energies = newEnergies;
 
-        _weightMatrix = Tensor::ones({_energies.getBatchDim(), _nGenerations, _nGenerations}, dtypes::kComplexFloat)
-                            .device(getDevice())
-                            .requiresGrad(false);
+        _weightMatrix =
+            Tensor::ones({_energies.getBatchDim(), getBatchSize(), _nGenerations, _nGenerations}, dtypes::kComplexFloat)
+                .device(getDevice())
+                .requiresGrad(false);
 
         if (_matterSolver)
         {
