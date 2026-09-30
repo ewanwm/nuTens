@@ -7,7 +7,8 @@ import typing
 __all__: list[str] = ['Tensor', 'add', 'cos', 'cumsum', 'div', 'exp', 'gpu_available', 'log', 'matmul', 'mul', 'outer', 'pow', 'scale', 'sin', 'sum', 'transpose']
 class Tensor:
     """
-    Tensor defines a basic interface for creating and manipulating tensors.To create tensors you should use the static constructor methods.
+    Tensor defines a basic interface for creating and manipulating tensors.
+    To create tensors you should use the static constructor methods.
     Alternatively you can chain together multiple property setters.
     
     For example
@@ -22,6 +23,7 @@ class Tensor:
     This is equivalent to
     
     .. code-block::
+    
         tensor = Tensor.ones([3,3]).dtype(dtype.scalar_type.float).device(dtype.device_type.cpu);
     
     """
@@ -82,7 +84,11 @@ class Tensor:
         """
         Construct a tensor from an "array like" object
         """
+    @typing.overload
     def __mul__(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> Tensor:
+        ...
+    @typing.overload
+    def __mul__(self, arg0: Tensor) -> Tensor:
         ...
     def __neg__(self) -> Tensor:
         ...
@@ -94,7 +100,11 @@ class Tensor:
         ...
     def __setstate__(self, arg0: tuple) -> None:
         ...
+    @typing.overload
     def __truediv__(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> Tensor:
+        ...
+    @typing.overload
+    def __truediv__(self, arg0: Tensor) -> Tensor:
         ...
     def abs(self) -> Tensor:
         """

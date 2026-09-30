@@ -4,6 +4,45 @@ Some helpful utilities to use when writing python tests for your code
 from __future__ import annotations
 import typing
 __all__: list[str] = ['ThreeFlavourBarger', 'TwoFlavourBarger', 'nufast_probability_matter']
+class TwoFlavourBarger:
+    def __init__(self) -> None:
+        ...
+    def calculate_effective_angle(self, energy: typing.SupportsFloat | typing.SupportsIndex) -> float:
+        """
+        Calculates the effective mixing angle, alpha, in matter
+        """
+    def calculate_effective_dm2(self, energy: typing.SupportsFloat | typing.SupportsIndex) -> float:
+        """
+        Calculates the effective delta m_nuTens^2 in matter
+        """
+    def calculate_prob(self, energy: typing.SupportsFloat | typing.SupportsIndex, i: typing.SupportsInt | typing.SupportsIndex, j: typing.SupportsInt | typing.SupportsIndex) -> float:
+        """
+        Calculate probability of transitioning from state i to state j for a given energy
+        """
+    def get_PMNS_element(self, energy: typing.SupportsFloat | typing.SupportsIndex, i: typing.SupportsInt | typing.SupportsIndex, j: typing.SupportsInt | typing.SupportsIndex) -> float:
+        """
+        Calculates the effective i,j-th element of the mizing matrix for a given energy
+        """
+    def l_matter(self) -> float:
+        """
+        Calculates the matter oscillation length
+        """
+    def l_vac(self, energy: typing.SupportsFloat | typing.SupportsIndex) -> float:
+        """
+        Calculates the vacuum oscillation length
+        """
+    def set_antineutrino(self, antineutrino: bool) -> TwoFlavourBarger:
+        ...
+    def set_baseline(self, baseline: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
+        ...
+    def set_density(self, density: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
+        ...
+    def set_m1(self, m1: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
+        ...
+    def set_m2(self, m2: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
+        ...
+    def set_theta(self, theta: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
+        ...
 class ThreeFlavourBarger:
     def __init__(self) -> None:
         ...
@@ -54,45 +93,6 @@ class ThreeFlavourBarger:
     def set_theta13(self, theta13: typing.SupportsFloat | typing.SupportsIndex) -> ThreeFlavourBarger:
         ...
     def set_theta23(self, theta23: typing.SupportsFloat | typing.SupportsIndex) -> ThreeFlavourBarger:
-        ...
-class TwoFlavourBarger:
-    def __init__(self) -> None:
-        ...
-    def calculate_effective_angle(self, energy: typing.SupportsFloat | typing.SupportsIndex) -> float:
-        """
-        Calculates the effective mixing angle, alpha, in matter
-        """
-    def calculate_effective_dm2(self, energy: typing.SupportsFloat | typing.SupportsIndex) -> float:
-        """
-        Calculates the effective delta m_nuTens^2 in matter
-        """
-    def calculate_prob(self, energy: typing.SupportsFloat | typing.SupportsIndex, i: typing.SupportsInt | typing.SupportsIndex, j: typing.SupportsInt | typing.SupportsIndex) -> float:
-        """
-        Calculate probability of transitioning from state i to state j for a given energy
-        """
-    def get_PMNS_element(self, energy: typing.SupportsFloat | typing.SupportsIndex, i: typing.SupportsInt | typing.SupportsIndex, j: typing.SupportsInt | typing.SupportsIndex) -> float:
-        """
-        Calculates the effective i,j-th element of the mizing matrix for a given energy
-        """
-    def l_matter(self) -> float:
-        """
-        Calculates the matter oscillation length
-        """
-    def l_vac(self, energy: typing.SupportsFloat | typing.SupportsIndex) -> float:
-        """
-        Calculates the vacuum oscillation length
-        """
-    def set_antineutrino(self, antineutrino: bool) -> TwoFlavourBarger:
-        ...
-    def set_baseline(self, baseline: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
-        ...
-    def set_density(self, density: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
-        ...
-    def set_m1(self, m1: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
-        ...
-    def set_m2(self, m2: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
-        ...
-    def set_theta(self, theta: typing.SupportsFloat | typing.SupportsIndex) -> TwoFlavourBarger:
         ...
 def nufast_probability_matter(sin_squared_theta12: typing.SupportsFloat | typing.SupportsIndex, sin_squared_theta13: typing.SupportsFloat | typing.SupportsIndex, sin_squared_theta23: typing.SupportsFloat | typing.SupportsIndex, delta_cp: typing.SupportsFloat | typing.SupportsIndex, delta_m_squared_21: typing.SupportsFloat | typing.SupportsIndex, delta_m_squared_31: typing.SupportsFloat | typing.SupportsIndex, baseline: typing.SupportsFloat | typing.SupportsIndex, energy: typing.SupportsFloat | typing.SupportsIndex, rho: typing.SupportsFloat | typing.SupportsIndex, Ye: typing.SupportsFloat | typing.SupportsIndex, N_Newton: typing.SupportsInt | typing.SupportsIndex) -> list[list[float]]:
     """
