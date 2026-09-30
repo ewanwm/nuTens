@@ -156,7 +156,8 @@
 <dt class="sig sig-object py" id="nuTens.tensor.Tensor">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">nuTens.tensor.</span></span><span class="sig-name descname"><span class="pre">Tensor</span></span><a class="headerlink" href="#nuTens.tensor.Tensor" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
-<p>Tensor defines a basic interface for creating and manipulating tensors.To create tensors you should use the static constructor methods.
+<p>Tensor defines a basic interface for creating and manipulating tensors.
+To create tensors you should use the static constructor methods.
 Alternatively you can chain together multiple property setters.</p>
 <p>For example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nuTens.tensor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">dtype</span>
@@ -165,6 +166,9 @@ Alternatively you can chain together multiple property setters.</p>
 </div>
 <p>will get you a 3x3 tensor of floats that lives on the CPU.</p>
 <p>This is equivalent to</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tensor</span> <span class="o">=</span> <span class="n">Tensor</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">dtype</span><span class="o">.</span><span class="n">scalar_type</span><span class="o">.</span><span class="n">float</span><span class="p">)</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">dtype</span><span class="o">.</span><span class="n">device_type</span><span class="o">.</span><span class="n">cpu</span><span class="p">);</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="nuTens.tensor.Tensor.abs">
 <span class="sig-name descname"><span class="pre">abs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens.pyNuTens.tensor.Tensor"><span class="pre">Tensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#nuTens.tensor.Tensor" title="nuTens.pyNuTens.tensor.Tensor"><span class="pre">Tensor</span></a></span></span><a class="headerlink" href="#nuTens.tensor.Tensor.abs" title="Link to this definition"></a></dt>
