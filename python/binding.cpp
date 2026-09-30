@@ -314,7 +314,7 @@ void initTensor(py::module &m_nuTens)
             py::arg("shape"), py::arg("dtype") = dtypes::scalarType::kFloat, py::arg("device") = dtypes::kCPU, py::arg("requires_grad") = true)
 
         .doc() = 
-            "Tensor defines a basic interface for creating and manipulating tensors."
+            "Tensor defines a basic interface for creating and manipulating tensors.\n"
             "To create tensors you should use the static constructor methods.\n"
             "Alternatively you can chain together multiple property setters.\n"
             "\n"
@@ -329,7 +329,7 @@ void initTensor(py::module &m_nuTens)
             "\n"
             "This is equivalent to\n"
             "\n"
-            ".. code-block::"
+            ".. code-block::\n"
             "\n"
             "    tensor = Tensor.ones([3,3]).dtype(dtype.scalar_type.float).device(dtype.device_type.cpu);\n"
             "\n"
