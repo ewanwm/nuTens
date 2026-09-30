@@ -40,7 +40,8 @@ class ConstDensityMatterSolver : public BaseMatterSolver
         : BaseMatterSolver(nGenerations, false, device, batchSize)
     {
         setName("ConstDensityMatterSolver");
-        diagMassMatrix = Tensor::zeros({1, nGenerations, nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
+        diagMassMatrix =
+            Tensor::zeros({getBatchSize(), nGenerations, nGenerations}, dtypes::kComplexFloat).requiresGrad(false);
     };
 
     /// @brief destructor
