@@ -7,6 +7,33 @@ endif()
 # function to get the project version from the most recent git tag
 function(get_version_from_git)
 
+  set(PROJECT_VERSION_MAJOR
+      0
+      )
+  set(PROJECT_VERSION_MINOR
+      0
+      )
+  set(PROJECT_VERSION_PATCH
+      0
+      )
+
+  set(PROJECT_VERSION_MAJOR
+      0
+      PARENT_SCOPE)
+  set(PROJECT_VERSION_MINOR
+      0
+      PARENT_SCOPE)
+  set(PROJECT_VERSION_PATCH
+      0
+      PARENT_SCOPE)
+
+  set(PROJECT_VERSION
+      "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}"
+      PARENT_SCOPE)
+    set(FULL_VERSION
+        "${PROJECT_VERSION}+NONE"
+        PARENT_SCOPE)
+
   # get the most recent git tag
   execute_process(
     COMMAND ${GIT_EXECUTABLE} describe --tags --always
@@ -41,12 +68,11 @@ function(get_version_from_git)
         ${CMAKE_MATCH_3}
         PARENT_SCOPE)
 
-    set(FULL_VERSION
-        "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}+${GIT_COMMIT_SHORT_HASH}"
-        PARENT_SCOPE)
-
     set(PROJECT_VERSION
         "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}"
+        PARENT_SCOPE)
+    set(FULL_VERSION
+        "${PROJECT_VERSION}+${GIT_COMMIT_SHORT_HASH}"
         PARENT_SCOPE)
 
   else()
