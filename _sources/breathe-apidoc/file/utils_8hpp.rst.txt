@@ -1,4 +1,0 @@
-File utils.hpp
-==============
-
-.. doxygenfile:: utils.hpp
